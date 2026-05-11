@@ -1,6 +1,6 @@
 import React from 'react';
 import { CyberBreadcrumb } from '@/components/navigation/Breadcrumb';
-import { AdStickySidebar } from '@/components/monetization/NativeAds'; from '@/components/monetization/NativeAds';
+import { AdStickySidebar } from '@/components/monetization/NativeAds';
 import { Video, Camera } from 'lucide-react';
 import Image from 'next/image';
 

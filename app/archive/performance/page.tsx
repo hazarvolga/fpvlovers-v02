@@ -1,6 +1,6 @@
 import React from 'react';
 import { CyberBreadcrumb } from '@/components/navigation/Breadcrumb';
-import { AdStickySidebar } from '@/components/monetization/NativeAds'; from '@/components/monetization/NativeAds';
+import { AdStickySidebar } from '@/components/monetization/NativeAds';
 import { AISummaryBox } from '@/components/ui/AISummaryBox';
 import { Crosshair, Wind } from 'lucide-react';
 
