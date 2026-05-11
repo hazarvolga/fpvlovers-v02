@@ -61,7 +61,7 @@ type CrawlerInfo = {
 };
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<string>('hub');
+  const [activeTab, setActiveTab] = useState<'hub' | 'ingest' | 'content' | 'logs' | 'retrieval' | 'raw-browser' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry'>('hub');
   const [datasets, setDatasets] = useState<DatasetInfo[]>([]);
   const [crawlers, setCrawlers] = useState<CrawlerInfo[]>([]);
   const [loading, setLoading] = useState(true);
