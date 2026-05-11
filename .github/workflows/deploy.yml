@@ -1,0 +1,50 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: fpvlovers-ai/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd fpvlovers-ai && npm ci
+
+      - name: Type check
+        run: |
+          cd fpvlovers-ai && npx tsc --noEmit
+
+      - name: Build
+        run: |
+          cd fpvlovers-ai && npm run build
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DIFY_API_KEY: ${{ secrets.DIFY_API_KEY }}
+          DIFY_BASE_URL: ${{ secrets.DIFY_BASE_URL }}
+          CRAWL_DRY_RUN: 'true'
+
+      - name: Deploy to Cloudflare Pages
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: fpvlovers
+          directory: fpvlovers-ai/.next/standalone
+          wranglerVersion: '3'
