@@ -64,7 +64,7 @@ export default async function RoadmapPage() {
              </div>
              
              <div className="flex flex-col gap-6">
-                {data.steps.map((step, i) => (
+                {data.steps.map((step: {phase: string; items: string[]}, i: number) => (
                    <div key={i} className="bg-black/50 p-6 border border-[#1A1A1A] border-l-2 border-l-[#00F2FF] hex-panel hover:bg-[#0A0A0B] transition-colors relative">
                       <h4 className="text-xl font-black uppercase tracking-tight text-white mb-4">{step.phase}</h4>
                       <ul className="grid gap-3">
