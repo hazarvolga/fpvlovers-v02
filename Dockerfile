@@ -3,13 +3,13 @@ FROM node:20-alpine AS base
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY fpvlovers-ai/package.json fpvlovers-ai/package-lock.json* ./
+COPY package.json package-lock.json* ./
 RUN npm ci
 
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY fpvlovers-ai .
+COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npx next build
 
