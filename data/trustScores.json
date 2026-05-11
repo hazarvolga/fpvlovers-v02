@@ -1,0 +1,55 @@
+{
+  "affiliates": {
+    "aff_dji_goggles_2": {
+      "trustScore": 100,
+      "semanticRelevance": 98,
+      "recommendationQuality": 90,
+      "bounceImpact": 0.02,
+      "retrievalQuality": 92,
+      "userFeedback": {
+        "positive": 45,
+        "negative": 2,
+        "neutral": 8
+      },
+      "updatedAt": "2026-05-08T14:19:51.354Z"
+    },
+    "aff_tbs_source_one": {
+      "trustScore": 100,
+      "semanticRelevance": 95,
+      "recommendationQuality": 97,
+      "bounceImpact": 0.01,
+      "retrievalQuality": 90,
+      "userFeedback": {
+        "positive": 67,
+        "negative": 1,
+        "neutral": 3
+      },
+      "updatedAt": "2026-05-08T14:19:51.354Z"
+    }
+  },
+  "sponsors": {
+    "spon_tmotor_f60": {
+      "trustScore": 100,
+      "semanticRelevance": 92,
+      "recommendationQuality": 88,
+      "bounceImpact": 0,
+      "retrievalQuality": 90,
+      "userFeedback": {
+        "positive": 0,
+        "negative": 0,
+        "neutral": 0
+      },
+      "updatedAt": "2026-05-08T14:19:51.354Z"
+    }
+  },
+  "globalConfig": {
+    "minTrustScoreAffiliate": 60,
+    "minTrustScoreSponsor": 50,
+    "maxPlacementsPerPage": 3,
+    "trustWeightInRanking": 0.4,
+    "semanticRelevanceWeight": 0.3,
+    "retrievalConfidenceWeight": 0.2,
+    "sponsorWeight": 0.1
+  },
+  "updatedAt": "2026-05-08T14:19:51.354Z"
+}

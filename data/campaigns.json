@@ -1,0 +1,43 @@
+[
+  {
+    "id": "camp_spring_2026",
+    "name": "Spring 2026 Build Season",
+    "priority": 1,
+    "active": true,
+    "products": ["aff_dji_goggles_2", "aff_tbs_source_one"],
+    "type": "seasonal",
+    "season": "spring",
+    "startDate": "2026-04-01T00:00:00.000Z",
+    "endDate": "2026-06-30T00:00:00.000Z",
+    "budget": 500.00,
+    "discountCode": "SPRINGFPV10",
+    "productBundles": [
+      {
+        "id": "bundle_freestyle_starter",
+        "name": "Freestyle Starter Bundle",
+        "products": ["aff_tbs_source_one"],
+        "discount": 10,
+        "description": "Complete 5-inch freestyle setup with frame"
+      }
+    ],
+    "crossSellRules": [
+      {
+        "sourceProduct": "aff_tbs_source_one",
+        "targetProducts": ["aff_dji_goggles_2"],
+        "strategy": "frame-to-goggles-upgrade"
+      }
+    ],
+    "targetAudience": {
+      "skillLevels": ["beginner", "intermediate"],
+      "budgetRange": ["budget", "mid-range"],
+      "flightStyles": ["freestyle", "racing"]
+    },
+    "createdAt": "2026-04-01T00:00:00.000Z",
+    "stats": {
+      "impressions": 1520,
+      "clicks": 231,
+      "conversions": 20,
+      "revenue": 4915.88
+    }
+  }
+]

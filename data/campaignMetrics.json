@@ -1,0 +1,32 @@
+{
+  "affiliate": {
+    "totalClicks": 0,
+    "totalConversions": 0,
+    "totalRevenue": 0,
+    "averageCtr": 0,
+    "averageConversionRate": 0,
+    "byNetwork": {
+      "amazon": { "clicks": 0, "conversions": 0, "revenue": 0 },
+      "banggood": { "clicks": 0, "conversions": 0, "revenue": 0 },
+      "getfpv": { "clicks": 0, "conversions": 0, "revenue": 0 }
+    },
+    "byCategory": {},
+    "byPlacement": {
+      "top-right": { "impressions": 0, "clicks": 0, "ctr": 0 },
+      "bottom-right": { "impressions": 0, "clicks": 0, "ctr": 0 },
+      "inline": { "impressions": 0, "clicks": 0, "ctr": 0 },
+      "sticky": { "impressions": 0, "clicks": 0, "ctr": 0 }
+    },
+    "daily": []
+  },
+  "sponsor": {
+    "totalImpressions": 0,
+    "totalClicks": 0,
+    "averageCtr": 0,
+    "totalRetrievalAppearances": 0,
+    "averageSemanticMatchQuality": 0,
+    "bySponsor": {},
+    "daily": []
+  },
+  "updatedAt": "2026-05-08T00:00:00.000Z"
+}

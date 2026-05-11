@@ -1,0 +1,83 @@
+[
+  {
+    "id": "cta_1",
+    "text": "Recommended Setup",
+    "placement": "top-right",
+    "color": "#FF5C00",
+    "active": true,
+    "variant": "A",
+    "abTest": {
+      "enabled": false,
+      "variantB": "Check This Build",
+      "variantBColor": "#FF7B30",
+      "winner": null
+    },
+    "placementStrategies": {
+      "buyingGuides": "top-right",
+      "comparisonPages": "inline",
+      "recommendationCards": "sticky",
+      "ecosystemPages": "bottom-right"
+    },
+    "maxPerPage": 3,
+    "autoInject": {
+      "enabled": true,
+      "minIntentScore": 0.6,
+      "contentTypes": ["buying-guide", "comparison", "recommendation"]
+    },
+    "createdAt": "2026-05-01T00:00:00.000Z"
+  },
+  {
+    "id": "cta_2",
+    "text": "Best Price Check",
+    "placement": "bottom-right",
+    "color": "#00F2FF",
+    "active": true,
+    "variant": "A",
+    "abTest": {
+      "enabled": false,
+      "variantB": "Compare Prices",
+      "variantBColor": "#00D4E0",
+      "winner": null
+    },
+    "placementStrategies": {
+      "buyingGuides": "top-right",
+      "comparisonPages": "inline",
+      "recommendationCards": "sticky",
+      "ecosystemPages": "bottom-right"
+    },
+    "maxPerPage": 3,
+    "autoInject": {
+      "enabled": true,
+      "minIntentScore": 0.6,
+      "contentTypes": ["buying-guide", "comparison", "recommendation"]
+    },
+    "createdAt": "2026-05-01T00:00:00.000Z"
+  },
+  {
+    "id": "cta_3",
+    "text": "System Recommendation",
+    "placement": "inline",
+    "color": "#00FF66",
+    "active": false,
+    "variant": "A",
+    "abTest": {
+      "enabled": false,
+      "variantB": "AI-Recommended Setup",
+      "variantBColor": "#00E65A",
+      "winner": null
+    },
+    "placementStrategies": {
+      "buyingGuides": "top-right",
+      "comparisonPages": "inline",
+      "recommendationCards": "sticky",
+      "ecosystemPages": "bottom-right"
+    },
+    "maxPerPage": 3,
+    "autoInject": {
+      "enabled": false,
+      "minIntentScore": 0.6,
+      "contentTypes": ["buying-guide", "comparison", "recommendation"]
+    },
+    "createdAt": "2026-05-01T00:00:00.000Z"
+  }
+]

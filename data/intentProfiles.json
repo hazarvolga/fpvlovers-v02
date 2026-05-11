@@ -1,0 +1,47 @@
+[
+  {
+    "intent": "buying",
+    "signals": ["buy", "best", "compare", "price", "cheap", "where to buy", "recommend", "which", "vs", "versus", "worth", "sale", "deal", "purchase", "shop", "order"],
+    "weight": 1.0,
+    "contentTypes": ["buying-guide", "comparison", "recommendation"],
+    "monetizationStrategy": "affiliate",
+    "maxPlacements": 3,
+    "confidenceThreshold": 0.12
+  },
+  {
+    "intent": "research",
+    "signals": ["how to", "what is", "review", "test", "difference", "specs", "features", "explain", "guide", "tutorial", "learn", "beginner"],
+    "weight": 0.6,
+    "contentTypes": ["article", "review", "guide"],
+    "monetizationStrategy": "sponsor",
+    "maxPlacements": 1,
+    "confidenceThreshold": 0.05
+  },
+  {
+    "intent": "build",
+    "signals": ["build", "build log", "parts list", "setup", "components", "frame choice", "parts", "assemble", "solder", "wiring", "stack", "motor choice", "esc choice"],
+    "weight": 0.8,
+    "contentTypes": ["build-guide", "ecosystem-page"],
+    "monetizationStrategy": "mixed",
+    "maxPlacements": 2,
+    "confidenceThreshold": 0.12
+  },
+  {
+    "intent": "troubleshooting",
+    "signals": ["fix", "problem", "issue", "error", "not working", "broken", "how to fix", "fail", "crash", "smoke", "won't arm", "won't power", "beep", "not detected"],
+    "weight": 0.4,
+    "contentTypes": ["article", "guide"],
+    "monetizationStrategy": "none",
+    "maxPlacements": 0,
+    "confidenceThreshold": 0.15
+  },
+  {
+    "intent": "tuning",
+    "signals": ["pid", "tune", "tuning", "blackbox", "filter", "oscillation", "propwash", "rates", "d term", "p term", "i term", "ff", "feedforward", "gyro"],
+    "weight": 0.4,
+    "contentTypes": ["tuning-guide", "tool"],
+    "monetizationStrategy": "sponsor",
+    "maxPlacements": 1,
+    "confidenceThreshold": 0.2
+  }
+]

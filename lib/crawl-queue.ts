@@ -1,0 +1,139 @@
+import fs from 'fs';
+import path from 'path';
+
+const QUEUE_FILE = path.join(process.cwd(), 'data', 'crawl-queue.json');
+
+// ─── TYPES ───
+
+export interface CrawlJob {
+  id: string;
+  url: string;
+  dataset?: string;
+  status: 'pending' | 'processing' | 'completed' | 'failed' | 'throttled';
+  priority: number;
+  retries: number;
+  maxRetries: number;
+  error?: string;
+  tokens?: number;
+  docId?: string;
+  createdAt: string;
+  updatedAt: string;
+  nextRetryAt?: string;
+}
+
+export interface CrawlQueue {
+  jobs: CrawlJob[];
+  config: {
+    batchSize: number;
+    batchDelayMs: number;
+    maxConcurrent: number;
+    retryDelaysMs: number[];
+  };
+  stats: {
+    total: number;
+    pending: number;
+    completed: number;
+    failed: number;
+    throttled: number;
+  };
+}
+
+// ─── LOAD/SAVE ───
+
+function load(): CrawlQueue {
+  try {
+    if (fs.existsSync(QUEUE_FILE)) return JSON.parse(fs.readFileSync(QUEUE_FILE, 'utf-8'));
+  } catch {}
+  return {
+    jobs: [], config: {
+      batchSize: 3, batchDelayMs: 60000,
+      maxConcurrent: 1,
+      retryDelaysMs: [60000, 300000, 900000],
+    }, stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0 },
+  };
+}
+
+function save(q: CrawlQueue) {
+  q.stats = {
+    total: q.jobs.length,
+    pending: q.jobs.filter(j => j.status === 'pending').length,
+    completed: q.jobs.filter(j => j.status === 'completed').length,
+    failed: q.jobs.filter(j => j.status === 'failed').length,
+    throttled: q.jobs.filter(j => j.status === 'throttled').length,
+  };
+  try { fs.writeFileSync(QUEUE_FILE, JSON.stringify(q, null, 2)); } catch {}
+}
+
+// ─── QUEUE OPERATIONS ───
+
+export function enqueueUrls(urls: string[], dataset?: string): CrawlJob[] {
+  const q = load();
+  const newJobs: CrawlJob[] = [];
+
+  for (const url of urls) {
+    const existing = q.jobs.find(j => j.url === url && j.status === 'pending');
+    if (existing) continue;
+
+    const job: CrawlJob = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      url,
+      dataset,
+      status: 'pending',
+      priority: 0,
+      retries: 0,
+      maxRetries: q.config.retryDelaysMs.length,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    q.jobs.unshift(job);
+    newJobs.push(job);
+  }
+
+  save(q);
+  return newJobs;
+}
+
+export function getNextBatch(): CrawlJob[] {
+  const q = load();
+  const now = Date.now();
+
+  const pending = q.jobs
+    .filter(j => j.status === 'pending' || (j.status === 'throttled' && j.nextRetryAt && new Date(j.nextRetryAt).getTime() <= now))
+    .sort((a, b) => b.priority - a.priority || new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
+
+  return pending.slice(0, q.config.batchSize);
+}
+
+export function updateJob(id: string, update: Partial<CrawlJob>) {
+  const q = load();
+  const job = q.jobs.find(j => j.id === id);
+  if (!job) return;
+
+  Object.assign(job, { ...update, updatedAt: new Date().toISOString() });
+
+  // Auto-retry logic
+  if (update.status === 'throttled' && job.retries < job.maxRetries) {
+    const delay = q.config.retryDelaysMs[job.retries] || q.config.retryDelaysMs[q.config.retryDelaysMs.length - 1];
+    job.nextRetryAt = new Date(Date.now() + delay).toISOString();
+    job.retries++;
+  }
+
+  save(q);
+}
+
+export function getQueueStatus(): CrawlQueue {
+  return load();
+}
+
+export function getQueueStats() {
+  const q = load();
+  return q.stats;
+}
+
+export function clearQueue() {
+  save({ jobs: [], config: load().config, stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0 } });
+}
+
+export function getBatchConfig() {
+  return load().config;
+}

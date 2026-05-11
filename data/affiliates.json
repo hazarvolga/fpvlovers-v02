@@ -1,0 +1,56 @@
+[
+  {
+    "id": "aff_dji_goggles_2",
+    "name": "DJI Goggles 2",
+    "type": "goggles",
+    "network": "amazon",
+    "productId": "B0B8N7XJ2H",
+    "url": "https://amzn.to/placeholder-goggles2",
+    "price": 569.00,
+    "currency": "USD",
+    "commission": 5.5,
+    "category": "FPV Goggles",
+    "keywords": ["dji", "goggles", "digital", "fpv", "hd"],
+    "trustScore": 95,
+    "image": "https://placeholder.com/dji-goggles2.jpg",
+    "compatibleWith": ["dji-o3-air-unit", "dji-rc-2"],
+    "active": true,
+    "featured": true,
+    "createdAt": "2026-05-01T00:00:00.000Z",
+    "updatedAt": "2026-05-08T00:00:00.000Z",
+    "stats": {
+      "clicks": 142,
+      "conversions": 8,
+      "revenue": 4556.00,
+      "ctr": 0.034,
+      "conversionRate": 0.056
+    }
+  },
+  {
+    "id": "aff_tbs_source_one",
+    "name": "TBS Source One V5 Frame",
+    "type": "frame",
+    "network": "getfpv",
+    "productId": "TBS-SOURCE-ONE-V5",
+    "url": "https://www.getfpv.com/placeholder-source-one",
+    "price": 29.99,
+    "currency": "USD",
+    "commission": 6.0,
+    "category": "Frames",
+    "keywords": ["tbs", "source one", "frame", "5 inch", "freestyle"],
+    "trustScore": 98,
+    "image": "https://placeholder.com/tbs-source-one.jpg",
+    "compatibleWith": ["5-inch-motors", "30x30-esc", "analog-vtx"],
+    "active": true,
+    "featured": true,
+    "createdAt": "2026-05-01T00:00:00.000Z",
+    "updatedAt": "2026-05-08T00:00:00.000Z",
+    "stats": {
+      "clicks": 89,
+      "conversions": 12,
+      "revenue": 359.88,
+      "ctr": 0.048,
+      "conversionRate": 0.135
+    }
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "id": "spon_tmotor_f60",
+    "name": "T-Motor",
+    "type": "manufacturer",
+    "url": "https://store.tmotor.com",
+    "budget": "monthly",
+    "budgetAmount": 1500.00,
+    "priority": 1,
+    "category": "Motors",
+    "region": "global",
+    "active": true,
+    "products": [
+      {
+        "name": "F60 Pro V LV 1950KV",
+        "url": "https://store.tmotor.com/product/f60-pro-v.html",
+        "compatibleWith": ["5-inch-frames", "6s-batteries", "30x30-esc"]
+      },
+      {
+        "name": "Velox V3 2207 1750KV",
+        "url": "https://store.tmotor.com/product/velox-v3.html",
+        "compatibleWith": ["5-inch-frames", "6s-batteries"]
+      }
+    ],
+    "visibilityScore": 85,
+    "semanticRelevance": 92,
+    "retrievalPresence": 0,
+    "recommendationExposure": 0,
+    "campaignHistory": [],
+    "trustScore": 100,
+    "campaignMetrics": {
+      "impressions": 0,
+      "clicks": 0,
+      "ctr": 0,
+      "contextualEngagement": 0,
+      "retrievalAppearances": 0,
+      "recommendationConfidence": 0,
+      "semanticMatchQuality": 0
+    },
+    "createdAt": "2026-05-08T00:00:00.000Z",
+    "updatedAt": "2026-05-08T00:00:00.000Z"
+  }
+]
