@@ -60,8 +60,12 @@ type CrawlerInfo = {
   version: string;
 };
 
+type TabId = 'hub' | 'ingest' | 'content' | 'logs' | 'retrieval' | 'raw-browser' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry';
+
+type Tab = { id: TabId; label: string; icon: React.ElementType };
+
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState<string>('hub');
+  const [activeTab, setActiveTab] = useState<TabId>('hub');
   const [datasets, setDatasets] = useState<DatasetInfo[]>([]);
   const [crawlers, setCrawlers] = useState<CrawlerInfo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -140,11 +144,7 @@ export default function AdminDashboard() {
 
   useEffect(() => { fetchData(); fetchLogs(); fetchBudget(); }, []);
 
-  type TabId = 'hub' | 'ingest' | 'content' | 'logs' | 'retrieval' | 'raw-browser' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry';
-
-type Tab = { id: TabId; label: string; icon: React.ElementType };
-
-const tabGroups: { label: string; color: string; tabs: Tab[] }[] = [
+  const tabGroups: { label: string; color: string; tabs: Tab[] }[] = [
     {
       label: 'Intelligence',
       color: '#00F2FF',
