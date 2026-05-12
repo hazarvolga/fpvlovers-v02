@@ -923,6 +923,7 @@ export default function AdminDashboard() {
                         <table className="w-full text-left font-mono text-xs"><thead><tr className="border-b border-[#333333] text-[#A0A0A0] text-[10px] uppercase tracking-widest bg-[#111]"><th className="p-3 font-normal">Product</th><th className="p-3 font-normal">Category</th><th className="p-3 font-normal">Price</th><th className="p-3 font-normal">Network</th><th className="p-3 font-normal w-16"></th></tr></thead>
                           <tbody className="divide-y divide-[#1A1A1A]">{affiliates.map((a: any) => (<tr key={a.id} className="hover:bg-[#111]"><td className="p-3 text-white">{a.product}</td><td className="p-3 text-[#A0A0A0]">{a.category}</td><td className="p-3 text-[#00FF66]">{a.price}</td><td className="p-3 text-[#00F2FF]">{a.network}</td><td className="p-3"><button onClick={() => deleteAffiliate(a.id)} className="text-red-500 hover:text-white"><Trash2 className="w-3 h-3" /></button></td></tr>))}</tbody></table>
                       </div>
+                      </div>
               )}
 
               {activeTab === 'orchestrator' && <OrchestratorTab />}
