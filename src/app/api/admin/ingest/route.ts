@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
 
-const CRAWLERS = ['http://161.118.171.201:3002/crawl', 'http://141.148.206.187/c4ai/crawl'];
+const CRAWLERS = [
+  process.env.CRAWL4AI_PRIMARY_CRAWL_URL || 'http://crawler-proxy:3002/crawl',
+  process.env.CRAWL4AI_BACKUP_CRAWL_URL || 'http://141.148.206.187/c4ai/crawl',
+];
 const DIFY_BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 
 const DOMAIN_MAP: Record<string, string> = {

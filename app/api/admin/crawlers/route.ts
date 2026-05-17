@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   const crawlers = [
-    { name: 'Crawl4AI Primary (B)', url: 'http://161.118.171.201:3002/health' },
-    { name: 'Crawl4AI Backup (C)', url: 'http://141.148.206.187/c4ai/health' },
+    { name: 'Crawl4AI Primary (B)', url: process.env.CRAWL4AI_PRIMARY_HEALTH_URL || 'http://crawler-proxy:3002/health' },
+    { name: 'Crawl4AI Backup (C)', url: process.env.CRAWL4AI_BACKUP_HEALTH_URL || 'http://141.148.206.187/c4ai/health' },
   ];
 
   const results = [];

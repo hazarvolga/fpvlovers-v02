@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 const CRAWLERS = [
-  { name: 'Crawl4AI B', url: process.env.CRAWL4AI_PRIMARY_HEALTH_URL || 'http://161.118.171.201:3002/health' },
+  { name: 'Crawl4AI B', url: process.env.CRAWL4AI_PRIMARY_HEALTH_URL || 'http://crawler-proxy:3002/health' },
   { name: 'Crawl4AI C', url: process.env.CRAWL4AI_BACKUP_HEALTH_URL || 'http://141.148.206.187/c4ai/health' },
 ];
 
