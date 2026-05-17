@@ -1,32 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { TrendingUp, DollarSign, ShoppingCart, Target, Eye, Shield, RefreshCw } from 'lucide-react';
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
+import { TrendingUp, DollarSign, ShoppingCart, Target, Eye, Shield, RefreshCw, type LucideIcon } from 'lucide-react';
 
-export default function AnalyticsDashboard() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+type CardProps = {
+  icon: LucideIcon;
+  label: string;
+  value: ReactNode;
+  suffix?: ReactNode;
+  color?: string;
+  sub?: ReactNode;
+};
 
-  const fetchAnalytics = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/analytics');
-      const json = await res.json();
-      setData(json);
-    } catch {}
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchAnalytics(); }, []);
-
-  const recalcTrust = async () => {
-    try {
-      await fetch('/api/admin/analytics?action=recalc-trust');
-      fetchAnalytics();
-    } catch {}
-  };
-
-  const Card = ({ icon: Icon, label, value, suffix = '', color = '#00F2FF', sub }: any) => (
+function Card({ icon: Icon, label, value, suffix = '', color = '#00F2FF', sub }: CardProps) {
+  return (
     <div className="bg-[#0A0A0B] border border-[#222] p-3 group hover:border-[#333] transition-colors">
       <div className="flex items-center gap-2 mb-1">
         <Icon className="w-3 h-3" style={{ color }} />
@@ -36,6 +23,34 @@ export default function AnalyticsDashboard() {
       {sub && <div className="text-[10px] text-[#666] mt-0.5">{sub}</div>}
     </div>
   );
+}
+
+export default function AnalyticsDashboard() {
+  const [data, setData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchAnalytics = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/analytics');
+      const json = await res.json();
+      setData(json);
+    } catch {}
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      void fetchAnalytics();
+    });
+  }, [fetchAnalytics]);
+
+  const recalcTrust = async () => {
+    try {
+      await fetch('/api/admin/analytics?action=recalc-trust');
+      void fetchAnalytics();
+    } catch {}
+  };
 
   if (loading) return <div className="text-[#A0A0A0] text-sm p-4">Loading analytics...</div>;
   if (!data) return <div className="text-[#A0A0A0] text-sm p-4">No data available</div>;

@@ -190,7 +190,6 @@ export async function POST(req: NextRequest) {
 
   // --- METRICS ACTIONS ---
   if (action === 'track-click') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const metrics: any = read(METRICS, { affiliate: {}, sponsor: {} });
     const { type: mType, productId, network } = rest;
 
@@ -209,7 +208,6 @@ export async function POST(req: NextRequest) {
   }
 
   if (action === 'track-conversion') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const metrics: any = read(METRICS, { affiliate: {}, sponsor: {} });
     const { type: mType, productId, network, revenue: convRevenue } = rest;
 
@@ -241,7 +239,6 @@ export async function POST(req: NextRequest) {
 
   // --- TRUST ACTIONS ---
   if (action === 'update-trust-config') {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const trust: any = read(TRUST, { affiliates: {}, sponsors: {}, globalConfig: {} });
     trust.globalConfig = { ...trust.globalConfig, ...rest.config };
     trust.updatedAt = new Date().toISOString();

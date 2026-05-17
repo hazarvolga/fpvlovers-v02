@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Database, Users, Activity, BarChart2, Download, RefreshCw,
   Settings, Server, Cpu, Command, AlertTriangle, Workflow, ChevronRight, Zap,
@@ -87,9 +87,9 @@ export default function AdminDashboard() {
   const [contentLoading, setContentLoading] = useState(false);
   const [budget, setBudget] = useState<any>(null);
 
-  const fetchBudget = async () => {
+  const fetchBudget = useCallback(async () => {
     try { const r = await fetch('/api/admin/budget'); setBudget(await r.json()); } catch {}
-  };
+  }, []);
   const [affiliates, setAffiliates] = useState<any[]>([]);
   const [affProduct, setAffProduct] = useState('');
   const [affLink, setAffLink] = useState('');
@@ -119,7 +119,7 @@ export default function AdminDashboard() {
   const [health, setHealth] = useState<any>(null);
   const [healthLoading, setHealthLoading] = useState(false);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     try {
       const [dsRes, crRes] = await Promise.all([
@@ -140,9 +140,7 @@ export default function AdminDashboard() {
       console.error('Admin fetch error:', err);
     }
     setLoading(false);
-  };
-
-  useEffect(() => { fetchData(); fetchLogs(); fetchBudget(); }, []);
+  }, []);
 
   const tabGroups: { label: string; color: string; tabs: Tab[] }[] = [
     {
@@ -178,7 +176,7 @@ export default function AdminDashboard() {
   ];
   const tabs = tabGroups.flatMap(g => g.tabs);
 
-  const fetchLogs = async () => {
+  const fetchLogs = useCallback(async () => {
     setLogsLoading(true);
     try {
       const resp = await fetch('/api/admin/logs');
@@ -186,7 +184,15 @@ export default function AdminDashboard() {
       setLogs(data.logs || []);
     } catch {}
     setLogsLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      void fetchData();
+      void fetchLogs();
+      void fetchBudget();
+    });
+  }, [fetchData, fetchLogs, fetchBudget]);
 
   const handleRetrievalTest = async () => {
     if (!retrievalQuery.trim()) return;
@@ -1225,7 +1231,7 @@ function OrchestratorTab() {
   const [health, setHealth] = useState<any>(null);
   const [loading, setLoading] = useState(false);
 
-  const fetchHealth = async () => {
+  const fetchHealth = useCallback(async () => {
     setLoading(true);
     try {
       const r = await fetch('/api/master?action=health');
@@ -1233,9 +1239,13 @@ function OrchestratorTab() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  useEffect(() => { fetchHealth(); }, []);
+  useEffect(() => {
+    queueMicrotask(() => {
+      void fetchHealth();
+    });
+  }, [fetchHealth]);
 
   if (loading || !health) return <div className="p-4 text-gray-400">Yükleniyor…</div>;
 

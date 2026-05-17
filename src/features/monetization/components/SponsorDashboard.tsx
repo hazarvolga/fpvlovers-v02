@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { BarChart2, Eye, Target, TrendingUp, Shield, Zap, Layers, RefreshCw } from 'lucide-react';
+import { useState, useEffect, useCallback, type ReactNode } from 'react';
+import { Eye, Target, TrendingUp, Shield, Zap, Layers, RefreshCw, type LucideIcon } from 'lucide-react';
 
 interface SponsorMetrics {
   impressions: number;
@@ -28,26 +28,66 @@ interface Sponsor {
   products: { name: string; url: string; compatibleWith?: string[] }[];
 }
 
+type MetricCardProps = {
+  icon: LucideIcon;
+  label: string;
+  value: ReactNode;
+  suffix?: ReactNode;
+  color?: string;
+};
+
+function MetricCard({ icon: Icon, label, value, suffix = '', color = '#00F2FF' }: MetricCardProps) {
+  return (
+    <div className="bg-[#0A0A0B] border border-[#222] p-4 group hover:border-[#333] transition-colors">
+      <div className="flex items-center gap-2 mb-2">
+        <Icon className="w-4 h-4" style={{ color }} />
+        <span className="text-xs text-[#A0A0A0] uppercase tracking-widest">{label}</span>
+      </div>
+      <div className="text-2xl font-mono font-bold text-white">
+        {value}{suffix}
+      </div>
+    </div>
+  );
+}
+
+function TrustBar({ score, label }: { score: number; label: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <span className="text-xs text-[#A0A0A0] w-36">{label}</span>
+      <div className="flex-1 bg-[#111] h-2 overflow-hidden">
+        <div
+          className="h-full transition-all"
+          style={{
+            width: `${score}%`,
+            background: score >= 80 ? '#00FF66' : score >= 50 ? '#FFA500' : '#FF4444',
+          }}
+        />
+      </div>
+      <span className="text-xs font-mono text-white w-10 text-right">{score}</span>
+    </div>
+  );
+}
+
+function EcosystemNode({ name, connections, color = '#00F2FF' }: { name: string; connections: number; color?: string }) {
+  return (
+    <div className="relative">
+      <div className="px-3 py-2 border text-xs font-mono text-center" style={{ borderColor: color, color, background: `${color}10` }}>
+        {name}
+      </div>
+      {connections > 0 && (
+        <div className="text-[10px] text-[#666] text-center mt-1">{connections} connections</div>
+      )}
+    </div>
+  );
+}
+
 export default function SponsorDashboard() {
   const [sponsors, setSponsors] = useState<Sponsor[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedSponsor, setSelectedSponsor] = useState<string | null>(null);
   const [insights, setInsights] = useState<any>(null);
 
-  const fetchData = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/admin/sponsors?type=all');
-      const data = await res.json();
-      setSponsors(data.sponsors || []);
-      generateInsights(data.sponsors || []);
-    } catch {}
-    setLoading(false);
-  };
-
-  useEffect(() => { fetchData(); }, []);
-
-  const generateInsights = (sponsors: Sponsor[]) => {
+  const generateInsights = useCallback((sponsors: Sponsor[]) => {
     const active = sponsors.filter(s => s.active);
     if (active.length === 0) return;
 
@@ -67,48 +107,26 @@ export default function SponsorDashboard() {
       growthOpportunities: growthOpportunity.length,
       recommendationQuality: Math.round(active.reduce((s, sp) => s + sp.campaignMetrics.recommendationConfidence, 0) / active.length),
     });
-  };
+  }, []);
+
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/sponsors?type=all');
+      const data = await res.json();
+      setSponsors(data.sponsors || []);
+      generateInsights(data.sponsors || []);
+    } catch {}
+    setLoading(false);
+  }, [generateInsights]);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      void fetchData();
+    });
+  }, [fetchData]);
 
   const selected = sponsors.find(s => s.id === selectedSponsor);
-
-  const MetricCard = ({ icon: Icon, label, value, suffix = '', color = '#00F2FF' }: any) => (
-    <div className="bg-[#0A0A0B] border border-[#222] p-4 group hover:border-[#333] transition-colors">
-      <div className="flex items-center gap-2 mb-2">
-        <Icon className="w-4 h-4" style={{ color }} />
-        <span className="text-xs text-[#A0A0A0] uppercase tracking-widest">{label}</span>
-      </div>
-      <div className="text-2xl font-mono font-bold text-white">
-        {value}{suffix}
-      </div>
-    </div>
-  );
-
-  const TrustBar = ({ score, label }: { score: number; label: string }) => (
-    <div className="flex items-center gap-2">
-      <span className="text-xs text-[#A0A0A0] w-36">{label}</span>
-      <div className="flex-1 bg-[#111] h-2 overflow-hidden">
-        <div
-          className="h-full transition-all"
-          style={{
-            width: `${score}%`,
-            background: score >= 80 ? '#00FF66' : score >= 50 ? '#FFA500' : '#FF4444',
-          }}
-        />
-      </div>
-      <span className="text-xs font-mono text-white w-10 text-right">{score}</span>
-    </div>
-  );
-
-  const EcosystemNode = ({ name, connections, color = '#00F2FF' }: any) => (
-    <div className="relative">
-      <div className="px-3 py-2 border text-xs font-mono text-center" style={{ borderColor: color, color, background: `${color}10` }}>
-        {name}
-      </div>
-      {connections > 0 && (
-        <div className="text-[10px] text-[#666] text-center mt-1">{connections} connections</div>
-      )}
-    </div>
-  );
 
   return (
     <div className="space-y-6">
