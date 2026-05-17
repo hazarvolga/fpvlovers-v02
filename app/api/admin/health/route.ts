@@ -1,17 +1,17 @@
 import { NextResponse } from 'next/server';
 
 const CRAWLERS = [
-  { name: 'Crawl4AI B', url: 'http://161.118.171.201:3002/health' },
-  { name: 'Crawl4AI C', url: 'http://141.148.206.187/c4ai/health' },
+  { name: 'Crawl4AI B', url: process.env.CRAWL4AI_PRIMARY_HEALTH_URL || 'http://161.118.171.201:3002/health' },
+  { name: 'Crawl4AI C', url: process.env.CRAWL4AI_BACKUP_HEALTH_URL || 'http://141.148.206.187/c4ai/health' },
 ];
 
 const DIFY_PAGES = [
-  { name: 'Dify API', url: 'https://dify.affexai.tr/health' },
-  { name: 'Dify Web', url: 'https://dify.affexai.tr' },
+  { name: 'Dify API Gateway', url: process.env.DIFY_BASE_URL || 'https://dify.affexai.tr/v1', redirect: 'manual' as const },
+  { name: 'Dify Web', url: process.env.DIFY_WEB_URL || 'https://dify.affexai.tr' },
 ];
 
 export async function GET() {
-  const services: { name: string; status: 'up' | 'down'; latency: number; version?: string }[] = [];
+  const services: { name: string; status: 'up' | 'down'; latency: number; version?: string; detail?: string }[] = [];
   const startedAt = Date.now();
 
   for (const c of CRAWLERS) {
@@ -28,8 +28,18 @@ export async function GET() {
   for (const d of DIFY_PAGES) {
     try {
       const t0 = Date.now();
-      const resp = await fetch(d.url, { signal: AbortSignal.timeout(8000) });
-      services.push({ name: d.name, status: resp.ok ? 'up' : 'down', latency: Date.now() - t0 });
+      const resp = await fetch(d.url, {
+        redirect: d.redirect || 'follow',
+        signal: AbortSignal.timeout(8000),
+      });
+      const isGatewayAlive = d.redirect === 'manual' && [200, 301, 302, 307, 308].includes(resp.status);
+      services.push({
+        name: d.name,
+        status: resp.ok || isGatewayAlive ? 'up' : 'down',
+        latency: Date.now() - t0,
+        version: resp.headers.get('x-version') || undefined,
+        detail: resp.ok || isGatewayAlive ? undefined : `HTTP ${resp.status}`,
+      });
     } catch {
       services.push({ name: d.name, status: 'down', latency: 8000 });
     }
