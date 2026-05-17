@@ -1,6 +1,7 @@
 // Dify API Client — Rate-Limit, Budget, Dry-Run, Cache + Groq Fallback
 import fs from 'fs';
 import path from 'path';
+import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
 import { getCached, setCached, hashInput } from './llm-cache';
 
 const USAGE_FILE = path.join(process.cwd(), 'data', 'embedding-usage.json');
@@ -120,8 +121,7 @@ async function throttle(endpoint: string): Promise<{ allowed: boolean; reason?: 
 
 // ─── MODEL ROUTING ───
 
-const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.1-8b-instant';
-const GROQ_API_KEY = process.env.GROQ_API_KEY || '';
+const GROQ_MODEL = getOptionalEnv('GROQ_MODEL', 'llama-3.1-8b-instant');
 
 function shouldRouteToGroq(taskType?: TaskType): boolean {
   return taskType === 'classify' || taskType === 'metadata';
@@ -140,6 +140,7 @@ async function callGroq(prompt: string, taskType: TaskType): Promise<DifyClientR
   }
 
   try {
+    const groqApiKey = getRequiredEnv('GROQ_API_KEY');
     groqCallCountToday++;
     lastCallTime = Date.now();
     callCountThisMinute++;
@@ -147,7 +148,7 @@ async function callGroq(prompt: string, taskType: TaskType): Promise<DifyClientR
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
+        'Authorization': `Bearer ${groqApiKey}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -216,8 +217,8 @@ export async function difyRequest(
     return callGroq(prompt, taskType);
   }
 
-  const BASE = process.env.DIFY_BASE_URL || 'https://dify.affexai.tr/v1';
-  const KEY = apiKey || process.env.DIFY_API_KEY || 'dataset-57xGhkCvaQKR2YoSljA94NVu';
+  const BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
+  const KEY = apiKey || getRequiredEnv('DIFY_API_KEY');
   const url = `${BASE}${endpoint}`;
 
   const startTime = Date.now();

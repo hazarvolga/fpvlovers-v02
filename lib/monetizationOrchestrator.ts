@@ -9,6 +9,10 @@ function load<T>(file: string, fallback: T): T {
   return fallback;
 }
 
+function write(file: string, data: any) {
+  fs.writeFileSync(file, JSON.stringify(data, null, 2));
+}
+
 // ─── TYPES ───
 type Placement = 'top-right' | 'bottom-right' | 'inline' | 'sticky';
 type MonetizationStrategy = 'affiliate' | 'sponsor' | 'mixed' | 'none';
@@ -44,6 +48,23 @@ interface CTA {
   variant: string; abTest: { enabled: boolean; variantB: string; variantBColor: string; winner: string | null };
   placementStrategies: Record<string, Placement>;
   maxPerPage: number; autoInject: { enabled: boolean; minIntentScore: number; contentTypes: string[] };
+}
+
+interface Campaign {
+  id: string;
+  name: string;
+  active: boolean;
+  type?: string;
+  season?: string;
+  startDate?: string;
+  endDate?: string;
+  products: string[];
+  discountCode?: string;
+  crossSellRules?: {
+    sourceProduct: string;
+    targetProducts: string[];
+    strategy?: string;
+  }[];
 }
 
 interface TrustConfig {
@@ -565,7 +586,7 @@ export function getSeasonalCampaigns(): SeasonalStatus[] {
         inDateRange: inRange,
         daysRemaining: daysLeft,
         products: c.products,
-        discountCode: c.discountCode,
+        discountCode: c.discountCode || '',
       };
     });
 }
