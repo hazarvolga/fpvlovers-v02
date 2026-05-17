@@ -4,10 +4,10 @@ Last updated: 2026-05-17
 
 ## Immediate Priority
 
-1. Commit/push the local frontend build fixes to `hazarvolga/fpvlovers.com.tr`.
-2. Redeploy the existing Coolify frontend application.
-3. Bind `https://fpvlovers.com.tr` to the frontend app in Coolify.
-4. Verify `/api/health`, homepage, and admin auth.
+1. Clean remaining lint debt in dashboard/admin components so pre-commit can run without `--no-verify`.
+2. Verify admin auth behavior on production.
+3. Move JSON/runtime state that must survive deploys to Postgres or a mounted persistent volume.
+4. Add a small production smoke checklist for homepage, `/api/health`, admin protection, Dify-backed content, and crawler dry-run behavior.
 
 ## Code Tasks Before Push
 
@@ -18,9 +18,9 @@ Last updated: 2026-05-17
 
 ## Deployment Tasks
 
-- Redeploy application in Coolify after pushing fixes.
-- Confirm Docker image/container exists after build.
-- Confirm Traefik route for `fpvlovers.com.tr`.
+- Production deploy is complete on Coolify.
+- Confirm Docker image/container exists after future builds.
+- Confirm Traefik route for `fpvlovers.com.tr` after future FQDN changes.
 - Confirm app serves port `3000`.
 - Confirm health endpoint returns JSON `status: ok`.
 
@@ -39,7 +39,6 @@ Last updated: 2026-05-17
 
 ## Known Risks
 
-- Remote Coolify deploys will fail until the build-fix commit reaches `main`.
-- Domain currently returns `404` until Coolify route/FQDN is bound to the frontend app.
 - Lint currently has dashboard component debt and should be cleaned before strict CI.
 - JSON runtime state should eventually move to Postgres or a mounted persistent volume.
+- Coolify may preserve stale custom Traefik labels. If domain changes do not apply, clear app `custom_labels` and redeploy.

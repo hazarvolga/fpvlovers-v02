@@ -29,9 +29,10 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 ## Current Known State
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
-- Coolify's last remote deploy failed because the remote repository still had a broken `app/admin/page.tsx` TSX structure.
-- The active domain `fpvlovers.com.tr` resolves to the crawler/frontend host, but the app is not currently serving the domain.
-- Public domain binding still needs to be attached to the frontend application in Coolify.
+- Production deploy succeeded on 2026-05-17 from commit `b4055de`.
+- `https://fpvlovers.com.tr` and `https://www.fpvlovers.com.tr` serve the frontend through Coolify.
+- `/api/health` returns JSON `status: ok` on production.
+- Coolify app routing was blocked by stale `custom_labels` containing the old `sslip.io` route; clearing them allowed FQDN-generated Traefik labels.
 
 ## Current Architecture Decisions
 

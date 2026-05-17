@@ -63,11 +63,11 @@ From live SSH inspection on 2026-05-17:
 - Application UUID: recorded in private operations notes.
 - Build pack: `dockerfile`.
 - Exposed port: `3000`.
-- Last observed status: `exited`.
-- Last 10 deploy attempts were failed.
-- Latest failure was a Next.js compile error in `app/admin/page.tsx`.
-- Docker image for the latest failed deploy was not present after failure.
-- App FQDN was still an `sslip.io` URL, not `fpvlovers.com.tr`.
+- Production deploy succeeded from commit `b4055de`.
+- Current container is healthy on port `3000`.
+- Active FQDNs are `https://fpvlovers.com.tr` and `https://www.fpvlovers.com.tr`.
+- Earlier failures were caused by a stale remote TSX build error, missing `/app/public` during Docker copy, and Next standalone binding to container hostname instead of `0.0.0.0`.
+- Domain routing was blocked by stale Coolify `custom_labels` containing old `sslip.io` Traefik labels. Clear `custom_labels` if FQDN changes do not affect container labels.
 
 ## Deployment Steps
 
@@ -92,6 +92,8 @@ https://fpvlovers.com.tr
 curl -I https://fpvlovers.com.tr
 curl -fsS https://fpvlovers.com.tr/api/health
 ```
+
+If `fpvlovers.com.tr` still returns Traefik `404` after a successful deploy, inspect container labels. The labels must contain `Host(\`fpvlovers.com.tr\`)`, not the old `sslip.io` host.
 
 7. Verify admin route is protected:
 
