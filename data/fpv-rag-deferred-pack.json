@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-05-18T06:41:33.148253+00:00",
+  "source_backlog": "data/fpv-rag-source-backlog.json",
+  "limit": 5,
+  "selected_count": 4,
+  "selected": [
+    {
+      "name": "IntoFPV",
+      "url": "https://intofpv.com/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "high",
+      "status": "deferred",
+      "notes": "Root crawl failed; retry with thread-level URLs later.",
+      "alternate_urls": [
+        "https://intofpv.com/index.php",
+        "https://intofpv.com/portal.php",
+        "https://intofpv.com/forum-welcome-to-the-forum",
+        "https://intofpv.com/forum-off-topic",
+        "https://intofpv.com/forum-long-range-fpv",
+        "https://intofpv.com/t-what-are-long-range-fpv-drones",
+        "https://intofpv.com/t-starting-long-mid-range",
+        "https://intofpv.com/t-pid-settings-for-a-beginner",
+        "https://intofpv.com/t-pid-tuning-guide",
+        "https://intofpv.com/t-tuning",
+        "https://intofpv.com/t-pid-tuning-boundaries"
+      ]
+    },
+    {
+      "name": "FPV Drone Turk",
+      "url": "https://fpvdroneturk.com/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "deferred",
+      "notes": "Root crawl failed; article pages are still being tested.",
+      "alternate_urls": [
+        "https://fpvdroneturk.com/fpv-drone-icin-ehliyet-gerekir-mi-yasal-ucus-rehberi-2026",
+        "https://fpvdroneturk.com/fpv-drone-turleri-ve-askeri-alanda-kullanimlari-saldiri-ve-savunmada-yeni-donem",
+        "https://fpvdroneturk.com/gokyuzune-hukmedin-temelden-ileriye-fpv-drone-ucus-teknikleri",
+        "https://fpvdroneturk.com/fpv-drone-simulator-turleri-ve-ozellikleri",
+        "https://fpvdroneturk.com/fpv-simulator-pc",
+        "https://fpvdroneturk.com/2026-fpv-drone-yapimi-maliyeti",
+        "https://fpvdroneturk.com/2026da-fpv-dunyasina-adim-atmak-neden-hazir-setler-rtf-artik-daha-mantikli",
+        "https://fpvdroneturk.com/ikinci-el-drone-alirken-nelere-dikkat-edilmeli-2026"
+      ]
+    },
+    {
+      "name": "VR training platform paper",
+      "url": "https://www.researchgate.net/publication/394056828_Cognitive_Load-Aware_Virtual_Reality_Training_Platform_for_Safe_Drone_Operations_in_Construction",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "deferred",
+      "notes": "Root crawl failed; use alternate mirror or manual capture later.",
+      "alternate_urls": [
+        "https://experts.illinois.edu/en/publications/cognitive-load-aware-virtual-reality-training-platform-for-safe-d/",
+        "https://www.iaarc.org/publications/fulltext/111_Cognitive_Load-Aware_Virtual_Reality_Training_Platform_for_Safe_Drone_Operations_in_Construction.pdf"
+      ]
+    },
+    {
+      "name": "PID RL control paper",
+      "url": "https://www.researchgate.net/publication/339355780_An_adaptive_deep_reinforcement_learning_approach_for_MIMO_PID_control_of_mobile_robots",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "medium",
+      "status": "deferred",
+      "notes": "Root crawl failed; use alternate mirror or manual capture later.",
+      "alternate_urls": [
+        "https://www.research.ed.ac.uk/en/publications/an-adaptive-deep-reinforcement-learning-approach-for-mimo-pid-con",
+        "https://www.sciencedirect.com/science/article/pii/S0019057820300781",
+        "https://github.com/IgnacioCarlucho/deepPID"
+      ]
+    }
+  ]
+}

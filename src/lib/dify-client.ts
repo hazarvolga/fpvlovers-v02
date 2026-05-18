@@ -217,7 +217,10 @@ export async function difyRequest(
     return callGroq(prompt, taskType);
   }
 
-  const BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
+  const BASE = getOptionalEnv(
+    'DIFY_INTERNAL_BASE_URL',
+    getOptionalEnv('APP_API_URL', getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1')),
+  );
   const KEY = apiKey || getRequiredEnv('DIFY_API_KEY');
   const url = `${BASE}${endpoint}`;
 

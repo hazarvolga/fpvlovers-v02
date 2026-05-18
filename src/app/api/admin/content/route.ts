@@ -1,24 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
-
-const BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
+import { generateContentViaDify, normalizeContentGenerationTemplate } from '@/lib/content-automation/dify-generation';
 
 const PAGES: Record<string, { name: string; fields: string[]; prompt: string; template?: string }> = {
-  'roadmap': {
+  roadmap: {
     name: 'Pilot Roadmap',
     fields: ['summary', 'steps'],
     prompt: 'Generate a 3-phase FPV pilot training roadmap.',
     template: 'community-roundup',
   },
-  'glossary': {
+  glossary: {
     name: 'FPV Glossary',
     fields: ['summary', 'terms'],
     prompt: 'Generate an FPV glossary for beginners with at least 8 common terms.',
     template: 'community-roundup',
   },
-  'workshop': {
+  workshop: {
     name: 'Workshop Masterclass',
     fields: ['summary', 'sections'],
     prompt: 'Generate content for a soldering and repair workshop page.',
@@ -42,13 +40,13 @@ const PAGES: Record<string, { name: string; fields: string[]; prompt: string; te
     prompt: 'Generate a build guide from the knowledge base.',
     template: 'build-guide',
   },
-  'comparison': {
+  comparison: {
     name: 'Comparison Page',
     fields: ['sections'],
     prompt: 'Generate a product comparison page.',
     template: 'comparison',
   },
-  'troubleshooting': {
+  troubleshooting: {
     name: 'Troubleshooting Guide',
     fields: ['sections'],
     prompt: 'Generate a troubleshooting guide for an FPV issue.',
@@ -76,52 +74,40 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: `Unknown page: ${page}. Options: ${Object.keys(PAGES).join(', ')}` }, { status: 400 });
     }
 
-    const prompt = customPrompt || config.prompt;
-    const appKey = getRequiredEnv('DIFY_APP_KEY');
-
-    const resp = await fetch(`${BASE}/chat-messages`, {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${appKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: prompt,
-        response_mode: 'blocking',
-        user: 'admin-content-gen',
-        inputs: {},
-      }),
-      signal: AbortSignal.timeout(60000),
+    const result = await generateContentViaDify({
+      topic: customPrompt || config.prompt,
+      template: normalizeContentGenerationTemplate(config.template || 'tech-article'),
+      language: 'en',
+      tone: 'professional',
+      title: config.name,
+      category: page,
+      customPrompt: customPrompt ? customPrompt : undefined,
+      brief: {
+        primaryKeyword: page,
+        secondaryKeywords: [],
+        summary: config.prompt,
+        outline: config.fields,
+      },
     });
 
-    if (!resp.ok) {
-      const err = await resp.text().catch(() => 'Unknown');
-      return NextResponse.json({ error: `FPV Expert API ${resp.status}`, detail: err.slice(0, 300) }, { status: 502 });
-    }
-
-    const data = await resp.json();
-    const answer = data.answer || '';
-    const resources = (data.metadata?.retriever_resources || []).slice(0, 3).map((r: any) => ({
-      dataset: r.dataset_name, source: (r.content || '').slice(0, 100), score: r.score,
-    }));
-
-    // Extract JSON from answer
-    let content = null;
-    const jsonMatch = answer.match(/\{[\s\S]*\}/);
-    if (jsonMatch) {
-      try { content = JSON.parse(jsonMatch[0]); } catch {}
-    }
-
-    // Save to file
-    if (content) {
+    if (result.content) {
       const dir = path.join(process.cwd(), 'content');
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-      fs.writeFileSync(path.join(dir, `${page}.json`), JSON.stringify(content, null, 2));
+      fs.writeFileSync(path.join(dir, `${page}.json`), JSON.stringify(result.content, null, 2));
     }
 
     return NextResponse.json({
       page: config.name,
-      content,
-      rawAnswer: answer.slice(0, 500),
-      sources: resources,
-      saved: content ? `content/${page}.json` : null,
+      success: result.success,
+      template: result.template,
+      content: result.content,
+      rawAnswer: result.rawAnswer.slice(0, 500),
+      sources: result.sources,
+      workflowRunId: result.workflowRunId,
+      totalTokens: result.totalTokens,
+      elapsedTime: result.elapsedTime,
+      outputs: result.outputs,
+      saved: result.content ? `content/${page}.json` : null,
     });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });

@@ -1,0 +1,576 @@
+{
+  "generated_at": "2026-05-18T00:00:00Z",
+  "purpose": "Pending FPV source candidates for parts/build/retrieval coverage",
+  "sources": [
+    {
+      "name": "Betaflight",
+      "url": "https://betaflight.com/docs/wiki",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "Core firmware docs; already partially represented in the workbook via redirects."
+    },
+    {
+      "name": "ExpressLRS",
+      "url": "https://www.expresslrs.org/",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "Radio link protocol docs."
+    },
+    {
+      "name": "INAV",
+      "url": "https://github.com/iNavFlight/inav",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "Use the GitHub docs/release pages for GPS and autonomous flight material. Ingested successfully."
+    },
+    {
+      "name": "EdgeTX",
+      "url": "https://manual.edgetx.org/",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "Transmitter docs and LUA scripting."
+    },
+    {
+      "name": "Oscar Liang",
+      "url": "https://oscarliang.com/",
+      "desired_dataset": "fpv-news-reviews",
+      "priority": "high",
+      "status": "present",
+      "notes": "Already seeded.",
+      "alternate_urls": [
+        "https://oscarliang.com/connect-flash-blheli-32-esc/"
+      ]
+    },
+    {
+      "name": "MEPS King",
+      "url": "https://www.mepsking.shop/blog",
+      "desired_dataset": "fpv-news-reviews",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Good fit for build comparisons and tuning guides. Ingested successfully."
+    },
+    {
+      "name": "Fpvtips",
+      "url": "https://blog.georgi-yanev.com/posts/",
+      "desired_dataset": "fpv-build-guides",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Practical build and setup notes. Ingested successfully."
+    },
+    {
+      "name": "IntoFPV",
+      "url": "https://intofpv.com/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "high",
+      "status": "deferred",
+      "notes": "Root crawl failed; retry with thread-level URLs later.",
+      "alternate_urls": [
+        "https://intofpv.com/index.php",
+        "https://intofpv.com/portal.php",
+        "https://intofpv.com/forum-welcome-to-the-forum",
+        "https://intofpv.com/forum-off-topic",
+        "https://intofpv.com/forum-long-range-fpv",
+        "https://intofpv.com/t-what-are-long-range-fpv-drones",
+        "https://intofpv.com/t-starting-long-mid-range",
+        "https://intofpv.com/t-pid-settings-for-a-beginner",
+        "https://intofpv.com/t-pid-tuning-guide",
+        "https://intofpv.com/t-tuning",
+        "https://intofpv.com/t-pid-tuning-boundaries"
+      ]
+    },
+    {
+      "name": "RCGroups",
+      "url": "https://www.rcgroups.com/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "high",
+      "status": "present",
+      "notes": "Root crawl failed; mirrored forum pages ingested successfully.",
+      "alternate_urls": [
+        "https://www.rcgroups.com/forums/index.php",
+        "https://forums.feedspot.com/drone_forums/",
+        "https://feedbagel.com/RC%20Groups"
+      ]
+    },
+    {
+      "name": "Reddit r/fpv",
+      "url": "https://www.reddit.com/r/fpv/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Daily pilot advice and general problem solving."
+    },
+    {
+      "name": "Matek Systems",
+      "url": "https://www.mateksys.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "FC and PDB schematics."
+    },
+    {
+      "name": "BetaFPV",
+      "url": "https://support.betafpv.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "Micro/drone hardware docs."
+    },
+    {
+      "name": "SpeedyBee",
+      "url": "https://www.speedybee.com/manual/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "Manuals and CLI configs for FC/ESC/VTX. Ingested successfully."
+    },
+    {
+      "name": "Flywoo",
+      "url": "https://flywoo.net/pages/flywoo-support-center",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "Support center and CLI docs."
+    },
+    {
+      "name": "Caddx FPV",
+      "url": "https://www.caddxfpv.com/pages/download-center",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "Digital video system download center."
+    },
+    {
+      "name": "RadioMaster",
+      "url": "https://radiomasterrc.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "Transmitter hardware and firmware docs."
+    },
+    {
+      "name": "ArduPilot",
+      "url": "https://ardupilot.org/ardupilot/",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "Open-source firmware docs and auto-generated parameters. Docs subtree seeded with official index pages.",
+      "alternate_urls": [
+        "https://ardupilot.org/ardupilot/docs/",
+        "https://ardupilot.org/ardupilot/docs/common-all-vehicle-types.html",
+        "https://ardupilot.org/copter/",
+        "https://ardupilot.org/copter/docs/",
+        "https://ardupilot.org/plane/",
+        "https://ardupilot.org/plane/docs/",
+        "https://ardupilot.org/dev/",
+        "https://ardupilot.org/dev/docs/",
+        "https://ardupilot.org/plane/docs/common-mamba405-mk2.html"
+      ]
+    },
+    {
+      "name": "PX4 docs",
+      "url": "https://docs.px4.io/main/en/",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "Versioned autopilot docs and changelog-friendly static pages. Ingested successfully.",
+      "alternate_urls": [
+        "https://github.com/PX4/PX4-Autopilot"
+      ]
+    },
+    {
+      "name": "Bluejay docs",
+      "url": "https://bird-sanctuary.github.io/bluejay-documentation/",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "MkDocs ESC firmware documentation. Ingested successfully.",
+      "alternate_urls": [
+        "https://github.com/bird-sanctuary/bluejay",
+        "https://github.com/mathiasvr/bluejay",
+        "https://github.com/bird-sanctuary/bluejay/releases",
+        "https://esc-configurator.com/"
+      ]
+    },
+    {
+      "name": "AM32 wiki",
+      "url": "https://github.com/am32-firmware/am32-wiki",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "ESC firmware wiki and flashing tutorials. Ingested successfully.",
+      "alternate_urls": [
+        "https://github.com/am32-firmware/AM32",
+        "https://am32.ca/downloads",
+        "https://esc-configurator.com/"
+      ]
+    },
+    {
+      "name": "EmuFlight",
+      "url": "https://github.com/emuflight/EmuFlight/wiki",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "present",
+      "notes": "Betaflight fork with tuning and PID documentation. Ingested successfully.",
+      "alternate_urls": [
+        "https://emuflight.github.io/",
+        "https://github.com/emuflight/EmuFlight",
+        "https://github.com/emuflight/EmuConfigurator/wiki",
+        "https://esc-configurator.com/"
+      ]
+    },
+    {
+      "name": "HDZero docs",
+      "url": "https://docs.hd-zero.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "Digital HD video system manuals and firmware docs. Ingested successfully.",
+      "alternate_urls": [
+        "https://hd-zero.github.io/hdzero-vtx-docs/latest/vtx_user_manual/",
+        "https://www.hd-zero.com/document"
+      ]
+    },
+    {
+      "name": "Holybro docs",
+      "url": "https://docs.holybro.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "Pixhawk ecosystem hardware docs. Ingested successfully."
+    },
+    {
+      "name": "TBS media files",
+      "url": "https://www.team-blacksheep.com/media/files/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "present",
+      "notes": "Root crawl returned too-short content, but product pages and manuals ingested successfully.",
+      "alternate_urls": [
+        "https://www.team-blacksheep.com/products/prod:crossfire_tx",
+        "https://www.team-blacksheep.com/products/prod:agentx",
+        "https://www.team-blacksheep.com/products/prod:crossfire_8chrx",
+        "https://www.team-blacksheep.com/media/files/tbs-unify-evo-manual.pdf"
+      ]
+    },
+    {
+      "name": "RotorBuilds",
+      "url": "https://www.rotorbuilds.com/",
+      "desired_dataset": "fpv-build-guides",
+      "priority": "high",
+      "status": "present",
+      "notes": "Build logs and part lists. Ingested successfully."
+    },
+    {
+      "name": "MultiGP rule book",
+      "url": "https://www.multigp.com/organizer-resources/rule-book/",
+      "desired_dataset": "fpv-racing-events",
+      "priority": "high",
+      "status": "present",
+      "notes": "Official racing rules and spec limits. Ingested successfully.",
+      "alternate_urls": [
+        "https://www.multigp.com/apidocumentation/"
+      ]
+    },
+    {
+      "name": "manuals.plus",
+      "url": "https://manuals.plus/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Aggregator fallback for manufacturer manuals. Ingested successfully."
+    },
+    {
+      "name": "firstquadcopter",
+      "url": "https://www.firstquadcopter.com/drone-manuals/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Multi-brand manual archive fallback. Ingested successfully."
+    },
+    {
+      "name": "RCKolik",
+      "url": "https://www.rckolik.com/forum/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Active Turkish RC forum. Ingested successfully."
+    },
+    {
+      "name": "DroneTR",
+      "url": "http://www.dronetr.net/forum/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Turkish forum with FPV and SHGM discussions. Ingested successfully."
+    },
+    {
+      "name": "Robotistan maker blog",
+      "url": "https://maker.robotistan.com/",
+      "desired_dataset": "fpv-build-guides",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Turkish build tutorial blog. Ingested successfully.",
+      "alternate_urls": [
+        "https://maker.robotistan.com/drone-nedir/",
+        "https://www.robotistan.com/drone"
+      ]
+    },
+    {
+      "name": "FPV Drone Turk",
+      "url": "https://fpvdroneturk.com/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Article pages ingested successfully; root crawl was only a fallback.",
+      "alternate_urls": [
+        "https://fpvdroneturk.com/fpv-drone-icin-ehliyet-gerekir-mi-yasal-ucus-rehberi-2026",
+        "https://fpvdroneturk.com/fpv-drone-turleri-ve-askeri-alanda-kullanimlari-saldiri-ve-savunmada-yeni-donem",
+        "https://fpvdroneturk.com/gokyuzune-hukmedin-temelden-ileriye-fpv-drone-ucus-teknikleri",
+        "https://fpvdroneturk.com/fpv-drone-simulator-turleri-ve-ozellikleri",
+        "https://fpvdroneturk.com/fpv-simulator-pc",
+        "https://fpvdroneturk.com/2026-fpv-drone-yapimi-maliyeti",
+        "https://fpvdroneturk.com/2026da-fpv-dunyasina-adim-atmak-neden-hazir-setler-rtf-artik-daha-mantikli",
+        "https://fpvdroneturk.com/ikinci-el-drone-alirken-nelere-dikkat-edilmeli-2026"
+      ]
+    },
+    {
+      "name": "BroDrone",
+      "url": "https://www.brodrone.com.tr/",
+      "desired_dataset": "fpv-build-guides",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Turkish tutorial and commerce hybrid. Ingested successfully."
+    },
+    {
+      "name": "Autonomous FPV Racing survey",
+      "url": "https://rpg.ifi.uzh.ch/docs/arxiv23_hanover.pdf",
+      "desired_dataset": "fpv-racing-events",
+      "priority": "high",
+      "status": "present",
+      "notes": "Direct PDF crawl failed, but arXiv abstract and mirror copies were ingested successfully.",
+      "alternate_urls": [
+        "https://arxiv.org/abs/2301.01755",
+        "https://papers.cool/arxiv/2301.01755"
+      ]
+    },
+    {
+      "name": "Autonomous Drone Racing arXiv",
+      "url": "https://arxiv.org/abs/2301.01755",
+      "desired_dataset": "fpv-racing-events",
+      "priority": "high",
+      "status": "present",
+      "notes": "Survey abstract and PDF entry. Ingested successfully."
+    },
+    {
+      "name": "HEPP arXiv",
+      "url": "https://arxiv.org/abs/2505.17438",
+      "desired_dataset": "fpv-racing-events",
+      "priority": "high",
+      "status": "present",
+      "notes": "High-speed obstacle avoidance for UAVs. Ingested successfully."
+    },
+    {
+      "name": "On Your Own arXiv PDF",
+      "url": "https://arxiv.org/pdf/2510.13644",
+      "desired_dataset": "fpv-racing-events",
+      "priority": "high",
+      "status": "present",
+      "notes": "Direct PDF crawl failed, but arXiv abstract and mirror copies were ingested successfully.",
+      "alternate_urls": [
+        "https://arxiv.org/abs/2510.13644",
+        "https://www.alphaxiv.org/overview/2510.13644",
+        "https://www.researchgate.net/publication/399789880_On_Your_Own_Pro-Level_Autonomous_Drone_Racing_in_Uninstrumented_Arenas"
+      ]
+    },
+    {
+      "name": "PID RL control paper",
+      "url": "https://www.researchgate.net/publication/339355780_An_adaptive_deep_reinforcement_learning_approach_for_MIMO_PID_control_of_mobile_robots",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Mirrors and codebase ingested successfully; root RG page remains a fallback.",
+      "alternate_urls": [
+        "https://www.research.ed.ac.uk/en/publications/an-adaptive-deep-reinforcement-learning-approach-for-mimo-pid-con",
+        "https://www.sciencedirect.com/science/article/pii/S0019057820300781",
+        "https://github.com/IgnacioCarlucho/deepPID"
+      ]
+    },
+    {
+      "name": "VR training platform paper",
+      "url": "https://www.researchgate.net/publication/394056828_Cognitive_Load-Aware_Virtual_Reality_Training_Platform_for_Safe_Drone_Operations_in_Construction",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Mirror and repository copies ingested successfully; root RG page remains a fallback.",
+      "alternate_urls": [
+        "https://experts.illinois.edu/en/publications/cognitive-load-aware-virtual-reality-training-platform-for-safe-d/",
+        "https://www.iaarc.org/publications/fulltext/111_Cognitive_Load-Aware_Virtual_Reality_Training_Platform_for_Safe_Drone_Operations_in_Construction.pdf"
+      ]
+    },
+    {
+      "name": "UAV anti-jamming paper",
+      "url": "https://ieeexplore.ieee.org/iel7/7693/10178701/09992013.pdf",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "present",
+      "notes": "Anti-jamming communications with power and mobility control. Ingested successfully."
+    },
+    {
+      "name": "BLHeli archive",
+      "url": "https://github.com/bitdump/BLHeli",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "missing",
+      "notes": "BLHeli repository archive and historical resources.",
+      "alternate_urls": [
+        "https://img.banggood.com/file/products/20171201012630BLHeli_32%20manual%20ARM%20Rev32.x.pdf",
+        "https://github.com/bitdump/blheli",
+        "https://esc-configurator.com/"
+      ]
+    },
+    {
+      "name": "iFlight support",
+      "url": "https://www.iflight.com/en-techsupport",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "missing",
+      "notes": "iFlight support center and manuals.",
+      "alternate_urls": [
+        "https://iflightrc.freshdesk.com/support/solutions/48000284943"
+      ]
+    },
+    {
+      "name": "GEPRC support",
+      "url": "https://geprc.com/support/download/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "missing",
+      "notes": "GEPRC manual and download center.",
+      "alternate_urls": [
+        "https://geprc.com/docs-category/manuals/"
+      ]
+    },
+    {
+      "name": "Foxeer downloads",
+      "url": "https://download.foxeer.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Foxeer manuals and firmware downloads."
+    },
+    {
+      "name": "HGLRC downloads",
+      "url": "https://www.hglrc.com/pages/download",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "HGLRC download center."
+    },
+    {
+      "name": "TMotor support",
+      "url": "https://uav-en.tmotor.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "high",
+      "status": "missing",
+      "notes": "TMotor support and manuals.",
+      "alternate_urls": [
+        "https://store.tmotor.com/"
+      ]
+    },
+    {
+      "name": "Happymodel support",
+      "url": "https://www.happymodel.cn/index.php/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Happymodel support site."
+    },
+    {
+      "name": "EMAX support",
+      "url": "https://emax-usa.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "EMAX support and product docs."
+    },
+    {
+      "name": "DJI goggles 2 downloads",
+      "url": "https://www.dji.com/downloads/products/goggles-2",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "DJI FPV goggles downloads."
+    },
+    {
+      "name": "Manualslib",
+      "url": "https://www.manualslib.com/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Manuals archive and fallback."
+    },
+    {
+      "name": "Device.report",
+      "url": "https://device.report/",
+      "desired_dataset": "fpv-components-specs",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Device manual archive fallback."
+    },
+    {
+      "name": "Rotorriot",
+      "url": "https://rotorriot.com/",
+      "desired_dataset": "fpv-build-guides",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Rotor Riot builds and products.",
+      "alternate_urls": [
+        "https://rotorriot.com/collections/pro-spec-builds"
+      ]
+    },
+    {
+      "name": "FPVKnowItAll",
+      "url": "https://www.fpvknowitall.com/",
+      "desired_dataset": "fpv-build-guides",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "High-signal build and tuning knowledge."
+    },
+    {
+      "name": "DonanimArsivi forum",
+      "url": "https://forum.donanimarsivi.com/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Turkish forum and beginner build discussion."
+    },
+    {
+      "name": "arXiv cs.RO recent",
+      "url": "https://arxiv.org/list/cs.RO/recent",
+      "desired_dataset": "fpv-racing-events",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Robotics and autonomous flight recent papers."
+    },
+    {
+      "name": "MDPI Drones",
+      "url": "https://www.mdpi.com/journal/drones",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Academic journal for drone research."
+    },
+    {
+      "name": "IEEE Xplore",
+      "url": "https://ieeexplore.ieee.org/",
+      "desired_dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Academic index for UAV and control papers."
+    }
+  ]
+}

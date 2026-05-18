@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-05-18T05:44:51.222185+00:00",
+  "source": "retry_failed",
+  "success_count": 0,
+  "failed_count": 2,
+  "results": [
+    {
+      "url": "https://www.t-motor.com/download",
+      "status": "crawl_failed",
+      "dataset": "",
+      "error": "Crawl failed or empty",
+      "seed_url": "https://www.t-motor.com/download",
+      "retry_url": "https://www.t-motor.com/download",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "original_status": "crawl_failed"
+    },
+    {
+      "url": "https://www.t-motor.com",
+      "status": "crawl_failed",
+      "dataset": "",
+      "error": "Crawl failed or empty",
+      "seed_url": "https://www.t-motor.com/download",
+      "retry_url": "https://www.t-motor.com",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "original_status": "crawl_failed"
+    }
+  ]
+}

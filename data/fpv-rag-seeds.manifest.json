@@ -1,0 +1,147 @@
+{
+  "generated_at": "2026-05-18T05:42:06.748396+00:00",
+  "source_workbook": "/Users/hazarekiz/Projects/fpv-autoblog-v2/FPV_RAG_Web_List_CLEAN.xlsx",
+  "row_count": 6,
+  "filters": {
+    "status": "Active",
+    "require_check_ok": true,
+    "limit": 10,
+    "offset": 80,
+    "batch_size": 5,
+    "mode": "ingest"
+  },
+  "tags": {
+    "Manufacturers": 6
+  },
+  "rows": [
+    {
+      "seed_url": "https://mateksys.com/?page_id=2&page=7",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "max_depth": 2,
+      "include_paths": [
+        "/",
+        "/pdf/"
+      ],
+      "exclude_paths": [
+        "/?p="
+      ],
+      "status": "Active",
+      "last_crawled": null,
+      "job_id": null,
+      "http_status": 200,
+      "http_error": null,
+      "final_url": "https://www.reddit.com/r/UAV/",
+      "response_time_ms": 14613.26,
+      "check_result": "OK"
+    },
+    {
+      "seed_url": "https://mateksys.com/?page_id=2&page=8",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "max_depth": 2,
+      "include_paths": [
+        "/",
+        "/pdf/"
+      ],
+      "exclude_paths": [
+        "/?p="
+      ],
+      "status": "Active",
+      "last_crawled": null,
+      "job_id": null,
+      "http_status": 200,
+      "http_error": null,
+      "final_url": "https://www.reddit.com/r/robotics/",
+      "response_time_ms": 14614.07,
+      "check_result": "OK"
+    },
+    {
+      "seed_url": "https://mateksys.com/?page_id=2&page=9",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "max_depth": 2,
+      "include_paths": [
+        "/",
+        "/pdf/"
+      ],
+      "exclude_paths": [
+        "/?p="
+      ],
+      "status": "Active",
+      "last_crawled": null,
+      "job_id": null,
+      "http_status": 200,
+      "http_error": null,
+      "final_url": "https://github.com/ArduPilot/ArduPilot",
+      "response_time_ms": 14669.24,
+      "check_result": "OK"
+    },
+    {
+      "seed_url": "https://mateksys.com/?page_id=2&page=10",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "max_depth": 2,
+      "include_paths": [
+        "/",
+        "/pdf/"
+      ],
+      "exclude_paths": [
+        "/?p="
+      ],
+      "status": "Active",
+      "last_crawled": null,
+      "job_id": null,
+      "http_status": 200,
+      "http_error": null,
+      "final_url": "https://github.com/betaflight/betaflight",
+      "response_time_ms": 14693.04,
+      "check_result": "OK"
+    },
+    {
+      "seed_url": "https://www.t-motor.com/download",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "max_depth": 2,
+      "include_paths": [
+        "/download/",
+        "/pdf/"
+      ],
+      "exclude_paths": [
+        "/search/",
+        "/ads/",
+        "/checkout/",
+        "/cart/"
+      ],
+      "status": "Active",
+      "last_crawled": null,
+      "job_id": null,
+      "http_status": 200,
+      "http_error": null,
+      "final_url": "https://www.caddxfpv.com/pages/download",
+      "response_time_ms": 14894.5,
+      "check_result": "OK"
+    },
+    {
+      "seed_url": "https://hglrc.com/pages/manuals",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "max_depth": 2,
+      "include_paths": [
+        "/pages/",
+        "/pdf/"
+      ],
+      "exclude_paths": [
+        "/collections/"
+      ],
+      "status": "Active",
+      "last_crawled": null,
+      "job_id": null,
+      "http_status": 200,
+      "http_error": null,
+      "final_url": "https://github.com/ArduPilot/ardupilot_wiki",
+      "response_time_ms": 15381.1,
+      "check_result": "OK"
+    }
+  ]
+}

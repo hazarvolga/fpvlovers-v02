@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-05-18T05:44:51.220894+00:00",
+  "source": "retry_failed",
+  "failed_count": 1,
+  "failed_rows": [
+    {
+      "url": "https://www.t-motor.com",
+      "status": "crawl_failed",
+      "dataset": "",
+      "error": "Crawl failed or empty",
+      "seed_url": "https://www.t-motor.com/download",
+      "retry_url": "https://www.t-motor.com",
+      "tag": "Manufacturers",
+      "job_tag": "Manufacturers",
+      "original_status": "crawl_failed"
+    }
+  ]
+}
