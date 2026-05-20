@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import type { GeneratedContent } from './parse-generated-content';
+import type { ContentMedia } from './content-media';
 import { buildContentMedia } from './content-media';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
@@ -13,6 +14,8 @@ export type PublishedArtifact = GeneratedContent & {
   publishedAt: string;
   promptVersion: string;
   jobStatus: string;
+  media?: ContentMedia;
+  coverImage?: string;
 };
 
 function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtifact | null {

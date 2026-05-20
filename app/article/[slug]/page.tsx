@@ -69,6 +69,9 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
               </div>
             </div>
           )}
+          {a.media?.coverImage?.credit && (
+            <p className="px-8 pt-4 text-[10px] text-[#e4bfb1]/30 font-mono italic">{a.media.coverImage.credit}</p>
+          )}
           <div className="p-8 md:p-12 pt-12">
             <div className="flex items-center gap-2 mb-4">
               <Badge className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-black/50 backdrop-blur-md border border-[#00FF66]/50 text-[#00FF66]">
