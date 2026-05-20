@@ -1,16 +1,28 @@
 {
-  "generatedAt": "2026-05-18T14:00:00.000Z",
+  "generatedAt": "2026-05-20T12:00:00.000Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "local-verification-complete-rendering-works",
+  "state": "editorial-homepage-complete",
   "allTasksDone": true,
-  "task8Done": true,
-  "currentBlocker": "None. All 3 published articles render locally. Ready for production deploy.",
-  "nextTask": "Production deploy via Coolify, browser smoke on https://fpvlovers.com.tr/article/<slug>",
+  "task9Done": true,
+  "currentBlocker": "None. Homepage is editorial hub. Next: fix embedding credential + deployment.",
+  "nextTask": "Fix gemini-embedding-001 credential, fix retrievalAgent UUID bug, production deploy",
+  "homepageHierarchy": [
+    "hero",
+    "pilot-pulse",
+    "sponsor-strip",
+    "featured-guides",
+    "pilot-academy",
+    "engineering-lab",
+    "ai-tools",
+    "in-feed-ad",
+    "recent-posts",
+    "editors-picks",
+    "category-rails",
+    "newsletter-lower-sponsor"
+  ],
   "filesOfTruth": [
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-dify-content-automation.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-opencode-codex-collaboration-protocol.md"
+    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md"
   ],
   "handoffPath": "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/handoff/latest.md"
 }

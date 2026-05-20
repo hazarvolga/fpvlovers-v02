@@ -1,55 +1,41 @@
 # FPVLovers Handoff Packet
 
-Generated at: 2026-05-18 (Opencode — Tasks 1-8 complete, local rendering verified)
+Generated at: 2026-05-20 (Opencode — Task 9 complete)
 
-## Status: LOCAL RENDERING VERIFIED — READY FOR PROD DEPLOY
+## Status: EDITORIAL HOMEPAGE COMPLETE
 
-All 8 tasks complete. Content pipeline verified end-to-end locally.
+Content automation pipeline + editorial homepage operational.
 
 ### Completed Tasks
 | # | Task | Status |
 |---|------|--------|
-| 1 | Contract + queue | ✓ |
-| 2 | Dify generation (Codex) | ✓ |
-| 3 | Job CRUD + publish | ✓ |
-| 4 | Admin workflow UI | ✓ |
-| 5 | Self-feeding loop | ✓ |
-| 6 | Smoke test + release | ✓ |
-| 7 | Real content rendering | ✓ |
-| 8 | Local verification + deploy checklist | ✓ |
+| 1-8 | Content automation pipeline | ✓ |
+| 9 | **Editorial homepage** | ✓ — `da380a4` |
 
-### Local Rendering — Verified (2026-05-18)
-
-| Article | URL | H1 | Content | SEO Title |
-|---------|-----|-----|---------|-----------|
-| fpv-troubleshooting-guide | `/article/fpv-troubleshooting-guide` | ✓ | ✓ | `FPV Troubleshooting Guide... \| FPVLovers` |
-| fpv-components-wiring-guide | `/article/fpv-components-wiring-guide` | ✓ | ✓ | — |
-| smoke-test-fpv-build | `/article/smoke-test-fpv-build` | ✓ | ✓ | — |
-| non-existent-article | `/article/non-existent-article` | — | — | 404 ✓ |
-
-### Fix Applied
-Old `app/article/[slug]/page.tsx` was still active (precedence over `src/app/`). Synced PublishedArticle component + content reader import to `app/` copy.
+### Task 9 — What Changed
+- Removed `fetchDifyInsights()` from public homepage
+- `src/lib/homepage/homepage-content.ts` — resolver from `content/published/*.json`
+- New hierarchy: Hero → Sponsor → Guides → Academy → Engineering → Tools → Posts → Picks → Rails → Newsletter
+- No internal jargon (NEURAL FEED, SYS.DIFY, MACH-1 all removed)
+- Propeller Lab surfaced as visible Engineering Lab topic
+- AI Tools: Build Calculator, Blackbox Tuning, Component Duel
+- Both `src/app/page.tsx` and `app/page.tsx` synced
 
 ### Verification
-| Check | Result |
-|-------|--------|
-| `npx tsc --noEmit` | ✓ exit 0 |
-| `npm run content:smoke` | ✓ 14/14 pass |
-| Content reader (3 articles) | ✓ all fields present |
-| Safe fallback (missing) | ✓ null + 404 |
-| Dev server (localhost:3000) | ✓ 3/3 articles render |
+- `npx tsc --noEmit` clean
+- `npm run content:smoke` 14/14 pass
+- 3 published articles render on homepage
+- 3 article detail pages render correctly
+- All sections verified via curl on localhost:3000
+
+### Current State
+- **Blocker**: None. Ready for production deploy.
+- **Next**: Fix embedding credential (gemini-embedding-001), fix `retrievalAgent.ts` UUID bug, deploy
 
 ### Infrastructure
-- Dify Traefik: `/data/coolify/proxy/dynamic/long-timeout.yaml` (300s, no redeploy)
-- Dify console: `hazarvolga@gmail.com` / `Admin1234!` at `https://dify.affexai.tr`
-- 3 published artifacts: `content/published/*.json`
-
-### Next for Codex
-1. Review local rendering verification
-2. Approve production deploy
-3. Deploy via Coolify: `hazarvolga/fpvlovers.com.tr`
-4. Browser smoke: `https://fpvlovers.com.tr/article/fpv-troubleshooting-guide`
+- Dify Traefik: `/data/coolify/proxy/dynamic/long-timeout.yaml` (300s)
+- SSH keys in `sunucular/project-track/servers-ssh-keys/`
 
 ### Roles
 - **Codex** — review, approve, deploy
-- **Opencode** — implementation complete (all 8 tasks)
+- **Opencode** — Task 9 implementation complete
