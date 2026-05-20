@@ -34,11 +34,11 @@ export default async function HardwarePage() {
              <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
              <Cpu className="w-12 h-12 text-[#00F2FF] mb-6 opacity-80" />
              <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
-               Hardware <span className="text-[#00F2FF]">Datacom</span>
+               Hardware <span className="text-[#00F2FF]">Reference</span>
              </h1>
              <p className="text-sm font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest">
-{"// Electrical and structural intelligence. Evaluated via Dify RAG against stress constraints."}
-</p>
+              Electrical and structural intelligence for FPV builds — motors, ESCs, flight controllers, and video systems.
+            </p>
           </div>
 
           <AISummaryBox content={data.summary} title="SYS.HARDWARE_SYNOPSIS" />

@@ -1,5 +1,6 @@
 import { listPublishedContent, type PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { buildFallbackHomepageCards } from './homepage-defaults';
+import { firstWaveContentPlan } from '@/lib/content-plan';
 
 export type HomepageSectionCard = {
   slug: string;
@@ -49,6 +50,14 @@ const PILLAR_CATEGORIES = new Set([
   'Components',
 ]);
 
+const registryBySlug = new Map<string, typeof firstWaveContentPlan[number]>(
+  firstWaveContentPlan.map((e) => [e.slug, e]),
+);
+
+function tierFromRegistry(slug: string): 'pillar' | 'support' | undefined {
+  return registryBySlug.get(slug)?.tier;
+}
+
 function estimateReadingTime(content: PublishedArtifact): string {
   const text = content.bodySections?.map((s) => s.content).join(' ') || '';
   const wordCount = text.split(/\s+/).filter(Boolean).length;
@@ -56,37 +65,61 @@ function estimateReadingTime(content: PublishedArtifact): string {
   return `${minutes} min read`;
 }
 
-function toHomepageCard(item: PublishedArtifact): HomepageSectionCard {
+function formatPublishedDate(dateStr: string): string {
+  if (!dateStr || dateStr === 'Seed content') return 'Seed content';
+  try {
+    const d = new Date(dateStr);
+    if (isNaN(d.getTime())) return 'Seed content';
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  } catch {
+    return 'Seed content';
+  }
+}
+
+function toHomepageCard(item: PublishedArtifact, tier?: 'pillar' | 'support'): HomepageSectionCard {
   return {
     slug: item.slug,
     title: item.title,
     excerpt: item.excerpt || item.seo?.metaDescription || '',
     category: item.category,
     readingTime: estimateReadingTime(item),
-    publishedAt: item.publishedAt
-      ? new Date(item.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-      : '',
+    publishedAt: formatPublishedDate(item.publishedAt),
     href: `/article/${item.slug}`,
+    tier,
   };
+}
+
+function sortByDate(cards: HomepageSectionCard[]): HomepageSectionCard[] {
+  return [...cards].sort((a, b) => {
+    const aIsSeed = a.publishedAt === 'Seed content';
+    const bIsSeed = b.publishedAt === 'Seed content';
+    if (aIsSeed && !bIsSeed) return 1;
+    if (!aIsSeed && bIsSeed) return -1;
+    if (aIsSeed && bIsSeed) return 0;
+    return new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime();
+  });
 }
 
 export function resolveHomepageContent(): HomepageContentModel {
   const published = listPublishedContent();
   const fallbackCards = buildFallbackHomepageCards();
 
-  const publishedCards = published.map(toHomepageCard);
+  const publishedCards = published.map((item) => {
+    const tier = tierFromRegistry(item.slug);
+    return toHomepageCard(item, tier);
+  });
 
   const uniqueBySlug = new Map<string, HomepageSectionCard>();
   for (const card of fallbackCards) uniqueBySlug.set(card.slug, card);
   for (const card of publishedCards) uniqueBySlug.set(card.slug, card);
 
-  const merged = [...uniqueBySlug.values()];
+  const merged = sortByDate([...uniqueBySlug.values()]);
 
   const featuredGuides = merged
     .filter((item) => item.tier === 'pillar' || PILLAR_CATEGORIES.has(item.category))
     .slice(0, 3);
 
-  const recentPosts = [...merged].slice(0, 6);
+  const recentPosts = merged.slice(0, 6);
 
   const editorsPicks = merged
     .filter((item) => item.tier === 'support' || !PILLAR_CATEGORIES.has(item.category))

@@ -133,6 +133,15 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `src/features/engineering/components/PropellerLabSection.tsx`: real section with 3 cards + `#props` anchor
   - Hardware pages updated with PropellerLab, homepage teaser links to `/engineering/hardware#props`
   - Root metadata: `FPV LOVERS | Editorial Hub, Academy, Engineering Lab, and AI Tools` (removed `CYBER-AERONAUTIC HUD`)
+- Content Integrity Audit + Resolver Hardening (2026-05-20):
+  - `scripts/content-integrity-audit.ts`: 9-phase audit — published readability, tier derivation, slug uniqueness, section emptiness, recent ordering, fallback override, article/homepage alignment, route tree drift, Dify jargon check
+  - `package.json`: `content:audit` script wired
+  - Homepage resolver hardened: `tierFromRegistry()` derives tier from canonical content plan; `sortByDate()` ensures published content before seed content in recent posts; `formatPublishedDate()` handles invalid dates gracefully
+  - Engineering hardware page: `Datacom` → `Reference`, Dify/RAG jargon removed
+  - Route tree drift guard verifies `app/` vs `src/app/` copies identical for 4 key page pairs
+  - `npm run content:audit` — 9/9 phases passed
+  - `npm run content:smoke` — 14/14 pass
+  - `npx tsc --noEmit` — clean
 
 ## Current Architecture Decisions
 
