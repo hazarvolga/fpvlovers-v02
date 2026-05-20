@@ -1,41 +1,48 @@
 # FPVLovers Handoff Packet
 
-Generated at: 2026-05-20 (Opencode — Task 9 complete)
+Generated at: 2026-05-20 (Opencode)
 
-## Status: EDITORIAL HOMEPAGE COMPLETE
+## Status: CONTENT PIPELINE AUDITED + HARDENED
 
-Content automation pipeline + editorial homepage operational.
+Content automation pipeline complete, homepage editorial, resolver hardened, audit script active.
 
-### Completed Tasks
-| # | Task | Status |
-|---|------|--------|
-| 1-8 | Content automation pipeline | ✓ |
-| 9 | **Editorial homepage** | ✓ — `da380a4` |
+### Completed Work
+| # | Scope | Commit |
+|---|-------|--------|
+| 1-8 | Content automation pipeline | `e5037fa` |
+| 9 | Editorial homepage | `da380a4` |
+| — | Frontpage stabilization | `fa68cac` |
+| — | Content integrity audit + hardening | `660a834` |
 
-### Task 9 — What Changed
-- Removed `fetchDifyInsights()` from public homepage
-- `src/lib/homepage/homepage-content.ts` — resolver from `content/published/*.json`
-- New hierarchy: Hero → Sponsor → Guides → Academy → Engineering → Tools → Posts → Picks → Rails → Newsletter
-- No internal jargon (NEURAL FEED, SYS.DIFY, MACH-1 all removed)
-- Propeller Lab surfaced as visible Engineering Lab topic
-- AI Tools: Build Calculator, Blackbox Tuning, Component Duel
-- Both `src/app/page.tsx` and `app/page.tsx` synced
+### Audit Results (9/9 passed)
+- Published artifacts readable and valid
+- Tier derivation from canonical content plan (10/10)
+- Zero duplicate slugs
+- All homepage sections populated (no empty blocks)
+- Recent posts: published content before seed fallback
+- No fallback overrides on published slugs
+- Article page, homepage, and content reader aligned on same slugs
+- Route tree drift check: `app/` vs `src/app/` 4 key pairs identical
+- Zero Dify/RAG jargon on engineering hardware page
 
-### Verification
-- `npx tsc --noEmit` clean
-- `npm run content:smoke` 14/14 pass
-- 3 published articles render on homepage
-- 3 article detail pages render correctly
-- All sections verified via curl on localhost:3000
+### Quick Checks
+```bash
+npm run content:audit   # 9/9 ✓
+npm run content:smoke   # 14/14 ✓
+npx tsc --noEmit        # clean ✓
+```
 
-### Current State
-- **Blocker**: None. Ready for production deploy.
-- **Next**: Fix embedding credential (gemini-embedding-001), fix `retrievalAgent.ts` UUID bug, deploy
+### Current Blockers
+None. Ready for production deploy.
+
+### Next
+1. Fix gemini-embedding-001 credential (133 docs failed embedding)
+2. Fix `retrievalAgent.ts:62` — wrong UUID for fpv-regulations
+3. Production deploy via Coolify
+4. Browser smoke on `https://fpvlovers.com.tr`
 
 ### Infrastructure
 - Dify Traefik: `/data/coolify/proxy/dynamic/long-timeout.yaml` (300s)
-- SSH keys in `sunucular/project-track/servers-ssh-keys/`
-
-### Roles
-- **Codex** — review, approve, deploy
-- **Opencode** — Task 9 implementation complete
+- SSH keys: `sunucular/project-track/servers-ssh-keys/`
+- Published content: 3 articles in `content/published/`
+- Seed fallback: 10 articles from `content-plan.ts`
