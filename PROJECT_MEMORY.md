@@ -144,6 +144,12 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `npm run content:audit` — 9/9 phases passed
   - `npm run content:smoke` — 14/14 pass
   - `npx tsc --noEmit` — clean
+- Engineering Lab Visual Pilot (2026-05-20):
+  - `src/app/engineering/hardware/page.tsx`: rewritten with stitch-inspired tactical design language
+  - `src/features/engineering/components/PropellerLabSection.tsx`: redesigned with MOD_884_PROP header, DIM_01-03 sub-panels
+  - Design vocabulary: Module IDs (MOD_881_BRIEF, MOD_882_CORE, MOD_883_FW, MOD_884_WS), segmented progress bars (P/I/D gains), telemetry chips (border-left accent), monospace data fonts, {orange #FF5F00, cyan #00EEFC, green #00E639} accent system
+  - New sections: Hardware Reference header, TelemetryChip grid, PropellerLab, Firmware Tuning PID bars, Workshop Masterclass test bench cards, SYS_HEARTBEAT footer
+  - Homepage and other surfaces unaffected
 
 ## Current Architecture Decisions
 
