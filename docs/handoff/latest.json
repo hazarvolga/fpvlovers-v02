@@ -1,16 +1,20 @@
 {
-  "generatedAt": "2026-05-20T12:05:38.735Z",
+  "generatedAt": "2026-05-20T15:00:00.000Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "content-model-expanded",
-  "task1Done": true,
-  "resolvedDify": true,
-  "currentBlocker": "No current blocker. Media layer added; expand gallery and reference assets next.",
-  "nextTask": "Task 10: Expand gallery and reference assets",
+  "state": "engineering-lab-visual-pilot-complete",
+  "task9Done": true,
+  "stabilizationDone": true,
+  "auditDone": true,
+  "visualPilotDone": true,
+  "currentBlocker": "None.",
+  "nextTask": "Fix embedding credential, fix retrievalAgent UUID, production deploy. Optional: pilot other Engineering Lab pages (firmware, workshop).",
+  "engineeringLabDesign": {
+    "accentSystem": ["orange #FF5F00", "cyan #00EEFC", "green #00E639"],
+    "components": ["module IDs", "segmented bars", "telemetry chips", "monospace data", "SYS_HEARTBEAT"],
+    "sections": ["Hardware Reference", "Propeller Lab", "Core Systems", "Firmware Tuning PID", "Workshop Masterclass"]
+  },
   "filesOfTruth": [
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-dify-content-automation.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-opencode-codex-collaboration-protocol.md"
-  ],
-  "handoffPath": "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/handoff/latest.md"
+    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md"
+  ]
 }
