@@ -40,7 +40,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
              The Weekly <span className="text-[#00F5FF]">Propeller</span>
           </h3>
           <p className="text-white/50 text-sm font-semibold max-w-sm mb-6 leading-relaxed">
-             Join the elite squad. Get raw Dify summaries, top tech deals, and AI flight algorithm updates every Saturday. No spam, just telemetry.
+             Join the weekly briefing. Get new guides, tools, and FPV build updates every Saturday. No spam, just the useful stuff.
           </p>
 
           <div className="w-full max-w-md">

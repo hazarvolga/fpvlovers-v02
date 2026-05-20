@@ -17,7 +17,7 @@ export default function WhoopsPage() {
             <div className="absolute inset-0 flex items-center justify-center"><Target className="w-16 h-16 text-[#00F2FF] opacity-50" /></div>
           </div>
           <h1 className="text-4xl font-black uppercase text-white">Whoops & <span className="text-[#00F2FF]">Micro</span></h1>
-          <p className="text-[#A0A0A0] font-mono">65mm-85mm brushless whoops for indoor and proximity flying. Content loading from knowledge base.</p>
+          <p className="text-[#A0A0A0] font-mono">65mm-85mm brushless whoops for indoor and proximity flying. Guides and references are loading here now.</p>
         </div>
         <aside className="lg:col-span-4 hidden lg:flex flex-col gap-6"><AdStickySidebar /></aside>
       </div>

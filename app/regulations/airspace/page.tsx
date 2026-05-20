@@ -7,7 +7,7 @@ import { getPageData } from '@/lib/dify-datasets';
 
 export const metadata = {
   title: 'Airspace & Remote ID | REGULATIONS',
-  description: 'Global airspace maps, compliance standards, and Remote ID modules from the knowledge base.',
+  description: 'FPV airspace guidance, compliance standards, and Remote ID references for safe flying.',
 };
 
 export default async function AirspacePage() {

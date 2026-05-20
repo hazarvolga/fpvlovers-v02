@@ -77,20 +77,20 @@ export async function getHardwareData(): Promise<{ summary: string; hardware: Ha
       price: "Free",
       url: sourceUrl || "#",
       image: "https://picsum.photos/seed/" + doc.id + "/800/600",
-      tag: meta.tag || "Dify RAG",
+      tag: meta.tag || "Reference",
       tokens: doc.tokens || 0,
     });
   }
 
   if (items.length === 0) {
     return {
-      summary: `FPV RAG active. fpv-components-specs: ${docs.length} docs (${completed.length} ready).`,
-      hardware: [{ title: "Dify Dataset", description: `${docs.length} documents loaded.`, price: "Free", url: "#", image: "https://picsum.photos/seed/fpv-parts/800/600", tag: "DATASET" }],
+      summary: `FPV hardware reference active. fpv-components-specs: ${docs.length} docs (${completed.length} ready).`,
+      hardware: [{ title: "FPV Reference Library", description: `${docs.length} documents loaded.`, price: "Free", url: "#", image: "https://picsum.photos/seed/fpv-parts/800/600", tag: "DATASET" }],
     };
   }
 
   return {
-    summary: `${completed.length} components from knowledge base. Browse below.`,
+    summary: `${completed.length} components curated from the FPV reference library. Browse below.`,
     hardware: items,
   };
 }
@@ -113,13 +113,13 @@ export async function getFirmwareData(): Promise<{ summary: string; cliCommands:
 
   if (items.length === 0) {
     return {
-      summary: `Flight tuning dataset: ${docs.length} docs (${completed.length} completed).`,
-      cliCommands: [{ title: "Betaflight / INAV Docs", content: "Tuning documents loaded from knowledge base.", tag: "Dify", tokens: 0 }],
+      summary: `Flight tuning reference: ${docs.length} docs (${completed.length} completed).`,
+      cliCommands: [{ title: "Betaflight / INAV Guides", content: "Tuning references loaded from the FPV library.", tag: "Reference", tokens: 0 }],
     };
   }
 
   return {
-    summary: `${completed.length} tuning documents from knowledge base.`,
+    summary: `${completed.length} tuning documents curated from the FPV reference library.`,
     cliCommands: items,
   };
 }
@@ -155,10 +155,10 @@ export async function getPageData(pageSlug: string): Promise<PageContent> {
 
     if (completed.length === 0) {
       return {
-        summary: `${docs.length} documents indexing in knowledge base. Ready soon.`,
+        summary: `${docs.length} documents indexing in the FPV reference library. Ready soon.`,
         items: docs.slice(0, 3).map((d: any) => ({
           title: (d.doc_metadata?.source_url || d.name || 'FPV Entry').slice(0, 60),
-          description: `${d.tokens || 0} tokens from ${d.doc_metadata?.source_url || 'Dify'}`,
+          description: `${d.tokens || 0} tokens from ${d.doc_metadata?.source_url || 'reference source'}`,
           url: d.doc_metadata?.source_url || '#',
         })),
       };
@@ -179,10 +179,10 @@ export async function getPageData(pageSlug: string): Promise<PageContent> {
     }
 
     return {
-      summary: `${completed.length} knowledge entries from dataset.`,
+      summary: `${completed.length} reference entries from dataset.`,
       items: items.filter(i => i.description.length > 20),
     };
   } catch {
-    return { summary: "Dataset connection pending.", items: [] };
+    return { summary: "Reference library connection pending.", items: [] };
   }
 }

@@ -39,7 +39,7 @@ export default function FlightCriticPage() {
              <div className="flex flex-col gap-4 max-w-md mx-auto text-center items-center justify-center min-h-[250px]">
                 <ScanText className="w-12 h-12 text-[#333333] mb-2" />
                 <h3 className="text-xl font-black uppercase text-white tracking-tight">System Offline</h3>
-                <p className="text-xs font-mono text-[#A0A0A0]">Dify endpoint awaiting authentication. Video ingestion module is currently locked.</p>
+                <p className="text-xs font-mono text-[#A0A0A0]">Video ingestion module is preparing. Add a YouTube link to analyze continuity, stick rates, and propwash handling.</p>
                 <div className="flex gap-4 mt-6 w-full">
                    <input type="text" placeholder="https://youtube.com/watch?v=..." disabled className="flex-1 bg-black/50 border border-[#333333] px-4 font-mono text-sm text-white focus:outline-none focus:border-[#00F2FF] opacity-50 cursor-not-allowed" />
                    <Button variant="cyber" disabled className="opacity-50">ANALYZE</Button>

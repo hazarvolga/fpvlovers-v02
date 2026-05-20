@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 export const metadata = {
   title: 'Component Duel | AI ORACLE',
-  description: 'Side-by-Side Dify RAG Hardware Comparisons.',
+  description: 'Side-by-Side FPV Hardware Comparisons.',
 };
 
 export default function ComponentDuelPage() {
@@ -28,7 +28,7 @@ export default function ComponentDuelPage() {
                Component <span className="text-[#FF5C00]">Duel</span>
              </h1>
              <p className="text-sm font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest mx-auto sm:mx-0">
-{"// pitting hardware against each other using Dify RAG consensus."}
+{"// comparing hardware against each other using reference data."}
 </p>
           </div>
 

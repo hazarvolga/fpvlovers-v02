@@ -11,7 +11,7 @@ export function SystemHUD() {
             <Activity className="w-3 h-3" />
             <span>SYS.OP_STABLE</span>
          </div>
-         <div className="text-[#A0A0A0]">DIFY.RAG / CONNECTED</div>
+         <div className="text-[#A0A0A0]">CONTENT / CONNECTED</div>
          <div>LATENCY: 12ms</div>
       </div>
 

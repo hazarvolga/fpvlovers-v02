@@ -117,14 +117,14 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `src/app/article/[slug]/page.tsx`: checks `getPublishedContentBySlug()` first → renders real bodySections with proper HTML formatting; falls back to existing `fetchDifyInsights()` for legacy content
   - `src/components/admin/PublishedContentPanel.tsx`: new "Published" tab in admin — lists all published articles, preview pane with keyword/section counts, "View Live" link
   - `src/app/api/admin/content/published/route.ts`: API endpoint for published panel
-  - Test article at `content/published/smoke-test-fpv-build.json` — 5 sections, verified renders via content reader
+  - Published content artifacts are now tracked in `content/published/*.json` for deploy-safe rendering
 - Task 8 — Local Verification + Deploy Checklist completed (2026-05-18):
-  - Content reader verified: 3 published articles (smoke-test-fpv-build, fpv-troubleshooting-guide, fpv-components-wiring-guide), all with 5 sections + 3 keywords
+  - Content reader verified: 2 published articles (`fpv-troubleshooting-guide`, `fpv-components-wiring-guide`), both with sections + keywords
   - Safe fallback: `getPublishedContentBySlug('non-existent')` returns `null`
   - `npx tsc --noEmit` — clean (exit 0)
   - `npm run content:smoke` — 14/14 pass
   - Dev server render blocked by pre-existing `motion-dom.js` webpack chunk issue (not introduced by Task 7/8; affects all pages using Framer Motion)
-  - **Local rendering FIXED**: Old `app/article/[slug]/page.tsx` still took precedence over `src/app/`. Synced content reader + PublishedArticle component to `app/` copy. Verified: all 3 articles render on `localhost:3000` with correct titles, H1s, and content.
+  - **Local rendering FIXED**: Old `app/article/[slug]/page.tsx` still took precedence over `src/app/`. Synced content reader + PublishedArticle component to `app/` copy. Verified: all 2 published articles render on `localhost:3000` with correct titles, H1s, and content.
   - `docs/content/production-deploy-checklist.md` created: pre-deploy verification, deploy steps, post-deploy smoke, rollback path
 - Task 9 — Frontpage Content Hierarchy completed (2026-05-20): homepage converted from Dify feed to editorial hub. `src/lib/homepage/homepage-content.ts` resolver from published JSON + fallback seed catalog with slug dedup. Hero-Sponsor-Guides-Academy-Engineering-Tools-Posts-Picks-Rails hierarchy.
 - Frontpage stabilization fix (2026-05-20):
@@ -133,6 +133,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `src/features/engineering/components/PropellerLabSection.tsx`: real section with 3 cards + `#props` anchor
   - Hardware pages updated with PropellerLab, homepage teaser links to `/engineering/hardware#props`
   - Root metadata: `FPV LOVERS | Editorial Hub, Academy, Engineering Lab, and AI Tools` (removed `CYBER-AERONAUTIC HUD`)
+  - Public shell copy normalized across navbar, HUD, newsletter, engineering pages, starter kits, article fallback, and comparison tool surfaces
 - Content Integrity Audit + Resolver Hardening (2026-05-20):
   - `scripts/content-integrity-audit.ts`: 9-phase audit — published readability, tier derivation, slug uniqueness, section emptiness, recent ordering, fallback override, article/homepage alignment, route tree drift, Dify jargon check
   - `package.json`: `content:audit` script wired

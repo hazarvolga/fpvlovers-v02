@@ -7,7 +7,7 @@ export async function getArchivePage(pageSlug: string, fallbackSummary: string, 
       return {
         summary: data.summary || fallbackSummary,
         items: data.items.length > 0 ? data.items : [
-          { title: fallbackTitle, description: "Content loading from knowledge base.", url: "#" }
+          { title: fallbackTitle, description: "Content loading from the FPV reference library.", url: "#" }
         ],
         isLive: data.items.length > 0,
       };

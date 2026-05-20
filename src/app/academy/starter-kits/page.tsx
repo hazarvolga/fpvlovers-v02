@@ -7,13 +7,13 @@ import { Zap, PackagePlus, AlertTriangle } from 'lucide-react';
 
 export const metadata = {
   title: 'Starter Kits & Bundles | FPV LOVERS ACADEMY',
-  description: 'Whoops, RTF bundles, and your first gear. AI-curated FPV starter kits that bypass complex soldering requirements.',
+  description: 'Beginner FPV starter kits and bundle guidance for the easiest path to first flight.',
 };
 
 async function fetchDataFromDify() {
   await new Promise(r => setTimeout(r, 600));
   return {
-    summary: "For pilots uninitiated in PCB soldering and firmware flashing, Ready-To-Fly (RTF) kits offer immediate airspace access. Current AI models strongly recommend starting with a TinyWhoop class (65mm-75mm) due to low kinetic energy limits and high indoor durability. Avoid cheap analog goggles if your budget permits transitioning to digital later.",
+    summary: "For pilots who want the easiest first step, Ready-To-Fly (RTF) kits can reduce setup friction. A TinyWhoop class (65mm-75mm) is still the safest indoor starting point, while a separate radio and goggles often give a better upgrade path over time.",
     kits: [
       {
         title: "BetaFPV Cetus Pro Brushless Kit",
@@ -66,8 +66,8 @@ export default async function StarterKitsPage() {
           <div className="p-4 bg-[#FF5C00]/10 border border-[#FF5C00]/30 hex-panel flex items-start gap-4 text-[#A0A0A0] font-mono text-xs">
              <AlertTriangle className="w-6 h-6 text-[#FF5C00] flex-shrink-0" />
              <p className="leading-relaxed">
-               <strong className="text-[#FF5C00] uppercase block mb-1">Dify Oracle Warning</strong>
-               While RTF kits are excellent for immediate gratification, proprietary radios and analog goggles included in these kits are heavily bottlenecked. You will likely discard them when upgrading to a 5-inch digital quad.
+               <strong className="text-[#FF5C00] uppercase block mb-1">Compatibility Note</strong>
+               RTF kits are great for starting quickly, but bundled radios and goggles can limit your upgrade path. Check component compatibility before buying.
              </p>
           </div>
 

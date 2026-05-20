@@ -7,7 +7,7 @@ import { getArchivePage } from '@/lib/dify-archive';
 
 export const metadata = {
   title: 'Freestyle & Cinematic | DRONE ARCHIVE',
-  description: '5-inch pure freestyle frames and cinematic cruisers from the knowledge base.',
+  description: '5-inch freestyle frames and cinematic cruisers with editorial reference notes.',
 };
 
 export default async function FreestylePage() {

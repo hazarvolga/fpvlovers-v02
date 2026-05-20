@@ -109,7 +109,7 @@ export const navigationData = [
       {
         title: "Component Duel",
         href: "/tools/component-duel",
-        description: "Side-by-Side Dify RAG Hardware Comparisons.",
+        description: "Side-by-Side FPV Hardware Comparisons.",
         icon: Zap
       },
       {

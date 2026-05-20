@@ -149,7 +149,7 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
       </AnimatePresence>
 
       <div className="text-center flex flex-col items-center">
-         <Badge variant="outline" className="mb-4 text-[#00F5FF] border-[#00F5FF]/30 tracking-widest"><Zap className="w-3 h-3 mr-1" /> DIFY RAG ENGINE</Badge>
+         <Badge variant="outline" className="mb-4 text-[#00F5FF] border-[#00F5FF]/30 tracking-widest"><Zap className="w-3 h-3 mr-1" /> FPV COMPARISON ENGINE</Badge>
          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-2 leading-none">
            Component <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500">Duel</span>
          </h1>

@@ -98,7 +98,7 @@ export function Navbar() {
                             <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
                             
                             <div className="col-span-2 text-[10px] font-bold uppercase tracking-widest text-[#00F5FF] border-b border-white/10 pb-2 mb-2 flex items-center gap-2">
-                               <nav.icon className="w-4 h-4" /> {nav.title} _DATABANKS
+                               <nav.icon className="w-4 h-4" /> {nav.title} _GUIDES
                             </div>
                             
                             {nav.items.map((item) => (
@@ -125,7 +125,7 @@ export function Navbar() {
                          </div>
                          <div className="bg-black/60 p-3 border-t border-white/5 flex justify-between items-center text-[10px] font-mono text-white/30 uppercase z-10 relative">
                             <span>Sys.Status: Online</span>
-                            <span className="text-[#00F5FF]/50">RAG Synced</span>
+                            <span className="text-[#00F5FF]/50">Content Synced</span>
                          </div>
                       </motion.div>
                     )}

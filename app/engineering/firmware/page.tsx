@@ -7,7 +7,7 @@ import { getFirmwareData } from '@/lib/dify-datasets';
 
 export const metadata = {
   title: 'Firmware & CLI Tuning | ENGINEERING LAB',
-  description: 'Betaflight PID tuning logic, ExpressLRS setups, and EdgeTX configurations from the knowledge base.',
+  description: 'Betaflight PID tuning references, ExpressLRS setups, and EdgeTX configuration guidance for FPV pilots.',
 };
 
 export default async function FirmwarePage() {

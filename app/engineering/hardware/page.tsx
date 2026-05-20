@@ -10,8 +10,8 @@ import { PropellerLabSection } from '@/features/engineering/components/Propeller
 import { generateSeoMetadata } from '@/lib/seo/metadata';
 
 export const metadata = generateSeoMetadata({
-  title: 'FPV Hardware Specs & Components | ENGINEERING LAB',
-  description: 'AI-curated FPV drone hardware database: motors, ESCs, flight controllers, VTX, and cameras from the knowledge base.',
+  title: 'Hardware Reference | ENGINEERING LAB',
+  description: 'FPV hardware reference for motors, ESCs, flight controllers, VTX, cameras, and propeller choices.',
   path: '/engineering/hardware',
   ogImage: 'https://picsum.photos/seed/fpv-hardware/1200/630',
 });

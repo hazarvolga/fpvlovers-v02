@@ -1,0 +1,45 @@
+{
+  "slug": "fpv-components-wiring-guide",
+  "title": "FPV Components and Wiring Guide: What Each Part Does",
+  "jobId": "brief-fpv-components-wiring-guide",
+  "category": "Build Guides",
+  "template": "build-guide",
+  "seo": {
+    "slug": "fpv-components-wiring-guide",
+    "metaDescription": "Understand the main FPV drone parts, how they connect, and the wiring logic behind a clean beginner build.",
+    "keywords": ["FPV drone parts", "FPV wiring guide", "motor ESC FC basics"]
+  },
+  "excerpt": "A beginner-friendly map of every core FPV component, what it does, and how the signal and power paths fit together.",
+  "bodySections": [
+    {
+      "id": "overview",
+      "title": "The Six Core Components",
+      "content": "Every FPV drone has six core components working together:\n1. **Frame** — the skeleton that holds everything\n2. **Flight Controller (FC)** — the brain running Betaflight\n3. **ESC** (Electronic Speed Controllers) — the muscles driving motors\n4. **Motors** — spin the propellers\n5. **VTX + Camera** — your eyes in the sky\n6. **Receiver** — listens to your radio commands\n\nUnderstanding each component's role is the first step to building and repairing with confidence."
+    },
+    {
+      "id": "power-flow",
+      "title": "Power Flow: How Electricity Moves",
+      "content": "Battery → ESC pads (main power) → FC via ESC harness (5V/3.3V regulated) → peripherals.\n\n- **LiPo battery** provides raw voltage (4S=14.8V, 6S=22.2V) to ESC main pads\n- ESC steps down voltage for FC through the **ESC-to-FC cable**\n- FC distributes **5V** to VTX, camera, receiver, GPS\n- Some VTXs need **direct battery voltage** (Vbat) for full power\n\n**Golden rule**: Never connect battery voltage directly to a 5V pad. You'll fry the component instantly."
+    },
+    {
+      "id": "signal-flow",
+      "title": "Signal Flow: How Commands Travel",
+      "content": "Radio sticks → Receiver → FC (via UART RX) → FC processes → ESC (via protocol) → Motors.\n\n- **Radio gimbals** send stick positions to the transmitter module\n- **Receiver** decodes the signal and sends channel values to FC via serial (SBUS/CRSF)\n- **FC gyro** measures rotation, PID loop calculates motor corrections\n- **ESC protocol** (DShot300/600) sends digital commands to each ESC\n\nVideo flows the opposite way: Camera → FC/OSD → VTX → antenna → goggle receiver."
+    },
+    {
+      "id": "wiring",
+      "title": "Wiring Best Practices",
+      "content": "- **Use the right gauge wire**: 14-16AWG for battery leads, 20-22AWG for motor wires, 26-28AWG for signal wires\n- **Twist signal and ground** wires together to reduce electrical noise\n- **Secure wires** with zip ties away from spinning props\n- **Use a smoke stopper** on first power-up — it can save your entire build\n- **Label your UARTs**: know which UART is for VTX, which for receiver, which for GPS\n- Common mistake: RX pad on FC goes to TX on peripheral, TX goes to RX"
+    },
+    {
+      "id": "compatibility",
+      "title": "Compatibility Checks",
+      "content": "Before buying components, verify:\n- **FC mounting holes** match your frame (30.5x30.5, 20x20, or whoop)\n- **ESC protocol** is supported by your FC (all modern FCs support DShot)\n- **Motor KV** matches your battery voltage (6S: 1700-1950KV, 4S: 2400-2700KV for 5-inch)\n- **VTX mounting** fits your frame's VTX slot\n- **Receiver protocol** matches your radio (ELRS, Crossfire, Tracer)"
+    }
+  ],
+  "internalLinks": ["/article/fpv-beginner-setup-guide", "/article/fpv-troubleshooting-guide"],
+  "publishNotes": ["Pillar content — wiring fundamentals", "Verified component compatibility"],
+  "jobStatus": "published",
+  "publishedAt": "2026-05-18T15:00:00.000Z",
+  "promptVersion": "v2"
+}
