@@ -126,6 +126,13 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Dev server render blocked by pre-existing `motion-dom.js` webpack chunk issue (not introduced by Task 7/8; affects all pages using Framer Motion)
   - **Local rendering FIXED**: Old `app/article/[slug]/page.tsx` still took precedence over `src/app/`. Synced content reader + PublishedArticle component to `app/` copy. Verified: all 3 articles render on `localhost:3000` with correct titles, H1s, and content.
   - `docs/content/production-deploy-checklist.md` created: pre-deploy verification, deploy steps, post-deploy smoke, rollback path
+- Task 9 — Frontpage Content Hierarchy completed (2026-05-20): homepage converted from Dify feed to editorial hub. `src/lib/homepage/homepage-content.ts` resolver from published JSON + fallback seed catalog with slug dedup. Hero-Sponsor-Guides-Academy-Engineering-Tools-Posts-Picks-Rails hierarchy.
+- Frontpage stabilization fix (2026-05-20):
+  - `src/lib/homepage/homepage-defaults.ts`: fallback from 10-item content plan. Featured/Recent/Editor sections never empty.
+  - `src/lib/homepage/homepage-content.ts`: merged published + fallback, slug dedup
+  - `src/features/engineering/components/PropellerLabSection.tsx`: real section with 3 cards + `#props` anchor
+  - Hardware pages updated with PropellerLab, homepage teaser links to `/engineering/hardware#props`
+  - Root metadata: `FPV LOVERS | Editorial Hub, Academy, Engineering Lab, and AI Tools` (removed `CYBER-AERONAUTIC HUD`)
 
 ## Current Architecture Decisions
 

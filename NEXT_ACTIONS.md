@@ -4,7 +4,7 @@ Last updated: 2026-05-18
 
 ## Immediate Priority
 
-1. Task 9 DONE (2026-05-20): homepage converted to editorial hub. Next: fix embedding credential (gemini-embedding-001), fix retrievalAgent.ts fpv-regulations UUID bug, production deploy.
+1. Frontpage stabilization DONE (2026-05-20): deploy-safe resolver, Propeller Lab, editorial metadata. Next: fix embedding credential (gemini-embedding-001), fix retrievalAgent.ts UUID bug, production deploy.
 2. Treat `https://www.t-motor.com/download` as a terminal crawl exception for now, and decide whether to replace it with a different manufacturer source or a manually captured page.
 3. Clean remaining lint debt in dashboard/admin components so pre-commit can run without `--no-verify`.
 4. Verify admin auth behavior on production.
