@@ -1,21 +1,15 @@
 {
-  "generatedAt": "2026-05-20T13:00:00.000Z",
+  "generatedAt": "2026-05-20T14:00:00.000Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "frontpage-stabilization-complete",
+  "state": "content-integrity-audit-complete",
   "task9Done": true,
   "stabilizationDone": true,
-  "currentBlocker": "None. Homepage deploy-safe, Propeller Lab visible, metadata editorial.",
+  "auditDone": true,
+  "currentBlocker": "None. Content pipeline audited, resolver hardened, drift guard active.",
   "nextTask": "Fix gemini-embedding-001 credential, fix retrievalAgent.ts UUID bug, production deploy",
-  "homepageHierarchy": [
-    "hero", "pilot-pulse", "sponsor-strip", "featured-guides",
-    "pilot-academy", "engineering-lab", "ai-tools", "in-feed-ad",
-    "recent-posts", "editors-picks", "category-rails", "newsletter"
-  ],
-  "fallbackInPlace": true,
-  "propellerLabAnchor": "/engineering/hardware#props",
-  "metadata": "FPV LOVERS | Editorial Hub, Academy, Engineering Lab, and AI Tools",
-  "filesOfTruth": [
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md"
-  ]
+  "auditPhases": 9,
+  "auditResult": "all passed",
+  "smokeResult": "14/14 passed",
+  "tscResult": "clean",
+  "driftGuardFiles": ["page.tsx", "layout.tsx", "article/[slug]/page.tsx", "engineering/hardware/page.tsx"]
 }
