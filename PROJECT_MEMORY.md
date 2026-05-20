@@ -44,6 +44,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 - A shared Opencode + Codex collaboration protocol now exists at `docs/superpowers/plans/2026-05-18-opencode-codex-collaboration-protocol.md`; Codex owns planning/review and Opencode owns implementation, with `PROJECT_MEMORY.md` and `NEXT_ACTIONS.md` as the source of truth for handoffs.
 - A handoff generator now exists at `scripts/generate-handoff.mjs` and is wired to `npm run handoff`; it writes both `docs/handoff/latest.md` and machine-readable `docs/handoff/latest.json` so the next agent can pick up the latest state and automatically detect whether it is starting from a finished task or an active blocker.
 - An Opencode brief generator now exists at `scripts/opencode-brief.mjs` and is wired to `npm run opencode:brief`; it reads `docs/handoff/latest.json` and prints a concise machine-readable task brief so the next agent can start from the same state without manual explanation.
+- Published content now carries a media model with copyright-safe local cover art. The new `media.coverImage` source is rendered on homepage cards, article pages, and admin preview, and the first two published articles are tracked in `content/published/*.json`.
 - Dify `SEO Content Generator` workflow (app ID `a6d903cf`) was stabilized on 2026-05-18 via direct DB + service-layer operations:
   - `retrieval_mode`: changed from `hybrid` (invalid enum) → `multiple` (valid for 4 datasets)
   - `multiple_retrieval_config`: added as proper object with top_k=5, score_threshold=0.5, reranking via Jina v2
@@ -151,6 +152,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 - Keep n8n out of the active launch path.
 - Use 9 RAG datasets, including `fpv-regulations`.
 - Treat `FPV_RAG_Web_List_CLEAN.xlsx` as the canonical seed workbook for crawl batches.
+- Treat published content artifacts plus their generated media metadata as the source of truth for public surfaces.
 - Keep secrets in Coolify env / private operations storage, not in committed source.
 - Admin routes must fail closed if required credentials are missing.
 - User-facing AI/product recommendations should be trust-first and intent-aware.
@@ -238,3 +240,11 @@ Created:
 - Approve Task 1 contract before Task 2 implementation begins
 - Other two workflows (`drone-build-recommender`, `drone-part-matcher`) need same `retrieval_mode` fix
 - Content automation Task 2 ready: prompt construction, JSON parsing, admin endpoint wiring
+
+### 2026-05-20 Media Layer Expansion
+
+- Public content now carries a copyright-safe media model through published artifacts.
+- `GeneratedContent` and `PublishedArtifact` now include `media.coverImage`, `gallery`, `figureCaptions`, `imageSources`, and `attribution`.
+- Published content files are tracked in `content/published/*.json` and now include deterministic local cover references.
+- The homepage, article page, and admin preview render the same media source of truth.
+- The cover art is generated locally from the content metadata, so the public pages no longer need third-party image assets for the first pass.

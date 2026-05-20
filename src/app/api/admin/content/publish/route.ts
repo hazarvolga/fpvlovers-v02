@@ -4,6 +4,7 @@ import path from 'path';
 import { loadContentJobs, saveContentJobs } from '@/lib/content-automation/queue';
 import type { ContentJob, ContentJobStatus } from '@/lib/content-automation/types';
 import type { GeneratedContent } from '@/lib/content-automation/parse-generated-content';
+import { buildContentMedia } from '@/lib/content-automation/content-media';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -17,6 +18,12 @@ function publishArtifact(slug: string, job: ContentJob, content: GeneratedConten
   ensureDir(PUBLISHED_DIR);
   const jsonPath = path.join(PUBLISHED_DIR, `${slug}.json`);
   const mdPath = path.join(PUBLISHED_DIR, `${slug}.md`);
+  const media = content.media || buildContentMedia({
+    slug,
+    title: content.title,
+    category: job.category,
+    excerpt: content.excerpt,
+  });
 
   const artifact = {
     slug,
@@ -29,6 +36,7 @@ function publishArtifact(slug: string, job: ContentJob, content: GeneratedConten
     bodySections: content.bodySections,
     internalLinks: content.internalLinks,
     publishNotes: content.publishNotes,
+    media,
     jobStatus: job.status,
     publishedAt: new Date().toISOString(),
     promptVersion: job.promptVersion,
@@ -98,6 +106,12 @@ export async function POST(req: NextRequest) {
       bodySections: [{ id: 'main', title: job.title, content: '' }],
       internalLinks: [],
       publishNotes: [],
+      media: buildContentMedia({
+        slug: job.seo.slug || job.briefSlug,
+        title: job.title,
+        category: job.category,
+        excerpt: job.topic,
+      }),
     };
 
     const slug = publishContent.seo?.slug || job.seo.slug || job.briefSlug;

@@ -107,7 +107,17 @@ export default async function HomePage() {
         {content.featuredGuides.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {content.featuredGuides.map((card) => (
-              <Card key={card.slug} className="group border-[#00FF66]/10 hover:border-[#00FF66]/30 transition-colors">
+              <Card key={card.slug} className="group overflow-hidden border-[#00FF66]/10 hover:border-[#00FF66]/30 transition-colors">
+                {card.coverImage && (
+                  <div className="relative aspect-[16/9] overflow-hidden border-b border-[#00FF66]/10">
+                    <Image
+                      src={card.coverImage}
+                      alt={card.coverImageAlt || card.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )}
                 <CardHeader>
                   <Badge className="w-fit mb-3 bg-[#0A1A0A] border-[#00FF66]/30 text-[#00FF66]">{card.category}</Badge>
                   <Link href={card.href}>
@@ -211,7 +221,17 @@ export default async function HomePage() {
         {content.recentPosts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {content.recentPosts.map((card) => (
-              <Card key={card.slug} className="group border-white/5 hover:border-white/10 transition-colors">
+              <Card key={card.slug} className="group overflow-hidden border-white/5 hover:border-white/10 transition-colors">
+                {card.coverImage && (
+                  <div className="relative aspect-[16/9] overflow-hidden border-b border-white/5">
+                    <Image
+                      src={card.coverImage}
+                      alt={card.coverImageAlt || card.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )}
                 <CardHeader>
                   <Badge className="w-fit mb-3 bg-[#111] border-[#333] text-[#A0A0A0]">{card.category}</Badge>
                   <Link href={card.href}>
@@ -242,7 +262,17 @@ export default async function HomePage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {content.editorsPicks.map((card) => (
-              <Card key={card.slug} className="group border-[#FFD700]/10 hover:border-[#FFD700]/30 transition-colors">
+              <Card key={card.slug} className="group overflow-hidden border-[#FFD700]/10 hover:border-[#FFD700]/30 transition-colors">
+                {card.coverImage && (
+                  <div className="relative aspect-[16/9] overflow-hidden border-b border-[#FFD700]/10">
+                    <Image
+                      src={card.coverImage}
+                      alt={card.coverImageAlt || card.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )}
                 <CardHeader>
                   <Badge className="w-fit mb-3 bg-[#1A1A0A] border-[#FFD700]/30 text-[#FFD700]">{card.category}</Badge>
                   <Link href={card.href}>

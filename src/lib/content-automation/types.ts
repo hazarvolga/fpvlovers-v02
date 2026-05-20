@@ -22,6 +22,22 @@ export type ContentJobSEO = {
   keywords: string[];
 };
 
+export type ContentMediaAsset = {
+  src: string;
+  alt: string;
+  caption?: string;
+  source?: string;
+  credit?: string;
+};
+
+export type ContentMedia = {
+  coverImage: ContentMediaAsset;
+  gallery: ContentMediaAsset[];
+  figureCaptions: string[];
+  imageSources: string[];
+  attribution: string[];
+};
+
 export type ContentJob = {
   id: string;
   briefSlug: string;
@@ -34,6 +50,7 @@ export type ContentJob = {
   promptVersion: string;
   sourceHints: string[];
   seo: ContentJobSEO;
+  media?: ContentMedia;
   draftPath?: string;
   publishedPath?: string;
   feedback?: string;

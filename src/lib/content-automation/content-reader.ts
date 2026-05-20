@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import type { GeneratedContent } from './parse-generated-content';
+import { buildContentMedia } from './content-media';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -14,6 +15,21 @@ export type PublishedArtifact = GeneratedContent & {
   jobStatus: string;
 };
 
+function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtifact | null {
+  if (!parsed || typeof parsed.slug !== 'string') return null;
+  const title = typeof parsed.title === 'string' && parsed.title ? parsed.title : parsed.slug;
+  const category = typeof parsed.category === 'string' && parsed.category ? parsed.category : 'FPV Reference';
+  const excerpt = typeof parsed.excerpt === 'string' ? parsed.excerpt : '';
+  const media = parsed.media || buildContentMedia({ slug: parsed.slug, title, category, excerpt });
+
+  return {
+    ...(parsed as PublishedArtifact),
+    title,
+    category,
+    media,
+  };
+}
+
 export function listPublishedContent(): PublishedArtifact[] {
   try {
     const files = fs.readdirSync(PUBLISHED_DIR).filter((f) => f.endsWith('.json'));
@@ -22,7 +38,7 @@ export function listPublishedContent(): PublishedArtifact[] {
         try {
           const raw = fs.readFileSync(path.join(PUBLISHED_DIR, file), 'utf-8');
           const parsed = JSON.parse(raw);
-          return parsed as PublishedArtifact;
+          return ensureMediaArtifact(parsed);
         } catch {
           return null;
         }
@@ -39,7 +55,8 @@ export function getPublishedContentBySlug(slug: string): PublishedArtifact | nul
   try {
     const raw = fs.readFileSync(filePath, 'utf-8');
     const parsed = JSON.parse(raw);
-    if (parsed && typeof parsed.slug === 'string') return parsed as PublishedArtifact;
+    const artifact = ensureMediaArtifact(parsed);
+    if (artifact) return artifact;
     return null;
   } catch {
     return null;

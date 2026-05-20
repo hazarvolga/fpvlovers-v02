@@ -4,15 +4,16 @@ Last updated: 2026-05-18
 
 ## Immediate Priority
 
-1. Content integrity audit DONE (2026-05-20): resolver hardened, audit script 9/9 pass, drift guard active, public shell copy normalized, published content artifacts tracked. Next: fix embedding credential (gemini-embedding-001), fix retrievalAgent.ts UUID bug, production deploy.
-2. Treat `https://www.t-motor.com/download` as a terminal crawl exception for now, and decide whether to replace it with a different manufacturer source or a manually captured page.
-3. Clean remaining lint debt in dashboard/admin components so pre-commit can run without `--no-verify`.
-4. Verify admin auth behavior on production.
-5. Move JSON/runtime state that must survive deploys to Postgres or a mounted persistent volume.
-6. Fill the new source backlog with the missing high-value URLs: `INAV`, `MEPS King`, `Fpvtips`, `IntoFPV`, `RCGroups`, and `SpeedyBee`.
-7. Use `data/fpv-rag-source-pack.json` as the next ingest target list; first three are `IntoFPV`, `RCGroups`, and `SpeedyBee`.
-8. With local admin smoke unblocked, continue using `/api/admin/retrieval` for UI sanity checks.
-9. Apply the same `retrieval_mode=multiple` and `multiple_retrieval_config` pattern to any other Dify workflows with Knowledge Retrieval nodes before trusting them.
+1. Content integrity audit DONE (2026-05-20): resolver hardened, audit script 9/9 pass, drift guard active, public shell copy normalized, published content artifacts tracked, and the media layer now has copyright-safe cover art. Next: fix embedding credential (gemini-embedding-001), fix retrievalAgent.ts UUID bug, production deploy.
+2. Expand the media layer next: add gallery/figure support for selected articles and decide which future posts should carry real sponsored or reference assets instead of only generated cover art.
+3. Treat `https://www.t-motor.com/download` as a terminal crawl exception for now, and decide whether to replace it with a different manufacturer source or a manually captured page.
+4. Clean remaining lint debt in dashboard/admin components so pre-commit can run without `--no-verify`.
+5. Verify admin auth behavior on production.
+6. Move JSON/runtime state that must survive deploys to Postgres or a mounted persistent volume.
+7. Fill the new source backlog with the missing high-value URLs: `INAV`, `MEPS King`, `Fpvtips`, `IntoFPV`, `RCGroups`, and `SpeedyBee`.
+8. Use `data/fpv-rag-source-pack.json` as the next ingest target list; first three are `IntoFPV`, `RCGroups`, and `SpeedyBee`.
+9. With local admin smoke unblocked, continue using `/api/admin/retrieval` for UI sanity checks.
+10. Apply the same `retrieval_mode=multiple` and `multiple_retrieval_config` pattern to any other Dify workflows with Knowledge Retrieval nodes before trusting them.
 
 ## Code Tasks Before Push
 

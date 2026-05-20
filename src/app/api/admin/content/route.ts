@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { generateContentViaDify, normalizeContentGenerationTemplate } from '@/lib/content-automation/dify-generation';
+import { buildContentMedia } from '@/lib/content-automation/content-media';
 
 const PAGES: Record<string, { name: string; fields: string[]; prompt: string; template?: string }> = {
   roadmap: {
@@ -93,7 +94,16 @@ export async function POST(req: NextRequest) {
     if (result.content) {
       const dir = path.join(process.cwd(), 'content');
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-      fs.writeFileSync(path.join(dir, `${page}.json`), JSON.stringify(result.content, null, 2));
+      const withMedia = {
+        ...result.content,
+        media: result.content.media || buildContentMedia({
+          slug: result.content.seo.slug || page,
+          title: result.content.title,
+          category: config.name,
+          excerpt: result.content.excerpt,
+        }),
+      };
+      fs.writeFileSync(path.join(dir, `${page}.json`), JSON.stringify(withMedia, null, 2));
     }
 
     return NextResponse.json({

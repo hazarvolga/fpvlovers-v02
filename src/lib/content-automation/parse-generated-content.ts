@@ -1,3 +1,5 @@
+import type { ContentMedia } from './types';
+
 export type GeneratedContent = {
   title: string;
   seo: {
@@ -13,6 +15,7 @@ export type GeneratedContent = {
   }>;
   internalLinks: string[];
   publishNotes: string[];
+  media?: ContentMedia;
 };
 
 const extractJsonBlock = (answer: string): string | null => {
@@ -41,6 +44,36 @@ const asStringArray = (value: unknown): string[] => {
   return value.map((entry) => (typeof entry === 'string' ? entry.trim() : '')).filter(Boolean);
 };
 
+const asMediaAsset = (value: unknown, fallbackAlt: string) => {
+  if (typeof value === 'string') {
+    return {
+      src: value.trim(),
+      alt: fallbackAlt,
+    };
+  }
+
+  if (!value || typeof value !== 'object') return null;
+
+  const asset = value as {
+    src?: unknown;
+    alt?: unknown;
+    caption?: unknown;
+    source?: unknown;
+    credit?: unknown;
+  };
+
+  const src = asString(asset.src);
+  if (!src) return null;
+
+  return {
+    src,
+    alt: asString(asset.alt, fallbackAlt),
+    caption: asString(asset.caption),
+    source: asString(asset.source),
+    credit: asString(asset.credit),
+  };
+};
+
 export function parseGeneratedContent(answer: string): GeneratedContent | null {
   const jsonText = extractJsonBlock(answer);
   if (!jsonText) return null;
@@ -62,6 +95,7 @@ export function parseGeneratedContent(answer: string): GeneratedContent | null {
       internalLinks?: unknown;
       publish_notes?: unknown;
       publishNotes?: unknown;
+      media?: unknown;
     };
     const rawSections = Array.isArray(parsed.body_sections)
       ? parsed.body_sections
@@ -97,6 +131,36 @@ export function parseGeneratedContent(answer: string): GeneratedContent | null {
       bodySections,
       internalLinks: asStringArray(parsed.internal_links || parsed.internalLinks),
       publishNotes: asStringArray(parsed.publish_notes || parsed.publishNotes),
+      media: (() => {
+        if (!parsed.media || typeof parsed.media !== 'object') return undefined;
+        const media = parsed.media as {
+          cover_image?: unknown;
+          coverImage?: unknown;
+          gallery?: unknown;
+          figure_captions?: unknown;
+          figureCaptions?: unknown;
+          image_sources?: unknown;
+          imageSources?: unknown;
+          attribution?: unknown;
+        };
+
+        const coverImage = asMediaAsset(media.cover_image || media.coverImage, 'Published article cover');
+        const gallery = Array.isArray(media.gallery)
+          ? media.gallery
+              .map((asset, index) => asMediaAsset(asset, `Figure ${index + 1}`))
+              .filter((asset): asset is NonNullable<ReturnType<typeof asMediaAsset>> => Boolean(asset))
+          : [];
+
+        if (!coverImage && gallery.length === 0) return undefined;
+
+        return {
+          coverImage: coverImage || gallery[0]!,
+          gallery,
+          figureCaptions: asStringArray(media.figure_captions || media.figureCaptions),
+          imageSources: asStringArray(media.image_sources || media.imageSources),
+          attribution: asStringArray(media.attribution),
+        };
+      })(),
     };
   } catch {
     return null;

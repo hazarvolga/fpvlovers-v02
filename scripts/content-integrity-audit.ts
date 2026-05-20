@@ -32,6 +32,7 @@ try {
       ['category exists', typeof a.category === 'string'],
       ['bodySections array', Array.isArray(a.bodySections)],
       ['seo object', a.seo && typeof a.seo === 'object'],
+      ['media cover image', Boolean(a.media?.coverImage?.src && a.media?.coverImage?.alt)],
     ];
     let allOk = true;
     for (const [label, ok] of checks) {
@@ -46,7 +47,9 @@ try {
 // ── 2. Tier derivation from canonical registry ──
 phase('2. Tier derivation from canonical registry');
 
-const registryBySlug = new Map(firstWaveContentPlan.map((e) => [e.slug, e]));
+const registryBySlug = new Map<string, (typeof firstWaveContentPlan)[number]>(
+  firstWaveContentPlan.map((e) => [e.slug, e]),
+);
 const fallbackCards = buildFallbackHomepageCards();
 
 for (const card of fallbackCards) {

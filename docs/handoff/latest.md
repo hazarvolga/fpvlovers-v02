@@ -1,6 +1,6 @@
 # FPVLovers Handoff Packet
 
-Generated at: 2026-05-20T11:15:27.244Z
+Generated at: 2026-05-20T12:05:38.735Z
 
 ## What happened
 
@@ -15,9 +15,9 @@ Generated at: 2026-05-20T11:15:27.244Z
 
 ## Current blockers
 
-1. Content integrity audit DONE (2026-05-20): resolver hardened, audit script 9/9 pass, drift guard active, public shell copy normalized, published content artifacts tracked. Next: fix embedding credential (gemini-embedding-001), fix retrievalAgent.ts UUID bug, production deploy.
-2. Treat `https://www.t-motor.com/download` as a terminal crawl exception for now, and decide whether to replace it with a different manufacturer source or a manually captured page.
-3. Clean remaining lint debt in dashboard/admin components so pre-commit can run without `--no-verify`.
+1. Content integrity audit DONE (2026-05-20): resolver hardened, audit script 9/9 pass, drift guard active, public shell copy normalized, published content artifacts tracked, and the media layer now has copyright-safe cover art. Next: fix embedding credential (gemini-embedding-001), fix retrievalAgent.ts UUID bug, production deploy.
+2. Expand the media layer next: add gallery/figure support for selected articles and decide which future posts should carry real sponsored or reference assets instead of only generated cover art.
+3. Treat `https://www.t-motor.com/download` as a terminal crawl exception for now, and decide whether to replace it with a different manufacturer source or a manually captured page.
 
 ## Relevant follow-ups
 
@@ -35,7 +35,7 @@ Generated at: 2026-05-20T11:15:27.244Z
 - Keep n8n out of the active launch path.
 - Use 9 RAG datasets, including `fpv-regulations`.
 - Treat `FPV_RAG_Web_List_CLEAN.xlsx` as the canonical seed workbook for crawl batches.
-- Keep secrets in Coolify env / private operations storage, not in committed source.
+- Treat published content artifacts plus their generated media metadata as the source of truth for public surfaces.
 
 ## Dify / content automation context
 

@@ -1,5 +1,6 @@
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import type { HomepageSectionCard } from './homepage-content';
+import { buildContentMedia } from '@/lib/content-automation/content-media';
 
 export function buildFallbackHomepageCards(): HomepageSectionCard[] {
   return firstWaveContentPlan.map((item) => ({
@@ -11,5 +12,12 @@ export function buildFallbackHomepageCards(): HomepageSectionCard[] {
     publishedAt: 'Seed content',
     href: `/article/${item.slug}`,
     tier: item.tier,
+    coverImage: buildContentMedia({
+      slug: item.slug,
+      title: item.title,
+      category: item.category,
+      excerpt: item.summary,
+    }).coverImage.src,
+    coverImageAlt: `${item.title} cover illustration`,
   }));
 }

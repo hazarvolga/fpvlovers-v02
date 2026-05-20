@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { FileText, ExternalLink, RefreshCw, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
@@ -132,6 +133,36 @@ export default function PublishedContentPanel() {
                   {selectedArticle.bodySections.slice(0, 3).map((s) => `## ${s.title}\n${s.content.slice(0, 200)}...`).join('\n\n')}
                 </pre>
               </div>
+
+              {selectedArticle.media?.coverImage?.src && (
+                <div className="space-y-2">
+                  <div className="text-[10px] uppercase tracking-widest text-[#A0A0A0] font-mono">Cover Media</div>
+                  <div className="relative aspect-[16/9] rounded-xl overflow-hidden border border-[#1A1A1A]">
+                    <Image
+                      src={selectedArticle.media.coverImage.src}
+                      alt={selectedArticle.media.coverImage.alt || selectedArticle.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="text-[11px] text-[#A0A0A0] font-mono space-y-1">
+                    {selectedArticle.media.coverImage.caption && <div>{selectedArticle.media.coverImage.caption}</div>}
+                    {selectedArticle.media.coverImage.source && <div className="text-[#00F2FF]">{selectedArticle.media.coverImage.source}</div>}
+                  </div>
+                </div>
+              )}
+
+              {selectedArticle.media?.attribution?.length ? (
+                <div className="space-y-1">
+                  <div className="text-[10px] uppercase tracking-widest text-[#A0A0A0] font-mono">Attribution</div>
+                  {selectedArticle.media.attribution.map((item, index) => (
+                    <div key={`${selectedArticle.slug}-attr-${index}`} className="text-[11px] text-[#A0A0A0] font-mono italic">
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+
               <div className="flex gap-2">
                 <a href={`/article/${selectedArticle.slug}`} target="_blank" rel="noopener noreferrer">
                   <Button variant="cyber" size="sm" className="border-[#00FF66] text-[#00FF66] hover:bg-[#00FF66] hover:text-black">

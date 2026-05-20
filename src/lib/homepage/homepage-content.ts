@@ -11,6 +11,7 @@ export type HomepageSectionCard = {
   publishedAt: string;
   href: string;
   coverImage?: string;
+  coverImageAlt?: string;
   tier?: 'pillar' | 'support';
 };
 
@@ -85,6 +86,8 @@ function toHomepageCard(item: PublishedArtifact, tier?: 'pillar' | 'support'): H
     readingTime: estimateReadingTime(item),
     publishedAt: formatPublishedDate(item.publishedAt),
     href: `/article/${item.slug}`,
+    coverImage: item.media?.coverImage?.src,
+    coverImageAlt: item.media?.coverImage?.alt || `${item.title} cover illustration`,
     tier,
   };
 }

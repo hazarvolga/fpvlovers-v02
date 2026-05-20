@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-20T11:15:27.244Z",
+  "generatedAt": "2026-05-20T12:05:38.735Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "ready-for-task-2",
+  "state": "content-model-expanded",
   "task1Done": true,
   "resolvedDify": true,
-  "currentBlocker": "No current blocker. Start Task 2.",
-  "nextTask": "Task 2: Turn the existing Dify generation routes into a single structured content generator",
+  "currentBlocker": "No current blocker. Media layer added; expand gallery and reference assets next.",
+  "nextTask": "Task 10: Expand gallery and reference assets",
   "filesOfTruth": [
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md",

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchDifyInsights } from '@/lib/dify';
-import { getPublishedContentBySlug } from '@/lib/content-automation/content-reader';
+import { getPublishedContentBySlug, type PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AffiliateButton } from '@/features/monetization/components/AffiliateButton';
@@ -39,8 +39,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-function PublishedArticle({ article }: { article: ReturnType<typeof getPublishedContentBySlug> & object }) {
-  const a = article as any;
+function PublishedArticle({ article }: { article: PublishedArtifact }) {
+  const a = article;
   const breadcrumbs = [
     { label: 'Content', href: '/#latest' },
     { label: a.category || 'Article', href: `/category/${(a.category || 'article').toLowerCase().replace(/\s+/g, '-')}` },
@@ -53,6 +53,22 @@ function PublishedArticle({ article }: { article: ReturnType<typeof getPublished
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <article className="glass-card rounded-2xl overflow-hidden lg:col-span-8 col-span-1 border-[#00F5FF]/10">
+          {a.media?.coverImage?.src && (
+            <div className="relative w-full h-[360px] md:h-[420px] border-b border-white/10">
+              <Image
+                src={a.media.coverImage.src}
+                alt={a.media.coverImage.alt || a.title}
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-transparent to-transparent" />
+              <div className="absolute top-6 left-6">
+                <Badge className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-black/50 backdrop-blur-md border border-[#00F5FF]/50 text-[#00F5FF]">
+                  {a.category || 'Article'}
+                </Badge>
+              </div>
+            </div>
+          )}
           <div className="p-8 md:p-12 pt-12">
             <div className="flex items-center gap-2 mb-4">
               <Badge className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-black/50 backdrop-blur-md border border-[#00FF66]/50 text-[#00FF66]">
@@ -128,6 +144,35 @@ function PublishedArticle({ article }: { article: ReturnType<typeof getPublished
                 ))}
               </div>
             )}
+
+            {a.media?.gallery?.length ? (
+              <div className="border-t border-white/5 pt-8 mt-8">
+                <h3 className="text-[10px] uppercase font-bold tracking-widest text-[#FFB800] mb-4">Visual References</h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {a.media.gallery.map((asset) => (
+                    <figure key={asset.src} className="bg-black/30 border border-white/10 rounded-xl overflow-hidden">
+                      <div className="relative aspect-[16/9]">
+                        <Image src={asset.src} alt={asset.alt} fill className="object-cover" />
+                      </div>
+                      {(asset.caption || asset.credit) && (
+                        <figcaption className="p-3 text-[11px] text-[#A0A0A0] font-mono space-y-1">
+                          {asset.caption && <div>{asset.caption}</div>}
+                          {asset.credit && <div className="text-[#00F5FF]">{asset.credit}</div>}
+                        </figcaption>
+                      )}
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {a.media?.attribution?.length ? (
+              <div className="border-t border-white/5 pt-6 mt-8">
+                {a.media.attribution.map((note: string, i: number) => (
+                  <p key={`attr-${i}`} className="text-[10px] text-[#A0A0A0] font-mono italic">{note}</p>
+                ))}
+              </div>
+            ) : null}
           </div>
         </article>
 
