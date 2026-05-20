@@ -1,20 +1,15 @@
 {
-  "generatedAt": "2026-05-20T15:00:00.000Z",
+  "generatedAt": "2026-05-20T16:00:00.000Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "engineering-lab-visual-pilot-complete",
-  "task9Done": true,
-  "stabilizationDone": true,
-  "auditDone": true,
-  "visualPilotDone": true,
+  "state": "media-visibility-pilot-complete",
+  "allDone": true,
   "currentBlocker": "None.",
-  "nextTask": "Fix embedding credential, fix retrievalAgent UUID, production deploy. Optional: pilot other Engineering Lab pages (firmware, workshop).",
-  "engineeringLabDesign": {
-    "accentSystem": ["orange #FF5F00", "cyan #00EEFC", "green #00E639"],
-    "components": ["module IDs", "segmented bars", "telemetry chips", "monospace data", "SYS_HEARTBEAT"],
-    "sections": ["Hardware Reference", "Propeller Lab", "Core Systems", "Firmware Tuning PID", "Workshop Masterclass"]
+  "nextTask": "Fix embedding credential, fix retrievalAgent UUID bug, production deploy",
+  "completedPilots": ["editorial-homepage", "engineering-lab-visual", "media-visibility"],
+  "mediaCoverage": {
+    "homepage": "all 3 sections (featured/recent/editor) with SVG covers",
+    "article": "cover image + credit line",
+    "engineering": "Propeller Lab hero media + telemetry data strip"
   },
-  "filesOfTruth": [
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md"
-  ]
+  "copyrightSafe": true
 }
