@@ -1,28 +1,21 @@
 {
-  "generatedAt": "2026-05-20T12:00:00.000Z",
+  "generatedAt": "2026-05-20T13:00:00.000Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "editorial-homepage-complete",
-  "allTasksDone": true,
+  "state": "frontpage-stabilization-complete",
   "task9Done": true,
-  "currentBlocker": "None. Homepage is editorial hub. Next: fix embedding credential + deployment.",
-  "nextTask": "Fix gemini-embedding-001 credential, fix retrievalAgent UUID bug, production deploy",
+  "stabilizationDone": true,
+  "currentBlocker": "None. Homepage deploy-safe, Propeller Lab visible, metadata editorial.",
+  "nextTask": "Fix gemini-embedding-001 credential, fix retrievalAgent.ts UUID bug, production deploy",
   "homepageHierarchy": [
-    "hero",
-    "pilot-pulse",
-    "sponsor-strip",
-    "featured-guides",
-    "pilot-academy",
-    "engineering-lab",
-    "ai-tools",
-    "in-feed-ad",
-    "recent-posts",
-    "editors-picks",
-    "category-rails",
-    "newsletter-lower-sponsor"
+    "hero", "pilot-pulse", "sponsor-strip", "featured-guides",
+    "pilot-academy", "engineering-lab", "ai-tools", "in-feed-ad",
+    "recent-posts", "editors-picks", "category-rails", "newsletter"
   ],
+  "fallbackInPlace": true,
+  "propellerLabAnchor": "/engineering/hardware#props",
+  "metadata": "FPV LOVERS | Editorial Hub, Academy, Engineering Lab, and AI Tools",
   "filesOfTruth": [
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md"
-  ],
-  "handoffPath": "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/handoff/latest.md"
+  ]
 }
