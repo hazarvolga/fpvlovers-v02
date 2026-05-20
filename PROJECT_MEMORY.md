@@ -150,6 +150,12 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Design vocabulary: Module IDs (MOD_881_BRIEF, MOD_882_CORE, MOD_883_FW, MOD_884_WS), segmented progress bars (P/I/D gains), telemetry chips (border-left accent), monospace data fonts, {orange #FF5F00, cyan #00EEFC, green #00E639} accent system
   - New sections: Hardware Reference header, TelemetryChip grid, PropellerLab, Firmware Tuning PID bars, Workshop Masterclass test bench cards, SYS_HEARTBEAT footer
   - Homepage and other surfaces unaffected
+- Media Visibility Pilot (2026-05-20):
+  - `content-reader.ts`: `ensureMediaArtifact()` enriches published artifacts with `buildContentMedia()` — cover, gallery, attribution
+  - `homepage-content.ts`: `toHomepageCard()` always generates `coverImage` via `buildCoverImageDataUri()` fallback
+  - `PropellerLabSection.tsx`: tactical hero media block with telemetry overlay, thrust data strip (DIAMETER/PITCH/BLADES/RPM_MAX), THRUST_VECTOR
+  - `article/[slug]/page.tsx`: image credit line below cover
+  - All media copyright-safe: SVG generated locally via `buildCoverImageSvg()`
 
 ## Current Architecture Decisions
 
