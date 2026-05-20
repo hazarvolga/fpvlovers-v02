@@ -5,6 +5,7 @@ import { AISummaryBox } from '@/components/ui/AISummaryBox';
 import { AffiliateCard } from '@/features/monetization/components/AffiliateCard';
 import { Cpu, Activity } from 'lucide-react';
 import { getHardwareData } from '@/lib/dify-datasets';
+import { PropellerLabSection } from '@/features/engineering/components/PropellerLabSection';
 
 import { generateSeoMetadata } from '@/lib/seo/metadata';
 
@@ -41,6 +42,8 @@ export default async function HardwarePage() {
           </div>
 
           <AISummaryBox content={data.summary} title="SYS.HARDWARE_SYNOPSIS" />
+
+          <PropellerLabSection />
 
           <div className="space-y-6">
              <div className="flex items-center gap-2 border-b border-[#333333] pb-2 mt-4">

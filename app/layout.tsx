@@ -5,9 +5,9 @@ import { SystemHUD } from '@/features/layout/components/SystemHUD';
 import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
-  title: 'FPV LOVERS | CYBER-AERONAUTIC HUD',
-  description: 'High-Tech FPV Drone & AI Portal powered by Dify RAG. Discover cutting-edge drone parts, AI flight software, and industry news.',
-  keywords: ['FPV', 'Drones', 'AI', 'Dify', 'RAG', 'UAV', 'Flight Software', 'Tech'],
+  title: 'FPV LOVERS | Editorial Hub, Academy, Engineering Lab, and AI Tools',
+  description: 'English-first FPV guides, engineering references, and practical AI tools for building, tuning, and learning faster.',
+  keywords: ['FPV', 'Editorial', 'Academy', 'Engineering Lab', 'AI Tools', 'Build Guides', 'Troubleshooting'],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

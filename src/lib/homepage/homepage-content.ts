@@ -1,4 +1,5 @@
 import { listPublishedContent, type PublishedArtifact } from '@/lib/content-automation/content-reader';
+import { buildFallbackHomepageCards } from './homepage-defaults';
 
 export type HomepageSectionCard = {
   slug: string;
@@ -71,16 +72,24 @@ function toHomepageCard(item: PublishedArtifact): HomepageSectionCard {
 
 export function resolveHomepageContent(): HomepageContentModel {
   const published = listPublishedContent();
-  const cards = published.map(toHomepageCard);
+  const fallbackCards = buildFallbackHomepageCards();
 
-  const featuredGuides = cards
-    .filter((item) => PILLAR_CATEGORIES.has(item.category))
+  const publishedCards = published.map(toHomepageCard);
+
+  const uniqueBySlug = new Map<string, HomepageSectionCard>();
+  for (const card of fallbackCards) uniqueBySlug.set(card.slug, card);
+  for (const card of publishedCards) uniqueBySlug.set(card.slug, card);
+
+  const merged = [...uniqueBySlug.values()];
+
+  const featuredGuides = merged
+    .filter((item) => item.tier === 'pillar' || PILLAR_CATEGORIES.has(item.category))
     .slice(0, 3);
 
-  const recentPosts = [...cards].slice(0, 6);
+  const recentPosts = [...merged].slice(0, 6);
 
-  const editorsPicks = cards
-    .filter((item) => !PILLAR_CATEGORIES.has(item.category))
+  const editorsPicks = merged
+    .filter((item) => item.tier === 'support' || !PILLAR_CATEGORIES.has(item.category))
     .slice(0, 3);
 
   return {
@@ -95,7 +104,7 @@ export function resolveHomepageContent(): HomepageContentModel {
     ],
     engineeringCards: [
       { title: 'Hardware Data', description: 'Motors, ESCs, FCs, and video systems.', href: '/engineering/hardware', label: 'Reference' },
-      { title: 'Propeller Lab', description: 'Prop size, pitch, blade count, and vibration.', href: '/engineering/hardware', label: 'High Friction' },
+      { title: 'Propeller Lab', description: 'Prop size, pitch, blade count, and vibration.', href: '/engineering/hardware#props', label: 'High Friction' },
       { title: 'Firmware Tuning', description: 'Betaflight PID, EdgeTX, and ELRS setup.', href: '/engineering/firmware', label: 'Workflow' },
       { title: 'Workshop Masterclass', description: 'Soldering, repair, and maintenance.', href: '/engineering/workshop', label: 'Repair' },
     ],
