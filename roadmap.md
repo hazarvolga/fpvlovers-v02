@@ -257,4 +257,29 @@ Projenin tüm veri akışını, n8n crawler durumunu, Dify RAG indekslerini ve n
 ## 🎯 Bir Sonraki Adım: Yerel Kurulum ve Full-Stack Aktivasyon
 `roadmap.md` dökümanındaki tüm bileşenler (Front-end, AI Logic, Admin Panel) stratejik olarak tanımlandı. Bir sonraki aşamada AI Studio'da üretilen kodları yerel Next.js 15 projesine aktaracak ve n8n/Dify servislerini canlıya bağlayacağız.
 
+---
+
+## ✅ Tamamlanan Yapısal İyileştirmeler
+
+### src/ Migrasyonu — Tamamlandı (2025-07-14)
+
+Proje kök dizinindeki tüm kaynak dosyalar `src/` altına taşındı:
+
+- `app/` → `src/app/`
+- `components/` → `src/features/` (domain bileşenleri) ve `src/components/ui/` (UI primitifleri)
+- `lib/` → `src/lib/`
+- `hooks/` → `src/hooks/`
+- `types/` → `src/types/`
+
+TypeScript path alias güncellendi: `@/*` artık `./src/*` olarak çözümleniyor.
+
+### n8n Kaldırıldı — Tamamlandı
+
+n8n workflow orchestration projeden kaldırıldı. Tüm orkestrasyon artık özel TypeScript lib modülleri tarafından yönetiliyor (`master-routing-tables`, `master-orchestrator`, `retrieval-orchestrator`, `monetizationOrchestrator`). Yukarıdaki roadmap'te geçen n8n referansları (örn. Bölüm 12 "n8n Monitor") artık geçerli değildir.
+
+### DevOps Tooling — Tamamlandı
+
+- husky + commitlint ile Conventional Commits zorunlu hale getirildi
+- lint-staged ile pre-commit ESLint kontrolü eklendi
+
 

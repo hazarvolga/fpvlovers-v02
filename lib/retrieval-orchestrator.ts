@@ -1,8 +1,7 @@
 // Retrieval Orchestrator — Multi-dataset merge + dedup + rerank
 // Centralizes retrieval intelligence across 9 Dify datasets
 
-import fs from 'fs';
-import path from 'path';
+import { DATASETS } from './master-routing-tables';
 
 // ─── TYPES ───
 
@@ -107,6 +106,17 @@ export function simulateRetrieval(query: string, config: RetrievalConfig): Retri
   for (const dsName of allDatasets) {
     const isPrimary = config.primaryDatasets.includes(dsName);
     const maxChunks = isPrimary ? config.maxChunksPerDataset : Math.floor(config.maxChunksPerDataset / 2);
+    const docCount = getDatasetDocCount(dsName);
+
+    // Empty datasets should not fabricate retrieval evidence.
+    if (docCount === 0) continue;
+
+    // Sparse datasets can still answer, but they should be scored conservatively.
+    const populationFactor =
+      docCount >= 10 ? 1 :
+      docCount >= 5 ? 0.8 :
+      docCount >= 3 ? 0.6 :
+      0.35;
 
     // Simulate retrieval quality based on dataset
     const datasetQualityMap: Record<string, number> = {
@@ -114,7 +124,7 @@ export function simulateRetrieval(query: string, config: RetrievalConfig): Retri
       'fpv-components-specs': 0.30, 'fpv-build-guides': 0.30, 'fpv-news-reviews': 0.70,
       'fpv-racing-events': 0.30, 'fpv-community-knowledge': 0.85, 'fpv-regulations': 0.80,
     };
-    const baseQuality = datasetQualityMap[dsName] || 0.5;
+    const baseQuality = (datasetQualityMap[dsName] || 0.5) * populationFactor;
 
     for (let i = 0; i < Math.min(maxChunks, 8); i++) {
       const semanticScore = Math.min(baseQuality + Math.random() * 0.2 - i * 0.08, 1);
@@ -257,6 +267,12 @@ export function orchestrateRetrieval(
 
   // 6. CONFIDENCE
   const confidence = getRetrievalConfidence(chunks);
+  let adjustedConfidence = confidence.confidence;
+  if (fallbackTriggered && primaryChunks.length === 0) {
+    adjustedConfidence = Math.min(adjustedConfidence * 0.65, 0.65);
+  } else if (fallbackTriggered) {
+    adjustedConfidence = Math.min(adjustedConfidence * 0.85, 0.85);
+  }
 
   return {
     chunks,
@@ -265,7 +281,7 @@ export function orchestrateRetrieval(
       totalRetrieved, afterDedup, afterRerank: chunks.length,
       datasetsQueried: new Set(chunks.map(c => c.datasetName)).size,
       fallbackTriggered,
-      confidence: confidence.confidence,
+      confidence: Math.round(adjustedConfidence * 100) / 100,
       averageScore: chunks.length > 0 ? Math.round(chunks.reduce((s, c) => s + c.score, 0) / chunks.length * 1000) / 1000 : 0,
     },
   };
@@ -279,4 +295,8 @@ function jaccardSimilarity(a: string[], b: string[]): number {
   const intersection = new Set([...setA].filter(x => setB.has(x)));
   const union = new Set([...setA, ...setB]);
   return union.size === 0 ? 0 : intersection.size / union.size;
+}
+
+function getDatasetDocCount(datasetName: string): number {
+  return DATASETS.find(ds => ds.name === datasetName)?.docCount ?? 0;
 }

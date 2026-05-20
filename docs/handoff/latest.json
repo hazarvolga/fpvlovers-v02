@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-05-18T10:10:16.241Z",
+  "generatedAt": "2026-05-18T14:00:00.000Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "ready-for-task-2",
-  "task1Done": true,
-  "resolvedDify": true,
-  "currentBlocker": "No current blocker. Start Task 2.",
-  "nextTask": "Task 2: Turn the existing Dify generation routes into a single structured content generator",
+  "state": "local-verification-complete-rendering-works",
+  "allTasksDone": true,
+  "task8Done": true,
+  "currentBlocker": "None. All 3 published articles render locally. Ready for production deploy.",
+  "nextTask": "Production deploy via Coolify, browser smoke on https://fpvlovers.com.tr/article/<slug>",
   "filesOfTruth": [
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md",

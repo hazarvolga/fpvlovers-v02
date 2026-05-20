@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(req: NextRequest) {
   if (req.nextUrl.pathname.startsWith('/admin') || req.nextUrl.pathname.startsWith('/api/admin')) {
+    const isLocalDev = process.env.NODE_ENV !== 'production'
+      && ['localhost', '127.0.0.1', '::1'].includes(req.nextUrl.hostname);
+    if (isLocalDev) {
+      return NextResponse.next();
+    }
+
     const auth = req.headers.get('authorization');
     const user = process.env.ADMIN_USER;
     const pass = process.env.ADMIN_PASS;

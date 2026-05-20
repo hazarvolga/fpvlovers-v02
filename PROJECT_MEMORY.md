@@ -51,12 +51,81 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Full 8-node pipeline smoke test: `status: succeeded`, 9 steps, 25,013 tokens, 89.79s, all outputs (article, metadata, outline, schema, affiliate_data, seo_research) produced correctly
   - Local YAML (`dify_workflows/seo-content-generator.dify.yml`) synced with live DB graph
   - Dify login credentials: `hazarvolga@gmail.com` / `Admin1234!` (console at `https://dify.affexai.tr`)
+- Dify gateway timeout (504) RESOLVED (2026-05-18):
+  - Root cause: Traefik v3 on Server A (`coolify-proxy`) had default 60s `readTimeout`, but SEO workflow takes ~90-100s
+  - Fix: created `/data/coolify/proxy/dynamic/long-timeout.yaml` with `serversTransports.forwardingTimeouts.responseHeaderTimeout: 300` and `idleConnTimeout: 300`
+  - Added high-priority (100) routers specifically for `Host(\`dify.affexai.tr\`) && PathPrefix(\`/v1/\`)` using the long-timeout transport, directing to nginx at `http://10.0.3.12:80`
+  - No redeploy required — Traefik file provider with `watch=true` picked up changes automatically
+  - Smoke test from Server B: `status: succeeded`, 9 steps, 29,320 tokens, 100.66s via public URL
 - Content automation Task 1 completed (2026-05-18):
   - `src/lib/content-automation/types.ts`: `ContentJobStatus`, `ContentJob`, `ContentJobSEO`, `ContentTemplate` types
   - `src/lib/content-automation/queue.ts`: file-backed queue at `data/content-jobs.json` with `loadContentJobs`, `saveContentJobs`, `enqueueContentJob`
   - `docs/content/dify-content-automation-contract.md`: state machine, role boundaries, template categories
   - `npx tsc --noEmit` passed cleanly
   - Other Dify workflows that use Knowledge Retrieval nodes should inherit the same `retrieval_mode=multiple` + `multiple_retrieval_config` pattern before they are trusted again
+
+## Dataset Ecosystem (2026-05-18)
+
+### Current State
+9 datasets, 148 documents total, 33k tokens. But **133 of 148 documents have embedding errors** (`google_api_key` — same root cause as the workflow issue, but on the embedding model `gemini-embedding-001`).
+
+| Dataset | Docs | Completed | Errors | Notes |
+|---------|------|-----------|--------|-------|
+| fpv-community-knowledge | 67 | 9 | 58 | Largest, most completed |
+| fpv-components-specs | 24 | 1 | 23 | Hardware specs |
+| fpv-news-reviews | 12 | 4 | 8 | Most successfully embedded |
+| fpv-racing-events | 11 | 0 | 11 | All failed |
+| fpv-flight-tuning | 10 | 1 | 9 | PID/flight params |
+| fpv-build-guides | 9 | 0 | 9 | All failed |
+| fpv-regulations | 5 | 0 | 5 | All failed |
+| fpv-pid-profiles | 5 | 0 | 5 | All failed |
+| fpv-troubleshooting | 5 | 0 | 5 | All failed |
+
+### Known Bug
+- `src/lib/agents/retrievalAgent.ts:62` — `fpv-regulations` has wrong UUID (`9b380b45...9cc` missing a 'c' at the end). Correct UUID: `229be183-217b-4f93-ba48-9cdabbd1e37f`.
+
+### Routing Architecture (3 Layers)
+1. **Intent routing** (`master-routing-tables.ts`): query intent → primary + fallback dataset
+2. **Retrieval orchestrator** (`retrieval-orchestrator.ts`): per-intent config, score thresholds, fallback triggers, dedup, confidence grading
+3. **Keyword routing** (`agents/retrievalAgent.ts`): keyword matching → dataset scoring → route
+- Content automation Task 2 completed by Codex (committed as `9544d6e`):
+  - `src/lib/content-automation/dify-generation.ts`: Dify API integration via `/v1/workflows/run` streaming endpoint
+  - `src/lib/content-automation/parse-generated-content.ts`: robust JSON parser with snake_case/camelCase fallback
+  - Admin content routes refactored to use shared helpers
+- Content automation Task 3 completed (2026-05-18):
+  - `src/app/api/admin/content/jobs/route.ts`: `GET` (list with optional status/limit filter) + `POST` (create job with duplicate prevention)
+  - `src/app/api/admin/content/jobs/[id]/route.ts`: `GET` (single job) + `PATCH` (state advance with strict transition validation — brief→queued→generating→generated→reviewed→approved→published, failed terminal)
+  - `src/app/api/admin/content/publish/route.ts`: `POST` with idempotent artifact write (JSON + Markdown to `content/published/<slug>.*`), dry-run mode, already-published overwrite support
+  - Smoke test: 9/9 passed (enqueue, duplicate prevention, persistence, valid transitions, blocked transitions, terminal states, full lifecycle, idempotent publish)
+- Content automation Task 4 completed (2026-05-18):
+  - `src/components/admin/ContentAutomationPanel.tsx`: self-contained panel with 4 stat cards, job creation form, auto-refresh, wired to all Task 3 endpoints
+  - `src/components/admin/ContentJobTable.tsx`: job rows with status color chips, context-aware action buttons (Queue/Generate/Review/Approve/Publish), inline feedback field, empty state
+  - `src/app/admin/page.tsx`: added `Content Jobs` tab to Intelligence group, imports ContentAutomationPanel
+  - `app/admin/page.tsx`: stub (unchanged, returns null per migration protocol)
+- Content automation Task 5 completed (2026-05-18):
+  - `src/lib/content-automation/brief-from-source.ts`: `briefFromContentEntry()` (ContentBrief → ContentJob), `briefsFromContentPlan()` (bulk), `pickNextBestBriefs()` (scored prioritization: pillars +100, troubleshooting +50, diagnostic +30, beginner +20), `enqueueBestBriefs()` (top N enqueueable)
+  - `src/lib/content-automation/types.ts`: added `feedback?: string` to `ContentJob`
+  - `docs/content/automation-loop.md`: full loop documentation — data flow, prioritization algorithm, feedback loop, triggers, file layout
+- Content automation Task 6 completed (2026-05-18):
+  - `scripts/content-automation-smoke.ts`: 8-phase smoke test (create, advance, feedback, JSON shape, publish, idempotent, integrity, cleanup)
+  - `package.json`: `content:smoke` script wired via `npx tsx`
+  - `docs/content/release-checklist.md`: pre-release checks, smoke phases table, post-release verification
+  - `npm run content:smoke` — 14/14 pass
+  - ALL 6 CONTENT AUTOMATION TASKS COMPLETE
+- Task 7 — Real Content Rendering completed (2026-05-18):
+  - `src/lib/content-automation/content-reader.ts`: `listPublishedContent()`, `getPublishedContentBySlug()`, `getPublishedSlugs()` — reads `content/published/*.json`
+  - `src/app/article/[slug]/page.tsx`: checks `getPublishedContentBySlug()` first → renders real bodySections with proper HTML formatting; falls back to existing `fetchDifyInsights()` for legacy content
+  - `src/components/admin/PublishedContentPanel.tsx`: new "Published" tab in admin — lists all published articles, preview pane with keyword/section counts, "View Live" link
+  - `src/app/api/admin/content/published/route.ts`: API endpoint for published panel
+  - Test article at `content/published/smoke-test-fpv-build.json` — 5 sections, verified renders via content reader
+- Task 8 — Local Verification + Deploy Checklist completed (2026-05-18):
+  - Content reader verified: 3 published articles (smoke-test-fpv-build, fpv-troubleshooting-guide, fpv-components-wiring-guide), all with 5 sections + 3 keywords
+  - Safe fallback: `getPublishedContentBySlug('non-existent')` returns `null`
+  - `npx tsc --noEmit` — clean (exit 0)
+  - `npm run content:smoke` — 14/14 pass
+  - Dev server render blocked by pre-existing `motion-dom.js` webpack chunk issue (not introduced by Task 7/8; affects all pages using Framer Motion)
+  - **Local rendering FIXED**: Old `app/article/[slug]/page.tsx` still took precedence over `src/app/`. Synced content reader + PublishedArticle component to `app/` copy. Verified: all 3 articles render on `localhost:3000` with correct titles, H1s, and content.
+  - `docs/content/production-deploy-checklist.md` created: pre-deploy verification, deploy steps, post-deploy smoke, rollback path
 
 ## Current Architecture Decisions
 

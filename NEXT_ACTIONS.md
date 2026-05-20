@@ -4,7 +4,7 @@ Last updated: 2026-05-18
 
 ## Immediate Priority
 
-1. Content automation Task 1 DONE (2026-05-18): types, queue, contract doc created. Next: Task 2 — move prompt construction into shared generator, standardize JSON shape, parse Dify responses, update admin endpoints.
+1. Content automation Tasks 1-8 DONE + local rendering verified. Next: fix embedding credential (gemini-embedding-001 `google_api_key` error — 133/148 docs failed), fix retrievalAgent.ts fpv-regulations UUID bug, production deploy.
 2. Treat `https://www.t-motor.com/download` as a terminal crawl exception for now, and decide whether to replace it with a different manufacturer source or a manually captured page.
 3. Clean remaining lint debt in dashboard/admin components so pre-commit can run without `--no-verify`.
 4. Verify admin auth behavior on production.

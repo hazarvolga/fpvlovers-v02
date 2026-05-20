@@ -41,3 +41,66 @@ This project is indexed by GitNexus as **FPVLovers** (1437 symbols, 2063 relatio
 | Index, status, clean, wiki CLI commands | `.claude/skills/gitnexus/gitnexus-cli/SKILL.md` |
 
 <!-- gitnexus:end -->
+
+## Architecture: Pure Agentic System
+
+FPVLovers uses a **Pure Agentic Architecture** where all workflow orchestration is handled by custom TypeScript lib modules. There are no external workflow tools (n8n has been removed).
+
+### src/ Directory Structure
+
+All source code lives under `src/`:
+
+| Directory | Purpose |
+|-----------|---------|
+| `src/app/` | Next.js App Router pages and API routes |
+| `src/lib/` | Core TypeScript lib modules (orchestrators, clients, utilities) |
+| `src/lib/agents/` | 6 AI agent modules |
+| `src/lib/seo/` | SEO metadata utilities |
+| `src/types/` | Shared TypeScript type definitions |
+| `src/hooks/` | React custom hooks |
+| `src/components/ui/` | Reusable UI primitives (badge, button, card, AISummaryBox) |
+| `src/features/admin/components/` | Admin dashboard components |
+| `src/features/content-blocks/components/` | Block renderer and block view components |
+| `src/features/layout/components/` | Navbar, SystemHUD |
+| `src/features/monetization/components/` | AdZone, AffiliateButton, AffiliateCard, NativeAds, SponsorDashboard |
+| `src/features/navigation/components/` | Breadcrumb |
+| `src/features/tools/components/` | Interactive tool widgets (AffexDuelEngine, BlackboxTuner, FlightCriticWidget, HardwareAnalyzer, NewsletterWidget, PartMatcherWidget, PilotPulseWidget) |
+
+### Path Alias
+
+`@/*` resolves to `src/*` (configured in `tsconfig.json`).
+
+Example: `@/lib/utils` → `src/lib/utils.ts`
+
+### 8 Core Lib Modules
+
+| Module | Responsibility |
+|--------|---------------|
+| `master-orchestrator.ts` | Top-level request routing and agent coordination |
+| `master-routing-tables.ts` | Route definitions and dispatch rules |
+| `retrieval-orchestrator.ts` | RAG retrieval pipeline coordination |
+| `response-composer.ts` | Final response assembly from agent outputs |
+| `ecosystem-intelligence.ts` | FPV ecosystem knowledge and context |
+| `monetizationOrchestrator.ts` | Affiliate, sponsor, and ad orchestration |
+| `dify-client.ts` / `dify-caller.ts` | Dify LLM API integration |
+| `llm-cache.ts` | LLM response caching layer |
+
+### 6 AI Agents (`src/lib/agents/`)
+
+`affiliateAgent`, `ecosystemAgent`, `metadataAgent`, `recommendationAgent`, `retrievalAgent`, `seoAgent`, `sponsorshipAgent`
+
+`index.ts` exports all agents.
+
+### Conventional Commits
+
+All commits must follow Conventional Commits format: `type(scope): description`
+
+Valid types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`, `perf`, `ci`
+
+Enforced by commitlint + husky git hooks.
+
+---
+
+## n8n Removed
+
+n8n workflow orchestration has been removed from this project. All orchestration is now handled by the custom TypeScript lib modules in `src/lib/` listed above. Do not reference n8n, n8nac, or n8n-as-code in any new code or documentation.

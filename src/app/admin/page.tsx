@@ -9,6 +9,8 @@ import {
 } from 'lucide-react';
 import SponsorDashboard from '@/features/monetization/components/SponsorDashboard';
 import AnalyticsDashboard from '@/features/admin/components/AnalyticsDashboard';
+import ContentAutomationPanel from '@/components/admin/ContentAutomationPanel';
+import PublishedContentPanel from '@/components/admin/PublishedContentPanel';
 import { Button } from '@/components/ui/button';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -60,7 +62,7 @@ type CrawlerInfo = {
   version: string;
 };
 
-type TabId = 'hub' | 'ingest' | 'content' | 'logs' | 'retrieval' | 'raw-browser' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry';
+type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry';
 
 type Tab = { id: TabId; label: string; icon: React.ElementType };
 
@@ -150,6 +152,8 @@ export default function AdminDashboard() {
         { id: 'hub', label: 'RAG Hub', icon: Database },
         { id: 'ingest', label: 'URL Ingestion', icon: Globe },
         { id: 'content', label: 'Content Gen', icon: Pen },
+        { id: 'jobs', label: 'Content Jobs', icon: Workflow },
+        { id: 'published', label: 'Published', icon: FileText },
         { id: 'logs', label: 'Crawl Logs', icon: Clock },
         { id: 'retrieval', label: 'Retrieval Test', icon: Search },
         { id: 'raw-browser', label: 'Raw Browser', icon: FileText },
@@ -633,6 +637,14 @@ export default function AdminDashboard() {
                 </div>
               )}
 
+              {/* CONTENT JOBS */}
+              {activeTab === 'jobs' && (
+                <ContentAutomationPanel onNavigateToGeneration={() => setActiveTab('content')} />
+              )}
+
+              {/* PUBLISHED CONTENT */}
+              {activeTab === 'published' && <PublishedContentPanel />}
+
               {/* CRAWL LOGS */}
               {activeTab === 'logs' && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
@@ -710,6 +722,21 @@ export default function AdminDashboard() {
                         </div>
                       ) : (
                         <>
+                          <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-widest">
+                            <span className={`px-2 py-1 border ${retrievalResult.fallback ? 'border-[#FF5C00] text-[#FF5C00]' : 'border-[#00FF66] text-[#00FF66]'}`}>
+                              {retrievalResult.fallback ? 'Local Fallback' : 'Dify Live'}
+                            </span>
+                            {typeof retrievalResult.confidence === 'number' && (
+                              <span className="px-2 py-1 border border-[#333] text-[#A0A0A0]">
+                                Confidence {retrievalResult.confidence.toFixed(2)}
+                              </span>
+                            )}
+                            {retrievalResult.difyError && (
+                              <span className="px-2 py-1 border border-[#333] text-[#A0A0A0]">
+                                Dify auth failed
+                              </span>
+                            )}
+                          </div>
                           <div className="bg-[#0A0A0B] border border-[#333] p-4">
                             <h4 className="text-[10px] font-mono uppercase text-[#A0A0A0] tracking-widest mb-2">AI Answer</h4>
                             <p className="text-sm text-white font-mono leading-relaxed">{retrievalResult.answer}</p>

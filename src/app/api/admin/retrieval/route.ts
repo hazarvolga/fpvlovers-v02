@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
+import { getOptionalEnv } from '@/lib/env';
+import { orchestrateRetrieval } from '@/lib/retrieval-orchestrator';
 
 const BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 
@@ -10,8 +11,23 @@ export async function POST(req: NextRequest) {
 
     const targetId = datasetId || 'd1d5e44b-4dde-445a-a686-67a1cc0d926c'; // default flight-tuning
 
-    // Use Dify chat API with FPV Expert app to test retrieval
-    const appKey = getRequiredEnv('DIFY_APP_KEY');
+    // Local fallback: keep the admin smoke path useful even if Dify app auth is unavailable.
+    const appKey = getOptionalEnv('DIFY_APP_KEY', '');
+    if (!appKey) {
+      const fallback = orchestrateRetrieval(query, 'default');
+      return NextResponse.json({
+        query,
+        answer: `Local retrieval fallback: ${fallback.stats.confidence >= 0.75 ? 'high confidence' : fallback.stats.confidence >= 0.55 ? 'medium confidence' : 'low confidence'}`,
+        retrieverResources: fallback.chunks.slice(0, 5).map((c: any) => ({
+          datasetName: c.datasetName,
+          documentName: c.documentName,
+          content: c.content.slice(0, 200),
+          score: c.score,
+        })),
+        confidence: fallback.stats.confidence,
+        fallback: true,
+      });
+    }
 
     const resp = await fetch(`${BASE}/chat-messages`, {
       method: 'POST',
@@ -30,6 +46,22 @@ export async function POST(req: NextRequest) {
 
     if (!resp.ok) {
       const errText = await resp.text().catch(() => 'Unknown error');
+      if (resp.status === 401 || resp.status === 403) {
+        const fallback = orchestrateRetrieval(query, 'default');
+        return NextResponse.json({
+          query,
+          answer: `Local retrieval fallback after Dify auth failure (${resp.status})`,
+          retrieverResources: fallback.chunks.slice(0, 5).map((c: any) => ({
+            datasetName: c.datasetName,
+            documentName: c.documentName,
+            content: c.content.slice(0, 200),
+            score: c.score,
+          })),
+          confidence: fallback.stats.confidence,
+          fallback: true,
+          difyError: errText.slice(0, 300),
+        });
+      }
       return NextResponse.json({
         error: `Chat API ${resp.status}`,
         detail: errText.slice(0, 300),

@@ -8,14 +8,17 @@ const CRAWLERS = [
 const DIFY_BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 
 const DOMAIN_MAP: Record<string, string> = {
-  'betaflight.com': 'fpv-flight-tuning', 'edgetx.org': 'fpv-flight-tuning', 'ardupilot.org': 'fpv-flight-tuning',
-  'expresslrs.org': 'fpv-flight-tuning', 'px4.io': 'fpv-flight-tuning', 'fpv.wtf': 'fpv-flight-tuning',
-  'oscarliang.com': 'fpv-news-reviews', 'droneblog.com': 'fpv-news-reviews', 'propwashed.com': 'fpv-news-reviews',
+  'betaflight.com': 'fpv-flight-tuning', 'edgetx.org': 'fpv-flight-tuning', 'manual.edgetx.org': 'fpv-flight-tuning', 'ardupilot.org': 'fpv-flight-tuning',
+  'expresslrs.org': 'fpv-flight-tuning', 'px4.io': 'fpv-flight-tuning', 'fpv.wtf': 'fpv-flight-tuning', 'github.com/inavflight/inav': 'fpv-flight-tuning',
+  'oscarliang.com': 'fpv-news-reviews', 'mepsking.shop': 'fpv-news-reviews', 'blog.georgi-yanev.com': 'fpv-build-guides', 'droneblog.com': 'fpv-news-reviews', 'propwashed.com': 'fpv-news-reviews',
   'geprc.com': 'fpv-components-specs', 'speedybee.com': 'fpv-components-specs', 'dji.com': 'fpv-components-specs',
   'tmotor.com': 'fpv-components-specs', 'hglrc.com': 'fpv-components-specs', 'foxeer.com': 'fpv-components-specs',
   'runcam.com': 'fpv-components-specs', 'betafpv.com': 'fpv-components-specs', 'radiomasterrc.com': 'fpv-components-specs',
   'multigp.org': 'fpv-racing-events', 'droneraceleague.com': 'fpv-racing-events', 'fpvracing.tv': 'fpv-racing-events',
-  'intofpv.com': 'fpv-community-knowledge', 'reddit.com': 'fpv-community-knowledge', 'rcgroups.com': 'fpv-community-knowledge',
+  'rotorbuilds.com': 'fpv-build-guides', 'rotorriot.com': 'fpv-build-guides',
+  'intofpv.com': 'fpv-community-knowledge', 'reddit.com': 'fpv-community-knowledge', 'rcgroups.com': 'fpv-community-knowledge', 'rckolik.com': 'fpv-community-knowledge',
+  'dronetr.net': 'fpv-community-knowledge', 'fpvdroneturk.com': 'fpv-community-knowledge', 'brodrone.com.tr': 'fpv-build-guides', 'maker.robotistan.com': 'fpv-build-guides',
+  'arxiv.org': 'fpv-community-knowledge', 'researchgate.net': 'fpv-community-knowledge', 'ieeexplore.ieee.org': 'fpv-community-knowledge', 'rpg.ifi.uzh.ch': 'fpv-racing-events',
   'shgm.gov.tr': 'fpv-regulations', 'easa.europa.eu': 'fpv-regulations', 'dronerules.eu': 'fpv-regulations',
   'uavcoach.com': 'fpv-regulations', 'droneregulations.info': 'fpv-regulations',
 };
@@ -34,7 +37,13 @@ const DATASET_IDS: Record<string, string> = {
 
 function routeUrl(url: string): string {
   try {
-    const domain = new URL(url).hostname.replace('www.', '');
+    const parsed = new URL(url);
+    const domain = parsed.hostname.replace('www.', '');
+    const path = `${parsed.hostname}${parsed.pathname}`.toLowerCase();
+    if (path.includes('2301.01755') || path.includes('2505.17438') || path.includes('2510.13644') || path.includes('rpg.ifi.uzh.ch/docs/arxiv23_hanover.pdf')) return 'fpv-racing-events';
+    if (path.includes('339355780')) return 'fpv-flight-tuning';
+    if (path.includes('394056828') || path.includes('366435671') || path.includes('09992013.pdf')) return 'fpv-community-knowledge';
+    if (path.includes('github.com/inavflight/inav')) return 'fpv-flight-tuning';
     for (const [key, val] of Object.entries(DOMAIN_MAP)) {
       if (domain.includes(key)) return val;
     }

@@ -36,6 +36,7 @@ export type ContentJob = {
   seo: ContentJobSEO;
   draftPath?: string;
   publishedPath?: string;
+  feedback?: string;
   createdAt: string;
   updatedAt: string;
 };

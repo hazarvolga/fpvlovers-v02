@@ -3,35 +3,150 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchDifyInsights } from '@/lib/dify';
+import { getPublishedContentBySlug } from '@/lib/content-automation/content-reader';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AffiliateButton } from '@/features/monetization/components/AffiliateButton';
 import { AdZone } from '@/features/monetization/components/AdZone';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
-import { ArrowLeft, Cpu, Shield, Zap } from 'lucide-react';
+import { ArrowLeft, Cpu, Shield, Zap, FileText } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
+  const published = getPublishedContentBySlug(resolvedParams.slug);
+  if (published) {
+    return {
+      title: `${published.title} | FPVLovers`,
+      description: published.excerpt || published.seo.metaDescription,
+      keywords: published.seo.keywords,
+    };
+  }
+
   const insights = await fetchDifyInsights();
   const insight = insights.find(i => i.id === resolvedParams.slug);
-
   if (!insight) return { title: 'Not Found' };
 
   return {
-     title: `${insight.title} | AFFEXAI FPV ORACLE`,
-     description: insight.summary,
-     category: insight.category,
-     openGraph: {
-       title: insight.title,
-       description: insight.summary,
-       images: insight.imageUrl ? [insight.imageUrl] : [],
-     }
+    title: `${insight.title} | AFFEXAI FPV ORACLE`,
+    description: insight.summary,
+    category: insight.category,
+    openGraph: {
+      title: insight.title,
+      description: insight.summary,
+      images: insight.imageUrl ? [insight.imageUrl] : [],
+    }
   };
+}
+
+function PublishedArticle({ article }: { article: ReturnType<typeof getPublishedContentBySlug> & object }) {
+  const a = article as any;
+  const breadcrumbs = [
+    { label: 'Content', href: '/#latest' },
+    { label: a.category || 'Article', href: `/category/${(a.category || 'article').toLowerCase().replace(/\s+/g, '-')}` },
+    { label: a.title, isCurrentPage: true }
+  ];
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
+      <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <article className="glass-card rounded-2xl overflow-hidden lg:col-span-8 col-span-1 border-[#00F5FF]/10">
+          <div className="p-8 md:p-12 pt-12">
+            <div className="flex items-center gap-2 mb-4">
+              <Badge className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-black/50 backdrop-blur-md border border-[#00FF66]/50 text-[#00FF66]">
+                {a.category || 'Article'}
+              </Badge>
+              <Badge className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-black/50 backdrop-blur-md border border-[#FFD700]/50 text-[#FFD700]">
+                AI-Generated
+              </Badge>
+            </div>
+
+            <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-6 leading-tight">
+              {a.title}
+            </h1>
+
+            {a.excerpt && (
+              <p className="text-xl md:text-2xl font-bold tracking-tight text-white/90 mb-10 pb-6 border-b border-white/10">
+                {a.excerpt}
+              </p>
+            )}
+
+            <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-[#A0A0A0] mb-10">
+              <span className="flex items-center gap-1.5"><FileText className="w-3 h-3 text-[#00FF66]" /> FPVLovers AutoBlog</span>
+              {a.publishedAt && (
+                <span>{new Date(a.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              )}
+            </div>
+
+            <div className="prose prose-invert max-w-none text-white/70 antialiased leading-relaxed mb-12 prose-headings:text-white prose-a:text-[#00F5FF] prose-strong:text-white/90 prose-li:text-white/60 prose-code:text-[#00FF66]">
+              {a.bodySections?.map((section: { id: string; title: string; content: string }) => (
+                <section key={section.id} className="mb-10">
+                  {section.title && section.title !== a.title && (
+                    <h2 className="text-2xl font-bold text-white mt-0 mb-4">{section.title}</h2>
+                  )}
+                  <div
+                    className="space-y-4"
+                    dangerouslySetInnerHTML={{
+                      __html: section.content
+                        .replace(/^# /gm, '### ')
+                        .replace(/^## /gm, '### ')
+                        .replace(/^### /gm, '#### ')
+                        .replace(/\n\n/g, '</p><p>')
+                        .replace(/^/, '<p>')
+                        .replace(/$/, '</p>')
+                        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+                        .replace(/- (.+)/g, '<li>$1</li>')
+                        .replace(/(<li>.*<\/li>)/, '<ul>$1</ul>'),
+                    }}
+                  />
+                </section>
+              )) || (
+                <p className="text-white/50 italic">No content sections available for this article.</p>
+              )}
+            </div>
+
+            {a.internalLinks?.length > 0 && (
+              <div className="border-t border-[#00F5FF]/10 pt-6 mt-8">
+                <h3 className="text-[10px] uppercase font-bold tracking-widest text-[#FFB800] mb-4">Related Content</h3>
+                <div className="flex flex-wrap gap-2">
+                  {a.internalLinks.map((link: string, i: number) => (
+                    <Link key={i} href={link.startsWith('/') ? link : `/${link}`} className="text-xs font-mono text-[#00F5FF] hover:text-white transition-colors px-3 py-1 border border-[#00F5FF]/20 rounded">
+                      {link}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {a.publishNotes?.length > 0 && (
+              <div className="border-t border-white/5 pt-6 mt-8">
+                {a.publishNotes.map((note: string, i: number) => (
+                  <p key={i} className="text-[10px] text-[#A0A0A0] font-mono italic">{note}</p>
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
+
+        <aside className="lg:col-span-4 col-span-1 hidden lg:flex flex-col gap-6 w-full h-full">
+          <AdStickySidebar />
+        </aside>
+      </div>
+    </div>
+  );
 }
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
+
+  const published = getPublishedContentBySlug(resolvedParams.slug);
+  if (published) {
+    return <PublishedArticle article={published} />;
+  }
+
   const insights = await fetchDifyInsights();
   const insight = insights.find(i => i.id === resolvedParams.slug);
 
@@ -122,7 +237,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
                 </p>
               </div>
 
-              {/* Bottom-Right Terminal Action (Z-Pattern Exit) */}
               <AffiliateButton
                  url={insight.affiliateLink}
                  price={insight.price}
@@ -134,7 +248,6 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </article>
 
-      {/* Z-Pattern Right Column (Diagonal Follower) */}
       <aside className="lg:col-span-4 col-span-1 hidden lg:flex flex-col gap-6 w-full h-full">
          <AdStickySidebar />
       </aside>
