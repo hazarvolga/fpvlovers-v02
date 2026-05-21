@@ -1,7 +1,92 @@
 {
-  "generated_at": "2026-05-18T06:20:22.249033+00:00",
+  "generated_at": "2026-05-21T00:00:00.000Z",
   "source_backlog": "data/fpv-rag-source-backlog.json",
-  "limit": 3,
-  "selected_count": 0,
-  "selected": []
+  "limit": 20,
+  "selected_count": 14,
+  "selected": [
+    {
+      "url": "https://uav-en.tmotor.com/",
+      "dataset": "fpv-components-specs",
+      "tag": "Manufacturers",
+      "priority": "high"
+    },
+    {
+      "url": "https://www.dji.com/downloads/products/goggles-2",
+      "dataset": "fpv-components-specs",
+      "tag": "Manufacturers",
+      "priority": "high"
+    },
+    {
+      "url": "https://download.foxeer.com/",
+      "dataset": "fpv-components-specs",
+      "tag": "Manufacturers",
+      "priority": "high"
+    },
+    {
+      "url": "https://rotorriot.com/collections/pro-spec-builds",
+      "dataset": "fpv-build-guides",
+      "tag": "Builds",
+      "priority": "high"
+    },
+    {
+      "url": "https://www.fpvknowitall.com/",
+      "dataset": "fpv-build-guides",
+      "tag": "Builds",
+      "priority": "high"
+    },
+    {
+      "url": "https://geprc.com/docs-category/manuals/",
+      "dataset": "fpv-components-specs",
+      "tag": "Manufacturers",
+      "priority": "high"
+    },
+    {
+      "url": "https://www.hglrc.com/pages/download",
+      "dataset": "fpv-components-specs",
+      "tag": "Manufacturers",
+      "priority": "high"
+    },
+    {
+      "url": "https://www.iflight.com/en-techsupport",
+      "dataset": "fpv-components-specs",
+      "tag": "Manufacturers",
+      "priority": "medium"
+    },
+    {
+      "url": "https://arxiv.org/list/cs.RO/recent",
+      "dataset": "fpv-racing-events",
+      "tag": "Racing",
+      "priority": "medium"
+    },
+    {
+      "url": "https://www.mdpi.com/journal/drones",
+      "dataset": "fpv-community-knowledge",
+      "tag": "Research",
+      "priority": "medium"
+    },
+    {
+      "url": "https://img.banggood.com/file/products/20171201012630BLHeli_32%20manual%20ARM%20Rev32.x.pdf",
+      "dataset": "fpv-pid-profiles",
+      "tag": "Tools_Software",
+      "priority": "medium"
+    },
+    {
+      "url": "https://forum.donanimarsivi.com/",
+      "dataset": "fpv-community-knowledge",
+      "tag": "Communities",
+      "priority": "low"
+    },
+    {
+      "url": "https://github.com/bitdump/BLHeli",
+      "dataset": "fpv-pid-profiles",
+      "tag": "Tools_Software",
+      "priority": "medium"
+    },
+    {
+      "url": "https://iflightrc.freshdesk.com/support/solutions/48000284943",
+      "dataset": "fpv-components-specs",
+      "tag": "Manufacturers",
+      "priority": "medium"
+    }
+  ]
 }
