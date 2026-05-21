@@ -131,11 +131,19 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
               <div className="border-t border-[#00F5FF]/10 pt-6 mt-8">
                 <h3 className="text-[10px] uppercase font-bold tracking-widest text-[#FFB800] mb-4">Related Content</h3>
                 <div className="flex flex-wrap gap-2">
-                  {a.internalLinks.map((link: string, i: number) => (
-                    <Link key={i} href={link.startsWith('/') ? link : `/${link}`} className="text-xs font-mono text-[#00F5FF] hover:text-white transition-colors px-3 py-1 border border-[#00F5FF]/20 rounded">
-                      {link}
-                    </Link>
-                  ))}
+                  {a.internalLinks.map((link: string, i: number) => {
+                    const slug = link.split('/').pop() || link;
+                    const label = slug
+                      .split('-')
+                      .filter(Boolean)
+                      .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                      .join(' ');
+                    return (
+                      <Link key={i} href={link.startsWith('/') ? link : `/${link}`} className="text-xs font-mono text-[#00F5FF] hover:text-white transition-colors px-3 py-1 border border-[#00F5FF]/20 rounded">
+                        {label}
+                      </Link>
+                    );
+                  })}
                 </div>
               </div>
             )}

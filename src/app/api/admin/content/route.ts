@@ -96,8 +96,8 @@ export async function POST(req: NextRequest) {
       if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
       const withMedia = {
         ...result.content,
-        media: result.content.media || buildContentMedia({
-          slug: result.content.seo.slug || page,
+        media: buildContentMedia({
+          slug: result.content.seo?.slug || page,
           title: result.content.title,
           category: config.name,
           excerpt: result.content.excerpt,

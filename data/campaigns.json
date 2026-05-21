@@ -1,43 +1,31 @@
 [
   {
-    "id": "camp_spring_2026",
-    "name": "Spring 2026 Build Season",
-    "priority": 1,
-    "active": true,
-    "products": ["aff_dji_goggles_2", "aff_tbs_source_one"],
-    "type": "seasonal",
-    "season": "spring",
-    "startDate": "2026-04-01T00:00:00.000Z",
-    "endDate": "2026-06-30T00:00:00.000Z",
-    "budget": 500.00,
-    "discountCode": "SPRINGFPV10",
-    "productBundles": [
-      {
-        "id": "bundle_freestyle_starter",
-        "name": "Freestyle Starter Bundle",
-        "products": ["aff_tbs_source_one"],
-        "discount": 10,
-        "description": "Complete 5-inch freestyle setup with frame"
-      }
+    "id": "cmp_001_summer_build",
+    "name": "Summer Build 2026",
+    "type": "ab_test",
+    "startDate": "2026-06-01T00:00:00Z",
+    "endDate": "2026-08-31T23:59:59Z",
+    "status": "scheduled",
+    "variants": [
+      { "name": "control", "traffic": 50, "cta": "Learn More", "color": "#FF5C00" },
+      { "name": "variant_a", "traffic": 25, "cta": "Build Now", "color": "#00F2FF" },
+      { "name": "variant_b", "traffic": 25, "cta": "Start Your Build", "color": "#00FF66" }
     ],
-    "crossSellRules": [
-      {
-        "sourceProduct": "aff_tbs_source_one",
-        "targetProducts": ["aff_dji_goggles_2"],
-        "strategy": "frame-to-goggles-upgrade"
-      }
+    "metrics": { "impressions": 0, "clicks": 0, "conversions": 0, "ctr": 0, "conversionRate": 0 },
+    "createdAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "cmp_002_newsletter_signup",
+    "name": "Newsletter Signup Test",
+    "type": "ab_test",
+    "startDate": "2026-05-25T00:00:00Z",
+    "endDate": "2026-06-25T23:59:59Z",
+    "status": "scheduled",
+    "variants": [
+      { "name": "control", "traffic": 50, "cta": "Subscribe", "placement": "sidebar" },
+      { "name": "variant_a", "traffic": 50, "cta": "Get Free Guide", "placement": "inline" }
     ],
-    "targetAudience": {
-      "skillLevels": ["beginner", "intermediate"],
-      "budgetRange": ["budget", "mid-range"],
-      "flightStyles": ["freestyle", "racing"]
-    },
-    "createdAt": "2026-04-01T00:00:00.000Z",
-    "stats": {
-      "impressions": 1520,
-      "clicks": 231,
-      "conversions": 20,
-      "revenue": 4915.88
-    }
+    "metrics": { "impressions": 0, "clicks": 0, "conversions": 0, "ctr": 0, "conversionRate": 0 },
+    "createdAt": "2026-05-21T00:00:00.000Z"
   }
 ]
