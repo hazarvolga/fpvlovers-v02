@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-05-18
+Last updated: 2026-05-21
 
 ## Current Product Direction
 
@@ -27,6 +27,11 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 - Preferred app root: repository root with `Dockerfile`.
 
 ## Current Known State
+
+- GAP closure execution was reset into a phase-by-phase Codex plan on 2026-05-21 at `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md`.
+- OpenCode commit `2fb816a` is documentation-only; the automation implementation is `34369ec`.
+- Local verification before the new phase plan: `npx tsc --noEmit`, `npm run content:audit`, and `npm run content:smoke` passed.
+- Remaining launch blockers are operational rather than editorial: cron auth, crawl queue compliance, real content generation loop, duplicate route strategy, and final deploy gate.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.
