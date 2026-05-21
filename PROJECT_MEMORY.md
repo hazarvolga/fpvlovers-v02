@@ -156,6 +156,16 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `PropellerLabSection.tsx`: tactical hero media block with telemetry overlay, thrust data strip (DIAMETER/PITCH/BLADES/RPM_MAX), THRUST_VECTOR
   - `article/[slug]/page.tsx`: image credit line below cover
   - All media copyright-safe: SVG generated locally via `buildCoverImageSvg()`
+- GAP Closure — P0 tasks completed (2026-05-21):
+  - P0-1: 5 Dify system prompts uploaded (FPV Expert, Blackbox, Build Wizard, Part Matcher, Community Hub)
+  - P0-2: `fpv-rag-source-pack.json` filled with 14 priority URLs targeting 5 empty datasets
+  - P0-3: `embedding-usage.json` reset_at updated to 2026-05-21
+- GAP Closure — P1 tasks completed (2026-05-21):
+  - P1-1: `runWorkflow()` generic wrapper in `dify-generation.ts`, `WORKFLOW_IDS` in `master-routing-tables.ts`, dynamic `/api/admin/workflows/[name]` route
+  - P1-3: `affiliates.json` — 16 products across Amazon, GetFPV, Banggood, RaceDayQuads; `sponsors.json` — 4 sponsors with brand/tier fields
+- GAP Closure — P2 tasks completed (2026-05-21):
+  - P2-2: `GET /api/admin/health/alerts` — 8 service health checks (Dify, Crawl4AI x2, Qdrant, Postgres, Redis, embedding budget, content pipeline)
+- Pending: P1-2 duplicate route cleanup (needs `srcDirectory: 'src'` in next.config.ts + clean build), P1-4 pipeline smoke (needs production env Dify connectivity), P2-1 A/B test engine, P2-3 SEO metadata pipeline
 
 ## Current Architecture Decisions
 
