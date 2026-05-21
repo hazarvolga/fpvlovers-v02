@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-18T00:00:00Z",
+  "generated_at": "2026-05-21T10:19:22Z",
   "purpose": "Pending FPV source candidates for parts/build/retrieval coverage",
   "sources": [
     {
@@ -424,153 +424,170 @@
       "url": "https://github.com/bitdump/BLHeli",
       "desired_dataset": "fpv-flight-tuning",
       "priority": "high",
-      "status": "missing",
+      "status": "present",
       "notes": "BLHeli repository archive and historical resources.",
       "alternate_urls": [
         "https://img.banggood.com/file/products/20171201012630BLHeli_32%20manual%20ARM%20Rev32.x.pdf",
         "https://github.com/bitdump/blheli",
         "https://esc-configurator.com/"
-      ]
+      ],
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "iFlight support",
       "url": "https://www.iflight.com/en-techsupport",
       "desired_dataset": "fpv-components-specs",
       "priority": "high",
-      "status": "missing",
+      "status": "present",
       "notes": "iFlight support center and manuals.",
       "alternate_urls": [
         "https://iflightrc.freshdesk.com/support/solutions/48000284943"
-      ]
+      ],
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "GEPRC support",
       "url": "https://geprc.com/support/download/",
       "desired_dataset": "fpv-components-specs",
       "priority": "high",
-      "status": "missing",
+      "status": "present",
       "notes": "GEPRC manual and download center.",
       "alternate_urls": [
         "https://geprc.com/docs-category/manuals/"
-      ]
+      ],
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "Foxeer downloads",
       "url": "https://download.foxeer.com/",
       "desired_dataset": "fpv-components-specs",
       "priority": "medium",
-      "status": "missing",
-      "notes": "Foxeer manuals and firmware downloads."
+      "status": "crawl_error",
+      "notes": "Foxeer manuals and firmware downloads.",
+      "error": "Crawl4AI 500"
     },
     {
       "name": "HGLRC downloads",
       "url": "https://www.hglrc.com/pages/download",
       "desired_dataset": "fpv-components-specs",
       "priority": "medium",
-      "status": "missing",
-      "notes": "HGLRC download center."
+      "status": "present",
+      "notes": "HGLRC download center.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "TMotor support",
       "url": "https://uav-en.tmotor.com/",
       "desired_dataset": "fpv-components-specs",
       "priority": "high",
-      "status": "missing",
+      "status": "present",
       "notes": "TMotor support and manuals.",
       "alternate_urls": [
         "https://store.tmotor.com/"
-      ]
+      ],
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "Happymodel support",
       "url": "https://www.happymodel.cn/index.php/",
       "desired_dataset": "fpv-components-specs",
       "priority": "medium",
-      "status": "missing",
-      "notes": "Happymodel support site."
+      "status": "present",
+      "notes": "Happymodel support site.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "EMAX support",
       "url": "https://emax-usa.com/",
       "desired_dataset": "fpv-components-specs",
       "priority": "medium",
-      "status": "missing",
-      "notes": "EMAX support and product docs."
+      "status": "present",
+      "notes": "EMAX support and product docs.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "DJI goggles 2 downloads",
       "url": "https://www.dji.com/downloads/products/goggles-2",
       "desired_dataset": "fpv-components-specs",
       "priority": "medium",
-      "status": "missing",
-      "notes": "DJI FPV goggles downloads."
+      "status": "present",
+      "notes": "DJI FPV goggles downloads.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "Manualslib",
       "url": "https://www.manualslib.com/",
       "desired_dataset": "fpv-components-specs",
       "priority": "medium",
-      "status": "missing",
-      "notes": "Manuals archive and fallback."
+      "status": "present",
+      "notes": "Manuals archive and fallback.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "Device.report",
       "url": "https://device.report/",
       "desired_dataset": "fpv-components-specs",
       "priority": "medium",
-      "status": "missing",
-      "notes": "Device manual archive fallback."
+      "status": "crawl_error",
+      "notes": "Device manual archive fallback.",
+      "error": "Crawl4AI 500"
     },
     {
       "name": "Rotorriot",
       "url": "https://rotorriot.com/",
       "desired_dataset": "fpv-build-guides",
       "priority": "medium",
-      "status": "missing",
+      "status": "present",
       "notes": "Rotor Riot builds and products.",
       "alternate_urls": [
         "https://rotorriot.com/collections/pro-spec-builds"
-      ]
+      ],
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "FPVKnowItAll",
       "url": "https://www.fpvknowitall.com/",
       "desired_dataset": "fpv-build-guides",
       "priority": "medium",
-      "status": "missing",
-      "notes": "High-signal build and tuning knowledge."
+      "status": "present",
+      "notes": "High-signal build and tuning knowledge.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "DonanimArsivi forum",
       "url": "https://forum.donanimarsivi.com/",
       "desired_dataset": "fpv-community-knowledge",
       "priority": "medium",
-      "status": "missing",
-      "notes": "Turkish forum and beginner build discussion."
+      "status": "crawl_error",
+      "notes": "Turkish forum and beginner build discussion.",
+      "error": "Crawl4AI 500"
     },
     {
       "name": "arXiv cs.RO recent",
       "url": "https://arxiv.org/list/cs.RO/recent",
       "desired_dataset": "fpv-racing-events",
       "priority": "medium",
-      "status": "missing",
-      "notes": "Robotics and autonomous flight recent papers."
+      "status": "present",
+      "notes": "Robotics and autonomous flight recent papers.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "MDPI Drones",
       "url": "https://www.mdpi.com/journal/drones",
       "desired_dataset": "fpv-community-knowledge",
       "priority": "medium",
-      "status": "missing",
-      "notes": "Academic journal for drone research."
+      "status": "present",
+      "notes": "Academic journal for drone research.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     },
     {
       "name": "IEEE Xplore",
       "url": "https://ieeexplore.ieee.org/",
       "desired_dataset": "fpv-community-knowledge",
       "priority": "medium",
-      "status": "missing",
-      "notes": "Academic index for UAV and control papers."
+      "status": "present",
+      "notes": "Academic index for UAV and control papers.",
+      "crawled_at": "2026-05-21T10:19:22Z"
     }
   ]
 }

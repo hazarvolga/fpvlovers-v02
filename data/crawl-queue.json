@@ -1,0 +1,201 @@
+{
+  "jobs": [
+    {
+      "id": "18bfcc5d-6891-45bd-9e90-e374b2aa606e",
+      "url": "https://github.com/bitdump/BLHeli",
+      "dataset": "fpv-flight-tuning",
+      "status": "completed",
+      "priority": 5,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:17:39Z"
+    },
+    {
+      "id": "c837129b-b553-4ffa-be7e-b84e5a31546c",
+      "url": "https://www.iflight.com/en-techsupport",
+      "dataset": "fpv-components-specs",
+      "status": "completed",
+      "priority": 5,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:17:41Z"
+    },
+    {
+      "id": "6ae1c481-7386-43d8-a3fe-0a6e0b8164ab",
+      "url": "https://geprc.com/support/download/",
+      "dataset": "fpv-components-specs",
+      "status": "completed",
+      "priority": 5,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:17:45Z"
+    },
+    {
+      "id": "84a47b0e-2883-4c8e-9029-ebde542ecd13",
+      "url": "https://download.foxeer.com/",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:13:09Z"
+    },
+    {
+      "id": "d861cbcb-997c-455d-b58d-159b98f99792",
+      "url": "https://www.hglrc.com/pages/download",
+      "dataset": "fpv-components-specs",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:17:50Z"
+    },
+    {
+      "id": "9a3845ea-d7c6-45bf-928d-3b9c5ad636c4",
+      "url": "https://uav-en.tmotor.com/",
+      "dataset": "fpv-components-specs",
+      "status": "completed",
+      "priority": 5,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:17:54Z"
+    },
+    {
+      "id": "a0ac2e4b-ffe7-4f52-9440-3e5b860f9802",
+      "url": "https://www.happymodel.cn/index.php/",
+      "dataset": "fpv-components-specs",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:01Z"
+    },
+    {
+      "id": "e1c089ed-f8a4-4836-8543-4b2a471a550e",
+      "url": "https://emax-usa.com/",
+      "dataset": "fpv-components-specs",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:09Z"
+    },
+    {
+      "id": "78b53bfa-1bee-42e8-a61a-e65003b6b6e7",
+      "url": "https://www.dji.com/downloads/products/goggles-2",
+      "dataset": "fpv-components-specs",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:14Z"
+    },
+    {
+      "id": "09caa146-92ec-443f-91a6-eac47b224df3",
+      "url": "https://www.manualslib.com/",
+      "dataset": "fpv-components-specs",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:18Z"
+    },
+    {
+      "id": "b2f929bd-c7b5-4a3a-a739-71943f4f766f",
+      "url": "https://device.report/",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:13:09Z"
+    },
+    {
+      "id": "a792c133-09ec-40b9-84af-bcfdbf125752",
+      "url": "https://rotorriot.com/",
+      "dataset": "fpv-build-guides",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:37Z"
+    },
+    {
+      "id": "b900b644-25a8-45ea-9ddc-50a99dd0aca1",
+      "url": "https://www.fpvknowitall.com/",
+      "dataset": "fpv-build-guides",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:41Z"
+    },
+    {
+      "id": "f31a3af8-e506-4ef8-96f6-ebca0261d159",
+      "url": "https://forum.donanimarsivi.com/",
+      "dataset": "fpv-community-knowledge",
+      "status": "pending",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:13:09Z"
+    },
+    {
+      "id": "a95aa761-1390-46ae-8413-614f1cbf76ad",
+      "url": "https://arxiv.org/list/cs.RO/recent",
+      "dataset": "fpv-racing-events",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:44Z"
+    },
+    {
+      "id": "59f04c54-908f-42d4-99d4-dc2b40802a24",
+      "url": "https://www.mdpi.com/journal/drones",
+      "dataset": "fpv-community-knowledge",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:50Z"
+    },
+    {
+      "id": "1ac5ae3c-55d5-4651-a830-d680cbd574fc",
+      "url": "https://ieeexplore.ieee.org/",
+      "dataset": "fpv-community-knowledge",
+      "status": "completed",
+      "priority": 3,
+      "retries": 0,
+      "maxRetries": 2,
+      "createdAt": "2026-05-21T10:13:09Z",
+      "updatedAt": "2026-05-21T10:18:55Z"
+    }
+  ],
+  "config": {
+    "batchSize": 3,
+    "batchDelayMs": 5000,
+    "maxConcurrent": 3,
+    "retryDelaysMs": [
+      60000,
+      300000,
+      900000
+    ]
+  }
+}
