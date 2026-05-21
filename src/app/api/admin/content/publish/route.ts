@@ -1,66 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
 import { loadContentJobs, saveContentJobs } from '@/lib/content-automation/queue';
 import type { ContentJob, ContentJobStatus } from '@/lib/content-automation/types';
 import type { GeneratedContent } from '@/lib/content-automation/parse-generated-content';
 import { buildContentMedia } from '@/lib/content-automation/content-media';
-
-const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
-
-function ensureDir(dir: string) {
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
-  }
-}
-
-function publishArtifact(slug: string, job: ContentJob, content: GeneratedContent): boolean {
-  ensureDir(PUBLISHED_DIR);
-  const jsonPath = path.join(PUBLISHED_DIR, `${slug}.json`);
-  const mdPath = path.join(PUBLISHED_DIR, `${slug}.md`);
-  const media = content.media || buildContentMedia({
-    slug,
-    title: content.title,
-    category: job.category,
-    excerpt: content.excerpt,
-  });
-
-  const artifact = {
-    slug,
-    title: content.title,
-    jobId: job.id,
-    category: job.category,
-    template: job.template,
-    seo: content.seo,
-    excerpt: content.excerpt,
-    bodySections: content.bodySections,
-    internalLinks: content.internalLinks,
-    publishNotes: content.publishNotes,
-    media,
-    jobStatus: job.status,
-    publishedAt: new Date().toISOString(),
-    promptVersion: job.promptVersion,
-  };
-
-  fs.writeFileSync(jsonPath, JSON.stringify(artifact, null, 2) + '\n', 'utf-8');
-
-  const markdown = [
-    `# ${content.title}`,
-    '',
-    `> ${content.excerpt}`,
-    '',
-    ...content.bodySections.map(
-      (section) => `## ${section.title}\n\n${section.content}\n`,
-    ),
-    ...(content.publishNotes.length > 0
-      ? ['', '---', '', ...content.publishNotes.map((n) => `_${n}_`)]
-      : []),
-  ].join('\n');
-
-  fs.writeFileSync(mdPath, markdown + '\n', 'utf-8');
-
-  return true;
-}
+import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
 
 export async function POST(req: NextRequest) {
   try {
@@ -121,7 +64,7 @@ export async function POST(req: NextRequest) {
         success: true,
         dryRun: true,
         job,
-        targetDir: PUBLISHED_DIR,
+        targetDir: 'content/published',
         targetSlug: slug,
         targetFiles: [`${slug}.json`, `${slug}.md`],
         contentPreview: publishContent.title,
@@ -130,21 +73,21 @@ export async function POST(req: NextRequest) {
     }
 
     if (alreadyPublished) {
-      publishArtifact(slug, job, publishContent);
+      const publishedFile = publishGeneratedContentArtifact(slug, job, publishContent);
       return NextResponse.json({
         success: true,
         idempotent: true,
         job,
-        publishedFile: `content/published/${slug}.json`,
+        publishedFile,
       });
     }
 
-    publishArtifact(slug, job, publishContent);
+    const publishedFile = publishGeneratedContentArtifact(slug, job, publishContent);
 
     const now = new Date().toISOString();
     job.status = 'published' as ContentJobStatus;
     job.updatedAt = now;
-    job.publishedPath = `content/published/${slug}.json`;
+    job.publishedPath = publishedFile;
     jobs[index] = job;
     saveContentJobs(jobs);
 
@@ -154,7 +97,8 @@ export async function POST(req: NextRequest) {
       job,
       publishedFile: job.publishedPath,
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Unknown publish error';
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }
