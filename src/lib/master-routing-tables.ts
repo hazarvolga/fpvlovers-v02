@@ -246,3 +246,22 @@ export function resolveFileRoute(filename: string): FileRoute | undefined {
   const ext = filename.slice(filename.lastIndexOf('.')).toLowerCase();
   return FILE_ROUTES.find(r => r.extensions.includes(ext));
 }
+
+// ─── WORKFLOW IDS (DSL → API Mapping)
+// Workflow DSL files in /dify_workflows/ mapped to their Dify app tokens.
+// Use runWorkflow(appToken, inputs) in lib/content-automation/dify-generation.ts
+
+export const WORKFLOW_IDS: Record<string, string> = {
+  seoContentGenerator: 'a6d903cf-65f0-434a-8ac4-9f65bd9f080a',
+  metadataEnrichment: 'TODO-import-to-dify-first',
+  affiliateOrchestrator: 'TODO-import-to-dify-first',
+  sponsorshipOrchestrator: 'TODO-import-to-dify-first',
+  scheduledPublisher: 'TODO-import-to-dify-first',
+  droneBuildRecommender: 'TODO-import-to-dify-first',
+  dronePartMatcher: 'TODO-import-to-dify-first',
+  hdTuneAnalyzer: 'TODO-import-to-dify-first',
+};
+
+export const WORKFLOW_TOKENS: Record<string, string> = {
+  seoContentGenerator: 'app-XJogXujRpHH3Ri8dOU9F',
+};

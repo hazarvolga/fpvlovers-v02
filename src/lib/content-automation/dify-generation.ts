@@ -334,3 +334,43 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
     outputs,
   };
 }
+
+export async function runWorkflow(
+  appToken: string,
+  inputs: Record<string, unknown>,
+): Promise<ContentGenerationResult> {
+  const resp = await fetch(`${BASE}/workflows/run`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${appToken}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      inputs,
+      response_mode: 'streaming',
+      user: 'fpvlovers-system',
+    }),
+    signal: AbortSignal.timeout(90000),
+  });
+
+  if (!resp.ok) {
+    const err = await resp.text().catch(() => 'Unknown');
+    throw new Error(`DIFY_API_${resp.status}: ${err.slice(0, 300)}`);
+  }
+
+  const streamed = await readWorkflowStream(resp);
+  const rawAnswer = JSON.stringify(streamed.outputs, null, 2);
+
+  return {
+    success: Object.keys(streamed.outputs).length > 0,
+    template: 'tech-article',
+    content: null,
+    rawAnswer,
+    sources: [],
+    workflowRunId: streamed.workflowRunId,
+    totalTokens: streamed.totalTokens,
+    elapsedTime: streamed.elapsedTime,
+    outputs: streamed.outputs,
+  };
+}
+
