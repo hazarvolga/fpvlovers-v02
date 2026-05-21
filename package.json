@@ -18,7 +18,8 @@
     "handoff": "node scripts/generate-handoff.mjs",
     "opencode:brief": "node scripts/opencode-brief.mjs",
     "content:smoke": "npx tsx scripts/content-automation-smoke.ts",
-    "content:audit": "npx tsx scripts/content-integrity-audit.ts"
+    "content:audit": "npx tsx scripts/content-integrity-audit.ts",
+    "routes:audit": "node scripts/route-tree-drift-audit.mjs"
   },
   "dependencies": {
     "@google/genai": "^1.17.0",

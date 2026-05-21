@@ -7,8 +7,8 @@ Last updated: 2026-05-21
 1. Execute `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md` phase by phase.
 2. DONE Phase 1 (2026-05-21): cron endpoints require a shared secret, `cron/crawl` uses `src/lib/crawl-queue.ts`, and dual cron routes are synced.
 3. DONE Phase 2 (2026-05-21): `cron/generate` now enqueues real jobs, blocks safely without `DIFY_APP_KEY`, and publishes Dify output when production credentials are present.
-4. Phase 3 next: close duplicate route risk through single-tree cleanup or an explicit drift guard.
-5. Phase 4: final deploy gate, Coolify Scheduled Task setup notes, memory/handoff update, and clean git status.
+4. DONE Phase 3 (2026-05-21): dual route trees are synced and guarded by `npm run routes:audit`; single-tree deletion is deferred until after a stable deploy.
+5. Phase 4 next: final deploy gate, Coolify Scheduled Task setup notes, memory/handoff update, and clean git status.
 
 ## Code Tasks Before Push
 

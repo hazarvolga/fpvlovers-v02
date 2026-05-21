@@ -33,14 +33,14 @@ export async function POST(req: Request) {
     }
 
     const ai = new GoogleGenAI({ apiKey });
-    
+
     // Upload to Gemini
     const uploadedFile = await ai.files.upload({
         file: tmpPath,
     });
 
     const prompt = `
-You are an expert FPV drone judge and aeronautical telemetry analyst. 
+You are an expert FPV drone judge and aeronautical telemetry analyst.
 Analyze the provided FPV flight video and evaluate the pilot's performance across 5 specific axes, scoring each from 0 to 100:
 1. Flow & Smoothness (Transitions between maneuvers)
 2. Speed Consistency (Throttle management)
