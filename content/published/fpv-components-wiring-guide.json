@@ -7,7 +7,11 @@
   "seo": {
     "slug": "fpv-components-wiring-guide",
     "metaDescription": "Understand the main FPV drone parts, how they connect, and the wiring logic behind a clean beginner build.",
-    "keywords": ["FPV drone parts", "FPV wiring guide", "motor ESC FC basics"]
+    "keywords": [
+      "FPV drone parts",
+      "FPV wiring guide",
+      "motor ESC FC basics"
+    ]
   },
   "excerpt": "A beginner-friendly map of every core FPV component, what it does, and how the signal and power paths fit together.",
   "bodySections": [
@@ -37,9 +41,32 @@
       "content": "Before buying components, verify:\n- **FC mounting holes** match your frame (30.5x30.5, 20x20, or whoop)\n- **ESC protocol** is supported by your FC (all modern FCs support DShot)\n- **Motor KV** matches your battery voltage (6S: 1700-1950KV, 4S: 2400-2700KV for 5-inch)\n- **VTX mounting** fits your frame's VTX slot\n- **Receiver protocol** matches your radio (ELRS, Crossfire, Tracer)"
     }
   ],
-  "internalLinks": ["/article/fpv-beginner-setup-guide", "/article/fpv-troubleshooting-guide"],
-  "publishNotes": ["Pillar content — wiring fundamentals", "Verified component compatibility"],
+  "internalLinks": [
+    "/article/fpv-beginner-setup-guide",
+    "/article/fpv-troubleshooting-guide"
+  ],
+  "publishNotes": [
+    "Pillar content — wiring fundamentals",
+    "Verified component compatibility"
+  ],
   "jobStatus": "published",
   "publishedAt": "2026-05-18T15:00:00.000Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "media": {
+    "coverImage": {
+      "src": "/api/content/media/cover/fpv-components-wiring-guide",
+      "alt": "FPV Components and Wiring Guide: What Each Part Does cover illustration",
+      "caption": "A beginner-friendly map of every core FPV component, what it does, and how the signal and power paths fit together.",
+      "source": "FPVLovers local media layer",
+      "credit": "FPVLovers generated artwork"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "Local SVG illustration generated from the published content metadata"
+    ],
+    "attribution": [
+      "Copyright-safe media generated locally by FPVLovers"
+    ]
+  }
 }

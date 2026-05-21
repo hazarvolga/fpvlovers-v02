@@ -25,3 +25,9 @@ __pycache__/
 coverage/
 .vercel/
 .turbo/
+.gitnexus/
+.kiro/
+tsc_errors.txt
+tsconfig.check-old.json
+data/content-last-auto-run.json
+data/crawl-last-auto-run.json

@@ -7,7 +7,11 @@
   "seo": {
     "slug": "fpv-troubleshooting-guide",
     "metaDescription": "Diagnose no-video, no-arm, binding, and startup issues with a simple FPV troubleshooting flow built for beginners.",
-    "keywords": ["FPV troubleshooting", "FPV drone problems", "no video FPV fix"]
+    "keywords": [
+      "FPV troubleshooting",
+      "FPV drone problems",
+      "no video FPV fix"
+    ]
   },
   "excerpt": "A practical troubleshooting hub for the most common FPV issues, organized by symptom so new pilots can find a fix quickly.",
   "bodySections": [
@@ -37,9 +41,32 @@
       "content": "Most FPV problems are preventable with regular maintenance:\n- **Conformal coat** your electronics for moisture protection\n- Check **antenna connections** after every crash\n- Inspect **frame screws** for tightness\n- Clean **motor bearings** periodically\n- Keep **spare antennas, props, and standoffs** in your field kit"
     }
   ],
-  "internalLinks": ["/article/fpv-components-wiring-guide", "/article/fpv-beginner-setup-guide"],
-  "publishNotes": ["AI-generated troubleshooting pillar", "Safety warnings verified"],
+  "internalLinks": [
+    "/article/fpv-components-wiring-guide",
+    "/article/fpv-beginner-setup-guide"
+  ],
+  "publishNotes": [
+    "AI-generated troubleshooting pillar",
+    "Safety warnings verified"
+  ],
   "jobStatus": "published",
   "publishedAt": "2026-05-18T14:00:00.000Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "media": {
+    "coverImage": {
+      "src": "/api/content/media/cover/fpv-troubleshooting-guide",
+      "alt": "FPV Troubleshooting Guide: Fix the Most Common Problems Fast cover illustration",
+      "caption": "A practical troubleshooting hub for the most common FPV issues, organized by symptom so new pilots can find a fix quickly.",
+      "source": "FPVLovers local media layer",
+      "credit": "FPVLovers generated artwork"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "Local SVG illustration generated from the published content metadata"
+    ],
+    "attribution": [
+      "Copyright-safe media generated locally by FPVLovers"
+    ]
+  }
 }

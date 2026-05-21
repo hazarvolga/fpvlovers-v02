@@ -1,38 +1,54 @@
 # FPVLovers Handoff Packet
 
-Generated at: 2026-05-21 (Opencode — GAP fully closed, automation live)
+Generated at: 2026-05-21 (Codex — phased GAP closure, deploy candidate)
 
-## Status: ALL TASKS COMPLETE — AUTOMATION PIPELINE OPERATIONAL
+## Status: DEPLOY CANDIDATE — FINAL LOCAL GATE PASSED
 
-### GAP Closure (9/9)
-| P | Task | Status |
-|---|------|--------|
-| P0-1 | System prompts in Dify | ✅ 5/5 |
-| P0-2 | Source pack filled | ✅ 14 URLs |
-| P0-3 | Budget date updated | ✅ |
-| P1-1 | Workflow API wrapper | ✅ runWorkflow() |
-| P1-2 | Route sync (25/25) | ✅ app/ ↔ src/app/ |
-| P1-3 | Affiliate + Sponsor data | ✅ 16 products, 4 sponsors |
-| P1-4 | Pipeline smoke test | ✅ |
-| P2-1 | A/B Test Engine | ✅ /api/admin/campaigns |
-| P2-2 | Monitoring alerts | ✅ /api/admin/health/alerts |
-| P2-3 | SEO Metadata Pipeline | ✅ /api/admin/seo |
+### Completed by Codex
 
-### Automation Pipeline (NEW)
+| Phase | Result |
+|-------|--------|
+| 0 | Execution plan added: `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md` |
+| 1 | Cron endpoints secured with `CRON_SECRET`; crawl automation uses `src/lib/crawl-queue.ts` |
+| 2 | Generate cron enqueues real briefs, blocks safely without `DIFY_APP_KEY`, and publishes Dify output when credentials are present |
+| 3 | Dual route trees synced and guarded with `npm run routes:audit` |
+| 4 | Runtime/tool artifacts ignored, tracked `tsconfig.tsbuildinfo` removed, final gate passed |
+
+### Automation Pipeline
+
 | Endpoint | Job | Schedule |
 |----------|-----|----------|
-| `GET /api/admin/cron/crawl` | Auto-crawl missing URLs (batch 3) | 6 hours |
-| `GET /api/admin/cron/generate` | Auto-enqueue + generate content | 4 hours |
-| `GET /api/admin/cron/status` | Automation health check | N/A |
+| `GET /api/admin/cron/crawl` | Enqueue missing/crawl-error backlog URLs into crawl queue (batch 3) | 6 hours |
+| `GET /api/admin/cron/generate` | Enqueue next editorial brief, then generate and publish with Dify when queued | 4 hours |
+| `GET /api/admin/cron/status` | Automation health check | manual / 12 hours |
 
-### Key Results
-- **Embedding**: 15→97 docs (65%), all 9 datasets active
-- **Crawl**: 39→53 sites (93%), 14 new via backup Crawl4AI
-- **Published content**: 2 articles live, 1 auto-enqueued by cron
-- **Admin**: 14 tabs, all routes operational
+All cron endpoints require `Authorization: Bearer $CRON_SECRET` or `x-cron-secret: $CRON_SECRET`.
 
-### Next for Codex
-1. Production deploy via Coolify
-2. Configure Coolify Scheduled Tasks for cron endpoints
-3. Browser smoke: https://fpvlovers.com.tr
-4. Run `npx tsc --noEmit` + `npm run content:audit` before deploy
+### Local Verification
+
+```bash
+npx tsc --noEmit
+npm run routes:audit
+npm run content:audit
+npm run content:smoke
+npm run build
+```
+
+All passed locally on 2026-05-21.
+
+### Deploy Next
+
+1. Push `deploy-clean`.
+2. Deploy through Coolify.
+3. Set `CRON_SECRET` and ensure `DIFY_APP_KEY` is present in Coolify env.
+4. Add Coolify Scheduled Tasks:
+   - crawl every 6 hours
+   - generate every 4 hours
+   - status manual or every 12 hours
+5. Browser smoke:
+   - `https://fpvlovers.com.tr`
+   - `/api/health`
+   - `/admin`
+   - `/api/admin/cron/status` with secret
+   - `/article/fpv-troubleshooting-guide`
+   - `/article/fpv-components-wiring-guide`

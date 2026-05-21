@@ -8,7 +8,7 @@ Last updated: 2026-05-21
 2. DONE Phase 1 (2026-05-21): cron endpoints require a shared secret, `cron/crawl` uses `src/lib/crawl-queue.ts`, and dual cron routes are synced.
 3. DONE Phase 2 (2026-05-21): `cron/generate` now enqueues real jobs, blocks safely without `DIFY_APP_KEY`, and publishes Dify output when production credentials are present.
 4. DONE Phase 3 (2026-05-21): dual route trees are synced and guarded by `npm run routes:audit`; single-tree deletion is deferred until after a stable deploy.
-5. Phase 4 next: final deploy gate, Coolify Scheduled Task setup notes, memory/handoff update, and clean git status.
+5. DONE Phase 4 (2026-05-21): final deploy gate passed, runtime files ignored, handoff refreshed, and release candidate commit prepared.
 
 ## Code Tasks Before Push
 
@@ -20,11 +20,14 @@ Last updated: 2026-05-21
 
 ## Deployment Tasks
 
-- Production deploy is complete on Coolify.
-- Confirm Docker image/container exists after future builds.
-- Confirm Traefik route for `fpvlovers.com.tr` after future FQDN changes.
-- Confirm app serves port `3000`.
-- Confirm health endpoint returns JSON `status: ok`.
+- Push `deploy-clean` and deploy the latest release candidate through Coolify.
+- Set `CRON_SECRET` in Coolify environment before enabling scheduled tasks.
+- Configure Coolify Scheduled Tasks:
+  - `GET https://fpvlovers.com.tr/api/admin/cron/crawl` every 6 hours with `Authorization: Bearer $CRON_SECRET`
+  - `GET https://fpvlovers.com.tr/api/admin/cron/generate` every 4 hours with `Authorization: Bearer $CRON_SECRET`
+  - `GET https://fpvlovers.com.tr/api/admin/cron/status` manually or every 12 hours with `Authorization: Bearer $CRON_SECRET`
+- After deploy, verify `/api/health`, `/api/admin/cron/status`, homepage, `/admin`, and two published articles in browser.
+- Run one production `cron/generate?dry_run=true` before enabling real generation.
 
 ## Infrastructure Follow-Up
 
