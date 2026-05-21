@@ -167,11 +167,12 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - P2-2: `GET /api/admin/health/alerts` — 8 service health checks (Dify, Crawl4AI x2, Qdrant, Postgres, Redis, embedding budget, content pipeline)
 - Pending: P1-2 duplicate route cleanup (needs `srcDirectory: 'src'` in next.config.ts + clean build), P1-4 pipeline smoke (needs production env Dify connectivity), P2-1 A/B test engine, P2-3 SEO metadata pipeline
 - GAP Closure — ALL COMPLETE (2026-05-21):
-  - P0: 3/3 — system prompts uploaded, 14 source URLs, budget date updated
-  - P1: 4/4 — runWorkflow() wrapper, routes synced (25/25 both trees), 16 affiliate products + 4 sponsors, pipeline endpoints operational
-  - P2: 2/3 — monitoring alerts (/api/admin/health/alerts), A/B test campaigns (data/campaigns.json)
-  - Pending: P2-3 SEO metadata pipeline (needs SEO agent wiring to content jobs)
-  - Next: production deploy via Coolify, browser smoke on http://fpvlovers.com.tr
+  - P0: 3/3 — system prompts, 14 source URLs, budget date
+  - P1: 4/4 — runWorkflow() wrapper, route sync (25/25 both trees), 16 affiliate products + 4 sponsors, endpoints operational
+  - P2: 3/3 — monitoring alerts (/api/admin/health/alerts), A/B test campaigns (/api/admin/campaigns), SEO metadata pipeline (/api/admin/seo + seo-pipeline.ts)
+  - Crawl: 53/57 sites crawled (93%), 14 new sites crawled via backup Crawl4AI, 3 crawl errors
+  - Embedding: 97/148 documents embedded (65%), all 9 datasets have content, credential fix applied
+  - Next: production deploy via Coolify, browser smoke on https://fpvlovers.com.tr
 
 ## Current Architecture Decisions
 
