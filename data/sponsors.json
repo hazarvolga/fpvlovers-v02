@@ -3,6 +3,8 @@
     "id": "spon_tmotor_f60",
     "name": "T-Motor",
     "type": "manufacturer",
+    "brand": "T-Motor",
+    "tier": "gold",
     "url": "https://store.tmotor.com",
     "budget": "monthly",
     "budgetAmount": 1500.00,
@@ -11,16 +13,8 @@
     "region": "global",
     "active": true,
     "products": [
-      {
-        "name": "F60 Pro V LV 1950KV",
-        "url": "https://store.tmotor.com/product/f60-pro-v.html",
-        "compatibleWith": ["5-inch-frames", "6s-batteries", "30x30-esc"]
-      },
-      {
-        "name": "Velox V3 2207 1750KV",
-        "url": "https://store.tmotor.com/product/velox-v3.html",
-        "compatibleWith": ["5-inch-frames", "6s-batteries"]
-      }
+      { "name": "F60 Pro V LV 1950KV", "url": "https://store.tmotor.com/product/f60-pro-v.html", "compatibleWith": ["5-inch-frames", "6s-batteries", "30x30-esc"] },
+      { "name": "Velox V3 2207 1750KV", "url": "https://store.tmotor.com/product/velox-v3.html", "compatibleWith": ["5-inch-frames", "6s-batteries"] }
     ],
     "visibilityScore": 85,
     "semanticRelevance": 92,
@@ -28,16 +22,87 @@
     "recommendationExposure": 0,
     "campaignHistory": [],
     "trustScore": 100,
-    "campaignMetrics": {
-      "impressions": 0,
-      "clicks": 0,
-      "ctr": 0,
-      "contextualEngagement": 0,
-      "retrievalAppearances": 0,
-      "recommendationConfidence": 0,
-      "semanticMatchQuality": 0
-    },
+    "campaignMetrics": { "impressions": 0, "clicks": 0, "ctr": 0, "contextualEngagement": 0, "retrievalAppearances": 0, "recommendationConfidence": 0, "semanticMatchQuality": 0 },
     "createdAt": "2026-05-08T00:00:00.000Z",
-    "updatedAt": "2026-05-08T00:00:00.000Z"
+    "updatedAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "spon_dji_enterprise",
+    "name": "DJI Enterprise",
+    "type": "manufacturer",
+    "brand": "DJI",
+    "tier": "platinum",
+    "url": "https://www.dji.com",
+    "budget": "quarterly",
+    "budgetAmount": 5000.00,
+    "priority": 2,
+    "category": "Digital FPV Systems",
+    "region": "global",
+    "active": true,
+    "products": [
+      { "name": "DJI O4 Air Unit Pro", "url": "https://www.dji.com/o4-air-unit", "compatibleWith": ["dji-goggles-2", "5-inch-frames"] },
+      { "name": "DJI Goggles 3", "url": "https://www.dji.com/goggles-3", "compatibleWith": ["dji-o4", "dji-rc-3"] }
+    ],
+    "visibilityScore": 95,
+    "semanticRelevance": 88,
+    "retrievalPresence": 0,
+    "recommendationExposure": 0,
+    "campaignHistory": [],
+    "trustScore": 98,
+    "campaignMetrics": { "impressions": 0, "clicks": 0, "ctr": 0, "contextualEngagement": 0, "retrievalAppearances": 0, "recommendationConfidence": 0, "semanticMatchQuality": 0 },
+    "createdAt": "2026-05-21T00:00:00.000Z",
+    "updatedAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "spon_getfpv",
+    "name": "GetFPV",
+    "type": "retailer",
+    "brand": "GetFPV",
+    "tier": "gold",
+    "url": "https://www.getfpv.com",
+    "budget": "monthly",
+    "budgetAmount": 2000.00,
+    "priority": 3,
+    "category": "Retail",
+    "region": "us",
+    "active": true,
+    "products": [
+      { "name": "FPV Drone Parts & Accessories", "url": "https://www.getfpv.com", "compatibleWith": ["all-builds"] }
+    ],
+    "visibilityScore": 80,
+    "semanticRelevance": 90,
+    "retrievalPresence": 0,
+    "recommendationExposure": 0,
+    "campaignHistory": [],
+    "trustScore": 95,
+    "campaignMetrics": { "impressions": 0, "clicks": 0, "ctr": 0, "contextualEngagement": 0, "retrievalAppearances": 0, "recommendationConfidence": 0, "semanticMatchQuality": 0 },
+    "createdAt": "2026-05-21T00:00:00.000Z",
+    "updatedAt": "2026-05-21T00:00:00.000Z"
+  },
+  {
+    "id": "spon_racedayquads",
+    "name": "RaceDayQuads",
+    "type": "retailer",
+    "brand": "RaceDayQuads",
+    "tier": "silver",
+    "url": "https://www.racedayquads.com",
+    "budget": "monthly",
+    "budgetAmount": 1000.00,
+    "priority": 4,
+    "category": "Racing Components",
+    "region": "us",
+    "active": true,
+    "products": [
+      { "name": "Racing FPV Parts", "url": "https://www.racedayquads.com", "compatibleWith": ["racing-builds"] }
+    ],
+    "visibilityScore": 70,
+    "semanticRelevance": 85,
+    "retrievalPresence": 0,
+    "recommendationExposure": 0,
+    "campaignHistory": [],
+    "trustScore": 92,
+    "campaignMetrics": { "impressions": 0, "clicks": 0, "ctr": 0, "contextualEngagement": 0, "retrievalAppearances": 0, "recommendationConfidence": 0, "semanticMatchQuality": 0 },
+    "createdAt": "2026-05-21T00:00:00.000Z",
+    "updatedAt": "2026-05-21T00:00:00.000Z"
   }
 ]
