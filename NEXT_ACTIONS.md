@@ -5,8 +5,8 @@ Last updated: 2026-05-21
 ## Immediate Priority
 
 1. Execute `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md` phase by phase.
-2. Phase 1 next: secure cron endpoints and make `cron/crawl` use `src/lib/crawl-queue.ts` instead of direct Crawl4AI calls.
-3. Phase 2 after that: make `cron/generate` complete the real content generation and publish loop, or record the exact live Dify blocker.
+2. DONE Phase 1 (2026-05-21): cron endpoints require a shared secret, `cron/crawl` uses `src/lib/crawl-queue.ts`, and dual cron routes are synced.
+3. Phase 2 next: make `cron/generate` complete the real content generation and publish loop, or record the exact live Dify blocker.
 4. Phase 3: close duplicate route risk through single-tree cleanup or an explicit drift guard.
 5. Phase 4: final deploy gate, Coolify Scheduled Task setup notes, memory/handoff update, and clean git status.
 

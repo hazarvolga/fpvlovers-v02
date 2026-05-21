@@ -32,6 +32,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 - OpenCode commit `2fb816a` is documentation-only; the automation implementation is `34369ec`.
 - Local verification before the new phase plan: `npx tsc --noEmit`, `npm run content:audit`, and `npm run content:smoke` passed.
 - Remaining launch blockers are operational rather than editorial: cron auth, crawl queue compliance, real content generation loop, duplicate route strategy, and final deploy gate.
+- Phase 1 completed by Codex on 2026-05-21: cron endpoints now require `CRON_SECRET`/`CRON_AUTH_TOKEN`, `cron/crawl` enqueues through `src/lib/crawl-queue.ts` instead of calling Crawl4AI directly, and `app/` plus `src/app/` cron route copies are synced. Verification passed: `npx tsc --noEmit`, route smoke (`401` without secret, `200` with secret), `npm run content:audit`, and `npm run content:smoke`.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

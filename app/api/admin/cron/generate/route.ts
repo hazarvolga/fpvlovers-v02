@@ -4,12 +4,15 @@ import path from 'path';
 import { loadContentJobs, saveContentJobs } from '@/lib/content-automation/queue';
 import { enqueueBestBriefs } from '@/lib/content-automation/brief-from-source';
 import { firstWaveContentPlan } from '@/lib/content-plan';
-import type { ContentJob } from '@/lib/content-automation/types';
+import { authorizeCronRequest } from '@/lib/cron-auth';
 
 const LAST_RUN_FILE = path.join(process.cwd(), 'data', 'content-last-auto-run.json');
 const MAX_AUTO_GENERATE_PER_RUN = 1;
 
-export async function GET() {
+export async function GET(req: Request) {
+  const auth = authorizeCronRequest(req);
+  if (!auth.authorized) return auth.response;
+
   try {
     const jobs = loadContentJobs();
     const existingSlugs = new Set(jobs.map((j) => j.briefSlug));
@@ -85,7 +88,8 @@ export async function GET() {
       briefs: newBriefs.map((b) => ({ title: b.title })),
       message: `${newBriefs.length} new brief(s) enqueued. Next cron run will trigger generation.`,
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Unknown cron generate error';
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }
