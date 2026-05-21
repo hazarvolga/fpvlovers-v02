@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchDifyInsights } from '@/lib/dify';
 import { getPublishedContentBySlug, type PublishedArtifact } from '@/lib/content-automation/content-reader';
+import { firstWaveContentPlan } from '@/lib/content-plan';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AffiliateButton } from '@/features/monetization/components/AffiliateButton';
 import { AdZone } from '@/features/monetization/components/AdZone';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
-import { ArrowLeft, Cpu, Shield, Zap, FileText } from 'lucide-react';
+import { ArrowLeft, Cpu, Shield, Zap, FileText, BookOpen } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -20,6 +21,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: `${published.title} | FPVLovers`,
       description: published.excerpt || published.seo.metaDescription,
       keywords: published.seo.keywords,
+    };
+  }
+
+  const seed = firstWaveContentPlan.find((e) => e.slug === resolvedParams.slug);
+  if (seed) {
+    return {
+      title: `${seed.title} | FPVLovers`,
+      description: seed.metaDescription,
+      keywords: [...seed.secondaryKeywords, seed.primaryKeyword],
     };
   }
 
@@ -201,6 +211,70 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const published = getPublishedContentBySlug(resolvedParams.slug);
   if (published) {
     return <PublishedArticle article={published} />;
+  }
+
+  const seed = firstWaveContentPlan.find((e) => e.slug === resolvedParams.slug);
+  if (seed) {
+    return (
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
+        <CyberBreadcrumb items={[
+          { label: 'Content', href: '/#latest' },
+          { label: seed.category, href: `/category/${seed.category.toLowerCase().replace(/\s+/g, '-')}` },
+          { label: seed.title, isCurrentPage: true },
+        ]} className="mb-8" />
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <article className="glass-card rounded-2xl overflow-hidden lg:col-span-8 col-span-1 border-[#00F5FF]/10">
+            <div className="p-8 md:p-12 pt-12">
+              <div className="flex items-center gap-2 mb-4">
+                <Badge className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-black/50 backdrop-blur-md border border-[#FFD700]/50 text-[#FFD700]">{seed.category}</Badge>
+                <Badge className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-black/50 backdrop-blur-md border border-[#00F2FF]/50 text-[#00F2FF]">Editorial Plan</Badge>
+                {seed.tier === 'pillar' && (
+                  <Badge className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-black/50 backdrop-blur-md border border-[#FF5C00]/50 text-[#FF5C00]">Pillar</Badge>
+                )}
+              </div>
+
+              <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-white mb-6 leading-tight">{seed.title}</h1>
+              <p className="text-xl md:text-2xl font-bold tracking-tight text-white/90 mb-4">{seed.summary}</p>
+              <p className="text-sm text-[#A0A0A0] mb-8 leading-relaxed">{seed.whyThisMatters}</p>
+
+              <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-[#A0A0A0] mb-10 pb-6 border-b border-white/10">
+                <span className="flex items-center gap-1.5"><BookOpen className="w-3 h-3 text-[#00FF66]" /> FPVLovers Editorial Plan</span>
+                <span>~{seed.estimatedWordCount} words planned</span>
+                <span>Audience: {seed.audience}</span>
+              </div>
+
+              <div className="space-y-6 mb-10">
+                <h2 className="text-lg font-bold uppercase text-[#FFB800] tracking-widest">Planned Article Outline</h2>
+                <ol className="list-decimal list-inside space-y-2 text-white/70">
+                  {seed.outline.map((item: string, i: number) => (
+                    <li key={i} className="text-sm leading-relaxed">{item}</li>
+                  ))}
+                </ol>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-8">
+                <span className="text-xs font-mono text-[#A0A0A0]">Keywords:</span>
+                {[seed.primaryKeyword, ...seed.secondaryKeywords].map((kw: string) => (
+                  <span key={kw} className="text-[10px] font-mono px-2 py-0.5 bg-[#0A0A0B] border border-[#333] text-[#A0A0A0]">{kw}</span>
+                ))}
+              </div>
+
+              <div className="border-t border-[#00F5FF]/10 pt-6 mt-8">
+                <div className="bg-[#0A0A0B] border border-[#FFD700]/20 p-6 text-center">
+                  <p className="text-sm text-[#FFD700] font-mono mb-2">This article is planned and will be generated soon.</p>
+                  <p className="text-xs text-[#A0A0A0]">Visit the admin Content Jobs tab to queue this article for AI generation.</p>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <aside className="lg:col-span-4 hidden lg:flex flex-col gap-6">
+            <AdStickySidebar />
+          </aside>
+        </div>
+      </div>
+    );
   }
 
   const insights = await fetchDifyInsights();
