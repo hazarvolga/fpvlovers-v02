@@ -23,6 +23,7 @@ cookies.txt
 .venv/
 __pycache__/
 coverage/
+output/
 .vercel/
 .turbo/
 .gitnexus/

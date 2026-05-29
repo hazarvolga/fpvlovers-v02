@@ -1,234 +1,193 @@
 'use client';
+// Part matcher needs local selection state and deterministic compatibility checks.
 
-import React, { useState } from 'react';
-import { GoogleGenAI } from '@google/genai';
-import { Activity, ShieldAlert, Cpu, Battery, Video, Send, Loader2, Zap, Wind } from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { Activity, Battery, CheckCircle2, Cpu, Radio, ShieldAlert, Video, Wind, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import ReactMarkdown from 'react-markdown';
+import { analyzeBuildCompatibility } from '@/lib/tools/component-compatibility';
+import type { BuildSelection, BuildSlot, FpvCatalogProduct, FpvProductType } from '@/lib/tools/fpv-product-types';
+import { cn } from '@/lib/utils';
 
-export function PartMatcherWidget() {
-  const [formData, setFormData] = useState({
-    frame: '',
-    motor: '',
-    prop: '',
-    esc: '',
-    battery: '',
-    fc: '',
-    vtx: '',
-    auw: '',
-    style: 'freestyle'
-  });
+type Props = {
+  products: FpvCatalogProduct[];
+};
 
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+type SlotConfig = {
+  slot: BuildSlot;
+  label: string;
+  type: FpvProductType | FpvProductType[];
+  icon: React.ComponentType<{ className?: string }>;
+  required?: boolean;
+};
 
-  const analyzeCompatibility = async () => {
-    if (!formData.frame || !formData.motor) {
-      setError("Please enter at least Frame and Motor details.");
-      return;
-    }
+const SLOT_CONFIG: SlotConfig[] = [
+  { slot: 'frame', label: 'Frame', type: 'frame', icon: Activity, required: true },
+  { slot: 'motor', label: 'Motor', type: 'motor', icon: Zap, required: true },
+  { slot: 'prop', label: 'Propeller', type: 'prop', icon: Wind, required: true },
+  { slot: 'stack', label: 'FC/ESC Stack', type: 'stack', icon: Cpu, required: true },
+  { slot: 'battery', label: 'Battery', type: 'battery', icon: Battery, required: true },
+  { slot: 'video', label: 'Video System', type: ['video', 'camera', 'vtx'], icon: Video },
+  { slot: 'receiver', label: 'Receiver', type: 'receiver', icon: Radio },
+];
 
-    setLoading(true);
-    setError(null);
-    setResult(null);
+const DEFAULT_SELECTION: BuildSelection = {
+  style: 'freestyle',
+};
 
-    try {
-      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      if (!apiKey || apiKey === "AIzaSy...") {
-        throw new Error("Gemini API key is not configured in .env.local");
-      }
+function optionMatches(product: FpvCatalogProduct, type: FpvProductType | FpvProductType[]): boolean {
+  return Array.isArray(type) ? type.includes(product.type) : product.type === type;
+}
 
-      const ai = new GoogleGenAI({ apiKey });
+export function PartMatcherWidget({ products }: Props) {
+  const [selection, setSelection] = useState<BuildSelection>(DEFAULT_SELECTION);
+  const result = useMemo(() => analyzeBuildCompatibility(selection, products), [selection, products]);
 
-      const systemInstruction = `
-# ROLE: Senior FPV Engineering Architect & Hardware Compatibility Expert
-# MISSION: Analyze FPV drone component lists for technical, electrical, and physical compatibility.
-
-## 🧠 ENGINEERING LOGIC (Chain-of-Thought):
-1. **Power Systems Check:** Voltage (S) compatibility. Check if Motor KV, Battery S, and ESC are aligned.
-2. **Propulsion Dynamics (CRITICAL):** Analyze Motor KV + Propeller Size + Pitch vs. Voltage. (e.g., 2400KV on 6S with 5" prop = Danger).
-3. **Thrust-to-Weight Ratio:** Calculate based on AUW. Target: >5:1 for Freestyle, >8:1 for Racing.
-4. **Electrical Load:** Max current draw vs. ESC rating.
-5. **Physical Mounting:** Stack size and VTX fitment.
-
-## 📝 OUTPUT FORMAT:
-### 📊 COMPATIBILITY MATRIX
-- 🟢/🔴/🟡 [Component]: Status.
-
-### 🧐 TECHNICAL ANALYSIS (Chain-of-Thought)
-- Deep dive into propulsion efficiency and thermal risks.
-
-### ⚡ PERFORMANCE METRICS (Estimated)
-- **Thrust Ratio:** X:1
-- **Flight Time:** X mins (based on style)
-- **Thermal Load:** Low/Medium/Critical
-
-### 🛠️ RECOMMENDED UPGRADES
-- Suggested alternatives for mismatched parts.
-`;
-
-      const prompt = `
-Target Style: ${formData.style}
-Estimated AUW: ${formData.auw}g
-Components:
-- Frame: ${formData.frame}
-- Motor: ${formData.motor}
-- Propeller: ${formData.prop}
-- ESC: ${formData.esc}
-- Battery: ${formData.battery}
-- FC: ${formData.fc}
-- VTX: ${formData.vtx}
-`;
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
-        contents: systemInstruction + "\n\n" + prompt,
-      });
-
-      setResult(response.text || '');
-    } catch (err) {
-      console.error(err);
-      setError(err instanceof Error ? err.message : 'An unknown error occurred during analysis.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+  const setSlot = (slot: BuildSlot, value: string) => {
+    setSelection((current) => ({ ...current, [slot]: value || undefined }));
   };
 
   const fillDemo = () => {
-    setFormData({
-      frame: 'Apex 5" Freestyle',
-      motor: '2207 1950KV',
-      prop: 'Gemfan 51433 Tri-blade',
-      esc: '50A 4-in-1',
-      battery: '6S 1100mAh LiPo',
-      fc: 'F722 Stack',
-      vtx: 'DJI O3 Air Unit',
-      auw: '650',
-      style: 'freestyle'
+    const find = (slot: SlotConfig) => products.find((product) => optionMatches(product, slot.type));
+    setSelection({
+      style: 'freestyle',
+      frame: find(SLOT_CONFIG[0])?.id,
+      motor: find(SLOT_CONFIG[1])?.id,
+      prop: find(SLOT_CONFIG[2])?.id,
+      stack: find(SLOT_CONFIG[3])?.id,
+      battery: find(SLOT_CONFIG[4])?.id,
+      video: find(SLOT_CONFIG[5])?.id,
+      receiver: find(SLOT_CONFIG[6])?.id,
     });
   };
 
+  const verdictTone = result.verdict === 'ready'
+    ? 'border-[#00FF66]/40 text-[#00FF66]'
+    : result.verdict === 'caution'
+      ? 'border-yellow-300/40 text-yellow-300'
+      : 'border-red-400/40 text-red-400';
+
   return (
-    <div className="flex flex-col gap-8 w-full">
-      <div className="flex justify-between items-center mb-2">
-        <h3 className="text-xs font-mono text-[#666666] uppercase tracking-[0.3em]">Build Configuration v2.0</h3>
+    <div className="flex w-full flex-col gap-8">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h3 className="text-xs font-mono uppercase tracking-[0.3em] text-[#666666]">Compatibility Matrix v2.1</h3>
+          <p className="mt-1 text-xs text-[#8e8b86]">Catalog-backed checks. No client API key, no live crawl.</p>
+        </div>
         <button
           onClick={fillDemo}
-          className="text-[10px] font-mono text-[#00F2FF]/50 hover:text-[#00F2FF] transition-colors border-b border-[#00F2FF]/20"
+          className="self-start border-b border-[#00F2FF]/20 text-[10px] font-mono text-[#00F2FF]/60 transition-colors hover:text-[#00F2FF]"
         >
-          [LOAD_TEST_DATA]
+          [LOAD_CATALOG_BUILD]
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {[
-          { label: 'Frame', name: 'frame', icon: Activity, placeholder: 'e.g., Apex 5" EVO' },
-          { label: 'Motor', name: 'motor', icon: Zap, placeholder: 'e.g., 2207 1950KV' },
-          { label: 'Propeller', name: 'prop', icon: Wind, placeholder: 'e.g., 51433 Tri-blade' },
-          { label: 'ESC', name: 'esc', icon: Cpu, placeholder: 'e.g., 50A 4-in-1' },
-          { label: 'Battery', name: 'battery', icon: Battery, placeholder: 'e.g., 6S 1100mAh' },
-          { label: 'VTX / Digital Link', name: 'vtx', icon: Video, placeholder: 'e.g., DJI O3 Air Unit' },
-        ].map((field) => (
-          <div key={field.name} className="space-y-2">
-            <label className="text-[10px] font-black tracking-widest uppercase text-[#00F2FF]/70 flex items-center gap-2">
-              <field.icon className="w-3 h-3" /> {field.label}
-            </label>
-            <input
-              type="text"
-              name={field.name}
-              value={formData[field.name as keyof typeof formData]}
-              onChange={handleInputChange}
-              placeholder={field.placeholder}
-              className="w-full bg-[#050505] border border-[#333333] px-4 py-4 font-mono text-sm text-white focus:outline-none focus:border-[#00F2FF] focus:shadow-[0_0_15px_rgba(0,242,255,0.1)] transition-all duration-300 hex-panel"
-            />
-          </div>
-        ))}
-
-        <div className="space-y-2">
-          <label className="text-[10px] font-black tracking-widest uppercase text-[#00F2FF]/70 flex items-center gap-2">
-            <Activity className="w-3 h-3" /> Estimated AUW (g)
-          </label>
-          <input
-            type="number"
-            name="auw"
-            value={formData.auw}
-            onChange={handleInputChange}
-            placeholder="e.g., 650"
-            className="w-full bg-[#050505] border border-[#333333] px-4 py-4 font-mono text-sm text-white focus:outline-none focus:border-[#00F2FF] transition-all hex-panel"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <label className="text-[10px] font-black tracking-widest uppercase text-[#00F2FF]/70 flex items-center gap-2">
-            <Send className="w-3 h-3" /> Target Style
-          </label>
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <label className="space-y-2">
+          <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#00F2FF]/70">
+            <SendIcon /> Target Style
+          </span>
           <select
-            name="style"
-            value={formData.style}
-            onChange={handleInputChange}
-            className="w-full bg-[#050505] border border-[#333333] px-4 py-4 font-mono text-sm text-white focus:outline-none focus:border-[#00F2FF] transition-all hex-panel appearance-none"
+            value={selection.style}
+            onChange={(event) => setSelection((current) => ({ ...current, style: event.target.value as BuildSelection['style'] }))}
+            className="w-full border border-[#333333] bg-[#050505] px-4 py-4 font-mono text-sm text-white outline-none transition-all focus:border-[#00F2FF]"
           >
-            <option value="freestyle">Freestyle (Balanced)</option>
-            <option value="racing">Racing (Max Thrust)</option>
-            <option value="cinematic">Cinematic (Smoothness)</option>
-            <option value="longrange">Long Range (Efficiency)</option>
+            <option value="freestyle">Freestyle</option>
+            <option value="racing">Racing</option>
+            <option value="cinematic">Cinematic</option>
+            <option value="longRange">Long Range</option>
+            <option value="whoop">Whoop</option>
           </select>
-        </div>
+        </label>
+
+        {SLOT_CONFIG.map((slot) => {
+          const options = products.filter((product) => optionMatches(product, slot.type));
+          const Icon = slot.icon;
+          return (
+            <label key={slot.slot} className="space-y-2">
+              <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#00F2FF]/70">
+                <Icon className="h-3 w-3" /> {slot.label}{slot.required ? ' *' : ''}
+              </span>
+              <select
+                value={selection[slot.slot] || ''}
+                onChange={(event) => setSlot(slot.slot, event.target.value)}
+                className="w-full border border-[#333333] bg-[#050505] px-4 py-4 font-mono text-sm text-white outline-none transition-all focus:border-[#00F2FF]"
+              >
+                <option value="">Select {slot.label}</option>
+                {options.map((product) => (
+                  <option key={product.id} value={product.id}>
+                    {product.name} - ${product.price.toFixed(2)}
+                  </option>
+                ))}
+              </select>
+            </label>
+          );
+        })}
       </div>
 
-      <Button
-        variant="default"
-        className="w-full h-16 text-lg font-black tracking-[0.2em] bg-[#00F2FF] text-black hover:bg-[#00D0DB] transition-all group relative overflow-hidden"
-        onClick={analyzeCompatibility}
-        disabled={loading}
-      >
-        <div className="absolute inset-0 bg-white/10 -translate-x-full group-hover:translate-x-full transition-transform duration-500 skew-x-12" />
-        {loading ? (
-          <>
-            <Loader2 className="w-6 h-6 mr-3 animate-spin" />
-            COMPUTING FLIGHT DYNAMICS...
-          </>
-        ) : (
-          <>
-            <Send className="w-6 h-6 mr-3" />
-            INITIATE MULTI-FACTOR SCAN
-          </>
-        )}
+      <Button variant="default" className="h-16 w-full text-lg font-black uppercase tracking-[0.2em]" onClick={fillDemo}>
+        Load Known Good Build
       </Button>
 
-      {error && (
-        <div className="p-4 border border-red-500/50 bg-red-500/10 text-red-400 font-mono text-sm flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
-          <ShieldAlert className="w-5 h-5 shrink-0" />
+      <section className="border border-white/10 bg-[#050505] p-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <div className="font-black mb-1 text-red-500 uppercase">[SCAN_ERROR]</div>
-            {error}
+            <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Diagnostic Output</h2>
+            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">{result.summary}</p>
+          </div>
+          <div className={cn('border px-3 py-2 text-xs font-black uppercase tracking-widest', verdictTone)}>
+            {result.verdict} / {result.score}
           </div>
         </div>
-      )}
 
-      {result && (
-        <div className="mt-12 pt-12 border-t border-[#333333] animate-in fade-in duration-700">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-8 h-8 rounded-full bg-[#00F2FF]/20 flex items-center justify-center">
-               <Activity className="w-4 h-4 text-[#00F2FF]" />
+        {result.calculator && (
+          <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
+            <Metric label="AUW" value={`${result.calculator.auw}g`} />
+            <Metric label="Thrust ratio" value={`${result.calculator.estimatedThrustRatio}:1`} tone="cyan" />
+            <Metric label="Hover" value={`${result.calculator.estimatedHoverThrottle}%`} />
+            <Metric label="Flight time" value={`${result.calculator.estimatedFlightTimeMin}m`} tone="green" />
+          </div>
+        )}
+
+        <div className="mt-6 space-y-3">
+          {result.checks.map((check) => (
+            <div key={check.label} className={cn(
+              'flex items-start gap-3 border p-4 text-sm',
+              check.status === 'pass' ? 'border-[#00FF66]/20 bg-[#00FF66]/5' : check.status === 'warn' ? 'border-yellow-300/20 bg-yellow-300/5' : 'border-red-400/20 bg-red-400/5',
+            )}>
+              {check.status === 'pass' ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-[#00FF66]" /> : <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0 text-yellow-300" />}
+              <div>
+                <div className="font-black uppercase tracking-widest text-white">{check.label}</div>
+                <div className="mt-1 text-[#d8d5cf]">{check.detail}</div>
+              </div>
             </div>
-            <h2 className="text-2xl font-black uppercase text-white tracking-tighter">Diagnostic Output v2.0</h2>
-          </div>
-
-          <div className="prose prose-invert prose-p:font-mono prose-p:text-sm prose-p:text-[#A0A0A0] prose-headings:font-black prose-headings:uppercase prose-headings:text-[#00F2FF] prose-headings:tracking-tighter prose-li:font-mono prose-li:text-sm max-w-none bg-[#050505] p-8 border border-[#333333] hex-panel relative">
-             <div className="absolute top-0 right-0 p-4 font-mono text-[8px] text-[#333333]">
-                FPV_LOVERS_ORACLE_SECURE_LINK
-             </div>
-            <ReactMarkdown>{result}</ReactMarkdown>
-          </div>
+          ))}
         </div>
-      )}
+
+        {result.calculator?.warnings.length ? (
+          <div className="mt-5 border border-yellow-300/20 bg-yellow-300/5 p-4">
+            <div className="mb-2 text-xs font-black uppercase tracking-widest text-yellow-200">Calculator warnings</div>
+            <ul className="space-y-2 text-sm text-[#d8d5cf]">
+              {result.calculator.warnings.map((warning) => (
+                <li key={warning}>- {warning}</li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
+      </section>
+    </div>
+  );
+}
+
+function SendIcon() {
+  return <Activity className="h-3 w-3" />;
+}
+
+function Metric({ label, value, tone = 'white' }: { label: string; value: string; tone?: 'white' | 'cyan' | 'green' }) {
+  const color = tone === 'cyan' ? 'text-[#00F2FF]' : tone === 'green' ? 'text-[#00FF66]' : 'text-white';
+  return (
+    <div className="border border-white/10 bg-white/[0.02] p-4">
+      <div className="text-[9px] uppercase tracking-widest text-[#8e8b86]">{label}</div>
+      <div className={cn('mt-1 text-xl font-black', color)}>{value}</div>
     </div>
   );
 }

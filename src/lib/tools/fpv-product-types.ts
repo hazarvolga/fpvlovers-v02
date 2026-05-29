@@ -1,0 +1,47 @@
+export type FpvProductType =
+  | 'frame'
+  | 'motor'
+  | 'prop'
+  | 'battery'
+  | 'stack'
+  | 'camera'
+  | 'vtx'
+  | 'video'
+  | 'receiver'
+  | 'radio'
+  | 'goggles'
+  | 'kit';
+
+export type ProductSpecValue = number | string | number[];
+
+export type FpvCatalogProduct = {
+  id: string;
+  name: string;
+  brand: string;
+  type: FpvProductType;
+  category: string;
+  sourceNetwork: string;
+  url: string;
+  price: number;
+  currency: string;
+  trustScore: number;
+  keywords: string[];
+  compatibleWith: string[];
+  tags: string[];
+  specs: Record<string, ProductSpecValue>;
+  fit: {
+    styles: string[];
+    cellCounts?: number[];
+    propSizes?: number[];
+    protocols?: string[];
+    stackMount?: string;
+    motorMount?: string;
+  };
+  imageUrl?: string;
+};
+
+export type BuildSlot = 'frame' | 'motor' | 'prop' | 'stack' | 'battery' | 'video' | 'receiver';
+
+export type BuildSelection = Partial<Record<BuildSlot, string>> & {
+  style: 'freestyle' | 'racing' | 'cinematic' | 'longRange' | 'whoop';
+};

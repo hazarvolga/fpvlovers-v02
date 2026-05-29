@@ -41,6 +41,11 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `9ee4565`: `tsx` is a local devDependency and content audit/smoke scripts run through `node --import tsx`, avoiding registry/network dependency during verification.
   - `afaf7e9`: `/api/admin/workflows/[name]` now routes through `src/lib/dify-client.ts` so workflow calls use the guarded Dify gateway path with budget/rate/cache handling and normalized admin response fields.
   - Fresh verification passed: `npx tsc --noEmit`, `npm run routes:audit`, `npm run content:audit`, `npm run content:smoke`, and `npm run build`.
+- Tool activation phase completed by Codex on 2026-05-29:
+  - `/tools/calculator` now uses a deterministic local FPV build calculator engine for AUW, thrust ratio, hover throttle, current margin, flight time, safe KV range, and warning states.
+  - `/tools/component-duel` now runs against a shared FPV product catalog derived from `data/affiliates.json` plus normalized specs instead of a disabled placeholder form.
+  - `/tools/part-matcher` no longer calls Gemini from the client; it uses the same catalog plus deterministic compatibility checks for frame/prop, KV/voltage, motor/battery, ESC margin, and calculator-derived metrics.
+  - Playwright Chromium was installed locally and verification passed: `npx tsc --noEmit`, `npm run routes:audit`, Playwright render smoke for `/tools/component-duel`, and Playwright click smoke for `/tools/part-matcher`.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

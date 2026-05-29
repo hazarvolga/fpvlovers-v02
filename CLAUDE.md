@@ -54,7 +54,7 @@ All source code lives under `src/`:
 |-----------|---------|
 | `src/app/` | Next.js App Router pages and API routes |
 | `src/lib/` | Core TypeScript lib modules (orchestrators, clients, utilities) |
-| `src/lib/agents/` | 6 AI agent modules |
+| `src/lib/agents/` | 7 AI agent modules |
 | `src/lib/seo/` | SEO metadata utilities |
 | `src/types/` | Shared TypeScript type definitions |
 | `src/hooks/` | React custom hooks |
@@ -64,7 +64,7 @@ All source code lives under `src/`:
 | `src/features/layout/components/` | Navbar, SystemHUD |
 | `src/features/monetization/components/` | AdZone, AffiliateButton, AffiliateCard, NativeAds, SponsorDashboard |
 | `src/features/navigation/components/` | Breadcrumb |
-| `src/features/tools/components/` | Interactive tool widgets (AffexDuelEngine, BlackboxTuner, FlightCriticWidget, HardwareAnalyzer, NewsletterWidget, PartMatcherWidget, PilotPulseWidget) |
+| `src/features/tools/components/` | Interactive tool widgets (AffexDuelEngine, BlackboxTuner, BuildCalculatorWidget, FlightCriticWidget, HardwareAnalyzer, NewsletterWidget, PartMatcherWidget, PilotPulseWidget) |
 
 ### Path Alias
 
@@ -85,7 +85,7 @@ Example: `@/lib/utils` → `src/lib/utils.ts`
 | `dify-client.ts` / `dify-caller.ts` | Dify LLM API integration |
 | `llm-cache.ts` | LLM response caching layer |
 
-### 6 AI Agents (`src/lib/agents/`)
+### 7 AI Agents (`src/lib/agents/`)
 
 `affiliateAgent`, `ecosystemAgent`, `metadataAgent`, `recommendationAgent`, `retrievalAgent`, `seoAgent`, `sponsorshipAgent`
 

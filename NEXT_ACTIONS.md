@@ -9,10 +9,13 @@ Last updated: 2026-05-29
 3. DONE Phase 2 (2026-05-21): `cron/generate` now enqueues real jobs, blocks safely without `DIFY_APP_KEY`, and publishes Dify output when production credentials are present.
 4. DONE Phase 3 update (2026-05-29): legacy `app/` and `lib/` trees are decommissioned; `npm run routes:audit` now guards that single-tree state.
 5. DONE Phase 4 (2026-05-21): final deploy gate passed, runtime files ignored, handoff refreshed, and release candidate commit prepared.
+6. DONE Tool activation phase (2026-05-29): Build Calculator, Component Duel, and Part Matcher now run on deterministic local/catalog-backed engines; Playwright Chromium render/click smoke passed.
 
 ## Code Tasks Before Push
 
 - Review current git status and separate unrelated pre-existing changes from deploy-critical fixes.
+- Continue tool activation with Blackbox Tuning server route and Flight Critic upload path; keep Dify calls behind `src/lib/dify-client.ts`.
+- Replace placeholder affiliate images with crawler/source-backed real product images before presenting product tools as visually production-ready.
 - Do not include unreviewed runtime files (`data/*last-auto-run.json`) or local tool folders (`.kiro/`, `.gitnexus/`) in deploy commits unless they are intentionally promoted.
 - Keep `sunucular/` out of Git. It is outside the frontend repo today and must stay private.
 - Confirm `credentials.json` and secret-like files are ignored.

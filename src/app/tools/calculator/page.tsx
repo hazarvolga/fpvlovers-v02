@@ -1,8 +1,8 @@
 import React from 'react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
-import { Activity, Calculator as CalcIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Calculator as CalcIcon } from 'lucide-react';
+import { BuildCalculatorWidget } from '@/features/tools/components/BuildCalculatorWidget';
 
 export const metadata = {
   title: 'Build Calculator | AI ORACLE',
@@ -32,34 +32,7 @@ export default function CalculatorPage() {
 </p>
           </div>
 
-          <div className="bg-[#050505] p-8 border border-[#333333] hex-panel relative">
-             <div className="flex flex-col gap-6">
-                 <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                       <label className="text-[10px] font-black tracking-widest uppercase text-[#00A8B3]">Est. Frame Weight (g)</label>
-                       <input type="number" defaultValue={130} className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#00A8B3]" />
-                    </div>
-                    <div className="space-y-2">
-                       <label className="text-[10px] font-black tracking-widest uppercase text-[#00A8B3]">Battery Weight (g)</label>
-                       <input type="number" defaultValue={180} className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#00A8B3]" />
-                    </div>
-                 </div>
-
-                 <div className="bg-black/50 p-6 border border-[#333333] mt-4 flex justify-between items-center text-center font-mono">
-                    <div>
-                       <div className="text-[10px] text-[#A0A0A0] mb-1">TOTAL AUW</div>
-                       <div className="text-2xl font-black text-white">310g</div>
-                    </div>
-                    <div className="text-[#333333] text-4xl">/</div>
-                    <div>
-                       <div className="text-[10px] text-[#A0A0A0] mb-1">REQ. THRUST (3:1)</div>
-                       <div className="text-2xl font-black text-[#FF5C00]">930g</div>
-                    </div>
-                 </div>
-
-                 <Button variant="cyber" className="w-full">RUN FULL DIAGNOSTIC</Button>
-             </div>
-          </div>
+          <BuildCalculatorWidget />
 
         </div>
 

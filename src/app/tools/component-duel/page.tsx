@@ -1,8 +1,9 @@
 import React from 'react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
-import { Zap, Vibrate } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Zap } from 'lucide-react';
+import { ComponentDuelWidget } from '@/features/tools/components/ComponentDuelWidget';
+import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
 
 export const metadata = {
   title: 'Component Duel | AI ORACLE',
@@ -10,6 +11,7 @@ export const metadata = {
 };
 
 export default function ComponentDuelPage() {
+  const products = getFpvProductCatalog();
   const breadcrumbs = [
     { label: 'Oracle Tools', href: '/tools' },
     { label: 'Component Duel', isCurrentPage: true }
@@ -32,18 +34,7 @@ export default function ComponentDuelPage() {
 </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-4">
-             <div className="bg-[#0A0A0B] border border-[#333333] p-6 text-center hex-panel h-48 flex flex-col items-center justify-center">
-                 <input type="text" placeholder="Select Component Alpha" className="w-full bg-[#050505] border border-[#333333] px-4 py-3 font-mono text-xs text-white text-center focus:outline-none focus:border-[#FF5C00]" />
-             </div>
-             <div className="bg-[#0A0A0B] border border-[#333333] p-6 text-center hex-panel h-48 flex flex-col items-center justify-center">
-                 <input type="text" placeholder="Select Component Beta" className="w-full bg-[#050505] border border-[#333333] px-4 py-3 font-mono text-xs text-white text-center focus:outline-none focus:border-[#00F2FF]" />
-             </div>
-          </div>
-
-          <Button variant="default" size="lg" className="w-full h-16 text-xl tracking-widest font-black uppercase" disabled>
-             INITIATE MATCHUP
-          </Button>
+          <ComponentDuelWidget products={products} />
 
         </div>
 

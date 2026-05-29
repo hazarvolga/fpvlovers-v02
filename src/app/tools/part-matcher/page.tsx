@@ -3,6 +3,7 @@ import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
 import { Cpu } from 'lucide-react';
 import { PartMatcherWidget } from '@/features/tools/components/PartMatcherWidget';
+import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
 
 export const metadata = {
   title: 'Part Matcher | AI ORACLE',
@@ -10,6 +11,7 @@ export const metadata = {
 };
 
 export default function PartMatcherPage() {
+  const products = getFpvProductCatalog();
   const breadcrumbs = [
     { label: 'Oracle Tools', href: '/tools' },
     { label: 'Part Matcher', isCurrentPage: true }
@@ -48,7 +50,7 @@ export default function PartMatcherPage() {
           </div>
 
           <div className="bg-[#050505]/40 backdrop-blur-sm p-6 sm:p-10 border border-[#333333] hex-panel relative">
-             <PartMatcherWidget />
+             <PartMatcherWidget products={products} />
           </div>
 
         </div>
