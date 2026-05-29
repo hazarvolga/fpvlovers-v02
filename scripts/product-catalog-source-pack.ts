@@ -25,7 +25,11 @@ for (const [dataset, sources] of Object.entries(byDataset)) {
 }
 
 if (!enqueue) {
-  console.log('\nDry run only. Use `npm run catalog:enqueue` to enqueue these URLs into the crawl queue.');
+  if (pending.length === 0) {
+    console.log('\nNo pending product catalog sources. Use Admin > Catalog Ops to monitor queued/crawled/failed status.');
+  } else {
+    console.log('\nDry run only. Use `npm run catalog:enqueue` to enqueue these URLs into the crawl queue.');
+  }
   process.exit(0);
 }
 

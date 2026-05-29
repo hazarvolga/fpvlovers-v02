@@ -92,6 +92,11 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Public-facing and visible admin copy no longer uses `AutoBlog`, `AI`, or `Dify` terminology; customer language now uses FPVLovers, pilot tools, workflow gateway, guided review, and editorial wording.
   - Browser smoke verified visible body text on `/`, `/tools/calculator`, `/tools/part-matcher`, and `/admin` does not include those banned terms.
   - Verification passed: `npx tsc --noEmit`, `npm run routes:audit`, `npm run tools:audit`, `npm run catalog:sources`, `npm run build`, and Playwright render/text smoke.
+- Product source enqueue completed by Codex on 2026-05-29:
+  - `POST /api/admin/catalog/sources` enqueued all 16 product catalog sources into `data/crawl-queue.json`.
+  - Queue-derived status now reports `pending=0`, `queued=16`, `crawled=0`, `failed=0` for the product source pack.
+  - Crawl queue totals after enqueue: `total=33`, `pending=19`, `completed=14`, `failed=0`, `throttled=0`.
+  - No direct Crawl4AI call was made; the next step is processing queued jobs through the existing crawl queue worker/cron path.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

@@ -1,6 +1,182 @@
 {
   "jobs": [
     {
+      "id": "mpr9bonzg6bx",
+      "url": "https://geprc.com/product-category/fpv-drones/",
+      "dataset": "fpv-build-guides",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.991Z",
+      "updatedAt": "2026-05-29T18:30:16.991Z"
+    },
+    {
+      "id": "mpr9bonz077c",
+      "url": "https://shop.iflight.com/fpv-drones-cat25",
+      "dataset": "fpv-build-guides",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.991Z",
+      "updatedAt": "2026-05-29T18:30:16.991Z"
+    },
+    {
+      "id": "mpr9bonxjs0t",
+      "url": "https://www.dji.com/downloads",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.989Z",
+      "updatedAt": "2026-05-29T18:30:16.989Z"
+    },
+    {
+      "id": "mpr9bonxuir4",
+      "url": "https://www.hd-zero.com/products",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.989Z",
+      "updatedAt": "2026-05-29T18:30:16.989Z"
+    },
+    {
+      "id": "mpr9bonw59ss",
+      "url": "https://www.team-blacksheep.com/products",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonwooi9",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonw80g0",
+      "url": "https://betafpv.com/collections",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonwlrik",
+      "url": "https://pyrodrone.com/collections/flight-controllers-escs",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonwaaze",
+      "url": "https://pyrodrone.com/collections/motors",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonwr9xl",
+      "url": "https://www.racedayquads.com/collections/fc-esc",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonw7mga",
+      "url": "https://www.racedayquads.com/collections/motors",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonwmoyu",
+      "url": "https://www.racedayquads.com/collections/frames",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonww5zf",
+      "url": "https://www.getfpv.com/batteries.html",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonw7p5y",
+      "url": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonwpcf8",
+      "url": "https://www.getfpv.com/quad-parts/motors.html",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
+      "id": "mpr9bonwkau6",
+      "url": "https://www.getfpv.com/quad-parts/frames.html",
+      "dataset": "fpv-components-specs",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-05-29T18:30:16.988Z",
+      "updatedAt": "2026-05-29T18:30:16.988Z"
+    },
+    {
       "id": "18bfcc5d-6891-45bd-9e90-e374b2aa606e",
       "url": "https://github.com/bitdump/BLHeli",
       "dataset": "fpv-flight-tuning",
@@ -197,5 +373,12 @@
       300000,
       900000
     ]
+  },
+  "stats": {
+    "total": 33,
+    "pending": 19,
+    "completed": 14,
+    "failed": 0,
+    "throttled": 0
   }
 }

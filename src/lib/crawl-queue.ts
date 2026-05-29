@@ -71,7 +71,7 @@ function load(): CrawlQueue {
 
 function save(q: CrawlQueue) {
   q.stats = calculateStats(q.jobs);
-  try { fs.writeFileSync(QUEUE_FILE, JSON.stringify(q, null, 2)); } catch {}
+  try { fs.writeFileSync(QUEUE_FILE, `${JSON.stringify(q, null, 2)}\n`); } catch {}
 }
 
 // ─── QUEUE OPERATIONS ───
