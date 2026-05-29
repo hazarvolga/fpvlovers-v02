@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+export const dynamic = 'force-dynamic';
+
+
 const AFFILIATES = path.join(process.cwd(), 'data', 'affiliates.json');
 const CAMPAIGNS = path.join(process.cwd(), 'data', 'campaigns.json');
 const CTAS = path.join(process.cwd(), 'data', 'ctas.json');

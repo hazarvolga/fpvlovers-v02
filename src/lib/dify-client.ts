@@ -359,3 +359,23 @@ export function resetDailyBudget() {
 export function healthCheck(): { dryRun: boolean; budget: ReturnType<typeof getBudgetStatus> } {
   return { dryRun: DRY_RUN, budget: getBudgetStatus() };
 }
+
+// ─── WORKFLOW RUNNER ───
+
+export async function runWorkflow(
+  workflowId: string,
+  inputs: Record<string, unknown>,
+  appToken: string
+): Promise<DifyClientResponse> {
+  return difyRequest('/workflows/run', {
+    method: 'POST',
+    body: {
+      inputs,
+      response_mode: 'blocking',
+      user: 'fpvlovers-system',
+    },
+    apiKey: appToken,
+    taskType: 'content_gen',
+  });
+}
+
