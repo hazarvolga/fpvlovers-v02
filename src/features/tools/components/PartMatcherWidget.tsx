@@ -76,7 +76,7 @@ export function PartMatcherWidget({ products }: Props) {
     setReviewError(null);
   };
 
-  const runDifyReview = async () => {
+  const runGuidedReview = async () => {
     setReviewLoading(true);
     setReviewError(null);
     setReview(null);
@@ -111,7 +111,7 @@ export function PartMatcherWidget({ products }: Props) {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-xs font-mono uppercase tracking-[0.3em] text-[#666666]">Compatibility Matrix v2.1</h3>
-          <p className="mt-1 text-xs text-[#8e8b86]">Catalog-backed checks. Live catalog expansion is in progress; Dify review stays behind the server gateway.</p>
+          <p className="mt-1 text-xs text-[#8e8b86]">Catalog-backed checks. Live catalog expansion is in progress; guided review stays behind the server gateway.</p>
         </div>
         <button
           onClick={fillDemo}
@@ -218,8 +218,8 @@ export function PartMatcherWidget({ products }: Props) {
       <section className="border border-white/10 bg-[#050505] p-5">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Dify Compatibility Review</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">Deterministic checks return instantly; Dify adds RAG-backed buying and risk guidance when the gateway responds in time.</p>
+            <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Compatibility Review</h2>
+            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">Deterministic checks return instantly; the review gateway adds source-backed buying and risk guidance when it responds in time.</p>
           </div>
           {review?.source && (
             <span className={cn(
@@ -231,8 +231,8 @@ export function PartMatcherWidget({ products }: Props) {
           )}
         </div>
 
-        <Button variant="cyber" className="mt-5 h-14 w-full uppercase tracking-[0.18em]" onClick={runDifyReview} disabled={reviewLoading}>
-          {reviewLoading ? 'Running Dify Review...' : 'Run Dify Compatibility Review'}
+        <Button variant="cyber" className="mt-5 h-14 w-full uppercase tracking-[0.18em]" onClick={runGuidedReview} disabled={reviewLoading}>
+          {reviewLoading ? 'Running Compatibility Review...' : 'Run Compatibility Review'}
         </Button>
 
         {reviewError && (

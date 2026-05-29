@@ -5,8 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 
 export const metadata = {
-  title: 'Marketplace Duel | AFFEXAI ORACLE',
-  description: 'AI-powered FPV component comparisons. Neural analysis evaluating thermodynamics, structural integrity, and telemetry performance.',
+  title: 'Marketplace Duel | FPVLovers',
+  description: 'FPV component comparisons evaluating thermodynamics, structural integrity, and telemetry performance.',
 }
 
 export default async function PartsDuelPage() {
@@ -14,7 +14,7 @@ export default async function PartsDuelPage() {
   const { productA, productB, result } = await getDuelComparison("motor-tmotor-f60", "motor-xnova-2207");
 
   const breadcrumbs = [
-    { label: 'AI Oracle Tools', href: '/tools' },
+    { label: 'Pilot Tools', href: '/tools' },
     { label: 'Component Duel', isCurrentPage: true }
   ];
 

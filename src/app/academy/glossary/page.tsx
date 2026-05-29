@@ -6,7 +6,7 @@ import { BookOpen, Cpu, Shield } from 'lucide-react';
 
 export const metadata = {
   title: 'FPV Glossary & Terminology | FPV LOVERS ACADEMY',
-  description: 'AI powered dictionary explaining complex UAV physics, electronics, and standard FPV abbreviations.',
+  description: 'Field dictionary explaining complex UAV physics, electronics, and standard FPV abbreviations.',
 };
 
 const glossaryData = [

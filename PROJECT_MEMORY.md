@@ -85,6 +85,11 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `npm run catalog:extract -- --input <crawl-results.json>` dry-runs extraction; adding `--write` persists records.
   - `POST /api/admin/catalog/extract` lets the admin layer submit a crawled page payload and optionally write extracted products into the normalized catalog.
   - Verification passed: `npx tsc --noEmit`, `npm run tools:audit`, `npm run routes:audit`, and a fixture dry-run extraction.
+- Catalog Ops and public language cleanup added by Codex on 2026-05-29:
+  - `src/app/admin/page.tsx` now includes a Catalog Ops tab for source-pack preview, source enqueue, crawler markdown extraction, optional catalog write, and catalog/image metrics.
+  - Public-facing and visible admin copy no longer uses `AutoBlog`, `AI`, or `Dify` terminology; customer language now uses FPVLovers, pilot tools, workflow gateway, guided review, and editorial wording.
+  - Browser smoke verified visible body text on `/`, `/tools/calculator`, `/tools/part-matcher`, and `/admin` does not include those banned terms.
+  - Verification passed: `npx tsc --noEmit`, `npm run routes:audit`, `npm run tools:audit`, `npm run build`, and Playwright render/text smoke.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

@@ -62,7 +62,7 @@
     "variant": "A",
     "abTest": {
       "enabled": false,
-      "variantB": "AI-Recommended Setup",
+      "variantB": "Recommended Setup",
       "variantBColor": "#00E65A",
       "winner": null
     },

@@ -21,7 +21,7 @@ export async function GET() {
       headers: { Authorization: `Bearer ${key}` },
       signal: AbortSignal.timeout(10000),
     });
-    if (!resp.ok) return NextResponse.json({ error: `Dify API ${resp.status}` }, { status: 502 });
+    if (!resp.ok) return NextResponse.json({ error: `Workflow API ${resp.status}` }, { status: 502 });
 
     const { data: datasets } = await resp.json() as { data: any[] };
     const fpv = (datasets || []).filter((d: any) => d.name?.startsWith('fpv-'));

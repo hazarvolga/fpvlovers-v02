@@ -69,7 +69,7 @@ const mockData: DifyResponse[] = [
   }
 ];
 
-export async function fetchDifyInsights(): Promise<DifyResponse[]> {
+export async function fetchEditorialInsights(): Promise<DifyResponse[]> {
   const apiKey = process.env.DIFY_API_KEY;
   const baseUrl = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 

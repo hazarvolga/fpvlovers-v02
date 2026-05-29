@@ -15,7 +15,8 @@ Last updated: 2026-05-29
 9. DONE Tool Dify alignment Phase 1 (2026-05-29): Build Wizard and Part Matcher now have Dify-first API review routes plus explicit UI review panels; deterministic calculators remain the guardrail.
 10. DONE Blackbox live Dify validation (2026-05-29): production-mode smoke reached Dify through `src/lib/dify-client.ts`, but Dify returned provider credential error `[models] Error: 'google_api_key'`.
 11. DONE Blackbox Dify provider fix (2026-05-29): Dify Gemini credential validated/updated via service layer using the full `AQ.` key format, and production-mode Blackbox smoke now returns `ok=true`, `dryRun=false`.
-12. IN PROGRESS Tool live-data alignment (2026-05-29): Flight Critic is deferred, Dify tool routes are hardened for short-timeout fallback, `npm run tools:audit` is the truth gate, `data/fpv-product-source-pack.json` is the crawler source pack, `data/fpv-products.catalog.json` is now the normalized product catalog input for Part Matcher / Component Duel, and `npm run catalog:extract` can transform Crawl4AI markdown/JSON output into catalog records.
+12. IN PROGRESS Tool live-data alignment (2026-05-29): Flight Critic is deferred, tool routes are hardened for short-timeout fallback, `npm run tools:audit` is the truth gate, `data/fpv-product-source-pack.json` is the crawler source pack, `data/fpv-products.catalog.json` is now the normalized product catalog input for Part Matcher / Component Duel, `npm run catalog:extract` can transform Crawl4AI markdown/JSON output into catalog records, and Admin > Catalog Ops exposes the source/extract/write controls.
+13. DONE Public language cleanup (2026-05-29): visible public/admin product copy no longer uses `AutoBlog`, `AI`, or `Dify`; implementation details stay internal behind FPVLovers/pilot-tool/workflow wording.
 
 ## Code Tasks Before Push
 
@@ -28,6 +29,7 @@ Last updated: 2026-05-29
 - After product crawls complete, run `npm run catalog:extract -- --input <crawl-results.json> --write` or `POST /api/admin/catalog/extract` with `write: true` to transform extracted product pages into `data/fpv-products.catalog.json` with real image/provenance fields.
 - Use `GET /api/admin/catalog/sources` in production after deploy to confirm source-pack and normalized product catalog readiness before enqueueing.
 - Run `npm run tools:audit` after every catalog/tool phase and keep any `PARTIAL` status explicit in handoff notes.
+- Keep implementation/vendor terms out of customer-facing copy. Prefer FPVLovers, pilot tools, workflow gateway, guided review, editorial workflow, catalog logic, and source-backed guidance.
 - Do not include unreviewed runtime files (`data/*last-auto-run.json`) or local tool folders (`.kiro/`, `.gitnexus/`) in deploy commits unless they are intentionally promoted.
 - Keep `sunucular/` out of Git. It is outside the frontend repo today and must stay private.
 - Confirm `credentials.json` and secret-like files are ignored.

@@ -67,13 +67,13 @@ function localHardwareMarkdown(input: HardwarePayload): string {
     '- Verify stack mounting pattern, UART availability, camera/VTX connector compatibility, and prop clearance before buying parts.',
     '',
     '### Recommended Next Step',
-    '- Route this build through the Dify Part Matcher / Build Wizard workflow once production credentials are enabled for deeper RAG-backed recommendations.',
+    '- Route this build through the guided compatibility workflow once production credentials are enabled for deeper source-backed recommendations.',
   ].join('\n');
 }
 
 function buildDifyPrompt(input: HardwarePayload, guardrail: string): string {
   return [
-    'You are the FPVLovers hardware compatibility advisor inside Dify.',
+    'You are the FPVLovers hardware compatibility advisor.',
     'Analyze this FPV component list for voltage, KV, ESC current margin, mounting, prop clearance, and video/control-link compatibility.',
     'Return concise Markdown with headings: Compatibility Matrix, Detailed Reasoning, Risk Assessment, Recommended Upgrades.',
     '',
@@ -99,7 +99,7 @@ export async function POST(req: NextRequest) {
         success: true,
         source: 'local',
         markdown: localMarkdown,
-        warning: 'Dify hardware app token is not configured; returned deterministic local compatibility check.',
+        warning: 'Hardware review gateway is not configured; returned deterministic local compatibility check.',
       });
     }
 
@@ -123,8 +123,8 @@ export async function POST(req: NextRequest) {
         source: 'local',
         markdown: localMarkdown,
         warning: response.dryRun
-          ? 'Dify dry-run is active locally; returned deterministic local compatibility check.'
-          : 'Dify hardware analysis did not return usable Markdown; returned deterministic local compatibility check.',
+          ? 'Dry-run is active locally; returned deterministic local compatibility check.'
+          : 'Hardware review gateway did not return usable Markdown; returned deterministic local compatibility check.',
       });
     }
 

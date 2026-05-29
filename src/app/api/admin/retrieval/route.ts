@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
         const fallback = orchestrateRetrieval(query, 'default');
         return NextResponse.json({
           query,
-          answer: `Local retrieval fallback after Dify auth failure (${resp.status})`,
+          answer: `Local retrieval fallback after gateway auth failure (${resp.status})`,
           retrieverResources: fallback.chunks.slice(0, 5).map((c: any) => ({
             datasetName: c.datasetName,
             documentName: c.documentName,

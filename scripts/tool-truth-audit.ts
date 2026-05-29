@@ -93,14 +93,14 @@ const rows: AuditRow[] = [
   row(
     'Build Wizard',
     hasDifyApp('Build Wizard') ? 'PARTIAL' : 'FAIL',
-    'local calculator + Dify Build Wizard',
-    `Dify app configured: ${hasDifyApp('Build Wizard')}; routing doc counts build=${buildDocs}, components=${componentsDocs}.`,
-    'Run production Dify smoke and refresh fpv-build-guides + fpv-components-specs with source-backed docs.',
+    'local calculator + guided build workflow',
+    `Workflow configured: ${hasDifyApp('Build Wizard')}; routing doc counts build=${buildDocs}, components=${componentsDocs}.`,
+    'Run production workflow smoke and refresh fpv-build-guides + fpv-components-specs with source-backed docs.',
   ),
   row(
     'Part Matcher',
     catalogIsMvpOnly ? 'PARTIAL' : 'PASS',
-    'shared local catalog + Dify Part Matcher',
+    'shared local catalog + guided compatibility workflow',
     productCatalogFinding,
     'Replace placeholder affiliate seed data with crawler-backed product specs, real images, and source provenance.',
   ),
@@ -114,23 +114,23 @@ const rows: AuditRow[] = [
   row(
     'Hardware Analyzer',
     hasDifyApp('Part Matcher') && !catalogIsMvpOnly ? 'PASS' : 'PARTIAL',
-    'manual input + Dify Part Matcher/Build Wizard',
-    `Dify Part Matcher configured: ${hasDifyApp('Part Matcher')}; catalog is ${catalogIsMvpOnly ? 'MVP-only' : 'broad enough'}.`,
+    'manual input + guided compatibility workflow',
+    `Compatibility workflow configured: ${hasDifyApp('Part Matcher')}; catalog is ${catalogIsMvpOnly ? 'MVP-only' : 'broad enough'}.`,
     'Point analyzer at normalized catalog entities instead of free-text-only hardware fields.',
   ),
   row(
     'Blackbox Tuning',
     hasDifyApp('Blackbox Tuning Advisor') && tuningDocs > 0 ? 'PASS' : 'PARTIAL',
-    'local tuning guardrail + Dify Blackbox app',
-    `Dify app configured: ${hasDifyApp('Blackbox Tuning Advisor')}; routing tuning docs=${tuningDocs}.`,
+    'local tuning guardrail + guided blackbox workflow',
+    `Blackbox workflow configured: ${hasDifyApp('Blackbox Tuning Advisor')}; routing tuning docs=${tuningDocs}.`,
     'Keep provider credential smoke in the release gate and expand PID/troubleshooting corpora.',
   ),
   row(
     'Flight Critic',
     'DEFERRED',
-    'disabled UI / future Dify video workflow',
+    'disabled UI / future video workflow',
     'Intentionally postponed; current page should not be marketed as real frame-level video analysis.',
-    'Create a dedicated video/telemetry Dify workflow after catalog-backed product tools are live.',
+    'Create a dedicated video/telemetry workflow after catalog-backed product tools are live.',
   ),
 ];
 

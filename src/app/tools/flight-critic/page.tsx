@@ -5,13 +5,13 @@ import { Video, ScanText } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const metadata = {
-  title: 'Flight Critic | AI ORACLE',
-  description: 'AI-driven Video Analysis & Quality Grading for FPV footage.',
+  title: 'Flight Critic | Pilot Tools',
+  description: 'Video review and flight quality grading for FPV footage.',
 };
 
 export default function FlightCriticPage() {
   const breadcrumbs = [
-    { label: 'Oracle Tools', href: '/tools' },
+    { label: 'Pilot Tools', href: '/tools' },
     { label: 'Flight Critic', isCurrentPage: true }
   ];
 
@@ -28,7 +28,7 @@ export default function FlightCriticPage() {
                Flight <span className="text-[#00F2FF]">Critic</span>
              </h1>
              <p className="text-sm font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest mx-auto sm:mx-0">
-{"// Input YouTube URL. AI Dify agent will analyze trick continuity, stick rates, and propwash handling."}
+{"// Input a YouTube URL to review trick continuity, stick rates, and propwash handling."}
 </p>
           </div>
 

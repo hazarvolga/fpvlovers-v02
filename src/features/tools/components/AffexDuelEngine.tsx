@@ -64,7 +64,7 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
 
        {isWinner && (
          <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-            <Badge className="bg-[#00F5FF] text-[#050810] font-black pointer-events-none shadow-[0_0_10px_#00F5FF]"><Check className="w-3 h-3 mr-1" /> AI WINNER</Badge>
+            <Badge className="bg-[#00F5FF] text-[#050810] font-black pointer-events-none shadow-[0_0_10px_#00F5FF]"><Check className="w-3 h-3 mr-1" /> BEST PICK</Badge>
          </div>
        )}
 
@@ -212,7 +212,7 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
                <TrendingUp className="w-8 h-8 text-[#FFB800]" />
             </div>
             <div className="flex-1 text-center md:text-left">
-               <h4 className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-1">Official AI Protocol Verdict</h4>
+               <h4 className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-1">Official Build Protocol Verdict</h4>
                <p className="text-lg md:text-xl font-bold text-white leading-relaxed">
                  {result.verdictReason}
                </p>

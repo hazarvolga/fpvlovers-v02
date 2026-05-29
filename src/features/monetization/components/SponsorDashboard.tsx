@@ -159,12 +159,12 @@ export default function SponsorDashboard() {
             <MetricCard icon={Target} label="Rec. Quality" value={insights?.recommendationQuality || 0} suffix="/100" color="#F472B6" />
           </div>
 
-          {/* AI Insights */}
+          {/* Sponsor Insights */}
           {insights && (
             <div className="bg-[#0A0A0B] border border-[#222] p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Zap className="w-4 h-4 text-[#FFD700]" />
-                <h3 className="text-white font-mono text-sm uppercase tracking-widest">AI Insights</h3>
+                <h3 className="text-white font-mono text-sm uppercase tracking-widest">Sponsor Insights</h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                 <div className="p-3 bg-[#111] border border-[#222]">

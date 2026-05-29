@@ -7,11 +7,11 @@ import { MonitorPlay, Trophy, Cpu } from 'lucide-react';
 
 export const metadata = {
   title: 'Simulator Training | FPV LOVERS ACADEMY',
-  description: 'Master the sticks before you fly real carbon. AI-recommended simulator hardware and software setups.',
+  description: 'Master the sticks before you fly real carbon. Recommended simulator hardware and software setups.',
 };
 
-async function fetchDataFromDify() {
-  // Mock Dify RAG Response
+async function fetchSimulatorData() {
+  // Local training reference seed.
   await new Promise(r => setTimeout(r, 600));
   return {
     summary: "Simulators are the definitive entry point to FPV. Data indicates pilots who spend 40+ hours in Acro mode on VelociDrone or Liftoff face a 75% lower crash rate on their first maiden flight. Avoid Bluetooth controllers; a dedicated radio transmitter via USB is mandatory for muscle memory mapping.",
@@ -41,7 +41,7 @@ async function fetchDataFromDify() {
 }
 
 export default async function SimulatorsPage() {
-  const data = await fetchDataFromDify();
+  const data = await fetchSimulatorData();
   const breadcrumbs = [
     { label: 'Pilot Academy', href: '/academy' },
     { label: 'Simulator Training', isCurrentPage: true }

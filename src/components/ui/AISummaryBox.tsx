@@ -9,7 +9,7 @@ interface AISummaryBoxProps {
   latency?: string;
 }
 
-export function AISummaryBox({ content, title = "SYS.DIFY_SUMMARY", className, latency = "12ms" }: AISummaryBoxProps) {
+export function AISummaryBox({ content, title = "SYS.FIELD_SUMMARY", className, latency = "12ms" }: AISummaryBoxProps) {
   return (
     <div className={cn("glass-panel hex-panel p-6 relative border-l-2 border-[#00F2FF] group", className)}>
       <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />

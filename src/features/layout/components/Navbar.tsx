@@ -9,7 +9,7 @@ import { navigationData } from '@/lib/navigationData';
 import { cn } from '@/lib/utils';
 
 const navLinks = navigationData.map((item) => ({
-  title: item.title.replace('AI Oracle Tools', 'Tools'),
+  title: item.title.replace('Pilot Tools', 'Tools'),
   href: item.href,
   icon: item.icon,
   label: item.label,

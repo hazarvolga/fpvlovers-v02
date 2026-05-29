@@ -74,7 +74,7 @@ function buildDifyPrompt(selection: BuildSelection, result: ReturnType<typeof an
     }));
 
   return [
-    'You are the FPVLovers Part Matcher inside Dify.',
+    'You are the FPVLovers Part Matcher.',
     'Use the project RAG datasets for FPV component compatibility and buying guidance when available.',
     'Do not override deterministic checks unless you explain why. Be conservative about voltage, KV, ESC current, prop clearance, and mounting.',
     'Return concise Markdown with headings: Compatibility Verdict, Critical Risks, Recommended Changes, Buyer Checklist.',
@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
         source: 'local',
         result,
         markdown: localMarkdown,
-        warning: 'Dify Part Matcher app token is not configured; returned deterministic compatibility review.',
+        warning: 'Compatibility review gateway is not configured; returned deterministic compatibility review.',
       });
     }
 
@@ -126,8 +126,8 @@ export async function POST(req: NextRequest) {
         result,
         markdown: localMarkdown,
         warning: response.dryRun
-          ? 'Dify dry-run is active locally; returned deterministic compatibility review.'
-          : 'Dify Part Matcher did not return usable Markdown; returned deterministic compatibility review.',
+          ? 'Dry-run is active locally; returned deterministic compatibility review.'
+          : 'Compatibility review gateway did not return usable Markdown; returned deterministic compatibility review.',
       });
     }
 

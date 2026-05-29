@@ -6,7 +6,7 @@ import { ComponentDuelWidget } from '@/features/tools/components/ComponentDuelWi
 import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
 
 export const metadata = {
-  title: 'Component Duel | AI ORACLE',
+  title: 'Component Duel | Pilot Tools',
   description: 'Side-by-Side FPV Hardware Comparisons.',
 };
 

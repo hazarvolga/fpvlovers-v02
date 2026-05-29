@@ -5,7 +5,7 @@ import {
   Database, Users, Activity, BarChart2, Download, RefreshCw,
   Settings, Server, Cpu, Command, AlertTriangle, Workflow, ChevronRight, Zap,
   Plus, Globe, Send, Loader2, CheckCircle2, XCircle, Search, Clock, FileText,
-  Pen, Sparkles, ShoppingCart, DollarSign, Trash2, HeartPulse, BadgeDollarSign, LayoutDashboard
+  Pen, Sparkles, ShoppingCart, DollarSign, Trash2, HeartPulse, BadgeDollarSign, LayoutDashboard, PackageSearch
 } from 'lucide-react';
 import SponsorDashboard from '@/features/monetization/components/SponsorDashboard';
 import AnalyticsDashboard from '@/features/admin/components/AnalyticsDashboard';
@@ -67,9 +67,58 @@ type CrawlerInfo = {
   error?: string;
 };
 
-type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry';
+type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry';
 
 type Tab = { id: TabId; label: string; icon: React.ElementType };
+
+type ProductSourceInfo = {
+  name: string;
+  url: string;
+  dataset: string;
+  priority: 'high' | 'medium' | 'low';
+  productTypes: string[];
+  reason: string;
+  status: 'pending' | 'queued' | 'crawled' | 'failed';
+};
+
+type CatalogSourcesResponse = {
+  pack?: {
+    generated_at: string;
+    minimum_active_products_goal: number;
+    minimum_real_image_coverage: number;
+    sources: ProductSourceInfo[];
+  };
+  pending?: number;
+  grouped?: Record<string, ProductSourceInfo[]>;
+  catalog?: {
+    products: number;
+    realImages: number;
+    source: string;
+  };
+  enqueued?: number;
+  error?: string;
+};
+
+type CatalogExtractionProduct = {
+  id: string;
+  name: string;
+  brand: string;
+  type: string;
+  url?: string;
+  imageUrl?: string;
+};
+
+type CatalogExtractionResult = {
+  write: boolean;
+  extracted: number;
+  rejected: number;
+  products: CatalogExtractionProduct[];
+  catalog?: {
+    products: number;
+    generated_at: string;
+  };
+  error?: string;
+};
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState<TabId>('hub');
@@ -125,6 +174,13 @@ export default function AdminDashboard() {
   const [rawFilter, setRawFilter] = useState('');
   const [health, setHealth] = useState<any>(null);
   const [healthLoading, setHealthLoading] = useState(false);
+  const [catalogSources, setCatalogSources] = useState<CatalogSourcesResponse | null>(null);
+  const [catalogLoading, setCatalogLoading] = useState(false);
+  const [catalogActionLoading, setCatalogActionLoading] = useState(false);
+  const [catalogExtractUrl, setCatalogExtractUrl] = useState('');
+  const [catalogExtractMarkdown, setCatalogExtractMarkdown] = useState('');
+  const [catalogExtractWrite, setCatalogExtractWrite] = useState(false);
+  const [catalogExtraction, setCatalogExtraction] = useState<CatalogExtractionResult | null>(null);
   const crawlerFallbackActive = crawlers.some(c => c.role === 'primary' && c.status !== 'online')
     && crawlers.some(c => c.role === 'backup' && c.status === 'online');
 
@@ -170,6 +226,7 @@ export default function AdminDashboard() {
       label: 'Monetization',
       color: '#FF5C00',
       tabs: [
+        { id: 'catalog', label: 'Catalog Ops', icon: PackageSearch },
         { id: 'affiliates', label: 'Affiliates', icon: ShoppingCart },
         { id: 'sponsors', label: 'Sponsors', icon: BadgeDollarSign },
         { id: 'orchestrator', label: 'Orchestrator', icon: Workflow },
@@ -197,13 +254,25 @@ export default function AdminDashboard() {
     setLogsLoading(false);
   }, []);
 
+  const fetchCatalogSources = useCallback(async () => {
+    setCatalogLoading(true);
+    try {
+      const resp = await fetch('/api/admin/catalog/sources');
+      setCatalogSources(await resp.json());
+    } catch {
+      setCatalogSources({ error: 'Catalog source status request failed.' });
+    }
+    setCatalogLoading(false);
+  }, []);
+
   useEffect(() => {
     queueMicrotask(() => {
       void fetchData();
       void fetchLogs();
       void fetchBudget();
+      void fetchCatalogSources();
     });
-  }, [fetchData, fetchLogs, fetchBudget]);
+  }, [fetchData, fetchLogs, fetchBudget, fetchCatalogSources]);
 
   const handleRetrievalTest = async () => {
     if (!retrievalQuery.trim()) return;
@@ -248,6 +317,49 @@ export default function AdminDashboard() {
       setContentResult(await resp.json());
     } catch {}
     setContentLoading(false);
+  };
+
+  const handleCatalogSourceEnqueue = async () => {
+    setCatalogActionLoading(true);
+    try {
+      const resp = await fetch('/api/admin/catalog/sources', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'enqueue' }),
+      });
+      setCatalogSources(await resp.json());
+    } catch {
+      setCatalogSources({ error: 'Catalog source enqueue request failed.' });
+    }
+    setCatalogActionLoading(false);
+  };
+
+  const handleCatalogExtract = async () => {
+    if (!catalogExtractUrl.trim() || !catalogExtractMarkdown.trim()) return;
+    setCatalogActionLoading(true);
+    try {
+      const resp = await fetch('/api/admin/catalog/extract', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          url: catalogExtractUrl,
+          markdown: catalogExtractMarkdown,
+          write: catalogExtractWrite,
+        }),
+      });
+      const data = await resp.json() as CatalogExtractionResult;
+      setCatalogExtraction(data);
+      if (catalogExtractWrite) void fetchCatalogSources();
+    } catch {
+      setCatalogExtraction({
+        write: catalogExtractWrite,
+        extracted: 0,
+        rejected: 0,
+        products: [],
+        error: 'Catalog extraction request failed.',
+      });
+    }
+    setCatalogActionLoading(false);
   };
 
   const fetchAffiliates = async () => {
@@ -377,6 +489,7 @@ export default function AdminDashboard() {
               ingest:       { label: 'Ingest Now',     icon: Send,        action: handleIngest },
               content:      { label: 'Generate',       icon: Sparkles,    action: handleContentGen },
               logs:         { label: 'Refresh Logs',   icon: RefreshCw,  action: fetchLogs },
+              catalog:      { label: 'Refresh Catalog', icon: RefreshCw,  action: fetchCatalogSources },
               affiliates:   { label: 'Add Affiliate',  icon: Plus,        action: fetchAffiliates },
               sponsors:     { label: 'Add Sponsor',    icon: Plus,        action: fetchSponsors },
               health:       { label: 'Check Health',   icon: RefreshCw,  action: fetchData },
@@ -516,7 +629,7 @@ export default function AdminDashboard() {
                         <h2 className="text-2xl font-black uppercase text-white tracking-tight flex items-center gap-2">
                           <Database className="text-[#00F2FF]" /> RAG Knowledge Bases
                         </h2>
-                        <p className="text-[#A0A0A0] font-mono text-xs mt-1">{datasets.length} datasets via Dify API &middot; {totalDocs} docs &middot; {totalTokens.toLocaleString()} tokens</p>
+                        <p className="text-[#A0A0A0] font-mono text-xs mt-1">{datasets.length} datasets via workflow gateway &middot; {totalDocs} docs &middot; {totalTokens.toLocaleString()} tokens</p>
                      </div>
                      <Button variant="cyber" size="sm" className="border-[#00F2FF] text-[#00F2FF] hover:bg-[#00F2FF] hover:text-white" onClick={fetchData}>
                        <RefreshCw className="w-4 h-4 mr-2" /> Sync
@@ -528,7 +641,7 @@ export default function AdminDashboard() {
                       <AlertTriangle className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" />
                       <div>
                         <div className="text-yellow-500 font-bold mb-1 uppercase tracking-wider">{errorDocs} embedding errors detected</div>
-                        <div className="text-[#A0A0A0] text-xs">Google Gemini embedding API rate limit may be exhausted. Open Dify UI to retry failed documents.</div>
+                        <div className="text-[#A0A0A0] text-xs">Embedding rate limit may be exhausted. Open the workflow console to retry failed documents.</div>
                   </div>
                     </div>
                   )}
@@ -575,7 +688,7 @@ export default function AdminDashboard() {
                     </div>
                   )}
                   {ingestResults.length === 0 && (
-                    <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center">Enter URLs above and click Ingest to crawl and index content into Dify.</div>
+                    <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center">Enter URLs above and click Ingest to crawl and index content into the knowledge base.</div>
                   )}
                 </div>
               )}
@@ -585,9 +698,9 @@ export default function AdminDashboard() {
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div>
                     <h2 className="text-2xl font-black uppercase text-white tracking-tight flex items-center gap-2">
-                      <Pen className="text-[#FF5C00]" /> AI Content Generator
+                      <Pen className="text-[#FF5C00]" /> Content Generator
                     </h2>
-                    <p className="text-[#A0A0A0] font-mono text-xs mt-1">Generate page content using FPV Expert AI via Dify API.</p>
+                    <p className="text-[#A0A0A0] font-mono text-xs mt-1">Generate page content using the FPVLovers editorial workflow.</p>
                   </div>
                   <div className="space-y-3 bg-[#0A0A0B] border border-[#333] p-4">
                     <div className="flex gap-3 flex-wrap">
@@ -642,7 +755,7 @@ export default function AdminDashboard() {
                     </div>
                   )}
                   {!contentResult && (
-                    <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center">Select a content type and click Generate to create AI-powered FPV content.</div>
+                    <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center">Select a content type and click Generate to create FPV content.</div>
                   )}
                 </div>
               )}
@@ -672,7 +785,7 @@ export default function AdminDashboard() {
                   {logsLoading ? (
                     <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center"><Loader2 className="w-4 h-4 inline animate-spin mr-2" />Loading logs...</div>
                   ) : logs.length === 0 ? (
-                    <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center">No crawl logs found. Index content via URL Ingestion or Dify UI.</div>
+                    <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center">No crawl logs found. Index content via URL Ingestion or the workflow console.</div>
                   ) : (
                     <div className="overflow-x-auto">
                       <table className="w-full text-left font-mono text-xs">
@@ -714,7 +827,7 @@ export default function AdminDashboard() {
                     <h2 className="text-2xl font-black uppercase text-white tracking-tight flex items-center gap-2">
                       <Search className="text-[#A855F7]" /> Retrieval Test
                     </h2>
-                    <p className="text-[#A0A0A0] font-mono text-xs mt-1">Test the RAG knowledge base by querying the FPV Expert AI with retrieval.</p>
+                    <p className="text-[#A0A0A0] font-mono text-xs mt-1">Test the knowledge base by querying FPVLovers retrieval.</p>
                   </div>
                   <div className="flex gap-3 bg-[#0A0A0B] border border-[#333] p-4">
                     <input value={retrievalQuery} onChange={(e) => setRetrievalQuery(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && handleRetrievalTest()} placeholder="e.g. How do I tune PIDs on a 5 inch?" className="flex-1 bg-black border border-[#333] text-white font-mono text-sm p-3 focus:border-[#A855F7] focus:outline-none" />
@@ -734,7 +847,7 @@ export default function AdminDashboard() {
                         <>
                           <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-widest">
                             <span className={`px-2 py-1 border ${retrievalResult.fallback ? 'border-[#FF5C00] text-[#FF5C00]' : 'border-[#00FF66] text-[#00FF66]'}`}>
-                              {retrievalResult.fallback ? 'Local Fallback' : 'Dify Live'}
+                              {retrievalResult.fallback ? 'Local Fallback' : 'Live Retrieval'}
                             </span>
                             {typeof retrievalResult.confidence === 'number' && (
                               <span className="px-2 py-1 border border-[#333] text-[#A0A0A0]">
@@ -743,12 +856,12 @@ export default function AdminDashboard() {
                             )}
                             {retrievalResult.difyError && (
                               <span className="px-2 py-1 border border-[#333] text-[#A0A0A0]">
-                                Dify auth failed
+                                Gateway auth failed
                               </span>
                             )}
                           </div>
                           <div className="bg-[#0A0A0B] border border-[#333] p-4">
-                            <h4 className="text-[10px] font-mono uppercase text-[#A0A0A0] tracking-widest mb-2">AI Answer</h4>
+                            <h4 className="text-[10px] font-mono uppercase text-[#A0A0A0] tracking-widest mb-2">Answer</h4>
                             <p className="text-sm text-white font-mono leading-relaxed">{retrievalResult.answer}</p>
                           </div>
                           {retrievalResult.retrieverResources?.length > 0 && (
@@ -776,6 +889,146 @@ export default function AdminDashboard() {
                 </div>
               )}
 
+
+              {/* CATALOG OPS */}
+              {activeTab === 'catalog' && (
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                      <h2 className="text-2xl font-black uppercase text-white tracking-tight flex items-center gap-2">
+                        <PackageSearch className="text-[#FF5C00]" /> Product Catalog Ops
+                      </h2>
+                      <p className="text-[#A0A0A0] font-mono text-xs mt-1">Crawler source pack, normalized product catalog, and extraction gate.</p>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={fetchCatalogSources} disabled={catalogLoading}>
+                        <RefreshCw className={`w-4 h-4 mr-2 ${catalogLoading ? 'animate-spin' : ''}`} /> Refresh
+                      </Button>
+                      <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={handleCatalogSourceEnqueue} disabled={catalogActionLoading}>
+                        {catalogActionLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
+                        Enqueue Sources
+                      </Button>
+                    </div>
+                  </div>
+
+                  {catalogSources?.error && (
+                    <div className="bg-[#FF4444]/10 border border-[#FF4444]/50 p-4 font-mono text-sm text-[#FF4444]">
+                      {catalogSources.error}
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div className="bg-[#0A0A0B] border border-[#333333] p-4">
+                      <div className="text-[#A0A0A0] font-mono text-[10px] uppercase tracking-widest">Crawler Products</div>
+                      <div className="text-3xl font-black text-[#FF5C00] mt-2">{catalogSources?.catalog?.products ?? 0}</div>
+                    </div>
+                    <div className="bg-[#0A0A0B] border border-[#333333] p-4">
+                      <div className="text-[#A0A0A0] font-mono text-[10px] uppercase tracking-widest">Real Images</div>
+                      <div className="text-3xl font-black text-[#00F2FF] mt-2">{catalogSources?.catalog?.realImages ?? 0}</div>
+                    </div>
+                    <div className="bg-[#0A0A0B] border border-[#333333] p-4">
+                      <div className="text-[#A0A0A0] font-mono text-[10px] uppercase tracking-widest">Pending Sources</div>
+                      <div className="text-3xl font-black text-[#00FF66] mt-2">{catalogSources?.pending ?? 0}</div>
+                    </div>
+                    <div className="bg-[#0A0A0B] border border-[#333333] p-4">
+                      <div className="text-[#A0A0A0] font-mono text-[10px] uppercase tracking-widest">MVP Goal</div>
+                      <div className="text-3xl font-black text-white mt-2">{catalogSources?.pack?.minimum_active_products_goal ?? 50}</div>
+                    </div>
+                  </div>
+
+                  {typeof catalogSources?.enqueued === 'number' && (
+                    <div className="bg-[#00FF66]/10 border border-[#00FF66]/40 p-4 font-mono text-sm text-[#00FF66]">
+                      {catalogSources.enqueued} catalog source URL queued through crawl queue.
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                    <div className="bg-[#0A0A0B] border border-[#333333] p-4 space-y-4">
+                      <h3 className="text-xs font-mono uppercase text-[#A0A0A0] tracking-widest">Source Pack</h3>
+                      <div className="space-y-2 max-h-[420px] overflow-y-auto pr-1">
+                        {(catalogSources?.pack?.sources || []).map((source) => (
+                          <div key={source.url} className="border border-[#222] bg-black/40 p-3 font-mono text-xs">
+                            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                              <div className="text-white font-bold">{source.name}</div>
+                              <div className={`text-[10px] uppercase ${source.priority === 'high' ? 'text-[#FF5C00]' : source.priority === 'medium' ? 'text-[#00F2FF]' : 'text-[#A0A0A0]'}`}>
+                                {source.priority} · {source.status}
+                              </div>
+                            </div>
+                            <div className="text-[#00F2FF] truncate mt-1">{source.url}</div>
+                            <div className="text-[#A0A0A0] mt-2">{source.dataset} · {source.productTypes.join(', ')}</div>
+                            <div className="text-[#606060] mt-1 leading-relaxed">{source.reason}</div>
+                          </div>
+                        ))}
+                        {!catalogLoading && (catalogSources?.pack?.sources || []).length === 0 && (
+                          <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center">No catalog source pack loaded.</div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="bg-[#0A0A0B] border border-[#333333] p-4 space-y-4">
+                      <h3 className="text-xs font-mono uppercase text-[#A0A0A0] tracking-widest">Extract Crawled Markdown</h3>
+                      <input
+                        value={catalogExtractUrl}
+                        onChange={(event) => setCatalogExtractUrl(event.target.value)}
+                        placeholder="https://source.example/product-or-category"
+                        className="w-full bg-black border border-[#333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none"
+                      />
+                      <textarea
+                        value={catalogExtractMarkdown}
+                        onChange={(event) => setCatalogExtractMarkdown(event.target.value)}
+                        placeholder="Paste Crawl4AI markdown/raw_markdown output here"
+                        rows={8}
+                        className="w-full bg-black border border-[#333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none resize-y"
+                      />
+                      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        <label className="flex items-center gap-2 text-xs font-mono text-[#A0A0A0]">
+                          <input
+                            type="checkbox"
+                            checked={catalogExtractWrite}
+                            onChange={(event) => setCatalogExtractWrite(event.target.checked)}
+                            className="accent-[#FF5C00]"
+                          />
+                          Write to catalog
+                        </label>
+                        <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={handleCatalogExtract} disabled={catalogActionLoading || !catalogExtractUrl.trim() || !catalogExtractMarkdown.trim()}>
+                          {catalogActionLoading ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <PackageSearch className="w-4 h-4 mr-2" />}
+                          Extract
+                        </Button>
+                      </div>
+
+                      {catalogExtraction && (
+                        <div className={`border p-4 font-mono text-xs ${catalogExtraction.error ? 'border-[#FF4444]/50 bg-[#FF4444]/10' : 'border-[#00F2FF]/30 bg-[#00F2FF]/5'}`}>
+                          {catalogExtraction.error ? (
+                            <div className="text-[#FF4444]">{catalogExtraction.error}</div>
+                          ) : (
+                            <div className="space-y-3">
+                              <div className="flex flex-wrap gap-3 text-[#A0A0A0]">
+                                <span className="text-[#00F2FF]">{catalogExtraction.extracted} extracted</span>
+                                <span>{catalogExtraction.rejected} rejected</span>
+                                <span>{catalogExtraction.write ? 'written' : 'dry-run'}</span>
+                                {catalogExtraction.catalog && <span className="text-[#00FF66]">{catalogExtraction.catalog.products} catalog products</span>}
+                              </div>
+                              <div className="space-y-2 max-h-48 overflow-y-auto">
+                                {catalogExtraction.products.map((product) => (
+                                  <div key={product.id} className="flex items-center justify-between gap-3 border border-[#222] bg-black/40 p-2">
+                                    <div className="min-w-0">
+                                      <div className="text-white truncate">{product.name}</div>
+                                      <div className="text-[#A0A0A0]">{product.type} · {product.brand}</div>
+                                    </div>
+                                    <span className={product.imageUrl ? 'text-[#00FF66]' : 'text-[#606060]'}>
+                                      {product.imageUrl ? 'image' : 'no image'}
+                                    </span>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
 
              {/* SPONSORS TAB */}
               {activeTab === 'sponsors' && (
@@ -1204,7 +1457,7 @@ export default function AdminDashboard() {
                      <h2 className="text-2xl font-black uppercase text-white tracking-tight flex items-center gap-2">
                        <Activity className="text-[#00F2FF]" /> Analytics & Telemetry
                      </h2>
-                     <p className="text-[#A0A0A0] font-mono text-xs mt-1">System metrics from Dify + Crawl4AI + Vercel Analytics.</p>
+                     <p className="text-[#A0A0A0] font-mono text-xs mt-1">System metrics from workflow gateway, crawler, and analytics.</p>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

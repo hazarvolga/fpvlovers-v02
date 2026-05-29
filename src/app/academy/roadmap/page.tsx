@@ -11,7 +11,7 @@ export const metadata = {
   description: 'Step-by-step zero-to-hero roadmap for new FPV drone pilots.',
 };
 
-async function fetchDataFromDify() {
+async function fetchRoadmapData() {
   try {
     const filePath = path.join(process.cwd(), 'content', 'roadmap.json');
     if (fs.existsSync(filePath)) {
@@ -21,7 +21,7 @@ async function fetchDataFromDify() {
     }
   } catch {}
   return {
-    summary: "The most common failure point for new pilots is rushing into real flights without sufficient simulator hours. The Dify database strongly recommends a 3-phase approach: 1. Radio+Simulator (40 hours minimum) 2. Analog Whoop flying indoors 3. Transition to 5-inch digital freestyle.",
+    summary: "The most common failure point for new pilots is rushing into real flights without sufficient simulator hours. FPVLovers recommends a 3-phase approach: 1. Radio+Simulator (40 hours minimum) 2. Analog Whoop flying indoors 3. Transition to 5-inch digital freestyle.",
     steps: [
       { phase: "PHASE 01: VIRTUAL CALIBRATION", items: ["Acquire ELRS Protocol Radio", "Install Liftoff or VelociDrone", "Master Acro Mode Hovering", "Complete 40 Hours Logged"] },
       { phase: "PHASE 02: MICRO OPERATIONS", items: ["Acquire 65mm/75mm 1S Whoop", "Analog Goggles (Entry level)", "Navigate Indoor Obstacles", "Master Throttle Management"] },
@@ -31,7 +31,7 @@ async function fetchDataFromDify() {
 }
 
 export default async function RoadmapPage() {
-  const data = await fetchDataFromDify();
+  const data = await fetchRoadmapData();
   const breadcrumbs = [
     { label: 'Pilot Academy', href: '/academy' },
     { label: 'Pilot Roadmap', isCurrentPage: true }

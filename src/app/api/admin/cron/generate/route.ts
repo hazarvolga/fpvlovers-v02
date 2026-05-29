@@ -77,13 +77,13 @@ export async function GET(req: Request) {
         writeLastRun({
           action: 'blocked_missing_dify_key',
           job: { id: job.id, title: job.title, status: job.status },
-          error: 'DIFY_APP_KEY is not configured',
+          error: 'Workflow app key is not configured',
         });
         return NextResponse.json(
           {
             success: false,
             action: 'blocked',
-            error: 'DIFY_APP_KEY is not configured',
+            error: 'Workflow app key is not configured',
             job: { id: job.id, title: job.title, status: job.status },
           },
           { status: 503 },
@@ -117,7 +117,7 @@ export async function GET(req: Request) {
       const latestJob = latestJobs[index];
       if (!result.content) {
         latestJob.status = 'failed';
-        latestJob.feedback = 'Dify returned no publishable content.';
+        latestJob.feedback = 'Workflow returned no publishable content.';
         latestJob.updatedAt = new Date().toISOString();
         saveContentJobs(latestJobs);
         writeLastRun({

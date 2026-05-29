@@ -300,8 +300,8 @@ export function BuildCalculatorWidget() {
         <section className="border border-white/10 bg-[#050505] p-5">
           <div className="flex items-start justify-between gap-4 mb-4">
             <div>
-              <h2 className="text-sm font-black uppercase tracking-widest text-white">Dify Build Review</h2>
-              <p className="text-xs text-[#8e8b86] mt-1">Calculator stays deterministic; Dify adds RAG-backed build guidance.</p>
+              <h2 className="text-sm font-black uppercase tracking-widest text-white">Guided Build Review</h2>
+              <p className="text-xs text-[#8e8b86] mt-1">Calculator stays deterministic; the review layer adds source-backed build guidance.</p>
             </div>
             {review?.source && (
               <span className={cn(
@@ -314,7 +314,7 @@ export function BuildCalculatorWidget() {
           </div>
 
           <Button variant="cyber" className="w-full h-12" onClick={runBuildReview} disabled={reviewLoading}>
-            <Zap className="w-4 h-4 mr-2" /> {reviewLoading ? 'Running Dify Review...' : 'Run Dify Build Review'}
+            <Zap className="w-4 h-4 mr-2" /> {reviewLoading ? 'Running Build Review...' : 'Run Build Review'}
           </Button>
 
           {reviewError && (

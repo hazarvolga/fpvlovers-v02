@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { fetchDifyInsights } from '@/lib/dify';
+import { fetchEditorialInsights } from '@/lib/dify';
 import { getPublishedContentBySlug, type PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { Badge } from '@/components/ui/badge';
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     };
   }
 
-  const insights = await fetchDifyInsights();
+  const insights = await fetchEditorialInsights();
   const insight = insights.find(i => i.id === resolvedParams.slug);
   if (!insight) return { title: 'Not Found' };
 
@@ -105,7 +105,7 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
             )}
 
             <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-[#A0A0A0] mb-10">
-              <span className="flex items-center gap-1.5"><FileText className="w-3 h-3 text-[#00FF66]" /> FPVLovers AutoBlog</span>
+              <span className="flex items-center gap-1.5"><FileText className="w-3 h-3 text-[#00FF66]" /> FPVLovers Editorial</span>
               {a.publishedAt && (
                 <span>{new Date(a.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               )}
@@ -265,7 +265,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               <div className="border-t border-[#00F5FF]/10 pt-6 mt-8">
                 <div className="bg-[#0A0A0B] border border-[#FFD700]/20 p-6 text-center">
                   <p className="text-sm text-[#FFD700] font-mono mb-2">This article is planned and will be generated soon.</p>
-                  <p className="text-xs text-[#A0A0A0]">Visit the admin Content Jobs tab to queue this article for AI generation.</p>
+                  <p className="text-xs text-[#A0A0A0]">Visit the admin Content Jobs tab to queue this article for generation.</p>
                 </div>
               </div>
             </div>
@@ -279,7 +279,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     );
   }
 
-  const insights = await fetchDifyInsights();
+  const insights = await fetchEditorialInsights();
   const insight = insights.find(i => i.id === resolvedParams.slug);
 
   if (!insight) {

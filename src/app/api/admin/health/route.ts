@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import { checkCrawlerHealth } from '@/lib/crawler-health';
 
 const DIFY_PAGES = [
-  { name: 'Dify API Gateway', url: process.env.DIFY_BASE_URL || 'https://dify.affexai.tr/v1', redirect: 'manual' as const },
-  { name: 'Dify Web', url: process.env.DIFY_WEB_URL || 'https://dify.affexai.tr' },
+  { name: 'Workflow API Gateway', url: process.env.DIFY_BASE_URL || 'https://dify.affexai.tr/v1', redirect: 'manual' as const },
+  { name: 'Workflow Console', url: process.env.DIFY_WEB_URL || 'https://dify.affexai.tr' },
 ];
 
 export async function GET() {

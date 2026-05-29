@@ -5,13 +5,13 @@ import { Cpu, Wind, Video } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 
 export const metadata = {
-  title: 'AI Flight Lab | AFFEXAI ORACLE',
-  description: 'Upload your FPV flight video. Our Gemini 2.0 powered flight critic will analyze your telemetry and physics.',
+  title: 'Flight Lab | FPVLovers',
+  description: 'Upload your FPV flight video for telemetry and physics review.',
 }
 
 export default function FlightLabPage() {
   const breadcrumbs = [
-    { label: 'AI Oracle Tools', href: '/tools' },
+    { label: 'Pilot Tools', href: '/tools' },
     { label: 'Flight Critic', isCurrentPage: true }
   ];
 
@@ -29,7 +29,7 @@ export default function FlightLabPage() {
                  SYSTEM.FLIGHT_LAB_ACCESS
               </Badge>
               <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-6 leading-none">
-                 AI Flight <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F5FF] to-blue-600 text-glow">Critic</span>
+                 Flight <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F5FF] to-blue-600 text-glow">Critic</span>
               </h1>
               <p className="text-white/50 max-w-2xl mx-auto font-semibold leading-relaxed">
                  Upload your raw FPV flow. The neural engine will process maneuver physics, frame transitions, and gap hunting precision to assign your official Pilot Rank.

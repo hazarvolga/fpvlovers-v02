@@ -11,7 +11,7 @@ export async function GET() {
     {
       service: 'dify-api',
       status: 'healthy',
-      message: 'Dify v1.14.0 API reachable via https://dify.affexai.tr',
+      message: 'Workflow gateway reachable via https://dify.affexai.tr',
     },
     {
       service: 'crawl4ai-primary',

@@ -10,7 +10,7 @@ export const metadata = {
   description: 'Beginner FPV starter kits and bundle guidance for the easiest path to first flight.',
 };
 
-async function fetchDataFromDify() {
+async function fetchStarterKitData() {
   await new Promise(r => setTimeout(r, 600));
   return {
     summary: "For pilots who want the easiest first step, Ready-To-Fly (RTF) kits can reduce setup friction. A TinyWhoop class (65mm-75mm) is still the safest indoor starting point, while a separate radio and goggles often give a better upgrade path over time.",
@@ -36,7 +36,7 @@ async function fetchDataFromDify() {
 }
 
 export default async function StarterKitsPage() {
-  const data = await fetchDataFromDify();
+  const data = await fetchStarterKitData();
   const breadcrumbs = [
     { label: 'Pilot Academy', href: '/academy' },
     { label: 'Starter Kits', isCurrentPage: true }

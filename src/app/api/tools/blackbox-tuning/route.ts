@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
     if (!blackboxApp?.token) {
       return localResponse(
         local,
-        'Dify Blackbox app token is not configured; returned deterministic local analysis.',
+        'Blackbox review gateway is not configured; returned deterministic local analysis.',
       );
     }
 
@@ -126,8 +126,8 @@ export async function POST(req: NextRequest) {
         return localResponse(
           local,
           response.dryRun
-            ? 'Dify dry-run is active in this environment; returned deterministic local analysis.'
-            : 'Dify Blackbox analysis did not return usable Markdown; returned deterministic local analysis.',
+            ? 'Dry-run is active in this environment; returned deterministic local analysis.'
+            : 'Blackbox review gateway did not return usable Markdown; returned deterministic local analysis.',
         );
       }
 
@@ -137,7 +137,7 @@ export async function POST(req: NextRequest) {
         result: { ...local, markdown },
       });
     } catch {
-      return localResponse(local, 'Dify Blackbox analysis failed; returned deterministic local analysis.');
+      return localResponse(local, 'Blackbox review gateway failed; returned deterministic local analysis.');
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Blackbox analysis failed.';

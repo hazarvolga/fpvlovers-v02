@@ -70,7 +70,7 @@ function buildLocalMarkdown(input: BuildCalculatorInput, result: ReturnType<type
 
 function buildDifyPrompt(input: BuildCalculatorInput, result: ReturnType<typeof calculateBuild>, localMarkdown: string): string {
   return [
-    'You are the FPVLovers Build Wizard inside Dify.',
+    'You are the FPVLovers Build Wizard.',
     'Use the project RAG datasets for FPV build guidance when available.',
     'Do not replace the deterministic calculator numbers; explain them and give practical build recommendations.',
     'Return concise Markdown with headings: Build Verdict, Risk Notes, Recommended Adjustments, Shopping/Validation Checklist.',
@@ -95,7 +95,7 @@ export async function POST(req: NextRequest) {
         source: 'local',
         result,
         markdown: localMarkdown,
-        warning: 'Dify Build Wizard app token is not configured; returned deterministic build review.',
+        warning: 'Build review gateway is not configured; returned deterministic build review.',
       });
     }
 
@@ -120,8 +120,8 @@ export async function POST(req: NextRequest) {
         result,
         markdown: localMarkdown,
         warning: response.dryRun
-          ? 'Dify dry-run is active locally; returned deterministic build review.'
-          : 'Dify Build Wizard did not return usable Markdown; returned deterministic build review.',
+          ? 'Dry-run is active locally; returned deterministic build review.'
+          : 'Build review gateway did not return usable Markdown; returned deterministic build review.',
       });
     }
 

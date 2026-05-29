@@ -13,7 +13,7 @@ export async function POST(
 
     if (!workflowId || workflowId.startsWith('TODO-')) {
       return NextResponse.json(
-        { success: false, error: `Workflow "${name}" not yet imported to Dify. Import the DSL from dify_workflows/ first.` },
+        { success: false, error: `Workflow "${name}" is not yet active. Import the matching DSL first.` },
         { status: 501 },
       );
     }

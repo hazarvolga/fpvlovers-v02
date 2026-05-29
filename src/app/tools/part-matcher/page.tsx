@@ -6,14 +6,14 @@ import { PartMatcherWidget } from '@/features/tools/components/PartMatcherWidget
 import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
 
 export const metadata = {
-  title: 'Part Matcher | AI ORACLE',
-  description: 'AI-powered component compatibility analysis for FPV drones.',
+  title: 'Part Matcher | Pilot Tools',
+  description: 'Catalog-backed component compatibility analysis for FPV drones.',
 };
 
 export default function PartMatcherPage() {
   const products = getFpvProductCatalog();
   const breadcrumbs = [
-    { label: 'Oracle Tools', href: '/tools' },
+    { label: 'Pilot Tools', href: '/tools' },
     { label: 'Part Matcher', isCurrentPage: true }
   ];
 
@@ -44,7 +44,7 @@ export default function PartMatcherPage() {
                     </div>
                 </div>
                 <p className="text-sm font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest border-l-2 border-[#00F2FF]/30 pl-6">
-                  {"// Neural compatibility engine. Input your build components to verify electrical, physical, and propulsion synchronization before assembly."}
+                  {"// Catalog compatibility engine. Input your build components to verify electrical, physical, and propulsion synchronization before assembly."}
                 </p>
              </div>
           </div>
@@ -67,7 +67,7 @@ export default function PartMatcherPage() {
                  </li>
                  <li className="flex gap-3">
                     <span className="text-[#00F2FF]">02.</span>
-                    <span>AI Oracle cross-references voltage, KV, and mounting specs.</span>
+                    <span>Catalog logic cross-references voltage, KV, and mounting specs.</span>
                  </li>
                  <li className="flex gap-3">
                     <span className="text-[#00F2FF]">03.</span>

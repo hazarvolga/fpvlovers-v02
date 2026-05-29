@@ -5,7 +5,7 @@ import { Radio } from 'lucide-react';
 import { BlackboxTunerWidget } from '@/features/tools/components/BlackboxTuner';
 
 export const metadata = {
-  title: 'Blackbox Tuning | AI ORACLE',
+  title: 'Blackbox Tuning | Pilot Tools',
   description: 'Analyze flight log data to diagnose vibrations and optimize PID/Filter settings.',
 };
 

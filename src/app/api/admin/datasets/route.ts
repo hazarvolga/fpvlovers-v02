@@ -25,7 +25,7 @@ export async function GET() {
     });
 
     if (!resp.ok) {
-      return NextResponse.json({ error: `Dify API ${resp.status}` }, { status: 502 });
+      return NextResponse.json({ error: `Workflow API ${resp.status}` }, { status: 502 });
     }
 
     const { data: datasets } = await resp.json() as { data: any[] };

@@ -71,7 +71,7 @@ function parseDifyAnalysis(markdownOrJson: string): FlightAnalysis | undefined {
         stability: Number(scores.stability) || 72,
       },
       verdict: asString(record.verdict) as FlightAnalysis['verdict'] || 'B-Rookie Hunter',
-      summary: asString(record.summary) || 'Dify returned a flight review, but the summary was empty.',
+      summary: asString(record.summary) || 'The flight review gateway returned a review, but the summary was empty.',
       telemetrySimulation: Array.isArray(record.telemetrySimulation)
         ? record.telemetrySimulation.slice(0, 5).map((event) => {
           const item = asRecord(event) || {};
@@ -93,7 +93,7 @@ function buildFallback(meta: UploadedVideoMeta, warning: string): FlightAnalysis
   return {
     scores: { flow: 72, speed: 70, proximity: 68, acro: 66, stability: 74 },
     verdict: 'B-Rookie Hunter',
-    summary: `Upload received: ${meta.name}. Frame-level video analysis is not connected locally; this is a conservative training rubric until the Dify video workflow is enabled.`,
+    summary: `Upload received: ${meta.name}. Frame-level video analysis is not connected locally; this is a conservative training rubric until the video workflow is enabled.`,
     telemetrySimulation: [
       { timestamp: '00:00', event: 'DVR upload accepted', riskScore: 'Info' },
       { timestamp: '00:10', event: 'Manual review recommended for gaps, throttle flow, and propwash', riskScore: 'Medium' },
@@ -105,7 +105,7 @@ function buildFallback(meta: UploadedVideoMeta, warning: string): FlightAnalysis
 
 function buildDifyPrompt(meta: UploadedVideoMeta): string {
   return [
-    'You are the FPVLovers Flight Critic inside Dify.',
+    'You are the FPVLovers Flight Critic.',
     'Important: the Next.js app is not sending video frames in this request. Do not claim you inspected exact frames.',
     'Use FPV training knowledge to return a conservative coaching rubric based on upload metadata and common freestyle/racing review criteria.',
     'Return raw JSON only, matching this exact shape:',
@@ -134,7 +134,7 @@ export async function POST(req: Request) {
 
     const app = findApp('FPV Expert Assistant');
     if (!app?.token) {
-      return Response.json(buildFallback(meta, 'Dify FPV Expert app token is not configured.'));
+      return Response.json(buildFallback(meta, 'Flight review gateway is not configured.'));
     }
 
     const response = await difyRequest('/chat-messages', {
@@ -157,8 +157,8 @@ export async function POST(req: Request) {
       return Response.json(buildFallback(
         meta,
         response.dryRun
-          ? 'Dify dry-run is active locally; returned deterministic training rubric.'
-          : 'Dify Flight Critic did not return usable JSON; returned deterministic training rubric.',
+          ? 'Dry-run is active locally; returned deterministic training rubric.'
+          : 'Flight review gateway did not return usable JSON; returned deterministic training rubric.',
       ));
     }
 

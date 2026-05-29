@@ -95,7 +95,7 @@ export const navigationData = [
     ]
   },
   {
-    title: "AI Oracle Tools",
+    title: "Pilot Tools",
     label: "The Powerhouses",
     icon: Cpu,
     href: "/tools",
@@ -103,7 +103,7 @@ export const navigationData = [
       {
         title: "Flight Critic",
         href: "/tools/flight-critic",
-        description: "AI-driven Video Analysis & Quality Grading.",
+        description: "Video review and flight quality grading.",
         icon: Video
       },
       {
