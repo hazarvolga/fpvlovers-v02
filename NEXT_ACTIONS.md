@@ -13,12 +13,14 @@ Last updated: 2026-05-29
 7. DONE Blackbox Tuning phase (2026-05-29): client Gemini SDK removed, `/api/tools/blackbox-tuning` server route added, AI enrichment aligned to Dify Blackbox app via `src/lib/dify-client.ts`, deterministic fallback active.
 8. DONE Dify-brain correction (2026-05-29): local Gemini key usage removed from app code; Flight Critic, Blackbox Tuning, and Hardware Analyzer now use Dify-first API routes with deterministic fallback.
 9. DONE Tool Dify alignment Phase 1 (2026-05-29): Build Wizard and Part Matcher now have Dify-first API review routes plus explicit UI review panels; deterministic calculators remain the guardrail.
+10. DONE Blackbox live Dify validation (2026-05-29): production-mode smoke reached Dify through `src/lib/dify-client.ts`, but Dify returned provider credential error `[models] Error: 'google_api_key'`.
 
 ## Code Tasks Before Push
 
 - Review current git status and separate unrelated pre-existing changes from deploy-critical fixes.
-- Continue tool Dify alignment with Blackbox Tuning live-app validation and then Flight Critic workflow design; keep all Dify calls behind `src/lib/dify-client.ts`.
-- Verify the Dify Blackbox app with production provider credentials; local development may dry-run Dify and safely fall back to deterministic analysis.
+- Fix Dify Blackbox Tuning Advisor provider/model credential in Dify UI or service layer; expected key shape is `google_api_key` on the Dify provider credential, not a local app key file.
+- After Dify provider fix, rerun the Blackbox production-mode smoke through `src/lib/dify-client.ts`; keep local development dry-run/fallback behavior intact.
+- Continue tool Dify alignment with Flight Critic workflow design; keep all Dify calls behind `src/lib/dify-client.ts`.
 - Verify Build Wizard and Part Matcher against production Dify credentials with `CRAWL_DRY_RUN=true` or equivalent safe mode before presenting the Dify response as live RAG-backed guidance.
 - Add a dedicated Dify video-analysis workflow before marketing Flight Critic as true frame-level DVR analysis; current local route is honest metadata/rubric fallback when video frames are not processed by Dify.
 - Replace placeholder affiliate images with crawler/source-backed real product images before presenting product tools as visually production-ready.
