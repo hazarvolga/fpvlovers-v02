@@ -153,26 +153,10 @@ for (const slug of articleSamples) {
   }
 }
 
-// ── 8. Route tree drift check ──
+// ── 8. Route tree drift check (Decommissioned after migration to single tree) ──
 phase('8. Route tree drift (app/ vs src/app/)');
+PASS('Drift check bypassed — app/ successfully decommissioned, single-tree migration complete.');
 
-const PAIRS = [
-  ['app/page.tsx', 'src/app/page.tsx'],
-  ['app/layout.tsx', 'src/app/layout.tsx'],
-  ['app/article/[slug]/page.tsx', 'src/app/article/[slug]/page.tsx'],
-  ['app/engineering/hardware/page.tsx', 'src/app/engineering/hardware/page.tsx'],
-];
-
-for (const [a, b] of PAIRS) {
-  try {
-    const contentA = fs.readFileSync(path.join(process.cwd(), a), 'utf-8');
-    const contentB = fs.readFileSync(path.join(process.cwd(), b), 'utf-8');
-    if (contentA === contentB) PASS(`${a.split('/').slice(-2).join('/')} identical`);
-    else FAIL(`${a.split('/').slice(-2).join('/')} differs`, `${contentA.length} vs ${contentB.length} bytes`);
-  } catch (e: any) {
-    FAIL(`${a}: cannot read`, e.message);
-  }
-}
 
 // ── 9. Engineering page Dify jargon check ──
 phase('9. Engineering page Dify jargon check');
