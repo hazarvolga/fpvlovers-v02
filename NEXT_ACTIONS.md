@@ -10,11 +10,13 @@ Last updated: 2026-05-29
 4. DONE Phase 3 update (2026-05-29): legacy `app/` and `lib/` trees are decommissioned; `npm run routes:audit` now guards that single-tree state.
 5. DONE Phase 4 (2026-05-21): final deploy gate passed, runtime files ignored, handoff refreshed, and release candidate commit prepared.
 6. DONE Tool activation phase (2026-05-29): Build Calculator, Component Duel, and Part Matcher now run on deterministic local/catalog-backed engines; Playwright Chromium render/click smoke passed.
+7. DONE Blackbox Tuning phase (2026-05-29): client Gemini SDK removed, `/api/tools/blackbox-tuning` server route added, deterministic fallback active; Gemini key reaches API but current key has `RESOURCE_EXHAUSTED` prepayment/billing issue.
 
 ## Code Tasks Before Push
 
 - Review current git status and separate unrelated pre-existing changes from deploy-critical fixes.
-- Continue tool activation with Blackbox Tuning server route and Flight Critic upload path; keep Dify calls behind `src/lib/dify-client.ts`.
+- Continue tool activation with Flight Critic upload path; keep Dify calls behind `src/lib/dify-client.ts`.
+- Fix Gemini AI Studio billing/credits or replace `gemini-apikey.md` before expecting Gemini-backed Blackbox responses; current route safely falls back to local analysis.
 - Replace placeholder affiliate images with crawler/source-backed real product images before presenting product tools as visually production-ready.
 - Do not include unreviewed runtime files (`data/*last-auto-run.json`) or local tool folders (`.kiro/`, `.gitnexus/`) in deploy commits unless they are intentionally promoted.
 - Keep `sunucular/` out of Git. It is outside the frontend repo today and must stay private.

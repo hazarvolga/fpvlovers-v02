@@ -1,0 +1,201 @@
+export type BlackboxTuningInput = {
+  droneType: string;
+  batterySpec: string;
+  problem: string;
+  logData: string;
+  currentPIDs: string;
+  fileName?: string;
+  fileText?: string;
+};
+
+export type BlackboxRiskLevel = 'low' | 'medium' | 'high';
+
+export type BlackboxTuningResult = {
+  summary: string;
+  confidence: number;
+  riskLevel: BlackboxRiskLevel;
+  detectedIssues: string[];
+  proposedSettings: {
+    p: number;
+    i: number;
+    d: number;
+    ff: number;
+    gyroLowpassHz: number;
+    rpmFilter: 'on' | 'verify';
+    dynamicNotch: 'on' | 'increase';
+  };
+  recommendations: string[];
+  nextSteps: string[];
+  markdown: string;
+};
+
+type PidValues = {
+  p: number;
+  i: number;
+  d: number;
+  ff: number;
+};
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, value));
+}
+
+function round(value: number): number {
+  return Math.round(value);
+}
+
+function parsePidValue(text: string, label: string, fallback: number): number {
+  const pattern = new RegExp(`${label}\\s*[:=]\\s*(\\d+(?:\\.\\d+)?)`, 'i');
+  const match = text.match(pattern);
+  if (!match) return fallback;
+  const parsed = Number(match[1]);
+  return Number.isFinite(parsed) ? parsed : fallback;
+}
+
+function parsePids(text: string): PidValues {
+  return {
+    p: parsePidValue(text, 'p', 45),
+    i: parsePidValue(text, 'i', 80),
+    d: parsePidValue(text, 'd', 40),
+    ff: parsePidValue(text, 'ff|feedforward', 100),
+  };
+}
+
+function includesAny(text: string, terms: string[]): boolean {
+  return terms.some((term) => text.includes(term));
+}
+
+function detectResonanceHz(text: string): number | undefined {
+  const match = text.match(/(\d{2,3})\s*hz/i);
+  if (!match) return undefined;
+  const parsed = Number(match[1]);
+  return Number.isFinite(parsed) ? parsed : undefined;
+}
+
+function scoreConfidence(input: BlackboxTuningInput): number {
+  const textLength = `${input.problem} ${input.logData} ${input.fileText || ''}`.trim().length;
+  let score = 45;
+  if (textLength > 80) score += 15;
+  if (textLength > 250) score += 15;
+  if (input.currentPIDs.trim().length > 8) score += 10;
+  if (input.fileName) score += 8;
+  if (detectResonanceHz(input.logData) || detectResonanceHz(input.fileText || '')) score += 7;
+  return clamp(score, 35, 92);
+}
+
+export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTuningResult {
+  const combined = `${input.problem} ${input.logData} ${input.fileText || ''}`.toLowerCase();
+  const pids = parsePids(input.currentPIDs);
+  const resonanceHz = detectResonanceHz(input.logData) || detectResonanceHz(input.fileText || '');
+
+  const detectedIssues: string[] = [];
+  const recommendations: string[] = [];
+  const nextSteps: string[] = [
+    'Apply changes in small steps, then run a short 30 second hover and punchout test.',
+    'Land and touch-test motor bells before continuing. Warm is acceptable; too hot to hold is a stop condition.',
+    'Save the previous Betaflight profile before changing PID or filter sliders.',
+  ];
+
+  let pDelta = 0;
+  let iDelta = 0;
+  let dDelta = 0;
+  let ffDelta = 0;
+  let gyroLowpassHz = 120;
+  let dynamicNotch: BlackboxTuningResult['proposedSettings']['dynamicNotch'] = 'on';
+
+  if (includesAny(combined, ['propwash', 'wash', 'dirty air'])) {
+    detectedIssues.push('Propwash recovery instability');
+    dDelta += 3;
+    pDelta -= 1;
+    recommendations.push('Increase D damping slightly and avoid large P increases until motor heat is verified.');
+  }
+
+  if (includesAny(combined, ['bounce-back', 'bounce back', 'bounceback'])) {
+    detectedIssues.push('Stop bounce-back after sharp stick inputs');
+    dDelta += 2;
+    ffDelta -= 4;
+    recommendations.push('Add D damping and reduce feedforward slightly if bounce-back appears after snap moves.');
+  }
+
+  if (includesAny(combined, ['overshoot', 'over shoot', 'oscillation after input'])) {
+    detectedIssues.push('Setpoint overshoot');
+    pDelta -= 2;
+    dDelta += 1;
+    recommendations.push('Reduce P a little before adding more D if overshoot is visible on step response.');
+  }
+
+  if (includesAny(combined, ['yaw', 'tail wag'])) {
+    detectedIssues.push('Yaw-axis instability');
+    iDelta += 2;
+    recommendations.push('Check yaw mechanical friction and prop condition before pushing yaw I-term further.');
+  }
+
+  if (includesAny(combined, ['hot motor', 'motor heat', 'hot motors', 'desync'])) {
+    detectedIssues.push('Motor heat or desync risk');
+    dDelta -= 3;
+    gyroLowpassHz = 100;
+    dynamicNotch = 'increase';
+    recommendations.push('Prioritize filtering and motor temperature over aggressive D gain.');
+  }
+
+  if (resonanceHz && resonanceHz >= 120) {
+    detectedIssues.push(`${resonanceHz}Hz gyro resonance`);
+    gyroLowpassHz = resonanceHz > 180 ? 100 : 120;
+    dynamicNotch = 'increase';
+    recommendations.push(`Add notch/filter attention around the observed ${resonanceHz}Hz resonance before raising gains.`);
+  }
+
+  if (!detectedIssues.length) {
+    detectedIssues.push('No severe signature detected from the supplied summary');
+    recommendations.push('Keep the current tune conservative and gather a cleaner blackbox excerpt with throttle, gyro, setpoint, and D-term traces.');
+  }
+
+  const proposedSettings = {
+    p: round(clamp(pids.p + pDelta, 25, 75)),
+    i: round(clamp(pids.i + iDelta, 45, 120)),
+    d: round(clamp(pids.d + dDelta, 20, 65)),
+    ff: round(clamp(pids.ff + ffDelta, 60, 140)),
+    gyroLowpassHz,
+    rpmFilter: 'on' as const,
+    dynamicNotch,
+  };
+
+  const riskLevel: BlackboxRiskLevel =
+    includesAny(combined, ['hot motor', 'desync']) || proposedSettings.d > pids.d + 4
+      ? 'high'
+      : detectedIssues.length >= 3
+        ? 'medium'
+        : 'low';
+
+  const confidence = scoreConfidence(input);
+  const summary = `${input.droneType || 'FPV build'} on ${input.batterySpec || 'unknown battery'} shows ${detectedIssues[0].toLowerCase()}.`;
+
+  const markdown = [
+    '### Diagnostic Report',
+    `- Problem signature: ${detectedIssues.join(', ')}`,
+    `- Confidence: ${confidence}/100`,
+    `- Risk level: ${riskLevel}`,
+    resonanceHz ? `- Observed resonance: ${resonanceHz}Hz` : '- Observed resonance: not enough frequency detail supplied',
+    '',
+    '### Proposed Settings',
+    `- PIDs: P ${proposedSettings.p}, I ${proposedSettings.i}, D ${proposedSettings.d}, FF ${proposedSettings.ff}`,
+    `- Filters: Gyro lowpass around ${proposedSettings.gyroLowpassHz}Hz, RPM filter ${proposedSettings.rpmFilter}, dynamic notch ${proposedSettings.dynamicNotch}`,
+    '',
+    '### Why',
+    ...recommendations.map((item) => `- ${item}`),
+    '',
+    '### Next Steps',
+    ...nextSteps.map((item) => `- ${item}`),
+  ].join('\n');
+
+  return {
+    summary,
+    confidence,
+    riskLevel,
+    detectedIssues,
+    proposedSettings,
+    recommendations,
+    nextSteps,
+    markdown,
+  };
+}

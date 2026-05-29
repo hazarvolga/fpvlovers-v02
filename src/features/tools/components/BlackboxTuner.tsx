@@ -1,10 +1,23 @@
 'use client';
+// Blackbox tuning submits private log text to a guarded server route; no client API key is exposed.
 
 import React, { useState } from 'react';
-import { GoogleGenAI } from '@google/genai';
-import { Activity, ShieldAlert, Cpu, Radio, Send, Loader2, BarChart2 } from 'lucide-react';
+import { Activity, ShieldAlert, Cpu, Radio, Send, Loader2, BarChart2, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
+
+type BlackboxApiResponse = {
+  success: boolean;
+  source?: 'gemini' | 'local';
+  model?: string;
+  result?: {
+    confidence: number;
+    riskLevel: 'low' | 'medium' | 'high';
+    markdown: string;
+  };
+  warning?: string;
+  error?: string;
+};
 
 export function BlackboxTunerWidget() {
   const [formData, setFormData] = useState({
@@ -17,6 +30,10 @@ export function BlackboxTunerWidget() {
 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
+  const [source, setSource] = useState<string | null>(null);
+  const [confidence, setConfidence] = useState<number | null>(null);
+  const [riskLevel, setRiskLevel] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const analyzeLog = async () => {
@@ -25,61 +42,29 @@ export function BlackboxTunerWidget() {
     setResult(null);
 
     try {
-      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      if (!apiKey) {
-        throw new Error("Gemini API key is not configured.");
-      }
+      const payload = new FormData();
+      payload.set('droneType', formData.droneType);
+      payload.set('batterySpec', formData.batterySpec);
+      payload.set('problem', formData.problem);
+      payload.set('logData', formData.logData);
+      payload.set('currentPIDs', formData.currentPIDs);
+      if (selectedFile) payload.set('file', selectedFile);
 
-      const ai = new GoogleGenAI({ apiKey });
-
-      const systemInstruction = `
-# ROLE: Elite FPV Flight Dynamics Engineer & Betaflight Tuning Master
-# MISSION: Analyze flight log data (Blackbox) to diagnose vibrations, oscillations, and optimize PID/Filter settings for maximum performance.
-
-## 🧠 TUNING LOGIC (Chain-of-Thought):
-Analiz sırasında şu teknik hiyerarşiyi takip et:
-1. **Noise Analysis:** Gyro verilerindeki kirlilik seviyesi. Filtreler (RPM, Dynamic Notch) gürültüyü yeterince temizliyor mu?
-2. **Step Response:** Pilotun komutuna (Setpoint) drone'un tepkisi. Bounce-back (D yetersiz) veya Overshoot (P fazla) var mı?
-3. **Oscillation Profile:** Yüksek frekanslı (D-term kaynaklı) veya düşük frekanslı (I-term/Wind-up) titreşimlerin tespiti.
-4. **Thermal Safety:** Önerilen D-gain değerlerinin motorları yakma riski olup olmadığının kontrolü.
-
-## 📝 OUTPUT FORMAT (Response Structure Markdown):
-
-### 🔍 DIAGNOSTIC REPORT
-- ⚠️ **[Problem]**: (Örn: Propwash Oscillations on Yaw axis)
-- 📉 **[Observation]**: (Örn: Gyro traces show 150Hz resonance)
-
-### 🛠️ PROPOSED SETTINGS (Betaflight Ready)
-- **PIDs:** [P: XX, I: XX, D: XX, FF: XX]
-- **Sliders:** [D-Term Damping: X.X, Tracking: X.X]
-- **Filters:** [Gyro Lowpass Hz, RPM Filter ON/OFF]
-
-### 💡 EXPLANATION (The Why)
-- "D-gain'i artırdık çünkü stop-bounce sorununu sönümlemek istiyoruz, ancak motor sıcaklığını takip etmelisiniz."
-
-### 🚀 NEXT STEPS
-- "Bu ayarları yaptıktan sonra 30 saniyelik bir test uçuşu yapıp motorları elle kontrol edin."
-      `;
-
-      const prompt = `
-Please analyze the following Blackbox / tuning data based on the given rules:
-- Drone Type: ${formData.droneType}
-- Battery: ${formData.batterySpec}
-- Description of the Problem: ${formData.problem}
-- Log / Gyro Data Insights: ${formData.logData}
-- Current PIDs: ${formData.currentPIDs}
-      `;
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
-        contents: prompt,
-        config: {
-          systemInstruction,
-          temperature: 0.2,
-        }
+      const response = await fetch('/api/tools/blackbox-tuning', {
+        method: 'POST',
+        body: payload,
       });
 
-      setResult(response.text || "No analysis returned from the Oracle.");
+      const data = await response.json() as BlackboxApiResponse;
+      if (!response.ok || !data.success || !data.result) {
+        throw new Error(data.error || 'Blackbox analysis failed.');
+      }
+
+      setResult(data.result.markdown);
+      setSource(data.model ? `${data.source} · ${data.model}` : data.source || 'local');
+      setConfidence(data.result.confidence);
+      setRiskLevel(data.result.riskLevel);
+      if (data.warning) setError(data.warning);
     } catch (err) {
       console.error(err);
       setError(err instanceof Error ? err.message : 'An unknown error occurred during analysis.');
@@ -154,6 +139,21 @@ Please analyze the following Blackbox / tuning data based on the given rules:
 
         <div className="space-y-2 md:col-span-2">
            <label className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+             <Upload className="w-3 h-3" /> Optional Log / CLI Dump
+           </label>
+           <input
+             type="file"
+             accept=".bbl,.bfl,.csv,.log,.txt"
+             onChange={(event) => setSelectedFile(event.target.files?.[0] || null)}
+             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white file:mr-4 file:border-0 file:bg-[#FF5C00] file:px-3 file:py-2 file:text-xs file:font-black file:uppercase file:tracking-widest file:text-white focus:outline-none focus:border-[#FF5C00] transition-colors"
+           />
+           <p className="text-[10px] font-mono text-[#666666] uppercase">
+             MVP limit: 256KB text excerpt. Large raw logs should be summarized first.
+           </p>
+        </div>
+
+        <div className="space-y-2 md:col-span-2">
+           <label className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Radio className="w-3 h-3" /> Current PIDs
            </label>
            <input
@@ -187,7 +187,7 @@ Please analyze the following Blackbox / tuning data based on the given rules:
       </Button>
 
       {error && (
-        <div className="p-4 border border-red-500/50 bg-red-500/10 text-red-400 font-mono text-sm">
+        <div className="p-4 border border-yellow-300/40 bg-yellow-300/10 text-yellow-100 font-mono text-sm">
           <ShieldAlert className="w-5 h-5 mb-2 inline-block" /> {error}
         </div>
       )}
@@ -197,6 +197,21 @@ Please analyze the following Blackbox / tuning data based on the given rules:
           <div className="flex items-center gap-2 mb-6">
             <Activity className="w-5 h-5 text-[#FF5C00]" />
             <h2 className="text-xl font-black uppercase text-white tracking-tight">Tuning Solution Matrix</h2>
+          </div>
+
+          <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="border border-[#333333] bg-[#0A0A0B] p-3">
+              <div className="text-[9px] uppercase tracking-widest text-[#666666]">Source</div>
+              <div className="text-sm font-black text-[#FF5C00] uppercase">{source || 'local'}</div>
+            </div>
+            <div className="border border-[#333333] bg-[#0A0A0B] p-3">
+              <div className="text-[9px] uppercase tracking-widest text-[#666666]">Confidence</div>
+              <div className="text-sm font-black text-white">{confidence ?? '--'}/100</div>
+            </div>
+            <div className="border border-[#333333] bg-[#0A0A0B] p-3">
+              <div className="text-[9px] uppercase tracking-widest text-[#666666]">Risk</div>
+              <div className="text-sm font-black text-white uppercase">{riskLevel || 'unknown'}</div>
+            </div>
           </div>
 
           <div className="prose prose-invert prose-p:font-mono prose-p:text-sm prose-p:text-[#A0A0A0] prose-headings:font-black prose-headings:uppercase prose-headings:text-[#FF5C00] prose-li:font-mono prose-li:text-sm max-w-none">
