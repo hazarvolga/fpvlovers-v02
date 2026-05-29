@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { runWorkflow } from '@/lib/content-automation/dify-generation';
+import { runWorkflow } from '@/lib/dify-client';
 import { WORKFLOW_IDS, WORKFLOW_TOKENS } from '@/lib/master-routing-tables';
 
 export async function POST(
@@ -26,9 +26,11 @@ export async function POST(
     }
 
     const body = await req.json();
-    const inputs = body.inputs || {};
+    const inputs = body && typeof body === 'object' && 'inputs' in body && body.inputs && typeof body.inputs === 'object'
+      ? body.inputs as Record<string, unknown>
+      : {};
 
-    const result = await runWorkflow(workflowToken, inputs);
+    const result = await runWorkflow(workflowId, inputs, workflowToken);
 
     return NextResponse.json({
       success: result.success,
@@ -36,8 +38,10 @@ export async function POST(
       totalTokens: result.totalTokens,
       elapsedTime: result.elapsedTime,
       outputs: result.outputs,
+      error: result.error,
     });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Unknown workflow error';
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

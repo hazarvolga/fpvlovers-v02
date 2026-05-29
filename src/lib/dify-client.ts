@@ -203,6 +203,66 @@ export interface DifyClientResponse {
   budgetRemaining?: number;
 }
 
+export interface DifyWorkflowResponse {
+  success: boolean;
+  status: DifyClientResponse['status'];
+  workflowRunId?: string;
+  totalTokens?: number;
+  elapsedTime?: number;
+  outputs: Record<string, unknown>;
+  error?: string;
+  dryRun?: boolean;
+  budgetRemaining?: number;
+}
+
+function asRecord(value: unknown): Record<string, unknown> | undefined {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : undefined;
+}
+
+function asString(value: unknown): string | undefined {
+  return typeof value === 'string' && value.length > 0 ? value : undefined;
+}
+
+function asNumber(value: unknown): number | undefined {
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
+}
+
+function normalizeWorkflowOutputs(value: unknown): Record<string, unknown> {
+  const record = asRecord(value);
+  if (record) return record;
+  if (value === undefined || value === null) return {};
+  return { result: value };
+}
+
+function normalizeWorkflowResponse(response: DifyClientResponse): DifyWorkflowResponse {
+  const data = asRecord(response.data);
+  const nestedData = asRecord(data?.data);
+  const metadata = asRecord(data?.metadata);
+  const usage = asRecord(metadata?.usage);
+
+  const outputs = normalizeWorkflowOutputs(nestedData?.outputs ?? data?.outputs);
+
+  return {
+    success: response.ok,
+    status: response.status,
+    workflowRunId: asString(data?.workflow_run_id)
+      ?? asString(data?.workflowRunId)
+      ?? asString(nestedData?.workflow_run_id)
+      ?? asString(data?.id),
+    totalTokens: asNumber(nestedData?.total_tokens)
+      ?? asNumber(usage?.total_tokens)
+      ?? response.tokens,
+    elapsedTime: asNumber(nestedData?.elapsed_time)
+      ?? asNumber(data?.elapsed_time),
+    outputs,
+    error: response.error,
+    dryRun: response.dryRun,
+    budgetRemaining: response.budgetRemaining,
+  };
+}
+
 export async function difyRequest(
   endpoint: string,
   options: { method?: string; body?: any; apiKey?: string; timeout?: number; tokens?: number; taskType?: TaskType } = {},
@@ -366,16 +426,17 @@ export async function runWorkflow(
   workflowId: string,
   inputs: Record<string, unknown>,
   appToken: string
-): Promise<DifyClientResponse> {
-  return difyRequest('/workflows/run', {
+): Promise<DifyWorkflowResponse> {
+  const response = await difyRequest('/workflows/run', {
     method: 'POST',
     body: {
       inputs,
       response_mode: 'blocking',
-      user: 'fpvlovers-system',
+      user: `fpvlovers-system-${workflowId}`,
     },
     apiKey: appToken,
     taskType: 'content_gen',
   });
-}
 
+  return normalizeWorkflowResponse(response);
+}
