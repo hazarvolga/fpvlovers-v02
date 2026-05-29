@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 
 type BlackboxApiResponse = {
   success: boolean;
-  source?: 'gemini' | 'local';
+  source?: 'dify' | 'local';
   model?: string;
   result?: {
     confidence: number;

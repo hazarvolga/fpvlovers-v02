@@ -1,11 +1,11 @@
-import { GoogleGenAI } from '@google/genai';
 import { NextRequest, NextResponse } from 'next/server';
+import { difyRequest } from '@/lib/dify-client';
+import { findApp } from '@/lib/master-routing-tables';
 import { analyzeBlackboxTuning, type BlackboxTuningInput } from '@/lib/tools/blackbox-tuning';
-import { getGeminiApiKey } from '@/lib/tools/gemini-key';
 
 const MAX_TEXT_CHARS = 60000;
 const MAX_FILE_BYTES = 256 * 1024;
-const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
+const BLACKBOX_DIFY_APP_NAME = 'Blackbox Tuning Advisor';
 
 type RequestPayload = BlackboxTuningInput;
 
@@ -56,10 +56,32 @@ async function parseRequest(req: NextRequest): Promise<RequestPayload> {
   };
 }
 
-function buildGeminiPrompt(input: RequestPayload, localMarkdown: string): string {
+function asRecord(value: unknown): Record<string, unknown> | undefined {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : undefined;
+}
+
+function asString(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined;
+}
+
+function extractDifyAnswer(value: unknown): string | undefined {
+  const data = asRecord(value);
+  const nestedData = asRecord(data?.data);
+  const outputs = asRecord(data?.outputs) ?? asRecord(nestedData?.outputs);
+
+  return asString(data?.answer)
+    ?? asString(nestedData?.answer)
+    ?? asString(outputs?.answer)
+    ?? asString(outputs?.markdown)
+    ?? asString(outputs?.result);
+}
+
+function buildDifyPrompt(input: RequestPayload, localMarkdown: string): string {
   return [
-    'You are a senior FPV blackbox tuning advisor. Analyze the supplied Betaflight/INAV/EmuFlight tune summary.',
-    'Be practical, conservative, and motor-heat aware. Do not invent exact blackbox channels that are not present.',
+    'Analyze this FPV blackbox tuning request using the project RAG knowledge base when available.',
+    'Be practical, conservative, and motor-heat aware. Do not invent exact blackbox channels that are not present in the user data.',
     'Return concise Markdown with these headings: Diagnostic Report, Proposed Settings, Why, Next Steps.',
     'Use the local deterministic analysis as a guardrail, not as something to blindly repeat.',
     '',
@@ -75,6 +97,15 @@ function buildGeminiPrompt(input: RequestPayload, localMarkdown: string): string
   ].filter(Boolean).join('\n');
 }
 
+function localResponse(local: ReturnType<typeof analyzeBlackboxTuning>, warning: string) {
+  return NextResponse.json({
+    success: true,
+    source: 'local',
+    result: local,
+    warning,
+  });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const input = await parseRequest(req);
@@ -86,42 +117,47 @@ export async function POST(req: NextRequest) {
     }
 
     const local = analyzeBlackboxTuning(input);
-    const apiKey = getGeminiApiKey();
+    const blackboxApp = findApp(BLACKBOX_DIFY_APP_NAME);
 
-    if (!apiKey) {
-      return NextResponse.json({
-        success: true,
-        source: 'local',
-        result: local,
-        warning: 'Gemini API key is not configured; returned deterministic local analysis.',
-      });
+    if (!blackboxApp?.token) {
+      return localResponse(
+        local,
+        'Dify Blackbox app token is not configured; returned deterministic local analysis.',
+      );
     }
 
     try {
-      const ai = new GoogleGenAI({ apiKey });
-      const response = await ai.models.generateContent({
-        model: GEMINI_MODEL,
-        contents: buildGeminiPrompt(input, local.markdown),
-        config: {
-          temperature: 0.2,
-          maxOutputTokens: 1400,
+      const response = await difyRequest('/chat-messages', {
+        method: 'POST',
+        apiKey: blackboxApp.token,
+        taskType: 'rag_query',
+        timeout: 45000,
+        body: {
+          inputs: {},
+          query: buildDifyPrompt(input, local.markdown),
+          response_mode: 'blocking',
+          user: 'fpvlovers-blackbox-tool',
         },
       });
 
-      const markdown = response.text?.trim();
+      const markdown = extractDifyAnswer(response.data);
+
+      if (!response.ok || !markdown) {
+        return localResponse(
+          local,
+          response.dryRun
+            ? 'Dify dry-run is active in this environment; returned deterministic local analysis.'
+            : 'Dify Blackbox analysis did not return usable Markdown; returned deterministic local analysis.',
+        );
+      }
+
       return NextResponse.json({
         success: true,
-        source: markdown ? 'gemini' : 'local',
-        model: markdown ? GEMINI_MODEL : undefined,
-        result: markdown ? { ...local, markdown } : local,
+        source: 'dify',
+        result: { ...local, markdown },
       });
     } catch {
-      return NextResponse.json({
-        success: true,
-        source: 'local',
-        result: local,
-        warning: 'Gemini analysis failed; returned deterministic local analysis.',
-      });
+      return localResponse(local, 'Dify Blackbox analysis failed; returned deterministic local analysis.');
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Blackbox analysis failed.';

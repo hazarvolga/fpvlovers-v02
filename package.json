@@ -22,7 +22,6 @@
     "routes:audit": "node scripts/route-tree-drift-audit.mjs"
   },
   "dependencies": {
-    "@google/genai": "^1.17.0",
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-slot": "^1.2.4",
     "@vercel/analytics": "^2.0.1",

@@ -43,8 +43,6 @@ Required:
 
 Feature-dependent:
 
-- `GEMINI_API_KEY`
-- `NEXT_PUBLIC_GEMINI_API_KEY`
 - `GROQ_API_KEY`
 - `GROQ_MODEL`
 - `DB_HOST`

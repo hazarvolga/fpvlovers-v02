@@ -47,10 +47,13 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `/tools/part-matcher` no longer calls Gemini from the client; it uses the same catalog plus deterministic compatibility checks for frame/prop, KV/voltage, motor/battery, ESC margin, and calculator-derived metrics.
   - Playwright Chromium was installed locally and verification passed: `npx tsc --noEmit`, `npm run routes:audit`, Playwright render smoke for `/tools/component-duel`, and Playwright click smoke for `/tools/part-matcher`.
 - Blackbox Tuning phase completed by Codex on 2026-05-29:
-  - `/tools/blackbox-tuning` no longer exposes Gemini from the client. It posts to `/api/tools/blackbox-tuning`, which reads server-side Gemini credentials from env or root `gemini-apikey.md`.
+  - `/tools/blackbox-tuning` no longer exposes Gemini from the client. It posts to `/api/tools/blackbox-tuning`, which routes AI enrichment through the Dify Blackbox Tuning Advisor app via `src/lib/dify-client.ts`.
   - The route has a deterministic local fallback that returns confidence, risk level, detected issues, proposed PID/filter settings, and motor-heat-safe next steps.
-  - Gemini key smoke reached the Gemini API, but the current key returned `RESOURCE_EXHAUSTED` / prepayment credits depleted, so local fallback is the active runtime path until AI Studio billing/credits are fixed.
-  - Verification passed: `npx tsc --noEmit`, `npm run routes:audit`, API route smoke, and Playwright click/render smoke for `/tools/blackbox-tuning`.
+  - Direct local Gemini key usage was removed after architecture review; provider credentials belong in Dify, not in the local Next.js app.
+- Dify-brain alignment correction completed by Codex on 2026-05-29:
+  - Local Gemini key files and Gemini-specific env vars are no longer read by app code.
+  - `/api/analyze-flight`, `/api/tools/blackbox-tuning`, and `/api/tools/hardware-analyzer` route AI enrichment through Dify apps via `src/lib/dify-client.ts` and fall back to deterministic local analysis when Dify is dry-run/unavailable.
+  - Legacy unused `components/features/*` Gemini widgets were removed so the single `src/` tree remains the active source of truth.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

@@ -1,10 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { GoogleGenAI } from '@google/genai';
 import { Activity, ShieldAlert, Cpu, Battery, Video, Send, Loader2, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
+
+type HardwareApiResponse = {
+  success: boolean;
+  source?: 'dify' | 'local';
+  markdown?: string;
+  warning?: string;
+  error?: string;
+};
 
 export function HardwareAnalyzerWidget() {
   const [formData, setFormData] = useState({
@@ -26,69 +33,18 @@ export function HardwareAnalyzerWidget() {
     setResult(null);
 
     try {
-      const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-      if (!apiKey) {
-        throw new Error("Gemini API key is not configured.");
+      const response = await fetch('/api/tools/hardware-analyzer', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json() as HardwareApiResponse;
+      if (!response.ok || !data.success || !data.markdown) {
+        throw new Error(data.error || 'Hardware analysis failed.');
       }
 
-      const ai = new GoogleGenAI({ apiKey });
-
-      const systemInstruction = `
-# ROLE: Senior FPV Engineering Architect & Hardware Compatibility Expert
-# MISSION: Analyze FPV drone component lists for technical, electrical, and physical compatibility.
-
-## 🧠 ENGINEERING LOGIC (Chain-of-Thought):
-Her analizde şu adımları takip et:
-1. **Power Systems Check:** Voltaj (S) uyumu. Pil, Motor KV değeri ve ESC voltaj limitleri birbirini destekliyor mu? (Örn: 6S pil + 2400KV motor = Risk!)
-2. **Propulsion Dynamics:** Motor boyutu vs. Pervane boyutu vs. Frame boyutu. (Örn: 5 inç pervane, 3 inç frame'e sığmaz.)
-3. **Electrical Load:** Motorun maksimum akım çekimi (Amper), ESC'nin sürekli ve burst akım değerlerinin altında mı? (+%20 güvenlik marjı bırak).
-4. **Physical Mounting:** Stack montaj delikleri (20x20, 30.5x30.5), Motor montaj delikleri ve VTX alanı frame ile uyumlu mu?
-5. **Video & Control Link:** Kamera/VTX protokol uyumu (DJI O3, Walksnail, Analog) ve FC üzerindeki UART sayısı.
-
-## 🛠️ COMPATIBILITY RULES (Knowledge Base):
-- **6S Build:** 1600-1950KV (5"), 30-50A ESC.
-- **4S Build:** 2300-2750KV (5"), 20-40A ESC.
-- **Cinewhoop (3"):** 1404-1507 Motor, 2500-3500KV (4S).
-- **Mounting:** O3 Air Unit için geniş frame alanı ve 20x20/30.5x30.5 uyumu şart.
-
-## 📝 OUTPUT FORMAT:
-Yanıtlarını şu bölümlerle ver (Markdown kullanarak):
-
-### 📊 COMPATIBILITY MATRIX
-- 🟢 [Parça İsmi]: Uyumlu.
-- 🟡 [Parça İsmi]: Dikkat (Kısıtlı uyum/Ayarlama gerekir).
-- 🔴 [Parça İsmi]: Uyumsuz (Kritik hata!).
-
-### 🧐 DETAILED REASONING
-- Neden uyumlu veya uyumsuz olduğunun teknik açıklaması (Chain-of-Thought).
-
-### ⚡ RISK ASSESSMENT
-- Olası ısınma, yanma veya düşük verimlilik riskleri.
-
-### 🛠️ RECOMMENDED UPGRADES
-- Eğer bir parça uyumsuzsa, onun yerine geçebilecek 2 alternatif öner.
-      `;
-
-      const prompt = `
-Please analyze the following FPV drone components based on the given rules:
-- Frame: ${formData.frame}
-- Motor: ${formData.motor}
-- ESC: ${formData.esc}
-- Battery: ${formData.battery}
-- FC: ${formData.fc}
-- VTX/Camera: ${formData.vtx}
-      `;
-
-      const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
-        contents: prompt,
-        config: {
-          systemInstruction,
-          temperature: 0.2,
-        }
-      });
-
-      setResult(response.text || "No analysis returned from the Oracle.");
+      setResult(data.markdown);
+      if (data.warning) setError(data.warning);
     } catch (err) {
       console.error(err);
       setError(err instanceof Error ? err.message : 'An unknown error occurred during analysis.');

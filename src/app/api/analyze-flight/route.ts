@@ -1,86 +1,170 @@
-import { GoogleGenAI } from "@google/genai";
-import { writeFile } from "fs/promises";
-import { join } from "path";
+import { difyRequest } from '@/lib/dify-client';
+import { findApp } from '@/lib/master-routing-tables';
+
+type FlightAnalysis = {
+  scores: {
+    flow: number;
+    speed: number;
+    proximity: number;
+    acro: number;
+    stability: number;
+  };
+  verdict: 'S1-Elite Pilot' | 'A-Proximity God' | 'B-Rookie Hunter' | 'C-Trainee';
+  summary: string;
+  telemetrySimulation: Array<{
+    timestamp: string;
+    event: string;
+    riskScore: string;
+  }>;
+  source?: 'dify' | 'local';
+  warning?: string;
+};
+
+type UploadedVideoMeta = {
+  name: string;
+  type: string;
+  sizeMb: number;
+};
+
+function asRecord(value: unknown): Record<string, unknown> | undefined {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : undefined;
+}
+
+function asString(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined;
+}
+
+function extractDifyAnswer(value: unknown): string | undefined {
+  const data = asRecord(value);
+  const nestedData = asRecord(data?.data);
+  const outputs = asRecord(data?.outputs) ?? asRecord(nestedData?.outputs);
+
+  return asString(data?.answer)
+    ?? asString(nestedData?.answer)
+    ?? asString(outputs?.answer)
+    ?? asString(outputs?.result)
+    ?? asString(outputs?.json);
+}
+
+function stripJsonFence(value: string): string {
+  return value
+    .replace(/^```(?:json)?/i, '')
+    .replace(/```$/i, '')
+    .trim();
+}
+
+function parseDifyAnalysis(markdownOrJson: string): FlightAnalysis | undefined {
+  try {
+    const parsed = JSON.parse(stripJsonFence(markdownOrJson)) as unknown;
+    const record = asRecord(parsed);
+    const scores = asRecord(record?.scores);
+    if (!record || !scores) return undefined;
+
+    return {
+      scores: {
+        flow: Number(scores.flow) || 72,
+        speed: Number(scores.speed) || 72,
+        proximity: Number(scores.proximity) || 72,
+        acro: Number(scores.acro) || 72,
+        stability: Number(scores.stability) || 72,
+      },
+      verdict: asString(record.verdict) as FlightAnalysis['verdict'] || 'B-Rookie Hunter',
+      summary: asString(record.summary) || 'Dify returned a flight review, but the summary was empty.',
+      telemetrySimulation: Array.isArray(record.telemetrySimulation)
+        ? record.telemetrySimulation.slice(0, 5).map((event) => {
+          const item = asRecord(event) || {};
+          return {
+            timestamp: asString(item.timestamp) || '00:00',
+            event: asString(item.event) || 'Flight segment review',
+            riskScore: asString(item.riskScore) || 'Medium',
+          };
+        })
+        : [{ timestamp: '00:00', event: 'Flight style review', riskScore: 'Medium' }],
+      source: 'dify',
+    };
+  } catch {
+    return undefined;
+  }
+}
+
+function buildFallback(meta: UploadedVideoMeta, warning: string): FlightAnalysis {
+  return {
+    scores: { flow: 72, speed: 70, proximity: 68, acro: 66, stability: 74 },
+    verdict: 'B-Rookie Hunter',
+    summary: `Upload received: ${meta.name}. Frame-level video analysis is not connected locally; this is a conservative training rubric until the Dify video workflow is enabled.`,
+    telemetrySimulation: [
+      { timestamp: '00:00', event: 'DVR upload accepted', riskScore: 'Info' },
+      { timestamp: '00:10', event: 'Manual review recommended for gaps, throttle flow, and propwash', riskScore: 'Medium' },
+    ],
+    source: 'local',
+    warning,
+  };
+}
+
+function buildDifyPrompt(meta: UploadedVideoMeta): string {
+  return [
+    'You are the FPVLovers Flight Critic inside Dify.',
+    'Important: the Next.js app is not sending video frames in this request. Do not claim you inspected exact frames.',
+    'Use FPV training knowledge to return a conservative coaching rubric based on upload metadata and common freestyle/racing review criteria.',
+    'Return raw JSON only, matching this exact shape:',
+    '{"scores":{"flow":number,"speed":number,"proximity":number,"acro":number,"stability":number},"verdict":"S1-Elite Pilot|A-Proximity God|B-Rookie Hunter|C-Trainee","summary":"two honest sentences","telemetrySimulation":[{"timestamp":"00:05","event":"string","riskScore":"Low|Medium|High|Extreme"}]}',
+    '',
+    `Video file: ${meta.name}`,
+    `MIME type: ${meta.type}`,
+    `Size: ${meta.sizeMb.toFixed(2)} MB`,
+  ].join('\n');
+}
 
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
-    const video = formData.get("video") as unknown as File;
+    const video = formData.get('video');
 
-    if (!video) {
-      return Response.json({ error: "No video provided." }, { status: 400 });
+    if (!(video instanceof File)) {
+      return Response.json({ error: 'No video provided.' }, { status: 400 });
     }
 
-    // Convert video to buffer and write to tmp
-    const bytes = await video.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    const tmpPath = join("/tmp", `flight-${Date.now()}.mp4`);
-    await writeFile(tmpPath, buffer);
+    const meta: UploadedVideoMeta = {
+      name: video.name || 'fpv-flight.mp4',
+      type: video.type || 'video/unknown',
+      sizeMb: video.size / 1024 / 1024,
+    };
 
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
-      // Mocked Response if no API key
-      await new Promise((r) => setTimeout(r, 2500));
-      return Response.json({
-         scores: { flow: 85, speed: 78, proximity: 92, acro: 88, stability: 70 },
-         verdict: "A-Proximity God",
-         summary: "Exceptional gap hunting and proximity confidence. PID tuning could be optimized to reduce propwash during high G-force maneuvers.",
-         telemetrySimulation: [
-           { timestamp: "00:03", event: "High-G Split-S", riskScore: "High" },
-           { timestamp: "00:08", event: "Gap cleared", riskScore: "Extreme" },
-         ]
-      });
+    const app = findApp('FPV Expert Assistant');
+    if (!app?.token) {
+      return Response.json(buildFallback(meta, 'Dify FPV Expert app token is not configured.'));
     }
 
-    const ai = new GoogleGenAI({ apiKey });
-
-    // Upload to Gemini
-    const uploadedFile = await ai.files.upload({
-        file: tmpPath,
+    const response = await difyRequest('/chat-messages', {
+      method: 'POST',
+      apiKey: app.token,
+      taskType: 'rag_query',
+      timeout: 45000,
+      body: {
+        inputs: {},
+        query: buildDifyPrompt(meta),
+        response_mode: 'blocking',
+        user: 'fpvlovers-flight-critic',
+      },
     });
 
-    const prompt = `
-You are an expert FPV drone judge and aeronautical telemetry analyst.
-Analyze the provided FPV flight video and evaluate the pilot's performance across 5 specific axes, scoring each from 0 to 100:
-1. Flow & Smoothness (Transitions between maneuvers)
-2. Speed Consistency (Throttle management)
-3. Proximity & Risk (Gap hunting, obstacle proximity)
-4. Acrowork Quality (Precision of flips, rolls, dives)
-5. Stability (Absence of propwash, PID vibrations)
+    const answer = extractDifyAnswer(response.data);
+    const analysis = answer ? parseDifyAnalysis(answer) : undefined;
 
-Return a structured JSON output exactly in this format (no markdown code blocks, just raw JSON):
-{
-  "scores": {
-    "flow": number,
-    "speed": number,
-    "proximity": number,
-    "acro": number,
-    "stability": number
-  },
-  "verdict": "S1-Elite Pilot" | "A-Proximity God" | "B-Rookie Hunter" | "C-Trainee",
-  "summary": "A punchy, 2-sentence breakdown of their flight style.",
-  "telemetrySimulation": [
-    { "timestamp": "00:05", "event": "High-G Split-S", "riskScore": "High" }
-  ]
-}
-`;
+    if (!response.ok || !analysis) {
+      return Response.json(buildFallback(
+        meta,
+        response.dryRun
+          ? 'Dify dry-run is active locally; returned deterministic training rubric.'
+          : 'Dify Flight Critic did not return usable JSON; returned deterministic training rubric.',
+      ));
+    }
 
-    const response = await ai.models.generateContent({
-        model: "gemini-2.5-flash",
-        contents: [
-            uploadedFile,
-            prompt
-        ],
-        config: {
-            responseMimeType: "application/json",
-        }
-    });
-
-    const jsonText = response.text || "{}";
-    return Response.json(JSON.parse(jsonText));
-
-  } catch (error: any) {
-    console.error("Video analysis error:", error);
-    return Response.json({ error: error.message || "Failed to analyze video." }, { status: 500 });
+    return Response.json(analysis);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Failed to analyze video.';
+    return Response.json({ error: message }, { status: 500 });
   }
 }

@@ -137,7 +137,7 @@ export function FlightCriticWidget() {
             <Crosshair className="w-5 h-5 text-[#00F5FF]" />
             <h3 className="font-black tracking-widest text-[#00F5FF] uppercase text-sm">AI Flight Critic V1.0</h3>
          </div>
-         <Badge variant="outline" className="text-[10px]"><Zap className="w-3 h-3 mr-1 text-[#FFB800]"/> GEMINI 2.0 FLASH</Badge>
+         <Badge variant="outline" className="text-[10px]"><Zap className="w-3 h-3 mr-1 text-[#FFB800]"/> DIFY RAG</Badge>
       </div>
 
       <div className="p-6">
