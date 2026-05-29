@@ -119,6 +119,12 @@ export const navigationData = [
         icon: Activity
       },
       {
+        title: "Part Matcher",
+        href: "/tools/part-matcher",
+        description: "Catalog-backed FPV component compatibility checks.",
+        icon: Target
+      },
+      {
         title: "Pilot Pulse",
         href: "/pilot-pulse",
         description: "Live news radar for leaks, launches, and stock.",
