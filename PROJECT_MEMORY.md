@@ -63,6 +63,11 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Local endpoint smoke confirmed dev-mode fallback works as intended: `source=local` with `Dify dry-run is active in this environment`.
   - A live production-mode smoke through `src/lib/dify-client.ts` reached the Dify Blackbox Tuning Advisor app with `dryRun=false`, but Dify returned `HTTP 400 invalid_param / PluginInvokeError [models] Error: 'google_api_key'`.
   - Conclusion: Next.js routing and app token wiring are correct; the active blocker is Dify-side provider credential/model configuration for the Blackbox app.
+- Blackbox Dify provider credential fixed by Codex on 2026-05-29:
+  - The local key file contains the newer full-line `AQ.` style token; the previous validation attempt accidentally stripped the prefix by splitting on `.`.
+  - Dify Gemini provider credential was validated and updated through `ModelProviderService` with `{"google_api_key": "<redacted>"}`; no local app env/key path was introduced.
+  - Production-mode Blackbox smoke through `src/lib/dify-client.ts` now returns `ok=true`, `dryRun=false`, and a non-empty Dify answer.
+  - `/api/tools/blackbox-tuning` strips model reasoning blocks such as `<think>...</think>` before returning Markdown to the UI.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

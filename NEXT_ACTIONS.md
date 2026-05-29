@@ -14,12 +14,12 @@ Last updated: 2026-05-29
 8. DONE Dify-brain correction (2026-05-29): local Gemini key usage removed from app code; Flight Critic, Blackbox Tuning, and Hardware Analyzer now use Dify-first API routes with deterministic fallback.
 9. DONE Tool Dify alignment Phase 1 (2026-05-29): Build Wizard and Part Matcher now have Dify-first API review routes plus explicit UI review panels; deterministic calculators remain the guardrail.
 10. DONE Blackbox live Dify validation (2026-05-29): production-mode smoke reached Dify through `src/lib/dify-client.ts`, but Dify returned provider credential error `[models] Error: 'google_api_key'`.
+11. DONE Blackbox Dify provider fix (2026-05-29): Dify Gemini credential validated/updated via service layer using the full `AQ.` key format, and production-mode Blackbox smoke now returns `ok=true`, `dryRun=false`.
 
 ## Code Tasks Before Push
 
 - Review current git status and separate unrelated pre-existing changes from deploy-critical fixes.
-- Fix Dify Blackbox Tuning Advisor provider/model credential in Dify UI or service layer; expected key shape is `google_api_key` on the Dify provider credential, not a local app key file.
-- After Dify provider fix, rerun the Blackbox production-mode smoke through `src/lib/dify-client.ts`; keep local development dry-run/fallback behavior intact.
+- Run one browser/API smoke on `/tools/blackbox-tuning` after deploy or in a production-mode local session to confirm the UI receives sanitized Dify Markdown.
 - Continue tool Dify alignment with Flight Critic workflow design; keep all Dify calls behind `src/lib/dify-client.ts`.
 - Verify Build Wizard and Part Matcher against production Dify credentials with `CRAWL_DRY_RUN=true` or equivalent safe mode before presenting the Dify response as live RAG-backed guidance.
 - Add a dedicated Dify video-analysis workflow before marketing Flight Critic as true frame-level DVR analysis; current local route is honest metadata/rubric fallback when video frames are not processed by Dify.

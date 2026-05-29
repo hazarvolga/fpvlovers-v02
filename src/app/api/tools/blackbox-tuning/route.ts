@@ -66,16 +66,24 @@ function asString(value: unknown): string | undefined {
   return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined;
 }
 
+function stripReasoningBlocks(value: string): string {
+  return value
+    .replace(/<think>[\s\S]*?<\/think>/gi, '')
+    .trim();
+}
+
 function extractDifyAnswer(value: unknown): string | undefined {
   const data = asRecord(value);
   const nestedData = asRecord(data?.data);
   const outputs = asRecord(data?.outputs) ?? asRecord(nestedData?.outputs);
 
-  return asString(data?.answer)
+  const answer = asString(data?.answer)
     ?? asString(nestedData?.answer)
     ?? asString(outputs?.answer)
     ?? asString(outputs?.markdown)
     ?? asString(outputs?.result);
+
+  return answer ? stripReasoningBlocks(answer) : undefined;
 }
 
 function buildDifyPrompt(input: RequestPayload, localMarkdown: string): string {
