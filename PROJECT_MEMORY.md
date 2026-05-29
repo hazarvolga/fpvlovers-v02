@@ -54,6 +54,11 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Local Gemini key files and Gemini-specific env vars are no longer read by app code.
   - `/api/analyze-flight`, `/api/tools/blackbox-tuning`, and `/api/tools/hardware-analyzer` route AI enrichment through Dify apps via `src/lib/dify-client.ts` and fall back to deterministic local analysis when Dify is dry-run/unavailable.
   - Legacy unused `components/features/*` Gemini widgets were removed so the single `src/` tree remains the active source of truth.
+- Tool Dify alignment Phase 1 completed by Codex on 2026-05-29:
+  - `/api/tools/build-wizard` wraps the deterministic build calculator with a Dify Build Wizard review through `src/lib/dify-client.ts`; local dry-run/unavailable Dify returns a clear deterministic review fallback.
+  - `/api/tools/part-matcher` wraps catalog-backed compatibility checks with the Dify Part Matcher app through `src/lib/dify-client.ts`; the deterministic score/checks remain the guardrail.
+  - `/tools/calculator` and `/tools/part-matcher` now expose explicit Dify review panels with source/warning states, keeping calculation local and recommendation intelligence in Dify.
+  - Verification passed: `npx tsc --noEmit`, `npm run routes:audit`, localhost API smoke for both routes, and Playwright render smoke for both tool pages after restarting a stale dev server.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

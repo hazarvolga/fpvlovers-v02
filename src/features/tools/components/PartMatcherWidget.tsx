@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { analyzeBuildCompatibility } from '@/lib/tools/component-compatibility';
 import type { BuildSelection, BuildSlot, FpvCatalogProduct, FpvProductType } from '@/lib/tools/fpv-product-types';
 import { cn } from '@/lib/utils';
+import ReactMarkdown from 'react-markdown';
 
 type Props = {
   products: FpvCatalogProduct[];
@@ -18,6 +19,14 @@ type SlotConfig = {
   type: FpvProductType | FpvProductType[];
   icon: React.ComponentType<{ className?: string }>;
   required?: boolean;
+};
+
+type PartMatcherApiResponse = {
+  success: boolean;
+  source?: 'dify' | 'local';
+  markdown?: string;
+  warning?: string;
+  error?: string;
 };
 
 const SLOT_CONFIG: SlotConfig[] = [
@@ -40,10 +49,15 @@ function optionMatches(product: FpvCatalogProduct, type: FpvProductType | FpvPro
 
 export function PartMatcherWidget({ products }: Props) {
   const [selection, setSelection] = useState<BuildSelection>(DEFAULT_SELECTION);
+  const [review, setReview] = useState<PartMatcherApiResponse | null>(null);
+  const [reviewLoading, setReviewLoading] = useState(false);
+  const [reviewError, setReviewError] = useState<string | null>(null);
   const result = useMemo(() => analyzeBuildCompatibility(selection, products), [selection, products]);
 
   const setSlot = (slot: BuildSlot, value: string) => {
     setSelection((current) => ({ ...current, [slot]: value || undefined }));
+    setReview(null);
+    setReviewError(null);
   };
 
   const fillDemo = () => {
@@ -58,6 +72,32 @@ export function PartMatcherWidget({ products }: Props) {
       video: find(SLOT_CONFIG[5])?.id,
       receiver: find(SLOT_CONFIG[6])?.id,
     });
+    setReview(null);
+    setReviewError(null);
+  };
+
+  const runDifyReview = async () => {
+    setReviewLoading(true);
+    setReviewError(null);
+    setReview(null);
+
+    try {
+      const response = await fetch('/api/tools/part-matcher', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(selection),
+      });
+      const data = await response.json() as PartMatcherApiResponse;
+      if (!response.ok || !data.success || !data.markdown) {
+        throw new Error(data.error || 'Part Matcher review failed.');
+      }
+      setReview(data);
+      if (data.warning) setReviewError(data.warning);
+    } catch (error) {
+      setReviewError(error instanceof Error ? error.message : 'Part Matcher review failed.');
+    } finally {
+      setReviewLoading(false);
+    }
   };
 
   const verdictTone = result.verdict === 'ready'
@@ -173,6 +213,39 @@ export function PartMatcherWidget({ products }: Props) {
             </ul>
           </div>
         ) : null}
+      </section>
+
+      <section className="border border-white/10 bg-[#050505] p-5">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Dify Compatibility Review</h2>
+            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">Deterministic checks stay local; Dify adds RAG-backed buying and risk guidance.</p>
+          </div>
+          {review?.source && (
+            <span className={cn(
+              'self-start border px-3 py-2 text-xs font-black uppercase tracking-widest',
+              review.source === 'dify' ? 'border-[#00F2FF]/40 text-[#00F2FF]' : 'border-yellow-300/40 text-yellow-300',
+            )}>
+              {review.source}
+            </span>
+          )}
+        </div>
+
+        <Button variant="cyber" className="mt-5 h-14 w-full uppercase tracking-[0.18em]" onClick={runDifyReview} disabled={reviewLoading}>
+          {reviewLoading ? 'Running Dify Review...' : 'Run Dify Compatibility Review'}
+        </Button>
+
+        {reviewError && (
+          <div className="mt-5 border border-yellow-300/20 bg-yellow-300/5 p-4 text-sm leading-relaxed text-yellow-100">
+            {reviewError}
+          </div>
+        )}
+
+        {review?.markdown && (
+          <div className="prose prose-invert prose-sm mt-6 max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-widest prose-headings:text-white prose-p:text-[#d8d5cf] prose-li:text-[#d8d5cf]">
+            <ReactMarkdown>{review.markdown}</ReactMarkdown>
+          </div>
+        )}
       </section>
     </div>
   );

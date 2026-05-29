@@ -12,12 +12,14 @@ Last updated: 2026-05-29
 6. DONE Tool activation phase (2026-05-29): Build Calculator, Component Duel, and Part Matcher now run on deterministic local/catalog-backed engines; Playwright Chromium render/click smoke passed.
 7. DONE Blackbox Tuning phase (2026-05-29): client Gemini SDK removed, `/api/tools/blackbox-tuning` server route added, AI enrichment aligned to Dify Blackbox app via `src/lib/dify-client.ts`, deterministic fallback active.
 8. DONE Dify-brain correction (2026-05-29): local Gemini key usage removed from app code; Flight Critic, Blackbox Tuning, and Hardware Analyzer now use Dify-first API routes with deterministic fallback.
+9. DONE Tool Dify alignment Phase 1 (2026-05-29): Build Wizard and Part Matcher now have Dify-first API review routes plus explicit UI review panels; deterministic calculators remain the guardrail.
 
 ## Code Tasks Before Push
 
 - Review current git status and separate unrelated pre-existing changes from deploy-critical fixes.
-- Continue tool activation with Flight Critic upload path; keep Dify calls behind `src/lib/dify-client.ts`.
+- Continue tool Dify alignment with Blackbox Tuning live-app validation and then Flight Critic workflow design; keep all Dify calls behind `src/lib/dify-client.ts`.
 - Verify the Dify Blackbox app with production provider credentials; local development may dry-run Dify and safely fall back to deterministic analysis.
+- Verify Build Wizard and Part Matcher against production Dify credentials with `CRAWL_DRY_RUN=true` or equivalent safe mode before presenting the Dify response as live RAG-backed guidance.
 - Add a dedicated Dify video-analysis workflow before marketing Flight Critic as true frame-level DVR analysis; current local route is honest metadata/rubric fallback when video frames are not processed by Dify.
 - Replace placeholder affiliate images with crawler/source-backed real product images before presenting product tools as visually production-ready.
 - Do not include unreviewed runtime files (`data/*last-auto-run.json`) or local tool folders (`.kiro/`, `.gitnexus/`) in deploy commits unless they are intentionally promoted.

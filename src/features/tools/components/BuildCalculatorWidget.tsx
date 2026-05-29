@@ -6,6 +6,7 @@ import { Activity, AlertTriangle, Battery, Gauge, RotateCcw, ShieldCheck, Zap } 
 import { Button } from '@/components/ui/button';
 import { calculateBuild, type BuildCalculatorInput, type BuildStyle } from '@/lib/tools/build-calculator';
 import { cn } from '@/lib/utils';
+import ReactMarkdown from 'react-markdown';
 
 const STYLE_OPTIONS: { value: BuildStyle; label: string; hint: string }[] = [
   { value: 'freestyle', label: 'Freestyle', hint: '5:1 target' },
@@ -40,6 +41,14 @@ type NumberField = {
   min: number;
   max: number;
   step?: number;
+};
+
+type BuildWizardApiResponse = {
+  success: boolean;
+  source?: 'dify' | 'local';
+  markdown?: string;
+  warning?: string;
+  error?: string;
 };
 
 const WEIGHT_FIELDS: NumberField[] = [
@@ -117,6 +126,9 @@ function Metric({
 export function BuildCalculatorWidget() {
   const [build, setBuild] = useState<BuildCalculatorInput>(DEFAULT_BUILD);
   const [copied, setCopied] = useState(false);
+  const [review, setReview] = useState<BuildWizardApiResponse | null>(null);
+  const [reviewLoading, setReviewLoading] = useState(false);
+  const [reviewError, setReviewError] = useState<string | null>(null);
   const result = useMemo(() => calculateBuild(build), [build]);
 
   const setNumber = (key: NumberField['key'], value: number) => {
@@ -133,6 +145,30 @@ export function BuildCalculatorWidget() {
     await navigator.clipboard.writeText(JSON.stringify(payload, null, 2));
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1800);
+  };
+
+  const runBuildReview = async () => {
+    setReviewLoading(true);
+    setReviewError(null);
+    setReview(null);
+
+    try {
+      const response = await fetch('/api/tools/build-wizard', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(build),
+      });
+      const data = await response.json() as BuildWizardApiResponse;
+      if (!response.ok || !data.success || !data.markdown) {
+        throw new Error(data.error || 'Build Wizard review failed.');
+      }
+      setReview(data);
+      if (data.warning) setReviewError(data.warning);
+    } catch (error) {
+      setReviewError(error instanceof Error ? error.message : 'Build Wizard review failed.');
+    } finally {
+      setReviewLoading(false);
+    }
   };
 
   const verdictTone = result.verdict === 'balanced'
@@ -257,6 +293,39 @@ export function BuildCalculatorWidget() {
           ) : (
             <div className="border border-[#00FF66]/20 bg-[#00FF66]/5 p-3 text-xs text-[#d8d5cf] leading-relaxed">
               No major fit warnings. Verify manufacturer thrust tables before purchasing parts.
+            </div>
+          )}
+        </section>
+
+        <section className="border border-white/10 bg-[#050505] p-5">
+          <div className="flex items-start justify-between gap-4 mb-4">
+            <div>
+              <h2 className="text-sm font-black uppercase tracking-widest text-white">Dify Build Review</h2>
+              <p className="text-xs text-[#8e8b86] mt-1">Calculator stays deterministic; Dify adds RAG-backed build guidance.</p>
+            </div>
+            {review?.source && (
+              <span className={cn(
+                'border px-2 py-1 text-[10px] font-black uppercase tracking-widest',
+                review.source === 'dify' ? 'border-[#28d7df]/35 text-[#28d7df]' : 'border-yellow-300/35 text-yellow-300',
+              )}>
+                {review.source}
+              </span>
+            )}
+          </div>
+
+          <Button variant="cyber" className="w-full h-12" onClick={runBuildReview} disabled={reviewLoading}>
+            <Zap className="w-4 h-4 mr-2" /> {reviewLoading ? 'Running Dify Review...' : 'Run Dify Build Review'}
+          </Button>
+
+          {reviewError && (
+            <div className="mt-4 border border-yellow-300/20 bg-yellow-300/5 p-3 text-xs text-yellow-100 leading-relaxed">
+              {reviewError}
+            </div>
+          )}
+
+          {review?.markdown && (
+            <div className="prose prose-invert prose-sm mt-5 max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-widest prose-headings:text-white prose-p:text-[#d8d5cf] prose-li:text-[#d8d5cf]">
+              <ReactMarkdown>{review.markdown}</ReactMarkdown>
             </div>
           )}
         </section>
