@@ -1,13 +1,13 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-05-21
+Last updated: 2026-05-29
 
 ## Immediate Priority
 
-1. Execute `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md` phase by phase.
+1. DONE Walkthrough remediation (2026-05-29): route audit is single-tree aware, content audit/smoke scripts run from local `tsx`, and admin Dify workflows route through `src/lib/dify-client.ts`.
 2. DONE Phase 1 (2026-05-21): cron endpoints require a shared secret, `cron/crawl` uses `src/lib/crawl-queue.ts`, and dual cron routes are synced.
 3. DONE Phase 2 (2026-05-21): `cron/generate` now enqueues real jobs, blocks safely without `DIFY_APP_KEY`, and publishes Dify output when production credentials are present.
-4. DONE Phase 3 (2026-05-21): dual route trees are synced and guarded by `npm run routes:audit`; single-tree deletion is deferred until after a stable deploy.
+4. DONE Phase 3 update (2026-05-29): legacy `app/` and `lib/` trees are decommissioned; `npm run routes:audit` now guards that single-tree state.
 5. DONE Phase 4 (2026-05-21): final deploy gate passed, runtime files ignored, handoff refreshed, and release candidate commit prepared.
 
 ## Code Tasks Before Push
@@ -28,6 +28,7 @@ Last updated: 2026-05-21
   - `GET https://fpvlovers.com.tr/api/admin/cron/status` manually or every 12 hours with `Authorization: Bearer $CRON_SECRET`
 - After deploy, verify `/api/health`, `/api/admin/cron/status`, homepage, `/admin`, and two published articles in browser.
 - Run one production `cron/generate?dry_run=true` before enabling real generation.
+- Verify `/api/admin/workflows/seoContentGenerator` with production env in `CRAWL_DRY_RUN=true` or an equivalent safe mode before enabling live workflow calls.
 
 ## Infrastructure Follow-Up
 
@@ -43,7 +44,7 @@ Last updated: 2026-05-21
 - Decide whether crawl queue state should stay file-based or move to a persistent store once the Excel seed batches are fully processed; current file-based queue is still empty while workbook batches are going straight through ingest.
 - Decide whether `too_short` URLs should be excluded up front or kept as explicit retries for a different crawl strategy.
 - Consider whether `t-motor` should remain in the seed workbook at all, since both the path and origin failed crawl retries.
-- Keep the retrieval logic mirrored between `lib/` and `src/lib/` whenever corpus rules change so the live app and fallback copy do not drift again.
+- Do not reintroduce root `app/` or `lib/`; all active route and shared logic changes belong under `src/app` and `src/lib`.
 - Use `npm run seeds:backlog` as the quick check for which sources still need to be found.
 - Use `npm run seeds:backlog-pack` to regenerate the next ingest-ready three-source pack.
 - Keep n8n out of active product flow unless a future automation feature needs it.

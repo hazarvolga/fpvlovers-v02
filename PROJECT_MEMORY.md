@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-05-21
+Last updated: 2026-05-29
 
 ## Current Product Direction
 
@@ -36,6 +36,11 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 - Phase 2 completed by Codex on 2026-05-21: `cron/generate` now actually enqueues missing editorial briefs, blocks safely when `DIFY_APP_KEY` is absent, and can generate via Dify plus publish successful artifacts through the shared `publishGeneratedContentArtifact()` helper. Verification passed: `npx tsc --noEmit`, dry-run route smoke, enqueue/blocker route smoke, `npm run content:audit`, and `npm run content:smoke`. Live Dify generation still needs production env verification.
 - Phase 3 completed by Codex on 2026-05-21: duplicate `app/` and `src/app/` route trees were synced and guarded with `npm run routes:audit` via `scripts/route-tree-drift-audit.mjs`. The repo keeps dual route trees for this deploy to avoid runtime precedence surprises, but full drift detection is now part of the gate. Verification passed: `npm run routes:audit` (77 files synced), `npx tsc --noEmit`, `npm run content:audit`, and `npm run build`.
 - Phase 4 completed by Codex on 2026-05-21: final deploy hygiene added runtime/tool ignores, removed tracked `tsconfig.tsbuildinfo`, preserved published media artifacts, and refreshed handoff for Coolify cron setup. Final gate passed locally: `npx tsc --noEmit`, `npm run routes:audit`, `npm run content:audit`, `npm run content:smoke`, and `npm run build`.
+- Walkthrough remediation completed by Codex on 2026-05-29:
+  - `67fa56d`: `npm run routes:audit` now validates the single `src/app` route tree, fails if legacy root `app/` or `lib/` returns, and ignores `.DS_Store`.
+  - `9ee4565`: `tsx` is a local devDependency and content audit/smoke scripts run through `node --import tsx`, avoiding registry/network dependency during verification.
+  - `afaf7e9`: `/api/admin/workflows/[name]` now routes through `src/lib/dify-client.ts` so workflow calls use the guarded Dify gateway path with budget/rate/cache handling and normalized admin response fields.
+  - Fresh verification passed: `npx tsc --noEmit`, `npm run routes:audit`, `npm run content:audit`, `npm run content:smoke`, and `npm run build`.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.
