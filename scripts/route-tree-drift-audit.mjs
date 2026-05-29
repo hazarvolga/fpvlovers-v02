@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const appDir = path.join(root, 'app');
+const libDir = path.join(root, 'lib');
 const srcAppDir = path.join(root, 'src', 'app');
 
 function walk(dir, base = dir) {
@@ -11,6 +12,7 @@ function walk(dir, base = dir) {
   const files = [];
 
   for (const entry of entries) {
+    if (entry.name === '.DS_Store') continue;
     const absolute = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       files.push(...walk(absolute, base));
@@ -22,45 +24,33 @@ function walk(dir, base = dir) {
   return files.sort();
 }
 
-function readRelative(dir, relativePath) {
-  return fs.readFileSync(path.join(dir, relativePath), 'utf-8');
+const errors = [];
+
+if (!fs.existsSync(srcAppDir)) {
+  errors.push('src/app directory is missing.');
 }
 
-const appFiles = walk(appDir);
+if (fs.existsSync(appDir)) {
+  errors.push('legacy app/ directory exists; single-tree migration expects src/app only.');
+}
+
+if (fs.existsSync(libDir)) {
+  errors.push('legacy lib/ directory exists; shared code must live under src/lib.');
+}
+
 const srcFiles = walk(srcAppDir);
-const allFiles = [...new Set([...appFiles, ...srcFiles])].sort();
-const missing = [];
-const different = [];
+const routeFiles = srcFiles.filter((file) => /(^|\/)(page|layout|route|robots|sitemap)\.(ts|tsx)$/.test(file));
 
-for (const file of allFiles) {
-  const inApp = appFiles.includes(file);
-  const inSrc = srcFiles.includes(file);
-
-  if (!inApp || !inSrc) {
-    missing.push({ file, app: inApp, srcApp: inSrc });
-    continue;
-  }
-
-  if (readRelative(appDir, file) !== readRelative(srcAppDir, file)) {
-    different.push(file);
-  }
+if (fs.existsSync(srcAppDir) && routeFiles.length === 0) {
+  errors.push('src/app exists but no route files were found.');
 }
 
-if (missing.length > 0 || different.length > 0) {
-  console.error('Route tree drift detected.');
-  if (missing.length > 0) {
-    console.error('\nMissing files:');
-    for (const item of missing) {
-      console.error(`- ${item.file} app=${item.app} srcApp=${item.srcApp}`);
-    }
-  }
-  if (different.length > 0) {
-    console.error('\nDifferent files:');
-    for (const file of different) {
-      console.error(`- ${file}`);
-    }
+if (errors.length > 0) {
+  console.error('Single-tree route audit failed.');
+  for (const error of errors) {
+    console.error(`- ${error}`);
   }
   process.exit(1);
 }
 
-console.log(`Route tree audit passed: ${allFiles.length} files synced.`);
+console.log(`Single-tree route audit passed: ${routeFiles.length} route files under src/app.`);
