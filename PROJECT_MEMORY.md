@@ -79,6 +79,12 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `src/lib/tools/crawler-product-catalog.ts` validates crawler-normalized products and `src/lib/tools/fpv-product-catalog.ts` merges crawler products before affiliate seed fallback.
   - `GET/POST /api/admin/catalog/sources` exposes product source-pack preview and queue enqueue through the existing `src/lib/crawl-queue.ts` path.
   - Verification passed: `npx tsc --noEmit`, `npm run tools:audit`, and `npm run catalog:sources`.
+- Product catalog extraction bridge added by Codex on 2026-05-29:
+  - `src/lib/tools/product-catalog-extractor.ts` extracts product-like records, specs, prices, links, image URLs, and provenance from Crawl4AI markdown/JSON output.
+  - `src/lib/tools/product-catalog-store.ts` upserts extracted crawler products into `data/fpv-products.catalog.json` without replacing the existing seed fallback.
+  - `npm run catalog:extract -- --input <crawl-results.json>` dry-runs extraction; adding `--write` persists records.
+  - `POST /api/admin/catalog/extract` lets the admin layer submit a crawled page payload and optionally write extracted products into the normalized catalog.
+  - Verification passed: `npx tsc --noEmit`, `npm run tools:audit`, `npm run routes:audit`, and a fixture dry-run extraction.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

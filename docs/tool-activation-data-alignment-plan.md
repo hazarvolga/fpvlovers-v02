@@ -61,6 +61,8 @@ Implementation alignment:
 - `npm run catalog:sources` previews the source pack; `npm run catalog:enqueue` enqueues those URLs through `src/lib/crawl-queue.ts`
 - `data/fpv-products.catalog.json` is the normalized crawler product catalog read by Part Matcher and Component Duel before affiliate seed fallback
 - `GET /api/admin/catalog/sources` previews source-pack and normalized catalog readiness; `POST /api/admin/catalog/sources` enqueues the product sources
+- `npm run catalog:extract -- --input <crawl-results.json>` dry-runs Crawl4AI markdown/JSON extraction; adding `--write` upserts extracted products into the normalized catalog
+- `POST /api/admin/catalog/extract` accepts crawled page markdown and optionally writes source-backed product records
 - Dify responses are sanitized before UI rendering and tool routes use short timeouts with local fallbacks
 
 Crawler priority:
