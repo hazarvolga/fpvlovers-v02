@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import sharp from 'sharp';
 import { getPublishedContentBySlug } from '@/lib/content-automation/content-reader';
 import { buildCoverImageSvg } from '@/lib/content-automation/content-media';
 import { firstWaveContentPlan } from '@/lib/content-plan';
@@ -6,6 +7,8 @@ import { firstWaveContentPlan } from '@/lib/content-plan';
 const registryBySlug = new Map<string, (typeof firstWaveContentPlan)[number]>(
   firstWaveContentPlan.map((entry) => [entry.slug, entry]),
 );
+
+export const runtime = 'nodejs';
 
 function humanizeSlug(slug: string): string {
   return slug
@@ -31,10 +34,13 @@ export async function GET(
     'Copyright-safe media generated locally for the FPVLovers content engine.';
 
   const svg = buildCoverImageSvg({ slug, title, category, excerpt });
+  const png = await sharp(Buffer.from(svg))
+    .png({ compressionLevel: 9, adaptiveFiltering: true })
+    .toBuffer();
 
-  return new NextResponse(svg, {
+  return new NextResponse(new Uint8Array(png), {
     headers: {
-      'content-type': 'image/svg+xml; charset=utf-8',
+      'content-type': 'image/png',
       'cache-control': 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=604800',
     },
   });

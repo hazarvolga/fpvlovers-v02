@@ -69,6 +69,8 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
                 src={a.media.coverImage.src}
                 alt={a.media.coverImage.alt || a.title}
                 fill
+                sizes="(min-width: 1024px) 66vw, 100vw"
+                unoptimized={a.media.coverImage.src.startsWith('/api/content/media/cover/') || a.media.coverImage.src.includes('images.pexels.com')}
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-transparent to-transparent" />

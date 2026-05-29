@@ -1,7 +1,7 @@
 import { listPublishedContent, type PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { buildFallbackHomepageCards } from './homepage-defaults';
 import { firstWaveContentPlan } from '@/lib/content-plan';
-import { buildCoverImageDataUri } from '@/lib/content-automation/content-media';
+import { buildCoverImageUrl } from '@/lib/content-automation/content-media';
 
 export type HomepageSectionCard = {
   slug: string;
@@ -81,12 +81,7 @@ function formatPublishedDate(dateStr: string): string {
 function toHomepageCard(item: PublishedArtifact, tier?: 'pillar' | 'support'): HomepageSectionCard {
   const coverImage = item.media?.coverImage?.src
     || item.coverImage
-    || buildCoverImageDataUri({
-        slug: item.slug,
-        title: item.title,
-        category: item.category,
-        excerpt: item.excerpt || item.seo?.metaDescription,
-      });
+    || buildCoverImageUrl(item.slug);
 
   return {
     slug: item.slug,

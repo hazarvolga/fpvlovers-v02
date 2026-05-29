@@ -3,16 +3,16 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-space-blue: #050505;
-  --color-space-blue-light: #0A0A0B;
-  --color-space-card: rgba(10, 10, 11, 0.7);
-  --color-cyan-glow: #00F2FF;
-  --color-amber-accent: #FF5C00;
+  --color-space-blue: #070707;
+  --color-space-blue-light: #101112;
+  --color-space-card: rgba(17, 18, 19, 0.78);
+  --color-cyan-glow: #28d7df;
+  --color-amber-accent: #ff5a1f;
 
-  --color-cyan-400: #00e0eb;
-  --color-cyan-500: #00F2FF;
-  --color-amber-400: #FF5C00;
-  --color-amber-500: #FF5C00;
+  --color-cyan-400: #28d7df;
+  --color-cyan-500: #3fe6ee;
+  --color-amber-400: #ff7a3d;
+  --color-amber-500: #ff5a1f;
 
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -20,34 +20,46 @@
 
 @layer base {
   :root {
-    --background: #050505;
-    --foreground: #A0A0A0;
+    --background: #070707;
+    --foreground: #d8d5cf;
+  }
+
+  html {
+    background: #070707;
+  }
+
+  body {
+    background:
+      radial-gradient(circle at 15% 0%, rgba(255, 90, 31, 0.08), transparent 26rem),
+      radial-gradient(circle at 86% 18%, rgba(40, 215, 223, 0.06), transparent 28rem),
+      #070707;
+    color: #d8d5cf;
   }
 }
 
 @layer utilities {
   .carbon-grid {
-    background-color: #050505;
+    background-color: #070707;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 30px 30px;
+      linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 42px 42px;
     background-position: center center;
   }
 
   .glass {
-    background: rgba(10, 10, 11, 0.85);
+    background: rgba(17, 18, 19, 0.82);
     backdrop-filter: blur(16px);
-    border: 1px solid #333333;
-    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
   }
 
   .glass-card {
-    background: rgba(10, 10, 11, 0.85);
+    background: rgba(17, 18, 19, 0.76);
     backdrop-filter: blur(16px);
-    border: 1px solid #333333;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-    border-radius: 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.22);
+    border-radius: 8px;
   }
 
   /* Hexagonal/Beveled Buttons and Panels */
@@ -56,15 +68,15 @@
   }
 
   .glass-panel {
-    background: rgba(10, 10, 11, 0.9);
+    background: rgba(17, 18, 19, 0.82);
     backdrop-filter: blur(12px);
-    border: 1px solid #1A1A1A;
-    border-left: 2px solid #333333;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 2px solid rgba(255, 90, 31, 0.55);
+    box-shadow: 0 18px 50px rgba(0,0,0,0.32);
   }
 
   .text-glow {
-    text-shadow: 0 0 12px rgba(0, 242, 255, 0.8);
+    text-shadow: 0 0 10px rgba(40, 215, 223, 0.28);
   }
 
   .neon-border {
@@ -87,13 +99,13 @@
   }
 
   .mesh-glow {
-    background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(40, 215, 223, 0.05) 0%, transparent 60%);
     filter: blur(60px);
     pointer-events: none;
   }
 
   .amber-glow {
-    background: radial-gradient(circle, rgba(255, 92, 0, 0.08) 0%, transparent 60%);
+    background: radial-gradient(circle, rgba(255, 90, 31, 0.08) 0%, transparent 60%);
     filter: blur(50px);
     pointer-events: none;
   }

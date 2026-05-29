@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import type { GeneratedContent } from './parse-generated-content';
 import type { ContentMedia } from './content-media';
-import { buildContentMedia } from './content-media';
+import { buildContentMedia, buildCoverImageUrl } from './content-media';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -23,13 +23,20 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
   const title = typeof parsed.title === 'string' && parsed.title ? parsed.title : parsed.slug;
   const category = typeof parsed.category === 'string' && parsed.category ? parsed.category : 'FPV Reference';
   const excerpt = typeof parsed.excerpt === 'string' ? parsed.excerpt : '';
-  const media = parsed.media || buildContentMedia({ slug: parsed.slug, title, category, excerpt });
+  const resolvedMedia = buildContentMedia({ slug: parsed.slug, title, category, excerpt });
+  const media = parsed.media || resolvedMedia;
+  const coverImage = media.coverImage?.src?.startsWith('/api/content/media/cover/')
+    ? resolvedMedia.coverImage || { ...media.coverImage, src: buildCoverImageUrl(parsed.slug) }
+    : media.coverImage;
 
   return {
     ...(parsed as PublishedArtifact),
     title,
     category,
-    media,
+    media: {
+      ...media,
+      coverImage,
+    },
   };
 }
 

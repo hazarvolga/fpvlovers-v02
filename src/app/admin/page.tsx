@@ -60,6 +60,11 @@ type CrawlerInfo = {
   name: string;
   status: 'online' | 'offline' | 'error';
   version: string;
+  role?: 'primary' | 'backup';
+  checkedUrl?: string;
+  latencyMs?: number;
+  httpStatus?: number;
+  error?: string;
 };
 
 type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry';
@@ -120,6 +125,8 @@ export default function AdminDashboard() {
   const [rawFilter, setRawFilter] = useState('');
   const [health, setHealth] = useState<any>(null);
   const [healthLoading, setHealthLoading] = useState(false);
+  const crawlerFallbackActive = crawlers.some(c => c.role === 'primary' && c.status !== 'online')
+    && crawlers.some(c => c.role === 'backup' && c.status === 'online');
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -472,9 +479,11 @@ export default function AdminDashboard() {
                      <span className={`text-[10px] font-mono px-1.5 py-0.5 mb-1 ${
                        crawlers.every(c => c.status === 'online')
                          ? 'text-[#00FF66] bg-[#00FF66]/10'
-                         : 'text-red-400 bg-red-400/10'
+                         : crawlerFallbackActive
+                           ? 'text-yellow-300 bg-yellow-300/10'
+                           : 'text-red-400 bg-red-400/10'
                      }`}>
-                       {crawlers.every(c => c.status === 'online') ? 'FULL ↑' : 'DEGRADED'}
+                       {crawlers.every(c => c.status === 'online') ? 'FULL ↑' : crawlerFallbackActive ? 'FALLBACK' : 'DEGRADED'}
                      </span>
                    )}
                  </div>
@@ -485,10 +494,11 @@ export default function AdminDashboard() {
                    ) : crawlers.length === 0 ? (
                      <div className="text-[#606060] font-mono text-[10px]">No crawlers detected</div>
                    ) : crawlers.map((c, i) => (
-                     <div key={i} className="flex items-center gap-2">
-                       <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${c.status === 'online' ? 'bg-[#00FF66] animate-pulse' : 'bg-red-500'}`} />
+                     <div key={i} className="flex items-center gap-2" title={`${c.checkedUrl || c.name}${c.error ? ` · ${c.error}` : ''}`}>
+                       <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${c.status === 'online' ? 'bg-[#00FF66] animate-pulse' : c.role === 'primary' && crawlerFallbackActive ? 'bg-yellow-300' : 'bg-red-500'}`} />
                        <span className="font-mono text-[10px] text-[#606060] flex-1 truncate">{c.name}</span>
-                       <span className={`font-mono text-[10px] ${c.status === 'online' ? 'text-[#00FF66]' : 'text-red-400'}`}>{c.status.toUpperCase()}</span>
+                       {typeof c.latencyMs === 'number' && <span className="font-mono text-[10px] text-[#606060]">{c.latencyMs}ms</span>}
+                       <span className={`font-mono text-[10px] ${c.status === 'online' ? 'text-[#00FF66]' : c.role === 'primary' && crawlerFallbackActive ? 'text-yellow-300' : 'text-red-400'}`}>{c.status.toUpperCase()}</span>
                      </div>
                    ))}
                  </div>
@@ -1093,6 +1103,7 @@ export default function AdminDashboard() {
                             <div className="text-right">
                               <div className={`font-mono text-sm ${s.status === 'up' ? 'text-[#00FF66]' : 'text-red-500'}`}>{s.status}</div>
                               <div className="text-[#A0A0A0] text-[10px]">{s.latency}ms</div>
+                              {s.detail && <div className="text-[#606060] text-[10px] max-w-[260px] truncate" title={s.detail}>{s.detail}</div>}
                             </div>
                           </div>
                         ))}

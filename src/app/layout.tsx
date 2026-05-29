@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Navbar } from '@/features/layout/components/Navbar';
-import { SystemHUD } from '@/features/layout/components/SystemHUD';
 import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
@@ -13,16 +12,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <body className="bg-[#050505] text-[#A0A0A0] font-mono min-h-screen antialiased selection:bg-[#00F2FF]/30 selection:text-white carbon-grid relative" suppressHydrationWarning>
-        {/* Global animated background and hud effects */}
+      <body className="font-sans min-h-screen antialiased selection:bg-[#ff5a1f]/30 selection:text-white relative" suppressHydrationWarning>
+        {/* Subtle global atmosphere. Tool pages can opt into heavier cockpit UI locally. */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-          <div className="absolute inset-0 bg-[#00F2FF] opacity-[0.02] mix-blend-overlay glitch-bg" />
-          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00F2FF]/20 to-transparent scanline-anim" />
+          <div className="absolute inset-0 carbon-grid opacity-35" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ff5a1f]/45 to-transparent" />
         </div>
 
         <Navbar />
-        <main>{children}</main>
-        <SystemHUD />
+        <main className="relative z-10">{children}</main>
         <Analytics />
       </body>
     </html>

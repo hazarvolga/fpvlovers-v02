@@ -1,322 +1,257 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { resolveHomepageContent } from '@/lib/homepage/homepage-content';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import type { ComponentType } from 'react';
+import { ArrowRight, BookOpen, Calculator, Cpu, RadioTower, Wrench, Zap } from 'lucide-react';
+import { resolveHomepageContent, type HomepageSectionCard } from '@/lib/homepage/homepage-content';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ChevronRight, Cpu, Wind, Zap, BookOpen, Wrench, Calculator, Sparkles } from 'lucide-react';
-import { AdBanner, AdInFeed } from '@/features/monetization/components/NativeAds';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { NewsletterWidget } from '@/features/tools/components/NewsletterWidget';
 import { PilotPulseWidget } from '@/features/tools/components/PilotPulseWidget';
 
-export default async function HomePage() {
-  const content = resolveHomepageContent();
+function ArticleCard({ card, accent = 'cyan' }: { card: HomepageSectionCard; accent?: 'cyan' | 'orange' | 'neutral' }) {
+  const accentClass = accent === 'orange' ? 'group-hover:text-[#ff9b71]' : accent === 'cyan' ? 'group-hover:text-[#9eeef2]' : 'group-hover:text-white';
+  const bypassOptimization = Boolean(card.coverImage?.startsWith('/api/content/media/cover/') || card.coverImage?.includes('images.pexels.com'));
 
   return (
-    <div className="flex flex-col gap-16 pb-16">
-
-      {/* ── HERO ── */}
-      <section className="relative min-h-[90vh] flex text-left items-center justify-start overflow-hidden pt-20 px-4 sm:px-6 lg:px-16 mb-8 group">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-[#050505]/80 mix-blend-multiply z-10" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0B] via-[#050505]/95 to-transparent z-10" />
+    <Card className="group overflow-hidden bg-[#101112]/72">
+      {card.coverImage && (
+        <Link href={card.href} className="relative block aspect-[16/10] overflow-hidden border-b border-white/8">
           <Image
-            src="https://picsum.photos/seed/hero/2670/1200"
-            alt="FPV Drone Motor Macro"
+            src={card.coverImage}
+            alt={card.coverImageAlt || card.title}
             fill
-            className="object-cover opacity-30 mix-blend-screen scale-105 group-hover:scale-100 transition-transform duration-1000 ease-out"
+            sizes="(min-width: 768px) 33vw, 100vw"
+            unoptimized={bypassOptimization}
+            className="h-full w-full object-cover opacity-[0.92] transition duration-500 group-hover:scale-[1.03] group-hover:opacity-100"
           />
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 z-10" />
+        </Link>
+      )}
+      <CardHeader>
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <Badge variant={accent === 'orange' ? 'amber' : 'default'}>{card.category}</Badge>
+          <span className="font-mono text-xs text-[#77736d]">{card.readingTime}</span>
         </div>
+        <Link href={card.href}>
+          <CardTitle className={`line-clamp-2 text-lg transition-colors ${accentClass}`}>{card.title}</CardTitle>
+        </Link>
+        <CardDescription className="line-clamp-3 leading-relaxed">{card.excerpt}</CardDescription>
+      </CardHeader>
+      <CardFooter className="pt-0">
+        <Link href={card.href} className="inline-flex items-center gap-2 text-sm font-semibold text-[#d8d5cf] hover:text-white">
+          Read guide <ArrowRight className="h-4 w-4" />
+        </Link>
+      </CardFooter>
+    </Card>
+  );
+}
 
-        <div className="w-full max-w-7xl mx-auto z-20 grid lg:grid-cols-12 gap-12 items-center">
-          <div className="flex flex-col gap-6 lg:col-span-7">
-            <Badge variant="outline" className="w-fit mb-2 font-mono text-[#00F2FF] border-[#00F2FF]/30 tracking-[0.3em] font-bold">
-              FPV EDITORIAL HUB
-            </Badge>
-            <h1 className="text-5xl md:text-7xl lg:text-[5rem] font-black tracking-tighter uppercase leading-[0.9] text-white">
-              <span className="opacity-90">FPV</span><br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F2FF] to-[#00A8B3] text-glow">
-                LOVERS
-              </span>
+function SectionHeading({ title, href, icon: Icon }: { title: string; href?: string; icon: ComponentType<{ className?: string }> }) {
+  return (
+    <div className="mb-6 flex items-end justify-between gap-4">
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-[#ff9b71]">
+          <Icon className="h-5 w-5" />
+        </div>
+        <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl">{title}</h2>
+      </div>
+      {href && (
+        <Link href={href} className="hidden items-center gap-1 text-sm font-semibold text-[#9f9a91] hover:text-white sm:flex">
+          View all <ArrowRight className="h-4 w-4" />
+        </Link>
+      )}
+    </div>
+  );
+}
+
+export default async function HomePage() {
+  const content = resolveHomepageContent();
+  const heroCard = content.featuredGuides[0] || content.recentPosts[0];
+  const secondaryHeroCards = content.featuredGuides.slice(1, 3);
+  const bypassHeroOptimization = Boolean(heroCard?.coverImage?.startsWith('/api/content/media/cover/') || heroCard?.coverImage?.includes('images.pexels.com'));
+  const spotlightSlugs = new Set([
+    heroCard?.slug,
+    ...secondaryHeroCards.map((card) => card.slug),
+  ].filter((slug): slug is string => Boolean(slug)));
+  const featuredGuideCards = [
+    ...content.featuredGuides,
+    ...content.recentPosts,
+    ...content.editorsPicks,
+  ].filter((card, index, cards) => (
+    !spotlightSlugs.has(card.slug)
+    && cards.findIndex((candidate) => candidate.slug === card.slug) === index
+  )).slice(0, 3);
+  const recentPostCards = content.recentPosts
+    .filter((card) => !spotlightSlugs.has(card.slug))
+    .slice(0, 6);
+  const editorsPickCards = content.editorsPicks
+    .filter((card) => !spotlightSlugs.has(card.slug))
+    .slice(0, 3);
+
+  return (
+    <div className="pb-20">
+      <section className="px-4 pt-32 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-end">
+          <div className="max-w-3xl">
+            <h1 className="text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
+              FPV learning, builds, and tools without the noise.
             </h1>
-            <p className="text-[#A0A0A0] max-w-xl text-sm leading-relaxed font-mono uppercase">
-              English-first FPV guides, engineering references, and practical AI tools for building, tuning, and learning faster.
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#bdb7ad]">
+              FPVLovers brings practical FPV guides, setup references, build calculators, and tuning workflows into one clean cockpit for pilots who want to fly better.
             </p>
-            <div className="flex flex-wrap items-center gap-4 mt-6">
-              <Button size="lg" className="h-14 px-8 text-lg font-black tracking-widest" variant="default" asChild>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Button size="lg" asChild>
                 <Link href="/academy/roadmap">
-                  <span className="relative z-10 flex items-center">START LEARNING <Zap className="ml-3 w-5 h-5 fill-current opacity-70" /></span>
+                  Start the academy <Zap className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button size="lg" className="h-14 px-8 font-black tracking-widest text-sm text-[#A0A0A0]" variant="cyber" asChild>
-                <Link href="#guides">EXPLORE GUIDES</Link>
+              <Button size="lg" variant="outline" asChild>
+                <Link href="/tools/calculator">Open build calculator</Link>
               </Button>
             </div>
-
-            <div className="mt-12 flex flex-col sm:flex-row gap-6 text-xs font-mono text-[#666666] uppercase tracking-widest border-t border-[#333333] pt-6 w-max">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-[#00F2FF] rounded-full animate-pulse shadow-[0_0_8px_#00F2FF]" />
-                ACADEMY: OPEN
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 bg-[#FF5C00] rounded-full animate-pulse shadow-[0_0_8px_#FF5C00]" />
-                ENGINEERING LAB: ONLINE
-              </div>
+            <div className="mt-10 grid max-w-2xl grid-cols-3 gap-4 border-y border-white/10 py-5">
+              {[
+                ['Academy', 'Beginner path'],
+                ['Engineering', 'Build references'],
+                ['Tools', 'Practical calculators'],
+              ].map(([label, value]) => (
+                <div key={label}>
+                  <div className="font-mono text-xs uppercase tracking-[0.16em] text-[#77736d]">{label}</div>
+                  <div className="mt-1 text-sm font-semibold text-[#d8d5cf]">{value}</div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="hidden lg:flex lg:col-span-5 justify-end relative h-[500px]">
-            <div className="relative w-full h-full flex items-center justify-center">
-              <div className="absolute w-[400px] h-[400px] border border-[#00F2FF]/10 clip-path-hex animate-[spin_30s_linear_infinite]" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }} />
-              <div className="absolute w-[350px] h-[350px] border-2 border-dashed border-[#FF5C00]/20 rounded-full animate-[spin_20s_linear_infinite_reverse]" />
-              <div className="relative w-64 h-64 glass hex-panel flex items-center justify-center group-hover:border-[#00F2FF]/50 transition-colors duration-500 overflow-hidden">
-                <div className="absolute inset-0 carbon-grid opacity-30" />
-                <div className="absolute w-[200%] h-8 bg-gradient-to-b from-transparent via-[#00F2FF]/30 to-transparent -translate-x-1/2 -rotate-45 animate-[scanline_3s_linear_infinite]" />
-                <Cpu className="w-24 h-24 text-[#00F2FF] opacity-80" />
-                <div className="absolute bottom-4 text-[10px] font-mono text-[#00F2FF] font-black tracking-widest neon-text">
-                  FC MODULE .// ONLINE
+          {heroCard && (
+            <Link href={heroCard.href} className="group block overflow-hidden rounded-lg border border-white/10 bg-[#101112]/75 shadow-[0_28px_80px_rgba(0,0,0,0.34)]">
+              <div className="relative aspect-[16/11] overflow-hidden">
+                {heroCard.coverImage && (
+                  <Image
+                    src={heroCard.coverImage}
+                    alt={heroCard.coverImageAlt || heroCard.title}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    unoptimized={bypassHeroOptimization}
+                    className="h-full w-full object-cover opacity-[0.94] transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
+                  />
+                )}
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#070707] to-transparent p-6">
+                  <Badge variant="amber">{heroCard.category}</Badge>
+                  <h2 className="mt-3 max-w-xl text-2xl font-bold leading-tight text-white">{heroCard.title}</h2>
                 </div>
               </div>
-            </div>
-          </div>
+            </Link>
+          )}
         </div>
       </section>
 
-      {/* ── PILOT PULSE TICKER ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 relative mt-[-2rem] mb-4">
+      <section className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
         <PilotPulseWidget />
       </section>
 
-      {/* ── SPONSOR STRIP ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 relative">
-        <AdBanner title={content.sponsorSlot.title} className="min-h-[100px] bg-gradient-to-r from-[#050810] to-[#00F5FF]/5" />
+      <section className="mx-auto mt-16 grid max-w-7xl gap-4 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+        {secondaryHeroCards.map((card) => (
+          <ArticleCard key={card.slug} card={card} />
+        ))}
+        <div className="rounded-lg border border-[#ff5a1f]/20 bg-[#ff5a1f]/8 p-6">
+          <div className="font-mono text-xs uppercase tracking-[0.16em] text-[#ff9b71]">{content.sponsorSlot.title}</div>
+          <h3 className="mt-3 text-xl font-bold text-white">Partner-ready FPV placements</h3>
+          <p className="mt-3 text-sm leading-6 text-[#bdb7ad]">{content.sponsorSlot.description}</p>
+        </div>
       </section>
 
-      {/* ── FEATURED GUIDES ── */}
-      <section id="guides" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-black tracking-tighter text-white uppercase flex items-center gap-3">
-            <span className="w-8 h-1 bg-[#00FF66] block" /> Featured Guides
-          </h2>
-          <Link href="/category/build-guides" className="text-xs font-mono text-[#A0A0A0] hover:text-white transition-colors flex items-center gap-1">
-            View all <ChevronRight className="w-3 h-3" />
-          </Link>
-        </div>
-
-        {content.featuredGuides.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {content.featuredGuides.map((card) => (
-              <Card key={card.slug} className="group overflow-hidden border-[#00FF66]/10 hover:border-[#00FF66]/30 transition-colors">
-                {card.coverImage && (
-                  <div className="relative aspect-[16/9] overflow-hidden border-b border-[#00FF66]/10">
-                    <Image
-                      src={card.coverImage}
-                      alt={card.coverImageAlt || card.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                )}
-                <CardHeader>
-                  <Badge className="w-fit mb-3 bg-[#0A1A0A] border-[#00FF66]/30 text-[#00FF66]">{card.category}</Badge>
-                  <Link href={card.href}>
-                    <CardTitle className="group-hover:text-[#00FF66] transition-colors line-clamp-2 uppercase tracking-tight text-base">{card.title}</CardTitle>
-                  </Link>
-                  <CardDescription className="line-clamp-3 text-white/40">{card.excerpt}</CardDescription>
-                </CardHeader>
-                <CardFooter className="pt-0 text-xs text-[#A0A0A0] font-mono flex justify-between">
-                  <span>{card.publishedAt}</span>
-                  <span>{card.readingTime}</span>
-                </CardFooter>
-              </Card>
+      <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading title="Featured Guides" href="/category/build-guides" icon={BookOpen} />
+        {featuredGuideCards.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {featuredGuideCards.map((card) => (
+              <ArticleCard key={card.slug} card={card} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 border border-dashed border-[#333] rounded-xl">
-            <p className="text-[#A0A0A0] font-mono text-sm">Featured guides will appear here as content is published.</p>
+          <div className="rounded-lg border border-dashed border-white/12 py-16 text-center text-[#9f9a91]">
+            Featured guides will appear here as content is published.
           </div>
         )}
       </section>
 
-      {/* ── PILOT ACADEMY ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-black tracking-tighter text-white uppercase flex items-center gap-3">
-            <BookOpen className="w-6 h-6 text-[#00F2FF]" /> Pilot Academy
-          </h2>
-          <Link href="/academy" className="text-xs font-mono text-[#A0A0A0] hover:text-white transition-colors flex items-center gap-1">
-            View all <ChevronRight className="w-3 h-3" />
-          </Link>
+      <section className="mx-auto mt-20 grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <div>
+          <SectionHeading title="Pilot Academy" href="/academy" icon={RadioTower} />
+          <div className="grid gap-3 sm:grid-cols-2">
+            {content.academyCards.map((card) => (
+              <Link key={card.href} href={card.href} className="rounded-lg border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#28d7df]/35 hover:bg-[#28d7df]/6">
+                <div className="font-mono text-xs text-[#9eeef2]">{card.label}</div>
+                <h3 className="mt-2 font-bold text-white">{card.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#9f9a91]">{card.description}</p>
+              </Link>
+            ))}
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {content.academyCards.map((card) => (
-            <Link key={card.href} href={card.href} className="group bg-[#0A0A0B] border border-[#333] hover:border-[#00F2FF]/30 p-5 transition-colors">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#00F2FF] mb-2">{card.label}</div>
-              <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-[#00F2FF] transition-colors">{card.title}</h3>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">{card.description}</p>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── ENGINEERING LAB ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-black tracking-tighter text-white uppercase flex items-center gap-3">
-            <Wrench className="w-6 h-6 text-[#FF5C00]" /> Engineering Lab
-          </h2>
-          <Link href="/engineering" className="text-xs font-mono text-[#A0A0A0] hover:text-white transition-colors flex items-center gap-1">
-            View all <ChevronRight className="w-3 h-3" />
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {content.engineeringCards.map((card) => (
-            <Link key={card.href} href={card.href} className="group bg-[#0A0A0B] border border-[#333] hover:border-[#FF5C00]/30 p-5 transition-colors">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-[#FF5C00] mb-2">{card.label}</div>
-              <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-[#FF5C00] transition-colors">{card.title}</h3>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">{card.description}</p>
-            </Link>
-          ))}
+        <div>
+          <SectionHeading title="Engineering Lab" href="/engineering" icon={Wrench} />
+          <div className="grid gap-3 sm:grid-cols-2">
+            {content.engineeringCards.map((card) => (
+              <Link key={card.href} href={card.href} className="rounded-lg border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#ff5a1f]/35 hover:bg-[#ff5a1f]/6">
+                <div className="font-mono text-xs text-[#ff9b71]">{card.label}</div>
+                <h3 className="mt-2 font-bold text-white">{card.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#9f9a91]">{card.description}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ── AI TOOLS ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-black tracking-tighter text-white uppercase flex items-center gap-3">
-            <Sparkles className="w-6 h-6 text-[#FFD700]" /> AI Tools
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {content.toolCards.map((card, i) => (
-            <Link key={card.href} href={card.href} className="group bg-[#0A0A0B] border border-[#333] hover:border-[#FFD700]/30 p-6 transition-colors">
-              <div className="flex items-center gap-3 mb-3">
-                {i === 0 ? <Calculator className="w-5 h-5 text-[#FFD700]" /> : i === 1 ? <Cpu className="w-5 h-5 text-[#FFD700]" /> : <Wind className="w-5 h-5 text-[#FFD700]" />}
-                <div className="text-[10px] font-mono uppercase tracking-widest text-[#FFD700]">{card.label}</div>
+      <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading title="Tools To Build Faster" href="/tools" icon={Calculator} />
+        <div className="grid gap-4 md:grid-cols-3">
+          {content.toolCards.map((card, index) => (
+            <Link key={card.href} href={card.href} className="group rounded-lg border border-white/10 bg-[#101112]/78 p-6 transition hover:border-[#ff5a1f]/35">
+              <div className="mb-8 flex items-center justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-[#ff5a1f]/12 text-[#ff9b71]">
+                  {index === 0 ? <Calculator className="h-5 w-5" /> : index === 1 ? <Cpu className="h-5 w-5" /> : <Zap className="h-5 w-5" />}
+                </div>
+                <span className="font-mono text-xs text-[#77736d]">{card.label}</span>
               </div>
-              <h3 className="text-sm font-bold text-white mb-1.5 group-hover:text-[#FFD700] transition-colors">{card.title}</h3>
-              <p className="text-xs text-[#A0A0A0] leading-relaxed">{card.description}</p>
+              <h3 className="text-xl font-bold text-white group-hover:text-[#ff9b71]">{card.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-[#9f9a91]">{card.description}</p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* ── IN-FEED AD ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <AdInFeed className="w-full min-h-[120px]" />
-      </section>
-
-      {/* ── RECENT POSTS ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-black tracking-tighter text-white uppercase flex items-center gap-3">
-            <span className="w-8 h-1 bg-[#A0A0A0] block" /> Recent Posts
-          </h2>
-        </div>
-
-        {content.recentPosts.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {content.recentPosts.map((card) => (
-              <Card key={card.slug} className="group overflow-hidden border-white/5 hover:border-white/10 transition-colors">
-                {card.coverImage && (
-                  <div className="relative aspect-[16/9] overflow-hidden border-b border-white/5">
-                    <Image
-                      src={card.coverImage}
-                      alt={card.coverImageAlt || card.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                )}
-                <CardHeader>
-                  <Badge className="w-fit mb-3 bg-[#111] border-[#333] text-[#A0A0A0]">{card.category}</Badge>
-                  <Link href={card.href}>
-                    <CardTitle className="group-hover:text-white transition-colors line-clamp-2 uppercase tracking-tight text-base">{card.title}</CardTitle>
-                  </Link>
-                  <CardDescription className="line-clamp-2 text-white/40">{card.excerpt}</CardDescription>
-                </CardHeader>
-                <CardFooter className="pt-0 text-xs text-[#A0A0A0] font-mono">
-                  <span>{card.readingTime}</span>
-                </CardFooter>
-              </Card>
+      <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeading title="Recent Posts" icon={BookOpen} />
+        {recentPostCards.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {recentPostCards.map((card) => (
+              <ArticleCard key={card.slug} card={card} accent="neutral" />
             ))}
           </div>
         ) : (
-          <div className="text-center py-12 border border-dashed border-[#333] rounded-xl">
-            <p className="text-[#A0A0A0] font-mono text-sm">Articles will appear here as they are published.</p>
+          <div className="rounded-lg border border-dashed border-white/12 py-12 text-center text-[#9f9a91]">
+            Articles will appear here as they are published.
           </div>
         )}
       </section>
 
-      {/* ── EDITOR'S PICKS ── */}
-      {content.editorsPicks.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-3xl font-black tracking-tighter text-white uppercase flex items-center gap-3">
-              <span className="w-8 h-1 bg-[#FFD700] block" /> Editor&apos;s Picks
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {content.editorsPicks.map((card) => (
-              <Card key={card.slug} className="group overflow-hidden border-[#FFD700]/10 hover:border-[#FFD700]/30 transition-colors">
-                {card.coverImage && (
-                  <div className="relative aspect-[16/9] overflow-hidden border-b border-[#FFD700]/10">
-                    <Image
-                      src={card.coverImage}
-                      alt={card.coverImageAlt || card.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-                )}
-                <CardHeader>
-                  <Badge className="w-fit mb-3 bg-[#1A1A0A] border-[#FFD700]/30 text-[#FFD700]">{card.category}</Badge>
-                  <Link href={card.href}>
-                    <CardTitle className="group-hover:text-[#FFD700] transition-colors line-clamp-2 uppercase tracking-tight text-base">{card.title}</CardTitle>
-                  </Link>
-                  <CardDescription className="line-clamp-3 text-white/40">{card.excerpt}</CardDescription>
-                </CardHeader>
-                <CardFooter className="pt-0 text-xs text-[#A0A0A0] font-mono flex justify-between">
-                  <span>{card.publishedAt}</span>
-                  <span>{card.readingTime}</span>
-                </CardFooter>
-              </Card>
+      {editorsPickCards.length > 0 && (
+        <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading title="Editor's Picks" icon={Cpu} />
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+            {editorsPickCards.map((card) => (
+              <ArticleCard key={card.slug} card={card} accent="orange" />
             ))}
           </div>
         </section>
       )}
 
-      {/* ── CATEGORY RAILS ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[
-            { label: 'Build Guides', href: '/category/build-guides', color: '#00FF66' },
-            { label: 'Troubleshooting', href: '/category/troubleshooting', color: '#FF5C00' },
-            { label: 'Flight Guides', href: '/category/flight-guides', color: '#00F2FF' },
-            { label: 'News & Reviews', href: '/category/news-reviews', color: '#FFD700' },
-          ].map((rail) => (
-            <Link
-              key={rail.href}
-              href={rail.href}
-              className="group bg-[#0A0A0B] border border-[#333] hover:border-current p-4 text-center transition-colors"
-              style={{ ['--hover-color' as string]: rail.color } as React.CSSProperties}
-            >
-              <span className="text-xs font-mono font-bold text-white group-hover:text-[color:var(--hover-color)] transition-colors uppercase tracking-wide">{rail.label}</span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* ── NEWSLETTER / LOWER SPONSOR ── */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full mt-4">
-        <AdBanner title="SUPPORTED BY OUR PARTNERS" className="min-h-[80px] bg-gradient-to-r from-[#050810] to-[#FF5C00]/5 mb-8" />
+      <section className="mx-auto mt-20 max-w-3xl px-4 sm:px-6 lg:px-8">
         <NewsletterWidget />
       </section>
-
     </div>
   );
 }

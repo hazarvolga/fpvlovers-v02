@@ -5,23 +5,23 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00F2FF] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-30 active:scale-[0.98] hex-panel glitch-hover",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#28d7df] focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-30 active:scale-[0.98]",
   {
     variants: {
       variant: {
-        default: "bg-[#00F2FF] text-[#050505] font-black uppercase tracking-tighter hover:brightness-125 border-b-2 border-r-2 border-[#00A8B3]",
-        destructive: "bg-[#FF5C00] text-white hover:brightness-125 border-b-2 border-r-2 border-[#B34000]",
-        outline: "border-2 border-[#00F2FF] text-[#00F2FF] hover:bg-[#00F2FF]/10 bg-black/50 backdrop-blur-sm",
-        secondary: "bg-[#1A1A1A] text-[#A0A0A0] hover:bg-[#333333] border-b-2 border-r-2 border-[#0A0A0A]",
-        ghost: "hover:bg-[#1A1A1A] hover:text-[#00F2FF] border border-transparent",
-        link: "text-[#00F2FF] underline-offset-4 hover:underline",
-        cyber: "bg-transparent border-2 border-[#00F2FF]/50 text-[#00F2FF] uppercase font-black tracking-widest hover:shadow-[0_0_20px_rgba(0,242,255,0.4)] hover:border-[#00F2FF] bg-black/50 backdrop-blur-sm",
-        amber: "bg-[#FF5C00] text-[#050505] font-black uppercase tracking-tighter hover:brightness-125 border-b-2 border-r-2 border-[#B34000]",
+        default: "bg-[#ff5a1f] text-white hover:bg-[#ff7a3d] shadow-[0_12px_30px_rgba(255,90,31,0.16)]",
+        destructive: "bg-red-600 text-white hover:bg-red-500",
+        outline: "border border-white/12 text-white hover:bg-white/8 bg-white/[0.02] backdrop-blur-sm",
+        secondary: "bg-white/8 text-[#d8d5cf] hover:bg-white/12 border border-white/8",
+        ghost: "hover:bg-white/8 hover:text-white border border-transparent",
+        link: "text-[#28d7df] underline-offset-4 hover:underline",
+        cyber: "bg-white/[0.03] border border-[#28d7df]/35 text-[#9eeef2] hover:bg-[#28d7df]/10 hover:border-[#28d7df]/60",
+        amber: "bg-[#ff5a1f] text-white hover:bg-[#ff7a3d] shadow-[0_12px_30px_rgba(255,90,31,0.16)]",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-8 px-3 text-xs",
-        lg: "h-12 px-8 text-base",
+        lg: "h-12 px-7 text-base",
         icon: "h-10 w-10",
       },
     },
