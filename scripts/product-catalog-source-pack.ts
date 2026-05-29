@@ -1,15 +1,21 @@
-import { enqueueUrls } from '../src/lib/crawl-queue';
-import { groupProductSourcesByDataset, readProductSourcePack } from '../src/lib/tools/product-source-pack';
+import { enqueueUrls, getQueueStatus } from '../src/lib/crawl-queue';
+import {
+  applyQueueStatusToProductSourcePack,
+  getProductSourceStatusCounts,
+  groupProductSourcesByDataset,
+  readProductSourcePack,
+} from '../src/lib/tools/product-source-pack';
 
 const enqueue = process.argv.includes('--enqueue');
 
-const pack = readProductSourcePack();
+const pack = applyQueueStatusToProductSourcePack(readProductSourcePack(), getQueueStatus().jobs);
 const pending = pack.sources.filter((source) => source.status === 'pending');
 const byDataset = groupProductSourcesByDataset(pending);
+const counts = getProductSourceStatusCounts(pack.sources);
 
 console.log('\nFPVLovers Product Catalog Source Pack\n');
 console.log(`Goal: ${pack.minimum_active_products_goal} active products, ${Math.round(pack.minimum_real_image_coverage * 100)}% real image coverage`);
-console.log(`Pending sources: ${pending.length}/${pack.sources.length}`);
+console.log(`Source status: pending=${counts.pending}, queued=${counts.queued}, crawled=${counts.crawled}, failed=${counts.failed}`);
 
 for (const [dataset, sources] of Object.entries(byDataset)) {
   console.log(`- ${dataset}: ${sources.length} source(s)`);

@@ -20,6 +20,12 @@ export type ProductSourcePack = {
   sources: ProductSource[];
 };
 
+type QueueJobSnapshot = {
+  url: string;
+  status: 'pending' | 'processing' | 'completed' | 'failed' | 'throttled';
+  updatedAt?: string;
+};
+
 const PACK_FILE = path.join(process.cwd(), 'data', 'fpv-product-source-pack.json');
 
 function isProductSource(value: unknown): value is ProductSource {
@@ -60,4 +66,51 @@ export function groupProductSourcesByDataset(sources: ProductSource[]): Record<s
     groups[source.dataset].push(source);
     return groups;
   }, {});
+}
+
+function isNewerJob(candidate: QueueJobSnapshot, current?: QueueJobSnapshot): boolean {
+  if (!current) return true;
+  const candidateTime = candidate.updatedAt ? new Date(candidate.updatedAt).getTime() : 0;
+  const currentTime = current.updatedAt ? new Date(current.updatedAt).getTime() : 0;
+  return candidateTime >= currentTime;
+}
+
+function sourceStatusFromJob(job: QueueJobSnapshot): ProductSource['status'] {
+  if (job.status === 'completed') return 'crawled';
+  if (job.status === 'failed') return 'failed';
+  return 'queued';
+}
+
+export function applyQueueStatusToProductSourcePack(
+  pack: ProductSourcePack,
+  jobs: QueueJobSnapshot[],
+): ProductSourcePack {
+  const latestByUrl = new Map<string, QueueJobSnapshot>();
+  for (const job of jobs) {
+    if (isNewerJob(job, latestByUrl.get(job.url))) {
+      latestByUrl.set(job.url, job);
+    }
+  }
+
+  return {
+    ...pack,
+    sources: pack.sources.map((source) => {
+      const latestJob = latestByUrl.get(source.url);
+      return latestJob
+        ? { ...source, status: sourceStatusFromJob(latestJob) }
+        : source;
+    }),
+  };
+}
+
+export function getProductSourceStatusCounts(sources: ProductSource[]) {
+  return sources.reduce<Record<ProductSource['status'], number>>((counts, source) => {
+    counts[source.status] += 1;
+    return counts;
+  }, {
+    pending: 0,
+    queued: 0,
+    crawled: 0,
+    failed: 0,
+  });
 }

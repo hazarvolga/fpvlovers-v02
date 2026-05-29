@@ -89,11 +89,24 @@ type CatalogSourcesResponse = {
     sources: ProductSourceInfo[];
   };
   pending?: number;
+  statusCounts?: {
+    pending: number;
+    queued: number;
+    crawled: number;
+    failed: number;
+  };
   grouped?: Record<string, ProductSourceInfo[]>;
   catalog?: {
     products: number;
     realImages: number;
     source: string;
+  };
+  queue?: {
+    total: number;
+    pending: number;
+    completed: number;
+    failed: number;
+    throttled: number;
   };
   enqueued?: number;
   error?: string;
@@ -933,6 +946,11 @@ export default function AdminDashboard() {
                     <div className="bg-[#0A0A0B] border border-[#333333] p-4">
                       <div className="text-[#A0A0A0] font-mono text-[10px] uppercase tracking-widest">MVP Goal</div>
                       <div className="text-3xl font-black text-white mt-2">{catalogSources?.pack?.minimum_active_products_goal ?? 50}</div>
+                      {catalogSources?.queue && (
+                        <div className="mt-2 text-[10px] font-mono text-[#606060]">
+                          queue {catalogSources.queue.pending}/{catalogSources.queue.total}
+                        </div>
+                      )}
                     </div>
                   </div>
 
@@ -944,7 +962,17 @@ export default function AdminDashboard() {
 
                   <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                     <div className="bg-[#0A0A0B] border border-[#333333] p-4 space-y-4">
-                      <h3 className="text-xs font-mono uppercase text-[#A0A0A0] tracking-widest">Source Pack</h3>
+                      <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                        <h3 className="text-xs font-mono uppercase text-[#A0A0A0] tracking-widest">Source Pack</h3>
+                        {catalogSources?.statusCounts && (
+                          <div className="flex flex-wrap gap-2 text-[10px] font-mono uppercase tracking-wider">
+                            <span className="text-[#00FF66]">pending {catalogSources.statusCounts.pending}</span>
+                            <span className="text-[#00F2FF]">queued {catalogSources.statusCounts.queued}</span>
+                            <span className="text-white/60">crawled {catalogSources.statusCounts.crawled}</span>
+                            <span className="text-red-400">failed {catalogSources.statusCounts.failed}</span>
+                          </div>
+                        )}
+                      </div>
                       <div className="space-y-2 max-h-[420px] overflow-y-auto pr-1">
                         {(catalogSources?.pack?.sources || []).map((source) => (
                           <div key={source.url} className="border border-[#222] bg-black/40 p-3 font-mono text-xs">

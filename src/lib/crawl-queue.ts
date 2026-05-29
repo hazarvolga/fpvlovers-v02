@@ -40,9 +40,25 @@ export interface CrawlQueue {
 
 // ─── LOAD/SAVE ───
 
+function calculateStats(jobs: CrawlJob[]): CrawlQueue['stats'] {
+  return {
+    total: jobs.length,
+    pending: jobs.filter(j => j.status === 'pending').length,
+    completed: jobs.filter(j => j.status === 'completed').length,
+    failed: jobs.filter(j => j.status === 'failed').length,
+    throttled: jobs.filter(j => j.status === 'throttled').length,
+  };
+}
+
 function load(): CrawlQueue {
   try {
-    if (fs.existsSync(QUEUE_FILE)) return JSON.parse(fs.readFileSync(QUEUE_FILE, 'utf-8'));
+    if (fs.existsSync(QUEUE_FILE)) {
+      const queue = JSON.parse(fs.readFileSync(QUEUE_FILE, 'utf-8')) as CrawlQueue;
+      return {
+        ...queue,
+        stats: calculateStats(queue.jobs || []),
+      };
+    }
   } catch {}
   return {
     jobs: [], config: {
@@ -54,13 +70,7 @@ function load(): CrawlQueue {
 }
 
 function save(q: CrawlQueue) {
-  q.stats = {
-    total: q.jobs.length,
-    pending: q.jobs.filter(j => j.status === 'pending').length,
-    completed: q.jobs.filter(j => j.status === 'completed').length,
-    failed: q.jobs.filter(j => j.status === 'failed').length,
-    throttled: q.jobs.filter(j => j.status === 'throttled').length,
-  };
+  q.stats = calculateStats(q.jobs);
   try { fs.writeFileSync(QUEUE_FILE, JSON.stringify(q, null, 2)); } catch {}
 }
 
