@@ -74,6 +74,11 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Dify-backed tool routes now use short 15s timeouts and return deterministic local fallbacks instead of letting the UI wait on slow RAG calls.
   - `npm run tools:audit` was added to report the current truth state: the catalog is still an MVP seed with 15 active products and no real product images, so Part Matcher and Component Duel remain `PARTIAL` until crawler/source-backed catalog expansion lands.
   - `data/fpv-product-source-pack.json` and `npm run catalog:sources`/`npm run catalog:enqueue` define the next crawler-backed catalog expansion path through `src/lib/crawl-queue.ts`; the pack currently targets 16 retailer/manufacturer sources for frames, motors, stacks, batteries, video systems, receivers, radios, goggles, and kits.
+- Product catalog ingestion bridge added by Codex on 2026-05-29:
+  - `data/fpv-products.catalog.json` is the normalized crawler product catalog input for Part Matcher, Component Duel, Hardware Analyzer, and affiliate tooling.
+  - `src/lib/tools/crawler-product-catalog.ts` validates crawler-normalized products and `src/lib/tools/fpv-product-catalog.ts` merges crawler products before affiliate seed fallback.
+  - `GET/POST /api/admin/catalog/sources` exposes product source-pack preview and queue enqueue through the existing `src/lib/crawl-queue.ts` path.
+  - Verification passed: `npx tsc --noEmit`, `npm run tools:audit`, and `npm run catalog:sources`.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

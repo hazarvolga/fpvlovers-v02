@@ -59,6 +59,8 @@ Implementation alignment:
 - `npm run tools:audit` reports catalog size, image coverage, Dify wiring, and deferred/offline tools
 - `data/fpv-product-source-pack.json` lists crawler-ready retailer/manufacturer source URLs for product/spec/image expansion
 - `npm run catalog:sources` previews the source pack; `npm run catalog:enqueue` enqueues those URLs through `src/lib/crawl-queue.ts`
+- `data/fpv-products.catalog.json` is the normalized crawler product catalog read by Part Matcher and Component Duel before affiliate seed fallback
+- `GET /api/admin/catalog/sources` previews source-pack and normalized catalog readiness; `POST /api/admin/catalog/sources` enqueues the product sources
 - Dify responses are sanitized before UI rendering and tool routes use short timeouts with local fallbacks
 
 Crawler priority:

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { getCrawlerProductCatalog } from '@/lib/tools/crawler-product-catalog';
 import type { FpvCatalogProduct, FpvProductType, ProductSpecValue } from '@/lib/tools/fpv-product-types';
 
 type AffiliateProduct = {
@@ -177,12 +178,14 @@ function readAffiliateCatalog(): AffiliateProduct[] {
 }
 
 export function getFpvProductCatalog(): FpvCatalogProduct[] {
-  const catalog: FpvCatalogProduct[] = [];
+  const catalog: FpvCatalogProduct[] = [...getCrawlerProductCatalog()];
+  const existingKeys = new Set(catalog.map((product) => product.url));
 
   for (const product of readAffiliateCatalog().filter((item) => item.active)) {
       const override = PRODUCT_OVERRIDES[product.id] || {};
       const type = override.type || normalizeType(product.type);
       if (!type) continue;
+      if (existingKeys.has(product.url)) continue;
 
       const fit = {
         styles: override.fit?.styles || ['freestyle'],
@@ -216,9 +219,13 @@ export function getFpvProductCatalog(): FpvCatalogProduct[] {
           imageSourceUrl: cleanImageUrl(product.image),
         },
       });
+      existingKeys.add(product.url);
     }
 
-  return catalog.sort((a, b) => b.trustScore - a.trustScore || a.price - b.price);
+  return catalog.sort((a, b) => {
+    const crawlerPriority = (b.provenance?.source === 'crawler' ? 1 : 0) - (a.provenance?.source === 'crawler' ? 1 : 0);
+    return crawlerPriority || b.trustScore - a.trustScore || a.price - b.price;
+  });
 }
 
 export function getFpvProductsByType(type: FpvProductType): FpvCatalogProduct[] {
