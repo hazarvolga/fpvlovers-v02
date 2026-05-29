@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { difyRequest } from '@/lib/dify-client';
+import { extractDifyMarkdown } from '@/lib/dify-response';
 import { findApp } from '@/lib/master-routing-tables';
 import { analyzeBuildCompatibility } from '@/lib/tools/component-compatibility';
 import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
@@ -7,6 +8,7 @@ import type { BuildSelection, BuildSlot } from '@/lib/tools/fpv-product-types';
 
 const BUILD_SLOTS: BuildSlot[] = ['frame', 'motor', 'prop', 'stack', 'battery', 'video', 'receiver'];
 const BUILD_STYLES: BuildSelection['style'][] = ['freestyle', 'racing', 'cinematic', 'longRange', 'whoop'];
+const TOOL_DIFY_TIMEOUT_MS = 15000;
 
 function asRecord(value: unknown): Record<string, unknown> | undefined {
   return value && typeof value === 'object' && !Array.isArray(value)
@@ -33,18 +35,6 @@ function parseSelection(value: unknown): BuildSelection {
   }
 
   return selection;
-}
-
-function extractDifyAnswer(value: unknown): string | undefined {
-  const data = asRecord(value);
-  const nestedData = asRecord(data?.data);
-  const outputs = asRecord(data?.outputs) ?? asRecord(nestedData?.outputs);
-
-  return asString(data?.answer)
-    ?? asString(nestedData?.answer)
-    ?? asString(outputs?.answer)
-    ?? asString(outputs?.markdown)
-    ?? asString(outputs?.result);
 }
 
 function buildLocalMarkdown(result: ReturnType<typeof analyzeBuildCompatibility>): string {
@@ -119,7 +109,7 @@ export async function POST(req: NextRequest) {
       method: 'POST',
       apiKey: app.token,
       taskType: 'rag_query',
-      timeout: 45000,
+      timeout: TOOL_DIFY_TIMEOUT_MS,
       body: {
         inputs: {},
         query: buildDifyPrompt(selection, result, localMarkdown),
@@ -128,7 +118,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const markdown = extractDifyAnswer(response.data);
+    const markdown = extractDifyMarkdown(response.data);
     if (!response.ok || !markdown) {
       return NextResponse.json({
         success: true,

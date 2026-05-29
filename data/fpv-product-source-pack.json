@@ -1,0 +1,153 @@
+{
+  "generated_at": "2026-05-29T00:00:00.000Z",
+  "purpose": "Crawler-backed product/spec/image expansion for Part Matcher, Component Duel, Hardware Analyzer, and affiliate placement.",
+  "target_dataset": "fpv-components-specs",
+  "minimum_active_products_goal": 50,
+  "minimum_real_image_coverage": 0.8,
+  "sources": [
+    {
+      "name": "GetFPV Frames",
+      "url": "https://www.getfpv.com/quad-parts/frames.html",
+      "dataset": "fpv-components-specs",
+      "priority": "high",
+      "productTypes": ["frame"],
+      "reason": "Broad US FPV retailer frame catalog with source pages and product imagery.",
+      "status": "pending"
+    },
+    {
+      "name": "GetFPV Motors",
+      "url": "https://www.getfpv.com/quad-parts/motors.html",
+      "dataset": "fpv-components-specs",
+      "priority": "high",
+      "productTypes": ["motor"],
+      "reason": "Motor KV, stator, thrust and price coverage for Part Matcher and Component Duel.",
+      "status": "pending"
+    },
+    {
+      "name": "GetFPV Flight Controllers",
+      "url": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+      "dataset": "fpv-components-specs",
+      "priority": "high",
+      "productTypes": ["stack"],
+      "reason": "FC/ESC stack specs, mount sizes and UART/gyro information.",
+      "status": "pending"
+    },
+    {
+      "name": "GetFPV Batteries",
+      "url": "https://www.getfpv.com/batteries.html",
+      "dataset": "fpv-components-specs",
+      "priority": "high",
+      "productTypes": ["battery"],
+      "reason": "Battery cell count, capacity, weight and discharge rating coverage.",
+      "status": "pending"
+    },
+    {
+      "name": "RaceDayQuads Frames",
+      "url": "https://www.racedayquads.com/collections/frames",
+      "dataset": "fpv-components-specs",
+      "priority": "high",
+      "productTypes": ["frame"],
+      "reason": "Alternative retailer inventory for price/image/spec cross-checking.",
+      "status": "pending"
+    },
+    {
+      "name": "RaceDayQuads Motors",
+      "url": "https://www.racedayquads.com/collections/motors",
+      "dataset": "fpv-components-specs",
+      "priority": "high",
+      "productTypes": ["motor"],
+      "reason": "Second source for motor catalog breadth and product imagery.",
+      "status": "pending"
+    },
+    {
+      "name": "RaceDayQuads FC ESC",
+      "url": "https://www.racedayquads.com/collections/fc-esc",
+      "dataset": "fpv-components-specs",
+      "priority": "high",
+      "productTypes": ["stack"],
+      "reason": "FC, ESC and stack product pages for compatibility checks.",
+      "status": "pending"
+    },
+    {
+      "name": "Pyrodrone Motors",
+      "url": "https://pyrodrone.com/collections/motors",
+      "dataset": "fpv-components-specs",
+      "priority": "medium",
+      "productTypes": ["motor"],
+      "reason": "Additional motor marketplace coverage for racing/freestyle variants.",
+      "status": "pending"
+    },
+    {
+      "name": "Pyrodrone Flight Controllers ESC",
+      "url": "https://pyrodrone.com/collections/flight-controllers-escs",
+      "dataset": "fpv-components-specs",
+      "priority": "medium",
+      "productTypes": ["stack"],
+      "reason": "FC and ESC product pages with mounting and current-rating data.",
+      "status": "pending"
+    },
+    {
+      "name": "iFlight FPV Drones",
+      "url": "https://shop.iflight.com/fpv-drones-cat25",
+      "dataset": "fpv-build-guides",
+      "priority": "medium",
+      "productTypes": ["kit", "frame", "motor", "video"],
+      "reason": "BNF/build pages for full build configuration references.",
+      "status": "pending"
+    },
+    {
+      "name": "GEPRC FPV Drones",
+      "url": "https://geprc.com/product-category/fpv-drones/",
+      "dataset": "fpv-build-guides",
+      "priority": "medium",
+      "productTypes": ["kit", "frame", "video"],
+      "reason": "Ready-to-fly build configurations and component stack references.",
+      "status": "pending"
+    },
+    {
+      "name": "BETAFPV Products",
+      "url": "https://betafpv.com/collections",
+      "dataset": "fpv-components-specs",
+      "priority": "medium",
+      "productTypes": ["kit", "receiver", "radio", "battery"],
+      "reason": "Whoop/starter-kit catalog coverage for beginner tools.",
+      "status": "pending"
+    },
+    {
+      "name": "CNHL FPV Batteries",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries",
+      "dataset": "fpv-components-specs",
+      "priority": "medium",
+      "productTypes": ["battery"],
+      "reason": "Battery-specific source for capacity, C rating, weight and images.",
+      "status": "pending"
+    },
+    {
+      "name": "Team BlackSheep Products",
+      "url": "https://www.team-blacksheep.com/products",
+      "dataset": "fpv-components-specs",
+      "priority": "medium",
+      "productTypes": ["receiver", "radio", "video"],
+      "reason": "Crossfire, Tracer and TBS ecosystem product source.",
+      "status": "pending"
+    },
+    {
+      "name": "HDZero Products",
+      "url": "https://www.hd-zero.com/products",
+      "dataset": "fpv-components-specs",
+      "priority": "medium",
+      "productTypes": ["video", "goggles"],
+      "reason": "Digital video system product catalog for video compatibility.",
+      "status": "pending"
+    },
+    {
+      "name": "DJI FPV Downloads",
+      "url": "https://www.dji.com/downloads",
+      "dataset": "fpv-components-specs",
+      "priority": "low",
+      "productTypes": ["video", "goggles", "radio"],
+      "reason": "Official manuals/downloads for DJI FPV system compatibility references.",
+      "status": "pending"
+    }
+  ]
+}

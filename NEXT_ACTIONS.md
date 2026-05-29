@@ -15,15 +15,17 @@ Last updated: 2026-05-29
 9. DONE Tool Dify alignment Phase 1 (2026-05-29): Build Wizard and Part Matcher now have Dify-first API review routes plus explicit UI review panels; deterministic calculators remain the guardrail.
 10. DONE Blackbox live Dify validation (2026-05-29): production-mode smoke reached Dify through `src/lib/dify-client.ts`, but Dify returned provider credential error `[models] Error: 'google_api_key'`.
 11. DONE Blackbox Dify provider fix (2026-05-29): Dify Gemini credential validated/updated via service layer using the full `AQ.` key format, and production-mode Blackbox smoke now returns `ok=true`, `dryRun=false`.
+12. IN PROGRESS Tool live-data alignment (2026-05-29): Flight Critic is deferred, Dify tool routes are being hardened for short-timeout fallback, `npm run tools:audit` is the truth gate, and `data/fpv-product-source-pack.json` is the crawler source pack for catalog expansion.
 
 ## Code Tasks Before Push
 
 - Review current git status and separate unrelated pre-existing changes from deploy-critical fixes.
 - Run one browser/API smoke on `/tools/blackbox-tuning` after deploy or in a production-mode local session to confirm the UI receives sanitized Dify Markdown.
-- Continue tool Dify alignment with Flight Critic workflow design; keep all Dify calls behind `src/lib/dify-client.ts`.
+- Defer Flight Critic until catalog-backed product tools are live; when resumed, require a dedicated Dify video/telemetry workflow before public positioning as true frame-level DVR analysis.
 - Verify Build Wizard and Part Matcher against production Dify credentials with `CRAWL_DRY_RUN=true` or equivalent safe mode before presenting the Dify response as live RAG-backed guidance.
-- Add a dedicated Dify video-analysis workflow before marketing Flight Critic as true frame-level DVR analysis; current local route is honest metadata/rubric fallback when video frames are not processed by Dify.
-- Replace placeholder affiliate images with crawler/source-backed real product images before presenting product tools as visually production-ready.
+- Replace the 15-product MVP catalog with at least 50 crawler/source-backed products and real image/provenance fields before presenting Part Matcher or Component Duel as visually production-ready.
+- Preview product catalog source coverage with `npm run catalog:sources`; enqueue with `npm run catalog:enqueue` only when ready to populate the crawl queue intentionally.
+- Run `npm run tools:audit` after every catalog/tool phase and keep any `PARTIAL` status explicit in handoff notes.
 - Do not include unreviewed runtime files (`data/*last-auto-run.json`) or local tool folders (`.kiro/`, `.gitnexus/`) in deploy commits unless they are intentionally promoted.
 - Keep `sunucular/` out of Git. It is outside the frontend repo today and must stay private.
 - Confirm `credentials.json` and secret-like files are ignored.

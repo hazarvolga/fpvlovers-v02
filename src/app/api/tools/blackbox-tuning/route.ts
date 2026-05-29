@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { difyRequest } from '@/lib/dify-client';
+import { extractDifyMarkdown } from '@/lib/dify-response';
 import { findApp } from '@/lib/master-routing-tables';
 import { analyzeBlackboxTuning, type BlackboxTuningInput } from '@/lib/tools/blackbox-tuning';
 
 const MAX_TEXT_CHARS = 60000;
 const MAX_FILE_BYTES = 256 * 1024;
 const BLACKBOX_DIFY_APP_NAME = 'Blackbox Tuning Advisor';
+const TOOL_DIFY_TIMEOUT_MS = 15000;
 
 type RequestPayload = BlackboxTuningInput;
 
@@ -54,36 +56,6 @@ async function parseRequest(req: NextRequest): Promise<RequestPayload> {
     fileName,
     fileText,
   };
-}
-
-function asRecord(value: unknown): Record<string, unknown> | undefined {
-  return value && typeof value === 'object' && !Array.isArray(value)
-    ? value as Record<string, unknown>
-    : undefined;
-}
-
-function asString(value: unknown): string | undefined {
-  return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined;
-}
-
-function stripReasoningBlocks(value: string): string {
-  return value
-    .replace(/<think>[\s\S]*?<\/think>/gi, '')
-    .trim();
-}
-
-function extractDifyAnswer(value: unknown): string | undefined {
-  const data = asRecord(value);
-  const nestedData = asRecord(data?.data);
-  const outputs = asRecord(data?.outputs) ?? asRecord(nestedData?.outputs);
-
-  const answer = asString(data?.answer)
-    ?? asString(nestedData?.answer)
-    ?? asString(outputs?.answer)
-    ?? asString(outputs?.markdown)
-    ?? asString(outputs?.result);
-
-  return answer ? stripReasoningBlocks(answer) : undefined;
 }
 
 function buildDifyPrompt(input: RequestPayload, localMarkdown: string): string {
@@ -139,7 +111,7 @@ export async function POST(req: NextRequest) {
         method: 'POST',
         apiKey: blackboxApp.token,
         taskType: 'rag_query',
-        timeout: 45000,
+        timeout: TOOL_DIFY_TIMEOUT_MS,
         body: {
           inputs: {},
           query: buildDifyPrompt(input, local.markdown),
@@ -148,7 +120,7 @@ export async function POST(req: NextRequest) {
         },
       });
 
-      const markdown = extractDifyAnswer(response.data);
+      const markdown = extractDifyMarkdown(response.data);
 
       if (!response.ok || !markdown) {
         return localResponse(

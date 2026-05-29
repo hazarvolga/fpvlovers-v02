@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { difyRequest } from '@/lib/dify-client';
+import { extractDifyMarkdown } from '@/lib/dify-response';
 import { findApp } from '@/lib/master-routing-tables';
+
+const TOOL_DIFY_TIMEOUT_MS = 15000;
 
 type HardwarePayload = {
   frame: string;
@@ -21,10 +24,6 @@ function asRecord(value: unknown): Record<string, unknown> | undefined {
     : undefined;
 }
 
-function asString(value: unknown): string | undefined {
-  return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined;
-}
-
 function parsePayload(value: unknown): HardwarePayload {
   const record = asRecord(value) || {};
   return {
@@ -35,18 +34,6 @@ function parsePayload(value: unknown): HardwarePayload {
     fc: cleanText(record.fc) || 'Unknown flight controller',
     vtx: cleanText(record.vtx) || 'Unknown VTX/camera',
   };
-}
-
-function extractDifyAnswer(value: unknown): string | undefined {
-  const data = asRecord(value);
-  const nestedData = asRecord(data?.data);
-  const outputs = asRecord(data?.outputs) ?? asRecord(nestedData?.outputs);
-
-  return asString(data?.answer)
-    ?? asString(nestedData?.answer)
-    ?? asString(outputs?.answer)
-    ?? asString(outputs?.markdown)
-    ?? asString(outputs?.result);
 }
 
 function localHardwareMarkdown(input: HardwarePayload): string {
@@ -120,7 +107,7 @@ export async function POST(req: NextRequest) {
       method: 'POST',
       apiKey: app.token,
       taskType: 'rag_query',
-      timeout: 45000,
+      timeout: TOOL_DIFY_TIMEOUT_MS,
       body: {
         inputs: {},
         query: buildDifyPrompt(input, localMarkdown),
@@ -129,7 +116,7 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    const markdown = extractDifyAnswer(response.data);
+    const markdown = extractDifyMarkdown(response.data);
     if (!response.ok || !markdown) {
       return NextResponse.json({
         success: true,

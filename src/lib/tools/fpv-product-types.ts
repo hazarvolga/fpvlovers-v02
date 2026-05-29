@@ -38,6 +38,13 @@ export type FpvCatalogProduct = {
     motorMount?: string;
   };
   imageUrl?: string;
+  provenance?: {
+    source: 'affiliate-seed' | 'crawler' | 'manual';
+    sourceUrl: string;
+    imageSourceUrl?: string;
+    crawledAt?: string;
+    extractionConfidence?: number;
+  };
 };
 
 export type BuildSlot = 'frame' | 'motor' | 'prop' | 'stack' | 'battery' | 'video' | 'receiver';

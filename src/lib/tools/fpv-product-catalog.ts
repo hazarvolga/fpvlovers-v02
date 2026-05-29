@@ -210,6 +210,11 @@ export function getFpvProductCatalog(): FpvCatalogProduct[] {
         specs: override.specs || {},
         fit,
         imageUrl: cleanImageUrl(product.image),
+        provenance: {
+          source: 'affiliate-seed',
+          sourceUrl: product.url,
+          imageSourceUrl: cleanImageUrl(product.image),
+        },
       });
     }
 

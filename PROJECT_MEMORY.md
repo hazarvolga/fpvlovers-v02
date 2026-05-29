@@ -68,6 +68,12 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Dify Gemini provider credential was validated and updated through `ModelProviderService` with `{"google_api_key": "<redacted>"}`; no local app env/key path was introduced.
   - Production-mode Blackbox smoke through `src/lib/dify-client.ts` now returns `ok=true`, `dryRun=false`, and a non-empty Dify answer.
   - `/api/tools/blackbox-tuning` strips model reasoning blocks such as `<think>...</think>` before returning Markdown to the UI.
+- Tool live-data alignment started by Codex on 2026-05-29:
+  - Flight Critic is explicitly deferred until catalog-backed product tools are live and a dedicated video/telemetry Dify workflow exists.
+  - Build Wizard, Part Matcher, Hardware Analyzer, and Blackbox now share Dify Markdown extraction/sanitization via `src/lib/dify-response.ts`.
+  - Dify-backed tool routes now use short 15s timeouts and return deterministic local fallbacks instead of letting the UI wait on slow RAG calls.
+  - `npm run tools:audit` was added to report the current truth state: the catalog is still an MVP seed with 15 active products and no real product images, so Part Matcher and Component Duel remain `PARTIAL` until crawler/source-backed catalog expansion lands.
+  - `data/fpv-product-source-pack.json` and `npm run catalog:sources`/`npm run catalog:enqueue` define the next crawler-backed catalog expansion path through `src/lib/crawl-queue.ts`; the pack currently targets 16 retailer/manufacturer sources for frames, motors, stacks, batteries, video systems, receivers, radios, goggles, and kits.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

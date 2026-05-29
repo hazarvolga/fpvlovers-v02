@@ -181,7 +181,7 @@ export function ComponentDuelWidget({ products }: Props) {
 
       <div className="flex items-center gap-2 border border-[#00FF66]/20 bg-[#00FF66]/5 p-4 text-xs text-[#d8d5cf]">
         <CheckCircle2 className="h-4 w-4 text-[#00FF66]" />
-        Uses the shared FPVLovers catalog seeded from current affiliate/product data. No live crawler or client API key is used here.
+        Uses the shared FPVLovers catalog seeded from current affiliate/product data. Crawler-backed expansion will replace MVP seed coverage before production positioning.
       </div>
     </div>
   );

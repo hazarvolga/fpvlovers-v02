@@ -111,7 +111,7 @@ export function PartMatcherWidget({ products }: Props) {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-xs font-mono uppercase tracking-[0.3em] text-[#666666]">Compatibility Matrix v2.1</h3>
-          <p className="mt-1 text-xs text-[#8e8b86]">Catalog-backed checks. No client API key, no live crawl.</p>
+          <p className="mt-1 text-xs text-[#8e8b86]">Catalog-backed checks. Live catalog expansion is in progress; Dify review stays behind the server gateway.</p>
         </div>
         <button
           onClick={fillDemo}
@@ -219,7 +219,7 @@ export function PartMatcherWidget({ products }: Props) {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Dify Compatibility Review</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">Deterministic checks stay local; Dify adds RAG-backed buying and risk guidance.</p>
+            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">Deterministic checks return instantly; Dify adds RAG-backed buying and risk guidance when the gateway responds in time.</p>
           </div>
           {review?.source && (
             <span className={cn(
