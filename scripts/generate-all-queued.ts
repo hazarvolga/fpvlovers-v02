@@ -66,6 +66,7 @@ async function main() {
           summary: job.topic,
           outline: job.sourceHints,
         },
+        customPrompt: "Write strictly in English. The entire output content, titles, and SEO metadata must be in English.",
       });
       
       const latestJobs = loadContentJobs();

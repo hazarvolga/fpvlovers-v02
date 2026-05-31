@@ -82,7 +82,14 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
             </div>
           )}
           {a.media?.coverImage?.credit && (
-            <p className="px-8 pt-4 text-[10px] text-[#e4bfb1]/30 font-mono italic">{a.media.coverImage.credit}</p>
+            <div className="px-8 pt-4 text-[10px] text-white/30 font-mono italic flex items-center justify-between">
+              <span>{a.media.coverImage.credit}</span>
+              {a.media.coverImage.sourceUrl && (
+                <a href={a.media.coverImage.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[#00F5FF] hover:text-[#00FF66] transition-colors uppercase tracking-widest text-[9px] font-bold">
+                  [ Cover Source ]
+                </a>
+              )}
+            </div>
           )}
           <div className="p-8 md:p-12 pt-12">
             <div className="flex items-center gap-2 mb-4">
@@ -177,10 +184,17 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
                       <div className="relative aspect-[16/9]">
                         <Image src={asset.src} alt={asset.alt} fill className="object-cover" />
                       </div>
-                      {(asset.caption || asset.credit) && (
+                      {(asset.caption || asset.credit || asset.sourceUrl) && (
                         <figcaption className="p-3 text-[11px] text-[#A0A0A0] font-mono space-y-1">
                           {asset.caption && <div>{asset.caption}</div>}
-                          {asset.credit && <div className="text-[#00F5FF]">{asset.credit}</div>}
+                          {asset.credit && <div className="text-white/40">{asset.credit}</div>}
+                          {asset.sourceUrl && (
+                            <div className="mt-1">
+                              <a href={asset.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[#00F5FF] hover:text-[#00FF66] transition-colors font-bold uppercase tracking-widest text-[9px] flex items-center gap-1">
+                                <span>[ View Original Source ]</span>
+                              </a>
+                            </div>
+                          )}
                         </figcaption>
                       )}
                     </figure>

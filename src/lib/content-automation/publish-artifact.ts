@@ -27,6 +27,13 @@ export function publishGeneratedContentArtifact(
     excerpt: content.excerpt,
   });
 
+  const filteredNotes = (content.publishNotes || []).filter(
+    (note) =>
+      note !== 'Schema generated' &&
+      note !== 'Affiliate analysis generated' &&
+      note !== 'SEO research generated'
+  );
+
   const artifact = {
     slug,
     title: content.title,
@@ -37,7 +44,7 @@ export function publishGeneratedContentArtifact(
     excerpt: content.excerpt,
     bodySections: content.bodySections,
     internalLinks: content.internalLinks,
-    publishNotes: content.publishNotes,
+    publishNotes: filteredNotes,
     media,
     jobStatus: job.status,
     publishedAt: new Date().toISOString(),
@@ -54,8 +61,8 @@ export function publishGeneratedContentArtifact(
     ...content.bodySections.map(
       (section) => `## ${section.title}\n\n${section.content}\n`,
     ),
-    ...(content.publishNotes.length > 0
-      ? ['', '---', '', ...content.publishNotes.map((note) => `_${note}_`)]
+    ...(filteredNotes.length > 0
+      ? ['', '---', '', ...filteredNotes.map((note) => `_${note}_`)]
       : []),
   ].join('\n');
 

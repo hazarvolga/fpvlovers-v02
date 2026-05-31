@@ -240,9 +240,3 @@ Long Range FPV is a rewarding discipline that combines technical skill with the 
 
 Ready to build your ultimate long range FPV drone? Explore our other guides on specific component setups and advanced tuning techniques!
 
-
----
-
-_Schema generated_
-_Affiliate analysis generated_
-_SEO research generated_

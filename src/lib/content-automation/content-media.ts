@@ -323,6 +323,49 @@ export function buildCoverImageUrl(slug: string): string {
   return `/api/content/media/cover/${encodeURIComponent(slug)}?v=cover-v2`;
 }
 
+function pickGalleryPhotos(input: {
+  slug: string;
+  category: string;
+  excludeSrc?: string;
+}): ContentMediaAsset[] {
+  const haystack = `${input.slug} ${input.category}`.toLowerCase();
+  const gallery: ContentMediaAsset[] = [];
+  
+  const addIfValid = (photo: EditorialPhoto) => {
+    if (photo.src !== input.excludeSrc && gallery.length < 2) {
+      gallery.push({
+        src: photo.src,
+        alt: photo.alt,
+        caption: photo.alt,
+        source: photo.source,
+        sourceUrl: photo.sourceUrl,
+        credit: photo.credit,
+        license: photo.license,
+      });
+    }
+  };
+
+  if (haystack.includes('race') || haystack.includes('racing') || input.category === 'Racing') {
+    addIfValid(EDITORIAL_PHOTOS.droneAirspace);
+    addIfValid(EDITORIAL_PHOTOS.fpvDroneFlight);
+    addIfValid(EDITORIAL_PHOTOS.gogglesPilot);
+  } else if (haystack.includes('troubleshoot') || haystack.includes('no-video') || input.category === 'Troubleshooting') {
+    addIfValid(EDITORIAL_PHOTOS.electronicsBoard);
+    addIfValid(EDITORIAL_PHOTOS.componentsWorkbench);
+    addIfValid(EDITORIAL_PHOTOS.radioController);
+  } else if (input.category === 'Components' || haystack.includes('motor') || haystack.includes('frame')) {
+    addIfValid(EDITORIAL_PHOTOS.componentsWorkbench);
+    addIfValid(EDITORIAL_PHOTOS.electronicsBoard);
+    addIfValid(EDITORIAL_PHOTOS.radioController);
+  } else {
+    addIfValid(EDITORIAL_PHOTOS.fpvDroneField);
+    addIfValid(EDITORIAL_PHOTOS.beginnerKit);
+    addIfValid(EDITORIAL_PHOTOS.gogglesPilot);
+  }
+
+  return gallery;
+}
+
 export function buildContentMedia(input: {
   slug: string;
   title: string;
@@ -336,6 +379,12 @@ export function buildContentMedia(input: {
   );
 
   if (editorialPhoto) {
+    const gallery = pickGalleryPhotos({
+      slug: input.slug,
+      category: input.category,
+      excludeSrc: editorialPhoto.src,
+    });
+    
     return {
       coverImage: {
         src: editorialPhoto.src,
@@ -346,12 +395,17 @@ export function buildContentMedia(input: {
         credit: editorialPhoto.credit,
         license: editorialPhoto.license,
       },
-      gallery: [],
-      figureCaptions: [],
-      imageSources: [editorialPhoto.sourceUrl],
-      attribution: [editorialPhoto.credit, editorialPhoto.license],
+      gallery,
+      figureCaptions: gallery.map(g => g.alt),
+      imageSources: [editorialPhoto.sourceUrl, ...gallery.map(g => g.sourceUrl || '')].filter(Boolean),
+      attribution: [editorialPhoto.credit, ...gallery.map(g => g.credit || '')].filter(Boolean),
     };
   }
+
+  const gallery = pickGalleryPhotos({
+    slug: input.slug,
+    category: input.category,
+  });
 
   return {
     coverImage: {
@@ -361,9 +415,9 @@ export function buildContentMedia(input: {
       source: 'FPVLovers local raster media layer',
       credit: 'FPVLovers generated PNG artwork',
     },
-    gallery: [],
-    figureCaptions: [],
-    imageSources: ['Local PNG illustration generated from the published content metadata'],
-    attribution: ['Copyright-safe raster media generated locally by FPVLovers'],
+    gallery,
+    figureCaptions: gallery.map(g => g.alt),
+    imageSources: ['Local PNG illustration generated from the published content metadata', ...gallery.map(g => g.sourceUrl || '')].filter(Boolean),
+    attribution: ['Copyright-safe raster media generated locally by FPVLovers', ...gallery.map(g => g.credit || '')].filter(Boolean),
   };
 }

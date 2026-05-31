@@ -253,9 +253,3 @@ Now that you're armed with this essential knowledge, go forth and fly with confi
 
 **Ready to take your FPV knowledge further? Explore our other FPV build guides and become a true master of the skies!**
 
-
----
-
-_Schema generated_
-_Affiliate analysis generated_
-_SEO research generated_

@@ -1,5 +1,125 @@
 [
   {
+    "id": "brief-fpv-beginner-setup-guide",
+    "briefSlug": "fpv-beginner-setup-guide",
+    "title": "FPV Beginner Setup Guide: The Easiest Way to Get Flying",
+    "category": "Flight Guides",
+    "status": "published",
+    "topic": "A beginner-first walkthrough of the FPV starter stack, the order to buy gear, and the safest way to get ready for a first flight.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "This is the highest-intent starting point for new pilots and creates a strong internal path into build, component, and troubleshooting content."
+    ],
+    "seo": {
+      "slug": "fpv-beginner-setup-guide",
+      "metaDescription": "Learn the simplest FPV starter setup, from the radio and goggles to the drone, batteries, and first flight checklist.",
+      "keywords": [
+        "FPV beginner setup guide",
+        "how to start FPV",
+        "FPV setup for beginners",
+        "first FPV drone checklist"
+      ]
+    },
+    "createdAt": "2026-05-31T16:38:54.881Z",
+    "updatedAt": "2026-05-31T18:48:54.436Z",
+    "publishedPath": "content/published/fpv-beginner-setup-guide-the-easiest-way-to-get-flying.json"
+  },
+  {
+    "id": "brief-fpv-racing-beginner-guide",
+    "briefSlug": "fpv-racing-beginner-guide",
+    "title": "FPV Racing for Beginners: What to Practice First",
+    "category": "Racing",
+    "status": "published",
+    "topic": "A beginner racing guide that focuses on practice structure, track awareness, and the simplest path into competition.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "What makes racing different from freestyle or cinematic flying",
+      "Core practice drills for new racers",
+      "Radio, goggles, and drone setup priorities",
+      "How to read a race line",
+      "First event expectations and etiquette"
+    ],
+    "seo": {
+      "slug": "fpv-racing-beginner-guide",
+      "metaDescription": "Start FPV racing with the right practice drills, race mindset, and basic setup choices that keep learning simple.",
+      "keywords": [
+        "FPV racing for beginners",
+        "how to start FPV racing",
+        "FPV race practice drills",
+        "beginner FPV race setup"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.302Z",
+    "updatedAt": "2026-05-31T18:47:25.701Z",
+    "publishedPath": "content/published/fpv-racing-for-beginners-what-to-practice-first.json"
+  },
+  {
+    "id": "brief-no-video-fpv-troubleshooting",
+    "briefSlug": "no-video-fpv-troubleshooting",
+    "title": "No Video in FPV: A Beginner Troubleshooting Checklist",
+    "category": "Troubleshooting",
+    "status": "published",
+    "topic": "A symptom-based checklist for the most common FPV problem: the goggles power on, but no usable video appears.",
+    "language": "en",
+    "template": "troubleshooting",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "Check power, antenna, and channel settings first",
+      "Separate camera, VTX, and goggle failures",
+      "What to inspect on the bench before re-arming",
+      "Easy fixes for wiring and configuration problems",
+      "When to replace a component"
+    ],
+    "seo": {
+      "slug": "no-video-fpv-troubleshooting",
+      "metaDescription": "Use this step-by-step checklist to fix common FPV no-video problems in the camera, VTX, antenna, and goggle chain.",
+      "keywords": [
+        "FPV no video fix",
+        "FPV goggles show no signal",
+        "black screen FPV drone",
+        "video transmitter troubleshooting"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.302Z",
+    "updatedAt": "2026-05-31T18:45:41.439Z",
+    "publishedPath": "content/published/no-video-in-fpv-a-beginner-troubleshooting-checklist.json"
+  },
+  {
+    "id": "brief-choose-first-tiny-whoop",
+    "briefSlug": "choose-first-tiny-whoop",
+    "title": "How to Choose Your First Tiny Whoop: Indoor Fun & Safe Training",
+    "category": "News and Reviews",
+    "status": "published",
+    "topic": "A comparative review of the tiny whoop category (65mm, 75mm, 85mm), brushed vs brushless motors, choosing analog vs HD digital whoops, and battery stacks for indoor/outdoor garden flights.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "What a Tiny Whoop is and why it is the safest entry point for kids and indoor flying",
+      "Size categories explained: 65mm (pure indoor), 75mm (indoor/garden hybrid), 85mm (outdoor micro powerhouses)",
+      "Video ecosystems on tiny whoops: lightweight analog whoops vs digital (Walksnail/HDZero) whoops",
+      "Battery specs: 1S LiPo/LiHV stacks, BT2.0 vs PH2.0 battery connectors (PH2.0 sags, BT2.0 rules)",
+      "Top RTF tiny whoops compared: Meteor65, Mobula6, Mobula7, and Cetus Pro"
+    ],
+    "seo": {
+      "slug": "choose-first-tiny-whoop",
+      "metaDescription": "Learn how to choose your first Tiny Whoop for indoor training. Compare Mobula, Meteor, and Cetus whoops by size, cost, and battery.",
+      "keywords": [
+        "choose first tiny whoop",
+        "Meteor65 vs Mobula6",
+        "1S whoop battery connector",
+        "analog tiny whoop for beginners"
+      ]
+    },
+    "createdAt": "2026-05-31T17:59:32.858Z",
+    "updatedAt": "2026-05-31T18:43:58.599Z",
+    "publishedPath": "content/published/how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training.json"
+  },
+  {
     "id": "brief-lipo-battery-safety-charging",
     "briefSlug": "lipo-battery-safety-charging-guide",
     "title": "FPV LiPo Battery Safety & Charging Guide: Prevent Fires and Fly Longer",
@@ -403,37 +523,6 @@
     "publishedPath": "content/published/antenna-polarization-explained-lhcp-rhcp-and-linear-antennas.json"
   },
   {
-    "id": "brief-choose-first-tiny-whoop",
-    "briefSlug": "choose-first-tiny-whoop",
-    "title": "How to Choose Your First Tiny Whoop: Indoor Fun & Safe Training",
-    "category": "News and Reviews",
-    "status": "published",
-    "topic": "A comparative review of the tiny whoop category (65mm, 75mm, 85mm), brushed vs brushless motors, choosing analog vs HD digital whoops, and battery stacks for indoor/outdoor garden flights.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "What a Tiny Whoop is and why it is the safest entry point for kids and indoor flying",
-      "Size categories explained: 65mm (pure indoor), 75mm (indoor/garden hybrid), 85mm (outdoor micro powerhouses)",
-      "Video ecosystems on tiny whoops: lightweight analog whoops vs digital (Walksnail/HDZero) whoops",
-      "Battery specs: 1S LiPo/LiHV stacks, BT2.0 vs PH2.0 battery connectors (PH2.0 sags, BT2.0 rules)",
-      "Top RTF tiny whoops compared: Meteor65, Mobula6, Mobula7, and Cetus Pro"
-    ],
-    "seo": {
-      "slug": "choose-first-tiny-whoop",
-      "metaDescription": "Learn how to choose your first Tiny Whoop for indoor training. Compare Mobula, Meteor, and Cetus whoops by size, cost, and battery.",
-      "keywords": [
-        "choose first tiny whoop",
-        "Meteor65 vs Mobula6",
-        "1S whoop battery connector",
-        "analog tiny whoop for beginners"
-      ]
-    },
-    "createdAt": "2026-05-31T17:59:32.858Z",
-    "updatedAt": "2026-05-31T18:08:55.359Z",
-    "publishedPath": "content/published/how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training.json"
-  },
-  {
     "id": "brief-cinematic-vs-freestyle-drones",
     "briefSlug": "cinematic-vs-freestyle-drones",
     "title": "Cinematic FPV vs Freestyle Drones: Frame and Component Differences",
@@ -496,37 +585,6 @@
     "publishedPath": "content/published/long-range-fpv-basics-how-to-fly-beyond-the-trees-safely.json"
   },
   {
-    "id": "brief-no-video-fpv-troubleshooting",
-    "briefSlug": "no-video-fpv-troubleshooting",
-    "title": "No Video in FPV: A Beginner Troubleshooting Checklist",
-    "category": "Troubleshooting",
-    "status": "published",
-    "topic": "A symptom-based checklist for the most common FPV problem: the goggles power on, but no usable video appears.",
-    "language": "en",
-    "template": "troubleshooting",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "Check power, antenna, and channel settings first",
-      "Separate camera, VTX, and goggle failures",
-      "What to inspect on the bench before re-arming",
-      "Easy fixes for wiring and configuration problems",
-      "When to replace a component"
-    ],
-    "seo": {
-      "slug": "no-video-fpv-troubleshooting",
-      "metaDescription": "Use this step-by-step checklist to fix common FPV no-video problems in the camera, VTX, antenna, and goggle chain.",
-      "keywords": [
-        "FPV no video fix",
-        "FPV goggles show no signal",
-        "black screen FPV drone",
-        "video transmitter troubleshooting"
-      ]
-    },
-    "createdAt": "2026-05-31T17:44:29.302Z",
-    "updatedAt": "2026-05-31T17:55:50.213Z",
-    "publishedPath": "content/published/no-video-in-fpv-a-beginner-troubleshooting-checklist.json"
-  },
-  {
     "id": "brief-vtx-and-camera-setup-guide",
     "briefSlug": "vtx-and-camera-setup-guide",
     "title": "VTX and Camera Setup Guide: Clean Video From the Start",
@@ -556,37 +614,6 @@
     "createdAt": "2026-05-31T17:44:29.301Z",
     "updatedAt": "2026-05-31T17:55:50.213Z",
     "publishedPath": "content/published/vtx-and-camera-setup-guide-clean-video-from-the-start.json"
-  },
-  {
-    "id": "brief-fpv-racing-beginner-guide",
-    "briefSlug": "fpv-racing-beginner-guide",
-    "title": "FPV Racing for Beginners: What to Practice First",
-    "category": "Racing",
-    "status": "published",
-    "topic": "A beginner racing guide that focuses on practice structure, track awareness, and the simplest path into competition.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "What makes racing different from freestyle or cinematic flying",
-      "Core practice drills for new racers",
-      "Radio, goggles, and drone setup priorities",
-      "How to read a race line",
-      "First event expectations and etiquette"
-    ],
-    "seo": {
-      "slug": "fpv-racing-beginner-guide",
-      "metaDescription": "Start FPV racing with the right practice drills, race mindset, and basic setup choices that keep learning simple.",
-      "keywords": [
-        "FPV racing for beginners",
-        "how to start FPV racing",
-        "FPV race practice drills",
-        "beginner FPV race setup"
-      ]
-    },
-    "createdAt": "2026-05-31T17:44:29.302Z",
-    "updatedAt": "2026-05-31T17:55:50.212Z",
-    "publishedPath": "content/published/fpv-racing-for-beginners-what-to-practice-first.json"
   },
   {
     "id": "brief-how-to-choose-your-first-fpv-radio",
@@ -711,32 +738,5 @@
     "createdAt": "2026-05-31T17:44:29.302Z",
     "updatedAt": "2026-05-31T17:55:42.825Z",
     "publishedPath": "content/published/fpv-regulations-for-beginners-in-the-united-states.json"
-  },
-  {
-    "id": "brief-fpv-beginner-setup-guide",
-    "briefSlug": "fpv-beginner-setup-guide",
-    "title": "FPV Beginner Setup Guide: The Easiest Way to Get Flying",
-    "category": "Flight Guides",
-    "status": "published",
-    "topic": "A beginner-first walkthrough of the FPV starter stack, the order to buy gear, and the safest way to get ready for a first flight.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "This is the highest-intent starting point for new pilots and creates a strong internal path into build, component, and troubleshooting content."
-    ],
-    "seo": {
-      "slug": "fpv-beginner-setup-guide",
-      "metaDescription": "Learn the simplest FPV starter setup, from the radio and goggles to the drone, batteries, and first flight checklist.",
-      "keywords": [
-        "FPV beginner setup guide",
-        "how to start FPV",
-        "FPV setup for beginners",
-        "first FPV drone checklist"
-      ]
-    },
-    "createdAt": "2026-05-31T16:38:54.881Z",
-    "updatedAt": "2026-05-31T17:43:55.771Z",
-    "publishedPath": "content/published/fpv-beginner-setup-guide-the-easiest-way-to-get-flying.json"
   }
 ]
