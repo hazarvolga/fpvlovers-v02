@@ -210,7 +210,7 @@ async function readWorkflowStream(resp: Response): Promise<{
           try {
             const payload = JSON.parse(raw);
             handlePayload(payload);
-            if (payload?.event === 'workflow_finished' || payload?.data?.status === 'succeeded') {
+            if (payload?.event === 'workflow_finished') {
               reader.cancel().catch(() => {});
               return { workflowRunId, totalTokens, elapsedTime, outputs };
             }
@@ -252,7 +252,7 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
       response_mode: 'streaming',
       user: 'content-orchestrator',
     }),
-    signal: AbortSignal.timeout(90000),
+    signal: AbortSignal.timeout(180000),
   });
 
   if (!resp.ok) {
@@ -350,7 +350,7 @@ export async function runWorkflow(
       response_mode: 'streaming',
       user: 'fpvlovers-system',
     }),
-    signal: AbortSignal.timeout(90000),
+    signal: AbortSignal.timeout(180000),
   });
 
   if (!resp.ok) {

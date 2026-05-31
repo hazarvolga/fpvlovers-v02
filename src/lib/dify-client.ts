@@ -41,7 +41,7 @@ let groqCallCountToday = 0;
 const MIN_INTERVAL_MS = 1500;
 const MAX_CALLS_PER_MINUTE = 15;
 const DAILY_LIMIT = 500;
-const DRY_RUN = process.env.CRAWL_DRY_RUN === 'true' || process.env.NODE_ENV === 'development';
+const DRY_RUN = process.env.CRAWL_DRY_RUN === 'true' || (process.env.NODE_ENV === 'development' && process.env.FORCE_REAL_LLM !== 'true');
 
 // ─── HELPERS ───
 

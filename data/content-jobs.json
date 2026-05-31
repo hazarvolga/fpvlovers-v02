@@ -1,10 +1,227 @@
 [
   {
+    "id": "brief-no-video-fpv-troubleshooting",
+    "briefSlug": "no-video-fpv-troubleshooting",
+    "title": "No Video in FPV: A Beginner Troubleshooting Checklist",
+    "category": "Troubleshooting",
+    "status": "published",
+    "topic": "A symptom-based checklist for the most common FPV problem: the goggles power on, but no usable video appears.",
+    "language": "en",
+    "template": "troubleshooting",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "Check power, antenna, and channel settings first",
+      "Separate camera, VTX, and goggle failures",
+      "What to inspect on the bench before re-arming",
+      "Easy fixes for wiring and configuration problems",
+      "When to replace a component"
+    ],
+    "seo": {
+      "slug": "no-video-fpv-troubleshooting",
+      "metaDescription": "Use this step-by-step checklist to fix common FPV no-video problems in the camera, VTX, antenna, and goggle chain.",
+      "keywords": [
+        "FPV no video fix",
+        "FPV goggles show no signal",
+        "black screen FPV drone",
+        "video transmitter troubleshooting"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.302Z",
+    "updatedAt": "2026-05-31T17:55:50.213Z",
+    "publishedPath": "content/published/no-video-in-fpv-a-beginner-troubleshooting-checklist.json"
+  },
+  {
+    "id": "brief-vtx-and-camera-setup-guide",
+    "briefSlug": "vtx-and-camera-setup-guide",
+    "title": "VTX and Camera Setup Guide: Clean Video From the Start",
+    "category": "Build Guides",
+    "status": "published",
+    "topic": "A focused guide to setting up the video system so beginners can get a clean image and avoid the usual channel and wiring mistakes.",
+    "language": "en",
+    "template": "build-guide",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "What the camera and VTX do",
+      "Wiring basics and common pin mistakes",
+      "Channel, band, and power setup",
+      "How to test video before the first flight",
+      "Avoiding overheating and interference issues"
+    ],
+    "seo": {
+      "slug": "vtx-and-camera-setup-guide",
+      "metaDescription": "Set up your FPV camera and VTX correctly with a simple wiring and configuration guide that prevents common video problems.",
+      "keywords": [
+        "VTX and camera setup guide",
+        "FPV camera wiring",
+        "VTX channel setup",
+        "FPV video transmitter basics"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.301Z",
+    "updatedAt": "2026-05-31T17:55:50.213Z",
+    "publishedPath": "content/published/vtx-and-camera-setup-guide-clean-video-from-the-start.json"
+  },
+  {
+    "id": "brief-fpv-racing-beginner-guide",
+    "briefSlug": "fpv-racing-beginner-guide",
+    "title": "FPV Racing for Beginners: What to Practice First",
+    "category": "Racing",
+    "status": "published",
+    "topic": "A beginner racing guide that focuses on practice structure, track awareness, and the simplest path into competition.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "What makes racing different from freestyle or cinematic flying",
+      "Core practice drills for new racers",
+      "Radio, goggles, and drone setup priorities",
+      "How to read a race line",
+      "First event expectations and etiquette"
+    ],
+    "seo": {
+      "slug": "fpv-racing-beginner-guide",
+      "metaDescription": "Start FPV racing with the right practice drills, race mindset, and basic setup choices that keep learning simple.",
+      "keywords": [
+        "FPV racing for beginners",
+        "how to start FPV racing",
+        "FPV race practice drills",
+        "beginner FPV race setup"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.302Z",
+    "updatedAt": "2026-05-31T17:55:50.212Z",
+    "publishedPath": "content/published/fpv-racing-for-beginners-what-to-practice-first.json"
+  },
+  {
+    "id": "brief-how-to-choose-your-first-fpv-radio",
+    "briefSlug": "how-to-choose-your-first-fpv-radio",
+    "title": "How to Choose Your First FPV Radio Without Buying Twice",
+    "category": "Components",
+    "status": "published",
+    "topic": "A practical buying guide that helps new pilots choose a radio based on protocol support, ergonomics, and future upgrade path.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "What a radio link does in FPV",
+      "ELRS, Crossfire, and legacy options at a beginner level",
+      "Size, gimbals, switches, and ergonomics",
+      "What to look for if you plan to keep upgrading",
+      "Recommended decision path by budget"
+    ],
+    "seo": {
+      "slug": "how-to-choose-your-first-fpv-radio",
+      "metaDescription": "Compare beginner FPV radios, protocol support, ergonomics, and upgrade path so you can buy once and fly longer.",
+      "keywords": [
+        "best FPV radio for beginners",
+        "first FPV transmitter",
+        "radio protocol for FPV beginners",
+        "ELRS or Crossfire beginner"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.300Z",
+    "updatedAt": "2026-05-31T17:55:50.212Z",
+    "publishedPath": "content/published/how-to-choose-your-first-fpv-radio-without-buying-twice.json"
+  },
+  {
+    "id": "brief-fpv-goggles-buying-guide",
+    "briefSlug": "fpv-goggles-buying-guide",
+    "title": "FPV Goggles Buying Guide: Analog vs Digital for Beginners",
+    "category": "News and Reviews",
+    "status": "published",
+    "topic": "A comparison-led guide to the first goggle purchase, with a clear look at analog and digital tradeoffs for new pilots.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "How FPV goggles fit into the pilot setup",
+      "Analog versus digital image quality and cost",
+      "Comfort, fit, and receiver options",
+      "Budget tiers and upgrade paths",
+      "Which choice makes sense for first-time buyers"
+    ],
+    "seo": {
+      "slug": "fpv-goggles-buying-guide",
+      "metaDescription": "Compare FPV goggles by ecosystem, image quality, comfort, latency, and budget so beginner pilots can choose with confidence.",
+      "keywords": [
+        "FPV goggles buying guide",
+        "analog vs digital FPV goggles",
+        "best FPV goggles for beginners",
+        "FPV headset comparison"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.301Z",
+    "updatedAt": "2026-05-31T17:55:50.211Z",
+    "publishedPath": "content/published/fpv-goggles-buying-guide-analog-vs-digital-for-beginners.json"
+  },
+  {
+    "id": "brief-betaflight-pid-basics-for-beginners",
+    "briefSlug": "betaflight-pid-basics-for-beginners",
+    "title": "Betaflight PID Basics for Beginners: Start With the Right Mental Model",
+    "category": "Flight Guides",
+    "status": "published",
+    "topic": "A simple explanation of PID tuning that helps new pilots understand what changes matter and what to leave alone.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "What PID tuning actually changes",
+      "Why a decent stock tune is enough at first",
+      "How to think about drift, bounce, and oscillation",
+      "Safe beginner adjustments and testing habits",
+      "When tuning should stop and component checks should start"
+    ],
+    "seo": {
+      "slug": "betaflight-pid-basics-for-beginners",
+      "metaDescription": "Learn the beginner-friendly meaning of PID tuning in Betaflight and how to approach small changes without breaking a good tune.",
+      "keywords": [
+        "Betaflight PID basics",
+        "Betaflight tuning for beginners",
+        "what are PID values",
+        "FPV flight controller tuning"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.302Z",
+    "updatedAt": "2026-05-31T17:55:50.207Z",
+    "publishedPath": "content/published/betaflight-pid-basics-for-beginners-start-with-the-right-mental-model.json"
+  },
+  {
+    "id": "brief-fpv-regulations-for-beginners-united-states",
+    "briefSlug": "fpv-regulations-for-beginners-united-states",
+    "title": "FPV Regulations for Beginners in the United States",
+    "category": "Regulations",
+    "status": "published",
+    "topic": "A beginner-friendly overview of the U.S. FPV rules, with practical focus on safe flying habits and common compliance questions.",
+    "language": "en",
+    "template": "regulation-guide",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "The basic legal frame for FPV flying in the U.S.",
+      "Remote ID, location awareness, and common questions",
+      "How to think about safe flying spots",
+      "Recreational versus other use cases at a high level",
+      "Where to verify current rules before flying"
+    ],
+    "seo": {
+      "slug": "fpv-regulations-for-beginners-united-states",
+      "metaDescription": "Understand the basic U.S. FPV rules, Remote ID, and safe flying habits before your first pack.",
+      "keywords": [
+        "FPV regulations United States",
+        "Remote ID for FPV",
+        "where can I fly FPV",
+        "beginner drone rules US"
+      ]
+    },
+    "createdAt": "2026-05-31T17:44:29.302Z",
+    "updatedAt": "2026-05-31T17:55:42.825Z",
+    "publishedPath": "content/published/fpv-regulations-for-beginners-in-the-united-states.json"
+  },
+  {
     "id": "brief-fpv-beginner-setup-guide",
     "briefSlug": "fpv-beginner-setup-guide",
     "title": "FPV Beginner Setup Guide: The Easiest Way to Get Flying",
     "category": "Flight Guides",
-    "status": "queued",
+    "status": "published",
     "topic": "A beginner-first walkthrough of the FPV starter stack, the order to buy gear, and the safest way to get ready for a first flight.",
     "language": "en",
     "template": "tech-article",
@@ -22,6 +239,8 @@
         "first FPV drone checklist"
       ]
     },
-    "createdAt": "2026-05-31T16:38:54.881Z"
+    "createdAt": "2026-05-31T16:38:54.881Z",
+    "updatedAt": "2026-05-31T17:43:55.771Z",
+    "publishedPath": "content/published/fpv-beginner-setup-guide-the-easiest-way-to-get-flying.json"
   }
 ]

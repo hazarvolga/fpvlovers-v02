@@ -19,6 +19,7 @@
     "opencode:brief": "node scripts/opencode-brief.mjs",
     "content:smoke": "node --import tsx scripts/content-automation-smoke.ts",
     "content:audit": "node --import tsx scripts/content-integrity-audit.ts",
+    "content:repair": "node --import tsx scripts/repair-queue-status.ts",
     "tools:audit": "node --import tsx scripts/tool-truth-audit.ts",
     "catalog:sources": "node --import tsx scripts/product-catalog-source-pack.ts",
     "catalog:enqueue": "node --import tsx scripts/product-catalog-source-pack.ts --enqueue",
