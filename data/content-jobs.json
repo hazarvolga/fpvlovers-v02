@@ -1,1 +1,29 @@
-[]
+[
+  {
+    "id": "brief-fpv-beginner-setup-guide",
+    "briefSlug": "fpv-beginner-setup-guide",
+    "title": "FPV Beginner Setup Guide: The Easiest Way to Get Flying",
+    "category": "Flight Guides",
+    "status": "failed",
+    "topic": "A beginner-first walkthrough of the FPV starter stack, the order to buy gear, and the safest way to get ready for a first flight.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "This is the highest-intent starting point for new pilots and creates a strong internal path into build, component, and troubleshooting content."
+    ],
+    "seo": {
+      "slug": "fpv-beginner-setup-guide",
+      "metaDescription": "Learn the simplest FPV starter setup, from the radio and goggles to the drone, batteries, and first flight checklist.",
+      "keywords": [
+        "FPV beginner setup guide",
+        "how to start FPV",
+        "FPV setup for beginners",
+        "first FPV drone checklist"
+      ]
+    },
+    "createdAt": "2026-05-31T16:38:54.881Z",
+    "updatedAt": "2026-05-31T16:39:20.626Z",
+    "feedback": "Workflow returned no publishable content."
+  }
+]
