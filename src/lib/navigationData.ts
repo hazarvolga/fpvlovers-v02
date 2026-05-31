@@ -101,12 +101,6 @@ export const navigationData = [
     href: "/tools",
     items: [
       {
-        title: "Flight Critic",
-        href: "/tools/flight-critic",
-        description: "Video review and flight quality grading.",
-        icon: Video
-      },
-      {
         title: "Component Duel",
         href: "/tools/component-duel",
         description: "Side-by-Side FPV Hardware Comparisons.",

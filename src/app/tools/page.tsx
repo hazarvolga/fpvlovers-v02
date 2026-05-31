@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 
 export default function ToolsPage() {
-  redirect('/tools/flight-critic');
+  redirect('/tools/component-duel');
 }
+
