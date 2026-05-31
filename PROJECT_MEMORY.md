@@ -347,3 +347,12 @@ Created:
 - Published content files are tracked in `content/published/*.json` and now include deterministic local cover references.
 - The homepage, article page, and admin preview render the same media source of truth.
 - The cover art is generated locally from the content metadata, so the public pages no longer need third-party image assets for the first pass.
+
+### 2026-05-31 Content Automation & Premium Media Entegrasyonu (Dil Düzeltmeleri, Dinamik Görsel Enjeksiyonu)
+
+- **Türkçe RAG Dil Düzeltmesi:** Dify RAG Türkçe kaynaklardan beslendiğinde makaleleri Türkçe üretiyordu. `generate-all-queued.ts` içerisindeki Dify parametresine `customPrompt` enjeksiyonu yapılarak tamamen İngilizce üretilmesi sağlandı. Türkçe üretilen 4 makale sistemden silindi, durumları `queued` yapıldı ve tamamen İngilizce olarak başarıyla yeniden üretildi.
+- **Otomatik Sistem Notlarının Arındırılması:** Makalelerin altında yer alan `"Schema generated"`, `"Affiliate analysis generated"` ve `"SEO research generated"` ifadeleri hem mevcut 26 makaleden temizlendi hem de gelecek üretimler için `publish-artifact.ts` içinden filtrelenerek tamamen kaldırıldı.
+- **Dinamik Görsel Galerisi & Kaynak Linkleri:** `content-media.ts` güncellenerek kategorilere göre dinamik görsel galerisi eklendi. Detay sayfasına (`page.tsx`) görsellerin telifsiz orijinal kaynaklarına giden tıklanabilir `[ View Original Source ]` ve `[ Cover Source ]` linkleri yerleştirildi.
+- **Paragraf İçi Dinamik Görsel Enjeksiyonu & Premium FPV UI Tasarımı:** Makale paragraflarının (2. ve 4. bölümlerin) arasına dinamik olarak görseller ve bunların tıklanabilir kaynak bağlantıları (`[ View Original Image Source: ... ]`) yerleştirildi. Markdown resimleri, hover animasyonlu (`hover:scale-[1.02]`) ve telemetri kenarlıklı premium HTML figürler olarak render edildi.
+- **Next.js Build & Tip Güvenliği:** TypeScript derleme aşamasındaki `ContentMediaAsset` tip uyuşmazlığı `types.ts` ve `parse-generated-content.ts` güncellenerek tamamen giderildi. Yerel `npm run build` ve `npm run content:audit` bütünlük testleri %100 başarıyla (0 hata) tamamlandı.
+- **Git Push:** Değişiklikler GitHub `main` branch'ine başarıyla gönderildi ve Coolify'da yayına hazır hale getirildi.
