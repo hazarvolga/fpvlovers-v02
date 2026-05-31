@@ -4,7 +4,7 @@
     "briefSlug": "fpv-beginner-setup-guide",
     "title": "FPV Beginner Setup Guide: The Easiest Way to Get Flying",
     "category": "Flight Guides",
-    "status": "failed",
+    "status": "queued",
     "topic": "A beginner-first walkthrough of the FPV starter stack, the order to buy gear, and the safest way to get ready for a first flight.",
     "language": "en",
     "template": "tech-article",
@@ -22,8 +22,6 @@
         "first FPV drone checklist"
       ]
     },
-    "createdAt": "2026-05-31T16:38:54.881Z",
-    "updatedAt": "2026-05-31T16:39:20.626Z",
-    "feedback": "Workflow returned no publishable content."
+    "createdAt": "2026-05-31T16:38:54.881Z"
   }
 ]
