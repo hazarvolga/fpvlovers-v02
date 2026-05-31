@@ -57,6 +57,29 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
     { label: a.title, isCurrentPage: true }
   ];
 
+  const gallery = a.media?.gallery || [];
+  const bodySectionsWithImages = a.bodySections?.map((section, index) => {
+    let content = section.content;
+    
+    // 2. ve 4. sectionların sonuna galerideki ilgili resimleri enjekte edelim
+    if (index === 1 && gallery[0]) {
+      content += `\n\n![${gallery[0].alt || 'Visual Reference'}](${gallery[0].src})\n\n`;
+      if (gallery[0].sourceUrl) {
+        content += `\n\n_[Source: ${gallery[0].credit || 'Original Link'}](${gallery[0].sourceUrl})_\n\n`;
+      }
+    } else if (index === 3 && gallery[1]) {
+      content += `\n\n![${gallery[1].alt || 'Visual Reference'}](${gallery[1].src})\n\n`;
+      if (gallery[1].sourceUrl) {
+        content += `\n\n_[Source: ${gallery[1].credit || 'Original Link'}](${gallery[1].sourceUrl})_\n\n`;
+      }
+    }
+    
+    return {
+      ...section,
+      content,
+    };
+  }) || [];
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
@@ -119,18 +142,22 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
             </div>
 
             <div className="prose prose-invert max-w-none text-white/70 antialiased leading-relaxed mb-12 prose-headings:text-white prose-a:text-[#00F5FF] prose-strong:text-white/90 prose-li:text-white/60 prose-code:text-[#00FF66]">
-              {a.bodySections?.map((section: { id: string; title: string; content: string }) => (
+              {bodySectionsWithImages.map((section: { id: string; title: string; content: string }) => (
                 <section key={section.id} className="mb-10">
                   {section.title && section.title !== a.title && (
                     <h2 className="text-2xl font-bold text-white mt-0 mb-4">{section.title}</h2>
                   )}
                   <div
-                    className="space-y-4"
+                    className="space-y-4 animate-fadeIn"
                     dangerouslySetInnerHTML={{
                       __html: section.content
                         .replace(/^# /gm, '### ')
                         .replace(/^## /gm, '### ')
                         .replace(/^### /gm, '#### ')
+                        // Premium FPV UI styling for inline images
+                        .replace(/!\[(.*?)\]\((.*?)\)/g, '<figure class="my-8 overflow-hidden rounded-xl border border-[#00F5FF]/10 bg-[#050810]/50"><img src="$2" alt="$1" class="w-full object-cover aspect-[16/9] hover:scale-[1.02] transition-transform duration-500" /><figcaption class="p-3 text-[10px] text-white/40 font-mono flex items-center justify-between"><span>$1</span></figcaption></figure>')
+                        // Double wrap protection for source links under images
+                        .replace(/_\[Source:\s*(.+?)\]\((.+?)\)_/g, '<div class="text-[10px] text-white/30 font-mono italic -mt-6 mb-8 flex items-center justify-end"><a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#00F5FF] hover:text-[#00FF66] transition-colors font-bold uppercase tracking-widest text-[9px]">[ View Original Image Source: $1 ]</a></div>')
                         .replace(/\n\n/g, '</p><p>')
                         .replace(/^/, '<p>')
                         .replace(/$/, '</p>')
@@ -141,9 +168,7 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
                     }}
                   />
                 </section>
-              )) || (
-                <p className="text-white/50 italic">No content sections available for this article.</p>
-              )}
+              ))}
             </div>
 
             {a.internalLinks?.length > 0 && (
