@@ -119,18 +119,30 @@ function buildDifyPrompt(meta: UploadedVideoMeta): string {
 
 export async function POST(req: Request) {
   try {
-    const formData = await req.formData();
-    const video = formData.get('video');
+    let meta: UploadedVideoMeta;
+    const contentType = req.headers.get('content-type') || '';
 
-    if (!(video instanceof File)) {
-      return Response.json({ error: 'No video provided.' }, { status: 400 });
+    if (contentType.includes('application/json')) {
+      const json = await req.json();
+      meta = {
+        name: String(json.name || 'fpv-flight.mp4'),
+        type: String(json.type || 'video/unknown'),
+        sizeMb: Number(json.sizeMb || 0),
+      };
+    } else {
+      const formData = await req.formData();
+      const video = formData.get('video');
+
+      if (!(video instanceof File)) {
+        return Response.json({ error: 'No video provided.' }, { status: 400 });
+      }
+
+      meta = {
+        name: video.name || 'fpv-flight.mp4',
+        type: video.type || 'video/unknown',
+        sizeMb: video.size / 1024 / 1024,
+      };
     }
-
-    const meta: UploadedVideoMeta = {
-      name: video.name || 'fpv-flight.mp4',
-      type: video.type || 'video/unknown',
-      sizeMb: video.size / 1024 / 1024,
-    };
 
     const app = findApp('FPV Expert Assistant');
     if (!app?.token) {

@@ -36,12 +36,16 @@ export function FlightCriticWidget() {
 
   const triggerAnalysis = async (file: File) => {
     try {
-      const formData = new FormData();
-      formData.append('video', file);
-
       const res = await fetch('/api/analyze-flight', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: file.name,
+          type: file.type,
+          sizeMb: file.size / 1024 / 1024,
+        }),
       });
 
       if (!res.ok) throw new Error('Analysis failed');
