@@ -27,7 +27,9 @@ export type ContentMediaAsset = {
   alt: string;
   caption?: string;
   source?: string;
+  sourceUrl?: string;
   credit?: string;
+  license?: string;
 };
 
 export type ContentMedia = {

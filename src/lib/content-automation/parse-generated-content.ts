@@ -59,7 +59,9 @@ const asMediaAsset = (value: unknown, fallbackAlt: string) => {
     alt?: unknown;
     caption?: unknown;
     source?: unknown;
+    sourceUrl?: unknown;
     credit?: unknown;
+    license?: unknown;
   };
 
   const src = asString(asset.src);
@@ -70,7 +72,9 @@ const asMediaAsset = (value: unknown, fallbackAlt: string) => {
     alt: asString(asset.alt, fallbackAlt),
     caption: asString(asset.caption),
     source: asString(asset.source),
+    sourceUrl: asString(asset.sourceUrl),
     credit: asString(asset.credit),
+    license: asString(asset.license),
   };
 };
 
