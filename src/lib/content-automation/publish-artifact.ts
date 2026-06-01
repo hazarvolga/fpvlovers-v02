@@ -3,6 +3,7 @@ import path from 'path';
 import type { GeneratedContent } from './parse-generated-content';
 import { buildContentMedia } from './content-media';
 import type { ContentJob } from './types';
+import { matchImagesToSections } from './crawl-image-match';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -26,6 +27,38 @@ export function publishGeneratedContentArtifact(
     category: job.category,
     excerpt: content.excerpt,
   });
+
+  // Perform semantic matching of gallery images to bodySections
+  if (media && media.gallery && media.gallery.length > 0 && content.bodySections && content.bodySections.length > 0) {
+    const licensedImages = media.gallery.map((asset, index) => ({
+      id: `gallery_${index}`,
+      src: asset.src,
+      alt: asset.alt,
+      sourceUrl: asset.sourceUrl || '',
+      hostname: asset.source || 'stock',
+      context: `${asset.caption || ''} ${asset.alt || ''}`,
+      license: (asset.license as any) || 'open',
+      canSelfHost: true,
+      licenseReason: 'Gallery asset',
+    }));
+
+    const matchResult = matchImagesToSections(licensedImages, content.bodySections);
+    const matchesMap = new Map(matchResult.matches.map(m => [m.sectionId, m.image]));
+
+    content.bodySections = content.bodySections.map((section) => {
+      const matched = matchesMap.get(section.id);
+      if (matched) {
+        const originalAsset = media.gallery.find(g => g.src === matched.src);
+        if (originalAsset) {
+          return {
+            ...section,
+            imageMatch: originalAsset,
+          };
+        }
+      }
+      return section;
+    });
+  }
 
   const filteredNotes = (content.publishNotes || []).filter(
     (note) =>
@@ -53,14 +86,20 @@ export function publishGeneratedContentArtifact(
 
   fs.writeFileSync(jsonPath, JSON.stringify(artifact, null, 2) + '\n', 'utf-8');
 
+  // Convert to beautiful standard markdown representation including inline images
+  const mdSections = content.bodySections.map((section) => {
+    const imgMd = section.imageMatch
+      ? `\n\n![${section.imageMatch.alt}](${section.imageMatch.src})\n_${section.imageMatch.caption || section.imageMatch.alt}_`
+      : '';
+    return `## ${section.title}\n\n${section.content}${imgMd}\n`;
+  });
+
   const markdown = [
     `# ${content.title}`,
     '',
     `> ${content.excerpt}`,
     '',
-    ...content.bodySections.map(
-      (section) => `## ${section.title}\n\n${section.content}\n`,
-    ),
+    ...mdSections,
     ...(filteredNotes.length > 0
       ? ['', '---', '', ...filteredNotes.map((note) => `_${note}_`)]
       : []),

@@ -119,6 +119,283 @@ const EDITORIAL_PHOTOS: Record<string, EditorialPhoto> = {
     sourceUrl: 'https://unsplash.com/s/photos/drone-racing',
     license: 'Unsplash License',
   },
+  flightLandscape: {
+    src: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Stunning aerial view of mountains and rivers from an FPV flight',
+    credit: 'Photo by Matt Seymour on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/photos/aerial-view-of-green-forest-and-river-1c8408f9f108',
+    license: 'Unsplash License',
+  },
+  pilotOutdoor2: {
+    src: 'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&auto=format&fit=crop&q=70',
+    alt: 'FPV pilot wearing high-tech video goggles preparing to launch',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/fpv-pilot',
+    license: 'Unsplash License',
+  },
+  forestFlight: {
+    src: 'https://images.unsplash.com/photo-1504890001746-a9a68edd06e5?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Creative perspective of a drone flying through a dense forest canopy',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/drone-forest',
+    license: 'Unsplash License',
+  },
+  solderingBench: {
+    src: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Electronics workstation with soldering iron and components',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/soldering-station',
+    license: 'Unsplash License',
+  },
+  workbenchBuild: {
+    src: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Organized workbench with digital multimeter and drone hardware',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/hardware-workbench',
+    license: 'Unsplash License',
+  },
+  teamBuilding: {
+    src: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1200&auto=format&fit=crop&q=70',
+    alt: 'FPV engineers collaborating and constructing a custom drone frame',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/team-engineering',
+    license: 'Unsplash License',
+  },
+  circuitBoardDetail: {
+    src: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&auto=format&fit=crop&q=70',
+    alt: 'High-tech electronics motherboard close-up showing microchips',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/motherboard-circuit',
+    license: 'Unsplash License',
+  },
+  engineeringLab: {
+    src: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Technician working in an advanced engineering diagnostics lab',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/engineering-lab',
+    license: 'Unsplash License',
+  },
+  hardwareDiagnostic: {
+    src: 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Oscilloscope probe diagnosing FPV flight controller signals',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/hardware-diagnostic',
+    license: 'Unsplash License',
+  },
+  gogglesVR: {
+    src: 'https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Modern FPV video goggles and VR hardware on a tech desk',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/vr-goggles',
+    license: 'Unsplash License',
+  },
+  electronicsDetail: {
+    src: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Close-up on modern electronic component microprocessors',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/microchip-tech',
+    license: 'Unsplash License',
+  },
+  futuristicTech: {
+    src: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Close-up of high-speed glowing digital interface tech',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/digital-telemetry',
+    license: 'Unsplash License',
+  },
+  transmitterDetail: {
+    src: 'https://images.unsplash.com/photo-1551829141-8722ab0d8768?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Close up of a multi-channel digital radio transmitter controller',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/radio-transmitter',
+    license: 'Unsplash License',
+  },
+  networkTrace: {
+    src: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Global network traces and digital telemetry visualization',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/digital-network',
+    license: 'Unsplash License',
+  },
+  techDisplay: {
+    src: 'https://images.unsplash.com/photo-1562408590-e32931084e23?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Glowing indicators on a high-tech computer workstation',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/glowing-telemetry',
+    license: 'Unsplash License',
+  },
+  racingFlags: {
+    src: 'https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70',
+    alt: 'FPV racing gates and high-visibility track flags outdoors',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/racing-flags',
+    license: 'Unsplash License',
+  },
+  racingTrack: {
+    src: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Long-exposure light trails from FPV racing drones on a night track',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/light-trails',
+    license: 'Unsplash License',
+  },
+  racerOutdoor: {
+    src: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Action photography of sports gear outdoor on a race track',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/race-track-action',
+    license: 'Unsplash License',
+  },
+  pilotFocus: {
+    src: 'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Close-up of a racing pilot looking through goggles with absolute focus',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/focus-pilot',
+    license: 'Unsplash License',
+  },
+  securityShield: {
+    src: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Cybersecurity shield representing regulation compliance',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/cybersecurity-compliance',
+    license: 'Unsplash License',
+  },
+  legalGavel: {
+    src: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Legal gavel representing FPV laws and airspace regulations',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/legal-gavel',
+    license: 'Unsplash License',
+  },
+  restrictedFlight: {
+    src: 'https://images.unsplash.com/photo-1505664194779-8bebcb95c37e?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Restricted airspace sign representing FAA safety regulations',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/restricted-airspace',
+    license: 'Unsplash License',
+  },
+  regulationsAbstract: {
+    src: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Abstract geometrical structure representing regulatory frameworks',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/abstract-framework',
+    license: 'Unsplash License',
+  },
+  academyDigital: {
+    src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Digital screen showing online learning tutorials and guidelines',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/digital-academy',
+    license: 'Unsplash License',
+  },
+  studentsGroup: {
+    src: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Students studying engineering concepts together in a workshop',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/engineering-students',
+    license: 'Unsplash License',
+  },
+  instructorClassroom: {
+    src: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Instructor giving an aerodynamics presentation to FPV students',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/classroom-instructor',
+    license: 'Unsplash License',
+  },
+  studyDesk: {
+    src: 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Organized study desk with reference material and FPV blueprints',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/study-desk',
+    license: 'Unsplash License',
+  },
+  engineeringCleanroom: {
+    src: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1200&auto=format&fit=crop&q=70',
+    alt: 'High-precision manufacturing cleanroom for drone electronics',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/manufacturing-cleanroom',
+    license: 'Unsplash License',
+  },
+  industrialDrone: {
+    src: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Industrial autonomous drone representing high-end engineering',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/industrial-engineering',
+    license: 'Unsplash License',
+  },
+  coderBench: {
+    src: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Software engineer coding flight controller firmware on a laptop',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/s/photos/software-engineering',
+    license: 'Unsplash License',
+  },
+  analyticsCharts: {
+    src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Analytical dashboard with telemetry and flight statistics charts',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/photos/person-pointing-on-computer-screen-1454165804606',
+    license: 'Unsplash License',
+  },
+  calculatorTools: {
+    src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Digital layout representing analytical tools and calculators',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/photos/website-layout-on-screen-1460925895917',
+    license: 'Unsplash License',
+  },
+  hardwareTools: {
+    src: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=1200&auto=format&fit=crop&q=70',
+    alt: 'Professional FPV maintenance tools laid out in an organizer',
+    credit: 'Photo on Unsplash',
+    source: 'Unsplash',
+    sourceUrl: 'https://unsplash.com/photos/assorted-tools-1507679799987',
+    license: 'Unsplash License',
+  },
+};
+
+const CATEGORY_POOLS: Record<string, Array<keyof typeof EDITORIAL_PHOTOS>> = {
+  'Flight Guides': ['fpvDroneFlight', 'gogglesPilot', 'fpvDroneField', 'flightLandscape', 'pilotOutdoor2', 'forestFlight'],
+  'Build Guides': ['componentsWorkbench', 'beginnerKit', 'solderingBench', 'radioController', 'workbenchBuild', 'teamBuilding'],
+  'Troubleshooting': ['troubleshootingBench', 'electronicsBoard', 'circuitBoardDetail', 'engineeringLab', 'hardwareDiagnostic'],
+  'Components': ['componentsWorkbench', 'gogglesVR', 'electronicsDetail', 'futuristicTech', 'transmitterDetail'],
+  'News and Reviews': ['droneAirspace', 'networkTrace', 'techDisplay', 'gogglesPilot', 'fpvDroneField'],
+  'Racing': ['racingDroneOutdoor', 'droneAirspace', 'racingFlags', 'racingTrack', 'racerOutdoor', 'pilotFocus'],
+  'Regulations': ['droneAirspace', 'securityShield', 'legalGavel', 'restrictedFlight', 'regulationsAbstract'],
+  'Academy': ['academyDigital', 'studentsGroup', 'instructorClassroom', 'studyDesk'],
+  'Engineering': ['engineeringCleanroom', 'industrialDrone', 'coderBench', 'electronicsBoard'],
+  'Tools': ['analyticsCharts', 'calculatorTools', 'hardwareTools', 'beginnerKit'],
 };
 
 const SLUG_PHOTO_KEYS: Record<string, keyof typeof EDITORIAL_PHOTOS> = {
@@ -181,7 +458,11 @@ function pickEditorialPhoto(input: {
   if (haystack.includes('component') || haystack.includes('wiring') || haystack.includes('vtx') || haystack.includes('camera')) return EDITORIAL_PHOTOS.componentsWorkbench;
   if (haystack.includes('beginner') || haystack.includes('setup') || haystack.includes('kit')) return EDITORIAL_PHOTOS.beginnerKit;
 
-  return null;
+  // Fallback to Category-specific Pool with deterministic selection via slug hash
+  const pool = CATEGORY_POOLS[input.category] || CATEGORY_POOLS['Flight Guides']!;
+  const index = hashString(input.slug) % pool.length;
+  const key = pool[index]!;
+  return EDITORIAL_PHOTOS[key] || EDITORIAL_PHOTOS.fpvDroneField!;
 }
 
 function splitTitle(value: string): string[] {
@@ -328,39 +609,29 @@ function pickGalleryPhotos(input: {
   category: string;
   excludeSrc?: string;
 }): ContentMediaAsset[] {
-  const haystack = `${input.slug} ${input.category}`.toLowerCase();
+  const pool = CATEGORY_POOLS[input.category] || CATEGORY_POOLS['Flight Guides']!;
+  const filteredKeys = pool.filter(key => EDITORIAL_PHOTOS[key]?.src !== input.excludeSrc);
+  const hash = hashString(input.slug);
   const gallery: ContentMediaAsset[] = [];
-  
-  const addIfValid = (photo: EditorialPhoto) => {
-    if (photo.src !== input.excludeSrc && gallery.length < 2) {
-      gallery.push({
-        src: photo.src,
-        alt: photo.alt,
-        caption: photo.alt,
-        source: photo.source,
-        sourceUrl: photo.sourceUrl,
-        credit: photo.credit,
-        license: photo.license,
-      });
-    }
-  };
+  const count = Math.min(2, filteredKeys.length);
 
-  if (haystack.includes('race') || haystack.includes('racing') || input.category === 'Racing') {
-    addIfValid(EDITORIAL_PHOTOS.droneAirspace);
-    addIfValid(EDITORIAL_PHOTOS.fpvDroneFlight);
-    addIfValid(EDITORIAL_PHOTOS.gogglesPilot);
-  } else if (haystack.includes('troubleshoot') || haystack.includes('no-video') || input.category === 'Troubleshooting') {
-    addIfValid(EDITORIAL_PHOTOS.electronicsBoard);
-    addIfValid(EDITORIAL_PHOTOS.componentsWorkbench);
-    addIfValid(EDITORIAL_PHOTOS.radioController);
-  } else if (input.category === 'Components' || haystack.includes('motor') || haystack.includes('frame')) {
-    addIfValid(EDITORIAL_PHOTOS.componentsWorkbench);
-    addIfValid(EDITORIAL_PHOTOS.electronicsBoard);
-    addIfValid(EDITORIAL_PHOTOS.radioController);
-  } else {
-    addIfValid(EDITORIAL_PHOTOS.fpvDroneField);
-    addIfValid(EDITORIAL_PHOTOS.beginnerKit);
-    addIfValid(EDITORIAL_PHOTOS.gogglesPilot);
+  for (let i = 0; i < count; i += 1) {
+    const index = (hash + i) % filteredKeys.length;
+    const key = filteredKeys[index]!;
+    const photo = EDITORIAL_PHOTOS[key]!;
+
+    // Deduplicate in case of array wrapping
+    if (gallery.some(item => item.src === photo.src)) continue;
+
+    gallery.push({
+      src: photo.src,
+      alt: photo.alt,
+      caption: photo.alt,
+      source: photo.source,
+      sourceUrl: photo.sourceUrl,
+      credit: photo.credit,
+      license: photo.license,
+    });
   }
 
   return gallery;
@@ -384,7 +655,7 @@ export function buildContentMedia(input: {
       category: input.category,
       excludeSrc: editorialPhoto.src,
     });
-    
+
     return {
       coverImage: {
         src: editorialPhoto.src,

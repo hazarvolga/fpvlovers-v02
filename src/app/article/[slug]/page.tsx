@@ -57,11 +57,6 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
     { label: a.title, isCurrentPage: true }
   ];
 
-  const gallery = a.media?.gallery || [];
-
-  // Merge all body sections into a single Markdown string
-  const fullMarkdown = (a.bodySections || []).map(s => s.content).join('\n\n');
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
@@ -123,11 +118,51 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
               )}
             </div>
 
-            {/* Full Markdown render with gallery */}
-            <MarkdownRenderer
-              content={fullMarkdown}
-              gallery={gallery}
-            />
+            {/* Loop through sections and render inline */}
+            {(a.bodySections || []).map((section, idx) => (
+              <div key={section.id || `sec-${idx}`} className="mb-10">
+                <h2 className="text-2xl font-black text-white mt-10 mb-4 tracking-tight">
+                  {section.title}
+                </h2>
+                
+                <MarkdownRenderer content={section.content} />
+
+                {section.imageMatch && (
+                  <figure className="my-8 overflow-hidden rounded-xl border border-[#00F5FF]/10 bg-[#050810]/50 not-prose p-1">
+                    <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg">
+                      <Image
+                        src={section.imageMatch.src}
+                        alt={section.imageMatch.alt || section.title}
+                        fill
+                        sizes="(min-width: 1024px) 66vw, 100vw"
+                        unoptimized={section.imageMatch.src.startsWith('/api/') || section.imageMatch.src.includes('images.pexels.com') || section.imageMatch.src.includes('images.unsplash.com')}
+                        className="object-cover hover:scale-[1.02] transition-transform duration-500"
+                      />
+                    </div>
+                    {(section.imageMatch.caption || section.imageMatch.credit) && (
+                      <figcaption className="p-3 text-[10px] text-white/40 font-mono flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                        <span>{section.imageMatch.caption || section.imageMatch.alt}</span>
+                        {section.imageMatch.credit && (
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span>{section.imageMatch.credit}</span>
+                            {section.imageMatch.sourceUrl && (
+                              <a
+                                href={section.imageMatch.sourceUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-[#00F5FF] hover:text-[#00FF66] transition-colors uppercase tracking-widest text-[9px] font-bold"
+                              >
+                                [ View Source ]
+                              </a>
+                            )}
+                          </div>
+                        )}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
+              </div>
+            ))}
 
             {a.internalLinks?.length > 0 && (
               <div className="border-t border-[#00F5FF]/10 pt-6 mt-8">

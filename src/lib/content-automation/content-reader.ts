@@ -3,6 +3,7 @@ import path from 'path';
 import type { GeneratedContent } from './parse-generated-content';
 import type { ContentMedia } from './content-media';
 import { buildContentMedia, buildCoverImageUrl } from './content-media';
+import { matchImagesToSections } from './crawl-image-match';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -44,10 +45,45 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
     ? resolvedMedia.coverImage || { ...media.coverImage, src: buildCoverImageUrl(parsed.slug) }
     : media.coverImage;
 
+  // Runtime Fallback matching logic: if bodySections has no imageMatch, calculate it dynamically!
+  let bodySections = parsed.bodySections || [];
+  const hasMatchedImages = bodySections.some(s => s.imageMatch);
+  if (!hasMatchedImages && bodySections.length > 0 && media.gallery && media.gallery.length > 0) {
+    const licensedImages = media.gallery.map((asset, index) => ({
+      id: `gallery_${index}`,
+      src: asset.src,
+      alt: asset.alt,
+      sourceUrl: asset.sourceUrl || '',
+      hostname: asset.source || 'stock',
+      context: `${asset.caption || ''} ${asset.alt || ''}`,
+      license: (asset.license as any) || 'open',
+      canSelfHost: true,
+      licenseReason: 'Gallery asset',
+    }));
+
+    const matchResult = matchImagesToSections(licensedImages, bodySections);
+    const matchesMap = new Map(matchResult.matches.map(m => [m.sectionId, m.image]));
+
+    bodySections = bodySections.map((section) => {
+      const matched = matchesMap.get(section.id);
+      if (matched) {
+        const originalAsset = media.gallery.find(g => g.src === matched.src);
+        if (originalAsset) {
+          return {
+            ...section,
+            imageMatch: originalAsset,
+          };
+        }
+      }
+      return section;
+    });
+  }
+
   return {
     ...(parsed as PublishedArtifact),
     title,
     category,
+    bodySections,
     media: {
       ...media,
       coverImage,

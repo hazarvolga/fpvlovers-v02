@@ -1,4 +1,4 @@
-import type { ContentMedia } from './types';
+import type { ContentMedia, ContentMediaAsset } from './types';
 
 export type GeneratedContent = {
   title: string;
@@ -12,6 +12,7 @@ export type GeneratedContent = {
     id: string;
     title: string;
     content: string;
+    imageMatch?: ContentMediaAsset;
   }>;
   internalLinks: string[];
   publishNotes: string[];
