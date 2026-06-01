@@ -1,6 +1,6 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-05-29
+Last updated: 2026-06-01
 
 ## Immediate Priority
 
@@ -17,6 +17,7 @@ Last updated: 2026-05-29
 11. DONE Blackbox Dify provider fix (2026-05-29): Dify Gemini credential validated/updated via service layer using the full `AQ.` key format, and production-mode Blackbox smoke now returns `ok=true`, `dryRun=false`.
 12. IN PROGRESS Tool live-data alignment (2026-05-29): Flight Critic is deferred, tool routes are hardened for short-timeout fallback, `npm run tools:audit` is the truth gate, `data/fpv-product-source-pack.json` is the crawler source pack, `data/fpv-products.catalog.json` is now the normalized product catalog input for Part Matcher / Component Duel, `npm run catalog:extract` can transform Crawl4AI markdown/JSON output into catalog records, Admin > Catalog Ops exposes the source/extract/write controls with queue-derived source statuses, and all 16 product catalog sources are now queued.
 13. DONE Public language cleanup (2026-05-29): visible public/admin product copy no longer uses `AutoBlog`, `AI`, or `Dify`; implementation details stay internal behind FPVLovers/pilot-tool/workflow wording.
+14. DONE Part Matcher stabilization (2026-06-01): duplicate demo CTA removed, neutral standby diagnostic state added, guided review disabled until required parts are selected, select accessibility wiring added, missing battery `cellCount` now warns instead of passing via motor fallback, catalog cache added, and `npm run tools:part-matcher:test` covers the voltage-data regression.
 
 ## Code Tasks Before Push
 
@@ -24,7 +25,7 @@ Last updated: 2026-05-29
 - Run one browser/API smoke on `/tools/blackbox-tuning` after deploy or in a production-mode local session to confirm the UI receives sanitized Dify Markdown.
 - Defer Flight Critic until catalog-backed product tools are live; when resumed, require a dedicated Dify video/telemetry workflow before public positioning as true frame-level DVR analysis.
 - Verify Build Wizard and Part Matcher against production Dify credentials with `CRAWL_DRY_RUN=true` or equivalent safe mode before presenting the Dify response as live RAG-backed guidance.
-- Replace the 15-product MVP catalog with at least 50 crawler/source-backed products and real image/provenance fields before presenting Part Matcher or Component Duel as visually production-ready.
+- Continue improving catalog quality before presenting Part Matcher or Component Duel as fully production-ready: current runtime has 102 products and 100 real images, but `npm run tools:audit` still marks product tools `PARTIAL` until crawler-backed specs and source provenance are stronger.
 - Preview product catalog source coverage with `npm run catalog:sources`; enqueue with `npm run catalog:enqueue` only when ready to populate the crawl queue intentionally.
 - Catalog source status is derived from crawl queue jobs, so enqueue first, then use Admin > Catalog Ops or `npm run catalog:sources` to confirm queued/crawled/failed status before extraction.
 - Process the 16 queued product source jobs through the existing crawl queue/cron path, then feed the resulting markdown into `POST /api/admin/catalog/extract` or `npm run catalog:extract -- --write`.

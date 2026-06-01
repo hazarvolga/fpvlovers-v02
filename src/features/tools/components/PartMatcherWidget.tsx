@@ -53,9 +53,17 @@ export function PartMatcherWidget({ products }: Props) {
   const [reviewLoading, setReviewLoading] = useState(false);
   const [reviewError, setReviewError] = useState<string | null>(null);
   const result = useMemo(() => analyzeBuildCompatibility(selection, products), [selection, products]);
+  const requiredComplete = SLOT_CONFIG.filter((slot) => slot.required).every((slot) => Boolean(selection[slot.slot]));
+  const hasStarted = SLOT_CONFIG.some((slot) => Boolean(selection[slot.slot]));
 
   const setSlot = (slot: BuildSlot, value: string) => {
     setSelection((current) => ({ ...current, [slot]: value || undefined }));
+    setReview(null);
+    setReviewError(null);
+  };
+
+  const setStyle = (style: BuildSelection['style']) => {
+    setSelection((current) => ({ ...current, style }));
     setReview(null);
     setReviewError(null);
   };
@@ -77,6 +85,8 @@ export function PartMatcherWidget({ products }: Props) {
   };
 
   const runGuidedReview = async () => {
+    if (!requiredComplete) return;
+
     setReviewLoading(true);
     setReviewError(null);
     setReview(null);
@@ -122,13 +132,14 @@ export function PartMatcherWidget({ products }: Props) {
       </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-        <label className="space-y-2">
-          <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#00F2FF]/70">
+        <div className="space-y-2">
+          <label htmlFor="part-matcher-style" className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#00F2FF]/70">
             <SendIcon /> Target Style
-          </span>
+          </label>
           <select
+            id="part-matcher-style"
             value={selection.style}
-            onChange={(event) => setSelection((current) => ({ ...current, style: event.target.value as BuildSelection['style'] }))}
+            onChange={(event) => setStyle(event.target.value as BuildSelection['style'])}
             className="w-full border border-[#333333] bg-[#050505] px-4 py-4 font-mono text-sm text-white outline-none transition-all focus:border-[#00F2FF]"
           >
             <option value="freestyle">Freestyle</option>
@@ -137,46 +148,57 @@ export function PartMatcherWidget({ products }: Props) {
             <option value="longRange">Long Range</option>
             <option value="whoop">Whoop</option>
           </select>
-        </label>
+        </div>
 
         {SLOT_CONFIG.map((slot) => {
           const options = products.filter((product) => optionMatches(product, slot.type));
           const Icon = slot.icon;
+          const inputId = `part-matcher-${slot.slot}`;
           return (
-            <label key={slot.slot} className="space-y-2">
-              <span className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#00F2FF]/70">
-                <Icon className="h-3 w-3" /> {slot.label}{slot.required ? ' *' : ''}
-              </span>
+            <div key={slot.slot} className="space-y-2">
+              <label htmlFor={inputId} className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-[#00F2FF]/70">
+                <Icon aria-hidden="true" className="h-3 w-3" /> {slot.label}{slot.required ? ' *' : ''}
+              </label>
               <select
+                id={inputId}
                 value={selection[slot.slot] || ''}
                 onChange={(event) => setSlot(slot.slot, event.target.value)}
                 className="w-full border border-[#333333] bg-[#050505] px-4 py-4 font-mono text-sm text-white outline-none transition-all focus:border-[#00F2FF]"
               >
                 <option value="">Select {slot.label}</option>
+                {!options.length && (
+                  <option value="" disabled>
+                    No catalog entries yet
+                  </option>
+                )}
                 {options.map((product) => (
                   <option key={product.id} value={product.id}>
                     {product.name} - ${product.price.toFixed(2)}
                   </option>
                 ))}
               </select>
-            </label>
+            </div>
           );
         })}
       </div>
-
-      <Button variant="default" className="h-16 w-full text-lg font-black uppercase tracking-[0.2em]" onClick={fillDemo}>
-        Load Known Good Build
-      </Button>
 
       <section className="border border-white/10 bg-[#050505] p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Diagnostic Output</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">{result.summary}</p>
+            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">
+              {hasStarted ? result.summary : 'Select components to begin compatibility checks.'}
+            </p>
           </div>
-          <div className={cn('border px-3 py-2 text-xs font-black uppercase tracking-widest', verdictTone)}>
-            {result.verdict} / {result.score}
-          </div>
+          {hasStarted ? (
+            <div className={cn('border px-3 py-2 text-xs font-black uppercase tracking-widest', verdictTone)}>
+              {result.verdict} / {result.score}
+            </div>
+          ) : (
+            <div className="border border-white/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-[#8e8b86]">
+              standby
+            </div>
+          )}
         </div>
 
         {result.calculator && (
@@ -189,7 +211,7 @@ export function PartMatcherWidget({ products }: Props) {
         )}
 
         <div className="mt-6 space-y-3">
-          {result.checks.map((check) => (
+          {hasStarted && result.checks.map((check) => (
             <div key={check.label} className={cn(
               'flex items-start gap-3 border p-4 text-sm',
               check.status === 'pass' ? 'border-[#00FF66]/20 bg-[#00FF66]/5' : check.status === 'warn' ? 'border-yellow-300/20 bg-yellow-300/5' : 'border-red-400/20 bg-red-400/5',
@@ -231,8 +253,8 @@ export function PartMatcherWidget({ products }: Props) {
           )}
         </div>
 
-        <Button variant="cyber" className="mt-5 h-14 w-full uppercase tracking-[0.18em]" onClick={runGuidedReview} disabled={reviewLoading}>
-          {reviewLoading ? 'Running Compatibility Review...' : 'Run Compatibility Review'}
+        <Button variant="cyber" className="mt-5 h-14 w-full uppercase tracking-[0.18em]" onClick={runGuidedReview} disabled={reviewLoading || !requiredComplete}>
+          {reviewLoading ? 'Running Compatibility Review...' : requiredComplete ? 'Run Compatibility Review' : 'Complete Required Parts'}
         </Button>
 
         {reviewError && (
@@ -252,7 +274,7 @@ export function PartMatcherWidget({ products }: Props) {
 }
 
 function SendIcon() {
-  return <Activity className="h-3 w-3" />;
+  return <Activity aria-hidden="true" className="h-3 w-3" />;
 }
 
 function Metric({ label, value, tone = 'white' }: { label: string; value: string; tone?: 'white' | 'cyan' | 'green' }) {

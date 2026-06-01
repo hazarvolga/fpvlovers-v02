@@ -28,6 +28,14 @@ type ProductOverride = {
 };
 
 const DATA = (file: string) => path.join(process.cwd(), 'data', file);
+const CRAWLER_CATALOG_FILE = DATA('fpv-products.catalog.json');
+const AFFILIATE_CATALOG_FILE = DATA('affiliates.json');
+
+let catalogCache: {
+  affiliateMtime: number;
+  crawlerMtime: number;
+  products: FpvCatalogProduct[];
+} | undefined;
 
 const PRODUCT_OVERRIDES: Record<string, ProductOverride> = {
   aff_tbs_source_one: {
@@ -168,9 +176,17 @@ function cleanImageUrl(image: string): string | undefined {
   return image;
 }
 
+function fileMtime(file: string): number {
+  try {
+    return fs.statSync(file).mtimeMs;
+  } catch {
+    return 0;
+  }
+}
+
 function readAffiliateCatalog(): AffiliateProduct[] {
   try {
-    const raw = JSON.parse(fs.readFileSync(DATA('affiliates.json'), 'utf-8')) as unknown;
+    const raw = JSON.parse(fs.readFileSync(AFFILIATE_CATALOG_FILE, 'utf-8')) as unknown;
     return Array.isArray(raw) ? raw.filter(isAffiliateProduct) : [];
   } catch {
     return [];
@@ -178,6 +194,12 @@ function readAffiliateCatalog(): AffiliateProduct[] {
 }
 
 export function getFpvProductCatalog(): FpvCatalogProduct[] {
+  const affiliateMtime = fileMtime(AFFILIATE_CATALOG_FILE);
+  const crawlerMtime = fileMtime(CRAWLER_CATALOG_FILE);
+  if (catalogCache?.affiliateMtime === affiliateMtime && catalogCache.crawlerMtime === crawlerMtime) {
+    return catalogCache.products;
+  }
+
   const catalog: FpvCatalogProduct[] = [...getCrawlerProductCatalog()];
   const existingKeys = new Set(catalog.map((product) => product.url));
 
@@ -222,10 +244,13 @@ export function getFpvProductCatalog(): FpvCatalogProduct[] {
       existingKeys.add(product.url);
     }
 
-  return catalog.sort((a, b) => {
+  const products = catalog.sort((a, b) => {
     const crawlerPriority = (b.provenance?.source === 'crawler' ? 1 : 0) - (a.provenance?.source === 'crawler' ? 1 : 0);
     return crawlerPriority || b.trustScore - a.trustScore || a.price - b.price;
   });
+
+  catalogCache = { affiliateMtime, crawlerMtime, products };
+  return products;
 }
 
 export function getFpvProductsByType(type: FpvProductType): FpvCatalogProduct[] {

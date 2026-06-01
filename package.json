@@ -21,6 +21,7 @@
     "content:audit": "node --import tsx scripts/content-integrity-audit.ts",
     "content:repair": "node --import tsx scripts/repair-queue-status.ts",
     "tools:audit": "node --import tsx scripts/tool-truth-audit.ts",
+    "tools:part-matcher:test": "node --import tsx scripts/part-matcher-regression-test.ts",
     "catalog:sources": "node --import tsx scripts/product-catalog-source-pack.ts",
     "catalog:enqueue": "node --import tsx scripts/product-catalog-source-pack.ts --enqueue",
     "catalog:extract": "node --import tsx scripts/extract-product-catalog.ts",

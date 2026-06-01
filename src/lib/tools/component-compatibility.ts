@@ -31,6 +31,11 @@ function numberSpec(product: FpvCatalogProduct | undefined, key: string, fallbac
   return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
 }
 
+function optionalNumberSpec(product: FpvCatalogProduct | undefined, key: string): number | undefined {
+  const value = product?.specs[key];
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
+}
+
 function stringSpec(product: FpvCatalogProduct | undefined, key: string, fallback = ''): string {
   const value = product?.specs[key];
   return typeof value === 'string' ? value : fallback;
@@ -151,28 +156,34 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
     checks.push({ label: 'Frame / prop clearance', status: 'pass', detail: `${propDiameter}" prop clearance is consistent with the selected frame.` });
   }
 
-  const cellCount = numberSpec(selected.battery, 'cellCount', arraySpec(selected.motor, 'cellCounts')[0] || 6);
+  const batteryCellCount = optionalNumberSpec(selected.battery, 'cellCount');
   const motorKv = numberSpec(selected.motor, 'kv', 1900);
-  const safeKvRange = getSafeKvRange(cellCount, propDiameter || 5);
   if (!selected.motor || !selected.battery || !selected.prop) {
     checks.push({ label: 'KV / voltage window', status: 'warn', detail: 'Select motor, battery, and propeller to verify KV safety window.' });
-  } else if (motorKv < safeKvRange.min || motorKv > safeKvRange.max) {
-    checks.push({ label: 'KV / voltage window', status: 'warn', detail: `${motorKv}KV is outside the suggested ${safeKvRange.min}-${safeKvRange.max}KV window for ${cellCount}S ${propDiameter}".` });
+  } else if (!batteryCellCount) {
+    checks.push({ label: 'KV / voltage window', status: 'warn', detail: `${selected.battery.name} is missing explicit cell count data; verify pack voltage before buying.` });
   } else {
-    checks.push({ label: 'KV / voltage window', status: 'pass', detail: `${motorKv}KV sits inside the ${cellCount}S ${propDiameter}" safety window.` });
+    const safeKvRange = getSafeKvRange(batteryCellCount, propDiameter || 5);
+    if (motorKv < safeKvRange.min || motorKv > safeKvRange.max) {
+      checks.push({ label: 'KV / voltage window', status: 'warn', detail: `${motorKv}KV is outside the suggested ${safeKvRange.min}-${safeKvRange.max}KV window for ${batteryCellCount}S ${propDiameter}".` });
+    } else {
+      checks.push({ label: 'KV / voltage window', status: 'pass', detail: `${motorKv}KV sits inside the ${batteryCellCount}S ${propDiameter}" safety window.` });
+    }
   }
 
   const motorCells = selected.motor?.fit.cellCounts || [];
   if (!selected.motor || !selected.battery) {
     checks.push({ label: 'Motor / battery cells', status: 'warn', detail: 'Select motor and battery to verify voltage compatibility.' });
-  } else if (motorCells.length && !motorCells.includes(cellCount)) {
-    checks.push({ label: 'Motor / battery cells', status: 'fail', detail: `${selected.motor.name} is tagged for ${motorCells.join('/')}S, but battery is ${cellCount}S.` });
+  } else if (!batteryCellCount) {
+    checks.push({ label: 'Motor / battery cells', status: 'warn', detail: `${selected.battery.name} is missing explicit cell count data; confirm battery cell count manually.` });
+  } else if (motorCells.length && !motorCells.includes(batteryCellCount)) {
+    checks.push({ label: 'Motor / battery cells', status: 'fail', detail: `${selected.motor.name} is tagged for ${motorCells.join('/')}S, but battery is ${batteryCellCount}S.` });
   } else {
-    checks.push({ label: 'Motor / battery cells', status: 'pass', detail: `${cellCount}S battery matches motor voltage tags.` });
+    checks.push({ label: 'Motor / battery cells', status: 'pass', detail: `${batteryCellCount}S battery matches motor voltage tags.` });
   }
 
   let calculator: ReturnType<typeof calculateBuild> | undefined;
-  if (!missing.length) {
+  if (!missing.length && batteryCellCount) {
     calculator = calculateBuild({
       style: style as BuildStyle,
       frameWeight: numberSpec(selected.frame, 'weight', 130),
@@ -182,7 +193,7 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
       propWeight: numberSpec(selected.prop, 'weight', 4.4) * 4,
       batteryWeight: numberSpec(selected.battery, 'weight', 190),
       payloadWeight: 0,
-      cellCount,
+      cellCount: batteryCellCount,
       batteryCapacityMah: numberSpec(selected.battery, 'capacityMah', 1100),
       batteryCRating: numberSpec(selected.battery, 'cRating', 100),
       motorKv,

@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-05-29
+Last updated: 2026-06-01
 
 ## Current Product Direction
 
@@ -97,6 +97,15 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Queue-derived status now reports `pending=0`, `queued=16`, `crawled=0`, `failed=0` for the product source pack.
   - Crawl queue totals after enqueue: `total=33`, `pending=19`, `completed=14`, `failed=0`, `throttled=0`.
   - No direct Crawl4AI call was made; the next step is processing queued jobs through the existing crawl queue worker/cron path.
+- Part Matcher stabilization completed by Codex on 2026-06-01:
+  - `fpvlovers-part-matcher-analiz-raporu.md` was reviewed against the live frontend app. The report's old "15-product / empty crawler catalog" finding is stale; current runtime catalog returns 102 products, 100 real images, and required-slot coverage of frame=14, motor=20, prop=15, stack=13, battery=13.
+  - `/tools/part-matcher` now starts in a neutral standby state instead of showing a misleading blocked score before user selection.
+  - The duplicate large "Load Known Good Build" CTA was removed; the small `[LOAD_CATALOG_BUILD]` helper remains for fast demo fill.
+  - Guided review is disabled until all required core parts are selected, and select controls now have explicit `label`/`id` accessibility wiring plus an empty-category option.
+  - `analyzeBuildCompatibility()` no longer treats motor cell tags as a fallback for missing battery `cellCount`; missing battery cell data now produces warnings and skips calculator-derived metrics until voltage is explicit.
+  - `getFpvProductCatalog()` now uses mtime-aware in-memory caching for the crawler and affiliate catalog files.
+  - Regression coverage was added with `npm run tools:part-matcher:test`.
+  - Verification passed: `npm run tools:part-matcher:test`, `npx tsc --noEmit`, `npm run tools:audit`, `npm run routes:audit`, headless Chromium desktop/mobile smoke on `/tools/part-matcher`, and `npm run build`.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.
