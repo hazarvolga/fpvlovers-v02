@@ -1,0 +1,200 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Flight Progression Matrix",
+  "description": "Definition of modules and qualification gates driving the non-linear pilot training syllabus.",
+  "phases": [
+    {
+      "id": "phase-0",
+      "name": "Initiation",
+      "modules": [
+        {
+          "id": "intro-fpv",
+          "name": "FPV Initiation Protocol",
+          "objectives": [
+            "Distinguish manual flight vs stabilized flight",
+            "Identify pilot class archetypes"
+          ],
+          "requiredArticles": [
+            "fpv-beginner-setup-guide-the-easiest-way-to-get-flying"
+          ],
+          "qualificationGate": {
+            "type": "Assessment",
+            "assignedTestId": "pilot-archetype-assessment"
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-1",
+      "name": "Simulator Protocol",
+      "modules": [
+        {
+          "id": "simulator-muscle-memory",
+          "name": "Virtual Muscle Memory Calibration",
+          "objectives": [
+            "Thread 5 coordinate gaps in Acro mode",
+            "Complete 20 flight hours virtually"
+          ],
+          "requiredArticles": [
+            "the-best-fpv-simulators-in-2026"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Acro virtual hover stable"
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Core Equipment",
+      "modules": [
+        {
+          "id": "radio-selection",
+          "name": "Radio Transmitter & Link Quality",
+          "objectives": [
+            "Configure a custom binding phrase in ELRS",
+            "Distinguish 2.4GHz vs 915MHz frequency propagation"
+          ],
+          "requiredArticles": [
+            "how-to-choose-your-first-fpv-radio",
+            "expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "ELRS Bind Phrase configured"
+          }
+        },
+        {
+          "id": "goggles-buying",
+          "name": "Video Goggles & Ecosystem Selection",
+          "objectives": [
+            "Evaluate latency differences between digital ecosystems",
+            "Distinguish video receiver antenna polarization patterns"
+          ],
+          "requiredArticles": [
+            "fpv-goggles-buying-guide"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Ecosystem selected and synced"
+          }
+        },
+        {
+          "id": "battery-safety",
+          "name": "LiPo Chemistry and Storage Safety",
+          "objectives": [
+            "Recognize safe battery voltage thresholds per cell",
+            "Demonstrate understanding of storage charging guidelines"
+          ],
+          "requiredArticles": [
+            "fpv-lipo-battery-safety-charging-guide"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "LiPo safety protocol acknowledged"
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Drone Anatomy",
+      "modules": [
+        {
+          "id": "motor-selection",
+          "name": "Motor Physics & KV Calculations",
+          "objectives": [
+            "Map appropriate motor stator sizes to target voltage categories",
+            "Calculate static thrust-to-weight metrics for prop dimensions"
+          ],
+          "requiredArticles": [
+            "how-to-choose-fpv-motors"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Stator KV limit matched"
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "First Build",
+      "modules": [
+        {
+          "id": "soldering-masterclass",
+          "name": "Electrical Soldering & Smoke Stopper Controls",
+          "objectives": [
+            "Perform mechanical joint solder bonds on flight control pads",
+            "Implement current protection rules on first power-up connection"
+          ],
+          "requiredArticles": [
+            "soldering-guide-for-fpv-drone-builders-solder-pads-temperature-and-tools"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Electrical continuity checked"
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-6",
+      "name": "Betaflight Academy",
+      "modules": [
+        {
+          "id": "pid-tuning-basics",
+          "name": "Dynamic PID Controls & Vibration Noise Filtering",
+          "objectives": [
+            "Distinguish Proportional, Integral, and Derivative gains",
+            "Activate RPM filtering utilizing dynamic bidirectional DShot"
+          ],
+          "requiredArticles": [
+            "betaflight-pid-basics-for-beginners"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "RPM filters configured"
+          }
+        }
+      ]
+    },
+    {
+      "id": "phase-7",
+      "name": "Field Operations",
+      "modules": [
+        {
+          "id": "troubleshooting-check",
+          "name": "Pre-flight Inspections and Video Recovery Checks",
+          "objectives": [
+            "Diagnose dynamic signal dropouts using localized telemetry parameters",
+            "Execute a comprehensive pre-arm physical integrity audit"
+          ],
+          "requiredArticles": [
+            "no-video-in-fpv-a-beginner-troubleshooting-checklist"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Video signal verified"
+          }
+        },
+        {
+          "id": "gps-rescue-setup",
+          "name": "GPS Return-To-Home Fail-safe Setup",
+          "objectives": [
+            "Map appropriate fail-safe coordinates to active switches",
+            "Calibrate minimal satellite lock configurations for arm validation"
+          ],
+          "requiredArticles": [
+            "gps-rescue-mode-setup-in-betaflight-never-lose-a-drone-to-a-failsafe"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "GPS rescue tested on safe arming"
+          }
+        }
+      ]
+    }
+  ]
+}
