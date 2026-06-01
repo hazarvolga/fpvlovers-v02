@@ -1,146 +1,137 @@
 {
-  "generated_at": "2026-05-18T05:42:06.748396+00:00",
+  "generated_at": "2026-06-01T08:13:19.840086+00:00",
   "source_workbook": "/Users/hazarekiz/Projects/fpv-autoblog-v2/FPV_RAG_Web_List_CLEAN.xlsx",
-  "row_count": 6,
+  "row_count": 5,
   "filters": {
     "status": "Active",
     "require_check_ok": true,
-    "limit": 10,
-    "offset": 80,
+    "limit": 5,
+    "offset": 0,
     "batch_size": 5,
     "mode": "ingest"
   },
   "tags": {
-    "Manufacturers": 6
+    "Manufacturers": 1,
+    "Communities": 2,
+    "Racing": 1,
+    "Simulators": 1
   },
   "rows": [
     {
-      "seed_url": "https://mateksys.com/?page_id=2&page=7",
+      "seed_url": "https://emax.com",
       "tag": "Manufacturers",
       "job_tag": "Manufacturers",
-      "max_depth": 2,
+      "max_depth": 3,
       "include_paths": [
-        "/",
+        "/products/",
+        "/category/",
+        "/specs/",
         "/pdf/"
       ],
       "exclude_paths": [
-        "/?p="
+        "/shop/",
+        "/deal/",
+        "/ads/"
       ],
       "status": "Active",
       "last_crawled": null,
       "job_id": null,
       "http_status": 200,
       "http_error": null,
-      "final_url": "https://www.reddit.com/r/UAV/",
-      "response_time_ms": 14613.26,
+      "final_url": "https://fpv-community.de",
+      "response_time_ms": 1189.91,
       "check_result": "OK"
     },
     {
-      "seed_url": "https://mateksys.com/?page_id=2&page=8",
-      "tag": "Manufacturers",
-      "job_tag": "Manufacturers",
-      "max_depth": 2,
+      "seed_url": "https://fpvfreerider-forum.de",
+      "tag": "Communities",
+      "job_tag": "Communities",
+      "max_depth": 4,
       "include_paths": [
-        "/",
+        "/forum/",
+        "/threads/",
         "/pdf/"
       ],
       "exclude_paths": [
-        "/?p="
-      ],
-      "status": "Active",
-      "last_crawled": null,
-      "job_id": null,
-      "http_status": 200,
-      "http_error": null,
-      "final_url": "https://www.reddit.com/r/robotics/",
-      "response_time_ms": 14614.07,
-      "check_result": "OK"
-    },
-    {
-      "seed_url": "https://mateksys.com/?page_id=2&page=9",
-      "tag": "Manufacturers",
-      "job_tag": "Manufacturers",
-      "max_depth": 2,
-      "include_paths": [
-        "/",
-        "/pdf/"
-      ],
-      "exclude_paths": [
-        "/?p="
-      ],
-      "status": "Active",
-      "last_crawled": null,
-      "job_id": null,
-      "http_status": 200,
-      "http_error": null,
-      "final_url": "https://github.com/ArduPilot/ArduPilot",
-      "response_time_ms": 14669.24,
-      "check_result": "OK"
-    },
-    {
-      "seed_url": "https://mateksys.com/?page_id=2&page=10",
-      "tag": "Manufacturers",
-      "job_tag": "Manufacturers",
-      "max_depth": 2,
-      "include_paths": [
-        "/",
-        "/pdf/"
-      ],
-      "exclude_paths": [
-        "/?p="
-      ],
-      "status": "Active",
-      "last_crawled": null,
-      "job_id": null,
-      "http_status": 200,
-      "http_error": null,
-      "final_url": "https://github.com/betaflight/betaflight",
-      "response_time_ms": 14693.04,
-      "check_result": "OK"
-    },
-    {
-      "seed_url": "https://www.t-motor.com/download",
-      "tag": "Manufacturers",
-      "job_tag": "Manufacturers",
-      "max_depth": 2,
-      "include_paths": [
-        "/download/",
-        "/pdf/"
-      ],
-      "exclude_paths": [
-        "/search/",
         "/ads/",
-        "/checkout/",
-        "/cart/"
+        "/analytics/"
       ],
       "status": "Active",
       "last_crawled": null,
       "job_id": null,
       "http_status": 200,
       "http_error": null,
-      "final_url": "https://www.caddxfpv.com/pages/download",
-      "response_time_ms": 14894.5,
+      "final_url": "https://velocidrone.com",
+      "response_time_ms": 2046.56,
       "check_result": "OK"
     },
     {
-      "seed_url": "https://hglrc.com/pages/manuals",
-      "tag": "Manufacturers",
-      "job_tag": "Manufacturers",
-      "max_depth": 2,
+      "seed_url": "https://fpvone.com",
+      "tag": "Communities",
+      "job_tag": "Communities",
+      "max_depth": 4,
       "include_paths": [
-        "/pages/",
+        "/forum/",
+        "/threads/",
+        "/discussion/",
         "/pdf/"
       ],
       "exclude_paths": [
-        "/collections/"
+        "/ads/",
+        "/analytics/"
       ],
       "status": "Active",
       "last_crawled": null,
       "job_id": null,
       "http_status": 200,
       "http_error": null,
-      "final_url": "https://github.com/ArduPilot/ardupilot_wiki",
-      "response_time_ms": 15381.1,
+      "final_url": "https://www.fpv-treff.de/forum/index.php",
+      "response_time_ms": 2061.83,
+      "check_result": "OK"
+    },
+    {
+      "seed_url": "https://fpvworldchampionships.com/teams",
+      "tag": "Racing",
+      "job_tag": "Racing",
+      "max_depth": 4,
+      "include_paths": [
+        "/teams/",
+        "/pilots/",
+        "/leaderboard/",
+        "/pdf/"
+      ],
+      "exclude_paths": [
+        "/ads/"
+      ],
+      "status": "Active",
+      "last_crawled": null,
+      "job_id": null,
+      "http_status": 200,
+      "http_error": null,
+      "final_url": "https://orqafpv.com/support",
+      "response_time_ms": 2248.11,
+      "check_result": "OK"
+    },
+    {
+      "seed_url": "https://gazebow.com",
+      "tag": "Simulators",
+      "job_tag": "Simulators",
+      "max_depth": 3,
+      "include_paths": [
+        "/gazebow-fpv",
+        "/pdf/"
+      ],
+      "exclude_paths": [
+        "/ads/",
+        "/shop/"
+      ],
+      "status": "Active",
+      "last_crawled": null,
+      "job_id": null,
+      "http_status": 200,
+      "http_error": null,
+      "final_url": "https://rotorbuilds.com",
+      "response_time_ms": 2362.07,
       "check_result": "OK"
     }
   ]

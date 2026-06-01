@@ -4,34 +4,40 @@
       "id": "mpr9bonzg6bx",
       "url": "https://geprc.com/product-category/fpv-drones/",
       "dataset": "fpv-build-guides",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.991Z",
-      "updatedAt": "2026-05-29T18:30:16.991Z"
+      "updatedAt": "2026-06-01T08:14:22.262Z",
+      "docId": "30301a59-536c-48",
+      "tokens": 15323
     },
     {
       "id": "mpr9bonz077c",
       "url": "https://shop.iflight.com/fpv-drones-cat25",
       "dataset": "fpv-build-guides",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.991Z",
-      "updatedAt": "2026-05-29T18:30:16.991Z"
+      "updatedAt": "2026-06-01T08:14:28.367Z",
+      "docId": "f4b4e70e-f3aa-49",
+      "tokens": 24850
     },
     {
       "id": "mpr9bonxjs0t",
       "url": "https://www.dji.com/downloads",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.989Z",
-      "updatedAt": "2026-05-29T18:30:16.989Z"
+      "updatedAt": "2026-06-01T08:14:36.327Z",
+      "docId": "2a18e090-da49-4f",
+      "tokens": 77648
     },
     {
       "id": "mpr9bonxuir4",
@@ -376,8 +382,8 @@
   },
   "stats": {
     "total": 33,
-    "pending": 19,
-    "completed": 14,
+    "pending": 16,
+    "completed": 17,
     "failed": 0,
     "throttled": 0
   }
