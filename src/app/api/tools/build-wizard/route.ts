@@ -5,7 +5,7 @@ import { findApp } from '@/lib/master-routing-tables';
 import { calculateBuild, type BuildCalculatorInput, type BuildStyle } from '@/lib/tools/build-calculator';
 
 const BUILD_STYLES: BuildStyle[] = ['freestyle', 'racing', 'cinematic', 'longRange', 'whoop'];
-const TOOL_DIFY_TIMEOUT_MS = 15000;
+const TOOL_DIFY_TIMEOUT_MS = 25000;
 
 function asRecord(value: unknown): Record<string, unknown> | undefined {
   return value && typeof value === 'object' && !Array.isArray(value)

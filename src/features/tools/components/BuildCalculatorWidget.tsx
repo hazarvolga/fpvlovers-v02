@@ -80,22 +80,26 @@ function NumberInput({
   value: number;
   onChange: (key: NumberField['key'], value: number) => void;
 }) {
+  const inputId = `calc-${field.key}`;
   return (
-    <label className="space-y-2">
-      <span className="flex items-center justify-between gap-3 text-[10px] font-black uppercase tracking-widest text-[#9eeef2]">
+    <div className="space-y-2">
+      <label htmlFor={inputId} className="flex items-center justify-between gap-3 text-[10px] font-black uppercase tracking-widest text-[#9eeef2]">
         <span>{field.label}</span>
         <span className="text-[#d8d5cf]">{value}{field.suffix}</span>
-      </span>
+      </label>
       <input
+        id={inputId}
         type="number"
+        inputMode="decimal"
         min={field.min}
         max={field.max}
         step={field.step || 1}
         value={value}
+        aria-label={`${field.label} (${field.suffix})`}
         onChange={(event) => onChange(field.key, Number(event.target.value))}
         className="w-full bg-[#080808] border border-white/10 px-3 py-2.5 font-mono text-sm text-white outline-none transition-colors focus:border-[#28d7df]"
       />
-    </label>
+    </div>
   );
 }
 
