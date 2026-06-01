@@ -81,6 +81,73 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
   }
   bodySections = splitSections;
 
+  // 1. Load FPV Product Catalog dynamically for real hardware image matching!
+  let catalogProducts: any[] = [];
+  try {
+    const catalogPath = path.join(process.cwd(), 'data', 'fpv-products.catalog.json');
+    if (fs.existsSync(catalogPath)) {
+      const catalogData = JSON.parse(fs.readFileSync(catalogPath, 'utf-8'));
+      catalogProducts = catalogData.products || [];
+    }
+  } catch (e) {
+    console.error('Failed to load product catalog for image mapping:', e);
+  }
+
+  // 2. Map real hardware images from catalog to bodySections based on keyword presence
+  if (catalogProducts.length > 0) {
+    bodySections = bodySections.map((section) => {
+      // If already has a matched image from upstream, keep it
+      if (section.imageMatch) return section;
+
+      const haystack = `${section.title} ${section.content}`.toLowerCase();
+      
+      // Sort products by length descending to match more specific names first
+      const sortedProds = [...catalogProducts].sort((a, b) => b.name.length - a.name.length);
+      
+      for (const prod of sortedProds) {
+        if (!prod.imageUrl || !prod.name) continue;
+        
+        const prodNameLower = prod.name.toLowerCase();
+        
+        // Exact product name matching with clean word boundary checks or direct inclusion
+        if (haystack.includes(prodNameLower)) {
+          return {
+            ...section,
+            imageMatch: {
+              src: prod.imageUrl,
+              alt: prod.name,
+              caption: `${prod.name} - ${prod.brand} FPV Hardware`,
+              source: prod.brand,
+              sourceUrl: prod.url || '',
+              license: 'Brand Catalog Asset'
+            }
+          };
+        }
+        
+        // Fallback to key brand + model keywords
+        const keywords = prod.keywords || [];
+        if (keywords.length >= 2) {
+          const brandMatch = haystack.includes(prod.brand.toLowerCase());
+          const modelMatch = keywords.some(kw => kw.length > 3 && haystack.includes(kw.toLowerCase()));
+          if (brandMatch && modelMatch) {
+            return {
+              ...section,
+              imageMatch: {
+                src: prod.imageUrl,
+                alt: prod.name,
+                caption: `${prod.name} - ${prod.brand} FPV Hardware`,
+                source: prod.brand,
+                sourceUrl: prod.url || '',
+                license: 'Brand Catalog Asset'
+              }
+            };
+          }
+        }
+      }
+      return section;
+    });
+  }
+
   // Runtime Fallback matching logic: if bodySections has no imageMatch, calculate it dynamically!
   const hasMatchedImages = bodySections.some(s => s.imageMatch);
   if (!hasMatchedImages && bodySections.length > 0 && media.gallery && media.gallery.length > 0) {

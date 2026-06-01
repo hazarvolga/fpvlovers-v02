@@ -206,9 +206,9 @@ export async function harvestImagesFromDatabase(urls: string[]): Promise<Harvest
     });
 
     const result = await pool.query(
-      `SELECT url, markdown, raw_markdown, text 
+      `SELECT url, raw_markdown 
        FROM content_engine.raw_content 
-       WHERE url = ANY($1) AND status = 'completed'`,
+       WHERE url = ANY($1) AND is_active = true`,
       [urls]
     );
     await pool.end();
