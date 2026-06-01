@@ -191,3 +191,32 @@ function markdownFromRecord(record: Record<string, unknown>): string {
       : undefined;
   return nested || asString(record.raw_markdown) || asString(record.text) || '';
 }
+
+export async function harvestImagesFromDatabase(urls: string[]): Promise<HarvestedImage[]> {
+  if (!urls || urls.length === 0) return [];
+  try {
+    const { Pool } = await import('pg');
+    const pool = new Pool({
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT || '5432', 10),
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      connectionTimeoutMillis: 5000,
+    });
+
+    const result = await pool.query(
+      `SELECT url, markdown, raw_markdown, text 
+       FROM content_engine.raw_content 
+       WHERE url = ANY($1) AND status = 'completed'`,
+      [urls]
+    );
+    await pool.end();
+
+    const store = harvestImagesFromCrawlRecords(result.rows);
+    return store.images;
+  } catch (err) {
+    console.error('Error harvesting images from database:', err);
+    return [];
+  }
+}

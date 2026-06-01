@@ -77,7 +77,7 @@ async function main() {
     
     latestJob.status = 'published';
     latestJob.updatedAt = new Date().toISOString();
-    latestJob.publishedPath = publishGeneratedContentArtifact(
+    latestJob.publishedPath = await publishGeneratedContentArtifact(
       result.content.seo.slug || latestJob.seo.slug || latestJob.briefSlug,
       latestJob,
       result.content

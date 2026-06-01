@@ -73,7 +73,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (alreadyPublished) {
-      const publishedFile = publishGeneratedContentArtifact(slug, job, publishContent);
+      const publishedFile = await publishGeneratedContentArtifact(slug, job, publishContent);
       return NextResponse.json({
         success: true,
         idempotent: true,
@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const publishedFile = publishGeneratedContentArtifact(slug, job, publishContent);
+    const publishedFile = await publishGeneratedContentArtifact(slug, job, publishContent);
 
     const now = new Date().toISOString();
     job.status = 'published' as ContentJobStatus;

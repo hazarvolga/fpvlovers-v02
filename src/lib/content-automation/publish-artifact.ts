@@ -3,7 +3,9 @@ import path from 'path';
 import type { GeneratedContent } from './parse-generated-content';
 import { buildContentMedia } from './content-media';
 import type { ContentJob } from './types';
-import { matchImagesToSections } from './crawl-image-match';
+import { matchImagesToSections, pickBestRelevantImage } from './crawl-image-match';
+import { harvestImagesFromDatabase } from './crawl-image-harvest';
+import { classifyImageLicenses } from './crawl-image-license';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -13,14 +15,25 @@ function ensureDir(dir: string): void {
   }
 }
 
-export function publishGeneratedContentArtifact(
+export async function publishGeneratedContentArtifact(
   slug: string,
   job: ContentJob,
   content: GeneratedContent,
-): string {
+): Promise<string> {
   ensureDir(PUBLISHED_DIR);
   const jsonPath = path.join(PUBLISHED_DIR, `${slug}.json`);
   const mdPath = path.join(PUBLISHED_DIR, `${slug}.md`);
+
+  // 1. Asynchronously harvest crawled images from the database using sourceHints
+  let crawledLicensed: any[] = [];
+  if (job.sourceHints && job.sourceHints.length > 0) {
+    const crawledImages = await harvestImagesFromDatabase(job.sourceHints);
+    if (crawledImages && crawledImages.length > 0) {
+      crawledLicensed = classifyImageLicenses(crawledImages);
+    }
+  }
+
+  // 2. Resolve default stock media fallback
   const media = content.media || buildContentMedia({
     slug,
     title: content.title,
@@ -28,7 +41,37 @@ export function publishGeneratedContentArtifact(
     excerpt: content.excerpt,
   });
 
-  // Perform semantic matching of gallery images to bodySections
+  // 3. Prioritize crawled images over stock photos
+  if (crawledLicensed.length > 0) {
+    const crawledAssets = crawledLicensed.map((img) => ({
+      src: img.src,
+      alt: img.alt || `FPV crawled image from ${img.hostname}`,
+      caption: img.alt || `Original asset crawled from ${img.hostname}`,
+      source: img.hostname,
+      sourceUrl: img.sourceUrl,
+      credit: `Source: ${img.hostname} (${img.licenseReason})`,
+      license: img.license,
+    }));
+
+    // Prepend crawled images to the gallery pool
+    media.gallery = [...crawledAssets, ...media.gallery].slice(0, 6);
+
+    // Pick the absolute best crawled image as the cover image if highly relevant
+    const bestCrawlCover = pickBestRelevantImage(crawledLicensed, content.bodySections);
+    if (bestCrawlCover) {
+      media.coverImage = {
+        src: bestCrawlCover.src,
+        alt: bestCrawlCover.alt || content.title,
+        caption: bestCrawlCover.alt || content.title,
+        source: bestCrawlCover.hostname,
+        sourceUrl: bestCrawlCover.sourceUrl,
+        credit: `Source: ${bestCrawlCover.hostname} (${bestCrawlCover.licenseReason})`,
+        license: bestCrawlCover.license,
+      };
+    }
+  }
+
+  // 4. Perform Jaccard semantic matching of gallery images to bodySections
   if (media && media.gallery && media.gallery.length > 0 && content.bodySections && content.bodySections.length > 0) {
     const licensedImages = media.gallery.map((asset, index) => ({
       id: `gallery_${index}`,
