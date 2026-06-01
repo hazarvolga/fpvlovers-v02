@@ -17,7 +17,7 @@ type CrawlerConfig = {
   healthUrl: string;
 };
 
-const PRIMARY_HEALTH_URL = 'http://161.118.171.201:3002/health';
+const PRIMARY_HEALTH_URL = 'http://crawler-proxy:3002/health';
 const BACKUP_HEALTH_URL = 'http://141.148.206.187/c4ai/health';
 
 function getCrawlerConfigs(): CrawlerConfig[] {
