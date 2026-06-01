@@ -135,7 +135,7 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
                         alt={section.imageMatch.alt || section.title}
                         fill
                         sizes="(min-width: 1024px) 66vw, 100vw"
-                        unoptimized={section.imageMatch.src.startsWith('/api/') || section.imageMatch.src.includes('images.pexels.com') || section.imageMatch.src.includes('images.unsplash.com')}
+                        unoptimized={true}
                         className="object-cover hover:scale-[1.02] transition-transform duration-500"
                       />
                     </div>
