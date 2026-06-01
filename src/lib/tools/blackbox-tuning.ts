@@ -7,6 +7,7 @@ export type BlackboxTuningInput = {
   fileName?: string;
   fileText?: string;
   parsedTelemetrySummary?: string;
+  gyroModel?: string;
 };
 
 export type BlackboxRiskLevel = 'low' | 'medium' | 'high';
@@ -24,6 +25,7 @@ export type BlackboxTuningResult = {
     gyroLowpassHz: number;
     rpmFilter: 'on' | 'verify';
     dynamicNotch: 'on' | 'increase';
+    cliCommands?: string;
   };
   recommendations: string[];
   nextSteps: string[];
@@ -165,6 +167,56 @@ export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTunin
   let gyroLowpassHz = 120;
   let dynamicNotch: BlackboxTuningResult['proposedSettings']['dynamicNotch'] = 'on';
 
+  let cliCommands = '';
+  const gModel = input.gyroModel?.trim().toUpperCase() || '';
+
+  if (gModel === 'ICM42688P') {
+    gyroLowpassHz = 100;
+    dynamicNotch = 'increase';
+    recommendations.push(
+      'ICM42688P Gyro is highly sensitive to high-frequency electrical spike noise. Solder a low-ESR 35V 1000uF capacitor to battery leads.'
+    );
+    cliCommands = [
+      '# ICM42688P HIGH-RESONANCE FILTER PRESETS',
+      'set gyro_hardware_lpf = NORMAL',
+      'set gyro_lowpass_type = BIQUAD',
+      'set gyro_lowpass_hz = 100',
+      'set gyro_lowpass2_type = BIQUAD',
+      'set gyro_lowpass2_hz = 250',
+      'set dynamic_notch_q = 250',
+      'save'
+    ].join('\n');
+  } else if (gModel === 'BMI270') {
+    gyroLowpassHz = 135;
+    recommendations.push(
+      'BMI270 Gyros have exceptional hardware noise filtering but suffer from slight native group delay. You can safely reduce filter stages to lower latency.'
+    );
+    cliCommands = [
+      '# BMI270 LOW-LATENCY FILTER PRESETS',
+      'set gyro_hardware_lpf = EXPERIMENTAL',
+      'set gyro_lowpass_type = PT1',
+      'set gyro_lowpass_hz = 135',
+      'set gyro_lowpass2_type = PT1',
+      'set gyro_lowpass2_hz = 300',
+      'set dynamic_notch_q = 350',
+      'save'
+    ].join('\n');
+  } else if (gModel === 'MPU6000') {
+    gyroLowpassHz = 120;
+    recommendations.push(
+      'MPU6000 Gyro is robust and noise-tolerant. Standard dual PT1 filter configuration is perfect.'
+    );
+    cliCommands = [
+      '# MPU6000 STANDARD BALANCED FILTER PRESETS',
+      'set gyro_hardware_lpf = NORMAL',
+      'set gyro_lowpass_type = PT1',
+      'set gyro_lowpass_hz = 120',
+      'set gyro_lowpass2_type = PT1',
+      'set gyro_lowpass2_hz = 260',
+      'save'
+    ].join('\n');
+  }
+
   if (includesAny(combined, ['propwash', 'wash', 'dirty air'])) {
     detectedIssues.push('Propwash recovery instability');
     dDelta += 3;
@@ -195,14 +247,14 @@ export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTunin
   if (includesAny(combined, ['hot motor', 'motor heat', 'hot motors', 'desync'])) {
     detectedIssues.push('Motor heat or desync risk');
     dDelta -= 3;
-    gyroLowpassHz = 100;
+    gyroLowpassHz = Math.min(gyroLowpassHz, 100);
     dynamicNotch = 'increase';
     recommendations.push('Prioritize filtering and motor temperature over aggressive D gain.');
   }
 
   if (resonanceHz && resonanceHz >= 120) {
     detectedIssues.push(`${resonanceHz}Hz gyro resonance`);
-    gyroLowpassHz = resonanceHz > 180 ? 100 : 120;
+    gyroLowpassHz = resonanceHz > 180 ? 100 : Math.min(gyroLowpassHz, 120);
     dynamicNotch = 'increase';
     recommendations.push(`Add notch/filter attention around the observed ${resonanceHz}Hz resonance before raising gains.`);
   }
@@ -220,6 +272,7 @@ export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTunin
     gyroLowpassHz,
     rpmFilter: 'on' as const,
     dynamicNotch,
+    cliCommands: cliCommands || undefined,
   };
 
   const riskLevel: BlackboxRiskLevel =
@@ -232,13 +285,14 @@ export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTunin
   const confidence = scoreConfidence(input);
   const summary = `${input.droneType || 'FPV build'} on ${input.batterySpec || 'unknown battery'} shows ${detectedIssues[0].toLowerCase()}.`;
 
-  const markdown = [
+  const markdownParts = [
     '### Diagnostic Report',
     `- Problem signature: ${detectedIssues.join(', ')}`,
     `- Confidence: ${confidence}/100`,
     `- Risk level: ${riskLevel}`,
     resonanceHz ? `- Observed resonance: ${resonanceHz}Hz` : '- Observed resonance: not enough frequency detail supplied',
     input.parsedTelemetrySummary ? `- Parsed telemetry: ${input.parsedTelemetrySummary}` : '',
+    gModel ? `- Flight DNA Gyro Spec: ${gModel}` : '',
     '',
     '### Proposed Settings',
     `- PIDs: P ${proposedSettings.p}, I ${proposedSettings.i}, D ${proposedSettings.d}, FF ${proposedSettings.ff}`,
@@ -247,9 +301,26 @@ export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTunin
     '### Why',
     ...recommendations.map((item) => `- ${item}`),
     '',
+  ];
+
+  if (cliCommands) {
+    markdownParts.push(
+      '### Betaflight CLI Injection Commands',
+      '> [!CAUTION]',
+      '> Applying manual CLI filter parameters can lead to motor heat if your build has severe frame arm vibrations. Run a short 30-second hover test and verify that motor bells remain warm/cool before committing to hard flight.',
+      '```text',
+      cliCommands,
+      '```',
+      ''
+    );
+  }
+
+  markdownParts.push(
     '### Next Steps',
-    ...nextSteps.map((item) => `- ${item}`),
-  ].join('\n');
+    ...nextSteps.map((item) => `- ${item}`)
+  );
+
+  const markdown = markdownParts.join('\n');
 
   return {
     summary,

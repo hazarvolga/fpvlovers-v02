@@ -1,10 +1,11 @@
 'use client';
 // Interactive FPV build calculator needs local input state and instant derived outputs.
 
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Activity, AlertTriangle, Battery, Gauge, RotateCcw, ShieldCheck, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { calculateBuild, type BuildCalculatorInput, type BuildStyle } from '@/lib/tools/build-calculator';
+import { loadDossierFromBrowser } from '@/lib/state/dossier-serializer';
 import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
 
@@ -133,6 +134,43 @@ export function BuildCalculatorWidget() {
   const [review, setReview] = useState<BuildWizardApiResponse | null>(null);
   const [reviewLoading, setReviewLoading] = useState(false);
   const [reviewError, setReviewError] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Load dossier client-side from secure cookie
+    const activeDossier = loadDossierFromBrowser();
+    if (activeDossier && activeDossier.activeBuild) {
+      const activeBuild = activeDossier.activeBuild;
+
+      let style: BuildStyle = 'freestyle';
+      if (activeDossier.assignedClass === 'Cinematic Operator') style = 'cinematic';
+      else if (activeDossier.assignedClass === 'Long Range Explorer') style = 'longRange';
+      else if (activeDossier.assignedClass === 'Competitive Racer') style = 'racing';
+      else if (activeBuild.frame.style === 'Whoop') style = 'whoop';
+
+      const mappedBuild: BuildCalculatorInput = {
+        style,
+        frameWeight: activeBuild.frame.weightGrams || 130,
+        motorWeight: activeBuild.propulsion.motorWeightGrams || 32,
+        stackWeight: 28, // Default stack weight
+        videoWeight: (activeBuild.vision.vtxWeightGrams || 28) + (activeBuild.vision.cameraWeightGrams || 8),
+        propWeight: (activeBuild.propulsion.propellerWeightGrams || 4) * 4,
+        batteryWeight: activeBuild.power.targetBatteryCells === '6S' ? 220 : 190,
+        payloadWeight: 0,
+        cellCount: Number(activeBuild.power.targetBatteryCells.replace('S', '')) || 6,
+        batteryCapacityMah: activeBuild.power.targetBatteryCells === '6S' ? 1300 : 1100,
+        batteryCRating: 100,
+        motorKv: activeBuild.propulsion.motorKv || 1750,
+        propDiameter: activeBuild.frame.sizeInches || 5,
+        propPitch: 3.6,
+        escAmpRating: activeBuild.electronics.escCurrentLimit || 45,
+      };
+
+      Promise.resolve().then(() => {
+        setBuild(mappedBuild);
+      });
+    }
+  }, []);
+
   const result = useMemo(() => calculateBuild(build), [build]);
 
   const setNumber = (key: NumberField['key'], value: number) => {

@@ -51,6 +51,7 @@ function parseJsonPayload(value: unknown): RequestPayload {
     fileName,
     fileText,
     parsedTelemetrySummary: parsedTelemetry?.summary,
+    gyroModel: cleanText(record.gyroModel),
   };
 }
 
@@ -87,6 +88,7 @@ async function parseRequest(req: NextRequest): Promise<RequestPayload> {
     fileName,
     fileText,
     parsedTelemetrySummary: parsedTelemetry?.summary,
+    gyroModel: cleanText(form.get('gyroModel')),
   };
 }
 
@@ -101,6 +103,7 @@ function buildDifyPrompt(input: RequestPayload, localMarkdown: string): string {
     '',
     `Drone type: ${input.droneType}`,
     `Battery: ${input.batterySpec}`,
+    `Gyro sensor: ${input.gyroModel || 'Not specified'}`,
     `Issue: ${input.problem}`,
     `Current PIDs: ${input.currentPIDs}`,
     `Log summary: ${input.logData}`,

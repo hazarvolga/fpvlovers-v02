@@ -1,7 +1,7 @@
 'use client';
 // Blackbox tuning submits private log text to a guarded server route; no client API key is exposed.
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Activity, ShieldAlert, Cpu, Radio, Send, Loader2, BarChart2, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
@@ -34,6 +34,7 @@ const SAMPLE_INPUT = {
   problem: 'Propwash oscillations during sharp turns',
   logData: 'Gyro traces show 150Hz resonance, mostly on Yaw axis. Step response shows mild bounce-back on Roll.',
   currentPIDs: 'P: 45, I: 80, D: 40, FF: 100',
+  gyroModel: 'ICM42688P',
 };
 
 export function BlackboxTunerWidget() {
@@ -43,7 +44,25 @@ export function BlackboxTunerWidget() {
     problem: '',
     logData: '',
     currentPIDs: '',
+    gyroModel: '',
   });
+
+  useEffect(() => {
+    // Defer cookie loading to bypass Next.js SSR hydration warnings
+    Promise.resolve().then(() => {
+      const { loadDossierFromBrowser } = require('@/lib/state/dossier-serializer');
+      const dossier = loadDossierFromBrowser();
+      if (dossier && dossier.activeBuild) {
+        const build = dossier.activeBuild;
+        setFormData(prev => ({
+          ...prev,
+          droneType: prev.droneType || build.droneClass || '',
+          batterySpec: prev.batterySpec || build.power.targetBatteryCells || '',
+          gyroModel: prev.gyroModel || build.electronics.gyroModel || '',
+        }));
+      }
+    });
+  }, []);
 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
@@ -69,6 +88,7 @@ export function BlackboxTunerWidget() {
       payload.set('problem', formData.problem);
       payload.set('logData', formData.logData);
       payload.set('currentPIDs', formData.currentPIDs);
+      payload.set('gyroModel', formData.gyroModel);
       if (selectedFile) payload.set('file', selectedFile);
 
       const response = await fetch('/api/tools/blackbox-tuning', {
@@ -98,7 +118,7 @@ export function BlackboxTunerWidget() {
     }
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -132,7 +152,7 @@ export function BlackboxTunerWidget() {
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="space-y-2">
            <label htmlFor="blackbox-drone-type" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Cpu className="w-3 h-3" aria-hidden="true" /> Drone Configuration
@@ -163,7 +183,26 @@ export function BlackboxTunerWidget() {
            />
         </div>
 
-        <div className="space-y-2 md:col-span-2">
+        <div className="space-y-2">
+           <label htmlFor="blackbox-gyro" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+             <Radio className="w-3 h-3" aria-hidden="true" /> Flight DNA Gyro Sensor
+           </label>
+           <select
+             id="blackbox-gyro"
+             name="gyroModel"
+             value={formData.gyroModel}
+             onChange={handleInputChange}
+             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors appearance-none"
+           >
+             <option value="">-- SELECT SENSOR --</option>
+             <option value="ICM42688P">ICM42688P (Sensitive High-Hz)</option>
+             <option value="BMI270">BMI270 (Clean Low-Latency)</option>
+             <option value="MPU6000">MPU6000 (Robust Classic)</option>
+             <option value="CUSTOM">Other / Custom Gyro</option>
+           </select>
+        </div>
+
+        <div className="space-y-2 sm:col-span-3">
            <label htmlFor="blackbox-problem" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <ShieldAlert className="w-3 h-3" aria-hidden="true" /> Issue / Symptoms
            </label>
@@ -178,7 +217,7 @@ export function BlackboxTunerWidget() {
            />
         </div>
 
-        <div className="space-y-2 md:col-span-2">
+        <div className="space-y-2 sm:col-span-3">
            <label htmlFor="blackbox-log-data" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <BarChart2 className="w-3 h-3" aria-hidden="true" /> Log Insights / Gyro Traces Summary
            </label>
@@ -193,7 +232,7 @@ export function BlackboxTunerWidget() {
            />
         </div>
 
-        <div className="space-y-2 md:col-span-2">
+        <div className="space-y-2 sm:col-span-3">
            <label htmlFor="blackbox-file" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Upload className="w-3 h-3" aria-hidden="true" /> Optional CSV / CLI Dump
            </label>
@@ -209,7 +248,7 @@ export function BlackboxTunerWidget() {
            </p>
         </div>
 
-        <div className="space-y-2 md:col-span-2">
+        <div className="space-y-2 sm:col-span-3">
            <label htmlFor="blackbox-current-pids" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Radio className="w-3 h-3" aria-hidden="true" /> Current PIDs
            </label>
