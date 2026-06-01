@@ -374,3 +374,10 @@ Created:
 - **Render Optimizasyonu:** Article slug sayfasındaki resimler Next.js sunucusunu yormaması için `unoptimized={true}` olarak set edildi.
 - **Git Push ve Yeniden Başlatma:** Yerel dev sunucusu başarıyla yeniden başlatıldı ve tüm güncellemeler GitHub `main` branch'ine başarıyla pushlandı.
 
+### 2026-06-01 Blackbox Tuning GAP Kapatma Fazı
+
+- **API Gerçeklik Kontratı:** `/api/tools/blackbox-tuning` artık `answerMode`, `gatewayStatus`, `sources` ve `retrievalConfidence` döndürüyor. Üretimde Dify/RAG yoksa kullanıcıya açıkça `local_guardrail` + `dry_run/not_configured/dify_empty/dify_error` sinyali gidiyor.
+- **Raw Binary Upload Vaadi Kapatıldı:** UI artık sadece `.csv`, `.log`, `.txt` kabul ediyor. `.bbl/.bfl` binary upload server tarafında 400 ile reddediliyor ve kullanıcıya Blackbox Explorer CSV/text export yönlendirmesi veriliyor.
+- **Telemetry Özetleyici:** CSV/text excerpt için kolon, sinyal ve sample satırı özetleyen `summarizeBlackboxText()` eklendi. Lokal guardrail confidence bu özetle hafif güçleniyor ama binary parser varmış gibi davranmıyor.
+- **Audit ve Regression Gate:** `npm run tools:blackbox:test`, `npm run tools:blackbox:smoke` ve sertleşmiş `npm run tools:audit` eklendi. Blackbox artık token + 11 tuning dokümanı yüzünden PASS olmuyor; PID/troubleshooting corpus derinliği gelene kadar `PARTIAL` kalıyor.
+- **RAG Source Backlog:** `data/fpv-rag-source-pack.blackbox.json` içinde Betaflight/Oscar Liang/UAV Tech/IntoFPV odaklı 11 kaynaklık Blackbox/PID/filter ingest backlog'u oluşturuldu. Canlı ingest öncesi `CRAWL_DRY_RUN=true` ve `src/lib/crawl-queue.ts` kuralı geçerli.

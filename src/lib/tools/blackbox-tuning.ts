@@ -6,6 +6,7 @@ export type BlackboxTuningInput = {
   currentPIDs: string;
   fileName?: string;
   fileText?: string;
+  parsedTelemetrySummary?: string;
 };
 
 export type BlackboxRiskLevel = 'low' | 'medium' | 'high';
@@ -27,6 +28,14 @@ export type BlackboxTuningResult = {
   recommendations: string[];
   nextSteps: string[];
   markdown: string;
+};
+
+export type ParsedTelemetrySummary = {
+  format: 'csv' | 'text';
+  columns: string[];
+  detectedSignals: string[];
+  sampleCount?: number;
+  summary: string;
 };
 
 type PidValues = {
@@ -65,6 +74,58 @@ function includesAny(text: string, terms: string[]): boolean {
   return terms.some((term) => text.includes(term));
 }
 
+export function isUnsupportedBlackboxBinaryFile(fileName?: string): boolean {
+  const normalized = fileName?.trim().toLowerCase() || '';
+  return normalized.endsWith('.bbl') || normalized.endsWith('.bfl');
+}
+
+function unique(values: string[]): string[] {
+  return Array.from(new Set(values));
+}
+
+function detectTelemetrySignals(text: string): string[] {
+  const lower = text.toLowerCase();
+  const signals: string[] = [];
+  if (includesAny(lower, ['gyro', 'gyroadc'])) signals.push('gyro');
+  if (includesAny(lower, ['setpoint', 'rccommand'])) signals.push('setpoint');
+  if (includesAny(lower, ['motor', 'motor['])) signals.push('motor');
+  if (includesAny(lower, ['throttle', 'thr'])) signals.push('throttle');
+  if (includesAny(lower, ['dterm', 'd-term', 'd term'])) signals.push('dterm');
+  if (includesAny(lower, ['debug', 'debug['])) signals.push('debug');
+  if (includesAny(lower, ['roll', 'pitch', 'yaw'])) signals.push('axis');
+  return unique(signals);
+}
+
+export function summarizeBlackboxText(fileName: string | undefined, text: string): ParsedTelemetrySummary | undefined {
+  const trimmed = text.trim();
+  if (!trimmed) return undefined;
+
+  const lines = trimmed.split(/\r?\n/).filter((line) => line.trim());
+  const extension = fileName?.split('.').pop()?.toLowerCase();
+  const firstLine = lines[0] || '';
+  const looksCsv = extension === 'csv' || (firstLine.includes(',') && lines.length > 1);
+  const columns = looksCsv
+    ? firstLine.split(',').map((column) => column.trim()).filter(Boolean).slice(0, 32)
+    : [];
+  const detectedSignals = detectTelemetrySignals(`${columns.join(' ')} ${trimmed.slice(0, 4000)}`);
+  const sampleCount = looksCsv ? Math.max(0, lines.length - 1) : undefined;
+  const format = looksCsv ? 'csv' : 'text';
+  const summaryParts = [
+    `${format.toUpperCase()} telemetry excerpt`,
+    sampleCount !== undefined ? `${sampleCount} sample rows` : `${lines.length} text line(s)`,
+    columns.length ? `columns: ${columns.slice(0, 12).join(', ')}` : '',
+    detectedSignals.length ? `detected signals: ${detectedSignals.join(', ')}` : 'detected signals: none',
+  ].filter(Boolean);
+
+  return {
+    format,
+    columns,
+    detectedSignals,
+    sampleCount,
+    summary: summaryParts.join('; '),
+  };
+}
+
 function detectResonanceHz(text: string): number | undefined {
   const match = text.match(/(\d{2,3})\s*hz/i);
   if (!match) return undefined;
@@ -79,12 +140,13 @@ function scoreConfidence(input: BlackboxTuningInput): number {
   if (textLength > 250) score += 15;
   if (input.currentPIDs.trim().length > 8) score += 10;
   if (input.fileName) score += 8;
+  if (input.parsedTelemetrySummary) score += 6;
   if (detectResonanceHz(input.logData) || detectResonanceHz(input.fileText || '')) score += 7;
   return clamp(score, 35, 92);
 }
 
 export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTuningResult {
-  const combined = `${input.problem} ${input.logData} ${input.fileText || ''}`.toLowerCase();
+  const combined = `${input.problem} ${input.logData} ${input.fileText || ''} ${input.parsedTelemetrySummary || ''}`.toLowerCase();
   const pids = parsePids(input.currentPIDs);
   const resonanceHz = detectResonanceHz(input.logData) || detectResonanceHz(input.fileText || '');
 
@@ -176,6 +238,7 @@ export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTunin
     `- Confidence: ${confidence}/100`,
     `- Risk level: ${riskLevel}`,
     resonanceHz ? `- Observed resonance: ${resonanceHz}Hz` : '- Observed resonance: not enough frequency detail supplied',
+    input.parsedTelemetrySummary ? `- Parsed telemetry: ${input.parsedTelemetrySummary}` : '',
     '',
     '### Proposed Settings',
     `- PIDs: P ${proposedSettings.p}, I ${proposedSettings.i}, D ${proposedSettings.d}, FF ${proposedSettings.ff}`,

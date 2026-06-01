@@ -1,0 +1,111 @@
+{
+  "generated_at": "2026-06-01",
+  "purpose": "Blackbox Tuning Advisor source backlog for PID, filter, motor-heat, and troubleshooting retrieval coverage.",
+  "ingestion_mode": "queue_only",
+  "notes": [
+    "Run with CRAWL_DRY_RUN=true before live ingestion.",
+    "Use src/lib/crawl-queue.ts for enqueue/retry; do not call Crawl4AI directly.",
+    "Target fpv-flight-tuning, fpv-pid-profiles, and fpv-troubleshooting before marking Blackbox audit PASS."
+  ],
+  "sources": [
+    {
+      "url": "https://betaflight.com/docs/wiki/guides/current/PID-Tuning-Guide",
+      "title": "Betaflight PID Tuning Guide",
+      "dataset": "fpv-pid-profiles",
+      "tag": "pid",
+      "priority": "p0",
+      "expected_coverage": "P/I/D/FF tuning principles and safe adjustment order.",
+      "status": "pending"
+    },
+    {
+      "url": "https://betaflight.com/docs/wiki/guides/current/Filter-Tuning",
+      "title": "Betaflight Filter Tuning",
+      "dataset": "fpv-flight-tuning",
+      "tag": "filters",
+      "priority": "p0",
+      "expected_coverage": "Gyro/D-term filtering, noise tradeoffs, and motor heat risk.",
+      "status": "pending"
+    },
+    {
+      "url": "https://betaflight.com/docs/wiki/guides/current/Blackbox",
+      "title": "Betaflight Blackbox Guide",
+      "dataset": "fpv-troubleshooting",
+      "tag": "blackbox",
+      "priority": "p0",
+      "expected_coverage": "Blackbox logging workflow and interpretation boundaries.",
+      "status": "pending"
+    },
+    {
+      "url": "https://betaflight.com/docs/wiki/guides/current/RPM-Filter",
+      "title": "Betaflight RPM Filter Guide",
+      "dataset": "fpv-flight-tuning",
+      "tag": "rpm-filter",
+      "priority": "p0",
+      "expected_coverage": "RPM filter setup and noise reduction guidance.",
+      "status": "pending"
+    },
+    {
+      "url": "https://oscarliang.com/pid/",
+      "title": "Oscar Liang FPV PID Tuning Guide",
+      "dataset": "fpv-pid-profiles",
+      "tag": "pid",
+      "priority": "p0",
+      "expected_coverage": "Practical FPV PID tuning symptoms and adjustments.",
+      "status": "pending"
+    },
+    {
+      "url": "https://oscarliang.com/betaflight-filtering/",
+      "title": "Oscar Liang Betaflight Filtering",
+      "dataset": "fpv-flight-tuning",
+      "tag": "filters",
+      "priority": "p0",
+      "expected_coverage": "Filter tuning, noise, delay, and heat tradeoffs.",
+      "status": "pending"
+    },
+    {
+      "url": "https://oscarliang.com/rpm-filter/",
+      "title": "Oscar Liang RPM Filter",
+      "dataset": "fpv-flight-tuning",
+      "tag": "rpm-filter",
+      "priority": "p1",
+      "expected_coverage": "RPM filter enablement and troubleshooting context.",
+      "status": "pending"
+    },
+    {
+      "url": "https://oscarliang.com/blackbox/",
+      "title": "Oscar Liang Blackbox Logging",
+      "dataset": "fpv-troubleshooting",
+      "tag": "blackbox",
+      "priority": "p1",
+      "expected_coverage": "Blackbox Explorer usage and symptom interpretation.",
+      "status": "pending"
+    },
+    {
+      "url": "https://theuavtech.com/presets/",
+      "title": "UAV Tech Betaflight Presets",
+      "dataset": "fpv-pid-profiles",
+      "tag": "presets",
+      "priority": "p1",
+      "expected_coverage": "Preset-oriented PID/filter baselines and practical tuning defaults.",
+      "status": "pending"
+    },
+    {
+      "url": "https://intofpv.com/t-pid-tuning-guide",
+      "title": "IntoFPV PID Tuning Guide",
+      "dataset": "fpv-pid-profiles",
+      "tag": "community",
+      "priority": "p2",
+      "expected_coverage": "Community tuning discussion for symptom vocabulary.",
+      "status": "pending"
+    },
+    {
+      "url": "https://intofpv.com/t-blackbox-analysis",
+      "title": "IntoFPV Blackbox Analysis Discussions",
+      "dataset": "fpv-troubleshooting",
+      "tag": "community",
+      "priority": "p2",
+      "expected_coverage": "Community troubleshooting language and blackbox analysis examples.",
+      "status": "pending"
+    }
+  ]
+}

@@ -73,7 +73,21 @@ const realImageCount = products.filter((product) => product.imageUrl).length;
 const counts = typeCount(products);
 const componentsDocs = datasetDocCount('fpv-components-specs');
 const buildDocs = datasetDocCount('fpv-build-guides');
-const tuningDocs = datasetDocCount('fpv-flight-tuning') + datasetDocCount('fpv-pid-profiles');
+const flightTuningDocs = datasetDocCount('fpv-flight-tuning');
+const pidProfileDocs = datasetDocCount('fpv-pid-profiles');
+const troubleshootingDocs = datasetDocCount('fpv-troubleshooting');
+const tuningDocs = flightTuningDocs + pidProfileDocs + troubleshootingDocs;
+const blackboxSourcePackPath = path.join(process.cwd(), 'data', 'fpv-rag-source-pack.blackbox.json');
+const blackboxSourceCount = fs.existsSync(blackboxSourcePackPath)
+  ? (JSON.parse(fs.readFileSync(blackboxSourcePackPath, 'utf-8')) as { sources?: unknown[] }).sources?.length ?? 0
+  : 0;
+const blackboxUiPath = path.join(process.cwd(), 'src', 'features', 'tools', 'components', 'BlackboxTuner.tsx');
+const blackboxUiSource = fs.existsSync(blackboxUiPath) ? fs.readFileSync(blackboxUiPath, 'utf-8') : '';
+const blackboxAcceptMatch = blackboxUiSource.match(/accept="([^"]+)"/);
+const blackboxAccepts = blackboxAcceptMatch?.[1] ?? '';
+const blackboxBinaryPromiseAligned = !blackboxAccepts.includes('.bbl') && !blackboxAccepts.includes('.bfl');
+const blackboxSmokeExists = fs.existsSync(path.join(process.cwd(), 'scripts', 'blackbox-smoke.ts'));
+const blackboxHasCorpusDepth = flightTuningDocs >= 20 && pidProfileDocs >= 5 && troubleshootingDocs >= 5;
 const catalogCoverage = Object.entries(counts)
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([type, count]) => `${type}:${count}`)
@@ -120,10 +134,15 @@ const rows: AuditRow[] = [
   ),
   row(
     'Blackbox Tuning',
-    hasDifyApp('Blackbox Tuning Advisor') && tuningDocs > 0 ? 'PASS' : 'PARTIAL',
+    hasDifyApp('Blackbox Tuning Advisor')
+      && blackboxHasCorpusDepth
+      && blackboxBinaryPromiseAligned
+      && blackboxSmokeExists
+        ? 'PASS'
+        : 'PARTIAL',
     'local tuning guardrail + guided blackbox workflow',
-    `Blackbox workflow configured: ${hasDifyApp('Blackbox Tuning Advisor')}; routing tuning docs=${tuningDocs}.`,
-    'Keep provider credential smoke in the release gate and expand PID/troubleshooting corpora.',
+    `Workflow configured: ${hasDifyApp('Blackbox Tuning Advisor')}; docs flight=${flightTuningDocs}, pid=${pidProfileDocs}, troubleshooting=${troubleshootingDocs}; source backlog=${blackboxSourceCount}; binary promise aligned=${blackboxBinaryPromiseAligned}; smoke=${blackboxSmokeExists}.`,
+    'Run production gateway smoke, ingest the blackbox source pack, then require corpus depth before marking PASS.',
   ),
   row(
     'Flight Critic',
@@ -139,6 +158,7 @@ console.table(rows);
 console.log(`Catalog summary: ${productCatalogFinding}`);
 console.log(`Product source pack: ${productSourceCount} crawler source(s) ready for catalog expansion`);
 console.log(`Dataset routing doc counts: components=${componentsDocs}, build=${buildDocs}, tuning=${tuningDocs}`);
+console.log(`Blackbox source pack: ${blackboxSourceCount} source(s); binary upload promise aligned=${blackboxBinaryPromiseAligned}; smoke script=${blackboxSmokeExists}`);
 
 const strictFailures = rows.filter((auditRow) => auditRow.status === 'FAIL');
 if (strict && strictFailures.length > 0) {
