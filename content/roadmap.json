@@ -1,34 +1,34 @@
 {
-  "summary": "Yeni başlayan FPV pilotları için en sık karşılaşılan başarısızlık noktası, yeterli simülatör pratiği yapmadan doğrudan gerçek uçuşlara (maiden flight) geçmektir. FPVLovers olarak, kesinlikle 3 fazlı ve disiplinli bir eğitim yörüngesi izlemenizi öneriyoruz: 1. Kumanda ve Simülatör Pratiği (En az 40 saat) 2. İç mekanda 1S Tiny Whoop ile refleks kazanımı 3. 5 inç 6S dijital/analog serbest stil (freestyle) geçişi. Bu kılavuz sıfır seviyesinden profesyonel operatörlüğe kadar olan tüm adımları içermektedir.",
+  "summary": "The most common failure point for new pilots is rushing into real flights without sufficient simulator hours. FPVLovers recommends a disciplined 3-phase trajectory: 1. Radio and Simulator Practice (40 hours minimum) 2. Indoor 1S Tiny Whoop flying for reflex calibration 3. Transition to a 5-inch 6S digital or analog freestyle quad. This guide provides a step-by-step roadmap from absolute beginner to competent operator.",
   "steps": [
     {
-      "phase": "FAZ 01: VIRTUAL CALIBRATION (SIMÜLATÖR VE PROTOKOL)",
+      "phase": "PHASE 01: VIRTUAL CALIBRATION (RADIO & SIMULATOR)",
       "items": [
-        "ExpressLRS Uyumlu Kumanda Satın Alın (Örn: RadioMaster Pocket ELRS, Boxer ELRS veya TX12 Mark II ELRS 2.4G)",
-        "Profesyonel FPV Simülatörü Kurun (Steam üzerinden Liftoff: FPV Drone Racing, VelociDrone veya Uncrashed: FPV Drone Simulator)",
-        "Acro Modunda Havada Kalmayı Öğrenin (Stabil hover, kalkış ve iniş reflekslerini simülatörde en az 10 saat çalışarak kas hafızası kazanın)",
-        "Kumanda Kalibrasyonu ve Oran (Rates) Ayarları (Betaflight Rates arayüzünü simülatörde taklit ederek kumanda hassasiyetini kendinize göre optimize edin)",
-        "40 Saatlik Loglu Uçuşu Tamamlayın (Simülatörde kaza yapmadan dar kapılardan geçip akıcı uçabilene kadar gerçek bir drone çalıştırmayın)"
+        "Acquire an ELRS Protocol Radio (e.g., RadioMaster Pocket ELRS, Boxer ELRS, or TX12 Mark II ELRS 2.4G)",
+        "Install a Professional FPV Simulator (e.g., Liftoff: FPV Drone Racing, VelociDrone, or Uncrashed on Steam)",
+        "Master Acro Mode Level 1 (Develop muscle memory for stable hovering, takeoff, and landing in simulator for at least 10 hours)",
+        "Configure Rates and Stick Calibration (Mirror the Betaflight Rates interface in your simulator to optimize stick sensitivity)",
+        "Log 40+ Hours of Flight Time (Ensure you can fly smoothly through gates and avoid crashes in the simulator before powering up a real quad)"
       ]
     },
     {
-      "phase": "FAZ 02: MICRO OPERATIONS (TINY WHOOP İLE İÇ MEKAN)",
+      "phase": "PHASE 02: MICRO OPERATIONS (INDOOR TINY WHOOPS)",
       "items": [
-        "1S Fırçasız (Brushless) Tiny Whoop Drone Alın (Örn: BetaFPV Meteor65/Meteor75, HappyModel Mobula6/Mobula7 veya EMAX Tinyhawk III)",
-        "Giriş Seviyesi Analog FPV Gözlüğü Seçin (Örn: Çift antenli, dahili DVR kayıt özellikli RadioMaster/Eachine EV800D veya Skyzone Cobra S)",
-        "1S LiPo/LiHv Batarya ve Güvenli Şarj İstasyonu (Örn: Whoop bataryaları için 6 portlu şarj aleti, bataryaları 3.80V depolama voltajında tutma disiplini)",
-        "İç Mekan Alt Yapı Manevraları (Ev içinde sehpa altlarından geçme, kapı kasalarından süzülme ve hassas gaz/throttle yönetimi çalışmaları)",
-        "Betaflight Temel Ayarları (Uçuş kartını bilgisayara bağlama, kumanda eşleştirme/binding, switch atamaları ve OSD telemetri ekranı tasarımı)"
+        "Acquire a 1S Brushless Tiny Whoop (e.g., BetaFPV Meteor65/Meteor75, HappyModel Mobula6/Mobula7, or EMAX Tinyhawk III)",
+        "Select Entry-Level Analog FPV Goggles (e.g., RadioMaster/Eachine EV800D with dual antennas and built-in DVR, or Skyzone Cobra S)",
+        "Understand 1S Battery Safety and Storage Charging (Develop the discipline of storage charging LiPo/LiHv cells to 3.80V, and safe charging practices)",
+        "Master Indoor Altitude and Throttle Control (Practice flying under tables, through doors, and maintaining steady hover in tight spaces)",
+        "Learn Betaflight Basics (Connect your flight controller to a PC, bind your receiver, assign arm/mode switches, and design your OSD layout)"
       ]
     },
     {
-      "phase": "FAZ 03: FULL AERODYNAMICS (5 İNÇ 6S VE SERBEST STİL)",
+      "phase": "PHASE 03: FULL AERODYNAMICS (5-INCH 6S FREESTYLE)",
       "items": [
-        "5 İnç 6S Güçlü Serbest Stil Drone Edinin (Örn: Hazır BNF olarak iFlight Nazgul5 V3, GEPRC Mark5 veya SpeedyBee F405 V4 Stack ile kendi drone'unuzu toplayın)",
-        "Dijital Video Verici (HD VTX) Sistemine Terfi Edin (Örn: DJI Goggles 2 / DJI O3 Air Unit, Walksnail Avatar veya HDZero yüksek çözünürlüklü dijital sistemler)",
-        "İlk Açık Alan Maiden Uçuşu (İnsanlardan ve engellerden en az 200 metre uzakta, geniş bir çimenlik alanda, önce Angle modunda kalkış yapıp havada Acro moduna geçiş provası)",
-        "Temel Akrobasi Manevraları (Split-S, Power Loop, Roll, Pitch Backflip gibi manevraların simülatör tecrübesiyle gerçek gökyüzünde icra edilmesi)",
-        "Betaflight PID Tuning ve Filtre Kalibrasyonu (RAG veri tabanımızdaki fpv-flight-tuning rehberlerini kullanarak motor ısınmalarını önleme, P, I, D katsayılarını uçuş karakteristiğinize göre optimize etme)"
+        "Acquire a 5-Inch 6S Freestyle Quad (e.g., iFlight Nazgul5 V3, GEPRC Mark5 BNF, or build your own with a SpeedyBee F405 V4 stack)",
+        "Upgrade to a High-Definition Video System (e.g., DJI Goggles 2 / DJI O3 Air Unit, Walksnail Avatar, or HDZero for crisp digital telemetry)",
+        "Execute Your First Maiden Flight (Fly in an open grassy field at least 200m away from obstacles, starting in Angle mode and transitioning to Acro)",
+        "Learn Basic Freestyle Acrobatics (Perform Split-S, Power Loops, Rolls, and Pitch Backflips using the muscle memory built in the simulator)",
+        "Tune PID and Filter Configurations (Use FPVLovers flight-tuning guides to calibrate P, I, and D coefficients, prevent motor hotness, and optimize flight dynamics)"
       ]
     }
   ]
