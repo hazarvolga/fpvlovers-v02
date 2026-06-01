@@ -102,6 +102,11 @@ async function processQueue() {
     process.exit(1);
   }
 
+  const isDryRun = process.env.CRAWL_DRY_RUN === 'true';
+  if (isDryRun) {
+    console.log('>>> CRAWL DRY RUN IS ACTIVE. DIFY UPLOAD WILL BE SKIPPED TO PRESERVE EMBEDDING BUDGET. <<<');
+  }
+
   const queue = loadQueue();
   const pendingJobs = queue.jobs.filter(j => j.status === 'pending');
 
@@ -111,7 +116,7 @@ async function processQueue() {
   }
 
   console.log(`Found ${pendingJobs.length} pending job(s) in queue.`);
-  const batchSize = 3;
+  const batchSize = 25;
   const jobsToProcess = pendingJobs.slice(0, batchSize);
 
   console.log(`Processing batch of ${jobsToProcess.length} job(s)...`);
@@ -164,38 +169,49 @@ async function processQueue() {
 
       // 3. Upsert to Dify Dataset
       const urlHash = await sha256(job.url);
-      console.log(`- Uploading to Dify: ${DIFY_BASE}/datasets/${dsId}/document/create-by-text`);
-      
-      const difyResp = await fetch(`${DIFY_BASE}/datasets/${dsId}/document/create-by-text`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${DIFY_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: urlHash.slice(0, 32),
-          text: markdown.slice(0, 8000), // safe Dify chunk size
-          doc_metadata: { source_url: job.url, url_hash: urlHash },
-          indexing_technique: 'high_quality',
-          process_rule: { mode: 'automatic' },
-        }),
-        signal: AbortSignal.timeout(30000),
-      });
 
-      if (!difyResp.ok) {
-        const errorText = await difyResp.text();
-        throw new Error(`Dify upload failed (HTTP ${difyResp.status}): ${errorText}`);
+      if (isDryRun) {
+        console.log(`- [DRY RUN] Would upload to Dify: ${DIFY_BASE}/datasets/${dsId}/document/create-by-text`);
+        console.log(`- [DRY RUN] Text Length: ${markdown.length} characters.`);
+        console.log(`- [DRY RUN] Status set to COMPLETED (Dry Run).`);
+        job.status = 'completed';
+        job.docId = `dry-${urlHash.slice(0, 12)}`;
+        job.tokens = markdown.length;
+        job.error = undefined;
+      } else {
+        console.log(`- Uploading to Dify: ${DIFY_BASE}/datasets/${dsId}/document/create-by-text`);
+        
+        const difyResp = await fetch(`${DIFY_BASE}/datasets/${dsId}/document/create-by-text`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${DIFY_API_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: urlHash.slice(0, 32),
+            text: markdown.slice(0, 8000), // safe Dify chunk size
+            doc_metadata: { source_url: job.url, url_hash: urlHash },
+            indexing_technique: 'high_quality',
+            process_rule: { mode: 'automatic' },
+          }),
+          signal: AbortSignal.timeout(30000),
+        });
+
+        if (!difyResp.ok) {
+          const errorText = await difyResp.text();
+          throw new Error(`Dify upload failed (HTTP ${difyResp.status}): ${errorText}`);
+        }
+
+        const doc = await difyResp.json();
+        const docId = doc.document?.id || 'unknown';
+        console.log(`- Success! Ingested into Dify. Document ID: ${docId}`);
+
+        // Update job to completed
+        job.status = 'completed';
+        job.docId = docId.slice(0, 16);
+        job.tokens = markdown.length;
+        job.error = undefined;
       }
-
-      const doc = await difyResp.json();
-      const docId = doc.document?.id || 'unknown';
-      console.log(`- Success! Ingested into Dify. Document ID: ${docId}`);
-
-      // Update job to completed
-      job.status = 'completed';
-      job.docId = docId.slice(0, 16);
-      job.tokens = markdown.length;
-      job.error = undefined;
     } catch (err: any) {
       console.error(`- Error processing job: ${err.message}`);
       job.status = 'failed';

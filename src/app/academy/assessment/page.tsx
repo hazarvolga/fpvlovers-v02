@@ -27,27 +27,27 @@ const PAA_SCENARIOS: ScenarioQuestion[] = [
     question: "You are planning an operational sortie. Select your ideal flight environment:",
     options: [
       {
-        text: "An abandoned brick factory with tight concrete gaps and steel support pillars.",
+        text: "Abandoned Bando: An abandoned brick factory with tight concrete gaps and steel support pillars.",
         archetype: "Freestyle Tactician",
         details: "Prioritizes close-proximity proximity maneuvers and momentum-based flips."
       },
       {
-        text: "A remote, high-altitude alpine ridge facing strong, unpredictable winds.",
+        text: "High Alpine Ridge: A remote, high-altitude alpine ridge facing strong, unpredictable winds.",
         archetype: "Long Range Explorer",
         details: "Focuses on RF signal penetration, high-efficiency cruise, and navigation."
       },
       {
-        text: "A luxury estate requiring butter-smooth indoor-to-outdoor video transitions.",
+        text: "Luxury Real Estate: A luxury estate requiring butter-smooth indoor-to-outdoor video transitions.",
         archetype: "Cinematic Operator",
         details: "Optimizes slow, fluid orbits, ducted safety, and dynamic camera angles."
       },
       {
-        text: "A professional race track mapped with high-visibility vertical gates and split-s curves.",
+        text: "Racing Track: A professional race track mapped with high-visibility vertical gates and split-s curves.",
         archetype: "Competitive Racer",
         details: "Demands maximum speed, low-latency analog feeds, and cornering precision."
       },
       {
-        text: "Your clean workbench, loaded with wiring schematics, spare stators, and solder fluxes.",
+        text: "Engineering Bench: Your clean workbench, loaded with wiring schematics, spare stators, and solder fluxes.",
         archetype: "System Builder / Engineer",
         details: "Finds fulfillment in telemetry analysis, AM32 tuning, and custom assembly."
       }
@@ -58,27 +58,27 @@ const PAA_SCENARIOS: ScenarioQuestion[] = [
     question: "Select your primary hardware blueprint engineering philosophy:",
     options: [
       {
-        text: "High frame arm stiffness and resonance dampening to counter high-G propwash loops.",
+        text: "Acrobatic Rigidity: Stiff carbon frame arms and resonance dampening to counter high-G propwash loops.",
         archetype: "Freestyle Tactician",
         details: "Focuses on mechanical rigidity to allow aggressive D-term filter adjustments."
       },
       {
-        text: "Maximum battery chemistry energy density, robust sat locks, and 915MHz RF range.",
+        text: "Max Range & Flight Time: High-capacity batteries, robust GPS satellite locks, and 915MHz long-range radio system.",
         archetype: "Long Range Explorer",
         details: "Demands Li-Ion power packs and reliable automated recovery protocols."
       },
       {
-        text: "Propeller duct safety shielding, smooth throttle curves, and dynamic camera mounts.",
+        text: "Propeller Duct Guards: Duct safety shielding, smooth throttle curves, and dynamic camera mounts.",
         archetype: "Cinematic Operator",
         details: "Optimizes indoor flight margins, quiet sound signatures, and zero camera shake."
       },
       {
-        text: "Lowest possible dry weight and high KV motors to maximize thrust-to-weight ratios.",
+        text: "Weight Shaving & Speed: Lowest possible dry weight and high KV motors to maximize thrust-to-weight ratios.",
         archetype: "Competitive Racer",
         details: "Sacrifices durability and video resolution to shave fractions of a gram."
       },
       {
-        text: "Perfect solder connections, clean BEC voltage filtration, and direct UART configs.",
+        text: "Clean Electronics Build: Perfect solder connections, clean BEC voltage filtration, and direct UART configs.",
         archetype: "System Builder / Engineer",
         details: "Eliminates all dynamic electrical noise at the source using physical filters."
       }
@@ -89,27 +89,27 @@ const PAA_SCENARIOS: ScenarioQuestion[] = [
     question: "Your receiver triggers a 'CRITICAL RSSI / LINK QUALITY (LQ)' alarm far out. You:",
     options: [
       {
-        text: "Execute an aggressive snap-roll back to re-establish line-of-sight signal coverage.",
+        text: "Manual Signal Recovery: Execute an aggressive snap-roll back to re-establish line-of-sight signal coverage.",
         archetype: "Freestyle Tactician",
         details: "Relies on rapid manual control vectors to steer clear of immediate RF shadows."
       },
       {
-        text: "Verify satellite locks, monitor voltage sag, and activate the GPS Rescue return protocol.",
+        text: "Automated GPS Return: Verify satellite locks, monitor voltage sag, and activate the GPS Rescue return protocol.",
         archetype: "Long Range Explorer",
         details: "Trusts automated safety procedures to safely pilot the drone back home."
       },
       {
-        text: "Slowly orbit the spot, smooth your throttle spikes, and orient your directional goggles.",
+        text: "Smooth Antenna Re-orientation: Slowly orbit the spot, smooth your throttle spikes, and orient your directional goggles.",
         archetype: "Cinematic Operator",
         details: "Maintains smooth video capture while visually analyzing signal shadows."
       },
       {
-        text: "Adjust your flight line to keep a direct line-of-sight view with the antenna grid.",
+        text: "Line-of-Sight Alignment: Adjust your flight line to keep a direct line-of-sight view with the antenna grid.",
         archetype: "Competitive Racer",
         details: "Prioritizes immediate physical RF visual clearance over automated fallbacks."
       },
       {
-        text: "Analyze the RF noise parameters on your telemetry log to optimize link rates later.",
+        text: "Telemetry Data Diagnostics: Analyze the RF noise parameters on your telemetry log to optimize link rates later.",
         archetype: "System Builder / Engineer",
         details: "Uses anomalies as diagnostic data to recalibrate transmitter output margins."
       }
@@ -120,27 +120,27 @@ const PAA_SCENARIOS: ScenarioQuestion[] = [
     question: "If you had to invest budget in upgrading a single component, it would be:",
     options: [
       {
-        text: "Stiffer carbon fiber arms to eliminate mid-throttle resonance vibration noise.",
+        text: "Resonance Dampened Frame: Stiffer carbon fiber arms to eliminate mid-throttle resonance vibration noise.",
         archetype: "Freestyle Tactician",
         details: "Allows higher PID feedback gains without introducing gyro heating."
       },
       {
-        text: "A high-penetration 915MHz transmitter system with dual diversity patches.",
+        text: "Long-Range Receiver System: A high-penetration 915MHz transmitter system with dual diversity patches.",
         archetype: "Long Range Explorer",
         details: "Insures long-range signal security against mountain multipathing blockage."
       },
       {
-        text: "A premium high-definition digital VTX with dynamic camera stabilization.",
+        text: "Premium HD Camera VTX: A premium high-definition digital VTX with dynamic camera stabilization.",
         archetype: "Cinematic Operator",
         details: "Delivers crystal-clear 4K footage directly for cinematic client production."
       },
       {
-        text: "Stiff, carbon-reinforced propellers with minimal moment of inertia.",
+        text: "Low-Inertia Propellers: Stiff, carbon-reinforced propellers with minimal moment of inertia.",
         archetype: "Competitive Racer",
         details: "Provides instant throttle response for immediate course corrections."
       },
       {
-        text: "A high-performance 4-in-1 ESC running custom optimized AM32 firmware.",
+        text: "Advanced Commutation ESC: A high-performance 4-in-1 ESC running custom optimized AM32 firmware.",
         archetype: "System Builder / Engineer",
         details: "Guarantees rapid commutation sync and maximum current handling limits."
       }
@@ -151,27 +151,27 @@ const PAA_SCENARIOS: ScenarioQuestion[] = [
     question: "What is your primary definition of a perfect, successful flight?",
     options: [
       {
-        text: "Threading a tiny concrete gap at high speed and completing a clean split-s roll.",
+        text: "Acrobatic Gaps: Threading a tiny concrete gap at high speed and completing a clean split-s roll.",
         archetype: "Freestyle Tactician",
         details: "Demonstrating absolute spatial awareness and aggressive muscle coordination."
       },
       {
-        text: "Surfing a remote, silent mountain peak 3 miles away and returning with battery to spare.",
+        text: "Alpine Peak Surfing: Surfing a remote, silent mountain peak 3 miles away and returning with battery to spare.",
         archetype: "Long Range Explorer",
         details: "Achieving complex geographical exploration goals through careful flight planning."
       },
       {
-        text: "Capturing a continuous, single-take flythrough of an architectural space.",
+        text: "Continuous Real Estate Flythrough: Capturing a continuous, single-take flythrough of an architectural space.",
         archetype: "Cinematic Operator",
         details: "Delivering premium visual layouts that invoke emotional and aesthetic reactions."
       },
       {
-        text: "Shaving 0.2 seconds off your previous lap time and taking the checker flag.",
+        text: "Lap Time Domination: Shaving 0.2 seconds off your previous lap time and taking the checker flag.",
         archetype: "Competitive Racer",
         details: "Dominating racing tracks through rigid execution and lightning fast reflexes."
       },
       {
-        text: "Flashing new firmware, resolving a desync, and watching motor lines align on graphs.",
+        text: "Perfect Commutation Tuning: Flashing new firmware, resolving a desync, and watching motor lines align on graphs.",
         archetype: "System Builder / Engineer",
         details: "Transforming raw physical components into a calibrated flight instrument."
       }

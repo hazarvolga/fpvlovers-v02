@@ -252,7 +252,7 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
       response_mode: 'streaming',
       user: 'content-orchestrator',
     }),
-    signal: AbortSignal.timeout(180000),
+    signal: AbortSignal.timeout(300000),
   });
 
   if (!resp.ok) {

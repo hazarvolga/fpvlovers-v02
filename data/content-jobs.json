@@ -1,5 +1,185 @@
 [
   {
+    "id": "brief-fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security-mpv4hqs0",
+    "briefSlug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
+    "title": "FPV Mountain Surfing: Flight Planning, Wind Shadows, and Signal Security",
+    "category": "Flight Guides",
+    "status": "failed",
+    "topic": "An advanced tactical guide for high-altitude ridge surfing. Explores mountain thermal flows and wind shadows, RF line-of-sight propagation, custom high-density Li-Ion pack builds, and emergency GPS rescue fail-safe protocols.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "Alpine flight planning and topography research",
+      "Understanding wind shadows, thermal drafts, and rotors",
+      "Signal security: RF penetration and direct line-of-sight propagation",
+      "Li-Ion battery custom builds for high-altitude endurance (high capacity vs high discharge)",
+      "Emergency procedures and GPS Rescue activation checklist"
+    ],
+    "seo": {
+      "slug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
+      "metaDescription": "An advanced tactical guide for high-altitude ridge surfing. Explores mountain thermal flows and wind shadows, RF line-of-sight propagation, custom high-density Li-Ion pack builds, and emergency GPS rescue fail-safe protocols.",
+      "keywords": [
+        "fpv mountain surfing flight planning wind shadows and signal security",
+        "FPV specialization",
+        "advanced pilot guide"
+      ]
+    },
+    "createdAt": "2026-06-01T11:26:06.288Z",
+    "updatedAt": "2026-06-01T11:31:06.307Z",
+    "feedback": "The operation was aborted due to timeout"
+  },
+  {
+    "id": "brief-fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security-mpv4deg3",
+    "briefSlug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
+    "title": "FPV Mountain Surfing: Flight Planning, Wind Shadows, and Signal Security",
+    "category": "Flight Guides",
+    "status": "failed",
+    "topic": "An advanced tactical guide for high-altitude ridge surfing. Explores mountain thermal flows and wind shadows, RF line-of-sight propagation, custom high-density Li-Ion pack builds, and emergency GPS rescue fail-safe protocols.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "Alpine flight planning and topography research",
+      "Understanding wind shadows, thermal drafts, and rotors",
+      "Signal security: RF penetration and direct line-of-sight propagation",
+      "Li-Ion battery custom builds for high-altitude endurance (high capacity vs high discharge)",
+      "Emergency procedures and GPS Rescue activation checklist"
+    ],
+    "seo": {
+      "slug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
+      "metaDescription": "An advanced tactical guide for high-altitude ridge surfing. Explores mountain thermal flows and wind shadows, RF line-of-sight propagation, custom high-density Li-Ion pack builds, and emergency GPS rescue fail-safe protocols.",
+      "keywords": [
+        "fpv mountain surfing flight planning wind shadows and signal security",
+        "FPV specialization",
+        "advanced pilot guide"
+      ]
+    },
+    "createdAt": "2026-06-01T11:22:43.683Z",
+    "updatedAt": "2026-06-01T11:25:43.690Z",
+    "feedback": "The operation was aborted due to timeout"
+  },
+  {
+    "id": "brief-cinematic-fpv-orbit-techniques-mpv4bi1x",
+    "briefSlug": "cinematic-fpv-orbit-techniques",
+    "title": "Cinematic FPV Orbit Techniques: Mastering the 3D Glide Path",
+    "category": "Flight Guides",
+    "status": "published",
+    "topic": "A masterclass guide on executing orbital paths for cinematic capture. Learn mechanical tilting synchronization, 180-degree shutter ND filtering calculations, propwash avoidance, and Gyroflow post-production workflows.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "Introduction to the 3D cinematic orbit",
+      "Gimbal tilt and camera angle synchronization",
+      "Choosing the right ND filters for cinematic motion blur (the 180-degree rule)",
+      "Propwash handling and throttle smoothness during tight circles",
+      "Post-stabilization workflows (Gyroflow / ReelSteady configuration)"
+    ],
+    "seo": {
+      "slug": "cinematic-fpv-orbit-techniques",
+      "metaDescription": "A masterclass guide on executing orbital paths for cinematic capture. Learn mechanical tilting synchronization, 180-degree shutter ND filtering calculations, propwash avoidance, and Gyroflow post-production workflows.",
+      "keywords": [
+        "cinematic fpv orbit techniques",
+        "FPV specialization",
+        "advanced pilot guide"
+      ]
+    },
+    "createdAt": "2026-06-01T11:21:15.045Z",
+    "updatedAt": "2026-06-01T11:22:43.682Z",
+    "publishedPath": "content/published/cinematic-fpv-orbit-techniques.json"
+  },
+  {
+    "id": "brief-smoke-stopper-protocol-mpv41jzc",
+    "briefSlug": "smoke-stopper-protocol",
+    "title": "The Smoke Stopper Protocol: Save Your Stack on First Power-Up",
+    "category": "Build Guides",
+    "status": "published",
+    "topic": "A critical electronics guide explaining the function of a smoke stopper, bench testing procedures, current thresholds, and warning flags on the first battery connection.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "What is a smoke stopper (fuse vs solid state)",
+      "Solder bridge short circuits",
+      "Testing sequence (no props)",
+      "Normal power up signs vs immediate trip",
+      "Capacitor voltage spike absorbency"
+    ],
+    "seo": {
+      "slug": "smoke-stopper-protocol",
+      "metaDescription": "A critical electronics guide explaining the function of a smoke stopper, bench testing procedures, current thresholds, and warning flags on the first battery connection.",
+      "keywords": [
+        "smoke stopper protocol",
+        "FPV training",
+        "FPV beginners"
+      ]
+    },
+    "createdAt": "2026-06-01T11:13:30.984Z",
+    "updatedAt": "2026-06-01T11:15:27.182Z",
+    "publishedPath": "content/published/smoke-stopper-protocol.json"
+  },
+  {
+    "id": "brief-drone-anatomy-complete-guide-mpv3ykfy",
+    "briefSlug": "drone-anatomy-complete-guide",
+    "title": "FPV Drone Anatomy: The Complete Structural & Electrical Guide",
+    "category": "Flight Guides",
+    "status": "published",
+    "topic": "A complete beginner-first structural and electrical breakdown of a standard FPV drone, explaining how frames, motors, ESCs, flight controllers, receivers, and VTX interact.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "System architecture overview",
+      "Frame and propulsion mechanics",
+      "FC processing and gyro sensors",
+      "Communication links (ELRS and 5.8G VTX)",
+      "Solder continuity and bench safety"
+    ],
+    "seo": {
+      "slug": "drone-anatomy-complete-guide",
+      "metaDescription": "A complete beginner-first structural and electrical breakdown of a standard FPV drone, explaining how frames, motors, ESCs, flight controllers, receivers, and VTX interact.",
+      "keywords": [
+        "drone anatomy complete guide",
+        "FPV training",
+        "FPV beginners"
+      ]
+    },
+    "createdAt": "2026-06-01T11:11:11.614Z",
+    "updatedAt": "2026-06-01T11:13:30.983Z",
+    "publishedPath": "content/published/drone-anatomy-complete-guide.json"
+  },
+  {
+    "id": "brief-first-hover-training-mpv3wmxp",
+    "briefSlug": "first-hover-training",
+    "title": "First Hover Training: The Perfect Manual Takeoff Protocol",
+    "category": "Flight Guides",
+    "status": "published",
+    "topic": "A step-by-step procedure for your first battery in the real world. Learn physical layout checks, proper arming protocols, throttle hovering, and crash avoidance.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "Pre-flight diagnostic physical audit",
+      "Power on sequence (radio transmitter first)",
+      "Arming sequence and liftoff pop above ground effect",
+      "Horizon drilling and micro-corrections",
+      "The panic-disarm protocol"
+    ],
+    "seo": {
+      "slug": "first-hover-training",
+      "metaDescription": "A step-by-step procedure for your first battery in the real world. Learn physical layout checks, proper arming protocols, throttle hovering, and crash avoidance.",
+      "keywords": [
+        "first hover training",
+        "FPV training",
+        "FPV beginners"
+      ]
+    },
+    "createdAt": "2026-06-01T11:09:41.533Z",
+    "updatedAt": "2026-06-01T11:11:11.613Z",
+    "publishedPath": "content/published/first-hover-training.json"
+  },
+  {
     "id": "brief-fpv-beginner-setup-guide",
     "briefSlug": "fpv-beginner-setup-guide",
     "title": "FPV Beginner Setup Guide: The Easiest Way to Get Flying",

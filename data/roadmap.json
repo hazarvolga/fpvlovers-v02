@@ -36,7 +36,9 @@
             "Complete 20 flight hours virtually"
           ],
           "requiredArticles": [
-            "the-best-fpv-simulators-in-2026"
+            "the-best-fpv-simulators-in-2026-save-cash-and-log-hours-virtually",
+            "acro-mode-mental-model-for-fpv-beginners",
+            "first-hover-training"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -58,7 +60,7 @@
           ],
           "requiredArticles": [
             "how-to-choose-your-first-fpv-radio",
-            "expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight"
+            "expresslrs-beginner-guide"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -73,7 +75,7 @@
             "Distinguish video receiver antenna polarization patterns"
           ],
           "requiredArticles": [
-            "fpv-goggles-buying-guide"
+            "fpv-goggles-buyers-guide"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -88,7 +90,7 @@
             "Demonstrate understanding of storage charging guidelines"
           ],
           "requiredArticles": [
-            "fpv-lipo-battery-safety-charging-guide"
+            "lipo-battery-safety-guide"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -109,7 +111,7 @@
             "Calculate static thrust-to-weight metrics for prop dimensions"
           ],
           "requiredArticles": [
-            "how-to-choose-fpv-motors"
+            "fpv-motors-kv-and-stator-explained"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -130,7 +132,7 @@
             "Implement current protection rules on first power-up connection"
           ],
           "requiredArticles": [
-            "soldering-guide-for-fpv-drone-builders-solder-pads-temperature-and-tools"
+            "fpv-soldering-masterclass"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -151,7 +153,7 @@
             "Activate RPM filtering utilizing dynamic bidirectional DShot"
           ],
           "requiredArticles": [
-            "betaflight-pid-basics-for-beginners"
+            "betaflight-pid-basics"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -172,7 +174,7 @@
             "Execute a comprehensive pre-arm physical integrity audit"
           ],
           "requiredArticles": [
-            "no-video-in-fpv-a-beginner-troubleshooting-checklist"
+            "no-video-troubleshooting-guide"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -187,7 +189,7 @@
             "Calibrate minimal satellite lock configurations for arm validation"
           ],
           "requiredArticles": [
-            "gps-rescue-mode-setup-in-betaflight-never-lose-a-drone-to-a-failsafe"
+            "gps-rescue-setup-guide"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -208,7 +210,7 @@
             "Calculate appropriate ND filter indices matching shutter rates"
           ],
           "requiredArticles": [
-            "no-video-in-fpv-a-beginner-troubleshooting-checklist"
+            "cinematic-fpv-orbit-techniques"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -224,7 +226,7 @@
             "Configure aggressive D-term resonance vibration filters"
           ],
           "requiredArticles": [
-            "betaflight-pid-basics-for-beginners"
+            "betaflight-pid-basics"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -240,7 +242,7 @@
             "Flash low-latency custom firmware to 4-in-1 racers"
           ],
           "requiredArticles": [
-            "how-to-choose-fpv-motors"
+            "fpv-motors-kv-and-stator-explained"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -256,7 +258,7 @@
             "Assemble long-endurance high-density Li-Ion cell packs"
           ],
           "requiredArticles": [
-            "gps-rescue-mode-setup-in-betaflight-never-lose-a-drone-to-a-failsafe"
+            "long-range-fpv-basics-how-to-fly-beyond-the-trees-safely"
           ],
           "qualificationGate": {
             "type": "ManualCheck",
@@ -272,7 +274,7 @@
             "Calibrate dynamic commutation timing parameters in AM32"
           ],
           "requiredArticles": [
-            "soldering-guide-for-fpv-drone-builders-solder-pads-temperature-and-tools"
+            "fpv-soldering-masterclass"
           ],
           "qualificationGate": {
             "type": "ManualCheck",

@@ -12,6 +12,7 @@ import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
 import { Cpu, Shield, Zap, FileText, BookOpen } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
+import { ActiveSortieWidget } from '@/features/academy/components/ActiveSortieWidget';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -199,6 +200,8 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
           <AdStickySidebar />
         </aside>
       </div>
+
+      <ActiveSortieWidget slug={a.slug} />
     </div>
   );
 }
@@ -271,6 +274,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <AdStickySidebar />
           </aside>
         </div>
+
+        <ActiveSortieWidget slug={seed.slug} />
       </div>
     );
   }
@@ -380,6 +385,8 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
          <AdStickySidebar />
       </aside>
       </div>
+
+      <ActiveSortieWidget slug={resolvedParams.slug} />
     </div>
   );
 }

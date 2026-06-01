@@ -1,6 +1,6 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-06-01
+Last updated: 2026-06-01 (Academy & Specialization Phase)
 
 ## Immediate Priority
 
@@ -20,6 +20,8 @@ Last updated: 2026-06-01
 14. DONE Part Matcher stabilization (2026-06-01): duplicate demo CTA removed, neutral standby diagnostic state added, guided review disabled until required parts are selected, select accessibility wiring added, missing battery `cellCount` now warns instead of passing via motor fallback, catalog cache added, and `npm run tools:part-matcher:test` covers the voltage-data regression.
 15. DONE Blackbox critical GAP closure phase (2026-06-01): API now exposes `answerMode`, `gatewayStatus`, `sources`, and `retrievalConfidence`; UI no longer accepts raw `.bbl/.bfl`; CSV/text telemetry summary support, regression test, smoke script, hardened audit, and Blackbox source backlog were added.
 16. DONE Blackbox corpus queue phase (2026-06-01): 11 Blackbox/PID/filter/troubleshooting sources were connected to the general RAG backlog and enqueued into `data/crawl-queue.json`; `npm run tools:blackbox:sources` now reports pending/queued/crawled state.
+17. DONE FPV Academy Content & Phase 8 Specializations Ingestion (2026-06-01): All 15 P0 guides are fully generated/duplicated and mapped. Invalid raw newlines inside `expresslrs-beginner-guide.json` resolved. Generated advanced `cinematic-fpv-orbit-techniques` guide via live Dify RAG stream. Linked Phase 8 Cinematic Operator module to the orbital guide and Long Range Explorer module to the high-fidelity `long-range-fpv-basics-how-to-fly-beyond-the-trees-safely` guide. Verified both `npm run content:audit` (AUDIT PASSED) and `npx tsc --noEmit` (0 errors).
+
 
 ## Code Tasks Before Push
 
