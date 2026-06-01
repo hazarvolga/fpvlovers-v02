@@ -4,7 +4,6 @@
 
 ## No Video in FPV: A Beginner Troubleshooting Checklist
 
-```markdown
 # The Dreaded Black Screen: Getting Your FPV Video Back
 
 ## Introduction: The Dreaded Black Screen – Getting Your FPV Video Back
@@ -259,12 +258,4 @@ Every time you troubleshoot and fix a problem, you gain invaluable experience an
 ### Call to Action: Share Your Fixes & Fly On!
 
 Don't let a black screen keep you grounded. Use this guide, get your hands dirty, and get that FPV feed back! Once you've successfully diagnosed and fixed your issue, share your experience in the comments below. What was the culprit? What tips did you find most useful? Your insights can help countless other pilots facing the same frustrations. Now go forth, troubleshoot, and fly on!
-```
-```json
-{
-  "title": "FPV No Video Fix: Your Ultimate Troubleshooting Guide for Black Screens",
-  "description": "Facing a black screen in your FPV goggles? This comprehensive guide provides a step-by-step diagnostic flowchart for 'no video' issues, covering both analog and digital FPV systems. Learn to troubleshoot your FPV camera, VTX, FC, and wiring to get your video feed back.",
-  "keywords": "FPV no video fix, FPV troubleshooting, VTX no signal, FPV camera black screen, Goggles no image, Video transmitter not working, FPV wiring check, OSD no video feed, Analog FPV troubleshooting, Digital FPV no image, FPV drone video loss, FPV repair guide, FPV diagnostic, drone video problem"
-}
-```
 

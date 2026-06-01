@@ -79,6 +79,23 @@ const asMediaAsset = (value: unknown, fallbackAlt: string) => {
   };
 };
 
+export function cleanSectionContent(content: string): string {
+  let cleaned = content.trim();
+  if (!cleaned) return '';
+
+  // Remove leading markdown/json/html code block fences at the start of section content
+  const leadingFence = /^(?:```(?:markdown|json|html|xml)?\s*\n+)/i;
+  cleaned = cleaned.replace(leadingFence, '');
+
+  // Remove trailing JSON metadata blocks (like duplicates) that the LLM may have appended
+  cleaned = cleaned.replace(/\s*```json[\s\S]*?```\s*$/i, '');
+
+  // Remove trailing generic code fences at the end of the section content
+  cleaned = cleaned.replace(/\s*```\s*$/, '');
+
+  return cleaned.trim();
+}
+
 export function parseGeneratedContent(answer: string): GeneratedContent | null {
   const jsonText = extractJsonBlock(answer);
   if (!jsonText) return null;
@@ -120,7 +137,7 @@ export function parseGeneratedContent(answer: string): GeneratedContent | null {
         return {
           id: asString(sectionObj.id, `section-${index + 1}`),
           title: asString(sectionObj.title, `Section ${index + 1}`),
-          content: asString(sectionObj.content),
+          content: cleanSectionContent(asString(sectionObj.content)),
         };
       })
       .filter((section) => section.title && section.content);
