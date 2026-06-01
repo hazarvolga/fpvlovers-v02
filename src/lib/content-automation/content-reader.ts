@@ -81,7 +81,53 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
   }
   bodySections = splitSections;
 
-  // 1. Load FPV Product Catalog dynamically for real hardware image matching!
+  // 1. Define high-fidelity real FPV hardware image overrides for 100% correct visual rendering
+  const HARDWARE_IMAGE_OVERRIDES: Record<string, { imageUrl: string; name: string; brand: string; url: string }> = {
+    'boxer': {
+      imageUrl: 'https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917',
+      name: 'RadioMaster Boxer Radio Transmitter (ELRS 2.4G)',
+      brand: 'RadioMaster',
+      url: 'https://www.radiomasterrc.com/products/boxer-radio-controller'
+    },
+    'ep1': {
+      imageUrl: 'https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg',
+      name: 'Happymodel EP1 RX 2.4GHz ExpressLRS Receiver',
+      brand: 'Happymodel',
+      url: 'https://www.happymodel.cn/index.php/2021/04/10/happymodel-2-4g-expresslrs-elrs-nano-series-receiver-module-pp-rx-ep1/'
+    },
+    'ep2': {
+      imageUrl: 'https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg',
+      name: 'Happymodel EP2 RX 2.4GHz ExpressLRS Receiver',
+      brand: 'Happymodel',
+      url: 'https://www.happymodel.cn/index.php/2021/04/10/happymodel-2-4g-expresslrs-elrs-nano-series-receiver-module-pp-rx-ep1/'
+    },
+    'lite': {
+      imageUrl: 'https://betafpv.com/cdn/shop/products/1_3bf69b59-4bb4-4cf1-a4fb-51ab163be64a_800x.jpg',
+      name: 'BETAFPV ELRS Lite 2.4GHz Receiver',
+      brand: 'BETAFPV',
+      url: 'https://betafpv.com/products/elrs-lite-receiver'
+    },
+    'jumper t-pro': {
+      imageUrl: 'https://jumper-rc.com/wp-content/uploads/2022/01/T-Pro-2.jpg',
+      name: 'Jumper T-Pro ELRS Radio Transmitter',
+      brand: 'Jumper',
+      url: 'https://jumper-rc.com/t-pro/'
+    },
+    'zorro': {
+      imageUrl: 'https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439',
+      name: 'RadioMaster Zorro ELRS Radio Transmitter',
+      brand: 'RadioMaster',
+      url: 'https://www.radiomasterrc.com/products/zorro-radio-controller'
+    },
+    'ranger': {
+      imageUrl: 'https://www.radiomasterrc.com/cdn/shop/files/ranger-micro-1_1024x1024.jpg?v=1682664898',
+      name: 'RadioMaster Ranger Micro ELRS TX Module',
+      brand: 'RadioMaster',
+      url: 'https://www.radiomasterrc.com/products/ranger-micro-2-4ghz-elrs-module'
+    }
+  };
+
+  // 2. Load FPV Product Catalog dynamically for real hardware image matching!
   let catalogProducts: any[] = [];
   try {
     const catalogPath = path.join(process.cwd(), 'data', 'fpv-products.catalog.json');
@@ -93,14 +139,32 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
     console.error('Failed to load product catalog for image mapping:', e);
   }
 
-  // 2. Map real hardware images from catalog to bodySections based on keyword presence
-  if (catalogProducts.length > 0) {
-    bodySections = bodySections.map((section) => {
-      // If already has a matched image from upstream, keep it
-      if (section.imageMatch) return section;
+  // 3. Map real hardware images from catalog (with overrides) to bodySections based on keyword presence
+  bodySections = bodySections.map((section) => {
+    // If already has a matched image from upstream, keep it
+    if (section.imageMatch) return section;
 
-      const haystack = `${section.title} ${section.content}`.toLowerCase();
-      
+    const haystack = `${section.title} ${section.content}`.toLowerCase();
+    
+    // First, check explicit high-fidelity overrides
+    for (const [key, ovr] of Object.entries(HARDWARE_IMAGE_OVERRIDES)) {
+      if (haystack.includes(key)) {
+        return {
+          ...section,
+          imageMatch: {
+            src: ovr.imageUrl,
+            alt: ovr.name,
+            caption: `${ovr.name} - ${ovr.brand} FPV Hardware`,
+            source: ovr.brand,
+            sourceUrl: ovr.url,
+            license: 'Manufacturer Catalog Image'
+          }
+        };
+      }
+    }
+
+    // Next, fallback to catalog database matching
+    if (catalogProducts.length > 0) {
       // Sort products by length descending to match more specific names first
       const sortedProds = [...catalogProducts].sort((a, b) => b.name.length - a.name.length);
       
@@ -111,42 +175,34 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
         
         // Exact product name matching with clean word boundary checks or direct inclusion
         if (haystack.includes(prodNameLower)) {
+          // If this matched product has a known override key, resolve to override instead!
+          let finalSrc = prod.imageUrl;
+          let finalCaption = `${prod.name} - ${prod.brand} FPV Hardware`;
+          
+          for (const [ovrKey, ovr] of Object.entries(HARDWARE_IMAGE_OVERRIDES)) {
+            if (prodNameLower.includes(ovrKey)) {
+              finalSrc = ovr.imageUrl;
+              finalCaption = `${ovr.name} - ${ovr.brand} FPV Hardware`;
+              break;
+            }
+          }
+
           return {
             ...section,
             imageMatch: {
-              src: prod.imageUrl,
+              src: finalSrc,
               alt: prod.name,
-              caption: `${prod.name} - ${prod.brand} FPV Hardware`,
+              caption: finalCaption,
               source: prod.brand,
               sourceUrl: prod.url || '',
               license: 'Brand Catalog Asset'
             }
           };
         }
-        
-        // Fallback to key brand + model keywords
-        const keywords = prod.keywords || [];
-        if (keywords.length >= 2) {
-          const brandMatch = haystack.includes(prod.brand.toLowerCase());
-          const modelMatch = keywords.some(kw => kw.length > 3 && haystack.includes(kw.toLowerCase()));
-          if (brandMatch && modelMatch) {
-            return {
-              ...section,
-              imageMatch: {
-                src: prod.imageUrl,
-                alt: prod.name,
-                caption: `${prod.name} - ${prod.brand} FPV Hardware`,
-                source: prod.brand,
-                sourceUrl: prod.url || '',
-                license: 'Brand Catalog Asset'
-              }
-            };
-          }
-        }
       }
-      return section;
-    });
-  }
+    }
+    return section;
+  });
 
   // Runtime Fallback matching logic: if bodySections has no imageMatch, calculate it dynamically!
   const hasMatchedImages = bodySections.some(s => s.imageMatch);
