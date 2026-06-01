@@ -201,9 +201,42 @@ export async function POST(req: NextRequest) {
       if (!metrics.affiliate.byNetwork[network]) metrics.affiliate.byNetwork[network] = { clicks: 0, conversions: 0, revenue: 0 };
       metrics.affiliate.totalClicks = (metrics.affiliate.totalClicks || 0) + 1;
       metrics.affiliate.byNetwork[network].clicks += 1;
+
+      // Log to database in background
+      Promise.resolve().then(async () => {
+        try {
+          const { logAnalyticsEvent } = await import('@/lib/server/analytics-store');
+          await logAnalyticsEvent({
+            eventType: 'affiliate_click',
+            source: 'admin',
+            metadata: {
+              productId,
+              network
+            }
+          });
+        } catch (dbErr) {
+          console.warn('[DB Analytics] Failed to log affiliate click event:', dbErr);
+        }
+      });
     }
     if (mType === 'sponsor') {
       metrics.sponsor.totalClicks = (metrics.sponsor.totalClicks || 0) + 1;
+
+      // Log to database in background
+      Promise.resolve().then(async () => {
+        try {
+          const { logAnalyticsEvent } = await import('@/lib/server/analytics-store');
+          await logAnalyticsEvent({
+            eventType: 'sponsor_click',
+            source: 'admin',
+            metadata: {
+              productId
+            }
+          });
+        } catch (dbErr) {
+          console.warn('[DB Analytics] Failed to log sponsor click event:', dbErr);
+        }
+      });
     }
     metrics.updatedAt = new Date().toISOString();
     write(METRICS, metrics);
@@ -221,6 +254,24 @@ export async function POST(req: NextRequest) {
       metrics.affiliate.totalRevenue = (metrics.affiliate.totalRevenue || 0) + (convRevenue || 0);
       metrics.affiliate.byNetwork[network].conversions += 1;
       metrics.affiliate.byNetwork[network].revenue += (convRevenue || 0);
+
+      // Log to database in background
+      Promise.resolve().then(async () => {
+        try {
+          const { logAnalyticsEvent } = await import('@/lib/server/analytics-store');
+          await logAnalyticsEvent({
+            eventType: 'affiliate_conversion',
+            source: 'admin',
+            metadata: {
+              productId,
+              network,
+              revenue: convRevenue
+            }
+          });
+        } catch (dbErr) {
+          console.warn('[DB Analytics] Failed to log affiliate conversion event:', dbErr);
+        }
+      });
     }
     metrics.updatedAt = new Date().toISOString();
     write(METRICS, metrics);

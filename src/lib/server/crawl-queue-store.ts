@@ -364,6 +364,26 @@ export async function updateJobAsync(id: string, update: Partial<CrawlJob>): Pro
   const mode = getStorageMode();
   const q = fileLoad();
 
+  // Log crawl events to database in background
+  if (update.status === 'completed' || update.status === 'failed') {
+    Promise.resolve().then(async () => {
+      try {
+        const { logAnalyticsEvent } = await import('./analytics-store');
+        await logAnalyticsEvent({
+          eventType: update.status === 'completed' ? 'crawl_complete' : 'crawl_failed',
+          source: 'crawler',
+          metadata: {
+            jobId: id,
+            error: update.error,
+            tokens: update.tokens
+          }
+        });
+      } catch (dbErr) {
+        console.warn('[DB Analytics] Failed to log crawl event in background:', dbErr);
+      }
+    });
+  }
+
   if (mode === 'postgres') {
     return dbUpdateJob(id, update, q.config.retryDelaysMs);
   }

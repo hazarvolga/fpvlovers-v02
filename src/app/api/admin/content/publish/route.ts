@@ -91,6 +91,25 @@ export async function POST(req: NextRequest) {
     jobs[index] = job;
     await saveContentJobsNew(jobs);
 
+    // Log to database in background
+    Promise.resolve().then(async () => {
+      try {
+        const { logAnalyticsEvent } = await import('@/lib/server/analytics-store');
+        await logAnalyticsEvent({
+          eventType: 'content_publish',
+          contentSlug: slug,
+          source: 'admin',
+          metadata: {
+            jobId: job.id,
+            title: job.title,
+            category: job.category
+          }
+        });
+      } catch (dbErr) {
+        console.warn('[DB Analytics] Failed to log content publish event:', dbErr);
+      }
+    });
+
     return NextResponse.json({
       success: true,
       idempotent: false,
