@@ -19,13 +19,14 @@ Last updated: 2026-06-01
 13. DONE Public language cleanup (2026-05-29): visible public/admin product copy no longer uses `AutoBlog`, `AI`, or `Dify`; implementation details stay internal behind FPVLovers/pilot-tool/workflow wording.
 14. DONE Part Matcher stabilization (2026-06-01): duplicate demo CTA removed, neutral standby diagnostic state added, guided review disabled until required parts are selected, select accessibility wiring added, missing battery `cellCount` now warns instead of passing via motor fallback, catalog cache added, and `npm run tools:part-matcher:test` covers the voltage-data regression.
 15. DONE Blackbox critical GAP closure phase (2026-06-01): API now exposes `answerMode`, `gatewayStatus`, `sources`, and `retrievalConfidence`; UI no longer accepts raw `.bbl/.bfl`; CSV/text telemetry summary support, regression test, smoke script, hardened audit, and Blackbox source backlog were added.
+16. DONE Blackbox corpus queue phase (2026-06-01): 11 Blackbox/PID/filter/troubleshooting sources were connected to the general RAG backlog and enqueued into `data/crawl-queue.json`; `npm run tools:blackbox:sources` now reports pending/queued/crawled state.
 
 ## Code Tasks Before Push
 
 - Review current git status and separate unrelated pre-existing changes from deploy-critical fixes.
-- After deploy, run one production `/tools/blackbox-tuning` browser/API smoke and confirm the gateway is no longer `dry_run` if live Dify should be active.
-- Keep Blackbox Tuning marked `PARTIAL` until `fpv-pid-profiles` and `fpv-troubleshooting` have real corpus depth; current audit requires flight>=20, pid>=5, troubleshooting>=5 before PASS.
-- Ingest `data/fpv-rag-source-pack.blackbox.json` through `src/lib/crawl-queue.ts` only, starting with `CRAWL_DRY_RUN=true`.
+- After deploy, run `BLACKBOX_SMOKE_BASE_URL=https://fpvlovers.com.tr npm run tools:blackbox:smoke:strict` and confirm the gateway is no longer `dry_run` if live Dify should be active.
+- Keep Blackbox Tuning marked `PARTIAL` until queued Blackbox sources are crawled/ingested and `fpv-pid-profiles` plus `fpv-troubleshooting` have real corpus depth; current audit requires flight>=20, pid>=5, troubleshooting>=5 before PASS.
+- Process the 11 queued Blackbox source jobs through the existing crawl queue/cron path; do not bypass `src/lib/crawl-queue.ts`.
 - Defer Flight Critic until catalog-backed product tools are live; when resumed, require a dedicated Dify video/telemetry workflow before public positioning as true frame-level DVR analysis.
 - Verify Build Wizard and Part Matcher against production Dify credentials with `CRAWL_DRY_RUN=true` or equivalent safe mode before presenting the Dify response as live RAG-backed guidance.
 - Continue improving catalog quality before presenting Part Matcher or Component Duel as fully production-ready: current runtime has 102 products and 100 real images, but `npm run tools:audit` still marks product tools `PARTIAL` until crawler-backed specs and source provenance are stronger.

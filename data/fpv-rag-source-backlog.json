@@ -11,6 +11,38 @@
       "notes": "Core firmware docs; already partially represented in the workbook via redirects."
     },
     {
+      "name": "Betaflight PID Tuning Guide",
+      "url": "https://betaflight.com/docs/wiki/guides/current/PID-Tuning-Guide",
+      "desired_dataset": "fpv-pid-profiles",
+      "priority": "high",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P0 source for PID/FF tuning guidance."
+    },
+    {
+      "name": "Betaflight Filter Tuning",
+      "url": "https://betaflight.com/docs/wiki/guides/current/Filter-Tuning",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P0 source for filter/noise/motor heat tradeoffs."
+    },
+    {
+      "name": "Betaflight Blackbox Guide",
+      "url": "https://betaflight.com/docs/wiki/guides/current/Blackbox",
+      "desired_dataset": "fpv-troubleshooting",
+      "priority": "high",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P0 source for logging workflow and interpretation boundaries."
+    },
+    {
+      "name": "Betaflight RPM Filter Guide",
+      "url": "https://betaflight.com/docs/wiki/guides/current/RPM-Filter",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P0 source for RPM filter setup and troubleshooting."
+    },
+    {
       "name": "ExpressLRS",
       "url": "https://www.expresslrs.org/",
       "desired_dataset": "fpv-flight-tuning",
@@ -44,6 +76,46 @@
       "alternate_urls": [
         "https://oscarliang.com/connect-flash-blheli-32-esc/"
       ]
+    },
+    {
+      "name": "Oscar Liang FPV PID Tuning Guide",
+      "url": "https://oscarliang.com/pid/",
+      "desired_dataset": "fpv-pid-profiles",
+      "priority": "high",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P0 source for practical FPV PID symptom mapping."
+    },
+    {
+      "name": "Oscar Liang Betaflight Filtering",
+      "url": "https://oscarliang.com/betaflight-filtering/",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "high",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P0 source for filter tuning, delay, noise, and heat."
+    },
+    {
+      "name": "Oscar Liang RPM Filter",
+      "url": "https://oscarliang.com/rpm-filter/",
+      "desired_dataset": "fpv-flight-tuning",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P1 source for RPM filter context."
+    },
+    {
+      "name": "Oscar Liang Blackbox Logging",
+      "url": "https://oscarliang.com/blackbox/",
+      "desired_dataset": "fpv-troubleshooting",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P1 source for Blackbox Explorer usage and interpretation."
+    },
+    {
+      "name": "UAV Tech Betaflight Presets",
+      "url": "https://theuavtech.com/presets/",
+      "desired_dataset": "fpv-pid-profiles",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P1 source for preset-oriented baselines."
     },
     {
       "name": "MEPS King",
@@ -81,6 +153,22 @@
         "https://intofpv.com/t-tuning",
         "https://intofpv.com/t-pid-tuning-boundaries"
       ]
+    },
+    {
+      "name": "IntoFPV PID Tuning Guide Thread",
+      "url": "https://intofpv.com/t-pid-tuning-guide",
+      "desired_dataset": "fpv-pid-profiles",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P2 community source for tuning vocabulary."
+    },
+    {
+      "name": "IntoFPV Blackbox Analysis Discussions",
+      "url": "https://intofpv.com/t-blackbox-analysis",
+      "desired_dataset": "fpv-troubleshooting",
+      "priority": "medium",
+      "status": "missing",
+      "notes": "Blackbox Tuning Advisor P2 community troubleshooting source."
     },
     {
       "name": "RCGroups",

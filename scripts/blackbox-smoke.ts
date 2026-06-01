@@ -1,4 +1,5 @@
 const baseUrl = process.env.BLACKBOX_SMOKE_BASE_URL || 'http://127.0.0.1:3000';
+const strictContract = process.argv.includes('--strict-contract');
 
 async function main() {
   const payload = new FormData();
@@ -39,6 +40,10 @@ async function main() {
 
   if (!response.ok || !data.success || !data.result) {
     throw new Error(data.error || `Blackbox smoke failed with HTTP ${response.status}`);
+  }
+
+  if (strictContract && (!data.answerMode || !data.gatewayStatus)) {
+    throw new Error('Blackbox smoke failed strict contract: missing answerMode/gatewayStatus. The target may still be running an old deployment.');
   }
 
   console.log(JSON.stringify({

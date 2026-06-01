@@ -81,6 +81,25 @@ const blackboxSourcePackPath = path.join(process.cwd(), 'data', 'fpv-rag-source-
 const blackboxSourceCount = fs.existsSync(blackboxSourcePackPath)
   ? (JSON.parse(fs.readFileSync(blackboxSourcePackPath, 'utf-8')) as { sources?: unknown[] }).sources?.length ?? 0
   : 0;
+const blackboxSourceUrls = fs.existsSync(blackboxSourcePackPath)
+  ? ((JSON.parse(fs.readFileSync(blackboxSourcePackPath, 'utf-8')) as { sources?: { url?: unknown }[] }).sources ?? [])
+    .map((source) => source.url)
+    .filter((url): url is string => typeof url === 'string')
+  : [];
+const crawlQueuePath = path.join(process.cwd(), 'data', 'crawl-queue.json');
+const crawlQueueJobs = fs.existsSync(crawlQueuePath)
+  ? (JSON.parse(fs.readFileSync(crawlQueuePath, 'utf-8')) as { jobs?: { url?: unknown; status?: unknown }[] }).jobs ?? []
+  : [];
+const blackboxQueuedCount = crawlQueueJobs.filter((job) =>
+  typeof job.url === 'string'
+  && blackboxSourceUrls.includes(job.url)
+  && ['pending', 'processing', 'throttled'].includes(String(job.status))
+).length;
+const blackboxCrawledCount = crawlQueueJobs.filter((job) =>
+  typeof job.url === 'string'
+  && blackboxSourceUrls.includes(job.url)
+  && job.status === 'completed'
+).length;
 const blackboxUiPath = path.join(process.cwd(), 'src', 'features', 'tools', 'components', 'BlackboxTuner.tsx');
 const blackboxUiSource = fs.existsSync(blackboxUiPath) ? fs.readFileSync(blackboxUiPath, 'utf-8') : '';
 const blackboxAcceptMatch = blackboxUiSource.match(/accept="([^"]+)"/);
@@ -141,7 +160,7 @@ const rows: AuditRow[] = [
         ? 'PASS'
         : 'PARTIAL',
     'local tuning guardrail + guided blackbox workflow',
-    `Workflow configured: ${hasDifyApp('Blackbox Tuning Advisor')}; docs flight=${flightTuningDocs}, pid=${pidProfileDocs}, troubleshooting=${troubleshootingDocs}; source backlog=${blackboxSourceCount}; binary promise aligned=${blackboxBinaryPromiseAligned}; smoke=${blackboxSmokeExists}.`,
+    `Workflow configured: ${hasDifyApp('Blackbox Tuning Advisor')}; docs flight=${flightTuningDocs}, pid=${pidProfileDocs}, troubleshooting=${troubleshootingDocs}; source backlog=${blackboxSourceCount}; queued=${blackboxQueuedCount}; crawled=${blackboxCrawledCount}; binary promise aligned=${blackboxBinaryPromiseAligned}; smoke=${blackboxSmokeExists}.`,
     'Run production gateway smoke, ingest the blackbox source pack, then require corpus depth before marking PASS.',
   ),
   row(
@@ -158,7 +177,7 @@ console.table(rows);
 console.log(`Catalog summary: ${productCatalogFinding}`);
 console.log(`Product source pack: ${productSourceCount} crawler source(s) ready for catalog expansion`);
 console.log(`Dataset routing doc counts: components=${componentsDocs}, build=${buildDocs}, tuning=${tuningDocs}`);
-console.log(`Blackbox source pack: ${blackboxSourceCount} source(s); binary upload promise aligned=${blackboxBinaryPromiseAligned}; smoke script=${blackboxSmokeExists}`);
+console.log(`Blackbox source pack: ${blackboxSourceCount} source(s); queued=${blackboxQueuedCount}; crawled=${blackboxCrawledCount}; binary upload promise aligned=${blackboxBinaryPromiseAligned}; smoke script=${blackboxSmokeExists}`);
 
 const strictFailures = rows.filter((auditRow) => auditRow.status === 'FAIL');
 if (strict && strictFailures.length > 0) {

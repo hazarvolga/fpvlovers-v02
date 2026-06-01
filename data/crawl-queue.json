@@ -1,6 +1,127 @@
 {
   "jobs": [
     {
+      "id": "mpuzyx29iuul",
+      "url": "https://intofpv.com/t-blackbox-analysis",
+      "dataset": "fpv-troubleshooting",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.505Z",
+      "updatedAt": "2026-06-01T09:19:29.505Z"
+    },
+    {
+      "id": "mpuzyx29vzvg",
+      "url": "https://oscarliang.com/blackbox/",
+      "dataset": "fpv-troubleshooting",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.505Z",
+      "updatedAt": "2026-06-01T09:19:29.505Z"
+    },
+    {
+      "id": "mpuzyx2952ac",
+      "url": "https://betaflight.com/docs/wiki/guides/current/Blackbox",
+      "dataset": "fpv-troubleshooting",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.505Z",
+      "updatedAt": "2026-06-01T09:19:29.505Z"
+    },
+    {
+      "id": "mpuzyx285o7o",
+      "url": "https://oscarliang.com/rpm-filter/",
+      "dataset": "fpv-flight-tuning",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.504Z",
+      "updatedAt": "2026-06-01T09:19:29.504Z"
+    },
+    {
+      "id": "mpuzyx28ode5",
+      "url": "https://oscarliang.com/betaflight-filtering/",
+      "dataset": "fpv-flight-tuning",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.504Z",
+      "updatedAt": "2026-06-01T09:19:29.504Z"
+    },
+    {
+      "id": "mpuzyx28cypd",
+      "url": "https://betaflight.com/docs/wiki/guides/current/RPM-Filter",
+      "dataset": "fpv-flight-tuning",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.504Z",
+      "updatedAt": "2026-06-01T09:19:29.504Z"
+    },
+    {
+      "id": "mpuzyx28s8h8",
+      "url": "https://betaflight.com/docs/wiki/guides/current/Filter-Tuning",
+      "dataset": "fpv-flight-tuning",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.504Z",
+      "updatedAt": "2026-06-01T09:19:29.504Z"
+    },
+    {
+      "id": "mpuzyx27gp8h",
+      "url": "https://intofpv.com/t-pid-tuning-guide",
+      "dataset": "fpv-pid-profiles",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.503Z",
+      "updatedAt": "2026-06-01T09:19:29.503Z"
+    },
+    {
+      "id": "mpuzyx27txh1",
+      "url": "https://theuavtech.com/presets/",
+      "dataset": "fpv-pid-profiles",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.503Z",
+      "updatedAt": "2026-06-01T09:19:29.503Z"
+    },
+    {
+      "id": "mpuzyx27t3r1",
+      "url": "https://oscarliang.com/pid/",
+      "dataset": "fpv-pid-profiles",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.503Z",
+      "updatedAt": "2026-06-01T09:19:29.503Z"
+    },
+    {
+      "id": "mpuzyx26ze46",
+      "url": "https://betaflight.com/docs/wiki/guides/current/PID-Tuning-Guide",
+      "dataset": "fpv-pid-profiles",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-01T09:19:29.502Z",
+      "updatedAt": "2026-06-01T09:19:29.503Z"
+    },
+    {
       "id": "mpr9bonzg6bx",
       "url": "https://geprc.com/product-category/fpv-drones/",
       "dataset": "fpv-build-guides",
@@ -381,8 +502,8 @@
     ]
   },
   "stats": {
-    "total": 33,
-    "pending": 16,
+    "total": 44,
+    "pending": 27,
     "completed": 17,
     "failed": 0,
     "throttled": 0
