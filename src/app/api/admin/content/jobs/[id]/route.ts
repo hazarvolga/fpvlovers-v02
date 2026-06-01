@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { loadContentJobs, saveContentJobs } from '@/lib/content-automation/queue';
+import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
 import type { ContentJobStatus } from '@/lib/content-automation/types';
 
 type TransitionMap = Record<ContentJobStatus, ContentJobStatus[]>;
@@ -21,7 +21,7 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const jobs = loadContentJobs();
+    const jobs = await loadContentJobsNew();
     const job = jobs.find((j) => j.id === id);
 
     if (!job) {
@@ -51,7 +51,7 @@ export async function PATCH(
       );
     }
 
-    const jobs = loadContentJobs();
+    const jobs = await loadContentJobsNew();
     const index = jobs.findIndex((j) => j.id === id);
 
     if (index === -1) {
@@ -87,7 +87,7 @@ export async function PATCH(
     }
 
     jobs[index] = job;
-    saveContentJobs(jobs);
+    await saveContentJobsNew(jobs);
 
     return NextResponse.json({ success: true, job });
   } catch (err: any) {

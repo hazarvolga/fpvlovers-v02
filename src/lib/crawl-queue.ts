@@ -1,5 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import {
+  enqueueUrlsAsync,
+  getNextBatchAsync,
+  updateJobAsync,
+  getQueueStatusAsync,
+  clearQueueAsync
+} from './server/crawl-queue-store';
 
 const QUEUE_FILE = path.join(process.cwd(), 'data', 'crawl-queue.json');
 
@@ -38,7 +45,7 @@ export interface CrawlQueue {
   };
 }
 
-// ─── LOAD/SAVE ───
+// ─── SYNCHRONOUS BACKWARD COMPATIBILITY APIs (Files Only) ───
 
 function calculateStats(jobs: CrawlJob[]): CrawlQueue['stats'] {
   return {
@@ -73,8 +80,6 @@ function save(q: CrawlQueue) {
   q.stats = calculateStats(q.jobs);
   try { fs.writeFileSync(QUEUE_FILE, `${JSON.stringify(q, null, 2)}\n`); } catch {}
 }
-
-// ─── QUEUE OPERATIONS ───
 
 export function enqueueUrls(urls: string[], dataset?: string): CrawlJob[] {
   const q = load();
@@ -121,7 +126,6 @@ export function updateJob(id: string, update: Partial<CrawlJob>) {
 
   Object.assign(job, { ...update, updatedAt: new Date().toISOString() });
 
-  // Auto-retry logic
   if (update.status === 'throttled' && job.retries < job.maxRetries) {
     const delay = q.config.retryDelaysMs[job.retries] || q.config.retryDelaysMs[q.config.retryDelaysMs.length - 1];
     job.nextRetryAt = new Date(Date.now() + delay).toISOString();
@@ -146,4 +150,26 @@ export function clearQueue() {
 
 export function getBatchConfig() {
   return load().config;
+}
+
+// ─── ASYNCHRONOUS ORCHESTRATED APIs (Files / Dual / Postgres Mode) ───
+
+export async function enqueueUrlsNew(urls: string[], dataset?: string): Promise<CrawlJob[]> {
+  return enqueueUrlsAsync(urls, dataset);
+}
+
+export async function getNextBatchNew(): Promise<CrawlJob[]> {
+  return getNextBatchAsync();
+}
+
+export async function updateJobNew(id: string, update: Partial<CrawlJob>): Promise<void> {
+  return updateJobAsync(id, update);
+}
+
+export async function getQueueStatusNew(): Promise<CrawlQueue> {
+  return getQueueStatusAsync();
+}
+
+export async function clearQueueNew(): Promise<void> {
+  return clearQueueAsync();
 }

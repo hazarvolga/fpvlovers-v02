@@ -1,11 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 import type { ContentJob } from './types';
+import { 
+  loadContentJobsAsync, 
+  saveContentJobsAsync, 
+  enqueueContentJobAsync 
+} from '../server/content-jobs-store';
 
 const QUEUE_FILE = path.join(process.cwd(), 'data', 'content-jobs.json');
 
+// --- SYNCHRONOUS BACKWARD COMPATIBILITY APIs (Files Only) ---
 export function loadContentJobs(): ContentJob[] {
   try {
+    if (!fs.existsSync(QUEUE_FILE)) return [];
     const raw = fs.readFileSync(QUEUE_FILE, 'utf-8');
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
@@ -39,4 +46,17 @@ export function enqueueContentJob(job: ContentJob): ContentJob[] {
   jobs.push(enriched);
   saveContentJobs(jobs);
   return jobs;
+}
+
+// --- ASYNCHRONOUS ORCHESTRATED APIs (Files / Dual / Postgres Mode) ---
+export async function loadContentJobsNew(): Promise<ContentJob[]> {
+  return loadContentJobsAsync();
+}
+
+export async function saveContentJobsNew(jobs: ContentJob[]): Promise<void> {
+  return saveContentJobsAsync(jobs);
+}
+
+export async function enqueueContentJobNew(job: ContentJob): Promise<ContentJob[]> {
+  return enqueueContentJobAsync(job);
 }

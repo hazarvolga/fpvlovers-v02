@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { loadContentJobs, saveContentJobs } from '@/lib/content-automation/queue';
+import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
 import type { ContentJob, ContentJobStatus } from '@/lib/content-automation/types';
 import type { GeneratedContent } from '@/lib/content-automation/parse-generated-content';
 import { buildContentMedia } from '@/lib/content-automation/content-media';
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const jobs = loadContentJobs();
+    const jobs = await loadContentJobsNew();
     const index = jobs.findIndex((j) => j.id === jobId);
 
     if (index === -1) {
@@ -89,7 +89,7 @@ export async function POST(req: NextRequest) {
     job.updatedAt = now;
     job.publishedPath = publishedFile;
     jobs[index] = job;
-    saveContentJobs(jobs);
+    await saveContentJobsNew(jobs);
 
     return NextResponse.json({
       success: true,

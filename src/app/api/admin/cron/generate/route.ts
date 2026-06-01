@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { loadContentJobs, saveContentJobs } from '@/lib/content-automation/queue';
+import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
 import { enqueueBestBriefs } from '@/lib/content-automation/brief-from-source';
 import { generateContentViaDify } from '@/lib/content-automation/dify-generation';
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
@@ -9,6 +9,7 @@ import { firstWaveContentPlan } from '@/lib/content-plan';
 import { authorizeCronRequest } from '@/lib/cron-auth';
 import { getPublishedSlugs } from '@/lib/content-automation/content-reader';
 import type { ContentJob } from '@/lib/content-automation/types';
+import { logAutomationRun } from '@/lib/server/automation-runs-store';
 
 const LAST_RUN_FILE = path.join(process.cwd(), 'data', 'content-last-auto-run.json');
 const MAX_AUTO_GENERATE_PER_RUN = 1;
@@ -57,7 +58,7 @@ export async function GET(req: Request) {
 
   try {
     const dryRun = isDryRun(req);
-    const jobs = loadContentJobs();
+    const jobs = await loadContentJobsNew();
     const existingSlugs = buildExistingSlugSet(jobs);
 
     const readyJobs = jobs.filter((j) => j.status === 'queued');
@@ -79,6 +80,21 @@ export async function GET(req: Request) {
           job: { id: job.id, title: job.title, status: job.status },
           error: 'Workflow app key is not configured',
         });
+
+        // Log to database in background
+        Promise.resolve().then(async () => {
+          try {
+            await logAutomationRun({
+              kind: 'generate',
+              status: 'blocked',
+              errorMessage: 'Workflow app key is not configured',
+              summary: { jobId: job.id, topic: job.topic }
+            });
+          } catch (dbErr) {
+            console.warn('[DB Status Log] Failed to log generate blocked run:', dbErr);
+          }
+        });
+
         return NextResponse.json(
           {
             success: false,
@@ -92,7 +108,7 @@ export async function GET(req: Request) {
 
       job.status = 'generating';
       job.updatedAt = new Date().toISOString();
-      saveContentJobs(jobs);
+      await saveContentJobsNew(jobs);
 
       const result = await generateContentViaDify({
         topic: job.topic,
@@ -108,7 +124,7 @@ export async function GET(req: Request) {
         },
       });
 
-      const latestJobs = loadContentJobs();
+      const latestJobs = await loadContentJobsNew();
       const index = latestJobs.findIndex((candidate) => candidate.id === job.id);
       if (index === -1) {
         throw new Error(`Generated job disappeared from queue: ${job.id}`);
@@ -119,12 +135,27 @@ export async function GET(req: Request) {
         latestJob.status = 'failed';
         latestJob.feedback = 'Workflow returned no publishable content.';
         latestJob.updatedAt = new Date().toISOString();
-        saveContentJobs(latestJobs);
+        await saveContentJobsNew(latestJobs);
         writeLastRun({
           action: 'failed',
           job: { id: latestJob.id, title: latestJob.title, status: latestJob.status },
           error: latestJob.feedback,
         });
+
+        // Log to database in background
+        Promise.resolve().then(async () => {
+          try {
+            await logAutomationRun({
+              kind: 'generate',
+              status: 'failed',
+              errorMessage: latestJob.feedback,
+              summary: { jobId: latestJob.id, topic: latestJob.topic, workflowRunId: result.workflowRunId }
+            });
+          } catch (dbErr) {
+            console.warn('[DB Status Log] Failed to log generate failed run:', dbErr);
+          }
+        });
+
         return NextResponse.json(
           {
             success: false,
@@ -144,7 +175,7 @@ export async function GET(req: Request) {
         result.content,
       );
       latestJobs[index] = latestJob;
-      saveContentJobs(latestJobs);
+      await saveContentJobsNew(latestJobs);
       writeLastRun({
         action: 'published',
         job: {
@@ -153,6 +184,26 @@ export async function GET(req: Request) {
           status: latestJob.status,
           publishedPath: latestJob.publishedPath,
         },
+      });
+
+      // Log to database in background
+      Promise.resolve().then(async () => {
+        try {
+          await logAutomationRun({
+            kind: 'generate',
+            status: 'published',
+            summary: {
+              jobId: latestJob.id,
+              title: latestJob.title,
+              publishedPath: latestJob.publishedPath,
+              workflowRunId: result.workflowRunId,
+              totalTokens: result.totalTokens,
+              elapsedTime: result.elapsedTime
+            }
+          });
+        } catch (dbErr) {
+          console.warn('[DB Status Log] Failed to log generate published run:', dbErr);
+        }
       });
 
       return NextResponse.json({
@@ -187,10 +238,23 @@ export async function GET(req: Request) {
 
         brief.status = 'queued';
         brief.updatedAt = new Date().toISOString();
-        saveContentJobs(jobs);
+        await saveContentJobsNew(jobs);
         writeLastRun({
           action: 'queued',
           job: { id: brief.id, title: brief.title, status: brief.status },
+        });
+
+        // Log to database in background
+        Promise.resolve().then(async () => {
+          try {
+            await logAutomationRun({
+              kind: 'generate',
+              status: 'queued',
+              summary: { jobId: brief.id, title: brief.title }
+            });
+          } catch (dbErr) {
+            console.warn('[DB Status Log] Failed to log generate queued brief run:', dbErr);
+          }
         });
 
         return NextResponse.json({
@@ -200,6 +264,19 @@ export async function GET(req: Request) {
           message: `Brief "${brief.title}" advanced to queued. Next cron run will trigger generation.`,
         });
       }
+
+      // Log to database in background
+      Promise.resolve().then(async () => {
+        try {
+          await logAutomationRun({
+            kind: 'generate',
+            status: 'noop',
+            summary: { totalJobs: jobs.length, publishedJobs: jobs.filter((j) => j.status === 'published').length }
+          });
+        } catch (dbErr) {
+          console.warn('[DB Status Log] Failed to log generate noop run:', dbErr);
+        }
+      });
 
       return NextResponse.json({
         success: true,
@@ -223,11 +300,27 @@ export async function GET(req: Request) {
       brief.status = 'queued';
       brief.updatedAt = new Date().toISOString();
     }
-    saveContentJobs([...jobs, ...newBriefs]);
+    await saveContentJobsNew([...jobs, ...newBriefs]);
     writeLastRun({
       action: 'enqueued',
       count: newBriefs.length,
       briefs: newBriefs.map((brief) => ({ id: brief.id, title: brief.title })),
+    });
+
+    // Log to database in background
+    Promise.resolve().then(async () => {
+      try {
+        await logAutomationRun({
+          kind: 'generate',
+          status: 'enqueued',
+          summary: {
+            count: newBriefs.length,
+            briefs: newBriefs.map((brief) => ({ id: brief.id, title: brief.title }))
+          }
+        });
+      } catch (dbErr) {
+        console.warn('[DB Status Log] Failed to log generate enqueued run:', dbErr);
+      }
     });
 
     return NextResponse.json({
@@ -239,6 +332,20 @@ export async function GET(req: Request) {
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown cron generate error';
+    
+    // Log to database in background
+    Promise.resolve().then(async () => {
+      try {
+        await logAutomationRun({
+          kind: 'generate',
+          status: 'failed',
+          errorMessage: message
+        });
+      } catch (dbErr) {
+        console.warn('[DB Status Log] Failed to log generate error run:', dbErr);
+      }
+    });
+
     return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

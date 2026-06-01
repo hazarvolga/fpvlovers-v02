@@ -56,6 +56,12 @@ export type ContentJob = {
   draftPath?: string;
   publishedPath?: string;
   feedback?: string;
+  draft?: Record<string, unknown>;
+  error_message?: string;
+  attempt_count?: number;
+  scheduled_for?: string;
+  started_at?: string;
+  completed_at?: string;
   createdAt: string;
   updatedAt: string;
 };

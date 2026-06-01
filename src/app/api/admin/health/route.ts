@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 import { checkCrawlerHealth } from '@/lib/crawler-health';
+import { checkDbHealth } from '@/lib/server/db';
+import { getStorageMode } from '@/lib/server/storage-mode';
 
 const DIFY_PAGES = [
   { name: 'Workflow API Gateway', url: process.env.DIFY_BASE_URL || 'https://dify.affexai.tr/v1', redirect: 'manual' as const },
@@ -10,6 +12,7 @@ export async function GET() {
   const services: { name: string; status: 'up' | 'down'; latency: number; version?: string; detail?: string }[] = [];
   const startedAt = Date.now();
 
+  // 1. Check Crawler Health
   const crawlerHealth = await checkCrawlerHealth();
   for (const crawler of crawlerHealth) {
     const statusDetail = [
@@ -27,6 +30,7 @@ export async function GET() {
     });
   }
 
+  // 2. Check Dify Pages
   for (const d of DIFY_PAGES) {
     try {
       const t0 = Date.now();
@@ -47,6 +51,16 @@ export async function GET() {
     }
   }
 
+  // 3. Check PostgreSQL Database Health
+  const storageMode = getStorageMode();
+  const dbHealth = await checkDbHealth();
+  services.push({
+    name: `PostgreSQL (${storageMode} mode)`,
+    status: dbHealth.healthy ? 'up' : (storageMode === 'files' ? 'up' : 'down'),
+    latency: dbHealth.latencyMs || 0,
+    detail: dbHealth.error ? `DB Error: ${dbHealth.error}` : `Connection active`,
+  });
+
   const totalLatency = Date.now() - startedAt;
   const upCount = services.filter(s => s.status === 'up').length;
 
@@ -57,3 +71,4 @@ export async function GET() {
     collectionMs: totalLatency,
   });
 }
+

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { loadContentJobs, enqueueContentJob } from '@/lib/content-automation/queue';
+import { loadContentJobsNew, enqueueContentJobNew } from '@/lib/content-automation/queue';
 import type { ContentJobStatus } from '@/lib/content-automation/types';
 
 export async function GET(req: NextRequest) {
@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
     const status = url.searchParams.get('status') as ContentJobStatus | null;
     const limit = Math.min(Number(url.searchParams.get('limit') || 50), 200);
 
-    let jobs = loadContentJobs();
+    let jobs = await loadContentJobsNew();
     if (status) {
       jobs = jobs.filter((j) => j.status === status);
     }
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
       updatedAt: now,
     };
 
-    const existing = loadContentJobs();
+    const existing = await loadContentJobsNew();
     if (existing.some((j) => j.id === id)) {
       return NextResponse.json(
         { success: false, error: `Job with id "${id}" already exists` },
@@ -67,7 +67,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    enqueueContentJob(job);
+    await enqueueContentJobNew(job);
 
     return NextResponse.json({ success: true, job }, { status: 201 });
   } catch (err: any) {
