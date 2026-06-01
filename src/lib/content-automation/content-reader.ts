@@ -24,7 +24,22 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
   const category = typeof parsed.category === 'string' && parsed.category ? parsed.category : 'FPV Reference';
   const excerpt = typeof parsed.excerpt === 'string' ? parsed.excerpt : '';
   const resolvedMedia = buildContentMedia({ slug: parsed.slug, title, category, excerpt });
-  const media = parsed.media || resolvedMedia;
+  
+  // Eğer JSON dosyasındaki galeri boş ise, dinamik olarak en güncel lisanslı galeriyi enjekte et
+  const media = {
+    ...resolvedMedia,
+    ...(parsed.media || {}),
+    gallery: (parsed.media?.gallery && parsed.media.gallery.length > 0)
+      ? parsed.media.gallery
+      : resolvedMedia.gallery,
+    attribution: (parsed.media?.attribution && parsed.media.attribution.length > 0)
+      ? parsed.media.attribution
+      : resolvedMedia.attribution,
+    imageSources: (parsed.media?.imageSources && parsed.media.imageSources.length > 0)
+      ? parsed.media.imageSources
+      : resolvedMedia.imageSources
+  };
+
   const coverImage = media.coverImage?.src?.startsWith('/api/content/media/cover/')
     ? resolvedMedia.coverImage || { ...media.coverImage, src: buildCoverImageUrl(parsed.slug) }
     : media.coverImage;
