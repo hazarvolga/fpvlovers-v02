@@ -6,12 +6,12 @@ import { fetchEditorialInsights } from '@/lib/dify';
 import { getPublishedContentBySlug, type PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { AffiliateButton } from '@/features/monetization/components/AffiliateButton';
 import { AdZone } from '@/features/monetization/components/AdZone';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
-import { ArrowLeft, Cpu, Shield, Zap, FileText, BookOpen } from 'lucide-react';
+import { Cpu, Shield, Zap, FileText, BookOpen } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
+import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -58,27 +58,9 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
   ];
 
   const gallery = a.media?.gallery || [];
-  const bodySectionsWithImages = a.bodySections?.map((section, index) => {
-    let content = section.content;
-    
-    // 2. ve 4. sectionların sonuna galerideki ilgili resimleri enjekte edelim
-    if (index === 1 && gallery[0]) {
-      content += `\n\n![${gallery[0].alt || 'Visual Reference'}](${gallery[0].src})\n\n`;
-      if (gallery[0].sourceUrl) {
-        content += `\n\n_[Source: ${gallery[0].credit || 'Original Link'}](${gallery[0].sourceUrl})_\n\n`;
-      }
-    } else if (index === 3 && gallery[1]) {
-      content += `\n\n![${gallery[1].alt || 'Visual Reference'}](${gallery[1].src})\n\n`;
-      if (gallery[1].sourceUrl) {
-        content += `\n\n_[Source: ${gallery[1].credit || 'Original Link'}](${gallery[1].sourceUrl})_\n\n`;
-      }
-    }
-    
-    return {
-      ...section,
-      content,
-    };
-  }) || [];
+
+  // Merge all body sections into a single Markdown string
+  const fullMarkdown = (a.bodySections || []).map(s => s.content).join('\n\n');
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
@@ -141,35 +123,11 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
               )}
             </div>
 
-            <div className="prose prose-invert max-w-none text-white/70 antialiased leading-relaxed mb-12 prose-headings:text-white prose-a:text-[#00F5FF] prose-strong:text-white/90 prose-li:text-white/60 prose-code:text-[#00FF66]">
-              {bodySectionsWithImages.map((section: { id: string; title: string; content: string }) => (
-                <section key={section.id} className="mb-10">
-                  {section.title && section.title !== a.title && (
-                    <h2 className="text-2xl font-bold text-white mt-0 mb-4">{section.title}</h2>
-                  )}
-                  <div
-                    className="space-y-4 animate-fadeIn"
-                    dangerouslySetInnerHTML={{
-                      __html: section.content
-                        .replace(/^# /gm, '### ')
-                        .replace(/^## /gm, '### ')
-                        .replace(/^### /gm, '#### ')
-                        // Premium FPV UI styling for inline images
-                        .replace(/!\[(.*?)\]\((.*?)\)/g, '<figure class="my-8 overflow-hidden rounded-xl border border-[#00F5FF]/10 bg-[#050810]/50"><img src="$2" alt="$1" class="w-full object-cover aspect-[16/9] hover:scale-[1.02] transition-transform duration-500" /><figcaption class="p-3 text-[10px] text-white/40 font-mono flex items-center justify-between"><span>$1</span></figcaption></figure>')
-                        // Double wrap protection for source links under images
-                        .replace(/_\[Source:\s*(.+?)\]\((.+?)\)_/g, '<div class="text-[10px] text-white/30 font-mono italic -mt-6 mb-8 flex items-center justify-end"><a href="$2" target="_blank" rel="noopener noreferrer" class="text-[#00F5FF] hover:text-[#00FF66] transition-colors font-bold uppercase tracking-widest text-[9px]">[ View Original Image Source: $1 ]</a></div>')
-                        .replace(/\n\n/g, '</p><p>')
-                        .replace(/^/, '<p>')
-                        .replace(/$/, '</p>')
-                        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-                        .replace(/\*(.+?)\*/g, '<em>$1</em>')
-                        .replace(/- (.+)/g, '<li>$1</li>')
-                        .replace(/(<li>.*<\/li>)/, '<ul>$1</ul>'),
-                    }}
-                  />
-                </section>
-              ))}
-            </div>
+            {/* Full Markdown render with gallery */}
+            <MarkdownRenderer
+              content={fullMarkdown}
+              gallery={gallery}
+            />
 
             {a.internalLinks?.length > 0 && (
               <div className="border-t border-[#00F5FF]/10 pt-6 mt-8">
@@ -191,42 +149,6 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
                 </div>
               </div>
             )}
-
-            {a.publishNotes?.length > 0 && (
-              <div className="border-t border-white/5 pt-6 mt-8">
-                {a.publishNotes.map((note: string, i: number) => (
-                  <p key={i} className="text-[10px] text-[#A0A0A0] font-mono italic">{note}</p>
-                ))}
-              </div>
-            )}
-
-            {a.media?.gallery?.length ? (
-              <div className="border-t border-white/5 pt-8 mt-8">
-                <h3 className="text-[10px] uppercase font-bold tracking-widest text-[#FFB800] mb-4">Visual References</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {a.media.gallery.map((asset) => (
-                    <figure key={asset.src} className="bg-black/30 border border-white/10 rounded-xl overflow-hidden">
-                      <div className="relative aspect-[16/9]">
-                        <Image src={asset.src} alt={asset.alt} fill className="object-cover" />
-                      </div>
-                      {(asset.caption || asset.credit || asset.sourceUrl) && (
-                        <figcaption className="p-3 text-[11px] text-[#A0A0A0] font-mono space-y-1">
-                          {asset.caption && <div>{asset.caption}</div>}
-                          {asset.credit && <div className="text-white/40">{asset.credit}</div>}
-                          {asset.sourceUrl && (
-                            <div className="mt-1">
-                              <a href={asset.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[#00F5FF] hover:text-[#00FF66] transition-colors font-bold uppercase tracking-widest text-[9px] flex items-center gap-1">
-                                <span>[ View Original Source ]</span>
-                              </a>
-                            </div>
-                          )}
-                        </figcaption>
-                      )}
-                    </figure>
-                  ))}
-                </div>
-              </div>
-            ) : null}
 
             {a.media?.attribution?.length ? (
               <div className="border-t border-white/5 pt-6 mt-8">

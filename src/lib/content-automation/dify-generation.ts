@@ -312,11 +312,7 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
           },
         ],
         internalLinks: [],
-        publishNotes: [
-          schemaRaw ? 'Schema generated' : '',
-          affiliateRaw ? 'Affiliate analysis generated' : '',
-          seoResearch ? 'SEO research generated' : '',
-        ].filter(Boolean),
+        publishNotes: [],
       }
     : null;
 
