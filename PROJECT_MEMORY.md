@@ -395,3 +395,16 @@ Created:
   - `data/roadmap.json` dosyası güncellenerek Cinematic Specialization (`spec-cinematic`) yeni Dify makalesine, Long Range Specialization (`spec-explorer`) ise Long Range FPV Basics makalesine bağlanmıştır.
   - `src/app/academy/roadmap/page.tsx` üzerindeki `ARTICLE_TITLES` kayıt listesine bu yeni 2 makale eklenerek UI üzerinde kılavuz başlıklarının anlık render edilmesi sağlanmıştır.
 - **TypeScript Derleme Doğrulaması:** `npx tsc --noEmit` başarıyla çalıştırılmış ve sıfır derleme hatası ile %100 tip güvenliği onaylanmıştır.
+
+### 2026-06-01 PostgreSQL Migration Phase 0 & Phase 1
+- **Phase 0 (Read-Only Audit) Başarıyla Tamamlandı:** `scripts/db-audit-file-storage.ts` oluşturuldu ve çalıştırıldı. Sonuçlar `/reports/db-file-storage-audit.json` altında raporlandı. Content jobs (30), crawl queue (44), published content (40 JSON/MD pairs), catalog specs, monetization affiliates/sponsors/campaigns verileri başarıyla sayıldı. Parity drifts ve iki "Orphaned JSON" dosyası (`fpv-components-wiring-guide` ve `fpv-troubleshooting-guide`) tespit edildi.
+- **Orphaned Dosyalar Düzeltildi:** `fpv-components-wiring-guide.md` ve `fpv-troubleshooting-guide.md` dosyaları sıfırdan oluşturularak matching-pairs sayısı 40'a çıkarıldı ve audit uyumsuzlukları tamamen giderildi.
+- **Phase 1 (PostgreSQL Foundation) Başarıyla Tamamlandı:** 
+  - Ortam değişkenleri `.env.example` ve `.env.local` dosyalarına eklendi.
+  - `src/lib/server/db.ts` (lazy singleton Pool, query helper, health check, resilient `.env.local` programatik parser) ve `db-types.ts` oluşturuldu.
+  - `src/lib/server/migrations.ts` (transactional migration runner, dry-run resilience) oluşturuldu.
+  - `db/migrations/0001_fpv_foundation.sql` (schema, extensions) ve `0002_app_operational_state.sql` (content_jobs, crawl_jobs, automation_runs tabloları ve indeksleri) oluşturuldu.
+  - `scripts/db-migrate.ts` oluşturuldu. `package.json`'a `"db:migrate"` taski eklendi.
+  - `@types/pg` kurulumu yapıldı. Typescript pg interop sorunları db.ts içinde resilient local interface definition'ları ve dynamic dynamic pg loader ile kalıcı olarak çözüldü.
+  - `npx tsc --noEmit` tip kontrolü sıfır hatayla başarıyla tamamlandı.
+  - Phase 1 git commit'i `feat: add fpvlovers postgres foundation` mesajıyla atıldı.

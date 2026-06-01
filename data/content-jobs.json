@@ -1,5 +1,35 @@
 [
   {
+    "id": "brief-fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security-mpv65d2i",
+    "briefSlug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
+    "title": "FPV Mountain Surfing: Flight Planning, Wind Shadows, and Signal Security",
+    "category": "Flight Guides",
+    "status": "published",
+    "topic": "An advanced tactical guide for high-altitude ridge surfing. Explores mountain thermal flows and wind shadows, RF line-of-sight propagation, custom high-density Li-Ion pack builds, and emergency GPS rescue fail-safe protocols.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "Alpine flight planning and topography research",
+      "Understanding wind shadows, thermal drafts, and rotors",
+      "Signal security: RF penetration and direct line-of-sight propagation",
+      "Li-Ion battery custom builds for high-altitude endurance (high capacity vs high discharge)",
+      "Emergency procedures and GPS Rescue activation checklist"
+    ],
+    "seo": {
+      "slug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
+      "metaDescription": "An advanced tactical guide for high-altitude ridge surfing. Explores mountain thermal flows and wind shadows, RF line-of-sight propagation, custom high-density Li-Ion pack builds, and emergency GPS rescue fail-safe protocols.",
+      "keywords": [
+        "fpv mountain surfing flight planning wind shadows and signal security",
+        "FPV specialization",
+        "advanced pilot guide"
+      ]
+    },
+    "publishedPath": "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/content/published/fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security.json",
+    "createdAt": "2026-06-01T12:12:27.882Z",
+    "updatedAt": "2026-06-01T12:17:15.000Z"
+  },
+  {
     "id": "brief-fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security-mpv4hqs0",
     "briefSlug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
     "title": "FPV Mountain Surfing: Flight Planning, Wind Shadows, and Signal Security",

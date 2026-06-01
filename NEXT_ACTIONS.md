@@ -21,6 +21,9 @@ Last updated: 2026-06-01 (Academy & Specialization Phase)
 15. DONE Blackbox critical GAP closure phase (2026-06-01): API now exposes `answerMode`, `gatewayStatus`, `sources`, and `retrievalConfidence`; UI no longer accepts raw `.bbl/.bfl`; CSV/text telemetry summary support, regression test, smoke script, hardened audit, and Blackbox source backlog were added.
 16. DONE Blackbox corpus queue phase (2026-06-01): 11 Blackbox/PID/filter/troubleshooting sources were connected to the general RAG backlog and enqueued into `data/crawl-queue.json`; `npm run tools:blackbox:sources` now reports pending/queued/crawled state.
 17. DONE FPV Academy Content & Phase 8 Specializations Ingestion (2026-06-01): All 15 P0 guides are fully generated/duplicated and mapped. Invalid raw newlines inside `expresslrs-beginner-guide.json` resolved. Generated advanced `cinematic-fpv-orbit-techniques` guide via live Dify RAG stream. Linked Phase 8 Cinematic Operator module to the orbital guide and Long Range Explorer module to the high-fidelity `long-range-fpv-basics-how-to-fly-beyond-the-trees-safely` guide. Verified both `npm run content:audit` (AUDIT PASSED) and `npx tsc --noEmit` (0 errors).
+18. DONE PostgreSQL Migration Phase 0 (Read-Only Audit) & Orphaned File Resolution (2026-06-01): Ran audit-file-storage script and generated report showing perfect matching pairs (40). Fixed two orphaned JSON files by writing their matching `.md` counterparts.
+19. DONE PostgreSQL Migration Phase 1 (PostgreSQL Foundation) (2026-06-01): Connection manager with dynamic loading, migrations runner, foundation SQL migrations, package scripts and TypeScript support integrated. Dry-run verified. Clean `tsc --noEmit`. Committed to git.
+20. IN PROGRESS FPV Academy Specialization Content Production (2026-06-01): Ingesting 'fpv-mountain-surfing' specialization article via live Dify RAG workflow. Backfill and compare scripts created and ready for validation.
 
 
 ## Code Tasks Before Push
