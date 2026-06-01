@@ -73,13 +73,17 @@ export default function RoadmapPage() {
                 </p>
               </div>
               {dossier ? (
-                <div className="text-right bg-[#00F2FF]/5 border border-[#00F2FF]/20 p-4 rounded text-xs">
+                <a
+                  href="/academy/dossier"
+                  className="text-right bg-[#00F2FF]/5 hover:bg-[#00F2FF]/10 border border-[#00F2FF]/20 hover:border-[#00F2FF] p-4 rounded text-xs block transition-all duration-200"
+                >
                   <p className="text-[#00F2FF] font-black uppercase">CALLSIGN: {dossier.callsign}</p>
                   <p className="text-[#A0A0A0] mt-1 font-black">CLASS: {dossier.assignedClass}</p>
                   <p className="text-[#00FF66] mt-1 font-mono uppercase tracking-widest">
                     ORL LEVEL: {dossier.qualifications.operationalReadinessLevel}
                   </p>
-                </div>
+                  <p className="text-[10px] text-[#A0A0A0] mt-2 underline">Manage Dossier Card →</p>
+                </a>
               ) : (
                 <div className="text-right">
                   <a
