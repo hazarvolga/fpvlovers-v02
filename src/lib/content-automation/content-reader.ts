@@ -45,8 +45,43 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
     ? resolvedMedia.coverImage || { ...media.coverImage, src: buildCoverImageUrl(parsed.slug) }
     : media.coverImage;
 
-  // Runtime Fallback matching logic: if bodySections has no imageMatch, calculate it dynamically!
+  // Dynamically split sections that contain H2 headings to enable beautiful inline image scattering!
   let bodySections = parsed.bodySections || [];
+  const splitSections: Array<{ id: string; title: string; content: string; imageMatch?: any }> = [];
+  
+  for (const sec of bodySections) {
+    const rawContent = sec.content || '';
+    if (rawContent.includes('\n## ') || rawContent.startsWith('## ')) {
+      const parts = rawContent.split(/(?=\n## |^## )/g);
+      let partIndex = 1;
+      for (const part of parts) {
+        const trimmedPart = part.trim();
+        if (!trimmedPart) continue;
+        
+        const lines = trimmedPart.split('\n');
+        const firstLine = lines[0].trim();
+        let sectionTitle = sec.title;
+        let sectionContent = trimmedPart;
+        
+        if (firstLine.startsWith('## ')) {
+          sectionTitle = firstLine.replace(/^##\s+/, '');
+          sectionContent = lines.slice(1).join('\n').trim();
+        }
+        
+        splitSections.push({
+          id: `${sec.id}-sub-${partIndex++}`,
+          title: sectionTitle,
+          content: sectionContent,
+          imageMatch: sec.imageMatch,
+        });
+      }
+    } else {
+      splitSections.push(sec);
+    }
+  }
+  bodySections = splitSections;
+
+  // Runtime Fallback matching logic: if bodySections has no imageMatch, calculate it dynamically!
   const hasMatchedImages = bodySections.some(s => s.imageMatch);
   if (!hasMatchedImages && bodySections.length > 0 && media.gallery && media.gallery.length > 0) {
     const licensedImages = media.gallery.map((asset, index) => ({
