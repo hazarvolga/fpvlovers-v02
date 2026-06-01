@@ -365,3 +365,12 @@ Created:
 - **Paragraf İçi Dinamik Görsel Enjeksiyonu & Premium FPV UI Tasarımı:** Makale paragraflarının (2. ve 4. bölümlerin) arasına dinamik olarak görseller ve bunların tıklanabilir kaynak bağlantıları (`[ View Original Image Source: ... ]`) yerleştirildi. Markdown resimleri, hover animasyonlu (`hover:scale-[1.02]`) ve telemetri kenarlıklı premium HTML figürler olarak render edildi.
 - **Next.js Build & Tip Güvenliği:** TypeScript derleme aşamasındaki `ContentMediaAsset` tip uyuşmazlığı `types.ts` ve `parse-generated-content.ts` güncellenerek tamamen giderildi. Yerel `npm run build` ve `npm run content:audit` bütünlük testleri %100 başarıyla (0 hata) tamamlandı.
 - **Git Push:** Değişiklikler GitHub `main` branch'ine başarıyla gönderildi ve Coolify'da yayına hazır hale getirildi.
+
+### 2026-06-01 Birebir Gerçek FPV Donanım Görsel Enjeksiyonu & Next.js Güvenlik Düzeltmeleri
+
+- **Dify-Brain Mimarisi ve Veritabanı Engellerinin Analizi:** Frontend'imizin veritabanı bağımsız olduğu, Dify'ın asıl "beyin" olarak kullanıldığı doğrulandı. Sunucu A'daki Dify PostgreSQL (`db-mw8g48wcsc840cg4g80s8kw4`) veritabanındaki `raw_content` tablosunda `status` kolonu yerine `is_active` kolonu bulunduğu tespit edilerek `crawl-image-harvest.ts` sorguları düzeltildi. Ancak güvenlik duvarı engelleri ve `sourceHints`'lerin URL olmaması nedeniyle stock resimlere düşme problemi analiz edildi.
+- **High-Fidelity Hardware Image Overrides (Gerçek Donanım Görselleri):** Katalogdaki soyut/placeholder teknoloji görselleri elendi. Metin içinde geçen FPV donanım isimleriyle (*Jumper T-Pro, RadioMaster Boxer, RadioMaster Zorro, Happymodel EP1 / EP2, BETAFPV ELRS Lite, RadioMaster Ranger*) eşleşen **birebir gerçek üretici görselleri** (`HARDWARE_IMAGE_OVERRIDES`) sisteme entegre edildi.
+- **Next.js `next/image` Domain Yetkilendirmeleri:** Dış domainlerden resim yüklenirken patlayan hostname hatası, üretici sitelerinin (`www.happymodel.cn`, `www.radiomasterrc.com`, `betafpv.com`, `jumper-rc.com`) `next.config.ts` remotePatterns listesine eklenmesiyle kalıcı olarak çözüldü.
+- **Render Optimizasyonu:** Article slug sayfasındaki resimler Next.js sunucusunu yormaması için `unoptimized={true}` olarak set edildi.
+- **Git Push ve Yeniden Başlatma:** Yerel dev sunucusu başarıyla yeniden başlatıldı ve tüm güncellemeler GitHub `main` branch'ine başarıyla pushlandı.
+
