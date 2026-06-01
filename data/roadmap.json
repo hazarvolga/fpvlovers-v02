@@ -195,6 +195,92 @@
           }
         }
       ]
+    },
+    {
+      "id": "phase-8",
+      "name": "Operational Specializations",
+      "modules": [
+        {
+          "id": "spec-cinematic",
+          "name": "Cinematic Operator Specialization",
+          "objectives": [
+            "Calibrate gimbal-tilt dynamic fluid response values",
+            "Calculate appropriate ND filter indices matching shutter rates"
+          ],
+          "requiredArticles": [
+            "no-video-in-fpv-a-beginner-troubleshooting-checklist"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Cinematic ND filter checked"
+          },
+          "targetClass": "Cinematic Operator"
+        },
+        {
+          "id": "spec-freestyle",
+          "name": "Freestyle Proximity Specialization",
+          "objectives": [
+            "Execute low-altitude inverted proximity gap threading",
+            "Configure aggressive D-term resonance vibration filters"
+          ],
+          "requiredArticles": [
+            "betaflight-pid-basics-for-beginners"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Freestyle snapshot loop configured"
+          },
+          "targetClass": "Freestyle Tactician"
+        },
+        {
+          "id": "spec-racing",
+          "name": "Competitive Racing Specialization",
+          "objectives": [
+            "Maintain minimal gate-apex throttle cornering margins",
+            "Flash low-latency custom firmware to 4-in-1 racers"
+          ],
+          "requiredArticles": [
+            "how-to-choose-fpv-motors"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Apex turning loops qualified"
+          },
+          "targetClass": "Competitive Racer"
+        },
+        {
+          "id": "spec-explorer",
+          "name": "Long Range Alpine Exploration",
+          "objectives": [
+            "Map high-altitude mountain signal propagation pathing",
+            "Assemble long-endurance high-density Li-Ion cell packs"
+          ],
+          "requiredArticles": [
+            "gps-rescue-mode-setup-in-betaflight-never-lose-a-drone-to-a-failsafe"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Satellite telemetry path verified"
+          },
+          "targetClass": "Long Range Explorer"
+        },
+        {
+          "id": "spec-engineer",
+          "name": "Advanced Systems Integration Specialization",
+          "objectives": [
+            "Analyze telemetry log gyro heat dissipation coefficients",
+            "Calibrate dynamic commutation timing parameters in AM32"
+          ],
+          "requiredArticles": [
+            "soldering-guide-for-fpv-drone-builders-solder-pads-temperature-and-tools"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Oscilloscope loop check passed"
+          },
+          "targetClass": "System Builder / Engineer"
+        }
+      ]
     }
   ]
 }

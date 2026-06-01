@@ -25,6 +25,7 @@ interface ModuleGate {
     assignedTestId?: string;
     checkpointName?: string;
   };
+  targetClass?: string;
 }
 
 interface PhaseNode {
@@ -126,42 +127,49 @@ export default function RoadmapPage() {
                   </div>
 
                   <div className="grid gap-6 pl-4 border-l border-[#00F2FF]/10">
-                    {phase.modules.map((mod) => {
-                      const isCompleted = qualifiedIds.includes(mod.id);
-                      return (
-                        <div
-                          key={mod.id}
-                          className={`p-6 border hex-panel transition-colors relative rounded-lg ${
-                            isCompleted
-                              ? "bg-[#00FF66]/5 border-[#00FF66]/20 hover:bg-[#00FF66]/10"
-                              : "bg-[#050810]/50 border-[#1A1A1A] hover:bg-[#0A0D14]"
-                          }`}
-                        >
-                          <div className="flex justify-between items-start mb-4">
-                            <div>
-                              <h5 className="text-lg font-black uppercase text-white tracking-tight">
-                                {mod.name}
-                              </h5>
-                              <p className="text-[10px] uppercase text-[#A0A0A0] font-mono mt-0.5 tracking-widest">
-                                MODULE ID: {mod.id}
-                              </p>
+                    {phase.modules
+                      .filter((mod) => !mod.targetClass || !dossier || mod.targetClass === dossier.assignedClass)
+                      .map((mod) => {
+                        const isCompleted = qualifiedIds.includes(mod.id);
+                        return (
+                          <div
+                            key={mod.id}
+                            className={`p-6 border hex-panel transition-colors relative rounded-lg ${
+                              isCompleted
+                                ? "bg-[#00FF66]/5 border-[#00FF66]/20 hover:bg-[#00FF66]/10"
+                                : "bg-[#050810]/50 border-[#1A1A1A] hover:bg-[#0A0D14]"
+                            }`}
+                          >
+                            <div className="flex justify-between items-start mb-4">
+                              <div>
+                                <h5 className="text-lg font-black uppercase text-white tracking-tight">
+                                  {mod.name}
+                                </h5>
+                                <p className="text-[10px] uppercase text-[#A0A0A0] font-mono mt-0.5 tracking-widest">
+                                  MODULE ID: {mod.id}
+                                </p>
+                              </div>
+                              <div className="flex items-center gap-2 flex-wrap">
+                                {mod.targetClass && !dossier && (
+                                  <span className="inline-flex items-center gap-1 text-[10px] uppercase text-[#FF5C00] bg-[#FF5C00]/10 px-2 py-1 rounded border border-[#FF5C00]/20 font-black">
+                                    {mod.targetClass}
+                                  </span>
+                                )}
+                                {isCompleted ? (
+                                  <span className="inline-flex items-center gap-1 text-[10px] uppercase text-[#00FF66] bg-[#00FF66]/10 px-2 py-1 rounded border border-[#00FF66]/20 font-black">
+                                    <Award className="w-3.5 h-3.5" /> CLEARED
+                                  </span>
+                                ) : (
+                                  <span className="inline-flex items-center gap-1 text-[10px] uppercase text-[#A0A0A0] bg-black/40 px-2 py-1 rounded border border-[#333333]">
+                                    <Shield className="w-3.5 h-3.5" /> QUALIFYING
+                                  </span>
+                                )}
+                              </div>
                             </div>
-                            <div className="flex items-center gap-2">
-                              {isCompleted ? (
-                                <span className="inline-flex items-center gap-1 text-[10px] uppercase text-[#00FF66] bg-[#00FF66]/10 px-2 py-1 rounded border border-[#00FF66]/20 font-black">
-                                  <Award className="w-3.5 h-3.5" /> CLEARED
-                                </span>
-                              ) : (
-                                <span className="inline-flex items-center gap-1 text-[10px] uppercase text-[#A0A0A0] bg-black/40 px-2 py-1 rounded border border-[#333333]">
-                                  <Shield className="w-3.5 h-3.5" /> QUALIFYING
-                                </span>
-                              )}
-                            </div>
-                          </div>
 
-                          <div className="space-y-4">
-                            <div>
-                              <h6 className="text-xs uppercase text-[#00F2FF] font-black mb-2 tracking-widest">
+                            <div className="space-y-4">
+                              <div>
+                                <h6 className="text-xs uppercase text-[#00F2FF] font-black mb-2 tracking-widest">
                                 {"// Target Objectives"}
                               </h6>
                               <ul className="space-y-2">

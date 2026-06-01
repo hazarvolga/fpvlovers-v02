@@ -111,6 +111,44 @@ export default function ArchiveIndexPage() {
             </div>
           </div>
 
+          {/* Active Missions Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-black uppercase text-[#f8fafc] border-b border-[#333333] pb-2 tracking-widest">
+              Active Mission Envelopes
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a
+                href="/archive/mission/alpine-surfing"
+                className="p-5 border border-[#1A1A1A] bg-[#050810]/50 hover:bg-[#0A0D14] transition-colors rounded-lg flex justify-between items-center group border-l-2 border-l-[#FF5C00]/30 hover:border-l-[#FF5C00]"
+              >
+                <div>
+                  <h4 className="text-sm font-black uppercase text-white group-hover:text-[#FF5C00] transition-colors">
+                    Alpine Peak Surfing
+                  </h4>
+                  <span className="text-[10px] text-[#A0A0A0] uppercase block mt-1">
+                    Req Class: Long Range Explorer
+                  </span>
+                </div>
+                <span className="text-[#FF5C00] text-xs font-black uppercase">Inspect Profile →</span>
+              </a>
+
+              <a
+                href="/archive/mission/urban-freestyle"
+                className="p-5 border border-[#1A1A1A] bg-[#050810]/50 hover:bg-[#0A0D14] transition-colors rounded-lg flex justify-between items-center group border-l-2 border-l-[#FF5C00]/30 hover:border-l-[#FF5C00]"
+              >
+                <div>
+                  <h4 className="text-sm font-black uppercase text-white group-hover:text-[#FF5C00] transition-colors">
+                    Urban Proximity Freestyle
+                  </h4>
+                  <span className="text-[10px] text-[#A0A0A0] uppercase block mt-1">
+                    Req Class: Freestyle Tactician
+                  </span>
+                </div>
+                <span className="text-[#FF5C00] text-xs font-black uppercase">Inspect Profile →</span>
+              </a>
+            </div>
+          </div>
+
         </div>
 
         {/* Sidebar Native Ads */}
