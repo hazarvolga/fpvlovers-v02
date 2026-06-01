@@ -1,0 +1,48 @@
+{
+  "timestamp": "2026-06-01T12:07:39.315Z",
+  "contentJobs": {
+    "total": 30,
+    "byStatus": {
+      "failed": 2,
+      "published": 28
+    },
+    "invalidRecords": 0
+  },
+  "crawlQueue": {
+    "total": 44,
+    "byStatus": {
+      "pending": 20,
+      "completed": 17,
+      "failed": 7
+    },
+    "invalidRecords": 0
+  },
+  "publishedContent": {
+    "totalJson": 40,
+    "totalMd": 38,
+    "matchingPairs": 38,
+    "orphanedJson": [
+      "fpv-components-wiring-guide",
+      "fpv-troubleshooting-guide"
+    ],
+    "orphanedMd": [],
+    "duplicateSlugs": []
+  },
+  "productCatalog": {
+    "totalItems": 4,
+    "inferredType": "components",
+    "keysFound": [
+      "$schema",
+      "title",
+      "description",
+      "components"
+    ]
+  },
+  "monetization": {
+    "affiliatesCount": 15,
+    "sponsorsCount": 4,
+    "campaignsCount": 2,
+    "campaignMetricsCount": 3,
+    "trustScoresCount": 4
+  }
+}
