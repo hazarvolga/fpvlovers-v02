@@ -33,6 +33,8 @@
     "catalog:extract": "node --import tsx scripts/extract-product-catalog.ts",
     "racing:sources": "node --import tsx scripts/racing-source-pack.ts",
     "racing:enqueue": "node --import tsx scripts/racing-source-pack.ts --enqueue",
+    "racing:intelligence:ingest": "node --import tsx scripts/racing-intelligence-ingest.ts",
+    "racing:intelligence:status": "node --import tsx scripts/racing-intelligence-ingest.ts --status",
     "routes:audit": "node scripts/route-tree-drift-audit.mjs",
     "db:migrate": "node --import tsx scripts/db-migrate.ts",
     "racing:workflow:smoke": "node --import tsx scripts/racing-workflow-smoke.ts"
