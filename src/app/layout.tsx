@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { Navbar } from '@/features/layout/components/Navbar';
+import { SearchSection } from '@/features/layout/components/SearchSection';
 import { Analytics } from '@vercel/analytics/react';
 import { SessionProvider } from 'next-auth/react';
 
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           <Navbar />
+          <SearchSection />
           <main className="relative z-10">{children}</main>
           <Analytics />
         </SessionProvider>

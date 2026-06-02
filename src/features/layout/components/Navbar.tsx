@@ -148,14 +148,6 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <div className="flex h-10 items-center gap-2 rounded-md border border-white/10 bg-white/[0.03] px-3 text-[#8d8981]">
-            <Search className="h-4 w-4" />
-            <span className="text-sm">Search FPV guides</span>
-          </div>
-          <Button variant="outline" size="sm" asChild>
-            <Link href="/tools/calculator">Build Calculator</Link>
-          </Button>
-          
           {/* Dynamic Authentication Button */}
           {status === 'authenticated' ? (
             <Link
