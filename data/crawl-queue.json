@@ -4,210 +4,246 @@
       "id": "mpwf02h00dp7",
       "url": "https://f9u.it/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T09:57:14.973Z",
+      "docId": "artifact-https://f9u.it/",
+      "tokens": 6047
     },
     {
       "id": "mpwf02h06fm9",
       "url": "https://edrl.ee/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T09:57:30.529Z",
+      "docId": "artifact-https://edrl.ee/",
+      "tokens": 1350
     },
     {
       "id": "mpwf02h0wsg3",
       "url": "https://spaindroneteam.com/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T09:57:48.681Z",
+      "docId": "artifact-https://spaindrone",
+      "tokens": 13419
     },
     {
       "id": "mpwf02h0aja1",
       "url": "https://www.streetleague.io/resources",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T09:59:28.477Z",
+      "docId": "artifact-https://www.street",
+      "tokens": 1537
     },
     {
       "id": "mpwf02h0oxxu",
       "url": "https://www.streetleague.io/leaderboard",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T09:59:42.607Z",
+      "docId": "artifact-https://www.street",
+      "tokens": 1574
     },
     {
       "id": "mpwf02h028t2",
       "url": "https://www.streetleague.io/races",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T09:59:56.640Z",
+      "docId": "artifact-https://www.street",
+      "tokens": 1444
     },
     {
       "id": "mpwf02h0t2su",
       "url": "https://www.streetleague.io/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:00:11.259Z",
+      "docId": "artifact-https://www.street",
+      "tokens": 3960
     },
     {
       "id": "mpwf02h01dfu",
       "url": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:00:27.148Z",
+      "docId": "artifact-https://dronechamp",
+      "tokens": 15470
     },
     {
       "id": "mpwf02h0xl85",
       "url": "https://dronechampionsleague.com/teams/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:02:29.806Z",
+      "docId": "artifact-https://dronechamp",
+      "tokens": 14904
     },
     {
       "id": "mpwf02h08q6h",
       "url": "https://dronechampionsleague.com/league/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:02:45.140Z",
+      "docId": "artifact-https://dronechamp",
+      "tokens": 10500
     },
     {
       "id": "mpwf02h0qi7d",
       "url": "https://dronechampionsleague.com/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:03:00.483Z",
+      "docId": "artifact-https://dronechamp",
+      "tokens": 23071
     },
     {
       "id": "mpwf02h05ydz",
       "url": "https://www.multigp.com/race-class-specifications/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:03:21.949Z",
+      "docId": "artifact-https://www.multig",
+      "tokens": 16434
     },
     {
       "id": "mpwf02h08dcq",
       "url": "https://www.multigp.com/rules/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:03:38.865Z",
+      "docId": "artifact-https://www.multig",
+      "tokens": 8544
     },
     {
       "id": "mpwf02h0ry9y",
       "url": "https://www.multigp.com/chapters/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:05:10.101Z",
+      "docId": "artifact-https://www.multig",
+      "tokens": 16144
     },
     {
       "id": "mpwf02h0d0r6",
       "url": "https://www.multigp.com/races/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:05:28.614Z",
+      "docId": "artifact-https://www.multig",
+      "tokens": 16090
     },
     {
       "id": "mpwf02h0bnt9",
       "url": "https://droneracing.fai.org/",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:05:44.650Z",
+      "docId": "artifact-https://droneracin",
+      "tokens": 2462
     },
     {
       "id": "mpwf02h0fiwp",
       "url": "https://www.fai.org/world-cups/drone-racing",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "failed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:05:57.808Z",
+      "error": "Crawler HTTP 500"
     },
     {
       "id": "mpwf02h04lt5",
       "url": "https://www.fai.org/world-cups/drone-racing-2025",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "failed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:06:10.679Z",
+      "error": "Crawler HTTP 500"
     },
     {
       "id": "mpwf02gzc5ny",
       "url": "https://www.fai.org/event/fai-drone-sports",
       "dataset": "fpv-racing-events",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.587Z",
-      "updatedAt": "2026-06-02T09:08:03.588Z"
+      "updatedAt": "2026-06-02T10:06:26.587Z",
+      "docId": "artifact-https://www.fai.or",
+      "tokens": 15016
     },
     {
       "id": "mpuzyx29iuul",
@@ -719,9 +755,9 @@
   },
   "stats": {
     "total": 63,
-    "pending": 39,
-    "completed": 17,
-    "failed": 7,
+    "pending": 20,
+    "completed": 34,
+    "failed": 9,
     "throttled": 0
   }
 }
