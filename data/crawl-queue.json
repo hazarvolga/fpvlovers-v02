@@ -1,6 +1,215 @@
 {
   "jobs": [
     {
+      "id": "mpwf02h00dp7",
+      "url": "https://f9u.it/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h06fm9",
+      "url": "https://edrl.ee/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0wsg3",
+      "url": "https://spaindroneteam.com/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0aja1",
+      "url": "https://www.streetleague.io/resources",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0oxxu",
+      "url": "https://www.streetleague.io/leaderboard",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h028t2",
+      "url": "https://www.streetleague.io/races",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0t2su",
+      "url": "https://www.streetleague.io/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h01dfu",
+      "url": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0xl85",
+      "url": "https://dronechampionsleague.com/teams/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h08q6h",
+      "url": "https://dronechampionsleague.com/league/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0qi7d",
+      "url": "https://dronechampionsleague.com/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h05ydz",
+      "url": "https://www.multigp.com/race-class-specifications/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h08dcq",
+      "url": "https://www.multigp.com/rules/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0ry9y",
+      "url": "https://www.multigp.com/chapters/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0d0r6",
+      "url": "https://www.multigp.com/races/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0bnt9",
+      "url": "https://droneracing.fai.org/",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h0fiwp",
+      "url": "https://www.fai.org/world-cups/drone-racing",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02h04lt5",
+      "url": "https://www.fai.org/world-cups/drone-racing-2025",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.588Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
+      "id": "mpwf02gzc5ny",
+      "url": "https://www.fai.org/event/fai-drone-sports",
+      "dataset": "fpv-racing-events",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-02T09:08:03.587Z",
+      "updatedAt": "2026-06-02T09:08:03.588Z"
+    },
+    {
       "id": "mpuzyx29iuul",
       "url": "https://intofpv.com/t-blackbox-analysis",
       "dataset": "fpv-troubleshooting",
@@ -509,8 +718,8 @@
     ]
   },
   "stats": {
-    "total": 44,
-    "pending": 20,
+    "total": 63,
+    "pending": 39,
     "completed": 17,
     "failed": 7,
     "throttled": 0

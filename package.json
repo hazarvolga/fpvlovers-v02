@@ -31,6 +31,8 @@
     "catalog:sources": "node --import tsx scripts/product-catalog-source-pack.ts",
     "catalog:enqueue": "node --import tsx scripts/product-catalog-source-pack.ts --enqueue",
     "catalog:extract": "node --import tsx scripts/extract-product-catalog.ts",
+    "racing:sources": "node --import tsx scripts/racing-source-pack.ts",
+    "racing:enqueue": "node --import tsx scripts/racing-source-pack.ts --enqueue",
     "routes:audit": "node scripts/route-tree-drift-audit.mjs",
     "db:migrate": "node --import tsx scripts/db-migrate.ts"
   },
