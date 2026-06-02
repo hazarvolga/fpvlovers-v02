@@ -7,7 +7,7 @@ import { ChevronDown, ChevronRight, Menu, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { navigationData } from '@/lib/navigationData';
 import { cn } from '@/lib/utils';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { loadDossierFromBrowser } from '@/lib/state/dossier-serializer';
 import { PilotDossier } from '@/types/pilot-dossier';
 
@@ -25,11 +25,13 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const pathname = usePathname();
 
   const closeNavigation = () => {
     setMobileMenuOpen(false);
     setActiveMenu(null);
+    setUserMenuOpen(false);
   };
 
   useEffect(() => {
@@ -46,6 +48,13 @@ export function Navbar() {
     }, 0);
     return () => clearTimeout(dossierTimeout);
   }, [status]);
+
+  useEffect(() => {
+    const navTimer = setTimeout(() => {
+      setUserMenuOpen(false);
+    }, 0);
+    return () => clearTimeout(navTimer);
+  }, [pathname]);
 
   return (
     <nav
@@ -150,21 +159,92 @@ export function Navbar() {
         <div className="hidden items-center gap-3 lg:flex">
           {/* Dynamic Authentication Button */}
           {status === 'authenticated' ? (
-            <Link
-              href="/academy/roadmap"
-              className="flex items-center gap-2 rounded-md border border-[#00F2FF]/30 hover:border-[#00F2FF] bg-[#00F2FF]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#00F2FF] transition-all hover:bg-[#00F2FF]/10"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00FF66] animate-ping" />
-              🛰️ {session.user?.name || 'Pilot'}
-            </Link>
+            <div className="relative">
+              <button
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-2 rounded-md border border-[#00F2FF]/30 hover:border-[#00F2FF] bg-[#00F2FF]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#00F2FF] transition-all hover:bg-[#00F2FF]/10 cursor-pointer"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00FF66] animate-ping animate-duration-1000" />
+                🛰️ {session.user?.name || 'Pilot'}
+                <ChevronDown className="w-3.5 h-3.5 ml-1 opacity-70" />
+              </button>
+              {userMenuOpen && (
+                <div className="absolute right-0 mt-2 w-56 rounded-md border border-white/10 bg-[#0b0b0c] p-2 shadow-2xl z-50 text-xs font-mono">
+                  <div className="px-3 py-2 border-b border-white/5 mb-1.5">
+                    <span className="text-[#888] uppercase block text-[9px]">Authorized Operator</span>
+                    <span className="text-white font-bold block truncate">{session.user?.email}</span>
+                  </div>
+                  <Link
+                    href="/academy/dossier"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
+                  >
+                    🚀 Dossier Profile
+                  </Link>
+                  <Link
+                    href="/academy/roadmap"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
+                  >
+                    🗺️ Flight Roadmap
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setUserMenuOpen(false);
+                      signOut();
+                    }}
+                    className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md text-[#FF5C00] hover:bg-[#FF5C00]/5 transition-colors uppercase text-[10px] cursor-pointer mt-1 border-t border-white/5 pt-2"
+                  >
+                    ❌ Logout Session
+                  </button>
+                </div>
+              )}
+            </div>
           ) : localDossier ? (
-            <Link
-              href="/academy/roadmap"
-              className="flex items-center gap-2 rounded-md border border-[#FF5C00]/30 hover:border-[#FF5C00] bg-[#FF5C00]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#FF5C00] transition-all hover:bg-[#FF5C00]/10"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C00] animate-pulse" />
-              📡 {localDossier.callsign}
-            </Link>
+            <div className="relative">
+              <button
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
+                className="flex items-center gap-2 rounded-md border border-[#FF5C00]/30 hover:border-[#FF5C00] bg-[#FF5C00]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#FF5C00] transition-all hover:bg-[#FF5C00]/10 cursor-pointer"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C00] animate-pulse" />
+                📡 {localDossier.callsign}
+                <ChevronDown className="w-3.5 h-3.5 ml-1 opacity-70" />
+              </button>
+              {userMenuOpen && (
+                <div className="absolute right-0 mt-2 w-56 rounded-md border border-white/10 bg-[#0b0b0c] p-2 shadow-2xl z-50 text-xs font-mono">
+                  <div className="px-3 py-2 border-b border-white/5 mb-1.5">
+                    <span className="text-[#888] uppercase block text-[9px]">Offline Callsign</span>
+                    <span className="text-white font-bold block truncate">{localDossier.assignedClass}</span>
+                  </div>
+                  <Link
+                    href="/academy/dossier"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
+                  >
+                    🚀 Dossier Profile
+                  </Link>
+                  <Link
+                    href="/academy/roadmap"
+                    onClick={() => setUserMenuOpen(false)}
+                    className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
+                  >
+                    🗺️ Flight Roadmap
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setUserMenuOpen(false);
+                      if (confirm("WARNING: Are you sure you want to decommission this pilot dossier?")) {
+                        document.cookie = "fpv_dossier_v1=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict; Secure";
+                        window.location.reload();
+                      }
+                    }}
+                    className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md text-[#FF5C00] hover:bg-[#FF5C00]/5 transition-colors uppercase text-[10px] cursor-pointer mt-1 border-t border-white/5 pt-2"
+                  >
+                    ❌ Decommission Call
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <Link
               href="/auth/signin"
