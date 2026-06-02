@@ -80,13 +80,14 @@ export function Navbar() {
           {navLinks.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
             const isOpen = activeMenu === item.href;
+            const hasItems = item.items.length > 0;
             return (
               <div
                 key={item.href}
                 className="relative"
-                onMouseEnter={() => setActiveMenu(item.href)}
+                onMouseEnter={() => hasItems && setActiveMenu(item.href)}
                 onMouseLeave={() => setActiveMenu(null)}
-                onFocus={() => setActiveMenu(item.href)}
+                onFocus={() => hasItems && setActiveMenu(item.href)}
               >
                 <Link
                   href={item.href}
@@ -100,57 +101,59 @@ export function Navbar() {
                 >
                   <item.icon className={cn('h-4 w-4', isActive ? 'text-[#ff9b71]' : 'text-[#77736d]')} />
                   {item.title}
-                  <ChevronDown className={cn('h-3.5 w-3.5 text-[#77736d] transition-transform', isOpen && 'rotate-180 text-[#ff9b71]')} />
+                  {hasItems && <ChevronDown className={cn('h-3.5 w-3.5 text-[#77736d] transition-transform', isOpen && 'rotate-180 text-[#ff9b71]')} />}
                 </Link>
 
-                <div
-                  className={cn(
-                    'absolute left-1/2 top-full z-50 w-[360px] -translate-x-1/2 pt-3 transition',
-                    isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-1 opacity-0',
-                  )}
-                  role="menu"
-                >
-                  <div className="overflow-hidden rounded-lg border border-white/10 bg-[#0b0b0c]/95 shadow-[0_28px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-                    <div className="border-b border-white/8 px-4 py-3">
-                      <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#ff9b71]">{item.label}</div>
-                      <div className="mt-1 flex items-center gap-2 text-sm font-bold text-white">
-                        <item.icon className="h-4 w-4 text-[#d8d5cf]" />
-                        {item.title}
+                {hasItems && (
+                  <div
+                    className={cn(
+                      'absolute left-1/2 top-full z-50 w-[360px] -translate-x-1/2 pt-3 transition',
+                      isOpen ? 'pointer-events-auto translate-y-0 opacity-100' : 'pointer-events-none -translate-y-1 opacity-0',
+                    )}
+                    role="menu"
+                  >
+                    <div className="overflow-hidden rounded-lg border border-white/10 bg-[#0b0b0c]/95 shadow-[0_28px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+                      <div className="border-b border-white/8 px-4 py-3">
+                        <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#ff9b71]">{item.label}</div>
+                        <div className="mt-1 flex items-center gap-2 text-sm font-bold text-white">
+                          <item.icon className="h-4 w-4 text-[#d8d5cf]" />
+                          {item.title}
+                        </div>
+                      </div>
+                      <div className="grid gap-1 p-2">
+                        {item.items.map((subItem) => {
+                          const subActive = pathname === subItem.href;
+                          return (
+                            <Link
+                              key={subItem.href}
+                              href={subItem.href}
+                              className={cn(
+                                'group flex items-start gap-3 rounded-md px-3 py-3 transition-colors hover:bg-white/[0.06]',
+                                subActive && 'bg-white/8',
+                              )}
+                              onClick={() => setActiveMenu(null)}
+                              role="menuitem"
+                            >
+                              <div className={cn(
+                                'mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-[#8d8981] transition-colors group-hover:border-[#ff5a1f]/35 group-hover:text-[#ff9b71]',
+                                subActive && 'border-[#ff5a1f]/45 text-[#ff9b71]',
+                              )}>
+                                <subItem.icon className="h-4 w-4" />
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <div className="flex items-center justify-between gap-3 text-sm font-bold text-[#ebe7df]">
+                                  <span>{subItem.title}</span>
+                                  <ChevronRight className="h-3.5 w-3.5 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-70" />
+                                </div>
+                                <p className="mt-1 line-clamp-2 text-xs leading-5 text-[#8d8981]">{subItem.description}</p>
+                              </div>
+                            </Link>
+                          );
+                        })}
                       </div>
                     </div>
-                    <div className="grid gap-1 p-2">
-                      {item.items.map((subItem) => {
-                        const subActive = pathname === subItem.href;
-                        return (
-                          <Link
-                            key={subItem.href}
-                            href={subItem.href}
-                            className={cn(
-                              'group flex items-start gap-3 rounded-md px-3 py-3 transition-colors hover:bg-white/[0.06]',
-                              subActive && 'bg-white/8',
-                            )}
-                            onClick={() => setActiveMenu(null)}
-                            role="menuitem"
-                          >
-                            <div className={cn(
-                              'mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-[#8d8981] transition-colors group-hover:border-[#ff5a1f]/35 group-hover:text-[#ff9b71]',
-                              subActive && 'border-[#ff5a1f]/45 text-[#ff9b71]',
-                            )}>
-                              <subItem.icon className="h-4 w-4" />
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <div className="flex items-center justify-between gap-3 text-sm font-bold text-[#ebe7df]">
-                                <span>{subItem.title}</span>
-                                <ChevronRight className="h-3.5 w-3.5 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-70" />
-                              </div>
-                              <p className="mt-1 line-clamp-2 text-xs leading-5 text-[#8d8981]">{subItem.description}</p>
-                            </div>
-                          </Link>
-                        );
-                      })}
-                    </div>
                   </div>
-                </div>
+                )}
               </div>
             );
           })}
@@ -285,25 +288,27 @@ export function Navbar() {
                     <span className="flex-1">{item.title}</span>
                     <ChevronRight className="h-4 w-4 text-[#77736d]" />
                   </Link>
-                  <div className="mt-1 grid gap-1 pl-7">
-                    {item.items.map((subItem) => {
-                      const subActive = pathname === subItem.href;
-                      return (
-                        <Link
-                          key={subItem.href}
-                          href={subItem.href}
-                          className={cn(
-                            'flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#9f9a91] transition-colors hover:bg-white/[0.05] hover:text-white',
-                            subActive && 'bg-white/8 text-white',
-                          )}
-                          onClick={closeNavigation}
-                        >
-                          <subItem.icon className={cn('h-3.5 w-3.5', subActive ? 'text-[#ff9b71]' : 'text-[#77736d]')} />
-                          {subItem.title}
-                        </Link>
-                      );
-                    })}
-                  </div>
+                  {item.items.length > 0 && (
+                    <div className="mt-1 grid gap-1 pl-7">
+                      {item.items.map((subItem) => {
+                        const subActive = pathname === subItem.href;
+                        return (
+                          <Link
+                            key={subItem.href}
+                            href={subItem.href}
+                            className={cn(
+                              'flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#9f9a91] transition-colors hover:bg-white/[0.05] hover:text-white',
+                              subActive && 'bg-white/8 text-white',
+                            )}
+                            onClick={closeNavigation}
+                          >
+                            <subItem.icon className={cn('h-3.5 w-3.5', subActive ? 'text-[#ff9b71]' : 'text-[#77736d]')} />
+                            {subItem.title}
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               );
             })}
