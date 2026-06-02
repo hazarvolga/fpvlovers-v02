@@ -43,6 +43,12 @@ export const navigationData = [
         icon: Cpu
       },
       {
+        title: "Propeller Lab",
+        href: "/engineering/hardware#props",
+        description: "Prop size, pitch, blade count, and vibration.",
+        icon: Target
+      },
+      {
         title: "Firmware Tuning",
         href: "/engineering/firmware",
         description: "Betaflight PID tuning & EdgeTX / ELRS setup.",
