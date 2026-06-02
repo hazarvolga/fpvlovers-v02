@@ -1,0 +1,54 @@
+{
+  "slug": "video-latency-engineering",
+  "title": "Video Latency Engineering: Glass-to-Glass Measurements & Penetration Limits",
+  "jobId": "flagship-video-latency-engineering",
+  "category": "Communication",
+  "template": "tech-article",
+  "seo": {
+    "slug": "video-latency-engineering",
+    "metaDescription": "An advanced technical report analyzing FPV video transmission latencies, detailing encoding pipelines, signal penetration, and digital vs analog glass-to-glass delay metrics.",
+    "keywords": [
+      "fpv research",
+      "engineering lab",
+      "communication",
+      "video latency engineering"
+    ]
+  },
+  "excerpt": "An advanced technical report analyzing FPV video transmission latencies, detailing encoding pipelines, signal penetration, and digital vs analog glass-to-glass delay metrics.",
+  "bodySections": [
+    {
+      "id": "intro",
+      "title": "Video Latency Engineering: Glass-to-Glass Measurements & Penetration Limits",
+      "content": "## 1. The FPV Video Pipeline\n\nThe video link is a pilot's eyes. Glass-to-glass latency represents the total delay from the camera sensor capturing a frame to the goggle display illuminating.\n\n### 1.1 Analog Zero-Latency\nAnalog video systems stream raw video lines as they are read from the sensor, bypassing digital encoding. Glass-to-glass latency is constant ($< 10\\text{ ms}$), providing unmatched feedback for racing.\n\n---\n\n## 2. Digital Video encoding (DJI, Walksnail, HDZero)\n\nDigital FPV systems convert the analog sensor data into compressed digital streams (H.264/H.265) before transmitting.\n\n### 2.1 HDZero (Uncompressed Digital)\nHDZero uses uncompressed digital transmission. Like analog, it transmits line-by-line. Latency is constant and fixed at $\\approx 14-16\\text{ ms}$ regardless of range.\n\n### 2.2 DJI & Walksnail (Compressed Digital)\nDJI and Walksnail compress frames to achieve high resolution (1080p).\n* **Variable Latency:** Total delay varies ($25-45\\text{ ms}$) depending on signal quality.\n* **Buffer Delay:** Bad RF conditions force packet retransmissions, increasing buffer delays and causing frame drops.\n\n---\n\n## 3. Signal Penetration & Frequency Dynamics\n\nDigital systems rely on error correction coding to survive signal reflections. If RF attenuation exceeds the error correction threshold, the stream will instantly pixelate or freeze."
+    }
+  ],
+  "internalLinks": [
+    "/article/blackbox-analysis-masterclass",
+    "/article/pid-tuning-beyond-presets",
+    "/article/modern-betaflight-filter-architecture"
+  ],
+  "publishNotes": [
+    "Flagship Engineering Lab V2 Research Paper"
+  ],
+  "media": {
+    "coverImage": {
+      "src": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=800&q=80",
+      "alt": "Abstract digital transmission noise",
+      "caption": "Real-time digital video encoding pipelines and high-speed data streams.",
+      "source": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/glass-transmission-625624792",
+      "credit": "Photo by John Barker on Unsplash"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "https://unsplash.com/photos/glass-transmission-625624792"
+    ],
+    "attribution": [
+      "Photo by John Barker on Unsplash"
+    ]
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-02T07:41:42.021Z",
+  "promptVersion": "v2"
+}

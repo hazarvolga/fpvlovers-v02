@@ -1,0 +1,54 @@
+{
+  "slug": "esc-protocol-deep-dive",
+  "title": "ESC Protocol Deep Dive: Bidirectional DShot, RPM Telemetry & Gate Drive Performance",
+  "jobId": "flagship-esc-protocol-deep-dive",
+  "category": "Propulsion",
+  "template": "tech-article",
+  "seo": {
+    "slug": "esc-protocol-deep-dive",
+    "metaDescription": "A deep technical investigation into FPV ESC hardware topologies, DShot signaling protocols, and high-frequency gate drive switching dynamics.",
+    "keywords": [
+      "fpv research",
+      "engineering lab",
+      "propulsion",
+      "esc protocol deep dive"
+    ]
+  },
+  "excerpt": "A deep technical investigation into FPV ESC hardware topologies, DShot signaling protocols, and high-frequency gate drive switching dynamics.",
+  "bodySections": [
+    {
+      "id": "intro",
+      "title": "ESC Protocol Deep Dive: Bidirectional DShot, RPM Telemetry & Gate Drive Performance",
+      "content": "## 1. ESC Hardware Architecture\n\nAn Electronic Speed Controller (ESC) uses a microcontroller (e.g. STM32G0) to drive a three-phase bridge composed of six MOSFETs, controlling the brushless motor's coils.\n\n```\n[ESC Three-Phase MOSFET Topology]\n           +---+       +---+       +---+\n   V_BAT ->| Q1|------>| Q3|------>| Q5|\n           +---+       +---+       +---+\n             |           |           |\n             +--(Phase A)+--(Phase B)+--(Phase C)\n             |           |           |\n           +---+       +---+       +---+\n     GND ->| Q2|------>| Q4|------>| Q6|\n           +---+       +---+       +---+\n```\n\n---\n\n## 2. The DShot Communication Protocol\n\nDShot is a digital protocol transmitting 16-bit packets from the FC to the ESC.\n* **DShot300:** Operates at 300kbaud.\n* **DShot600:** Operates at 600kbaud (Standard).\n\n### 2.1 Bidirectional DShot & Telemetry\nEnabling bidirectional DShot forces the ESC to transmit a telemetry packet back to the FC containing the exact motor RPM, measured via the back-electromotive force (Back-EMF) of the undriven phase.\n\n---\n\n## 3. Switching Frequency & Thermal Optimization\n\nHigher PWM switching frequencies (e.g. 48kHz or 96kHz) smooth out motor operation and increase throttle resolution but increase switching losses in the MOSFET gates, leading to higher ESC temperatures."
+    }
+  ],
+  "internalLinks": [
+    "/article/blackbox-analysis-masterclass",
+    "/article/pid-tuning-beyond-presets",
+    "/article/modern-betaflight-filter-architecture"
+  ],
+  "publishNotes": [
+    "Flagship Engineering Lab V2 Research Paper"
+  ],
+  "media": {
+    "coverImage": {
+      "src": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      "alt": "Microchip on circuit board",
+      "caption": "Close-up of high-speed FPV ESC driver circuitry and MOSFET gates.",
+      "source": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/computer-chip-625624792",
+      "credit": "Photo by Alexandre Debiève on Unsplash"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "https://unsplash.com/photos/computer-chip-625624792"
+    ],
+    "attribution": [
+      "Photo by Alexandre Debiève on Unsplash"
+    ]
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-02T07:41:42.017Z",
+  "promptVersion": "v2"
+}

@@ -32,32 +32,32 @@ export const navigationData = [
   },
   {
     title: "Engineering Lab",
-    label: "Building & Tech",
+    label: "Research & Systems",
     icon: Wrench,
     href: "/engineering",
     items: [
       {
-        title: "Hardware Data",
-        href: "/engineering/hardware",
-        description: "Motors, ESCs, FCs, and Video Systems.",
+        title: "Flight Control Research",
+        href: "/engineering/flight-control",
+        description: "Blackbox, PID Tuning, and Betaflight Filter architectures.",
         icon: Cpu
       },
       {
-        title: "Propeller Lab",
-        href: "/engineering/hardware#props",
-        description: "Prop size, pitch, blade count, and vibration.",
+        title: "Propulsion & Power",
+        href: "/engineering/propulsion",
+        description: "Motor efficiency, ESC protocols, LiPo science, and propellers.",
         icon: Target
       },
       {
-        title: "Firmware Tuning",
-        href: "/engineering/firmware",
-        description: "Betaflight PID tuning & EdgeTX / ELRS setup.",
+        title: "RF & Video Link",
+        href: "/engineering/communication",
+        description: "ELRS packet rates, video latency engineering, and propagation.",
         icon: Radio
       },
       {
-        title: "Workshop Masterclass",
-        href: "/engineering/workshop",
-        description: "Advanced soldering, repair, and maintenance.",
+        title: "Aircraft Systems",
+        href: "/engineering/systems",
+        description: "Frame resonance, GPS rescue reliability, and system integration.",
         icon: Activity
       }
     ]

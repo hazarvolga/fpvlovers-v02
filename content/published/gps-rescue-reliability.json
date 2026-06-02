@@ -1,0 +1,54 @@
+{
+  "slug": "gps-rescue-reliability",
+  "title": "GPS Rescue Reliability: Satellite Geometry, Fail-safe Logic & Recovery Loops",
+  "jobId": "flagship-gps-rescue-reliability",
+  "category": "Systems",
+  "template": "tech-article",
+  "seo": {
+    "slug": "gps-rescue-reliability",
+    "metaDescription": "A critical technical safety report on Betaflight GPS Rescue systems, examining satellite lock geometry, home point calculations, and failsafe recovery loops.",
+    "keywords": [
+      "fpv research",
+      "engineering lab",
+      "systems",
+      "gps rescue reliability"
+    ]
+  },
+  "excerpt": "A critical technical safety report on Betaflight GPS Rescue systems, examining satellite lock geometry, home point calculations, and failsafe recovery loops.",
+  "bodySections": [
+    {
+      "id": "intro",
+      "title": "GPS Rescue Reliability: Satellite Geometry, Fail-safe Logic & Recovery Loops",
+      "content": "## 1. Home Point Calculations & Satellite Lock\n\nGPS Rescue is a critical safety system. During arming, the FC records the Home Point coordinates once a minimal satellite lock is established (typically 8 satellites).\n\n### 1.1 Satellite Geometry (HDOP/PDOP)\nThe accuracy of the lock is determined by the Dilution of Precision (DOP):\n* **Low HDOP (< 1.5):** Satellites are spread out, providing perfect triangulation.\n* **High HDOP (> 3.0):** Satellites are clustered together, leading to coordinate drift and home point errors.\n\n---\n\n## 2. Betaflight Rescue Failsafe Logic\n\nWhen control signal is lost (Failsafe), the FC takes control:\n1. **Climb Phase:** The multirotor immediately climbs to a safe altitude.\n2. **Turn Phase:** The FC calculates the home vector and turns towards home.\n3. **Return Phase:** The drone flies home at a programmed speed, monitoring satellite locks and barometric altitude.\n\n---\n\n## 3. Catastrophic Failure Scenarios\n\n### 3.1 Satellite Loss Mid-Rescue\nIf satellite count drops below 4 during the flight, the FC loses triangulation. Betaflight failsafe rules command the drone to disarm immediately to prevent flyaways.\n\n### 3.2 Glitchy Barometers\nA faulty barometer can report false altitude spikes, forcing the FC to descend prematurely into trees or water."
+    }
+  ],
+  "internalLinks": [
+    "/article/blackbox-analysis-masterclass",
+    "/article/pid-tuning-beyond-presets",
+    "/article/modern-betaflight-filter-architecture"
+  ],
+  "publishNotes": [
+    "Flagship Engineering Lab V2 Research Paper"
+  ],
+  "media": {
+    "coverImage": {
+      "src": "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80",
+      "alt": "Satellite views from orbit",
+      "caption": "Global satellite navigation networks and coordinate tracking pathways.",
+      "source": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/orbital-space-625624792",
+      "credit": "Photo by NASA on Unsplash"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "https://unsplash.com/photos/orbital-space-625624792"
+    ],
+    "attribution": [
+      "Photo by NASA on Unsplash"
+    ]
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-02T07:41:42.023Z",
+  "promptVersion": "v2"
+}

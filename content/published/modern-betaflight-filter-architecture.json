@@ -1,0 +1,54 @@
+{
+  "slug": "modern-betaflight-filter-architecture",
+  "title": "Modern Betaflight Filter Architecture: Dynamic Notch, RPM Filtering & Latency Tradeoffs",
+  "jobId": "flagship-modern-betaflight-filter-architecture",
+  "category": "Flight Control",
+  "template": "tech-article",
+  "seo": {
+    "slug": "modern-betaflight-filter-architecture",
+    "metaDescription": "A research-grade analysis of multirotor noise filtering strategies, detailing the dynamic notch filter, bi-directional DShot RPM filtering, and phase delay latency tradeoffs.",
+    "keywords": [
+      "fpv research",
+      "engineering lab",
+      "flight control",
+      "modern betaflight filter architecture"
+    ]
+  },
+  "excerpt": "A research-grade analysis of multirotor noise filtering strategies, detailing the dynamic notch filter, bi-directional DShot RPM filtering, and phase delay latency tradeoffs.",
+  "bodySections": [
+    {
+      "id": "intro",
+      "title": "Modern Betaflight Filter Architecture: Dynamic Notch, RPM Filtering & Latency Tradeoffs",
+      "content": "## 1. Multirotor Noise Spectrum\n\nMultirotor multirotors generate extreme high-frequency vibration from mechanical motor imbalances and aerodynamic propeller drag. This noise ($100-1000\\text{ Hz}$) must be removed before the PID loop processes gyro data, or D-term gains will amplify it, causing motor overheating.\n\n---\n\n## 2. Advanced Filtering Technologies\n\n### 2.1 Bi-directional DShot & RPM Filtering\nBy enabling bi-directional communication between the Flight Controller (FC) and the ESC, the FC receives real-time motor telemetry containing exact motor RPM values. This allows the FC to deploy narrow, surgical notch filters tracking the fundamental harmonic frequency of each motor:\n\n$$f_{harmonic} = \\frac{\\text{RPM}}{60} \\cdot n_{\\text{magnets}}$$\n\n### 2.2 The Dynamic Notch Filter\nThe dynamic notch filter uses a fast Fourier transform (FFT) algorithm to track the loudest noise bands across the spectrum and dynamically place notch filters over them.\n\n```\n[RPM vs Dynamic Notch Filtering]\nAmplitude\n  ^\n  |     ___      ___ (Unfiltered Noise Peak)\n  |    /   \\    /   \\\n  |===|=====\\==|=====\\=== (Filter Attenuation)\n  |   \\_____/  \\_____/\n  +-------------------------------------> Frequency\n```\n\n---\n\n## 3. Filter Latency & Phase Delay\n\nEvery filter introduced into the signal chain adds delay. A phase delay in the gyro signal of even $2-3\\text{ ms}$ reduces the PID loop's phase margin, rendering it unstable and prone to propwash oscillations."
+    }
+  ],
+  "internalLinks": [
+    "/article/blackbox-analysis-masterclass",
+    "/article/pid-tuning-beyond-presets",
+    "/article/motor-efficiency-engineering"
+  ],
+  "publishNotes": [
+    "Flagship Engineering Lab V2 Research Paper"
+  ],
+  "media": {
+    "coverImage": {
+      "src": "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=800&q=80",
+      "alt": "Signal waves and filters",
+      "caption": "High-frequency signal processing and filter attenuation visualizer.",
+      "source": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/white-and-blue-abstract-painting-625624792",
+      "credit": "Photo by Samuel Scrimshaw on Unsplash"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "https://unsplash.com/photos/white-and-blue-abstract-painting-625624792"
+    ],
+    "attribution": [
+      "Photo by Samuel Scrimshaw on Unsplash"
+    ]
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-02T07:41:42.015Z",
+  "promptVersion": "v2"
+}

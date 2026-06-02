@@ -1,0 +1,54 @@
+{
+  "slug": "lipo-performance-engineering",
+  "title": "LiPo Performance Engineering: Internal Resistance, Voltage Sag & Thermal Physics",
+  "jobId": "flagship-lipo-performance-engineering",
+  "category": "Propulsion",
+  "template": "tech-article",
+  "seo": {
+    "slug": "lipo-performance-engineering",
+    "metaDescription": "A scientific research paper exploring Lithium Polymer battery dynamics, examining internal resistance curves, high-current discharge sag, and thermal degradation risks.",
+    "keywords": [
+      "fpv research",
+      "engineering lab",
+      "propulsion",
+      "lipo performance engineering"
+    ]
+  },
+  "excerpt": "A scientific research paper exploring Lithium Polymer battery dynamics, examining internal resistance curves, high-current discharge sag, and thermal degradation risks.",
+  "bodySections": [
+    {
+      "id": "intro",
+      "title": "LiPo Performance Engineering: Internal Resistance, Voltage Sag & Thermal Physics",
+      "content": "## 1. The Chemistry of LiPo Discharge\n\nLithium Polymer (LiPo) batteries store electrical energy chemically. During flight, lithium ions move from the anode to the cathode, creating an external current.\n\n### 1.1 Internal Resistance (IR) & Ohmic Sag\nEvery cell possesses an internal resistance ($R_{int}$). When drawing a high current $I$ (often exceeding 100A in FPV punchouts), the terminal voltage drops instantly due to ohmic losses:\n\n$$V_{terminal} = V_{oc} - I \\cdot R_{int}$$\n\nThis voltage sag reduces overall motor RPM, limiting maximum thrust.\n\n---\n\n## 2. Decoding C-Ratings & Capacity\n\nThe C-rating represents the maximum continuous discharge rate of the pack:\n\n$$I_{max} = \\text{Capacity (Ah)} \\cdot \\text{C-Rating}$$\n\n### 2.1 The C-Rating Myth\nMany FPV packs claim 150C+ continuous ratings. However, continuous discharge at these levels would melt the internal nickel tabs within seconds. Real continuous C-ratings rarely exceed 40-50C.\n\n---\n\n## 3. Thermal Degradation & Swelling\n\nDrawing current raises cell temperature. If the internal temperature exceeds $60^\\circ\\text{C}$, the polymer electrolyte degrades, producing gas that causes cell swelling (puffing) and irreversible capacity loss."
+    }
+  ],
+  "internalLinks": [
+    "/article/blackbox-analysis-masterclass",
+    "/article/pid-tuning-beyond-presets",
+    "/article/modern-betaflight-filter-architecture"
+  ],
+  "publishNotes": [
+    "Flagship Engineering Lab V2 Research Paper"
+  ],
+  "media": {
+    "coverImage": {
+      "src": "https://images.unsplash.com/photo-1620283085439-39620a1e21c4?auto=format&fit=crop&w=800&q=80",
+      "alt": "Energy cells close up",
+      "caption": "High-density Lithium Polymer FPV battery cells under mechanical stress.",
+      "source": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/abstract-light-cells-625624792",
+      "credit": "Photo by FlyD on Unsplash"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "https://unsplash.com/photos/abstract-light-cells-625624792"
+    ],
+    "attribution": [
+      "Photo by FlyD on Unsplash"
+    ]
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-02T07:41:42.019Z",
+  "promptVersion": "v2"
+}

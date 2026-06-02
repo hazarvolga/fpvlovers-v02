@@ -1,0 +1,54 @@
+{
+  "slug": "frame-resonance-vibration-analysis",
+  "title": "Frame Resonance & Vibration Analysis: Carbon Fiber Mechanics & Gyro Contamination",
+  "jobId": "flagship-frame-resonance-vibration-analysis",
+  "category": "Systems",
+  "template": "tech-article",
+  "seo": {
+    "slug": "frame-resonance-vibration-analysis",
+    "metaDescription": "A deep physical study on carbon fiber structural resonance, analyzing vibration transfer paths, frame stiffness parameters, and gyro noise prevention.",
+    "keywords": [
+      "fpv research",
+      "engineering lab",
+      "systems",
+      "frame resonance vibration analysis"
+    ]
+  },
+  "excerpt": "A deep physical study on carbon fiber structural resonance, analyzing vibration transfer paths, frame stiffness parameters, and gyro noise prevention.",
+  "bodySections": [
+    {
+      "id": "intro",
+      "title": "Frame Resonance & Vibration Analysis: Carbon Fiber Mechanics & Gyro Contamination",
+      "content": "## 1. Structural Resonance of Carbon Fiber\n\nMultirotor frames are cut from carbon fiber sheets. While extremely strong, carbon fiber possesses natural resonance frequencies ($150-300\\text{ Hz}$). When the motors spin, they generate vibrations that match these frequencies, causing the frame to resonate.\n\n---\n\n## 2. Gyro Contamination Path\n\nFrame vibrations are conducted directly to the Flight Controller (FC) board. The onboard gyro sensor registers this high-frequency noise, which corrupts the PID control loop.\n\n```\n[Vibration Contamination Path]\nMotors ---> Arms ---> Frame Plates ---> FC Standoffs ---> Gyro Sensor\n                         |                                  |\n                   (Resonance Peak)                 (PID Loop Corruption)\n```\n\n### 2.1 Mitigation via Soft-Mounting\nSoft-mounting the FC using silicone gummies isolates the board, acting as a low-pass filter to damp vibrations above $100\\text{ Hz}$.\n\n---\n\n## 3. Frame Layout Stiffness Comparisons\n\n* **True X Layout:** Symmetrical arms, balanced inertia, but narrow carbon plates can resonate easily on Pitch.\n* **Deadcat Layout:** Front arms pushed out for clean camera views. The asymmetric geometry creates complex arm resonance frequencies, requiring separate filtering for Roll and Pitch."
+    }
+  ],
+  "internalLinks": [
+    "/article/blackbox-analysis-masterclass",
+    "/article/pid-tuning-beyond-presets",
+    "/article/modern-betaflight-filter-architecture"
+  ],
+  "publishNotes": [
+    "Flagship Engineering Lab V2 Research Paper"
+  ],
+  "media": {
+    "coverImage": {
+      "src": "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+      "alt": "Carbon fiber pattern close up",
+      "caption": "Premium FPV drone carbon fiber weave layers and structural brace arms.",
+      "source": "Unsplash",
+      "sourceUrl": "https://unsplash.com/photos/carbon-fiber-weave-625624792",
+      "credit": "Photo by NASA on Unsplash"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "https://unsplash.com/photos/carbon-fiber-weave-625624792"
+    ],
+    "attribution": [
+      "Photo by NASA on Unsplash"
+    ]
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-02T07:41:42.021Z",
+  "promptVersion": "v2"
+}
