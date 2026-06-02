@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
 import { Flag, Settings, Activity, Target, Calendar, ShieldCheck } from 'lucide-react';
@@ -74,6 +75,16 @@ export default function RacingPage() {
           {/* Species Introductory Block */}
           <div className="glass-panel p-6 border-l-2 border-[#FF5C00] bg-[#FF5C00]/5 text-xs text-[#b0bfd6] leading-relaxed rounded-md">
             {"// AERODYNAMIC SPECIES TAXONOMY: Symmetrical stretched-X and true-X racing multirotors. Built for pure aerodynamic speed and latency-optimized gate navigation. Stripped of all non-essential hardware (no heavy action cams), Racing drones utilize aggressive high-pitch props, massive motor KV stators, and zero-latency video links."}
+          </div>
+
+          <div className="border border-[#00F2FF]/20 bg-[#00F2FF]/5 p-5 rounded-md text-xs leading-relaxed flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <span className="text-[#00F2FF] font-black uppercase tracking-wider block mb-1">Competition ecosystem moved to Racing Division</span>
+              <span className="text-[#b0bfd6]">This Archive page covers racing aircraft hardware. Events, pilots, teams, tracks, rankings, and racing history now live in the dedicated FPV Racing Division.</span>
+            </div>
+            <Link href="/racing" className="shrink-0 rounded border border-[#00F2FF]/30 px-4 py-2 font-black uppercase tracking-wider text-[#00F2FF] transition-colors hover:bg-[#00F2FF]/10 hover:text-white">
+              Open Racing Division
+            </Link>
           </div>
 
           {/* Mission Profile Section */}

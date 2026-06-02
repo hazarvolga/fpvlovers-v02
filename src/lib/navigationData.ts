@@ -1,6 +1,6 @@
 import {
   Rocket, BookOpen, Wrench, Cpu, Radio, Video, Battery,
-  Crosshair, ShieldAlert, MonitorPlay, Activity, Zap, Layers, Map, Target
+  Crosshair, ShieldAlert, MonitorPlay, Activity, Zap, Layers, Map, Target, Flag, Trophy, CalendarDays, Users
 } from 'lucide-react';
 
 export const navigationData = [
@@ -59,6 +59,44 @@ export const navigationData = [
         href: "/engineering/systems",
         description: "Frame resonance, GPS rescue reliability, and system integration.",
         icon: Activity
+      }
+    ]
+  },
+  {
+    title: "Racing",
+    label: "Competition Grid",
+    icon: Trophy,
+    href: "/racing",
+    items: [
+      {
+        title: "Race Calendar",
+        href: "/racing/calendar",
+        description: "Upcoming, current, and completed global FPV competitions.",
+        icon: CalendarDays
+      },
+      {
+        title: "Global Events",
+        href: "/racing/events",
+        description: "MultiGP, FAI, DRL, DCL, national championships, and opens.",
+        icon: Flag
+      },
+      {
+        title: "Pilot Database",
+        href: "/racing/pilots",
+        description: "Callsigns, countries, teams, achievements, and race history.",
+        icon: Users
+      },
+      {
+        title: "World Rankings",
+        href: "/racing/rankings",
+        description: "Transparent pilot and team rating methodology.",
+        icon: Trophy
+      },
+      {
+        title: "Race Technology",
+        href: "/racing/technology",
+        description: "Latency, video links, propulsion, frames, and race optimization.",
+        icon: Zap
       }
     ]
   },
