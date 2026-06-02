@@ -80,6 +80,7 @@ export default function RoadmapPage() {
   const [syncing, setSyncing] = useState(false);
   const [syncMessage, setSyncMessage] = useState<string | null>(null);
   const [isOffline, setIsOffline] = useState(typeof window !== "undefined" ? !window.navigator.onLine : false);
+  const [isManualOpen, setIsManualOpen] = useState(false);
 
   const triggerSync = useCallback(async () => {
     if (typeof window === "undefined" || !window.navigator.onLine || status !== "authenticated") return;
@@ -322,9 +323,15 @@ export default function RoadmapPage() {
                 <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
                   Pilot <span className="text-[#00F2FF]">Roadmap</span>
                 </h1>
-                <p className="text-xs uppercase text-[#A0A0A0] tracking-widest max-w-2xl leading-relaxed">
+                <p className="text-xs uppercase text-[#A0A0A0] tracking-widest max-w-2xl leading-relaxed mb-4">
                   {"// INTERACTIVE MULTI-DISCIPLINE FLIGHT PROGRESSION MATRIX (FPM)"}
                 </p>
+                <button
+                  onClick={() => setIsManualOpen(true)}
+                  className="inline-flex items-center gap-1.5 bg-[#FF5C00]/10 hover:bg-[#FF5C00]/20 text-[#FF5C00] border border-[#FF5C00]/30 hover:border-[#FF5C00]/60 font-black py-1.5 px-3 rounded text-[10px] uppercase tracking-wider transition-all duration-200 pointer-events-auto cursor-pointer"
+                >
+                  📡 [?] SYSTEM_MANUAL
+                </button>
               </div>
               {dossier ? (
                 <div className="flex flex-col gap-2 items-end w-full sm:w-auto">
@@ -334,11 +341,11 @@ export default function RoadmapPage() {
                   >
                     <div className="flex items-center justify-end gap-2">
                       {syncing && <span className="animate-spin text-[#00F2FF]">⚙️</span>}
-                      <p className="text-[#00F2FF] font-black uppercase">CALLSIGN: {dossier.callsign}</p>
+                      <p className="text-[#00F2FF] font-black uppercase" title="Your official telemetry pilot identifier.">CALLSIGN: {dossier.callsign} ℹ️</p>
                     </div>
-                    <p className="text-[#A0A0A0] mt-1 font-black">CLASS: {dossier.assignedClass}</p>
-                    <p className="text-[#00FF66] mt-1 font-mono uppercase tracking-widest">
-                      ORL LEVEL: {dossier.qualifications.operationalReadinessLevel}
+                    <p className="text-[#A0A0A0] mt-1 font-black" title="Your specialized flight class calibrated during assessment.">CLASS: {dossier.assignedClass} ℹ️</p>
+                    <p className="text-[#00FF66] mt-1 font-mono uppercase tracking-widest" title="Operational Readiness Level: your active pilot qualification tier.">
+                      ORL LEVEL: {dossier.qualifications.operationalReadinessLevel} ℹ️
                     </p>
                     <p className="text-[10px] text-[#A0A0A0] mt-2 underline">Manage Dossier Card →</p>
                   </a>
@@ -726,6 +733,82 @@ export default function RoadmapPage() {
                 className="bg-[#00FF66] hover:bg-[#00FF66]/90 disabled:bg-[#1A1A1A] disabled:text-[#4A4A4A] disabled:border-transparent text-black border-b-4 border-[#00A341] disabled:border-b-0 font-black py-2.5 px-6 rounded text-xs uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5"
               >
                 Deploy Qualification
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Cockpit Manual System Modal */}
+      {isManualOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 animate-fadeIn">
+          <div className="relative w-full max-w-2xl border border-[#00F2FF]/30 bg-[#050810] rounded-lg shadow-[0_0_50px_rgba(0,242,255,0.15)] font-mono text-[#f8fafc] overflow-hidden hex-panel">
+            <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />
+            
+            {/* Header */}
+            <div className="p-6 border-b border-[#1A1A1A] flex justify-between items-start">
+              <div>
+                <span className="text-[10px] uppercase text-[#00F2FF] font-black tracking-widest">Ecosystem intelligence</span>
+                <h3 className="text-xl font-black uppercase text-white tracking-tight mt-1">
+                  SYSTEM_MANUAL // MATRIX SCHEMATIC
+                </h3>
+              </div>
+              <button
+                onClick={() => setIsManualOpen(false)}
+                className="text-[#A0A0A0] hover:text-white transition-colors text-lg"
+              >
+                ✕
+              </button>
+            </div>
+            
+            {/* Content */}
+            <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
+              <div className="grid gap-6">
+                <div className="p-4 border border-[#333333] bg-black/40 rounded">
+                  <h4 className="text-xs uppercase text-[#FF5C00] font-black tracking-widest mb-2">
+                    1. Initialize Dossier (SYS.INITIALIZE)
+                  </h4>
+                  <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                    Completing your scenario-based pilot assessment determines your flight class archetype and sets your default calibration variables.
+                  </p>
+                </div>
+                
+                <div className="p-4 border border-[#333333] bg-black/40 rounded">
+                  <h4 className="text-xs uppercase text-[#00F2FF] font-black tracking-widest mb-2">
+                    2. Milestone Progression (SYS.FPM)
+                  </h4>
+                  <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                    Follow the locked branches. Unlocking active sorties requires you to read study modules, complete objective criteria, and digitally self-certify physical/simulated skill readiness.
+                  </p>
+                </div>
+                
+                <div className="p-4 border border-[#333333] bg-black/40 rounded">
+                  <h4 className="text-xs uppercase text-[#00FF66] font-black tracking-widest mb-2">
+                    3. Cloud Sync Telemetry (SYS.CLOUD_SYNC)
+                  </h4>
+                  <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                    Your progression cache is stored safely in your browser cookies when operating as a guest. Authenticating your session automatically merges and uploads your milestones to your database profile.
+                  </p>
+                </div>
+                
+                <div className="p-4 border border-[#333333] bg-black/40 rounded">
+                  <h4 className="text-xs uppercase text-yellow-500 font-black tracking-widest mb-2">
+                    4. Off-Grid Mode (SYS.OFFLINE_RECOVERY)
+                  </h4>
+                  <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                    When telemetry connections drop, you can certify modules offline. Ratings are saved in browser cache and deployed instantly when the link is recovered.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            {/* Footer */}
+            <div className="p-6 border-t border-[#1A1A1A] flex justify-end bg-[#0A0D14]/40">
+              <button
+                onClick={() => setIsManualOpen(false)}
+                className="bg-black/50 hover:bg-[#FF5C00]/10 text-white hover:text-[#FF5C00] border border-[#333333] hover:border-[#FF5C00]/40 font-black py-2.5 px-6 rounded text-xs uppercase tracking-wider transition-all duration-200"
+              >
+                [x] TERMINATE SIGNAL
               </button>
             </div>
           </div>
