@@ -1,4 +1,4 @@
-"use client"; // Interactive search filters, category isolation hotspots, and RAG diagnostic overlays.
+"use client"; // Interactive search filters, systems navigation, and progressive disclosure Dossier panel.
 
 import React, { useState, useEffect, useRef } from 'react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
@@ -8,7 +8,7 @@ import {
   Search, BookOpen, Shield, ShieldCheck, 
   Layers, Compass, Wrench, FileText, 
   HelpCircle, Sparkles, X, Radio, Battery, 
-  Settings, Award, RefreshCw 
+  Settings, Award, RefreshCw, Cpu, Video, CheckCircle
 } from 'lucide-react';
 import { GlossaryTerm } from '@/lib/server/glossary';
 
@@ -21,10 +21,14 @@ export default function GlossaryPage() {
   const [loading, setLoading] = useState(true);
   const [selectedTerm, setSelectedTerm] = useState<GlossaryTerm | null>(null);
   
-  // Dossier RAG Details state
+  // RAG Details state
   const [ragData, setRagData] = useState<any>(null);
   const [ragLoading, setRagLoading] = useState(false);
   const [telemetryConnected, setTelemetryConnected] = useState(false);
+
+  // Accordion state for Acronym Center and Build DNA
+  const [expandedAcronym, setExpandedAcronym] = useState<string | null>(null);
+  const [selectedBuildDna, setSelectedBuildDna] = useState<string | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -33,16 +37,143 @@ export default function GlossaryPage() {
     { label: 'FPV Glossary', isCurrentPage: true }
   ];
 
-  const categories = [
-    { id: 'all', label: 'All Systems' },
-    { id: 'Start Here', label: 'Crucial Concepts' },
-    { id: 'Radio Control System', label: 'Radio Link' },
-    { id: 'Power System', label: 'Power System' },
-    { id: 'Flight Control System', label: 'Flight Control' },
-    { id: 'Video System', label: 'Video link' },
-    { id: 'Navigation System', label: 'Navigation' },
-    { id: 'Flight Physics', label: 'Physics' },
-    { id: 'Troubleshooting', label: 'Troubleshooting' }
+  // System structural categories for System-Based Learning (Section 3)
+  const systemCategories = [
+    {
+      title: 'Radio Control System',
+      description: 'The wireless link connecting your sticks to the aircraft.',
+      terms: ['elrs', 'rssi', 'receiver', 'failsafe', 'bind-phrase'],
+      icon: Radio,
+      color: '#00FF66'
+    },
+    {
+      title: 'Power System',
+      description: 'Voltage distribution, battery chemistry, and sag management.',
+      terms: ['lipo', 'voltage', 'cell-count', 'desync'],
+      icon: Battery,
+      color: '#FF5C00'
+    },
+    {
+      title: 'Flight Control System',
+      description: 'Firmware operating systems, loop times, and stabilization algorithms.',
+      terms: ['flight-controller', 'gyro', 'pid', 'blackbox', 'betaflight'],
+      icon: Cpu,
+      color: '#00F2FF'
+    },
+    {
+      title: 'Video System',
+      description: 'Digital HD and uncompressed analog RF transmission channels.',
+      terms: ['vtx', 'analog', 'latency'],
+      icon: Video,
+      color: '#00F2FF'
+    },
+    {
+      title: 'Navigation System',
+      description: 'Autopilot emergency routines and global coordinate networks.',
+      terms: ['gps-rescue'],
+      icon: Compass,
+      color: '#00FF66'
+    },
+    {
+      title: 'Troubleshooting Index',
+      description: 'Isolate terminology through active flight failures.',
+      terms: ['desync', 'failsafe'],
+      icon: Wrench,
+      color: '#FF5C00'
+    }
+  ];
+
+  // Start Here Onboarding Core terms (Section 2)
+  const startHereSlugs = [
+    'fpv', 'acro-mode', 'elrs', 'lipo', 'flight-controller', 
+    'esc', 'motor-kv', 'vtx', 'rssi', 'pid', 
+    'blackbox', 'betaflight', 'gps-rescue', 'propwash', 'analog'
+  ];
+
+  // Build DNA Knowledge profiles (Section 6)
+  const buildDnaProfiles = [
+    {
+      id: 'sub250',
+      title: 'Sub-250g Micro',
+      description: 'Micro class drones designed to bypass complex regulatory licensing requirements.',
+      useCase: 'Casual backyard flying, park cruising, and lightweight indoor flight.',
+      advantages: 'No registration required, highly crash-resilient, whisper-quiet operations.',
+      disadvantages: 'Highly susceptible to wind drift, cannot carry full-sized GoPro cameras.',
+      module: 'battery-safety',
+      archiveLink: '/archive/whoops'
+    },
+    {
+      id: 'cinewhoop',
+      title: 'Cinewhoop (3.0" - 3.5")',
+      description: 'Ducted propeller platforms engineered to capture ultra-smooth cinematic footage close to people.',
+      useCase: 'Indoor real estate touring, close proximity active tracking, and commercial advertising.',
+      advantages: 'Propeller guards protect people and walls; extremely stable indoor hover.',
+      disadvantages: 'High weight-to-power ratio, severely reduced flight times (3-4 mins), heavy propwash.',
+      module: 'goggles-buying',
+      archiveLink: '/archive/freestyle'
+    },
+    {
+      id: 'freestyle',
+      title: 'Standard 5-Inch',
+      description: 'The golden standard of FPV miniquads. Designed for absolute acrobatic capability and durability.',
+      useCase: 'Acrobatic flying, bando exploration, power loops, and professional cinematic capturing.',
+      advantages: 'Perfect power-to-weight balance, infinite replacement parts, highly customizable.',
+      disadvantages: 'Louder noise profile, requires advanced assembly skills and custom tuning.',
+      module: 'radio-selection',
+      archiveLink: '/archive/freestyle'
+    },
+    {
+      id: 'long-range',
+      title: '7-Inch Explorer',
+      description: 'Heavy long-range platforms designed to surf mountains and maintain extreme flight envelopes.',
+      useCase: 'Alpine peak surfing, long-distance wilderness exploration, and deep RF penetration flights.',
+      advantages: 'High efficiency cruisers, handles heavy high-capacity batteries, excellent wind penetration.',
+      disadvantages: 'Extreme kinetic hazard in crashes, sluggish rates, requires reliable GPS failsafes.',
+      module: 'radio-selection',
+      archiveLink: '/archive/long-range'
+    }
+  ];
+
+  // Troubleshooting Symptoms Database (Section 7)
+  const troubleshootingIndex = [
+    {
+      symptom: 'My motors are hot to the touch',
+      cause: 'Severe mechanical vibration or electrical noise overloading the D-term filter stages.',
+      linkedSlug: 'pid',
+      tag: 'PID / Hot Motors'
+    },
+    {
+      symptom: 'My video feed keeps breaking up',
+      cause: 'Antenna polarization mismatch, loose coaxial connectors, or flying behind dense concrete structures.',
+      linkedSlug: 'vtx',
+      tag: 'VTX / Video Breakup'
+    },
+    {
+      symptom: 'My quad randomly spins out and falls',
+      cause: 'ESC losing sync with motor coils under sudden throttle spikes or high noise levels.',
+      linkedSlug: 'desync',
+      tag: 'ESC / Motor Desync'
+    },
+    {
+      symptom: 'My transmitter displays Link Warnings',
+      cause: 'Extreme distance, antenna orientation errors, or low transmitter refresh rates.',
+      linkedSlug: 'rssi',
+      tag: 'RSSI & LQ Failsafe'
+    }
+  ];
+
+  // Dedicated FPV Acronym Center (Section 8)
+  const acronyms = [
+    { name: 'ELRS', full: 'ExpressLRS', exp: 'Leading open-source radio control link using ultra-fast LoRa packet rates.' },
+    { name: 'ESC', full: 'Electronic Speed Controller', exp: 'Translates raw battery voltage into timed 3-phase current to spin brushless motors.' },
+    { name: 'FC', full: 'Flight Controller', exp: 'The central multi-processor board acting as the stabilizing brain of the aircraft.' },
+    { name: 'GPS', full: 'Global Positioning System', exp: 'Satellite tracking receiver allowing coordinates to trigger emergency RTH rescue.' },
+    { name: 'LQ', full: 'Link Quality', exp: 'Percentage of control data packets successfully received. The ultimate telemetry metric.' },
+    { name: 'PID', full: 'Proportional Integral Derivative', exp: 'The math control loop that stabilizes your quad, comparing stick positions to actual gyro tilt.' },
+    { name: 'RPM', full: 'Revolutions Per Minute', exp: 'Rotational speed of motor stators, critical for configuring Betaflight dynamic filters.' },
+    { name: 'RSSI', full: 'Received Signal Strength Indicator', exp: 'The logarithmic measure of incoming radio signal strength.' },
+    { name: 'UART', full: 'Universal Asynchronous Receiver-Transmitter', exp: 'Physical serial communication ports on the FC to connect external GPS, RX, or VTX peripherals.' },
+    { name: 'VTX', full: 'Video Transmitter', exp: 'Onboard module broadcasting the camera feed over 5.8GHz channels to pilot goggles.' }
   ];
 
   // Load terms and apply filters using Client-side API fetching
@@ -126,196 +257,295 @@ export default function GlossaryPage() {
     setTelemetryConnected(false);
   };
 
-  // Count telemetry stats
-  const totalConceptsCount = terms.length;
-  const beginnerCount = terms.filter(t => t.difficulty === 'Beginner').length;
-  const advancedCount = terms.filter(t => t.difficulty === 'Advanced').length;
+  // Find dynamic start here terms
+  const startHereTerms = terms.filter(t => startHereSlugs.includes(t.slug));
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
-      {/* Main Header / Tactical HUD Panel */}
-      <div className="relative p-8 hex-panel glass-panel overflow-hidden mb-8 border border-[#1A1A1A]">
+      {/* SECTION 1: HERO (Clarity First) */}
+      <div className="relative p-10 hex-panel glass-panel overflow-hidden mb-10 border border-[#1A1A1A] bg-black/45">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/black-scales.png')] opacity-[0.03] mix-blend-overlay" />
         <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle_at_center,#00F2FF,transparent_70%)] opacity-10 pointer-events-none" />
         
         <BookOpen className="w-12 h-12 text-[#FF5C00] mb-6 opacity-80" />
         
         <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
-          FPV <span className="text-[#00F2FF]">Knowledge System</span>
+          FPV <span className="text-[#00F2FF]">Knowledge Index</span>
         </h1>
-        <p className="text-sm font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest">
-          {"// INTERCONNECTED FLIGHT DATA MANUAL AND TACTICAL ACRONYM INDEX"}
+        <p className="text-sm md:text-md text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-wider mb-8">
+          Learn the language of FPV. Explore radios, batteries, flight controllers, video links, tuning algorithms, troubleshooting topics, and build configurations.
         </p>
 
-        {/* Global Telemetry Bar */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 border-t border-[#1F1F24] pt-6 text-xs font-mono">
-          <div className="flex flex-col gap-1">
-            <span className="text-[#555] uppercase">Telemetry Link</span>
-            <span className="text-[#00FF66] font-bold uppercase">CONNECTED [DIFY_RAG]</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[#555] uppercase">Total Index Nodes</span>
-            <span className="text-white font-bold">{totalConceptsCount} Concepts</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[#555] uppercase">Initiation Nodes</span>
-            <span className="text-[#00F2FF] font-bold">{beginnerCount} Modules</span>
-          </div>
-          <div className="flex flex-col gap-1">
-            <span className="text-[#555] uppercase">Advanced Specialization</span>
-            <span className="text-[#FF5C00] font-bold">{advancedCount} Profiles</span>
-          </div>
+        {/* Global Search Bar (Immediately Centered and Visible) */}
+        <div className="relative max-w-2xl">
+          <Search className="absolute left-4 top-4.5 w-4 h-4 text-[#555] group-focus-within:text-[#00F2FF]" />
+          <input
+            ref={searchInputRef}
+            type="text"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Type any FPV term to search instantly... (e.g. ELRS, Acro, desync)"
+            className="w-full pl-11 pr-4 py-4 bg-black/85 border border-[#222] rounded-lg text-white font-mono text-xs uppercase tracking-wider focus:outline-none focus:border-[#00F2FF] focus:ring-1 focus:ring-[#00F2FF] transition-all placeholder-[#444] shadow-2xl"
+          />
         </div>
       </div>
 
-      {/* Drone Anatomy Map Section */}
-      <div className="mb-10">
-        <div className="flex items-center gap-2 border-b border-[#1A1A1A] pb-2 mb-4">
-          <Settings className="w-4 h-4 text-[#FF5C00]" />
-          <h3 className="text-xs font-black uppercase text-[#FF5C00] tracking-widest font-mono">Interactive Component Isolation Map</h3>
+      {/* SECTION 2: START HERE (Beginner Onboarding Core) */}
+      <div className="mb-14">
+        <div className="flex items-center gap-2 border-b border-[#1A1A1A] pb-3 mb-6">
+          <Award className="w-5 h-5 text-[#00FF66]" />
+          <h2 className="text-lg font-black uppercase text-white tracking-widest font-mono">
+            Start Here <span className="text-[#00FF66] text-xs font-normal lowercase tracking-normal">{"// 15 core concepts every pilot must master"}</span>
+          </h2>
         </div>
-        <DroneAnatomyMap activeCategory={activeCategory} onSelectCategory={handleSelectCategory} />
-      </div>
 
-      {/* Control Grid & Search Center */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        
-        {/* Main Content Area */}
-        <div className="lg:col-span-8 flex flex-col gap-8">
-          
-          {/* Filtering Control HUD */}
-          <div className="glass-panel hex-panel p-6 bg-black/40 border border-[#1A1A1A] flex flex-col gap-4 font-mono">
-            {/* Search Input Box */}
-            <div className="relative">
-              <Search className="absolute left-3 top-3.5 w-4 h-4 text-[#555]" />
-              <input
-                ref={searchInputRef}
-                type="text"
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="DECRYPT TELEMETRY OR SEARCH KEYWORDS... (e.g. ELRS, desync, propwash)"
-                className="w-full pl-10 pr-4 py-3 bg-black/60 border border-[#222] rounded-lg text-white font-mono text-xs uppercase tracking-wider focus:outline-none focus:border-[#00F2FF] focus:ring-1 focus:ring-[#00F2FF] transition-all placeholder-[#444]"
-              />
-            </div>
-
-            {/* Systems Category Horizontal Scroll Tabs */}
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] text-[#555] uppercase">Isolate Knowledge System</span>
-              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
-                {categories.map((cat) => (
-                  <button
-                    key={cat.id}
-                    onClick={() => setActiveCategory(cat.id)}
-                    className={`text-[10px] uppercase font-bold px-3 py-1.5 rounded border tracking-wider whitespace-nowrap transition-all ${
-                      activeCategory === cat.id
-                        ? 'bg-[#00F2FF]/10 text-[#00F2FF] border-[#00F2FF]'
-                        : 'bg-black/60 text-[#888] border-[#1E1E22] hover:text-white hover:border-[#333]'
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {startHereTerms.slice(0, 15).map((item) => (
+            <div
+              key={item.slug}
+              onClick={() => handleOpenDossier(item)}
+              className="bg-[#050907]/50 p-5 border border-[#0F1C14] hover:border-[#00FF66]/40 rounded-lg group transition-all duration-300 cursor-pointer flex flex-col justify-between"
+            >
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between items-center text-[9px] font-mono uppercase tracking-widest text-[#555]">
+                  <span className="text-[#00FF66]">Core Module</span>
+                  <span className="px-1.5 py-0.5 rounded border border-[#00FF66]/20 bg-[#00FF66]/5 text-[#00FF66]">
+                    Phase {item.relatedAcademyModules[0] ? item.relatedAcademyModules[0].slice(-1) : '1'}
+                  </span>
+                </div>
+                <h4 className="text-md font-black uppercase text-white group-hover:text-[#00FF66] transition-colors font-mono">
+                  {item.term}
+                </h4>
+                <p className="text-xs text-[#888] leading-relaxed line-clamp-3 font-mono">
+                  {item.plainLanguageExplanation}
+                </p>
+              </div>
+              <div className="text-[8px] font-mono uppercase text-[#00FF66] text-right border-t border-[#0F1C14] pt-2.5 mt-3 group-hover:underline">
+                {"[STUDY DOSSIER]"}
               </div>
             </div>
+          ))}
+          {loading && (
+            <div className="col-span-full py-10 text-center font-mono text-xs text-[#555] animate-pulse">
+              SYNCING ONBOARDING NODES...
+            </div>
+          )}
+        </div>
+      </div>
 
-            {/* Difficulty Level Checkboxes */}
-            <div className="flex flex-col md:flex-row md:items-center gap-4 border-t border-[#1E1E22] pt-4">
-              <div className="flex flex-col gap-1.5 flex-1">
-                <span className="text-[10px] text-[#555] uppercase">Specialization Level Filter</span>
-                <div className="flex gap-3 text-[10px] font-bold">
-                  {['all', 'Beginner', 'Intermediate', 'Advanced'].map((level) => (
+      {/* SECTION 3: LEARN BY SYSTEM (System-Based Cards) */}
+      <div className="mb-14">
+        <div className="flex items-center gap-2 border-b border-[#1A1A1A] pb-3 mb-6">
+          <Layers className="w-5 h-5 text-[#00F2FF]" />
+          <h2 className="text-lg font-black uppercase text-white tracking-widest font-mono">
+            Learn By System <span className="text-[#00F2FF] text-xs font-normal lowercase tracking-normal">{"// structure vocabulary by hardware layers"}</span>
+          </h2>
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {systemCategories.map((sys, idx) => {
+            const Icon = sys.icon;
+            return (
+              <div key={idx} className="bg-black/45 border border-[#1A1A1E] rounded-lg p-6 flex flex-col justify-between gap-4">
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-white/[0.02] border border-white/5 rounded text-white" style={{ color: sys.color }}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-sm font-black uppercase text-white tracking-tight font-mono">{sys.title}</h3>
+                  </div>
+                  <p className="text-xs text-[#666] leading-relaxed font-mono">{sys.description}</p>
+                </div>
+
+                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/[0.03]">
+                  {sys.terms.map((tSlug) => (
                     <button
-                      key={level}
-                      onClick={() => setActiveDifficulty(level)}
-                      className={`px-3 py-1 rounded border uppercase transition-all ${
-                        activeDifficulty === level
-                          ? 'bg-[#FF5C00]/10 text-[#FF5C00] border-[#FF5C00]'
-                          : 'bg-black/40 text-[#888] border-[#1E1E22] hover:text-white'
-                      }`}
+                      key={tSlug}
+                      onClick={() => {
+                        const term = terms.find(t => t.slug === tSlug);
+                        if (term) handleOpenDossier(term);
+                      }}
+                      className="text-[10px] bg-[#0A0A0C] hover:bg-white/[0.04] text-[#A0A0A0] hover:text-white border border-[#222] px-2.5 py-1 rounded transition-colors font-mono uppercase"
                     >
-                      {level === 'all' ? 'All Skills' : level}
+                      {tSlug.replace('-', ' ')}
                     </button>
                   ))}
                 </div>
               </div>
-            </div>
-          </div>
+            );
+          })}
+        </div>
+      </div>
 
-          {/* Concepts Grid Section */}
-          <div className="space-y-4">
-            <div className="flex items-center justify-between border-b border-[#1E1E22] pb-2">
-              <div className="flex items-center gap-2">
-                <Radio className="w-4 h-4 text-[#00F2FF]" />
-                <h3 className="text-sm font-black uppercase text-[#f8fafc] tracking-widest font-mono">
-                  Concept Matrix Nodes ({terms.length})
-                </h3>
-              </div>
-              <span className="text-[10px] font-mono text-[#555] uppercase">SYSTEMS ONLINE</span>
-            </div>
+      {/* SECTION 5: DRONE ANATOMY EXPLORER */}
+      <div className="mb-14">
+        <div className="flex items-center gap-2 border-b border-[#1A1A1A] pb-3 mb-6">
+          <Settings className="w-5 h-5 text-[#FF5C00]" />
+          <h2 className="text-lg font-black uppercase text-white tracking-widest font-mono">
+            Drone Anatomy Explorer <span className="text-[#FF5C00] text-xs font-normal lowercase tracking-normal">{"// click hotspots to learn basic hardware function"}</span>
+          </h2>
+        </div>
+        <DroneAnatomyMap activeCategory={activeCategory} onSelectCategory={handleSelectCategory} />
+      </div>
 
-            {loading ? (
-              <div className="py-20 text-center font-mono text-[#555] flex flex-col items-center gap-3">
-                <RefreshCw className="w-6 h-6 animate-spin text-[#00F2FF]" />
-                DECRYPTING ENCRYPTED AEROSPACE TERMINOLOGY...
-              </div>
-            ) : terms.length === 0 ? (
-              <div className="py-20 text-center font-mono text-[#777] border border-dashed border-[#222] rounded-lg">
-                NO TELEMETRY NODES DECRYPTED FOR DETECTED SEARCH SIGNALS.
-              </div>
-            ) : (
-              <div className="grid gap-4 sm:grid-cols-2">
-                {terms.map((item) => (
-                  <div
-                    key={item.slug}
-                    onClick={() => handleOpenDossier(item)}
-                    className="bg-black/50 p-6 border border-[#1E1E22] border-l-2 border-l-[#00F2FF] hex-panel group hover:bg-[#060608] hover:border-[#00F2FF]/40 transition-all duration-300 relative cursor-pointer flex flex-col justify-between"
-                  >
-                    <div className="absolute right-4 top-4 opacity-10 group-hover:opacity-100 transition-opacity">
-                      <Shield className="w-5 h-5 text-[#00F2FF]" />
-                    </div>
-
-                    <div className="flex flex-col gap-2">
-                      {/* Top Badges */}
-                      <div className="flex justify-between items-center text-[9px] font-mono uppercase tracking-widest text-[#707070] mb-1">
-                        <span>{item.category}</span>
-                        <span className={`px-1.5 py-0.5 rounded border text-[8px] ${
-                          item.difficulty === 'Beginner' ? 'text-[#00FF66] border-[#00FF66]/20 bg-[#00FF66]/5' :
-                          item.difficulty === 'Intermediate' ? 'text-[#00F2FF] border-[#00F2FF]/20 bg-[#00F2FF]/5' :
-                          'text-[#FF5C00] border-[#FF5C00]/20 bg-[#FF5C00]/5'
-                        }`}>
-                          {item.difficulty}
-                        </span>
-                      </div>
-
-                      {/* Term Title */}
-                      <h4 className="text-lg font-black uppercase tracking-tight text-white group-hover:text-[#00F2FF] transition-colors">
-                        {item.term}
-                      </h4>
-                      
-                      {/* Short Definition preview */}
-                      <p className="font-mono text-xs text-[#808080] leading-relaxed line-clamp-3">
-                        {item.definition}
-                      </p>
-                    </div>
-
-                    {/* Footer Info */}
-                    <div className="flex items-center justify-between text-[8px] font-mono uppercase text-[#444] border-t border-[#111] pt-3 mt-4">
-                      <span>Priority: {item.priority}</span>
-                      <span className="text-[#FF5C00] group-hover:underline">{"[OPEN DOSSIER]"}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
+      {/* SECTION 6: BUILD DNA KNOWLEDGE */}
+      <div className="mb-14">
+        <div className="flex items-center gap-2 border-b border-[#1A1A1A] pb-3 mb-6">
+          <Wrench className="w-5 h-5 text-[#00F2FF]" />
+          <h2 className="text-lg font-black uppercase text-white tracking-widest font-mono">
+            Build DNA Specifications <span className="text-[#00F2FF] text-xs font-normal lowercase tracking-normal">{"// browse performance characteristics by size class"}</span>
+          </h2>
         </div>
 
-        {/* Sidebar Native Ads Panel */}
-        <aside className="lg:col-span-4 hidden lg:flex flex-col gap-6">
-          <AdStickySidebar />
-        </aside>
+        <div className="grid gap-6 md:grid-cols-2">
+          {buildDnaProfiles.map((profile) => (
+            <div
+              key={profile.id}
+              onClick={() => setSelectedBuildDna(selectedBuildDna === profile.id ? null : profile.id)}
+              className={`p-5 rounded-lg border transition-all duration-300 cursor-pointer flex flex-col gap-3 font-mono ${
+                selectedBuildDna === profile.id
+                  ? 'bg-[#060A10]/70 border-[#00F2FF]/60 shadow-[inset_0_0_20px_rgba(0,242,255,0.05)]'
+                  : 'bg-black/45 border-[#1A1A1E] hover:border-white/10'
+              }`}
+            >
+              <div className="flex justify-between items-center">
+                <h4 className="text-md font-black uppercase text-white tracking-tight">{profile.title}</h4>
+                <span className="text-[10px] text-[#00F2FF] uppercase">
+                  {selectedBuildDna === profile.id ? '[COLLAPSE]' : '[EXPAND]'}
+                </span>
+              </div>
+              <p className="text-xs text-[#888] leading-relaxed">{profile.description}</p>
+              
+              {selectedBuildDna === profile.id && (
+                <div className="flex flex-col gap-3 pt-3 border-t border-white/[0.04] text-[11px] text-[#A0A0A0] leading-relaxed">
+                  <div>
+                    <span className="text-[#00F2FF] uppercase font-bold text-[9px] block">Primary Use Case:</span>
+                    {profile.useCase}
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <span className="text-[#00FF66] uppercase font-bold text-[9px] block">Advantages:</span>
+                      {profile.advantages}
+                    </div>
+                    <div>
+                      <span className="text-[#FF5C00] uppercase font-bold text-[9px] block">Disadvantages:</span>
+                      {profile.disadvantages}
+                    </div>
+                  </div>
+                  <div className="flex gap-3 justify-end pt-2 text-[9px]">
+                    <a href={`/academy/roadmap#${profile.module}`} className="text-[#00F2FF] hover:underline uppercase">{"[Academy Syllabus]"}</a>
+                    <a href={profile.archiveLink} className="text-white hover:underline uppercase">{"[Archive Specs]"}</a>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SECTION 7: TROUBLESHOOTING INDEX */}
+      <div className="mb-14">
+        <div className="flex items-center gap-2 border-b border-[#1A1A1A] pb-3 mb-6">
+          <HelpCircle className="w-5 h-5 text-[#FF5C00]" />
+          <h2 className="text-lg font-black uppercase text-white tracking-widest font-mono">
+            Troubleshooting Symptom Directory <span className="text-[#FF5C00] text-xs font-normal lowercase tracking-normal">{"// discover technical terms through active problems"}</span>
+          </h2>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          {troubleshootingIndex.map((item, idx) => (
+            <div
+              key={idx}
+              onClick={() => {
+                const term = terms.find(t => t.slug === item.linkedSlug);
+                if (term) handleOpenDossier(term);
+              }}
+              className="p-5 border border-[#1A1A1E] bg-[#0A0503]/20 hover:bg-black/60 hover:border-[#FF5C00]/30 rounded-lg group transition-all duration-300 cursor-pointer flex flex-col gap-2 font-mono"
+            >
+              <div className="flex justify-between items-center text-[9px] uppercase tracking-widest text-[#FF5C00]">
+                <span>Flight Symptom</span>
+                <span>{item.tag}</span>
+              </div>
+              <h4 className="text-sm font-black uppercase text-white tracking-tight group-hover:text-[#FF5C00] transition-colors">
+                &quot;{item.symptom}&quot;
+              </h4>
+              <p className="text-[11px] text-[#777] leading-relaxed">
+                <span className="text-[#FF5C00] uppercase font-bold text-[9px] inline-block mr-1">Likely Cause:</span>
+                {item.cause}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SECTION 8: FPV ACRONYM CENTER */}
+      <div className="mb-14">
+        <div className="flex items-center gap-2 border-b border-[#1A1A1A] pb-3 mb-6">
+          <Compass className="w-5 h-5 text-white" />
+          <h2 className="text-lg font-black uppercase text-white tracking-widest font-mono">
+            FPV Acronym Database <span className="text-[#A0A0A0] text-xs font-normal lowercase tracking-normal">{"// search abbreviations easily"}</span>
+          </h2>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {acronyms.map((ac) => (
+            <div
+              key={ac.name}
+              onClick={() => setExpandedAcronym(expandedAcronym === ac.name ? null : ac.name)}
+              className={`p-4 border rounded-md cursor-pointer transition-all duration-200 font-mono text-xs ${
+                expandedAcronym === ac.name
+                  ? 'bg-white/[0.03] border-white/20'
+                  : 'bg-black/45 border-[#1A1A1E] hover:border-white/10'
+              }`}
+            >
+              <div className="flex justify-between items-center">
+                <div>
+                  <span className="font-black uppercase text-[#00F2FF] text-sm block tracking-wide">{ac.name}</span>
+                  <span className="text-[10px] text-[#666] uppercase block mt-0.5">{ac.full}</span>
+                </div>
+                <span className="text-[8px] text-[#444] uppercase">
+                  {expandedAcronym === ac.name ? '[CLOSE]' : '[DETAILS]'}
+                </span>
+              </div>
+              {expandedAcronym === ac.name && (
+                <p className="text-[11px] text-[#A0A0A0] mt-3 pt-3 border-t border-white/[0.04] leading-relaxed">
+                  {ac.exp}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* SECTION 9: KNOWLEDGE GRAPH (Advanced Relationship Explorer at bottom) */}
+      <div className="border-t border-[#111] pt-12">
+        <div className="flex items-center gap-2 border-b border-[#1A1A1A] pb-3 mb-6">
+          <Radio className="w-5 h-5 text-[#FF5C00]" />
+          <h2 className="text-lg font-black uppercase text-white tracking-widest font-mono">
+            Advanced Relationship Explorer <span className="text-[#A0A0A0] text-xs font-normal lowercase tracking-normal">{"// map complex terminology cross-link grids"}</span>
+          </h2>
+        </div>
+
+        <div className="p-8 hex-panel border border-[#FF5C00]/10 bg-[#FF5C00]/[0.01] rounded-lg text-center font-mono text-xs flex flex-col items-center gap-4 justify-center relative overflow-hidden">
+          <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />
+          <p className="max-w-xl text-[#777] leading-relaxed uppercase">
+            The multi-dataset RAG crawler maps implicit logical node links between modules, blueprints, and flight logs. Ready for advanced conceptual telemetry mapping.
+          </p>
+          <div className="flex gap-4">
+            <button
+              onClick={() => {
+                setActiveCategory('all');
+                setSearchTerm('');
+                if (searchInputRef.current) searchInputRef.current.value = '';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="px-4 py-2 border border-[#FF5C00]/40 text-[#FF5C00] hover:bg-[#FF5C00]/5 text-[10px] font-black uppercase tracking-wider rounded transition-colors cursor-pointer"
+            >
+              {"[RESET FILTERS & GO TO TOP]"}
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Dossier Side-Overlay Drawer / Modal Panel */}
@@ -330,11 +560,6 @@ export default function GlossaryPage() {
           <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
             <div className="w-screen max-w-2xl bg-black border-l border-[#1A1A1D] flex flex-col justify-between shadow-2xl relative">
               
-              {/* Decorative tactical markings */}
-              <div className="absolute left-2 top-2 text-[8px] text-[#444] tracking-widest uppercase">
-                {"CLASSIFIED // ACC_REF_" + selectedTerm.slug.toUpperCase()}
-              </div>
-
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedTerm(null)}
@@ -346,7 +571,7 @@ export default function GlossaryPage() {
               {/* Dossier Body */}
               <div className="flex-1 overflow-y-auto p-8 pt-12 flex flex-col gap-6">
                 
-                {/* Categorization & System Telemetry Header */}
+                {/* Categorization & Level */}
                 <div className="flex items-center gap-4 text-xs font-mono">
                   <span className="text-[#555] uppercase">System:</span>
                   <span className="text-[#00F2FF] font-bold uppercase">{selectedTerm.category}</span>
@@ -361,7 +586,7 @@ export default function GlossaryPage() {
                   </span>
                 </div>
 
-                {/* Primary Dossier Title */}
+                {/* Title */}
                 <div>
                   <h2 className="text-3xl font-black uppercase text-white tracking-tighter mb-2">
                     {selectedTerm.term}
@@ -369,37 +594,37 @@ export default function GlossaryPage() {
                   <div className="w-16 h-1 bg-[#00F2FF]" />
                 </div>
 
-                {/* Section 1: Standard Definition */}
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-xs font-black uppercase text-[#FF5C00] tracking-widest font-mono">
-                    Aerospace Definition
-                  </h3>
-                  <div className="bg-[#0A0A0C] border border-[#1F1F24] p-4 rounded-lg text-sm text-[#DFDFDF] leading-relaxed">
-                    {selectedTerm.definition}
-                  </div>
-                </div>
-
-                {/* Section 2: Layperson Explanation */}
+                {/* SECTION 4.1: Plain English Explanation */}
                 <div className="flex flex-col gap-2">
                   <h3 className="text-xs font-black uppercase text-[#00F2FF] tracking-widest font-mono">
-                    Layperson Explanation
+                    Plain English Explanation
                   </h3>
-                  <p className="text-xs text-[#A0A0A0] leading-relaxed bg-[#050507] border border-[#141416] p-4 rounded-lg">
+                  <p className="text-sm text-[#DFDFDF] leading-relaxed bg-[#050507] border border-[#141416] p-5 rounded-lg">
                     {selectedTerm.plainLanguageExplanation}
                   </p>
                 </div>
 
-                {/* Section 3: Why It Matters */}
+                {/* SECTION 4.2: Why It Matters */}
                 <div className="flex flex-col gap-2">
                   <h3 className="text-xs font-black uppercase text-[#00FF66] tracking-widest font-mono">
                     Why It Matters
                   </h3>
-                  <div className="bg-[#050A08] border border-[#0D2419] p-4 rounded-lg text-xs text-[#00FF66] leading-relaxed uppercase">
+                  <div className="bg-[#050A08] border border-[#0D2419] p-5 rounded-lg text-xs text-[#00FF66] leading-relaxed uppercase">
                     {selectedTerm.whyItMatters}
                   </div>
                 </div>
 
-                {/* Section 4: Live Dify RAG Telemetry Link */}
+                {/* SECTION 4.3: Technical Definition */}
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-xs font-black uppercase text-[#555] tracking-widest font-mono">
+                    Technical Definition
+                  </h3>
+                  <div className="bg-[#0A0A0C] border border-[#1F1F24] p-4 rounded-lg text-xs text-[#A0A0A0] leading-relaxed">
+                    {selectedTerm.definition}
+                  </div>
+                </div>
+
+                {/* Dynamic Dify RAG Telemetry Link */}
                 <div className="border border-[#1A1A1F] bg-black/60 p-6 rounded-lg flex flex-col gap-4">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
@@ -430,7 +655,6 @@ export default function GlossaryPage() {
 
                   {telemetryConnected && ragData && (
                     <div className="flex flex-col gap-3 font-mono text-[11px]">
-                      {/* RAG Confidence Score Indicator */}
                       <div className="flex justify-between items-center border-b border-[#222] pb-2 text-[10px]">
                         <span className="text-[#555] uppercase">Telemetry Link Quality</span>
                         <span className={`px-2 py-0.5 rounded border uppercase text-[9px] ${
@@ -458,10 +682,6 @@ export default function GlossaryPage() {
                           No supplemental flight logs located in database collection.
                         </div>
                       )}
-
-                      <p className="text-[9px] text-[#FF5C00] uppercase mt-1">
-                        RECOMMENDATION: {ragData.recommendation}
-                      </p>
                     </div>
                   )}
                 </div>
@@ -473,7 +693,7 @@ export default function GlossaryPage() {
                   </h3>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Academy Module links */}
+                    {/* Academy Modules */}
                     {selectedTerm.relatedAcademyModules && selectedTerm.relatedAcademyModules.length > 0 && (
                       <div className="border border-[#1A1A1E] p-3 rounded bg-black/40 flex flex-col gap-1.5">
                         <span className="text-[9px] text-[#555] uppercase flex items-center gap-1">
@@ -507,7 +727,7 @@ export default function GlossaryPage() {
                       </div>
                     )}
 
-                    {/* Build DNA Component links */}
+                    {/* Build DNA Components */}
                     {selectedTerm.relatedBuildDNA && selectedTerm.relatedBuildDNA.length > 0 && (
                       <div className="border border-[#1A1A1E] p-3 rounded bg-black/40 flex flex-col gap-1.5">
                         <span className="text-[9px] text-[#555] uppercase flex items-center gap-1">

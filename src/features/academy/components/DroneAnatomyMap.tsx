@@ -29,7 +29,7 @@ export function DroneAnatomyMap({ activeCategory, onSelectCategory }: DroneAnato
       searchVal: 'vtx',
       x: 50,
       y: 22,
-      telemetry: 'CAM.LATENCY: 14ms | DJI_O4_LINK: STRONG',
+      telemetry: 'FPV camera captures uncompressed low-latency live video, sending it directly to the goggles.',
       status: 'ACTIVE',
       color: '#00F2FF'
     },
@@ -40,7 +40,7 @@ export function DroneAnatomyMap({ activeCategory, onSelectCategory }: DroneAnato
       searchVal: 'flight-controller',
       x: 50,
       y: 44,
-      telemetry: 'FC.LOOPTIME: 8.0kHz | GYRO: BMI270_OK',
+      telemetry: 'The brain of the drone. Evaluates gyro sensors and pilot stick commands to stabilize the quad.',
       status: 'ONLINE',
       color: '#00FF66'
     },
@@ -51,7 +51,7 @@ export function DroneAnatomyMap({ activeCategory, onSelectCategory }: DroneAnato
       searchVal: 'esc',
       x: 50,
       y: 56,
-      telemetry: 'ESC.PROTOCOL: DSHOT600 | SYS.CURRENT: 14.2A',
+      telemetry: 'Electronic Speed Controller. Converts battery current to feed brushless motors at precise RPMs.',
       status: 'NOMINAL',
       color: '#FF5C00'
     },
@@ -62,7 +62,7 @@ export function DroneAnatomyMap({ activeCategory, onSelectCategory }: DroneAnato
       searchVal: 'motor-kv',
       x: 22,
       y: 24,
-      telemetry: 'MOT.RPM: 18450 | TEMP: 42°C | SYNCHRONIZED',
+      telemetry: 'Brushless motors translate electric pulses into thrust, spinning props to control flight pitch.',
       status: 'ACTIVE',
       color: '#FF5C00'
     },
@@ -73,7 +73,7 @@ export function DroneAnatomyMap({ activeCategory, onSelectCategory }: DroneAnato
       searchVal: 'vtx',
       x: 50,
       y: 72,
-      telemetry: 'VTX.TEMP: 68°C | POWER: 800mW | BAND: R8',
+      telemetry: 'Broadcasts the FPV camera video stream wirelessly over radio frequencies to your pilot goggles.',
       status: 'ACTIVE',
       color: '#00F2FF'
     },
@@ -84,7 +84,7 @@ export function DroneAnatomyMap({ activeCategory, onSelectCategory }: DroneAnato
       searchVal: 'elrs',
       x: 35,
       y: 68,
-      telemetry: 'RX.LINK: ELRS_2.4G | LQ: 100% | RSSI: -48dBm',
+      telemetry: 'Captures remote control signals (e.g. ELRS) from the transmitter and routes commands to the FC.',
       status: 'NOMINAL',
       color: '#00FF66'
     },
@@ -95,7 +95,7 @@ export function DroneAnatomyMap({ activeCategory, onSelectCategory }: DroneAnato
       searchVal: 'lipo',
       x: 50,
       y: 84,
-      telemetry: 'BAT.VOLTAGE: 22.8V (6S) | CELL_IR: 2.1mΩ',
+      telemetry: 'Lithium Polymer power source. Delivers high current for aggressive flight. Requires safety storage.',
       status: 'SAFE',
       color: '#FF5C00'
     },
@@ -106,7 +106,7 @@ export function DroneAnatomyMap({ activeCategory, onSelectCategory }: DroneAnato
       searchVal: 'gps-rescue',
       x: 50,
       y: 93,
-      telemetry: 'GPS.SATS: 16 | LOCK: 3D_HIGH | Rescue: READY',
+      telemetry: 'Satellite receiver enabling Return-To-Home safety failsafes if radio connection is ever lost.',
       status: 'ONLINE',
       color: '#00F2FF'
     }
