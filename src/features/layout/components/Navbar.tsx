@@ -7,6 +7,9 @@ import { ChevronDown, ChevronRight, Menu, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { navigationData } from '@/lib/navigationData';
 import { cn } from '@/lib/utils';
+import { useSession } from 'next-auth/react';
+import { loadDossierFromBrowser } from '@/lib/state/dossier-serializer';
+import { PilotDossier } from '@/types/pilot-dossier';
 
 const navLinks = navigationData.map((item) => ({
   title: item.title.replace('Pilot Tools', 'Tools'),
@@ -17,6 +20,8 @@ const navLinks = navigationData.map((item) => ({
 }));
 
 export function Navbar() {
+  const { data: session, status } = useSession();
+  const [localDossier, setLocalDossier] = useState<PilotDossier | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
@@ -33,6 +38,14 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    const activeDossier = loadDossierFromBrowser();
+    const dossierTimeout = setTimeout(() => {
+      setLocalDossier(activeDossier);
+    }, 0);
+    return () => clearTimeout(dossierTimeout);
+  }, [status]);
 
   return (
     <nav
@@ -142,6 +155,32 @@ export function Navbar() {
           <Button variant="outline" size="sm" asChild>
             <Link href="/tools/calculator">Build Calculator</Link>
           </Button>
+          
+          {/* Dynamic Authentication Button */}
+          {status === 'authenticated' ? (
+            <Link
+              href="/academy/roadmap"
+              className="flex items-center gap-2 rounded-md border border-[#00F2FF]/30 hover:border-[#00F2FF] bg-[#00F2FF]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#00F2FF] transition-all hover:bg-[#00F2FF]/10"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#00FF66] animate-ping" />
+              🛰️ {session.user?.name || 'Pilot'}
+            </Link>
+          ) : localDossier ? (
+            <Link
+              href="/academy/roadmap"
+              className="flex items-center gap-2 rounded-md border border-[#FF5C00]/30 hover:border-[#FF5C00] bg-[#FF5C00]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#FF5C00] transition-all hover:bg-[#FF5C00]/10"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C00] animate-pulse" />
+              📡 {localDossier.callsign}
+            </Link>
+          ) : (
+            <Link
+              href="/auth/signin"
+              className="rounded-md bg-[#ff5a1f] hover:bg-[#ff5a1f]/90 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all border-b-2 border-[#9E3900]"
+            >
+              Authorize
+            </Link>
+          )}
         </div>
 
         <Button
@@ -196,6 +235,37 @@ export function Navbar() {
                 </div>
               );
             })}
+            
+            {/* Dynamic Authentication Button for Mobile */}
+            <div className="mt-4 pt-4 border-t border-white/10 flex flex-col gap-2">
+              {status === 'authenticated' ? (
+                <Link
+                  href="/academy/roadmap"
+                  className="flex items-center justify-center gap-2 rounded-md border border-[#00F2FF]/30 bg-[#00F2FF]/5 py-3 text-sm font-mono uppercase tracking-widest text-[#00F2FF]"
+                  onClick={closeNavigation}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00FF66] animate-ping" />
+                  🛰️ Pilot: {session.user?.name || 'Authorized'}
+                </Link>
+              ) : localDossier ? (
+                <Link
+                  href="/academy/roadmap"
+                  className="flex items-center justify-center gap-2 rounded-md border border-[#FF5C00]/30 bg-[#FF5C00]/5 py-3 text-sm font-mono uppercase tracking-widest text-[#FF5C00]"
+                  onClick={closeNavigation}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C00] animate-pulse" />
+                  📡 Pilot: {localDossier.callsign}
+                </Link>
+              ) : (
+                <Link
+                  href="/auth/signin"
+                  className="flex items-center justify-center rounded-md bg-[#ff5a1f] py-3 text-sm font-bold uppercase tracking-wider text-white border-b-2 border-[#9E3900]"
+                  onClick={closeNavigation}
+                >
+                  Authorize Signal (Sign In)
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       )}
