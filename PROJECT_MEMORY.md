@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-06-01
+Last updated: 2026-06-02
 
 ## Current Product Direction
 
@@ -106,6 +106,14 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - `getFpvProductCatalog()` now uses mtime-aware in-memory caching for the crawler and affiliate catalog files.
   - Regression coverage was added with `npm run tools:part-matcher:test`.
   - Verification passed: `npm run tools:part-matcher:test`, `npx tsc --noEmit`, `npm run tools:audit`, `npm run routes:audit`, headless Chromium desktop/mobile smoke on `/tools/part-matcher`, and `npm run build`.
+
+- Racing Intelligence Dify readiness phase completed by Codex on 2026-06-02:
+  - Racing Division UI, source queueing, crawl artifact capture, Dify workflow gateway, and JSON output store scaffolding are in place.
+  - Official racing crawl artifacts are ready: `npm run racing:intelligence:status` reports `sources=19`, `crawled=17`, and `artifacts=17`.
+  - Dify UI does not yet show a Racing app because `dify_workflows/racing-intelligence-orchestrator.dify.yml` has not been imported/published in Dify.
+  - `DIFY_RACING_WORKFLOW_TOKEN` is not configured, so `npm run racing:workflow:smoke` correctly reports `not_configured`.
+  - `scripts/racing-intelligence-ingest.ts` now refuses to write workflow runs or entities unless the Racing Dify workflow is configured and returns a successful source-backed result.
+  - Racing public sidebar sections must remain empty/source-pending until Dify produces real event/calendar/pilot/team/result/content brief outputs from the captured crawl artifacts.
 
 - Local build and TypeScript were stabilized in this workspace after prior Coolify failures.
 - Production deploy succeeded on 2026-05-17 from commit `b4055de`.

@@ -72,15 +72,22 @@ async function main() {
       publishIntent: 'review',
     });
 
-    console.log(`  workflow=${result.status}, success=${result.success ? 'yes' : 'no'}, configured=${result.configured ? 'yes' : 'no'}`);
-    const store = upsertRacingWorkflowResult(result);
-    written += 1;
-    console.log(`  store runs=${store.workflowRuns.length}, briefs=${store.contentBriefs.length}`);
-
     if (!result.configured) {
+      console.log(`  workflow=${result.status}, success=no, configured=no`);
       console.log('  Dify Racing workflow is not configured yet; no entities were written.');
       break;
     }
+
+    if (!result.success) {
+      console.log(`  workflow=${result.status}, success=no, configured=yes`);
+      console.log(`  Dify Racing workflow failed; store was not changed.${result.error ? ` Error: ${result.error}` : ''}`);
+      continue;
+    }
+
+    console.log(`  workflow=${result.status}, success=yes, configured=yes`);
+    const store = upsertRacingWorkflowResult(result);
+    written += 1;
+    console.log(`  store runs=${store.workflowRuns.length}, briefs=${store.contentBriefs.length}`);
   }
 
   console.log('\nFinal store summary:', JSON.stringify(getRacingStoreSummary(), null, 2));

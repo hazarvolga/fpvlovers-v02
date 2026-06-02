@@ -1,6 +1,6 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-06-01 (Academy & Specialization Phase)
+Last updated: 2026-06-02 (Racing Intelligence Dify Readiness)
 
 ## Immediate Priority
 
@@ -24,6 +24,7 @@ Last updated: 2026-06-01 (Academy & Specialization Phase)
 18. DONE PostgreSQL Migration Phase 0 (Read-Only Audit) & Orphaned File Resolution (2026-06-01): Ran audit-file-storage script and generated report showing perfect matching pairs (40). Fixed two orphaned JSON files by writing their matching `.md` counterparts.
 19. DONE PostgreSQL Migration Phase 1 (PostgreSQL Foundation) (2026-06-01): Connection manager with dynamic loading, migrations runner, foundation SQL migrations, package scripts and TypeScript support integrated. Dry-run verified. Clean `tsc --noEmit`. Committed to git.
 20. IN PROGRESS FPV Academy Specialization Content Production (2026-06-01): Ingesting 'fpv-mountain-surfing' specialization article via live Dify RAG workflow. Backfill and compare scripts created and ready for validation.
+21. IN PROGRESS Racing Intelligence activation (2026-06-02): Racing UI/store/crawl artifacts are ready, but Dify UI has no Racing app yet. Import and publish `dify_workflows/racing-intelligence-orchestrator.dify.yml`, create the workflow API token, set `DIFY_RACING_WORKFLOW_TOKEN`, then run `npm run racing:workflow:smoke` and `npm run racing:intelligence:ingest`.
 
 
 ## Code Tasks Before Push
@@ -41,6 +42,8 @@ Last updated: 2026-06-01 (Academy & Specialization Phase)
 - After product crawls complete, run `npm run catalog:extract -- --input <crawl-results.json> --write` or `POST /api/admin/catalog/extract` with `write: true` to transform extracted product pages into `data/fpv-products.catalog.json` with real image/provenance fields.
 - Use `GET /api/admin/catalog/sources` in production after deploy to confirm source-pack and normalized product catalog readiness before enqueueing.
 - Run `npm run tools:audit` after every catalog/tool phase and keep any `PARTIAL` status explicit in handoff notes.
+- Do not claim Racing sidebar sections are live with real data until `npm run racing:workflow:smoke` is configured/successful and `npm run racing:intelligence:ingest` writes source-backed entities into `data/racing-intelligence-store.json`.
+- Import/publish the Racing Intelligence workflow in Dify UI; current local verification proves it is not visible/configured in Dify yet.
 - Keep implementation/vendor terms out of customer-facing copy. Prefer FPVLovers, pilot tools, workflow gateway, guided review, editorial workflow, catalog logic, and source-backed guidance.
 - Do not include unreviewed runtime files (`data/*last-auto-run.json`) or local tool folders (`.kiro/`, `.gitnexus/`) in deploy commits unless they are intentionally promoted.
 - Keep `sunucular/` out of Git. It is outside the frontend repo today and must stay private.
