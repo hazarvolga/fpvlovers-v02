@@ -34,7 +34,8 @@
     "racing:sources": "node --import tsx scripts/racing-source-pack.ts",
     "racing:enqueue": "node --import tsx scripts/racing-source-pack.ts --enqueue",
     "routes:audit": "node scripts/route-tree-drift-audit.mjs",
-    "db:migrate": "node --import tsx scripts/db-migrate.ts"
+    "db:migrate": "node --import tsx scripts/db-migrate.ts",
+    "racing:workflow:smoke": "node --import tsx scripts/racing-workflow-smoke.ts"
   },
   "dependencies": {
     "@auth/pg-adapter": "^1.11.2",

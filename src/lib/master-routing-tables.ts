@@ -253,6 +253,7 @@ export function resolveFileRoute(filename: string): FileRoute | undefined {
 
 export const WORKFLOW_IDS: Record<string, string> = {
   seoContentGenerator: 'a6d903cf-65f0-434a-8ac4-9f65bd9f080a',
+  racingIntelligenceOrchestrator: 'TODO-import-to-dify-first',
   metadataEnrichment: 'TODO-import-to-dify-first',
   affiliateOrchestrator: 'TODO-import-to-dify-first',
   sponsorshipOrchestrator: 'TODO-import-to-dify-first',
@@ -264,4 +265,5 @@ export const WORKFLOW_IDS: Record<string, string> = {
 
 export const WORKFLOW_TOKENS: Record<string, string> = {
   seoContentGenerator: 'app-XJogXujRpHH3Ri8dOU9F',
+  racingIntelligenceOrchestrator: process.env.DIFY_RACING_WORKFLOW_TOKEN || '',
 };

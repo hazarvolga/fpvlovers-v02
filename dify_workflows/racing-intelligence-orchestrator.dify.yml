@@ -1,0 +1,187 @@
+version: "0.6.0"
+kind: app
+app:
+  name: "Racing Intelligence Orchestrator"
+  mode: workflow
+  description: "Official-source FPV racing monitor: source markdown -> racing entities -> calendar signals -> content briefs -> review-ready racing output"
+  icon: "\U0001F3C1"
+  icon_background: "#FFEAD5"
+  icon_type: emoji
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ""
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    nodes:
+      - id: "1760000000001"
+        type: custom
+        position:
+          x: 80
+          y: 260
+        data:
+          type: start
+          title: "Start"
+          desc: "Racing source monitor input"
+          variables:
+            - variable: task_mode
+              label: "Task Mode"
+              type: select
+              required: true
+              options:
+                - monitor_extract
+                - calendar_update
+                - race_news
+                - pilot_profile
+                - result_analysis
+              default: monitor_extract
+            - variable: source_markdown
+              label: "Source Markdown"
+              type: paragraph
+              required: true
+              max_length: 50000
+              placeholder: "Official source markdown from crawler"
+            - variable: source_url
+              label: "Source URL"
+              type: text-input
+              required: true
+              max_length: 800
+            - variable: source_name
+              label: "Source Name"
+              type: text-input
+              required: false
+              max_length: 200
+            - variable: league_hint
+              label: "League Hint"
+              type: text-input
+              required: false
+              max_length: 120
+            - variable: publish_intent
+              label: "Publish Intent"
+              type: select
+              required: false
+              options:
+                - draft
+                - review
+                - publish
+              default: review
+      - id: "1760000001001"
+        type: custom
+        position:
+          x: 380
+          y: 260
+        data:
+          type: knowledge-retrieval
+          title: "Racing RAG Retrieval"
+          desc: "Retrieve racing, community, and news context"
+          query_variable_selector:
+            - "1760000000001"
+            - source_markdown
+          dataset_ids:
+            - cd17b1ea-a852-4d31-87d7-1b4c0bd46e7f
+            - 639af5aa-d424-4d0b-9633-a7ab541afcb2
+            - 6a8a84c8-46ca-43f0-a3ea-3c19f32f5a17
+          retrieval_mode: multiple
+          score_threshold_enabled: true
+          score_threshold: 0.5
+          top_k: 6
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            reranking_provider_name: langgenius/jina/jina
+            reranking_model_name: jina-reranker-v2-base-multilingual
+          multiple_retrieval_config:
+            top_k: 6
+            score_threshold: 0.5
+            reranking_mode: reranking_model
+            reranking_enable: true
+            reranking_model:
+              reranking_provider_name: langgenius/jina/jina
+              reranking_model_name: jina-reranker-v2-base-multilingual
+      - id: "1760000002001"
+        type: custom
+        position:
+          x: 680
+          y: 260
+        data:
+          type: llm
+          title: "Racing Entity Extractor"
+          desc: "Extract source-backed racing entities"
+          model:
+            provider: langgenius/gemini/google
+            name: gemini-2.5-flash
+            mode: chat
+            completion_params:
+              temperature: 0.15
+          prompt_template:
+            - role: system
+              text: |
+                You are the FPVLovers Racing Intelligence Orchestrator.
+                Extract only source-supported FPV racing facts. Do not invent pilots, dates, winners, lap records, teams, venues, or rankings.
+
+                Return strict JSON with source_url, source_name, task_mode, entities, calendar_items, content_briefs, warnings, and next_actions.
+                Entity types: league, event, pilot, team, track, result, ranking, media, rule.
+                Content brief types: event-preview, result-recap, pilot-profile, league-update, calendar-update, race-tech.
+
+                If a fact is not explicit in the source, put it in warnings instead of entities.
+                Every content brief must include sourceUrl and reviewRequired=true.
+            - role: user
+              text: |
+                Task mode: {{#1760000000001.task_mode#}}
+                Source URL: {{#1760000000001.source_url#}}
+                Source name: {{#1760000000001.source_name#}}
+                League hint: {{#1760000000001.league_hint#}}
+                Publish intent: {{#1760000000001.publish_intent#}}
+
+                Source markdown:
+                {{#1760000000001.source_markdown#}}
+
+                Retrieved Racing Context:
+                {{#1760000001001.result#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1760000003001"
+        type: custom
+        position:
+          x: 980
+          y: 260
+        data:
+          type: end
+          title: "End"
+          desc: "Review-ready racing intelligence output"
+          outputs:
+            - variable: result
+              value_selector:
+                - "1760000002001"
+                - text
+    edges:
+      - id: "1760000000001-1760000001001"
+        source: "1760000000001"
+        target: "1760000001001"
+        type: custom
+      - id: "1760000001001-1760000002001"
+        source: "1760000001001"
+        target: "1760000002001"
+        type: custom
+      - id: "1760000002001-1760000003001"
+        source: "1760000002001"
+        target: "1760000003001"
+        type: custom
