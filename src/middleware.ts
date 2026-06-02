@@ -1,49 +1,77 @@
-import { NextRequest, NextResponse } from 'next/server';
+import NextAuth from "next-auth";
+import { authConfig } from "@/lib/server/auth.config";
+import { NextResponse } from "next/server";
 
-export function middleware(req: NextRequest) {
-  if (req.nextUrl.pathname.startsWith('/admin') || req.nextUrl.pathname.startsWith('/api/admin')) {
-    const isLocalDev = process.env.NODE_ENV !== 'production'
-      && ['localhost', '127.0.0.1', '::1'].includes(req.nextUrl.hostname);
+const { auth } = NextAuth(authConfig);
+
+export default auth((req) => {
+  const { nextUrl } = req;
+  const isLoggedIn = !!req.auth;
+
+  // 1. Admin & API Admin Protection (Basic Auth + NextAuth fallback)
+  if (nextUrl.pathname.startsWith("/admin") || nextUrl.pathname.startsWith("/api/admin")) {
+    const isLocalDev = process.env.NODE_ENV !== "production"
+      && ["localhost", "127.0.0.1", "::1"].includes(nextUrl.hostname);
     if (isLocalDev) {
       return NextResponse.next();
     }
 
-    const auth = req.headers.get('authorization');
+    // Let NextAuth admin sessions bypass Basic Auth
+    if (isLoggedIn && (req.auth?.user as any)?.role === "admin") {
+      return NextResponse.next();
+    }
+
+    const authHeader = req.headers.get("authorization");
     const user = process.env.ADMIN_USER;
     const pass = process.env.ADMIN_PASS;
 
     if (!user || !pass) {
-      return new NextResponse('Admin auth is not configured', { status: 503 });
+      return new NextResponse("Admin auth is not configured", { status: 503 });
     }
 
-    if (!auth || !auth.startsWith('Basic ')) {
-      return new NextResponse('Unauthorized', {
+    if (!authHeader || !authHeader.startsWith("Basic ")) {
+      return new NextResponse("Unauthorized", {
         status: 401,
-        headers: { 'WWW-Authenticate': 'Basic realm="Admin"' },
+        headers: { "WWW-Authenticate": 'Basic realm="Admin"' },
       });
     }
 
-    let providedUser = '';
-    let providedPass = '';
+    let providedUser = "";
+    let providedPass = "";
     try {
-      [providedUser, providedPass] = atob(auth.slice(6)).split(':');
+      [providedUser, providedPass] = atob(authHeader.slice(6)).split(":");
     } catch {
-      return new NextResponse('Invalid credentials', {
+      return new NextResponse("Invalid credentials", {
         status: 401,
-        headers: { 'WWW-Authenticate': 'Basic realm="Admin"' },
+        headers: { "WWW-Authenticate": 'Basic realm="Admin"' },
       });
     }
 
     if (providedUser !== user || providedPass !== pass) {
-      return new NextResponse('Invalid credentials', {
+      return new NextResponse("Invalid credentials", {
         status: 401,
-        headers: { 'WWW-Authenticate': 'Basic realm="Admin"' },
+        headers: { "WWW-Authenticate": 'Basic realm="Admin"' },
       });
     }
   }
+
+  // 2. Protect only authenticated Pilot Progress API endpoint
+  const isProtectedPilotRoute = nextUrl.pathname === "/api/pilot/progress";
+  if (isProtectedPilotRoute && !isLoggedIn) {
+    return new NextResponse(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   return NextResponse.next();
-}
+});
 
 export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*'],
+  matcher: [
+    "/admin/:path*",
+    "/api/admin/:path*",
+    "/api/pilot/progress",
+  ],
 };
+

@@ -6,15 +6,16 @@
  * dynamically linked to the active Pilot Dossier cookie state.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { CyberBreadcrumb } from "@/features/navigation/components/Breadcrumb";
 import { AdStickySidebar } from "@/features/monetization/components/NativeAds";
 import { AISummaryBox } from "@/components/ui/AISummaryBox";
 import { Map as MapIcon, Flag, CheckSquare, Shield, Award, Play, Lock, BookOpen } from "lucide-react";
 import { loadDossierFromBrowser, saveDossierToBrowser } from "@/lib/state/dossier-serializer";
-import { PilotDossier } from "@/types/pilot-dossier";
+import { PilotDossier, PilotClass } from "@/types/pilot-dossier";
 import localRoadmap from "../../../../data/roadmap.json";
+import { useSession, signOut } from "next-auth/react";
 
 interface ModuleGate {
   id: string;
@@ -64,18 +65,134 @@ const ARTICLE_TITLES: Record<string, string> = {
   "gps-rescue-mode-setup-in-betaflight-never-lose-a-drone-to-a-failsafe": "GPS Rescue Setup in Betaflight (Legacy)",
 };
 
+function calculateOrlLevel(completedIds: string[]): "ORL-0" | "ORL-1" | "ORL-2" | "ORL-3" | "ORL-Elite" {
+  if (completedIds.includes("gps-rescue-setup")) return "ORL-3";
+  if (completedIds.includes("soldering-masterclass")) return "ORL-2";
+  if (completedIds.includes("simulator-muscle-memory")) return "ORL-1";
+  return "ORL-0";
+}
+
 export default function RoadmapPage() {
+  const { data: session, status } = useSession();
   const [dossier, setDossier] = useState<PilotDossier | null>(null);
   const [verifyingModule, setVerifyingModule] = useState<ModuleGate | null>(null);
   const [checkedObjectives, setCheckedObjectives] = useState<Record<number, boolean>>({});
+  const [syncing, setSyncing] = useState(false);
+  const [syncMessage, setSyncMessage] = useState<string | null>(null);
+  const [isOffline, setIsOffline] = useState(typeof window !== "undefined" ? !window.navigator.onLine : false);
+
+  const triggerSync = useCallback(async () => {
+    if (typeof window === "undefined" || !window.navigator.onLine || status !== "authenticated") return;
+    setSyncing(true);
+    try {
+      // 1. Fetch current database progress
+      const res = await fetch("/api/pilot/progress");
+      if (!res.ok) throw new Error("Failed to fetch progress");
+      const dbData = await res.json();
+      
+      const dbSteps = dbData.completed_steps || [];
+      const dbSpecialization = dbData.current_specialization || null;
+
+      // 2. Load local dossier
+      const activeDossier = loadDossierFromBrowser();
+      const localSteps = activeDossier?.qualifications?.qualifiedModuleIds || [];
+      const localClass = activeDossier?.assignedClass || null;
+
+      // 3. Check if we need to sync (merge) local progress into DB
+      const hasNewLocalSteps = localSteps.some((step: string) => !dbSteps.includes(step));
+      const hasNewLocalSpecialization = localClass && localClass !== dbSpecialization;
+      
+      let finalSteps = dbSteps;
+      let finalSpecialization = dbSpecialization;
+
+      if (hasNewLocalSteps || hasNewLocalSpecialization) {
+        const combinedSteps = Array.from(new Set([...localSteps, ...dbSteps]));
+        const mergedSpecialization = localClass || dbSpecialization || "Beginner";
+        
+        // Push merged state to database
+        const syncRes = await fetch("/api/pilot/progress", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            completed_steps: combinedSteps,
+            current_specialization: mergedSpecialization,
+          }),
+        });
+
+        if (syncRes.ok) {
+          const syncData = await syncRes.json();
+          finalSteps = syncData.data.completed_steps;
+          finalSpecialization = syncData.data.current_specialization;
+          setSyncMessage("📡 Telemetry Synced: Cloud flight dossier synchronized.");
+          setTimeout(() => setSyncMessage(null), 4000);
+        }
+      } else {
+        // If local dossier is missing or out of sync with DB, pull down DB progress
+        const isCookieOutOfSync = localSteps.length !== dbSteps.length || localClass !== dbSpecialization;
+        if (!activeDossier || isCookieOutOfSync) {
+          finalSteps = dbSteps;
+          finalSpecialization = dbSpecialization;
+        }
+      }
+
+      // Reconstruct local cookie dossier to match synchronized state
+      const synchronizedDossier: PilotDossier = {
+        callsign: session?.user?.name || activeDossier?.callsign || "Pilot",
+        assignedClass: (finalSpecialization as PilotClass) || activeDossier?.assignedClass || null,
+        qualifications: {
+          qualifiedModuleIds: finalSteps,
+          classRatings: activeDossier?.qualifications?.classRatings || [],
+          operationalReadinessLevel: calculateOrlLevel(finalSteps),
+        },
+        activeBuild: activeDossier?.activeBuild || null,
+        calibrationProfile: activeDossier?.calibrationProfile || {
+          stickRates: "Defaults",
+          rcLinkFrequencyHz: 500,
+        },
+        lastSavedAt: new Date().toISOString(),
+      };
+
+      saveDossierToBrowser(synchronizedDossier);
+      setDossier(synchronizedDossier);
+    } catch (err) {
+      console.error("Telemetry sync failed:", err);
+    } finally {
+      setSyncing(false);
+    }
+  }, [status, session]);
 
   useEffect(() => {
-    // Load dossier client-side from secure cookie
-    const activeDossier = loadDossierFromBrowser();
-    Promise.resolve().then(() => {
-      setDossier(activeDossier);
-    });
-  }, []);
+    if (status === "authenticated") {
+      const syncTimeout = setTimeout(() => {
+        triggerSync();
+      }, 0);
+      return () => clearTimeout(syncTimeout);
+    } else if (status === "unauthenticated") {
+      // For guests, just load their local cookie dossier
+      const activeDossier = loadDossierFromBrowser();
+      const dossierTimeout = setTimeout(() => {
+        setDossier(activeDossier);
+      }, 0);
+      return () => clearTimeout(dossierTimeout);
+    }
+  }, [status, triggerSync]);
+
+  useEffect(() => {
+    const goOnline = () => {
+      setIsOffline(false);
+      if (status === "authenticated") {
+        triggerSync();
+      }
+    };
+    const goOffline = () => setIsOffline(true);
+
+    window.addEventListener("online", goOnline);
+    window.addEventListener("offline", goOffline);
+    return () => {
+      window.removeEventListener("online", goOnline);
+      window.removeEventListener("offline", goOffline);
+    };
+  }, [status, triggerSync]);
 
   const breadcrumbs = [
     { label: "Pilot Academy", href: "/academy" },
@@ -97,7 +214,7 @@ export default function RoadmapPage() {
     return false;
   };
 
-  const handleVerifyModule = (moduleId: string) => {
+  const handleVerifyModule = async (moduleId: string) => {
     if (!dossier) return;
     const updatedQualifiedIds = [...qualifiedIds];
     if (!updatedQualifiedIds.includes(moduleId)) {
@@ -120,8 +237,31 @@ export default function RoadmapPage() {
       },
       lastSavedAt: new Date().toISOString(),
     };
+    
     saveDossierToBrowser(updatedDossier);
     setDossier(updatedDossier);
+
+    if (status === "authenticated" && typeof window !== "undefined" && window.navigator.onLine) {
+      setSyncing(true);
+      try {
+        const res = await fetch("/api/pilot/progress", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            completed_steps: updatedQualifiedIds,
+            current_specialization: updatedDossier.assignedClass || "Beginner",
+          }),
+        });
+        if (res.ok) {
+          setSyncMessage("📡 Rating Certified: Synced to secure cloud dossier.");
+          setTimeout(() => setSyncMessage(null), 4000);
+        }
+      } catch (err) {
+        console.error("Failed to sync certified module to cloud:", err);
+      } finally {
+        setSyncing(false);
+      }
+    }
   };
 
   const getActiveObjective = () => {
@@ -147,13 +287,36 @@ export default function RoadmapPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-[#f8fafc] font-mono">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
+      {/* Offline Bar & Sync Notification HUD */}
+      {isOffline && (
+        <div className="mb-6 bg-[#FF5C00]/10 border border-[#FF5C00]/30 py-3 px-4 flex items-center justify-between text-xs text-[#FF5C00] font-mono animate-pulse rounded">
+          <span className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#FF5C00]" />
+            📡 UÇUŞ ALANI ÇEVRİMDIŞI MODU AKTİF // OFFLINE TELEMETRY LOCAL CACHE
+          </span>
+          <span className="hidden sm:inline uppercase text-[9px] tracking-widest text-[#FF5C00]/70 font-black">
+            RESOLVING WITH LOCAL COOKIE PACKS
+          </span>
+        </div>
+      )}
+
+      {syncMessage && (
+        <div className="mb-6 bg-[#00FF66]/10 border border-[#00FF66]/30 py-3 px-4 flex items-center justify-between text-xs text-[#00FF66] font-mono rounded animate-fadeIn">
+          <span className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#00FF66] animate-ping" />
+            {syncMessage}
+          </span>
+          {syncing && <span className="animate-spin text-[#00FF66]">⚡</span>}
+        </div>
+      )}
+
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 flex flex-col gap-8">
           
           {/* Header Panel */}
           <div className="relative p-8 hex-panel glass-panel overflow-hidden border-[#00F2FF]/20 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] bg-[#050810]/70 rounded-lg">
             <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
-            <div className="flex justify-between items-start">
+            <div className="flex flex-col sm:flex-row justify-between items-start gap-6">
               <div>
                 <MapIcon className="w-12 h-12 text-[#00F2FF] mb-6 opacity-80" />
                 <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
@@ -164,24 +327,43 @@ export default function RoadmapPage() {
                 </p>
               </div>
               {dossier ? (
-                <a
-                  href="/academy/dossier"
-                  className="text-right bg-[#00F2FF]/5 hover:bg-[#00F2FF]/10 border border-[#00F2FF]/20 hover:border-[#00F2FF] p-4 rounded text-xs block transition-all duration-200"
-                >
-                  <p className="text-[#00F2FF] font-black uppercase">CALLSIGN: {dossier.callsign}</p>
-                  <p className="text-[#A0A0A0] mt-1 font-black">CLASS: {dossier.assignedClass}</p>
-                  <p className="text-[#00FF66] mt-1 font-mono uppercase tracking-widest">
-                    ORL LEVEL: {dossier.qualifications.operationalReadinessLevel}
-                  </p>
-                  <p className="text-[10px] text-[#A0A0A0] mt-2 underline">Manage Dossier Card →</p>
-                </a>
+                <div className="flex flex-col gap-2 items-end w-full sm:w-auto">
+                  <a
+                    href="/academy/dossier"
+                    className="text-right bg-[#00F2FF]/5 hover:bg-[#00F2FF]/10 border border-[#00F2FF]/20 hover:border-[#00F2FF] p-4 rounded text-xs block transition-all duration-200 w-full sm:w-auto"
+                  >
+                    <div className="flex items-center justify-end gap-2">
+                      {syncing && <span className="animate-spin text-[#00F2FF]">⚙️</span>}
+                      <p className="text-[#00F2FF] font-black uppercase">CALLSIGN: {dossier.callsign}</p>
+                    </div>
+                    <p className="text-[#A0A0A0] mt-1 font-black">CLASS: {dossier.assignedClass}</p>
+                    <p className="text-[#00FF66] mt-1 font-mono uppercase tracking-widest">
+                      ORL LEVEL: {dossier.qualifications.operationalReadinessLevel}
+                    </p>
+                    <p className="text-[10px] text-[#A0A0A0] mt-2 underline">Manage Dossier Card →</p>
+                  </a>
+                  {status === "authenticated" && (
+                    <button
+                      onClick={() => signOut()}
+                      className="text-[10px] text-red-500 hover:text-red-400 font-bold uppercase tracking-wider transition-colors bg-transparent border-none cursor-pointer self-end"
+                    >
+                      [x] De-authorize Session
+                    </button>
+                  )}
+                </div>
               ) : (
-                <div className="text-right">
+                <div className="text-right flex flex-col gap-3 items-stretch w-full sm:w-auto">
                   <a
                     href="/academy/assessment"
-                    className="inline-flex items-center gap-2 bg-[#FF5C00] hover:bg-[#FF5C00]/80 text-white font-black py-2.5 px-4 rounded text-xs uppercase tracking-wider transition-colors duration-200 border-b-2 border-[#9E3900]"
+                    className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/5 border border-white/20 hover:border-white/40 text-white font-black py-2.5 px-4 rounded text-xs uppercase tracking-wider transition-all duration-200"
                   >
-                    <Play className="w-3.5 h-3.5" /> Initialize Dossier
+                    <Play className="w-3.5 h-3.5" /> Assessment
+                  </a>
+                  <a
+                    href="/auth/signin"
+                    className="inline-flex items-center justify-center gap-2 bg-[#FF5C00] hover:bg-[#FF5C00]/80 text-white font-black py-2.5 px-4 rounded text-xs uppercase tracking-wider transition-colors duration-200 border-b-2 border-[#9E3900]"
+                  >
+                    Authorize Session
                   </a>
                 </div>
               )}
@@ -192,7 +374,7 @@ export default function RoadmapPage() {
             content={
               dossier
                 ? `Active pilot dossier detected: ${dossier.callsign}. You have unlocked ${qualifiedIds.length} operational qualification nodes. Follow the visual matrix below to qualify for active missions.`
-                : "Operational checklist loaded. You are currently browsing in read-only guest mode. Initialize your pilot dossier credentials above to track and save your progression matrix."
+                : "Operational checklist loaded. You are currently browsing in read-only guest mode. Authorize your session or complete pilot archetype assessment to start tracking your flight ratings."
             }
             title="SYS.DOSSIER_TELEMETRY"
           />
@@ -241,14 +423,14 @@ export default function RoadmapPage() {
               </div>
             )
           ) : (
-            <div className="relative p-6 border border-[#00F2FF]/30 bg-[#00F2FF]/5 rounded-lg shadow-[0_0_30px_rgba(0,242,255,0.05)] overflow-hidden hex-panel">
-              <div className="absolute top-0 right-0 bg-[#00F2FF]/10 text-[#00F2FF] text-[9px] uppercase font-black px-3 py-1 border-b border-l border-[#00F2FF]/20 tracking-widest animate-pulse">
+            <div className="relative p-6 border border-[#FF5C00]/30 bg-[#FF5C00]/5 rounded-lg shadow-[0_0_30px_rgba(255,92,0,0.05)] overflow-hidden hex-panel">
+              <div className="absolute top-0 right-0 bg-[#FF5C00]/10 text-[#FF5C00] text-[9px] uppercase font-black px-3 py-1 border-b border-l border-[#FF5C00]/20 tracking-widest animate-pulse">
                 [!] Dossier Offline
               </div>
               
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mt-2">
                 <div className="space-y-2">
-                  <p className="text-xs uppercase text-[#00F2FF] font-black tracking-widest">
+                  <p className="text-xs uppercase text-[#FF5C00] font-black tracking-widest">
                     Telemetry Inactive // Guest Onboarding
                   </p>
                   <h4 className="text-xl font-black uppercase text-white tracking-tight">
@@ -265,6 +447,38 @@ export default function RoadmapPage() {
                     className="block text-center bg-[#FF5C00] hover:bg-[#FF5C00]/90 text-white font-black py-3.5 px-8 rounded text-xs uppercase tracking-wider transition-colors duration-200 border-b-4 border-[#9E3900]"
                   >
                     Start Pilot Assessment
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Cloud Telemetry Integration Sync CTA for Guests */}
+          {!session && dossier && (
+            <div className="relative p-6 border border-[#00F2FF]/30 bg-[#00F2FF]/5 rounded-lg shadow-[0_0_30px_rgba(0,242,255,0.05)] overflow-hidden hex-panel">
+              <div className="absolute top-0 right-0 bg-[#00F2FF]/10 text-[#00F2FF] text-[9px] uppercase font-black px-3 py-1 border-b border-l border-[#00F2FF]/20 tracking-widest animate-pulse">
+                [!] CLOUD BACKUP PENDING
+              </div>
+              
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mt-2">
+                <div className="space-y-2">
+                  <p className="text-xs uppercase text-[#00F2FF] font-black tracking-widest">
+                    CLOUD SYNC DISCONNECTED // OPERATING IN LOCAL STORAGE
+                  </p>
+                  <h4 className="text-xl font-black uppercase text-white tracking-tight">
+                    Protect & Backup Flight Progress
+                  </h4>
+                  <p className="text-xs text-[#A0A0A0] leading-relaxed max-w-xl">
+                    Your flight dossier progress is currently saved in local browser cookie cache. Sign up or log in to sync all ratings to your cloud pilot account.
+                  </p>
+                </div>
+                
+                <div className="flex-shrink-0 w-full md:w-auto mt-4 md:mt-0">
+                  <Link
+                    href="/auth/signin"
+                    className="block text-center bg-[#00F2FF]/10 hover:bg-[#00F2FF]/20 text-[#00F2FF] border border-[#00F2FF]/30 font-black py-3.5 px-8 rounded text-xs uppercase tracking-wider transition-colors duration-200"
+                  >
+                    Sign In & Sync
                   </Link>
                 </div>
               </div>
