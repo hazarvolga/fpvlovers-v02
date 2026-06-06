@@ -16,7 +16,8 @@ export function getStoreHallOfFame() { try { return readRacingIntelligenceStore(
 export function getStoreSection(slug: string) {
   try {
     const store = readRacingIntelligenceStore();
-    return store.sections?.[slug as keyof typeof store.sections] || [];
+    const key = slug === 'hall-of-fame' ? 'hallOfFame' : slug === 'future-systems' ? 'futureSystems' : slug;
+    return store.sections?.[key as keyof typeof store.sections] || [];
   } catch { return []; }
 }
 
