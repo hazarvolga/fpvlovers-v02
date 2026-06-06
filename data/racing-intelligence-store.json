@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T09:17:53.073Z",
+  "generated_at": "2026-06-06T09:31:30.004Z",
   "source": "racing-intelligence-orchestrator",
   "sections": {
     "events": [
@@ -114,13 +114,13 @@
         "id": "e10c80bd4e083649",
         "type": "event",
         "name": "College Drone Racing 2026",
-        "summary": "A drone racing initiative for colleges, associated with CDRA.",
+        "summary": "A drone racing series associated with the CDRA.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/cdra",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.719Z"
       },
       {
         "id": "13347a6c9c375ef3",
@@ -129,22 +129,22 @@
         "summary": "A MultiGP eSport racing series.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/esport",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.719Z"
       },
       {
         "id": "b84fc491b07bd55d",
         "type": "event",
         "name": "Pro Spec 2026 Series",
-        "summary": "A MultiGP racing series for Pro Spec class.",
+        "summary": "A MultiGP racing series with a current leaderboard.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/prospec/",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.719Z"
       },
       {
         "id": "4febe67a46e0e0ff",
@@ -153,22 +153,22 @@
         "summary": "An upcoming main event hosted by MultiGP.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/io26/",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.717Z"
       },
       {
         "id": "5f0469bb42b7f643",
         "type": "event",
         "name": "Kings of Tulsa – MultiGP Champs 2025",
-        "summary": "A past MultiGP Championship event held in Tulsa.",
-        "confidence": 1,
+        "summary": "The MultiGP Championship event held in Tulsa in 2025.",
+        "confidence": 0.8,
         "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
         "sourceName": "MultiGP Race Index",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+        "lastVerifiedAt": "2026-06-06T09:26:48.924Z"
       },
       {
         "id": "9ade1d47a22d91cb",
@@ -177,24 +177,22 @@
         "summary": "The first MultiGP European Championship, held in Aichtal.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/multigp-eu-champs-aichtal/",
-        "sourceName": "MultiGP Chapters",
-        "attributes": {
-          "location": "Aichtal"
-        },
+        "sourceName": "MultiGP Race Class Specs",
+        "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.718Z"
       },
       {
         "id": "de17bf314febda4a",
         "type": "event",
         "name": "Global Qualifier 2026",
-        "summary": "A MultiGP racing series with a schedule and leaderboard.",
+        "summary": "A MultiGP series with a schedule and leaderboard.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/globalqualifier",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.717Z"
       },
       {
         "id": "7f52f4a5120bc46c",
@@ -203,24 +201,22 @@
         "summary": "A MultiGP racing series.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/regionalseries/",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.718Z"
       },
       {
         "id": "2a8fbe9fdf4aef7f",
         "type": "event",
         "name": "MultiGP Champs 2025",
-        "summary": "A past MultiGP Championship event known as 'Kings of Tulsa'.",
+        "summary": "A MultiGP championship event, also known as Kings of Tulsa.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
-        "sourceName": "MultiGP Chapters",
-        "attributes": {
-          "location_hint": "Tulsa"
-        },
+        "sourceName": "MultiGP Race Class Specs",
+        "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.718Z"
       },
       {
         "id": "572a5ec5e5e0d985",
@@ -266,16 +262,410 @@
         "id": "8dae60d0038024cf",
         "type": "event",
         "name": "Velocidrone Tournament",
-        "summary": "A simulator-based tournament where registered teams can participate, contributing to championship qualification.",
+        "summary": "A simulator-based drone racing tournament that serves as a qualification pathway for the CDRA Championship.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "1dccc572ffd5ab4d",
+        "type": "event",
+        "name": "FAI World Drone Racing Championship (WDRC)",
+        "summary": "The biggest competition for elite drone racing pilots organized by FAI.",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/event/2024-fai-world-drone-racing-championship-0",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.723Z"
+      },
+      {
+        "id": "5feb1951d0c1ea3a",
+        "type": "event",
+        "name": "FAI Drone Racing World Cup",
+        "summary": "An FAI-sanctioned series of drone racing competitions.",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-racing-world-cup",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.723Z"
+      },
+      {
+        "id": "0003eb9faf13a8cf",
+        "type": "event",
+        "name": "The World Games",
+        "summary": "A multi-sport event where drone racing is featured, organized by the International World Games Association (IWGA).",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/event/worldgames2025",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.723Z"
+      },
+      {
+        "id": "09c6c4839468d01e",
+        "type": "event",
+        "name": "FAI E-Drone Racing World Cup",
+        "summary": "An online version of drone racing designed to introduce newcomers and gamers to the sport.",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/edroneracingworldcup",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.723Z"
+      },
+      {
+        "id": "43cf792ace4ce979",
+        "type": "event",
+        "name": "FAI World Drone Soccer Championships",
+        "summary": "The inaugural world championship for drone soccer, a futuristic 3D football game.",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/event/2025-fai-world-drone-soccer-championships",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.723Z"
+      },
+      {
+        "id": "28339a81127328ca",
+        "type": "event",
+        "name": "MultiGP Global Qualifier Class B 2026",
+        "summary": "A MultiGP event for 2026 featuring beginner spec parts and a 250K prize pool, with registration opening on June 1.",
+        "confidence": 0.8,
+        "sourceUrl": "knowledge",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "year": "2026",
+          "class": "Class B",
+          "spec": "beginner spec parts",
+          "prize_pool": "250K"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.128Z"
+      },
+      {
+        "id": "7114088f2d9d82c7",
+        "type": "event",
+        "name": "MultiGP College Drone Racing 2026",
+        "summary": "A MultiGP series dedicated to college drone racing for the 2026 season.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.multigp.com/cdra",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "year": "2026"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.128Z"
+      },
+      {
+        "id": "0d41734fe691d84e",
+        "type": "event",
+        "name": "MultiGP eSport Series 2026",
+        "summary": "A MultiGP series focused on eSport drone racing for the 2026 season.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.multigp.com/esport",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "year": "2026"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.128Z"
+      },
+      {
+        "id": "e46c07665b0692f4",
+        "type": "event",
+        "name": "MultiGP Pro Spec 2026 Series",
+        "summary": "A MultiGP series featuring Pro Spec racing for the 2026 season.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.multigp.com/prospec/",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "year": "2026"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.128Z"
+      },
+      {
+        "id": "1af09f89d535f9ec",
+        "type": "event",
+        "name": "CDRC 2026",
+        "summary": "An event associated with the College Drone Racing Association, with a report published in April 2026.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.multigp.com/cdrc-2026-report/",
+        "sourceName": "MultiGP Race Index",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:48.923Z"
+      },
+      {
+        "id": "000de140ef45aa99",
+        "type": "event",
+        "name": "Global Qualifier",
+        "summary": "A MultiGP racing series with a 2026 schedule and leaderboard, including a track design contest.",
+        "confidence": 1,
+        "sourceUrl": "https://www.multigp.com/globalqualifier",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "year": 2026
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:32.101Z"
+      },
+      {
+        "id": "41013556ac7a5574",
+        "type": "event",
+        "name": "CDRC 2026",
+        "summary": "The Collegiate Drone Racing Championship (CDRC) for the 2026 season, with specific rules and qualification pathways outlined.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/rules/",
         "sourceName": "MultiGP Rule Book 2026",
         "attributes": {
-          "platform": "Velocidrone",
-          "timing": "Held in February"
+          "year": 2026
         },
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "a27c0e8401fb9d75",
+        "type": "event",
+        "name": "CDRC 2025",
+        "summary": "A past Collegiate Drone Racing Championship event.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "92872d382fad8c58",
+        "type": "event",
+        "name": "LEAP 2026",
+        "summary": "LEAP 2026 will host the live final of the Saudi Drone Champions League on August 31 in Riyadh.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/saudi-drone-champions-league/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.748Z"
+      },
+      {
+        "id": "5211fcfd880fa2a4",
+        "type": "event",
+        "name": "DCL Draft Selection 2026",
+        "summary": "The DCL Draft Selection 2026 is a process for selecting new talent, with four pilots already chosen and registration open for aspiring champions.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/dcl-2026-draft-picks/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "0a78c467a2177d69",
+        "type": "event",
+        "name": "DCL Season 2026",
+        "summary": "The DCL 2026 season marks a new season of drone racing for the Drone Champions League.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/dcl-season-2026/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "068562ca59760da7",
+        "type": "event",
+        "name": "Falcon Cup",
+        "summary": "A cup event within the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.639Z"
+      },
+      {
+        "id": "7981d6cdca287f4c",
+        "type": "event",
+        "name": "Eagle Cup",
+        "summary": "A cup event within the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "d81deaf04b1698d0",
+        "type": "event",
+        "name": "Hawk Cup",
+        "summary": "A cup event within the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "5a8d3d4d77b81afd",
+        "type": "event",
+        "name": "DCL Super Final",
+        "summary": "The culminating event of the 2025 Drone Champions League season, held at Königssee, Germany, where Raiden Racing secured the championship.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "year": 2025,
+          "location": "Königssee, Germany"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
+      },
+      {
+        "id": "dbc86af47cac6132",
+        "type": "event",
+        "name": "Eagle Cup",
+        "summary": "One of the three major Cups in the 2025 DCL season, won by Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
+      },
+      {
+        "id": "545feb4de0aa627e",
+        "type": "event",
+        "name": "Hawk Cup",
+        "summary": "One of the three major Cups in the 2025 DCL season, won by Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
+      },
+      {
+        "id": "fa3e70d157680904",
+        "type": "event",
+        "name": "Falcon Cup",
+        "summary": "One of the three major Cups in the 2025 DCL season, won by Raiden Racing and held as a real-life racing final in April.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "year": 2025,
+          "type": "real-life racing final"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
+      },
+      {
+        "id": "fc7f446b509d3f3c",
+        "type": "event",
+        "name": "Season V",
+        "summary": "The 5th season of Street League Spec Drone Racing, for which races are currently being scheduled.",
+        "confidence": 1,
+        "sourceUrl": "https://www.streetleague.io/",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "status": "announced",
+          "seasonNumber": 5
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+      },
+      {
+        "id": "1f5eeaf683e2cb25",
+        "type": "event",
+        "name": "2026 Street league race 4",
+        "summary": "An upcoming Street League race scheduled for June 6th, 2026.",
+        "confidence": 1,
+        "sourceUrl": "https://www.streetleague.io/race/cfcf6df5-62b2-4b70-93cf-6229982e9558",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "date": "2026-06-06"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+      },
+      {
+        "id": "a20cfb394d62cf36",
+        "type": "event",
+        "name": "West Coast Throwdown XI - Street League",
+        "summary": "An upcoming Street League event, the eleventh iteration of the West Coast Throwdown, scheduled for June 24th.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.streetleague.io/race/ba601be7-2ec9-4dfc-ba35-7fcc23a0878d",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "date": "2026-06-24"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+      },
+      {
+        "id": "87c1a5d9d1f0cf60",
+        "type": "event",
+        "name": "Larimer County Fair & PRCA Rodeo Regional",
+        "summary": "An upcoming Street League regional event scheduled for July 31st.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.streetleague.io/race/0ed4925a-3a0b-40bc-989e-570581855711",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "date": "2026-07-31",
+          "locationHint": "Larimer County"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+      },
+      {
+        "id": "e1e0ea0a545a652d",
+        "type": "event",
+        "name": "Winter Regionals",
+        "summary": "A current Street League series ending on February 28th.",
+        "confidence": 1,
+        "sourceUrl": "https://www.streetleague.io/series/4afe319d-ffd2-490f-a2fe-b5a914f467d1",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "endDate": "2024-02-28",
+          "type": "series"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+      },
+      {
+        "id": "a6f671a3816b42c6",
+        "type": "event",
+        "name": "Faster Together Series",
+        "summary": "A Street League series that ended on January 5th.",
+        "confidence": 1,
+        "sourceUrl": "https://www.streetleague.io/series/f9855cc6-bb47-4621-9004-69953ff9ba2c",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "endDate": "2024-01-05",
+          "type": "series"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
       }
     ],
     "calendar": [],
@@ -284,13 +674,13 @@
         "id": "2bba78177bc0bda8",
         "type": "league",
         "name": "FAI Drone Sports",
-        "summary": "The overarching category for drone-related air sports governed by the Fédération Aéronautique Internationale (FAI).",
-        "confidence": 0.9,
+        "summary": "The division of FAI dedicated to drone sports, encompassing racing, soccer, and e-racing.",
+        "confidence": 1,
         "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
         "sourceName": "FAI Drone Sports Event Calendar",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:04.182Z"
+        "lastVerifiedAt": "2026-06-06T09:25:57.722Z"
       },
       {
         "id": "084fb8185b381bc8",
@@ -320,13 +710,13 @@
         "id": "20ebed8a99ac82b2",
         "type": "league",
         "name": "FAI",
-        "summary": "The FAI (Fédération Aéronautique Internationale) is the world governing body for air sports, which includes drone sports.",
-        "confidence": 1,
+        "summary": "The world governing body for air sports, which includes drone sports.",
+        "confidence": 0.9,
         "sourceUrl": "https://droneracing.fai.org/",
         "sourceName": "FAI Drone Permission 2026",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:30.028Z"
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
       },
       {
         "id": "6f3c4ccfe6616654",
@@ -344,45 +734,178 @@
         "id": "ef0f9660278e2d1a",
         "type": "league",
         "name": "MultiGP",
-        "summary": "MultiGP is described as the largest professional drone racing league in the world, hosting competitive gatherings and casual events.",
-        "confidence": 0.9,
+        "summary": "The largest professional drone racing league in the world, with over 30,000 registered pilots and 500 active chapters worldwide.",
+        "confidence": 1,
         "sourceUrl": "https://www.multigp.com/about-multigp/",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {
-          "registered_pilots": "30,000",
-          "active_chapters_worldwide": "500"
+          "pilots": 30000,
+          "chapters": 500
         },
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.717Z"
       },
       {
         "id": "84458b44723ef6bd",
         "type": "league",
         "name": "MultiGP",
-        "summary": "MultiGP is a professional drone racing league with over 30,000 registered pilots and 500 active chapters worldwide.",
+        "summary": "MultiGP is described as the largest professional drone racing league globally, with over 30,000 registered pilots and 500 active chapters worldwide.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/rules/",
         "sourceName": "MultiGP Rule Book 2026",
         "attributes": {
-          "registered_pilots": "30,000+",
-          "active_chapters": "500+"
+          "pilots": 30000,
+          "chapters": 500
         },
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+        "lastVerifiedAt": "2026-06-06T09:27:56.521Z"
       },
       {
         "id": "785d3eb0f5d08e1e",
         "type": "league",
         "name": "Collegiate Drone Racing Association (CDRA)",
-        "summary": "The Collegiate Drone Racing Association (CDRA) is a league that outlines rules for track setup, drone specifications, team structure, scoring, and championship qualification.",
+        "summary": "The CDRA is an organization associated with MultiGP, focusing on collegiate drone racing, with specific rules and championships for schools and universities.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/rules/",
         "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "327bc69b2a7bded5",
+        "type": "league",
+        "name": "FAI (Fédération Aéronautique Internationale)",
+        "summary": "The world governing body for air sports, including drone sports.",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.718Z"
+      },
+      {
+        "id": "af6320d3cde9991b",
+        "type": "league",
+        "name": "FAI Drone Racing World Cup",
+        "summary": "A series of FPV Drone races sanctioned by FAI, with 15 events currently registered for 2026.",
+        "confidence": 0.9,
+        "sourceUrl": "https://droneracing.fai.org/",
+        "sourceName": "FAI Drone Permission 2026",
         "attributes": {
-          "season_guide_url": "https://www.multigp.com/cdra/cdra-guide-for-pilots-and-organizers/"
+          "year": "2026",
+          "sanctioned_events_count": 15
         },
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
+      },
+      {
+        "id": "fbf7c34d69e847e3",
+        "type": "league",
+        "name": "MultiGP",
+        "summary": "An FPV racing league organizing various series and events for 2026, including Global Qualifiers, College Drone Racing, eSport Series, and Pro Spec Series.",
+        "confidence": 0.8,
+        "sourceUrl": "knowledge",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.128Z"
+      },
+      {
+        "id": "1acda644ce9ac655",
+        "type": "league",
+        "name": "Drone Champions League",
+        "summary": "The Drone Champions League (DCL) is the world’s leading mixed-reality drone racing league.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/about-us/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.746Z"
+      },
+      {
+        "id": "f5a21fa6039e7cfc",
+        "type": "league",
+        "name": "Saudi Drone Champions League",
+        "summary": "The Saudi Drone Champions League (Saudi DCL) is the first national drone racing competition in Saudi Arabia, presented by DCL and Tuwaiq Academy.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/saudi-drone-champions-league/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.747Z"
+      },
+      {
+        "id": "3a63ce5e37840837",
+        "type": "league",
+        "name": "Drone Champions League",
+        "summary": "An FPV racing league that publishes standings and information about its seasons.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.638Z"
+      },
+      {
+        "id": "905abe8c073abb71",
+        "type": "league",
+        "name": "Drone Champions League",
+        "summary": "The Drone Champions League (DCL) is an elite drone racing league featuring teams from around the globe.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "b78cacb4dede7558",
+        "type": "league",
+        "name": "Drone Champions League",
+        "summary": "A professional drone racing league that concluded its 2025 season with the Super Final at Königssee.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
+      },
+      {
+        "id": "098bf51234e2427d",
+        "type": "league",
+        "name": "Street League Spec Drone Racing",
+        "summary": "An FPV drone racing league that has announced its 5th season.",
+        "confidence": 1,
+        "sourceUrl": "https://www.streetleague.io/",
+        "sourceName": "Street League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+      },
+      {
+        "id": "d10b0cd58bc91cb7",
+        "type": "league",
+        "name": "Street League",
+        "summary": "A shortened name for the Street League Spec Drone Racing league.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.streetleague.io/",
+        "sourceName": "Street League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+      },
+      {
+        "id": "2e4c6df8bf87758e",
+        "type": "league",
+        "name": "Street League Spec Drone Racing",
+        "summary": "A drone racing league focused on spec drone racing, providing rules, build guides, and media resources.",
+        "confidence": 0.95,
+        "sourceUrl": "https://www.streetleague.io/races",
+        "sourceName": "Street League Races",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:29.992Z"
       }
     ],
     "pilots": [
@@ -399,6 +922,813 @@
         },
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      },
+      {
+        "id": "e6609d20e75c407e",
+        "type": "pilot",
+        "name": "MinJae Kim",
+        "summary": "The Korean pilot who won the FAI Drone Racing World Cup 2024.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-racing-world-cup",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.723Z"
+      },
+      {
+        "id": "a2a2d9de61073520",
+        "type": "pilot",
+        "name": "Nauryzbek Yessetov",
+        "summary": "Nauryzbek Yessetov, known as Naykabro, is a 16-year-old pilot for the Aspan team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Naykabro",
+          "age": 16,
+          "team": "Aspan"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "5147a40a7a75f977",
+        "type": "pilot",
+        "name": "Daniyal Kazymov",
+        "summary": "Daniyal Kazymov, known as Shapp, is a 17-year-old pilot for the Aspan team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Shapp",
+          "age": 17,
+          "team": "Aspan"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "e4f9736be5f4e5db",
+        "type": "pilot",
+        "name": "Alikhan Nsanbaeyv",
+        "summary": "Alikhan Nsanbaeyv, known as Alikhan_fpv, is a 12-year-old pilot for the Aspan team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Alikhan_fpv",
+          "age": 12,
+          "team": "Aspan"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "8eccf605f81d0693",
+        "type": "pilot",
+        "name": "Morten Siimar",
+        "summary": "Morten Siimar, known as Chirp_fpv, is a 17-year-old pilot for the Aspan team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Chirp_fpv",
+          "age": 17,
+          "team": "Aspan"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "db9d203fc6bb9195",
+        "type": "pilot",
+        "name": "Mikalai Yakubouski",
+        "summary": "Mikalai Yakubouski, known as Cubed, is a 35-year-old pilot for the Aspan team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Cubed",
+          "age": 35,
+          "team": "Aspan"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "9bf13ec3ac0cf36e",
+        "type": "pilot",
+        "name": "Doruk Cengiz",
+        "summary": "Doruk Cengiz, known as Dorukfpv, is a 15-year-old pilot for the Aspan team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Dorukfpv",
+          "age": 15,
+          "team": "Aspan"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "926fd57babdaafe9",
+        "type": "pilot",
+        "name": "Swan Versmissen",
+        "summary": "Swan Versmissen, known as Yayou, is a 19-year-old pilot for the Cyclone Drone Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Yayou",
+          "age": 19,
+          "team": "Cyclone Drone Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "98273662a4f38d3b",
+        "type": "pilot",
+        "name": "Zachary Ruschak",
+        "summary": "Zachary Ruschak, known as ZionFPV, is a 22-year-old pilot for the Cyclone Drone Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "ZionFPV",
+          "age": 22,
+          "team": "Cyclone Drone Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "2fd19af4beb449df",
+        "type": "pilot",
+        "name": "Lukas Böhm",
+        "summary": "Lukas Böhm, known as Cryson, is a 19-year-old pilot for the Cyclone Drone Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Cryson",
+          "age": 19,
+          "team": "Cyclone Drone Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "c88696a48e085455",
+        "type": "pilot",
+        "name": "Jonny Exner",
+        "summary": "Jonny Exner, known as NeonFPV, is a 19-year-old pilot for the Cyclone Drone Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "NeonFPV",
+          "age": 19,
+          "team": "Cyclone Drone Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "3b25f891c8ce7515",
+        "type": "pilot",
+        "name": "Kieran Tucker",
+        "summary": "Kieran Tucker, known as razbri, is a 23-year-old pilot for the Cyclone Drone Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "razbri",
+          "age": 23,
+          "team": "Cyclone Drone Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "91a225c276d07132",
+        "type": "pilot",
+        "name": "Chesley Wick",
+        "summary": "Chesley Wick, known as TheIceCheetah, is a 40-year-old pilot for the Cyclone Drone Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "TheIceCheetah",
+          "age": 40,
+          "team": "Cyclone Drone Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "c79991c9d316918c",
+        "type": "pilot",
+        "name": "Mason West",
+        "summary": "Mason West, known as WestFPV, is a 26-year-old pilot for the Cyclone Drone Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "WestFPV",
+          "age": 26,
+          "team": "Cyclone Drone Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "f30c50a8c5482025",
+        "type": "pilot",
+        "name": "Colin Chaigne",
+        "summary": "Colin Chaigne, known as Shaigne, is a 21-year-old pilot for the Raiden Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Shaigne",
+          "age": 21,
+          "team": "Raiden Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "a0b804b6ae746a14",
+        "type": "pilot",
+        "name": "Tokudo Umetani",
+        "summary": "Tokudo Umetani, known as Tokudo.U, is a 25-year-old pilot for the Raiden Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Tokudo.U",
+          "age": 25,
+          "team": "Raiden Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "b18d353e648c5557",
+        "type": "pilot",
+        "name": "Batu Erilkun",
+        "summary": "Batu Erilkun, known as Batu FPV, is a 17-year-old pilot for the Raiden Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Batu FPV",
+          "age": 17,
+          "team": "Raiden Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "e05e3d045f799912",
+        "type": "pilot",
+        "name": "Gabriel Barrasso",
+        "summary": "Gabriel Barrasso, known as IQ0, is a 23-year-old pilot for the Raiden Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "IQ0",
+          "age": 23,
+          "team": "Raiden Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "a651c5a6fc8e4506",
+        "type": "pilot",
+        "name": "David Modig",
+        "summary": "David Modig, known as LongcatFPV, is a 34-year-old pilot for the Raiden Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "LongcatFPV",
+          "age": 34,
+          "team": "Raiden Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "eb6f51717b519c86",
+        "type": "pilot",
+        "name": "Alexander Prokhorov",
+        "summary": "Alexander Prokhorov, known as memory, is a 16-year-old pilot for the Raiden Racing team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "memory",
+          "age": 16,
+          "team": "Raiden Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "f1b5c038f77e67ac",
+        "type": "pilot",
+        "name": "Antony Georgeou Bilonick",
+        "summary": "Antony Georgeou Bilonick, known as TAc0_FPV, is a 38-year-old pilot for the Squadron78 team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "TAc0_FPV",
+          "age": 38,
+          "team": "Squadron78"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "8f7591d961dd7d8f",
+        "type": "pilot",
+        "name": "Tomás Faundez",
+        "summary": "Tomás Faundez, known as Tomate, is a 20-year-old pilot for the Squadron78 team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Tomate",
+          "age": 20,
+          "team": "Squadron78"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "abaf609def24e395",
+        "type": "pilot",
+        "name": "Roberto Aguilar Márquez",
+        "summary": "Roberto Aguilar Márquez, known as DeMoNSe3d, is a 44-year-old pilot for the Squadron78 team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "DeMoNSe3d",
+          "age": 44,
+          "team": "Squadron78"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "9258c3c055a8edba",
+        "type": "pilot",
+        "name": "Florencio Victor Justo",
+        "summary": "Florencio Victor Justo, known as Floren, is a 42-year-old pilot for the Squadron78 team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Floren",
+          "age": 42,
+          "team": "Squadron78"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "bec1ed1ee0b7d94b",
+        "type": "pilot",
+        "name": "Juan Pablo Tommasiello",
+        "summary": "Juan Pablo Tommasiello, known as gordolocofpv, is a 35-year-old pilot for the Squadron78 team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "gordolocofpv",
+          "age": 35,
+          "team": "Squadron78"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.705Z"
+      },
+      {
+        "id": "ca58254292ecb944",
+        "type": "pilot",
+        "name": "Kevin Andres Bartoliche",
+        "summary": "Kevin Andres Bartoliche, known as not.barto, is a 32-year-old pilot for the Squadron78 team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "not.barto",
+          "age": 32,
+          "team": "Squadron78"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.705Z"
+      },
+      {
+        "id": "be479447a4669fcc",
+        "type": "pilot",
+        "name": "Angel Javier Rivera Rosado",
+        "summary": "Angel Javier Rivera Rosado, known as PapiAJ, is a 26-year-old pilot for the Squadron78 team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "PapiAJ",
+          "age": 26,
+          "team": "Squadron78"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.705Z"
+      },
+      {
+        "id": "b62deed248110111",
+        "type": "pilot",
+        "name": "Pedro Caceres",
+        "summary": "Pedro Caceres, known as Pino, is a 24-year-old pilot for the Squadron78 team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Pino",
+          "age": 24,
+          "team": "Squadron78"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.705Z"
+      },
+      {
+        "id": "8d620b720f71188d",
+        "type": "pilot",
+        "name": "Silvio Camejo Ramos",
+        "summary": "Silvio Camejo Ramos, known as Silvio fpv, is a 23-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Silvio fpv",
+          "age": 23,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.707Z"
+      },
+      {
+        "id": "8adc21dd5292cad3",
+        "type": "pilot",
+        "name": "Stuart Francis",
+        "summary": "Stuart Francis, known as Squid-FPV, is a 38-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Squid-FPV",
+          "age": 38,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "ced0050ee70766d3",
+        "type": "pilot",
+        "name": "Dmitry",
+        "summary": "Dmitry, known as Dima2012, is a 13-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Dima2012",
+          "age": 13,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "76506957b8ef28af",
+        "type": "pilot",
+        "name": "YoungGi Han",
+        "summary": "YoungGi Han, known as HYGFPV, is an 18-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "HYGFPV",
+          "age": 18,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "88799648924c6959",
+        "type": "pilot",
+        "name": "Artem Manapov",
+        "summary": "Artem Manapov, known as Its_d, is a 17-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Its_d",
+          "age": 17,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "0b880b7c478b1670",
+        "type": "pilot",
+        "name": "Peteris Ozoliņš",
+        "summary": "Peteris Ozoliņš, known as Peteris.FPV, is an 8-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Peteris.FPV",
+          "age": 8,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "678622155b2d1b08",
+        "type": "pilot",
+        "name": "Miron Cheremnykh",
+        "summary": "Miron Cheremnykh, known as RedSheep, is a 10-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "RedSheep",
+          "age": 10,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "ebd3844ee2675d40",
+        "type": "pilot",
+        "name": "Kirill",
+        "summary": "Kirill, known as SDT Shturman, is a 13-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "SDT Shturman",
+          "age": 13,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "f015adc8f4b92013",
+        "type": "pilot",
+        "name": "Jayden Jackson",
+        "summary": "Jayden Jackson, known as Shrimpy boy, is a 29-year-old pilot for the Vexcel Spain Drone Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Shrimpy boy",
+          "age": 29,
+          "team": "Vexcel Spain Drone Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "985754d0e243eed6",
+        "type": "pilot",
+        "name": "Steven Assaad Francis",
+        "summary": "Steven Assaad Francis, known as SteFPV, is a 22-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "SteFPV",
+          "age": 22,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "051f6e10d4dcd898",
+        "type": "pilot",
+        "name": "Noah Leland",
+        "summary": "Noah Leland, known as The__BoB!!, is a 21-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "The__BoB!!",
+          "age": 21,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "5739fa79297f0865",
+        "type": "pilot",
+        "name": "Daniel Borrega",
+        "summary": "Daniel Borrega, known as DAN00B, is a 19-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "DAN00B",
+          "age": 19,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "7179e558902502db",
+        "type": "pilot",
+        "name": "Matvey Ryadinsky",
+        "summary": "Matvey Ryadinsky, known as Filin, is a 15-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Filin",
+          "age": 15,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "ad716c98fdda6c1c",
+        "type": "pilot",
+        "name": "Mr Jack Reuben Prosser",
+        "summary": "Mr Jack Reuben Prosser, known as Gilbert, is a 21-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Gilbert",
+          "age": 21,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
+      },
+      {
+        "id": "caf9852094c9c233",
+        "type": "pilot",
+        "name": "Max Charles Green Jr.",
+        "summary": "Max Charles Green Jr., known as GreenMachine, is a 32-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "GreenMachine",
+          "age": 32,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
+      },
+      {
+        "id": "abdc821b1bf052e9",
+        "type": "pilot",
+        "name": "Tristan Twine",
+        "summary": "Tristan Twine, known as JuicyFlick, is a 21-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "JuicyFlick",
+          "age": 21,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
+      },
+      {
+        "id": "ba8e203208c4de8c",
+        "type": "pilot",
+        "name": "Matsuyama Yuki",
+        "summary": "Matsuyama Yuki, known as Mattyo, is a 28-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Mattyo",
+          "age": 28,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
+      },
+      {
+        "id": "8d76524835e43578",
+        "type": "pilot",
+        "name": "Gregory Mironov",
+        "summary": "Gregory Mironov, known as Nemuo, is an 18-year-old pilot for the Wildcard Team.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "callsign": "Nemuo",
+          "age": 18,
+          "team": "Wildcard Team"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
+      },
+      {
+        "id": "099f51cf0478b973",
+        "type": "pilot",
+        "name": "Vicent Mayans",
+        "summary": "A renowned DCL pilot who competed for Raiden Racing in the 2025 DCL Super Final.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "team": "Raiden Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "c9f19f3157f3f3b4",
+        "type": "pilot",
+        "name": "Yuki Hashimoto",
+        "summary": "A renowned DCL pilot who competed for Raiden Racing in the 2025 DCL Super Final.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "team": "Raiden Racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "08feaddbbb9a7166",
+        "type": "pilot",
+        "name": "Hugo Marco Lopez",
+        "summary": "A pilot who made his DCL real-life racing debut for Spain Drone Team at the 2025 DCL Super Final.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "team": "Spain Drone Team",
+          "debut": "real-life racing"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "f415a2f612a4e3e9",
+        "type": "pilot",
+        "name": "Salie1",
+        "summary": "A pilot from Spain Drone Team who was awarded 'Pilot of the Year' for the 2025 DCL season with 105 heat points.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "team": "Spain Drone Team",
+          "award": "Pilot of the Year",
+          "heat_points": 105
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "8df0ecc11b7d2f38",
+        "type": "pilot",
+        "name": "TheBoB",
+        "summary": "A pilot from Wild Card Team who was awarded 'Rookie of the Year' for the 2025 DCL season with 59 heat points.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "team": "Wild Card Team",
+          "award": "Rookie of the Year",
+          "heat_points": 59
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
       }
     ],
     "teams": [
@@ -487,6 +1817,327 @@
         "attributes": {},
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "3ba3a1c976474c8d",
+        "type": "team",
+        "name": "Spain Drone Team",
+        "summary": "Spain Drone Team is currently ranked 1st in the DCL standings with 27 points.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.748Z"
+      },
+      {
+        "id": "2aa010d1b9310fc8",
+        "type": "team",
+        "name": "Raiden Racing",
+        "summary": "Raiden Racing is currently ranked 2nd in the DCL standings with 25 points.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.748Z"
+      },
+      {
+        "id": "74646c28be6d87df",
+        "type": "team",
+        "name": "DCL Wild Card",
+        "summary": "DCL Wild Card is currently ranked 3rd in the DCL standings with 21 points.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.748Z"
+      },
+      {
+        "id": "94da068c650e2732",
+        "type": "team",
+        "name": "Cyclone Racing",
+        "summary": "Cyclone Racing is currently ranked 4th in the DCL standings with 18 points.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "236ca5e299bbbcfd",
+        "type": "team",
+        "name": "Phoenix Racing",
+        "summary": "Phoenix Racing is currently ranked 5th in the DCL standings with 14 points.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "c760049591a272f5",
+        "type": "team",
+        "name": "Quad Force One",
+        "summary": "Quad Force One is currently ranked 6th in the DCL standings with 8 points.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "e98fe73f05787699",
+        "type": "team",
+        "name": "China Dragons",
+        "summary": "China Dragons is currently ranked 7th in the DCL standings with 7 points.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "cdb5da6e3cc2fd7f",
+        "type": "team",
+        "name": "Spain Drone Team",
+        "summary": "A team competing in the Drone Champions League.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.638Z"
+      },
+      {
+        "id": "45bd6060057eb76d",
+        "type": "team",
+        "name": "Raiden Racing",
+        "summary": "A team competing in the Drone Champions League.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.638Z"
+      },
+      {
+        "id": "036f33e2dddd607f",
+        "type": "team",
+        "name": "DCL Wild Card",
+        "summary": "A team competing in the Drone Champions League.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.639Z"
+      },
+      {
+        "id": "1fc9a6452b34b575",
+        "type": "team",
+        "name": "Cyclone Racing",
+        "summary": "A team competing in the Drone Champions League.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.639Z"
+      },
+      {
+        "id": "3b98909d89dbb392",
+        "type": "team",
+        "name": "Phoenix Racing",
+        "summary": "A team competing in the Drone Champions League.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.639Z"
+      },
+      {
+        "id": "8169c3c9347b3654",
+        "type": "team",
+        "name": "Quad Force One",
+        "summary": "A team competing in the Drone Champions League.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.639Z"
+      },
+      {
+        "id": "ba3b1f2f9f0e8560",
+        "type": "team",
+        "name": "China Dragons",
+        "summary": "A team competing in the Drone Champions League.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.639Z"
+      },
+      {
+        "id": "69c3be04b476c60c",
+        "type": "team",
+        "name": "Aspan",
+        "summary": "Aspan is a Drone Champions League team based in Kazakhstan, managed by Andrei Tishin, and joined DCL in 2026.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "base": "Kazakhstan",
+          "manager": "Andrei Tishin",
+          "championshipTitles": 0,
+          "dclMemberSince": 2026,
+          "instagramUrl": "https://www.instagram.com/aspandrone/"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "e9c14f4c69f42de4",
+        "type": "team",
+        "name": "Cyclone Drone Racing",
+        "summary": "Cyclone Drone Racing is a DCL team based in the USA, managed by Breton Woodford, with 1 championship title, and joined DCL in 2023.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "base": "USA",
+          "manager": "Breton Woodford",
+          "championshipTitles": 1,
+          "dclMemberSince": 2023,
+          "instagramUrl": "https://www.instagram.com/cyclonedroneracing/",
+          "facebookUrl": "https://www.facebook.com/CycloneDroneRacing",
+          "tiktokUrl": "https://www.tiktok.com/@cyclonedroneracing?lang=en",
+          "linkedinUrl": "https://www.linkedin.com/company/cyclone-drone-racing/"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "2565733e0111533f",
+        "type": "team",
+        "name": "Raiden Racing",
+        "summary": "Raiden Racing is a DCL team based in Japan, managed by Yasuyuki Harima, with 3 championship titles, and joined DCL in 2016.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "base": "Japan",
+          "manager": "Yasuyuki Harima",
+          "championshipTitles": 3,
+          "dclMemberSince": 2016,
+          "instagramUrl": "https://www.instagram.com/raiden_drone/",
+          "facebookUrl": "https://www.facebook.com/raidenracing/",
+          "tiktokUrl": "https://www.tiktok.com/@raiden_drone?lang=ja",
+          "linkedinUrl": "https://www.linkedin.com/company/raidenracing/posts/?feedView=all"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "c68b1793d27b4622",
+        "type": "team",
+        "name": "Squadron78",
+        "summary": "Squadron78 is a DCL team based in Argentina, managed by Santiago Martin Herrera, and joined DCL in 2026.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "base": "Argentina",
+          "manager": "Santiago Martin Herrera",
+          "championshipTitles": 0,
+          "dclMemberSince": 2026,
+          "instagramUrl": "https://www.instagram.com/squadron.78/"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+      },
+      {
+        "id": "49c1db2416e671a7",
+        "type": "team",
+        "name": "Vexcel Spain Drone Team",
+        "summary": "Vexcel Spain Drone Team is a DCL team based in Spain, managed by Juan Antonio Rioboó and Salvador Rioboó, and joined DCL in 2016.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "base": "Spain",
+          "manager": "Juan Antonio Rioboó; Salvador Rioboó",
+          "championshipTitles": 0,
+          "dclMemberSince": 2016,
+          "instagramUrl": "https://www.instagram.com/spaindroneteam?igsh=bWFpYmdqcXdvd3c3",
+          "facebookUrl": "https://www.facebook.com/spaindroneteam/?locale=de",
+          "tiktokUrl": "https://www.tiktok.com/@spaindroneteam",
+          "linkedinUrl": "https://www.linkedin.com/company/spaindroneteam/posts/?feedView=all"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.706Z"
+      },
+      {
+        "id": "6465caf271e5ef5d",
+        "type": "team",
+        "name": "Wildcard Team",
+        "summary": "Wildcard Team is a DCL team based in Liechtenstein, managed by Matthew Bamford, and joined DCL in 2023.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/teams/",
+        "sourceName": "Drone Champions League Teams",
+        "attributes": {
+          "base": "Liechtenstein",
+          "manager": "Matthew Bamford",
+          "championshipTitles": 0,
+          "dclMemberSince": 2023,
+          "instagramUrl": "https://www.instagram.com/wildcard.dcl/"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
+      },
+      {
+        "id": "270b50e752ee8d24",
+        "type": "team",
+        "name": "Raiden Racing",
+        "summary": "The team that secured the 2025 Drone Champions League Championship and the DCL Super Final victory, marking their third DCL title.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
+      },
+      {
+        "id": "e03fdf3a9cff29c9",
+        "type": "team",
+        "name": "Spain Drone Team",
+        "summary": "The team that finished as the overall runners-up in the 2025 DCL season, winning both the Eagle and Hawk Cups.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
+      },
+      {
+        "id": "62b154b39daae058",
+        "type": "team",
+        "name": "Wild Card Team",
+        "summary": "The team associated with TheBoB, who was named the 2025 DCL Rookie of the Year.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
       }
     ],
     "tracks": [
@@ -549,6 +2200,81 @@
         "attributes": {},
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+      },
+      {
+        "id": "bca1b7fd57b45d60",
+        "type": "track",
+        "name": "Hangzhou, China",
+        "summary": "The location for the 2024 FAI World Drone Racing Championship.",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/event/wdrc",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.724Z"
+      },
+      {
+        "id": "3c7ae7072dd8a06e",
+        "type": "track",
+        "name": "Chengdu, People's Republic of China",
+        "summary": "The host city for The World Games 2025, which includes drone racing.",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/event/worldgames2025",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.724Z"
+      },
+      {
+        "id": "72b082082fc3e51a",
+        "type": "track",
+        "name": "Shanghai Stadium, China",
+        "summary": "The venue for the inaugural FAI World Drone Soccer Championships in 2025.",
+        "confidence": 1,
+        "sourceUrl": "https://www.fai.org/event/news/drone-soccer-makes-history-shanghai-host-first-ever-fai-world-championships-2025?type=node&id=175683",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:25:57.724Z"
+      },
+      {
+        "id": "0f78e5ef7725e3d9",
+        "type": "track",
+        "name": "LAAX",
+        "summary": "LAAX is one of the legendary real-world locations featured as a track in DCL – The Game.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/game/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "d196550cdaf8c261",
+        "type": "track",
+        "name": "Reutte",
+        "summary": "Reutte is one of the legendary real-world locations, specifically castle ruins, featured as a track in DCL – The Game.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/game/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "4046c64b989712f5",
+        "type": "track",
+        "name": "Ice Channel, Königssee",
+        "summary": "The unique and challenging track in Königssee, Germany, where the 2025 DCL Super Final was held under floodlights and snow.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "location": "Königssee, Germany",
+          "conditions": "snow, floodlights, -13 to -17°C"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
       }
     ],
     "rankings": [
@@ -587,170 +2313,535 @@
         "attributes": {},
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      },
+      {
+        "id": "d6dd78cefce004e4",
+        "type": "ranking",
+        "name": "DCL Current Team Standings",
+        "summary": "The current DCL team standings show Spain Drone Team in 1st place with 27 points, followed by Raiden Racing and DCL Wild Card, based on Falcon, Eagle, and Hawk Cup results.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {
+          "competition_stage": "Falcon Cup, Eagle Cup, Hawk Cup",
+          "teams_ranked": [
+            {
+              "position": 1,
+              "team_name": "Spain Drone Team",
+              "points": 27,
+              "falcon_cup_points": 7,
+              "eagle_cup_points": 10,
+              "hawk_cup_points": 10
+            },
+            {
+              "position": 2,
+              "team_name": "Raiden Racing",
+              "points": 25,
+              "falcon_cup_points": 10,
+              "eagle_cup_points": 7,
+              "hawk_cup_points": 8
+            },
+            {
+              "position": 3,
+              "team_name": "DCL Wild Card",
+              "points": 21,
+              "falcon_cup_points": 6,
+              "eagle_cup_points": 8,
+              "hawk_cup_points": 7
+            },
+            {
+              "position": 4,
+              "team_name": "Cyclone Racing",
+              "points": 18,
+              "falcon_cup_points": 8,
+              "eagle_cup_points": 6,
+              "hawk_cup_points": 4
+            },
+            {
+              "position": 5,
+              "team_name": "Phoenix Racing",
+              "points": 14,
+              "falcon_cup_points": 4,
+              "eagle_cup_points": 4,
+              "hawk_cup_points": 6
+            },
+            {
+              "position": 6,
+              "team_name": "Quad Force One",
+              "points": 8,
+              "falcon_cup_points": 3,
+              "eagle_cup_points": 2,
+              "hawk_cup_points": 3
+            },
+            {
+              "position": 7,
+              "team_name": "China Dragons",
+              "points": 7,
+              "falcon_cup_points": 2,
+              "eagle_cup_points": 3,
+              "hawk_cup_points": 2
+            }
+          ]
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "2320c55ac06ad48f",
+        "type": "ranking",
+        "name": "2025 DCL Standings - Spain Drone Team",
+        "summary": "Overall and cup-specific points for Spain Drone Team in the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025,
+          "position": 1,
+          "team": "Spain Drone Team",
+          "total_points": 27,
+          "falcon_cup_points": 7,
+          "eagle_cup_points": 10,
+          "hawk_cup_points": 10
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "775a2dfed67e4b92",
+        "type": "ranking",
+        "name": "2025 DCL Standings - Raiden Racing",
+        "summary": "Overall and cup-specific points for Raiden Racing in the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025,
+          "position": 2,
+          "team": "Raiden Racing",
+          "total_points": 25,
+          "falcon_cup_points": 10,
+          "eagle_cup_points": 7,
+          "hawk_cup_points": 8
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "47697bfecd47db49",
+        "type": "ranking",
+        "name": "2025 DCL Standings - DCL Wild Card",
+        "summary": "Overall and cup-specific points for DCL Wild Card in the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025,
+          "position": 3,
+          "team": "DCL Wild Card",
+          "total_points": 21,
+          "falcon_cup_points": 6,
+          "eagle_cup_points": 8,
+          "hawk_cup_points": 7
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "345edc962628ff33",
+        "type": "ranking",
+        "name": "2025 DCL Standings - Cyclone Racing",
+        "summary": "Overall and cup-specific points for Cyclone Racing in the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025,
+          "position": 4,
+          "team": "Cyclone Racing",
+          "total_points": 18,
+          "falcon_cup_points": 8,
+          "eagle_cup_points": 6,
+          "hawk_cup_points": 4
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "6edec58cb6d990a9",
+        "type": "ranking",
+        "name": "2025 DCL Standings - Phoenix Racing",
+        "summary": "Overall and cup-specific points for Phoenix Racing in the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025,
+          "position": 5,
+          "team": "Phoenix Racing",
+          "total_points": 14,
+          "falcon_cup_points": 4,
+          "eagle_cup_points": 4,
+          "hawk_cup_points": 6
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "0a014ccccfda56a5",
+        "type": "ranking",
+        "name": "2025 DCL Standings - Quad Force One",
+        "summary": "Overall and cup-specific points for Quad Force One in the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025,
+          "position": 6,
+          "team": "Quad Force One",
+          "total_points": 8,
+          "falcon_cup_points": 3,
+          "eagle_cup_points": 2,
+          "hawk_cup_points": 3
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "ef9258ed3e5be453",
+        "type": "ranking",
+        "name": "2025 DCL Standings - China Dragons",
+        "summary": "Overall and cup-specific points for China Dragons in the 2025 Drone Champions League season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/league/",
+        "sourceName": "Drone Champions League League",
+        "attributes": {
+          "year": 2025,
+          "position": 7,
+          "team": "China Dragons",
+          "total_points": 7,
+          "falcon_cup_points": 2,
+          "eagle_cup_points": 3,
+          "hawk_cup_points": 2
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+      },
+      {
+        "id": "a6e3acca6fb9a29a",
+        "type": "ranking",
+        "name": "DCL 2025 Pre-Super Final Standings",
+        "summary": "Before the Super Final, Spain Drone Team led the standings with 27 points, closely followed by Raiden Racing with 25 points.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "year": 2025,
+          "leader": "Spain Drone Team",
+          "leader_points": 27,
+          "second_place": "Raiden Racing",
+          "second_place_points": 25
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
       }
     ],
-    "results": [],
+    "results": [
+      {
+        "id": "5d34fd3635237697",
+        "type": "result",
+        "name": "Raiden Racing 2025 DCL Championship Title",
+        "summary": "Raiden Racing won their third DCL title by conquering the 2025 Drone Champions League Championship at Königssee.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "winner": "Raiden Racing",
+          "year": 2025,
+          "championship_title_count": 3
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "12c2638181f1c2d6",
+        "type": "result",
+        "name": "Raiden Racing DCL Super Final Victory",
+        "summary": "Raiden Racing secured the Super Final victory at Königssee, contributing to their 2025 DCL Championship.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "winner": "Raiden Racing",
+          "event": "DCL Super Final",
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "850754972dc904e4",
+        "type": "result",
+        "name": "Spain Drone Team 2025 DCL Runner-up Finish",
+        "summary": "Spain Drone Team concluded the 2025 DCL season as the overall runners-up.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "runner_up": "Spain Drone Team",
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "438ffbd2f5f3df90",
+        "type": "result",
+        "name": "Salie1 2025 Pilot of the Year Award",
+        "summary": "Salie1 of Spain Drone Team earned the 'Pilot of the Year' award for 2025 with 105 heat points.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "pilot": "Salie1",
+          "team": "Spain Drone Team",
+          "award": "Pilot of the Year",
+          "year": 2025,
+          "heat_points": 105
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "7b84580a0147398b",
+        "type": "result",
+        "name": "TheBoB 2025 Rookie of the Year Award",
+        "summary": "TheBoB of Wild Card Team earned the 'Rookie of the Year' award for 2025 with 59 heat points.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "pilot": "TheBoB",
+          "team": "Wild Card Team",
+          "award": "Rookie of the Year",
+          "year": 2025,
+          "heat_points": 59
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "4836f2b24af5766e",
+        "type": "result",
+        "name": "Spain Drone Team Eagle Cup Victory",
+        "summary": "Spain Drone Team achieved victory in the Eagle Cup during the 2025 DCL season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "winner": "Spain Drone Team",
+          "event": "Eagle Cup",
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "bfc2d3e0d82ef20c",
+        "type": "result",
+        "name": "Spain Drone Team Hawk Cup Victory",
+        "summary": "Spain Drone Team achieved victory in the Hawk Cup during the 2025 DCL season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "winner": "Spain Drone Team",
+          "event": "Hawk Cup",
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "126bbf75c754cf3d",
+        "type": "result",
+        "name": "Raiden Racing Falcon Cup Victory",
+        "summary": "Raiden Racing achieved victory in the Falcon Cup during the 2025 DCL season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "winner": "Raiden Racing",
+          "event": "Falcon Cup",
+          "year": 2025
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      }
+    ],
     "technology": [
       {
         "id": "36462b8353f0ba0b",
         "type": "rule",
         "name": "FAI Sporting Licence",
-        "summary": "An FAI Sporting Licence, issued by a national FAI member, is required for competitors to participate in FAI sanctioned category 2 drone events.",
-        "confidence": 1,
+        "summary": "An alternative to the FAI Permission for Drone Racing, issued by national FAI member organizations, required for FAI sanctioned category 2 drone events.",
+        "confidence": 0.9,
         "sourceUrl": "https://droneracing.fai.org/",
         "sourceName": "FAI Drone Permission 2026",
         "attributes": {
-          "validity": "calendar year of 2026"
+          "category": "Category 2"
         },
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:30.028Z"
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
       },
       {
         "id": "9ad2ca03558de373",
         "type": "rule",
         "name": "FAI Permission for Drone Racing",
-        "summary": "An FAI Permission for Drone Racing can be purchased for 10 CHF and is required for competitors without an FAI Sporting Licence to participate in FAI sanctioned category 2 drone events.",
-        "confidence": 1,
+        "summary": "A required permission for competitors to participate in FAI sanctioned category 2 drone events, valid for the calendar year 2026 and obtainable for 10 CHF.",
+        "confidence": 0.9,
         "sourceUrl": "https://droneracing.fai.org/",
         "sourceName": "FAI Drone Permission 2026",
         "attributes": {
+          "validity_year": "2026",
           "cost": "10 CHF",
-          "validity": "calendar year of 2026"
+          "category": "Category 2"
         },
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:30.029Z"
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
       },
       {
         "id": "b21665be41201e5f",
         "type": "rule",
         "name": "Rule Book 2026",
-        "summary": "The official rule book for MultiGP events.",
-        "confidence": 0.9,
+        "summary": "The official rule book for MultiGP events for the year 2026.",
+        "confidence": 1,
         "sourceUrl": "https://www.multigp.com/organizer-resources/rule-book/",
         "sourceName": "MultiGP Chapters",
-        "attributes": {},
+        "attributes": {
+          "year": 2026
+        },
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:27:32.101Z"
       },
       {
         "id": "f40ced3439407da1",
         "type": "rule",
         "name": "Race Class Specifications",
-        "summary": "Detailed specifications for various drone racing classes.",
-        "confidence": 0.9,
+        "summary": "Official specifications detailing various drone race classes for MultiGP events.",
+        "confidence": 1,
         "sourceUrl": "https://www.multigp.com/class-specifications/",
         "sourceName": "MultiGP Chapters",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:27:32.101Z"
       },
       {
         "id": "a16780f66f3808e0",
         "type": "rule",
         "name": "MultiGP Open Class",
-        "summary": "A specific race class within MultiGP.",
+        "summary": "A defined race class within MultiGP events.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%220%22",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.719Z"
       },
       {
         "id": "3a3d0a36f3dfcc0f",
         "type": "rule",
         "name": "MultiGP PRO Spec",
-        "summary": "A specific race class within MultiGP.",
+        "summary": "A defined race class within MultiGP events.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=8",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.719Z"
       },
       {
         "id": "f6c1d068a82c7246",
         "type": "rule",
         "name": "Tiny Whoop",
-        "summary": "A specific race class within MultiGP.",
+        "summary": "A defined race class within MultiGP events.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%221%22",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.719Z"
       },
       {
         "id": "b63ebdfffd042afb",
         "type": "rule",
         "name": "Freedom Spec",
-        "summary": "A specific race class within MultiGP.",
+        "summary": "A defined race class within MultiGP events.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%223%22",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.720Z"
       },
       {
         "id": "3531e32fbada9477",
         "type": "rule",
         "name": "Micro",
-        "summary": "A specific race class within MultiGP.",
+        "summary": "A defined race class within MultiGP events.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%222%22",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.720Z"
       },
       {
         "id": "bb686bf1d88a85ff",
         "type": "rule",
         "name": "Mega Class",
-        "summary": "A specific race class within MultiGP.",
+        "summary": "A defined race class within MultiGP events.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%225%22",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.723Z"
       },
       {
         "id": "aae46680b8c961fd",
         "type": "rule",
         "name": "Velocidrone",
-        "summary": "A specific race class within MultiGP, likely for simulator racing.",
+        "summary": "A race class listed for MultiGP events, likely referring to a simulator-based class.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%226%22",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.723Z"
       },
       {
         "id": "a8fc859cbdb848c2",
         "type": "rule",
         "name": "7\"SPEC",
-        "summary": "A specific race class within MultiGP.",
+        "summary": "A defined race class within MultiGP events.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=4",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.723Z"
       },
       {
         "id": "d29e2a09f689ecb4",
         "type": "rule",
         "name": "5\"SPEC",
-        "summary": "A specific race class within MultiGP.",
+        "summary": "A defined race class within MultiGP events.",
         "confidence": 0.9,
         "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=7",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.723Z"
       },
       {
         "id": "fe97cd2ea8a2fd52",
@@ -847,6 +2938,200 @@
         },
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      },
+      {
+        "id": "219fd3d6c27097d2",
+        "type": "rule",
+        "name": "E-Sport (Race Class)",
+        "summary": "A drone race class within MultiGP events, specifically for eSport competitions, identified by raceClass '6'.",
+        "confidence": 1,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=6",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "race_class_id": "6"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:32.101Z"
+      },
+      {
+        "id": "3e7864aeb1781cbb",
+        "type": "rule",
+        "name": "2026 Track Setup Rules",
+        "summary": "Rules for track elements in the 2026 season, specifying gates no larger than 7 feet wide and 6 feet tall, and flags at least 8 feet tall.",
+        "confidence": 0.95,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "gate_max_width_feet": 7,
+          "gate_max_height_feet": 6,
+          "flag_min_height_feet": 8
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "ec88fc3b32fb16be",
+        "type": "rule",
+        "name": "2026 Drone Specifications",
+        "summary": "Rules for drones in the 2026 season, including a maximum frame size of 305mm, max 6S battery, max 6-inch propellers, and specific video transmitter and LED requirements for the National Championship.",
+        "confidence": 0.95,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "max_frame_size_mm": 305,
+          "max_battery_cell_count": 6,
+          "max_propeller_size_inches": 6,
+          "vtx_requirements": "25mw Raceband or HDZero for National Championship",
+          "led_requirements": "Minimum 4 static LEDs required for championship, ideally RGB switchable"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "afc32aca4aaf35a2",
+        "type": "rule",
+        "name": "2026 Team Structure Rules",
+        "summary": "Rules for team composition in the 2026 season, stating no maximum number of pilots per team, but only three pilots' scores are used for qualification.",
+        "confidence": 0.95,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "qualifying_pilots_per_team": 3
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "52f71750c90edfcb",
+        "type": "rule",
+        "name": "2026 Scoring Rules",
+        "summary": "Rules for scoring in the 2026 season, where pilots submit their fastest three consecutive lap times, individual scores are calculated as 100 divided by time, and team scores are the sum of the three highest pilot scores.",
+        "confidence": 0.95,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "individual_score_formula": "100 / time",
+          "team_score_calculation": "Sum of three highest pilot scores"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "93b96009509ff962",
+        "type": "rule",
+        "name": "2026 Qualification Rules",
+        "summary": "Rules for qualifying for the 2026 Championship, including inviting the top 10 IRL teams and top 3 Velocidrone teams by the end of February, with remaining spots filled by individual rankings.",
+        "confidence": 0.95,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "irl_teams_qualifying": 10,
+          "velocidrone_teams_qualifying": 3,
+          "championship_pilot_limit_per_team": 6
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "c2db287fa45ba0ee",
+        "type": "rule",
+        "name": "AMA Membership Requirement",
+        "summary": "An Academy of Model Aeronautics (AMA) membership is required for each pilot to participate in the championships, providing necessary insurance.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "purpose": "Insurance"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "8161ef6ed6e74c74",
+        "type": "rule",
+        "name": "MultiGP Rule Book 2026",
+        "summary": "The official rule book for MultiGP events.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/organizer-resources/rule-book/",
+        "sourceName": "MultiGP Race Class Specs",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:28:34.724Z"
+      },
+      {
+        "id": "7c27c8992f47a555",
+        "type": "rule",
+        "name": "MultiGP Obstacles guide",
+        "summary": "A guide detailing obstacles used in MultiGP drone races.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/multigp-drone-race-course-obstacles/",
+        "sourceName": "MultiGP Race Class Specs",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:28:34.724Z"
+      },
+      {
+        "id": "ec2e4d749b894406",
+        "type": "rule",
+        "name": "Digital Twin technology",
+        "summary": "Digital Twin technology is used by the Drone Champions League to merge virtual and real worlds in its racing experience.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/about-us/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "44c14741587c0e72",
+        "type": "rule",
+        "name": "Mixed-reality format",
+        "summary": "The Drone Champions League and Saudi Drone Champions League utilize a mixed-reality format for their drone racing competitions.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/about-us/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "62aa683f5b3bfcd9",
+        "type": "rule",
+        "name": "DCL 2025 Season Competition Format",
+        "summary": "The 2025 DCL season featured qualification via DCL – The Game simulator, leading to Cup Finals for top teams and a Super Final invitation for the top two teams of the season.",
+        "confidence": 1,
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "sourceName": "DCL 2025 Super Final Report",
+        "attributes": {
+          "qualification_method": "DCL – The Game simulator",
+          "progression": "Qualification -> Cup Finals -> Super Final"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+      },
+      {
+        "id": "629ca45f7a7c3a53",
+        "type": "rule",
+        "name": "Street League Spec Rules & Downloads",
+        "summary": "Official rules and downloadable resources for Street League Spec Drone Racing participants.",
+        "confidence": 0.85,
+        "sourceUrl": "https://www.streetleague.io/spec",
+        "sourceName": "Street League Races",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:29.993Z"
+      },
+      {
+        "id": "d723a68edc479772",
+        "type": "rule",
+        "name": "Street League Spec Build Guide",
+        "summary": "A comprehensive guide for building drones compliant with Street League Spec requirements.",
+        "confidence": 0.85,
+        "sourceUrl": "https://www.streetleague.io/build-guide",
+        "sourceName": "Street League Races",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:29.993Z"
       }
     ],
     "academy": [],
@@ -886,28 +3171,29 @@
       {
         "id": "8a9254f6ba20ed57",
         "type": "media",
-        "name": "RaceSync App",
-        "summary": "A mobile application used for race management.",
+        "name": "RaceSync APP",
+        "summary": "A mobile application used for MultiGP races, with an iOS update to version 1.8.2.",
         "confidence": 0.9,
         "sourceUrl": "https://apps.apple.com/us/app/racesync/id1491110680",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Class Specs",
         "attributes": {
-          "platform": "iOS"
+          "platform": "iOS",
+          "version": "1.8.2"
         },
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+        "lastVerifiedAt": "2026-06-06T09:28:34.724Z"
       },
       {
         "id": "6a295153b604d6de",
         "type": "media",
         "name": "ZippyQ",
-        "summary": "A tool provided by MultiGP, likely for race organization.",
-        "confidence": 0.9,
+        "summary": "A race tool provided by MultiGP.",
+        "confidence": 0.8,
         "sourceUrl": "https://www.multigp.com/zippyq/",
-        "sourceName": "MultiGP Chapters",
+        "sourceName": "MultiGP Race Index",
         "attributes": {},
         "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+        "lastVerifiedAt": "2026-06-06T09:26:48.923Z"
       },
       {
         "id": "97b68a14de40ae0f",
@@ -1002,6 +3288,267 @@
         },
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "6da2eeb26922bd35",
+        "type": "media",
+        "name": "FAI Facebook",
+        "summary": "Official Facebook page for FAI air sports.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.facebook.com/airsports.fai",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "platform": "Facebook"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
+      },
+      {
+        "id": "b28b24e8a1e21296",
+        "type": "media",
+        "name": "FAI Twitter",
+        "summary": "Official Twitter account for FAI air sports.",
+        "confidence": 0.8,
+        "sourceUrl": "https://twitter.com/airsports_fai",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "platform": "Twitter"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
+      },
+      {
+        "id": "a1c78bcb25bd9a42",
+        "type": "media",
+        "name": "FAI Instagram",
+        "summary": "Official Instagram account for FAI air sports.",
+        "confidence": 0.8,
+        "sourceUrl": "http://www.instagram.com/airsports.fai",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "platform": "Instagram"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
+      },
+      {
+        "id": "8f355cb4f6526a32",
+        "type": "media",
+        "name": "FAI Youtube",
+        "summary": "Official Youtube channel for FAI air sports.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.youtube.com/user/airsportschannel",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "platform": "Youtube"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
+      },
+      {
+        "id": "65ce0c4eeb0ba0de",
+        "type": "media",
+        "name": "FAI Flickr",
+        "summary": "Official Flickr account for FAI air sports.",
+        "confidence": 0.8,
+        "sourceUrl": "http://www.flickr.com/photos/airsports_fai",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "platform": "Flickr"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
+      },
+      {
+        "id": "8bf57f119d10fd9a",
+        "type": "media",
+        "name": "CDRC 2026 Report",
+        "summary": "A news report published by MultiGP on April 13, 2026, related to College Drone Racing.",
+        "confidence": 1,
+        "sourceUrl": "https://www.multigp.com/cdrc-2026-report/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "publish_date": "2026-04-13",
+          "category": "CDRA"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:32.101Z"
+      },
+      {
+        "id": "e36343854fe10ef3",
+        "type": "media",
+        "name": "RaceSync iOS Update v 1.8.2",
+        "summary": "A news article published by MultiGP on January 10, 2026, announcing an update to the RaceSync iOS app.",
+        "confidence": 1,
+        "sourceUrl": "https://www.multigp.com/racesync-ios-update-v-1-8-2/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "publish_date": "2026-01-10",
+          "category": "News"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:32.101Z"
+      },
+      {
+        "id": "b2ad7693e3c5c468",
+        "type": "media",
+        "name": "Kings of Tulsa – MultiGP Champs 2025",
+        "summary": "A news article published by MultiGP on October 20, 2025, recapping the MultiGP Champs 2025 event.",
+        "confidence": 1,
+        "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "publish_date": "2025-10-20",
+          "category": "Drone Racing News, MultiGP Championship"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:32.101Z"
+      },
+      {
+        "id": "e910f2f9ea65d87d",
+        "type": "media",
+        "name": "History Made in Aichtal: The First MultiGP European Championship",
+        "summary": "A news article published by MultiGP on September 15, 2025, reporting on the inaugural MultiGP European Championship.",
+        "confidence": 1,
+        "sourceUrl": "https://www.multigp.com/multigp-eu-champs-aichtal/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "publish_date": "2025-09-15",
+          "category": "Drone Racing News"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:32.101Z"
+      },
+      {
+        "id": "5f36107f8ef61ec5",
+        "type": "media",
+        "name": "CDRA 2026-27 GUIDE",
+        "summary": "A guide for pilots and organizers on how to join the CDRA Season and update times.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/cdra/cdra-guide-for-pilots-and-organizers/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "type": "guide"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
+      },
+      {
+        "id": "3b7aee857ad19adf",
+        "type": "media",
+        "name": "ZippyQ",
+        "summary": "A tool provided by MultiGP for organizers.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/zippyq",
+        "sourceName": "MultiGP Race Class Specs",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:28:34.724Z"
+      },
+      {
+        "id": "be863c26fdcbfdd7",
+        "type": "media",
+        "name": "DCL – The Game",
+        "summary": "DCL – The Game is a simulation game that brings the thrill of drone racing to PC, PlayStation, and Xbox, featuring over 30 tracks and four flight modes.",
+        "confidence": 0.9,
+        "sourceUrl": "https://dronechampionsleague.com/game/",
+        "sourceName": "Drone Champions League Home",
+        "attributes": {
+          "platforms": [
+            "PC",
+            "PlayStation",
+            "Xbox"
+          ],
+          "number_of_tracks": "30+",
+          "flight_modes": [
+            "Arcade",
+            "Acro"
+          ]
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+      },
+      {
+        "id": "17c58063077a1bdd",
+        "type": "media",
+        "name": "Street League Spec Drone Racing YouTube",
+        "summary": "The official YouTube channel for Street League Spec Drone Racing, featuring how-to videos.",
+        "confidence": 1,
+        "sourceUrl": "https://www.youtube.com/StreetLeagueSpecDroneRacing",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "platform": "YouTube"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+      },
+      {
+        "id": "b6767ff5290d87b1",
+        "type": "media",
+        "name": "Street League Spec Facebook",
+        "summary": "The official Facebook page for Street League Spec Drone Racing.",
+        "confidence": 1,
+        "sourceUrl": "https://www.facebook.com/streetleaguespec/",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "platform": "Facebook"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.491Z"
+      },
+      {
+        "id": "4307743a04ee065d",
+        "type": "media",
+        "name": "Street League Spec Instagram",
+        "summary": "The official Instagram profile for Street League Spec Drone Racing.",
+        "confidence": 1,
+        "sourceUrl": "https://www.instagram.com/streetleaguespec/",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "platform": "Instagram"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.491Z"
+      },
+      {
+        "id": "977c469ae4d8cb8b",
+        "type": "media",
+        "name": "StreetLeagueSpec GitHub",
+        "summary": "The official GitHub repository for Street League Spec.",
+        "confidence": 1,
+        "sourceUrl": "https://github.com/StreetLeagueSpec",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "platform": "GitHub"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.491Z"
+      },
+      {
+        "id": "742480ec289dcb19",
+        "type": "media",
+        "name": "Street League Discord",
+        "summary": "The official Discord server for Street League.",
+        "confidence": 1,
+        "sourceUrl": "https://discord.gg/C4HHYccaqk",
+        "sourceName": "Street League Home",
+        "attributes": {
+          "platform": "Discord"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:14.491Z"
+      },
+      {
+        "id": "74f351e9f575ac36",
+        "type": "media",
+        "name": "Street League Spec How-to Videos",
+        "summary": "A YouTube playlist featuring instructional videos for Street League Spec Drone Racing.",
+        "confidence": 0.85,
+        "sourceUrl": "https://www.youtube.com/watch?v=xYFPlS1Ss_4&list=PLgqIQ6XkFsdfZdIkPl2BduyFpJ0feAjyg&ab_channel=ImperiusFPV",
+        "sourceName": "Street League Races",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:31:29.993Z"
       }
     ],
     "hallOfFame": [],
@@ -1075,68 +3622,68 @@
     },
     {
       "contentType": "calendar-update",
-      "title": "MultiGP 2026 Season Preview: International Open and Key Series Announced",
+      "title": "MultiGP 2026 Season Preview: International Open and Key Series Dates",
       "slug": "multigp-2026-season-preview",
-      "angle": "Highlight upcoming major events and series for the 2026 MultiGP racing season, including the International Open and various competitive series.",
+      "angle": "Highlight upcoming major events and the launch of 2026 racing series.",
       "priority": "high",
       "targetSection": "calendar",
       "sourceUrl": "https://www.multigp.com/races/",
       "reviewRequired": true,
       "id": "50d7c051fdfb5de8",
       "reviewStatus": "pending-review",
-      "createdAt": "2026-06-06T09:16:50.908Z"
+      "createdAt": "2026-06-06T09:26:48.924Z"
     },
     {
       "contentType": "event-preview",
       "title": "International Open 2026 Announced for Muncie",
       "slug": "multigp-international-open-2026-muncie",
-      "angle": "Preview of MultiGP's upcoming major event, the International Open 2026, including its date and location.",
+      "angle": "Highlighting the upcoming major MultiGP event.",
       "priority": "high",
-      "targetSection": "events",
+      "targetSection": "upcoming-events",
       "sourceUrl": "https://www.multigp.com/io26/",
       "reviewRequired": true,
       "id": "69b0f6ac546aba7d",
       "reviewStatus": "pending-review",
-      "createdAt": "2026-06-06T09:17:25.478Z"
+      "createdAt": "2026-06-06T09:27:32.102Z"
     },
     {
       "contentType": "result-recap",
       "title": "CDRC 2026 Report Released by MultiGP",
       "slug": "cdrc-2026-report-multigp",
-      "angle": "Summary of the College Drone Racing 2026 event, as detailed in the official report.",
+      "angle": "Summarizing the outcomes and details of the College Drone Racing 2026 event.",
       "priority": "medium",
-      "targetSection": "news",
+      "targetSection": "news-and-results",
       "sourceUrl": "https://www.multigp.com/cdrc-2026-report/",
       "reviewRequired": true,
       "id": "633f3a5ebb2e4765",
       "reviewStatus": "pending-review",
-      "createdAt": "2026-06-06T09:17:25.478Z"
+      "createdAt": "2026-06-06T09:27:32.102Z"
     },
     {
-      "contentType": "race-tech",
-      "title": "RaceSync iOS App Updates to v1.8.2",
+      "contentType": "league-update",
+      "title": "RaceSync iOS App Updated to v1.8.2",
       "slug": "racesync-ios-update-v1-8-2",
-      "angle": "Details on the latest update for the RaceSync iOS application, version 1.8.2.",
-      "priority": "medium",
-      "targetSection": "news",
+      "angle": "Announcing the latest improvements and features for the RaceSync mobile application.",
+      "priority": "low",
+      "targetSection": "tech-updates",
       "sourceUrl": "https://www.multigp.com/racesync-ios-update-v-1-8-2/",
       "reviewRequired": true,
       "id": "6fbb37e1c6553571",
       "reviewStatus": "pending-review",
-      "createdAt": "2026-06-06T09:17:25.479Z"
+      "createdAt": "2026-06-06T09:27:32.102Z"
     },
     {
       "contentType": "result-recap",
       "title": "Kings of Tulsa: MultiGP Champs 2025 Recap",
       "slug": "kings-of-tulsa-multigp-champs-2025-recap",
-      "angle": "A recap of the MultiGP Championship 2025 event, 'Kings of Tulsa'.",
+      "angle": "Reviewing the highlights and winners from the MultiGP Championship 2025.",
       "priority": "high",
-      "targetSection": "news",
+      "targetSection": "news-and-results",
       "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
       "reviewRequired": true,
       "id": "416c5fc0bd0aa2f8",
       "reviewStatus": "pending-review",
-      "createdAt": "2026-06-06T09:17:25.479Z"
+      "createdAt": "2026-06-06T09:27:32.102Z"
     },
     {
       "contentType": "result-recap",
@@ -1179,16 +3726,16 @@
     },
     {
       "contentType": "league-update",
-      "title": "MultiGP CDRA 2026 Rules Overview: What Pilots and Teams Need to Know",
+      "title": "MultiGP CDRA 2026 Season Rules Overview",
       "slug": "multigp-cdra-2026-rules-overview",
-      "angle": "A comprehensive summary of the 2026 Collegiate Drone Racing Association (CDRA) rules, covering track setup, drone specifications, team structure, scoring, and championship qualification criteria.",
+      "angle": "A comprehensive summary of the official rules for the MultiGP Collegiate Drone Racing Association (CDRA) 2026 season, covering track setup, drone specifications, team structure, scoring, and championship qualification.",
       "priority": "high",
       "targetSection": "rules",
       "sourceUrl": "https://www.multigp.com/rules/",
       "reviewRequired": true,
       "id": "acb44adb95b67b93",
       "reviewStatus": "pending-review",
-      "createdAt": "2026-06-06T09:17:53.073Z"
+      "createdAt": "2026-06-06T09:27:56.522Z"
     },
     {
       "contentType": "event-preview",
@@ -1202,9 +3749,726 @@
       "id": "0c59ff27803410fe",
       "reviewStatus": "pending-review",
       "createdAt": "2026-06-06T09:17:53.073Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "Upcoming FAI Drone Sports Events: WDRC, The World Games, and Drone Soccer Championships",
+      "slug": "fai-drone-sports-calendar-update-2024-2025",
+      "angle": "Highlight key dates and locations for major FAI drone sports events, including racing and soccer.",
+      "priority": "high",
+      "targetSection": "calendar",
+      "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+      "reviewRequired": true,
+      "id": "0ca8d5dd3647477e",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:25:57.725Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "FAI Drone Racing 2026 Season Overview: Permissions and World Cup Events",
+      "slug": "fai-drone-racing-2026-season-overview",
+      "angle": "An overview of FAI's requirements for 2026 drone racing participation and the upcoming FAI Drone Racing World Cup events.",
+      "priority": "high",
+      "targetSection": "news",
+      "sourceUrl": "https://droneracing.fai.org/",
+      "reviewRequired": true,
+      "id": "78a234ff49da076a",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:26:24.129Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "MultiGP 2026 Season Kicks Off with Global Qualifier Registration and New Series",
+      "slug": "multigp-2026-global-qualifier-registration-new-series",
+      "angle": "Details on MultiGP's 2026 season, including the Global Qualifier Class B registration opening on June 1st and other upcoming series.",
+      "priority": "medium",
+      "targetSection": "news",
+      "sourceUrl": "knowledge",
+      "reviewRequired": true,
+      "id": "35aa17e8a0cd0326",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:26:24.129Z"
+    },
+    {
+      "contentType": "event-preview",
+      "title": "International Open 2026 Set for Muncie on June 10th",
+      "slug": "international-open-2026-muncie",
+      "angle": "Announce the date and location of MultiGP's premier upcoming event.",
+      "priority": "high",
+      "targetSection": "upcoming-events",
+      "sourceUrl": "https://www.multigp.com/io26/",
+      "reviewRequired": true,
+      "id": "51ca5ed91d3f0db8",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:26:48.924Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "MultiGP Unveils 2026 Global Qualifier, Regional, eSport, and Pro Spec Series",
+      "slug": "multigp-2026-series-launch",
+      "angle": "Provide an overview of the various racing series planned for the 2026 season.",
+      "priority": "medium",
+      "targetSection": "league-news",
+      "sourceUrl": "https://www.multigp.com/races/",
+      "reviewRequired": true,
+      "id": "65df1f80774b4a7b",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:26:48.924Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "History Made in Aichtal: First MultiGP European Championship",
+      "slug": "first-multigp-european-championship-aichtal-recap",
+      "angle": "Detailing the historic inaugural MultiGP European Championship event.",
+      "priority": "high",
+      "targetSection": "news-and-results",
+      "sourceUrl": "https://www.multigp.com/multigp-eu-champs-aichtal/",
+      "reviewRequired": true,
+      "id": "38ce6fe3a4934650",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:32.102Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "MultiGP: The World's Largest Professional Drone Racing League",
+      "slug": "multigp-league-overview",
+      "angle": "An overview of MultiGP's global presence, pilot network, and chapter system.",
+      "priority": "medium",
+      "targetSection": "about-the-league",
+      "sourceUrl": "https://www.multigp.com/chapters/",
+      "reviewRequired": true,
+      "id": "094c0c544d542071",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:32.102Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "MultiGP 2026 Global Qualifier Schedule Announced",
+      "slug": "multigp-2026-global-qualifier-schedule",
+      "angle": "Providing details on the upcoming 2026 Global Qualifier events and how to participate.",
+      "priority": "medium",
+      "targetSection": "upcoming-events",
+      "sourceUrl": "https://www.multigp.com/2026-global-qualifier-schedule/",
+      "reviewRequired": true,
+      "id": "94b41d6af8489db1",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:32.102Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "MultiGP Regional Series 2026 Details Released",
+      "slug": "multigp-regional-series-2026",
+      "angle": "Information on the 2026 Regional Series, including how to find local races.",
+      "priority": "medium",
+      "targetSection": "upcoming-events",
+      "sourceUrl": "https://www.multigp.com/regionalseries/",
+      "reviewRequired": true,
+      "id": "f4ae12ab4a8ea76b",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:32.102Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "MultiGP eSport Series 2026 Kicks Off",
+      "slug": "multigp-esport-series-2026",
+      "angle": "Announcing the start of the 2026 eSport Series and participation details.",
+      "priority": "medium",
+      "targetSection": "upcoming-events",
+      "sourceUrl": "https://www.multigp.com/esport",
+      "reviewRequired": true,
+      "id": "4a15caf262a2e078",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:32.102Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "MultiGP Pro Spec 2026 Series Information and Leaderboard",
+      "slug": "multigp-prospec-2026-series",
+      "angle": "Details on the 2026 Pro Spec Series and access to the current 2025/26 leaderboard.",
+      "priority": "medium",
+      "targetSection": "upcoming-events",
+      "sourceUrl": "https://www.multigp.com/prospec/",
+      "reviewRequired": true,
+      "id": "67b5adc459cef5f7",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:32.102Z"
+    },
+    {
+      "contentType": "race-tech",
+      "title": "Drone Specifications for MultiGP CDRA 2026 Championship",
+      "slug": "multigp-cdra-2026-drone-specs",
+      "angle": "Detailed breakdown of the required drone specifications for the MultiGP CDRA 2026 National Championship, including frame size, battery, propellers, video transmitters, and LED requirements.",
+      "priority": "medium",
+      "targetSection": "tech",
+      "sourceUrl": "https://www.multigp.com/rules/",
+      "reviewRequired": true,
+      "id": "92d53de183c671e3",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:56.522Z"
+    },
+    {
+      "contentType": "event-preview",
+      "title": "Path to the Podium: MultiGP CDRA 2026 Championship Qualification",
+      "slug": "multigp-cdra-2026-qualification-path",
+      "angle": "An explanation of the qualification process for the MultiGP CDRA 2026 Championship, highlighting the roles of the IRL Leaderboard, Velocidrone Tournament, and AMA membership.",
+      "priority": "medium",
+      "targetSection": "events",
+      "sourceUrl": "https://www.multigp.com/rules/",
+      "reviewRequired": true,
+      "id": "e1c5f3daf195de46",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:56.522Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "Key Dates for MultiGP CDRA 2026 Season",
+      "slug": "multigp-cdra-2026-key-dates",
+      "angle": "Important dates for the MultiGP CDRA 2026 season, including track release and championship qualification deadlines.",
+      "priority": "low",
+      "targetSection": "calendar",
+      "sourceUrl": "https://www.multigp.com/rules/",
+      "reviewRequired": true,
+      "id": "a91be041ac6a37e1",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:27:56.523Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "MultiGP: The Global Drone Racing League",
+      "slug": "multigp-global-drone-racing-league",
+      "angle": "Overview of MultiGP's scale and structure as a leading drone racing league.",
+      "priority": "high",
+      "targetSection": "league-news",
+      "sourceUrl": "https://www.multigp.com/race-class-specifications/",
+      "reviewRequired": true,
+      "id": "366ebe55c93ee153",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:28:34.724Z"
+    },
+    {
+      "contentType": "event-preview",
+      "title": "International Open 2026: Muncie Gears Up for MultiGP's Next Main Event",
+      "slug": "international-open-2026-muncie-preview",
+      "angle": "Highlighting the upcoming International Open event, its date, and location.",
+      "priority": "high",
+      "targetSection": "upcoming-events",
+      "sourceUrl": "https://www.multigp.com/race-class-specifications/",
+      "reviewRequired": true,
+      "id": "610d95a1a0946fde",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:28:34.724Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "MultiGP Champs 2025: Kings of Tulsa Recap",
+      "slug": "multigp-champs-2025-kings-of-tulsa-recap",
+      "angle": "Recap of the MultiGP Championship event held in 2025.",
+      "priority": "high",
+      "targetSection": "event-recaps",
+      "sourceUrl": "https://www.multigp.com/race-class-specifications/",
+      "reviewRequired": true,
+      "id": "aa188c3a2e870222",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:28:34.724Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "History Made: First MultiGP European Championship in Aichtal",
+      "slug": "multigp-european-championship-aichtal-recap",
+      "angle": "Summary of the inaugural MultiGP European Championship event.",
+      "priority": "high",
+      "targetSection": "event-recaps",
+      "sourceUrl": "https://www.multigp.com/race-class-specifications/",
+      "reviewRequired": true,
+      "id": "dafffe59eef69ff1",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:28:34.724Z"
+    },
+    {
+      "contentType": "race-tech",
+      "title": "MultiGP Race Classes: A Guide to Open, PRO Spec, Whoop, and More",
+      "slug": "multigp-race-classes-guide",
+      "angle": "An overview of the various official race classes recognized by MultiGP.",
+      "priority": "medium",
+      "targetSection": "rules-and-specs",
+      "sourceUrl": "https://www.multigp.com/race-class-specifications/",
+      "reviewRequired": true,
+      "id": "2efea6872e85147a",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:28:34.724Z"
+    },
+    {
+      "contentType": "race-tech",
+      "title": "RaceSync iOS Update v 1.8.2 Released",
+      "slug": "racesync-ios-update-1-8-2",
+      "angle": "Announcement of the latest update for the RaceSync iOS application.",
+      "priority": "low",
+      "targetSection": "software-updates",
+      "sourceUrl": "https://www.multigp.com/race-class-specifications/",
+      "reviewRequired": true,
+      "id": "fe0dee2fed9957bd",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:28:34.724Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "MultiGP 2026 Series Overview: Global Qualifier, eSport, Pro Spec, and College Drone Racing",
+      "slug": "multigp-2026-series-overview",
+      "angle": "Summary of the various racing series planned by MultiGP for 2026.",
+      "priority": "medium",
+      "targetSection": "league-news",
+      "sourceUrl": "https://www.multigp.com/race-class-specifications/",
+      "reviewRequired": true,
+      "id": "2d12b2215ae8f768",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:28:34.724Z"
+    },
+    {
+      "contentType": "event-preview",
+      "title": "Saudi Drone Champions League: First National Competition in Saudi Arabia",
+      "slug": "saudi-dcl-launch-leap-2026",
+      "angle": "Highlights the new national drone racing league, its mixed-reality format, and the upcoming live final at LEAP 2026 in Riyadh.",
+      "priority": "high",
+      "targetSection": "news",
+      "sourceUrl": "https://dronechampionsleague.com/saudi-drone-champions-league/",
+      "reviewRequired": true,
+      "id": "b817d524defebd22",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:29:14.749Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "Drone Champions League: Pioneering Mixed-Reality Drone Racing",
+      "slug": "dcl-overview-mixed-reality",
+      "angle": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL – The Game.",
+      "priority": "medium",
+      "targetSection": "about",
+      "sourceUrl": "https://dronechampionsleague.com/about-us/",
+      "reviewRequired": true,
+      "id": "173a53321a1324f4",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:29:14.749Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "DCL Current Standings: Spain Drone Team Leads After Falcon, Eagle, and Hawk Cups",
+      "slug": "dcl-current-standings",
+      "angle": "Reports on the latest team standings in the Drone Champions League, detailing points accumulated across the Falcon, Eagle, and Hawk Cups.",
+      "priority": "high",
+      "targetSection": "results",
+      "sourceUrl": "https://dronechampionsleague.com/",
+      "reviewRequired": true,
+      "id": "75acecf9136c0afe",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:29:14.749Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "DCL 2026 Season Begins with New Pilot Draft Selection",
+      "slug": "dcl-2026-season-draft",
+      "angle": "Announces the start of the DCL 2026 season and the ongoing draft selection process for new talent, highlighting the four pilots already selected.",
+      "priority": "high",
+      "targetSection": "news",
+      "sourceUrl": "https://dronechampionsleague.com/dcl-season-2026/",
+      "reviewRequired": true,
+      "id": "dcd3757c65741fd2",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:29:14.749Z"
+    },
+    {
+      "contentType": "race-tech",
+      "title": "DCL – The Game: Experience Drone Racing on 30+ Tracks",
+      "slug": "dcl-the-game-features",
+      "angle": "Details the features of DCL – The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
+      "priority": "medium",
+      "targetSection": "gaming",
+      "sourceUrl": "https://dronechampionsleague.com/game/",
+      "reviewRequired": true,
+      "id": "e6e449a4ce0d1810",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:29:14.749Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "2025 Drone Champions League Standings Update",
+      "slug": "2025-dcl-standings-update",
+      "angle": "Recap of the 2025 DCL season standings, highlighting top teams and cup performances including Falcon, Eagle, and Hawk Cups.",
+      "priority": "high",
+      "targetSection": "league-news",
+      "sourceUrl": "https://dronechampionsleague.com/league/",
+      "reviewRequired": true,
+      "id": "1aec18733c0b0cd6",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:29:35.641Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "Drone Champions League: Meet the Teams and Pilots",
+      "slug": "dcl-teams-and-pilots-overview",
+      "angle": "An overview of the elite drone racing teams and their pilots competing in the Drone Champions League, highlighting their bases, managers, and DCL tenure.",
+      "priority": "high",
+      "targetSection": "league",
+      "sourceUrl": "https://dronechampionsleague.com/teams/",
+      "reviewRequired": true,
+      "id": "3ec9e05608a23975",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:18.709Z"
+    },
+    {
+      "contentType": "team-profile",
+      "title": "Team Profile: Aspan - Kazakhstan's DCL Contenders",
+      "slug": "team-profile-aspan",
+      "angle": "A detailed look at Aspan, the Drone Champions League team from Kazakhstan, including their manager, DCL entry year, and key pilots.",
+      "priority": "medium",
+      "targetSection": "teams",
+      "sourceUrl": "https://dronechampionsleague.com/teams/",
+      "reviewRequired": true,
+      "id": "e8af78d6182383c7",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:18.709Z"
+    },
+    {
+      "contentType": "team-profile",
+      "title": "Team Profile: Cyclone Drone Racing - USA's DCL Champions",
+      "slug": "team-profile-cyclone-drone-racing",
+      "angle": "Explore Cyclone Drone Racing, the USA-based DCL team with one championship title, featuring their manager, DCL entry, and pilot roster.",
+      "priority": "medium",
+      "targetSection": "teams",
+      "sourceUrl": "https://dronechampionsleague.com/teams/",
+      "reviewRequired": true,
+      "id": "02debc982e22cdfd",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:18.709Z"
+    },
+    {
+      "contentType": "team-profile",
+      "title": "Team Profile: Raiden Racing - Japan's Multi-Title Winners",
+      "slug": "team-profile-raiden-racing",
+      "angle": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
+      "priority": "medium",
+      "targetSection": "teams",
+      "sourceUrl": "https://dronechampionsleague.com/teams/",
+      "reviewRequired": true,
+      "id": "d66aa67e8d308c38",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:18.709Z"
+    },
+    {
+      "contentType": "team-profile",
+      "title": "Team Profile: Squadron78 - Argentina's DCL Entry",
+      "slug": "team-profile-squadron78",
+      "angle": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
+      "priority": "medium",
+      "targetSection": "teams",
+      "sourceUrl": "https://dronechampionsleague.com/teams/",
+      "reviewRequired": true,
+      "id": "84118f5761443b7a",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:18.709Z"
+    },
+    {
+      "contentType": "team-profile",
+      "title": "Team Profile: Vexcel Spain Drone Team - Spain's DCL Veterans",
+      "slug": "team-profile-vexcel-spain-drone-team",
+      "angle": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
+      "priority": "medium",
+      "targetSection": "teams",
+      "sourceUrl": "https://dronechampionsleague.com/teams/",
+      "reviewRequired": true,
+      "id": "43a0c8648eab20d0",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:18.709Z"
+    },
+    {
+      "contentType": "team-profile",
+      "title": "Team Profile: Wildcard Team - Liechtenstein's DCL Contenders",
+      "slug": "team-profile-wildcard-team",
+      "angle": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
+      "priority": "medium",
+      "targetSection": "teams",
+      "sourceUrl": "https://dronechampionsleague.com/teams/",
+      "reviewRequired": true,
+      "id": "36877c69feba224c",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:18.709Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "Raiden Racing Conquers Königssee to Claim 2025 DCL Championship",
+      "slug": "raiden-racing-dcl-2025-champions-konigssee",
+      "angle": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
+      "priority": "high",
+      "targetSection": "latest-news",
+      "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "reviewRequired": true,
+      "id": "0a79a623f52c1eac",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:52.369Z"
+    },
+    {
+      "contentType": "pilot-profile",
+      "title": "Salie1: Spain Drone Team's 2025 DCL Pilot of the Year",
+      "slug": "salie1-dcl-2025-pilot-of-the-year",
+      "angle": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
+      "priority": "medium",
+      "targetSection": "pilot-spotlight",
+      "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "reviewRequired": true,
+      "id": "f453b216e2ab1b35",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:52.369Z"
+    },
+    {
+      "contentType": "pilot-profile",
+      "title": "TheBoB: Wild Card Team's 2025 DCL Rookie of the Year",
+      "slug": "thebob-dcl-2025-rookie-of-the-year",
+      "angle": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
+      "priority": "medium",
+      "targetSection": "pilot-spotlight",
+      "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "reviewRequired": true,
+      "id": "71e92295cbd8b349",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:52.369Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "DCL 2025 Season Review and Anticipation for 2026",
+      "slug": "dcl-2025-season-review-2026-outlook",
+      "angle": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
+      "priority": "medium",
+      "targetSection": "league-news",
+      "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "reviewRequired": true,
+      "id": "02dc317f1045a8ee",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:30:52.369Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "Street League Announces Season V and Upcoming 2026 Races",
+      "slug": "street-league-season-v-2026-races-announced",
+      "angle": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
+      "priority": "high",
+      "targetSection": "calendar",
+      "sourceUrl": "https://www.streetleague.io/",
+      "reviewRequired": true,
+      "id": "9ef2a03fae8ea1a1",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:31:14.491Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "Street League Spec: Upcoming Races Section Currently Empty",
+      "slug": "street-league-spec-upcoming-races-empty",
+      "angle": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
+      "priority": "high",
+      "targetSection": "calendar",
+      "sourceUrl": "https://www.streetleague.io/races",
+      "reviewRequired": true,
+      "id": "4a69ed0f4cab5c99",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:31:29.993Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "Street League Spec Offers Comprehensive Resources for Pilots",
+      "slug": "street-league-spec-pilot-resources",
+      "angle": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
+      "priority": "medium",
+      "targetSection": "resources",
+      "sourceUrl": "https://www.streetleague.io/races",
+      "reviewRequired": true,
+      "id": "ad02396c0573fd6a",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:31:29.993Z"
     }
   ],
   "workflowRuns": [
+    {
+      "id": "8edf273e3b234d8d",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.streetleague.io/races",
+      "sourceName": "Street League Races",
+      "workflowRunId": "f7f992d1-475a-4bcf-9f5d-446523800ab4",
+      "totalTokens": 3490,
+      "warnings": [
+        "The 'Upcoming Races' section on the Street League website is currently empty, indicating no immediate race schedule is published on this specific page."
+      ],
+      "createdAt": "2026-06-06T09:31:29.993Z"
+    },
+    {
+      "id": "2c4268c3a27ce970",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.streetleague.io/",
+      "sourceName": "Street League Home",
+      "workflowRunId": "d5a60645-b01f-4b6e-9a32-4c1401743c7d",
+      "totalTokens": 5703,
+      "warnings": [
+        "The year for 'West Coast Throwdown XI - Street League' and 'Larimer County Fair & PRCA Rodeo Regional' is inferred as 2026 based on their listing alongside an explicitly dated 2026 race.",
+        "The 'Faster Together Series' end date of January 5th, 2024, has already passed as of the source retrieval date (January 26th, 2024)."
+      ],
+      "createdAt": "2026-06-06T09:31:14.491Z"
+    },
+    {
+      "id": "f2660999ad584264",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "sourceName": "DCL 2025 Super Final Report",
+      "workflowRunId": "c640fcc1-7c2f-4f12-b4dc-683cd8f79369",
+      "totalTokens": 11508,
+      "warnings": [],
+      "createdAt": "2026-06-06T09:30:52.369Z"
+    },
+    {
+      "id": "f805bb4f0e2b676e",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://dronechampionsleague.com/teams/",
+      "sourceName": "Drone Champions League Teams",
+      "workflowRunId": "8f5ba5f7-0269-4e57-96df-7a7c9e4bd67f",
+      "totalTokens": 14825,
+      "warnings": [],
+      "createdAt": "2026-06-06T09:30:18.709Z"
+    },
+    {
+      "id": "59d3e2b6d9a50b81",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://dronechampionsleague.com/league/",
+      "sourceName": "Drone Champions League League",
+      "workflowRunId": "3a98066d-6636-4971-90c8-99ecc78f1d37",
+      "totalTokens": 7322,
+      "warnings": [],
+      "createdAt": "2026-06-06T09:29:35.642Z"
+    },
+    {
+      "id": "a23b37f40e60f082",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://dronechampionsleague.com/",
+      "sourceName": "Drone Champions League Home",
+      "workflowRunId": "e5cbb15f-643d-4f5e-a468-6278f9b66321",
+      "totalTokens": 15612,
+      "warnings": [
+        "The status of 'Falcon Cup Finals' is stated as 'currently ongoing!' but no specific date or year is provided, and a countdown timer shows '00 Days 00 Hours 00 Minutes 00 Seconds', making the live status ambiguous."
+      ],
+      "createdAt": "2026-06-06T09:29:14.749Z"
+    },
+    {
+      "id": "e9371c1f6bac784e",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.multigp.com/race-class-specifications/",
+      "sourceName": "MultiGP Race Class Specs",
+      "workflowRunId": "61b71a0b-84fa-4fdd-9113-4f3afe028614",
+      "totalTokens": 13989,
+      "warnings": [
+        "The provided source URL 'https://www.multigp.com/race-class-specifications/' returns a 404 'page not found' error. Facts were extracted from persistent navigation and footer content present on the 404 page."
+      ],
+      "createdAt": "2026-06-06T09:28:34.724Z"
+    },
+    {
+      "id": "d975fd12cdc70f4f",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.multigp.com/rules/",
+      "sourceName": "MultiGP Rule Book 2026",
+      "workflowRunId": "8564c21b-2a10-497b-bfc4-3f4b5ec1fff1",
+      "totalTokens": 7915,
+      "warnings": [],
+      "createdAt": "2026-06-06T09:27:56.523Z"
+    },
+    {
+      "id": "8480cc96cf54a81f",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.multigp.com/chapters/",
+      "sourceName": "MultiGP Chapters",
+      "workflowRunId": "54e9300c-c5f0-4eaa-8cd8-781613b626e9",
+      "totalTokens": 15543,
+      "warnings": [
+        "The source URL 'https://www.multigp.com/chapters/' provides content for the entire MultiGP website, not solely information pertaining to chapters. The extraction reflects this broader scope.",
+        "The URL for 'Obstacle Guide' in one navigation block contains a typo: 'https://www.multigp.com/www.multigp.com/multigp-drone-race-course-obstacles/'. The correct URL 'https://www.multigp.com/multigp-drone-race-course-obstacles/' was used for the entity."
+      ],
+      "createdAt": "2026-06-06T09:27:32.102Z"
+    },
+    {
+      "id": "4091ca58310e5f24",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.multigp.com/races/",
+      "sourceName": "MultiGP Race Index",
+      "workflowRunId": "6b6bff29-5f15-4c6e-b5dd-738e16d2afc3",
+      "totalTokens": 10557,
+      "warnings": [],
+      "createdAt": "2026-06-06T09:26:48.924Z"
+    },
+    {
+      "id": "e44cc811fb36caf1",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://droneracing.fai.org/",
+      "sourceName": "FAI Drone Permission 2026",
+      "workflowRunId": "88bf3122-445a-4644-824f-a6fee2d803f8",
+      "totalTokens": 7734,
+      "warnings": [
+        "The provided source confirms 15 FAI Drone Racing World Cup events for 2026 but does not specify their exact dates or locations."
+      ],
+      "createdAt": "2026-06-06T09:26:24.129Z"
+    },
+    {
+      "id": "9f9ec452956b2204",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+      "sourceName": "FAI Drone Sports Event Calendar",
+      "workflowRunId": "edd7f1bb-f2f0-4a6a-a55e-ce619d4a2c44",
+      "totalTokens": 8318,
+      "warnings": [
+        "Specific dates and locations for the 2025 FAI Drone Racing World Cup are not yet available, only that the edition has started."
+      ],
+      "createdAt": "2026-06-06T09:25:57.726Z"
+    },
     {
       "id": "0c3ed509883f7410",
       "workflowName": "racingIntelligenceOrchestrator",
