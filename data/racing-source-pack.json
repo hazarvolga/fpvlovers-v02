@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T11:48:48Z",
+  "generated_at": "2026-06-06T13:18:27Z",
   "purpose": "Official-source ingestion pack for FPVLovers Racing Division events, calendar, leagues, pilots, teams, tracks, rankings, media, rules, and history.",
   "target_dataset": "fpv-racing-events",
   "policy": {
@@ -38,7 +38,7 @@
         "history"
       ],
       "reason": "Official FAI World Cup edition page with F9U rules, registered competitions, bulletins, results, reports, and final ranking links.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "FAI Drone Racing World Cup Main",
@@ -53,7 +53,7 @@
         "rules"
       ],
       "reason": "Current FAI Drone Racing World Cup entry point for edition pages and official calendar references.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "FAI Drone Permission 2026",
@@ -382,7 +382,7 @@
         "media"
       ],
       "reason": "Professional Drone Racing League with pilot profiles and race results.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "FPV Racing TV",
@@ -470,7 +470,7 @@
         "media"
       ],
       "reason": "Autonomous drone racing Abu Dhabi.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "DRSK (Drone Racing Slovakia)",
@@ -542,7 +542,7 @@
         "rules"
       ],
       "reason": "International Drone Racing Association.",
-      "status": "pending"
+      "status": "failed"
     }
   ]
 }
