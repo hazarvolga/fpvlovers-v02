@@ -142,6 +142,87 @@
       ]
     },
     {
+      "id": "phase-5",
+      "name": "Power & Control Systems",
+      "modules": [
+        {
+          "id": "frame-selection",
+          "name": "Frame Geometry & Material Science",
+          "objectives": [
+            "Compare True-X vs Deadcat vs H-frame flight characteristics",
+            "Evaluate carbon fiber weave types and arm thickness tradeoffs"
+          ],
+          "requiredArticles": [
+            "how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Frame selected for build style"
+          }
+        },
+        {
+          "id": "esc-protocols",
+          "name": "ESC Protocols & Motor Timing",
+          "objectives": [
+            "Distinguish DShot300 vs DShot600 vs Multishot timing",
+            "Configure bidirectional DShot and RPM filtering"
+          ],
+          "requiredArticles": [
+            "esc-protocol-deep-dive"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "ESC protocol configured in Betaflight"
+          }
+        },
+        {
+          "id": "vtx-camera-setup",
+          "name": "VTX & Camera Integration",
+          "objectives": [
+            "Configure VTX channel, band, and power output",
+            "Wire camera OSD and verify clean video signal"
+          ],
+          "requiredArticles": [
+            "vtx-and-camera-setup-guide-clean-video-from-the-start"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Clean video feed verified in goggles"
+          }
+        },
+        {
+          "id": "flight-controller-setup",
+          "name": "Flight Controller Configuration",
+          "objectives": [
+            "Flash Betaflight firmware and configure UART ports",
+            "Set up receiver protocol, arming flags, and failsafe"
+          ],
+          "requiredArticles": [
+            "betaflight-firmware-tuning-complete-setup-guide"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "FC configured, arming flags clear"
+          }
+        },
+        {
+          "id": "propeller-engineering",
+          "name": "Propeller Aerodynamics & Selection",
+          "objectives": [
+            "Analyze pitch vs diameter thrust tradeoffs",
+            "Select optimal propeller for build weight and flight style"
+          ],
+          "requiredArticles": [
+            "fpv-propeller-engineering"
+          ],
+          "qualificationGate": {
+            "type": "ManualCheck",
+            "checkpointName": "Propeller matched to motor KV and AUW"
+          }
+        }
+      ]
+    },
+    {
       "id": "phase-6",
       "name": "Betaflight Academy",
       "modules": [
