@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T00:00:00.000Z",
+  "generated_at": "2026-06-06T08:15:32Z",
   "purpose": "Official-source ingestion pack for FPVLovers Racing Division events, calendar, leagues, pilots, teams, tracks, rankings, media, rules, and history.",
   "target_dataset": "fpv-racing-events",
   "policy": {
@@ -15,9 +15,14 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["calendar", "events", "rules", "history"],
+      "entityTargets": [
+        "calendar",
+        "events",
+        "rules",
+        "history"
+      ],
       "reason": "FAI event calendar and drone sports hub for sanctioned competitions, dates, countries, and event links.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "FAI Drone Racing World Cup 2025",
@@ -25,9 +30,15 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["events", "results", "rankings", "rules", "history"],
+      "entityTargets": [
+        "events",
+        "results",
+        "rankings",
+        "rules",
+        "history"
+      ],
       "reason": "Official FAI World Cup edition page with F9U rules, registered competitions, bulletins, results, reports, and final ranking links.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "FAI Drone Racing World Cup Main",
@@ -35,9 +46,14 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["calendar", "events", "results", "rules"],
+      "entityTargets": [
+        "calendar",
+        "events",
+        "results",
+        "rules"
+      ],
       "reason": "Current FAI Drone Racing World Cup entry point for edition pages and official calendar references.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "FAI Drone Permission 2026",
@@ -45,9 +61,13 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["rules", "calendar", "events"],
+      "entityTargets": [
+        "rules",
+        "calendar",
+        "events"
+      ],
       "reason": "Official participation/permission page confirming 2026 FAI drone-racing event context and calendar linkage.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "MultiGP Race Index",
@@ -55,9 +75,15 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["calendar", "events", "leagues", "rules", "tracks"],
+      "entityTargets": [
+        "calendar",
+        "events",
+        "leagues",
+        "rules",
+        "tracks"
+      ],
       "reason": "Official MultiGP race, series, rulebook, class spec, tracks, and news navigation source.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "MultiGP Chapters",
@@ -65,9 +91,14 @@
       "dataset": "fpv-racing-events",
       "priority": "medium",
       "sourceType": "official",
-      "entityTargets": ["leagues", "events", "tracks", "teams"],
+      "entityTargets": [
+        "leagues",
+        "events",
+        "tracks",
+        "teams"
+      ],
       "reason": "Official chapter infrastructure for regional racing footprint and local race discovery.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "MultiGP Rule Book 2026",
@@ -75,9 +106,13 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["rules", "classes", "technology"],
+      "entityTargets": [
+        "rules",
+        "classes",
+        "technology"
+      ],
       "reason": "Official race rule and class compliance source for Racing Academy and Technology sections.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "MultiGP Race Class Specs",
@@ -85,9 +120,14 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["rules", "classes", "technology", "aircraft"],
+      "entityTargets": [
+        "rules",
+        "classes",
+        "technology",
+        "aircraft"
+      ],
       "reason": "Official class specs for race aircraft categories, limits, and competition structure.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Drone Champions League Home",
@@ -95,9 +135,15 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["leagues", "teams", "rankings", "media", "history"],
+      "entityTargets": [
+        "leagues",
+        "teams",
+        "rankings",
+        "media",
+        "history"
+      ],
       "reason": "Official DCL homepage with current standings, league overview, media links, teams, and league positioning.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Drone Champions League League",
@@ -105,9 +151,14 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["leagues", "events", "rankings", "teams"],
+      "entityTargets": [
+        "leagues",
+        "events",
+        "rankings",
+        "teams"
+      ],
       "reason": "Official DCL league format and competition context for team-based racing pages.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Drone Champions League Teams",
@@ -115,9 +166,14 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["teams", "pilots", "rankings", "sponsors"],
+      "entityTargets": [
+        "teams",
+        "pilots",
+        "rankings",
+        "sponsors"
+      ],
       "reason": "Official DCL team and roster source for Racing Division team/pilot database.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "DCL 2025 Super Final Report",
@@ -125,9 +181,15 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["results", "teams", "pilots", "history", "media"],
+      "entityTargets": [
+        "results",
+        "teams",
+        "pilots",
+        "history",
+        "media"
+      ],
       "reason": "Official DCL championship report with final standings context, winning team, pilots, season awards, and historical notes.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Street League Home",
@@ -135,9 +197,15 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["calendar", "events", "rankings", "sponsors", "rules"],
+      "entityTargets": [
+        "calendar",
+        "events",
+        "rankings",
+        "sponsors",
+        "rules"
+      ],
       "reason": "Official Street League homepage with season announcement, upcoming races, standings entry, partners, and series links.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Street League Races",
@@ -145,9 +213,13 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["calendar", "events", "classes"],
+      "entityTargets": [
+        "calendar",
+        "events",
+        "classes"
+      ],
       "reason": "Official Street League race listing and category filters.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Street League Leaderboard",
@@ -155,9 +227,14 @@
       "dataset": "fpv-racing-events",
       "priority": "high",
       "sourceType": "official",
-      "entityTargets": ["rankings", "pilots", "teams", "results"],
+      "entityTargets": [
+        "rankings",
+        "pilots",
+        "teams",
+        "results"
+      ],
       "reason": "Official Street League standings page for leaderboard/ranking ingestion.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Street League Rules Downloads",
@@ -165,9 +242,13 @@
       "dataset": "fpv-racing-events",
       "priority": "medium",
       "sourceType": "official",
-      "entityTargets": ["rules", "classes", "technology"],
+      "entityTargets": [
+        "rules",
+        "classes",
+        "technology"
+      ],
       "reason": "Official Street League resources for rules, downloads, and build/spec references.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Spain Drone Team",
@@ -175,9 +256,14 @@
       "dataset": "fpv-racing-events",
       "priority": "medium",
       "sourceType": "official-team",
-      "entityTargets": ["teams", "pilots", "history", "media"],
+      "entityTargets": [
+        "teams",
+        "pilots",
+        "history",
+        "media"
+      ],
       "reason": "Official team source for DCL team database and pilot profile confirmation.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "Estonian Drone Racing League",
@@ -185,9 +271,14 @@
       "dataset": "fpv-racing-events",
       "priority": "medium",
       "sourceType": "official-league",
-      "entityTargets": ["calendar", "rankings", "events", "regional-leagues"],
+      "entityTargets": [
+        "calendar",
+        "rankings",
+        "events",
+        "regional-leagues"
+      ],
       "reason": "Regional league with schedule and standings signals for European racing coverage.",
-      "status": "pending"
+      "status": "failed"
     },
     {
       "name": "F9U Italy",
@@ -195,9 +286,14 @@
       "dataset": "fpv-racing-events",
       "priority": "medium",
       "sourceType": "official-event",
-      "entityTargets": ["events", "calendar", "rules", "regional-leagues"],
+      "entityTargets": [
+        "events",
+        "calendar",
+        "rules",
+        "regional-leagues"
+      ],
       "reason": "F9U/World Cup Italy source for event coverage and regional FAI-linked racing details.",
-      "status": "pending"
+      "status": "failed"
     }
   ]
 }

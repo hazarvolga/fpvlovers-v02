@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-02T00:00:00.000Z",
+  "generated_at": "2026-06-06T08:19:52.532Z",
   "source": "racing-intelligence-orchestrator",
   "sections": {
     "events": [],
@@ -19,5 +19,66 @@
     "futureSystems": []
   },
   "contentBriefs": [],
-  "workflowRuns": []
+  "workflowRuns": [
+    {
+      "id": "db372930bc3045c8",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "02366d1a-4395-42d4-a4c3-000b1bd52bf3",
+      "totalTokens": 3942,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:19:52.532Z"
+    },
+    {
+      "id": "eda3b7e4b9bdf8c1",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "ece7b3d4-9714-409c-b5eb-4e88128622e3",
+      "totalTokens": 10153,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:19:32.245Z"
+    },
+    {
+      "id": "dc5da7e95b75cf16",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "e3993cbc-df7f-401a-8dac-50bb39994a41",
+      "totalTokens": 8591,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:18:42.618Z"
+    },
+    {
+      "id": "9bd1d9f34e7e5280",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "56838047-4263-48b4-b899-2fdaf974a4a0",
+      "totalTokens": 3277,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:17:14.894Z"
+    },
+    {
+      "id": "22de1e18cf6deabd",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "54163641-bef4-40bd-b3d2-ef7d66e60a20",
+      "totalTokens": 9421,
+      "warnings": [],
+      "createdAt": "2026-06-02T11:00:24.463Z"
+    }
+  ]
 }

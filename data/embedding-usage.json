@@ -1,9 +1,29 @@
 {
-  "daily_limit": 500,
-  "used_today": 0,
-  "reset_at": "2026-05-29T23:59:59Z",
-  "last_call_ts": 0,
-  "calls_today": 0,
+  "daily_limit": 10000,
+  "used_today": 6139,
+  "reset_at": "2026-06-06T23:59:59Z",
+  "last_call_ts": 1780733992531,
+  "calls_today": 2,
   "errors_today": 0,
-  "history": []
+  "groq_calls_today": 0,
+  "history": [
+    {
+      "ts": "2026-06-06T08:18:42.616Z",
+      "tokens": 5205,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:19:32.242Z",
+      "tokens": 5205,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:19:52.531Z",
+      "tokens": 934,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    }
+  ]
 }
