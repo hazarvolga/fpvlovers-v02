@@ -1,5 +1,1562 @@
 [
   {
+    "id": "racing-team-profile-cyclone-drone-racing",
+    "briefSlug": "team-profile-cyclone-drone-racing",
+    "title": "Team Profile: Cyclone Drone Racing - USA's DCL Champions",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Explore Cyclone Drone Racing, the USA-based DCL team with one championship title, featuring their manager, DCL entry, and pilot roster.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-cyclone-drone-racing",
+      "metaDescription": "Explore Cyclone Drone Racing, the USA-based DCL team with one championship title, featuring their manager, DCL entry, and pilot roster.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:48:58.004Z"
+  },
+  {
+    "id": "racing-team-profile-aspan",
+    "briefSlug": "team-profile-aspan",
+    "title": "Team Profile: Aspan - Kazakhstan's DCL Contenders",
+    "category": "Racing",
+    "status": "published",
+    "topic": "A detailed look at Aspan, the Drone Champions League team from Kazakhstan, including their manager, DCL entry year, and key pilots.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-aspan",
+      "metaDescription": "A detailed look at Aspan, the Drone Champions League team from Kazakhstan, including their manager, DCL entry year, and key pilots.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:48:51.120Z",
+    "publishedPath": "content/published/team-profile-aspan-kazakhstan-s-dcl-contenders.json"
+  },
+  {
+    "id": "racing-dcl-teams-and-pilots-overview",
+    "briefSlug": "dcl-teams-and-pilots-overview",
+    "title": "Drone Champions League: Meet the Teams and Pilots",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "An overview of the elite drone racing teams and their pilots competing in the Drone Champions League, highlighting their bases, managers, and DCL tenure.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "league"
+    ],
+    "seo": {
+      "slug": "dcl-teams-and-pilots-overview",
+      "metaDescription": "An overview of the elite drone racing teams and their pilots competing in the Drone Champions League, highlighting their bases, managers, and DCL tenure.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "league"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:45:58.993Z"
+  },
+  {
+    "id": "racing-2025-dcl-standings-update",
+    "briefSlug": "2025-dcl-standings-update",
+    "title": "2025 Drone Champions League Standings Update",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Recap of the 2025 DCL season standings, highlighting top teams and cup performances including Falcon, Eagle, and Hawk Cups.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/league/",
+      "league-news"
+    ],
+    "seo": {
+      "slug": "2025-dcl-standings-update",
+      "metaDescription": "Recap of the 2025 DCL season standings, highlighting top teams and cup performances including Falcon, Eagle, and Hawk Cups.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "league-news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:43:54.660Z"
+  },
+  {
+    "id": "racing-dcl-the-game-features",
+    "briefSlug": "dcl-the-game-features",
+    "title": "DCL – The Game: Experience Drone Racing on 30+ Tracks",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Details the features of DCL – The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/game/",
+      "gaming"
+    ],
+    "seo": {
+      "slug": "dcl-the-game-features",
+      "metaDescription": "Details the features of DCL – The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "gaming"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:43:48.654Z",
+    "publishedPath": "content/published/dcl-the-game-experience-drone-racing-on-30-tracks.json"
+  },
+  {
+    "id": "racing-dcl-2026-season-draft",
+    "briefSlug": "dcl-2026-season-draft",
+    "title": "DCL 2026 Season Begins with New Pilot Draft Selection",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Announces the start of the DCL 2026 season and the ongoing draft selection process for new talent, highlighting the four pilots already selected.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl-season-2026/",
+      "news"
+    ],
+    "seo": {
+      "slug": "dcl-2026-season-draft",
+      "metaDescription": "Announces the start of the DCL 2026 season and the ongoing draft selection process for new talent, highlighting the four pilots already selected.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:40:48.434Z"
+  },
+  {
+    "id": "racing-dcl-current-standings",
+    "briefSlug": "dcl-current-standings",
+    "title": "DCL Current Standings: Spain Drone Team Leads After Falcon, Eagle, and Hawk Cups",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Reports on the latest team standings in the Drone Champions League, detailing points accumulated across the Falcon, Eagle, and Hawk Cups.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/",
+      "results"
+    ],
+    "seo": {
+      "slug": "dcl-current-standings",
+      "metaDescription": "Reports on the latest team standings in the Drone Champions League, detailing points accumulated across the Falcon, Eagle, and Hawk Cups.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "results"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:39:20.951Z"
+  },
+  {
+    "id": "racing-dcl-overview-mixed-reality",
+    "briefSlug": "dcl-overview-mixed-reality",
+    "title": "Drone Champions League: Pioneering Mixed-Reality Drone Racing",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL – The Game.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/about-us/",
+      "about"
+    ],
+    "seo": {
+      "slug": "dcl-overview-mixed-reality",
+      "metaDescription": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL – The Game.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "about"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:39:14.275Z",
+    "publishedPath": "content/published/drone-champions-league-pioneering-mixed-reality-drone-racing.json"
+  },
+  {
+    "id": "racing-saudi-dcl-launch-leap-2026",
+    "briefSlug": "saudi-dcl-launch-leap-2026",
+    "title": "Saudi Drone Champions League: First National Competition in Saudi Arabia",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Highlights the new national drone racing league, its mixed-reality format, and the upcoming live final at LEAP 2026 in Riyadh.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/saudi-drone-champions-league/",
+      "news"
+    ],
+    "seo": {
+      "slug": "saudi-dcl-launch-leap-2026",
+      "metaDescription": "Highlights the new national drone racing league, its mixed-reality format, and the upcoming live final at LEAP 2026 in Riyadh.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:35:58.840Z"
+  },
+  {
+    "id": "racing-racesync-ios-update-1-8-2",
+    "briefSlug": "racesync-ios-update-1-8-2",
+    "title": "RaceSync iOS Update v 1.8.2 Released",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Announcement of the latest update for the RaceSync iOS application.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/race-class-specifications/",
+      "software-updates"
+    ],
+    "seo": {
+      "slug": "racesync-ios-update-1-8-2",
+      "metaDescription": "Announcement of the latest update for the RaceSync iOS application.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "software-updates"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:34:31.103Z"
+  },
+  {
+    "id": "racing-multigp-race-classes-guide",
+    "briefSlug": "multigp-race-classes-guide",
+    "title": "MultiGP Race Classes: A Guide to Open, PRO Spec, Whoop, and More",
+    "category": "Racing",
+    "status": "published",
+    "topic": "An overview of the various official race classes recognized by MultiGP.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/race-class-specifications/",
+      "rules-and-specs"
+    ],
+    "seo": {
+      "slug": "multigp-race-classes-guide",
+      "metaDescription": "An overview of the various official race classes recognized by MultiGP.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "rules-and-specs"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:34:06.115Z",
+    "publishedPath": "content/published/multigp-race-classes-a-guide-to-open-pro-spec-whoop-and-more.json"
+  },
+  {
+    "id": "racing-multigp-european-championship-aichtal-recap",
+    "briefSlug": "multigp-european-championship-aichtal-recap",
+    "title": "History Made: First MultiGP European Championship in Aichtal",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Summary of the inaugural MultiGP European Championship event.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/race-class-specifications/",
+      "event-recaps"
+    ],
+    "seo": {
+      "slug": "multigp-european-championship-aichtal-recap",
+      "metaDescription": "Summary of the inaugural MultiGP European Championship event.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "event-recaps"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:31:09.491Z"
+  },
+  {
+    "id": "racing-multigp-champs-2025-kings-of-tulsa-recap",
+    "briefSlug": "multigp-champs-2025-kings-of-tulsa-recap",
+    "title": "MultiGP Champs 2025: Kings of Tulsa Recap",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Recap of the MultiGP Championship event held in 2025.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/race-class-specifications/",
+      "event-recaps"
+    ],
+    "seo": {
+      "slug": "multigp-champs-2025-kings-of-tulsa-recap",
+      "metaDescription": "Recap of the MultiGP Championship event held in 2025.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "event-recaps"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:29:37.081Z"
+  },
+  {
+    "id": "racing-international-open-2026-muncie-preview",
+    "briefSlug": "international-open-2026-muncie-preview",
+    "title": "International Open 2026: Muncie Gears Up for MultiGP's Next Main Event",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Highlighting the upcoming International Open event, its date, and location.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/race-class-specifications/",
+      "upcoming-events"
+    ],
+    "seo": {
+      "slug": "international-open-2026-muncie-preview",
+      "metaDescription": "Highlighting the upcoming International Open event, its date, and location.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "upcoming-events"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:28:40.326Z",
+    "publishedPath": "content/published/international-open-2026-muncie-gears-up-for-multigp-s-next-main-event.json"
+  },
+  {
+    "id": "racing-multigp-global-drone-racing-league",
+    "briefSlug": "multigp-global-drone-racing-league",
+    "title": "MultiGP: The Global Drone Racing League",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Overview of MultiGP's scale and structure as a leading drone racing league.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/race-class-specifications/",
+      "league-news"
+    ],
+    "seo": {
+      "slug": "multigp-global-drone-racing-league",
+      "metaDescription": "Overview of MultiGP's scale and structure as a leading drone racing league.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "league-news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:25:21.888Z"
+  },
+  {
+    "id": "racing-multigp-cdra-2026-key-dates",
+    "briefSlug": "multigp-cdra-2026-key-dates",
+    "title": "Key Dates for MultiGP CDRA 2026 Season",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Important dates for the MultiGP CDRA 2026 season, including track release and championship qualification deadlines.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/rules/",
+      "calendar"
+    ],
+    "seo": {
+      "slug": "multigp-cdra-2026-key-dates",
+      "metaDescription": "Important dates for the MultiGP CDRA 2026 season, including track release and championship qualification deadlines.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "calendar"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:23:55.009Z"
+  },
+  {
+    "id": "racing-multigp-cdra-2026-qualification-path",
+    "briefSlug": "multigp-cdra-2026-qualification-path",
+    "title": "Path to the Podium: MultiGP CDRA 2026 Championship Qualification",
+    "category": "Racing",
+    "status": "published",
+    "topic": "An explanation of the qualification process for the MultiGP CDRA 2026 Championship, highlighting the roles of the IRL Leaderboard, Velocidrone Tournament, and AMA membership.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/rules/",
+      "events"
+    ],
+    "seo": {
+      "slug": "multigp-cdra-2026-qualification-path",
+      "metaDescription": "An explanation of the qualification process for the MultiGP CDRA 2026 Championship, highlighting the roles of the IRL Leaderboard, Velocidrone Tournament, and A",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "events"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:23:48.952Z",
+    "publishedPath": "content/published/path-to-the-podium-multigp-cdra-2026-championship-qualification.json"
+  },
+  {
+    "id": "racing-multigp-cdra-2026-drone-specs",
+    "briefSlug": "multigp-cdra-2026-drone-specs",
+    "title": "Drone Specifications for MultiGP CDRA 2026 Championship",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Detailed breakdown of the required drone specifications for the MultiGP CDRA 2026 National Championship, including frame size, battery, propellers, video transmitters, and LED requirements.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/rules/",
+      "tech"
+    ],
+    "seo": {
+      "slug": "multigp-cdra-2026-drone-specs",
+      "metaDescription": "Detailed breakdown of the required drone specifications for the MultiGP CDRA 2026 National Championship, including frame size, battery, propellers, video transm",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "tech"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:20:23.755Z"
+  },
+  {
+    "id": "racing-multigp-prospec-2026-series",
+    "briefSlug": "multigp-prospec-2026-series",
+    "title": "MultiGP Pro Spec 2026 Series Information and Leaderboard",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Details on the 2026 Pro Spec Series and access to the current 2025/26 leaderboard.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/prospec/",
+      "upcoming-events"
+    ],
+    "seo": {
+      "slug": "multigp-prospec-2026-series",
+      "metaDescription": "Details on the 2026 Pro Spec Series and access to the current 2025/26 leaderboard.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "upcoming-events"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:18:53.930Z"
+  },
+  {
+    "id": "racing-multigp-esport-series-2026",
+    "briefSlug": "multigp-esport-series-2026",
+    "title": "MultiGP eSport Series 2026 Kicks Off",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Announcing the start of the 2026 eSport Series and participation details.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/esport",
+      "upcoming-events"
+    ],
+    "seo": {
+      "slug": "multigp-esport-series-2026",
+      "metaDescription": "Announcing the start of the 2026 eSport Series and participation details.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "upcoming-events"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:18:48.334Z",
+    "publishedPath": "content/published/multigp-esport-series-2026-kicks-off.json"
+  },
+  {
+    "id": "racing-multigp-regional-series-2026",
+    "briefSlug": "multigp-regional-series-2026",
+    "title": "MultiGP Regional Series 2026 Details Released",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Information on the 2026 Regional Series, including how to find local races.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/regionalseries/",
+      "upcoming-events"
+    ],
+    "seo": {
+      "slug": "multigp-regional-series-2026",
+      "metaDescription": "Information on the 2026 Regional Series, including how to find local races.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "upcoming-events"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:16:03.527Z"
+  },
+  {
+    "id": "racing-multigp-2026-global-qualifier-schedule",
+    "briefSlug": "multigp-2026-global-qualifier-schedule",
+    "title": "MultiGP 2026 Global Qualifier Schedule Announced",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Providing details on the upcoming 2026 Global Qualifier events and how to participate.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/2026-global-qualifier-schedule/",
+      "upcoming-events"
+    ],
+    "seo": {
+      "slug": "multigp-2026-global-qualifier-schedule",
+      "metaDescription": "Providing details on the upcoming 2026 Global Qualifier events and how to participate.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "upcoming-events"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:14:35.399Z"
+  },
+  {
+    "id": "racing-multigp-league-overview",
+    "briefSlug": "multigp-league-overview",
+    "title": "MultiGP: The World's Largest Professional Drone Racing League",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "An overview of MultiGP's global presence, pilot network, and chapter system.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/chapters/",
+      "about-the-league"
+    ],
+    "seo": {
+      "slug": "multigp-league-overview",
+      "metaDescription": "An overview of MultiGP's global presence, pilot network, and chapter system.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "about-the-league"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:13:34.716Z"
+  },
+  {
+    "id": "racing-first-multigp-european-championship-aichtal-recap",
+    "briefSlug": "first-multigp-european-championship-aichtal-recap",
+    "title": "History Made in Aichtal: First MultiGP European Championship",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Detailing the historic inaugural MultiGP European Championship event.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/multigp-eu-champs-aichtal/",
+      "news-and-results"
+    ],
+    "seo": {
+      "slug": "first-multigp-european-championship-aichtal-recap",
+      "metaDescription": "Detailing the historic inaugural MultiGP European Championship event.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news-and-results"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:11:39.311Z"
+  },
+  {
+    "id": "racing-multigp-2026-series-launch",
+    "briefSlug": "multigp-2026-series-launch",
+    "title": "MultiGP Unveils 2026 Global Qualifier, Regional, eSport, and Pro Spec Series",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Provide an overview of the various racing series planned for the 2026 season.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/races/",
+      "league-news"
+    ],
+    "seo": {
+      "slug": "multigp-2026-series-launch",
+      "metaDescription": "Provide an overview of the various racing series planned for the 2026 season.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "league-news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:10:07.323Z"
+  },
+  {
+    "id": "racing-international-open-2026-muncie",
+    "briefSlug": "international-open-2026-muncie",
+    "title": "International Open 2026 Set for Muncie on June 10th",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Announce the date and location of MultiGP's premier upcoming event.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/io26/",
+      "upcoming-events"
+    ],
+    "seo": {
+      "slug": "international-open-2026-muncie",
+      "metaDescription": "Announce the date and location of MultiGP's premier upcoming event.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "upcoming-events"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:08:32.050Z"
+  },
+  {
+    "id": "racing-multigp-2026-global-qualifier-registration-new-series",
+    "briefSlug": "multigp-2026-global-qualifier-registration-new-series",
+    "title": "MultiGP 2026 Season Kicks Off with Global Qualifier Registration and New Series",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Details on MultiGP's 2026 season, including the Global Qualifier Class B registration opening on June 1st and other upcoming series.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "knowledge",
+      "news"
+    ],
+    "seo": {
+      "slug": "multigp-2026-global-qualifier-registration-new-series",
+      "metaDescription": "Details on MultiGP's 2026 season, including the Global Qualifier Class B registration opening on June 1st and other upcoming series.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:07:02.925Z"
+  },
+  {
+    "id": "racing-fai-drone-racing-2026-season-overview",
+    "briefSlug": "fai-drone-racing-2026-season-overview",
+    "title": "FAI Drone Racing 2026 Season Overview: Permissions and World Cup Events",
+    "category": "Racing",
+    "status": "published",
+    "topic": "An overview of FAI's requirements for 2026 drone racing participation and the upcoming FAI Drone Racing World Cup events.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://droneracing.fai.org/",
+      "news"
+    ],
+    "seo": {
+      "slug": "fai-drone-racing-2026-season-overview",
+      "metaDescription": "An overview of FAI's requirements for 2026 drone racing participation and the upcoming FAI Drone Racing World Cup events.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:06:57.363Z",
+    "publishedPath": "content/published/fai-drone-racing-2026-season-overview-permissions-and-world-cup-events.json"
+  },
+  {
+    "id": "racing-fai-drone-sports-calendar-update-2024-2025",
+    "briefSlug": "fai-drone-sports-calendar-update-2024-2025",
+    "title": "Upcoming FAI Drone Sports Events: WDRC, The World Games, and Drone Soccer Championships",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Highlight key dates and locations for major FAI drone sports events, including racing and soccer.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.fai.org/event/fai-drone-sports",
+      "calendar"
+    ],
+    "seo": {
+      "slug": "fai-drone-sports-calendar-update-2024-2025",
+      "metaDescription": "Highlight key dates and locations for major FAI drone sports events, including racing and soccer.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "calendar"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:04:12.620Z"
+  },
+  {
+    "id": "racing-multigp-cdrc-2026-qualification-guide",
+    "briefSlug": "multigp-cdrc-2026-qualification-guide",
+    "title": "Path to Glory: How to Qualify for the MultiGP CDRC 2026 Championship",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "An in-depth look at the qualification process for the Collegiate Drone Racing Championship (CDRC) 2026, detailing how teams and individual pilots can secure their spot through IRL and Velocidrone leaderboards, including key deadlines and requirements.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/rules/",
+      "championship"
+    ],
+    "seo": {
+      "slug": "multigp-cdrc-2026-qualification-guide",
+      "metaDescription": "An in-depth look at the qualification process for the Collegiate Drone Racing Championship (CDRC) 2026, detailing how teams and individual pilots can secure the",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "championship"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:02:27.781Z"
+  },
+  {
+    "id": "racing-multigp-cdra-2026-rules-overview",
+    "briefSlug": "multigp-cdra-2026-rules-overview",
+    "title": "MultiGP CDRA 2026 Season Rules Overview",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "A comprehensive summary of the official rules for the MultiGP Collegiate Drone Racing Association (CDRA) 2026 season, covering track setup, drone specifications, team structure, scoring, and championship qualification.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/rules/",
+      "rules"
+    ],
+    "seo": {
+      "slug": "multigp-cdra-2026-rules-overview",
+      "metaDescription": "A comprehensive summary of the official rules for the MultiGP Collegiate Drone Racing Association (CDRA) 2026 season, covering track setup, drone specifications",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "rules"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:00:41.473Z"
+  },
+  {
+    "id": "racing-multigp-2026-series-overview",
+    "briefSlug": "multigp-2026-series-overview",
+    "title": "MultiGP 2026 Series Overview: Global Qualifier, Regional, eSport, and Pro Spec",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "An overview of the various racing series planned by MultiGP for 2026, including Global Qualifier, Regional Series, eSport, and Pro Spec.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/races/multigp-series/",
+      "races"
+    ],
+    "seo": {
+      "slug": "multigp-2026-series-overview",
+      "metaDescription": "An overview of the various racing series planned by MultiGP for 2026, including Global Qualifier, Regional Series, eSport, and Pro Spec.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "races"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:59:16.369Z"
+  },
+  {
+    "id": "racing-multigp-chapters-benefits-start",
+    "briefSlug": "multigp-chapters-benefits-start",
+    "title": "MultiGP Chapters: Benefits and How to Start One",
+    "category": "Racing",
+    "status": "published",
+    "topic": "An overview of MultiGP's chapter system, including benefits for pilots and organizers, and how to start a new chapter.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/chapters/chapter-benefits/",
+      "chapters"
+    ],
+    "seo": {
+      "slug": "multigp-chapters-benefits-start",
+      "metaDescription": "An overview of MultiGP's chapter system, including benefits for pilots and organizers, and how to start a new chapter.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "chapters"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:58:32.310Z",
+    "publishedPath": "content/published/multigp-chapters-benefits-and-how-to-start-one.json"
+  },
+  {
+    "id": "racing-multigp-eu-champs-aichtal-history-made",
+    "briefSlug": "multigp-eu-champs-aichtal-history-made",
+    "title": "History Made in Aichtal: First MultiGP European Championship",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Highlights from the inaugural MultiGP European Championship held in Aichtal.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/multigp-eu-champs-aichtal/",
+      "news"
+    ],
+    "seo": {
+      "slug": "multigp-eu-champs-aichtal-history-made",
+      "metaDescription": "Highlights from the inaugural MultiGP European Championship held in Aichtal.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:55:19.631Z"
+  },
+  {
+    "id": "racing-kings-of-tulsa-multigp-champs-2025-recap",
+    "briefSlug": "kings-of-tulsa-multigp-champs-2025-recap",
+    "title": "Kings of Tulsa: MultiGP Champs 2025 Recap",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Reviewing the highlights and winners from the MultiGP Championship 2025.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
+      "news-and-results"
+    ],
+    "seo": {
+      "slug": "kings-of-tulsa-multigp-champs-2025-recap",
+      "metaDescription": "Reviewing the highlights and winners from the MultiGP Championship 2025.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news-and-results"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:53:36.039Z"
+  },
+  {
+    "id": "racing-racesync-ios-update-v1-8-2",
+    "briefSlug": "racesync-ios-update-v1-8-2",
+    "title": "RaceSync iOS App Updated to v1.8.2",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Announcing the latest improvements and features for the RaceSync mobile application.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/racesync-ios-update-v-1-8-2/",
+      "tech-updates"
+    ],
+    "seo": {
+      "slug": "racesync-ios-update-v1-8-2",
+      "metaDescription": "Announcing the latest improvements and features for the RaceSync mobile application.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "tech-updates"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:51:48.906Z"
+  },
+  {
+    "id": "racing-cdrc-2026-report-multigp",
+    "briefSlug": "cdrc-2026-report-multigp",
+    "title": "CDRC 2026 Report Released by MultiGP",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Summarizing the outcomes and details of the College Drone Racing 2026 event.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/cdrc-2026-report/",
+      "news-and-results"
+    ],
+    "seo": {
+      "slug": "cdrc-2026-report-multigp",
+      "metaDescription": "Summarizing the outcomes and details of the College Drone Racing 2026 event.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news-and-results"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:50:22.172Z"
+  },
+  {
+    "id": "racing-multigp-international-open-2026-muncie",
+    "briefSlug": "multigp-international-open-2026-muncie",
+    "title": "International Open 2026 Announced for Muncie",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Highlighting the upcoming major MultiGP event.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/io26/",
+      "upcoming-events"
+    ],
+    "seo": {
+      "slug": "multigp-international-open-2026-muncie",
+      "metaDescription": "Highlighting the upcoming major MultiGP event.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "upcoming-events"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:48:19.038Z"
+  },
+  {
+    "id": "racing-multigp-2026-season-preview",
+    "briefSlug": "multigp-2026-season-preview",
+    "title": "MultiGP 2026 Season Preview: International Open and Key Series Dates",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Highlight upcoming major events and the launch of 2026 racing series.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.multigp.com/races/",
+      "calendar"
+    ],
+    "seo": {
+      "slug": "multigp-2026-season-preview",
+      "metaDescription": "Highlight upcoming major events and the launch of 2026 racing series.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "calendar"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:46:25.588Z"
+  },
+  {
+    "id": "racing-multigp-2026-racing-calendar-global-qualifiers",
+    "briefSlug": "multigp-2026-racing-calendar-global-qualifiers",
+    "title": "MultiGP Unveils Extensive 2026 Racing Calendar Including Global Qualifiers and New Series",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "A look at MultiGP's diverse offerings for the 2026 season, catering to various skill levels and interests with events like the Global Qualifier Class B, College Drone Racing, eSport Series, and Pro Spec Series.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "knowledge",
+      "Event News"
+    ],
+    "seo": {
+      "slug": "multigp-2026-racing-calendar-global-qualifiers",
+      "metaDescription": "A look at MultiGP's diverse offerings for the 2026 season, catering to various skill levels and interests with events like the Global Qualifier Class B, College",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "Event News"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:44:42.707Z"
+  },
+  {
+    "id": "racing-fai-15-drone-racing-world-cup-2026",
+    "briefSlug": "fai-15-drone-racing-world-cup-2026",
+    "title": "FAI Confirms 15 Drone Racing World Cup Events for 2026 Season",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "An overview of the FAI's commitment to drone racing with a significant number of sanctioned World Cup events planned for the upcoming 2026 calendar year.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://droneracing.fai.org/",
+      "Event News"
+    ],
+    "seo": {
+      "slug": "fai-15-drone-racing-world-cup-2026",
+      "metaDescription": "An overview of the FAI's commitment to drone racing with a significant number of sanctioned World Cup events planned for the upcoming 2026 calendar year.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "Event News"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:42:41.308Z"
+  },
+  {
+    "id": "plan-betaflight-firmware-tuning-complete-guide",
+    "briefSlug": "betaflight-firmware-tuning-complete-guide",
+    "title": "Betaflight Firmware Tuning: Complete Setup Guide",
+    "category": "Flight Control",
+    "status": "published",
+    "topic": "Step-by-step Betaflight configuration, filter setup, and PID tuning workflow.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [],
+    "seo": {
+      "slug": "betaflight-firmware-tuning-complete-guide",
+      "metaDescription": "Step-by-step Betaflight configuration, filter setup, and PID tuning workflow.",
+      "keywords": [
+        "betaflight tuning",
+        "firmware setup",
+        "pid tuning guide"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:52Z",
+    "updatedAt": "2026-06-06T16:41:51.398Z",
+    "publishedPath": "content/published/betaflight-firmware-tuning-complete-setup-guide.json"
+  },
+  {
+    "id": "plan-fpv-hardware-reference-guide-motors-escs-fcs",
+    "briefSlug": "fpv-hardware-reference-guide-motors-escs-fcs",
+    "title": "FPV Hardware Reference Guide: Motors, ESCs, and Flight Controllers",
+    "category": "Components",
+    "status": "generating",
+    "topic": "A comprehensive reference covering motor sizing, ESC protocols, and FC selection.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [],
+    "seo": {
+      "slug": "fpv-hardware-reference-guide-motors-escs-fcs",
+      "metaDescription": "A comprehensive reference covering motor sizing, ESC protocols, and FC selection.",
+      "keywords": [
+        "fpv hardware",
+        "motor guide",
+        "esc selection",
+        "flight controller"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:52Z",
+    "updatedAt": "2026-06-06T16:38:43.599Z"
+  },
+  {
+    "id": "plan-fpv-glossary-complete-terms-and-acronyms",
+    "briefSlug": "fpv-glossary-complete-terms-and-acronyms",
+    "title": "FPV Glossary: Complete Terms and Acronyms Guide",
+    "category": "Flight Guides",
+    "status": "generating",
+    "topic": "Decode every FPV term, acronym, and technical jargon from ACRO to VTX.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [],
+    "seo": {
+      "slug": "fpv-glossary-complete-terms-and-acronyms",
+      "metaDescription": "Decode every FPV term, acronym, and technical jargon from ACRO to VTX.",
+      "keywords": [
+        "fpv glossary",
+        "fpv terms",
+        "fpv acronyms"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:52Z",
+    "updatedAt": "2026-06-06T16:37:25.875Z"
+  },
+  {
+    "id": "plan-fpv-starter-kits-2026-best-beginner-bundles",
+    "briefSlug": "fpv-starter-kits-2026-best-beginner-bundles",
+    "title": "Best FPV Starter Kits 2026: RTF Bundles for Beginners",
+    "category": "News and Reviews",
+    "status": "generating",
+    "topic": "Compare the best ready-to-fly FPV starter kits and what you need to buy first.",
+    "language": "en",
+    "template": "comparison",
+    "promptVersion": "v2",
+    "sourceHints": [],
+    "seo": {
+      "slug": "fpv-starter-kits-2026-best-beginner-bundles",
+      "metaDescription": "Compare the best ready-to-fly FPV starter kits and what you need to buy first.",
+      "keywords": [
+        "fpv starter kit",
+        "rtf fpv",
+        "beginner bundle"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:52Z",
+    "updatedAt": "2026-06-06T16:35:55.210Z"
+  },
+  {
+    "id": "plan-fpv-pilot-roadmap-from-sim-to-first-flight",
+    "briefSlug": "fpv-pilot-roadmap-from-sim-to-first-flight",
+    "title": "FPV Pilot Roadmap: From Simulator to First Flight",
+    "category": "Flight Guides",
+    "status": "generating",
+    "topic": "The complete beginner-first path from simulator practice to your first real FPV flight.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [],
+    "seo": {
+      "slug": "fpv-pilot-roadmap-from-sim-to-first-flight",
+      "metaDescription": "The complete beginner-first path from simulator practice to your first real FPV flight.",
+      "keywords": [
+        "fpv roadmap",
+        "fpv pilot path",
+        "how to start fpv"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:52Z",
+    "updatedAt": "2026-06-06T16:34:39.241Z"
+  },
+  {
+    "id": "racing-fai-2026-drone-racing-permission-licensing",
+    "briefSlug": "fai-2026-drone-racing-permission-licensing",
+    "title": "FAI Outlines 2026 Drone Racing Permission and Licensing Requirements",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Essential guide for pilots planning to compete in FAI sanctioned events in 2026, detailing the required FAI Sporting Licence or FAI Permission for Drone Racing.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://droneracing.fai.org/",
+      "Rules & Regulations"
+    ],
+    "seo": {
+      "slug": "fai-2026-drone-racing-permission-licensing",
+      "metaDescription": "Essential guide for pilots planning to compete in FAI sanctioned events in 2026, detailing the required FAI Sporting Licence or FAI Permission for Drone Racing.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "Rules & Regulations"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:34:05.910Z",
+    "publishedPath": "content/published/fai-outlines-2026-drone-racing-permission-and-licensing-requirements.json"
+  },
+  {
+    "id": "racing-minjae-kim-fai-drone-racing-world-cup-2024-champion",
+    "briefSlug": "minjae-kim-fai-drone-racing-world-cup-2024-champion",
+    "title": "MinJae Kim: Champion of the FAI Drone Racing World Cup 2024",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Announce the winner of the 2024 FAI Drone Racing World Cup and briefly introduce the pilot.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.fai.org/event/fai-drone-sports",
+      "news"
+    ],
+    "seo": {
+      "slug": "minjae-kim-fai-drone-racing-world-cup-2024-champion",
+      "metaDescription": "Announce the winner of the 2024 FAI Drone Racing World Cup and briefly introduce the pilot.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:31:04.314Z"
+  },
+  {
+    "id": "racing-fai-drone-racing-calendar-update-2024-wdrc-recap-2025-world-games-dates",
+    "briefSlug": "fai-drone-racing-calendar-update-2024-wdrc-recap-2025-world-games-dates",
+    "title": "FAI Drone Racing Calendar Update: 2024 WDRC Recap and 2025 World Games Dates",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Highlight key past and upcoming FAI Drone Racing events, focusing on championship dates and locations.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.fai.org/event/fai-drone-sports",
+      "calendar"
+    ],
+    "seo": {
+      "slug": "fai-drone-racing-calendar-update-2024-wdrc-recap-2025-world-games-dates",
+      "metaDescription": "Highlight key past and upcoming FAI Drone Racing events, focusing on championship dates and locations.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "calendar"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:29:19.073Z"
+  },
+  {
+    "id": "racing-team-profile-raiden-racing",
+    "briefSlug": "team-profile-raiden-racing",
+    "title": "Team Profile: Raiden Racing - Japan's Multi-Title Winners",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-raiden-racing",
+      "metaDescription": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-team-profile-squadron78",
+    "briefSlug": "team-profile-squadron78",
+    "title": "Team Profile: Squadron78 - Argentina's DCL Entry",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-squadron78",
+      "metaDescription": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-team-profile-vexcel-spain-drone-team",
+    "briefSlug": "team-profile-vexcel-spain-drone-team",
+    "title": "Team Profile: Vexcel Spain Drone Team - Spain's DCL Veterans",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-vexcel-spain-drone-team",
+      "metaDescription": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-team-profile-wildcard-team",
+    "briefSlug": "team-profile-wildcard-team",
+    "title": "Team Profile: Wildcard Team - Liechtenstein's DCL Contenders",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-wildcard-team",
+      "metaDescription": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-raiden-racing-dcl-2025-champions-konigssee",
+    "briefSlug": "raiden-racing-dcl-2025-champions-konigssee",
+    "title": "Raiden Racing Conquers Königssee to Claim 2025 DCL Championship",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "latest-news"
+    ],
+    "seo": {
+      "slug": "raiden-racing-dcl-2025-champions-konigssee",
+      "metaDescription": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "latest-news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-salie1-dcl-2025-pilot-of-the-year",
+    "briefSlug": "salie1-dcl-2025-pilot-of-the-year",
+    "title": "Salie1: Spain Drone Team's 2025 DCL Pilot of the Year",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "pilot-spotlight"
+    ],
+    "seo": {
+      "slug": "salie1-dcl-2025-pilot-of-the-year",
+      "metaDescription": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "pilot-spotlight"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-thebob-dcl-2025-rookie-of-the-year",
+    "briefSlug": "thebob-dcl-2025-rookie-of-the-year",
+    "title": "TheBoB: Wild Card Team's 2025 DCL Rookie of the Year",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "pilot-spotlight"
+    ],
+    "seo": {
+      "slug": "thebob-dcl-2025-rookie-of-the-year",
+      "metaDescription": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "pilot-spotlight"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-dcl-2025-season-review-2026-outlook",
+    "briefSlug": "dcl-2025-season-review-2026-outlook",
+    "title": "DCL 2025 Season Review and Anticipation for 2026",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "league-news"
+    ],
+    "seo": {
+      "slug": "dcl-2025-season-review-2026-outlook",
+      "metaDescription": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "league-news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-street-league-season-v-2026-races-announced",
+    "briefSlug": "street-league-season-v-2026-races-announced",
+    "title": "Street League Announces Season V and Upcoming 2026 Races",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.streetleague.io/",
+      "calendar"
+    ],
+    "seo": {
+      "slug": "street-league-season-v-2026-races-announced",
+      "metaDescription": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "calendar"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-street-league-spec-upcoming-races-empty",
+    "briefSlug": "street-league-spec-upcoming-races-empty",
+    "title": "Street League Spec: Upcoming Races Section Currently Empty",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.streetleague.io/races",
+      "calendar"
+    ],
+    "seo": {
+      "slug": "street-league-spec-upcoming-races-empty",
+      "metaDescription": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "calendar"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
+    "id": "racing-street-league-spec-pilot-resources",
+    "briefSlug": "street-league-spec-pilot-resources",
+    "title": "Street League Spec Offers Comprehensive Resources for Pilots",
+    "category": "Racing",
+    "status": "queued",
+    "topic": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.streetleague.io/races",
+      "resources"
+    ],
+    "seo": {
+      "slug": "street-league-spec-pilot-resources",
+      "metaDescription": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "resources"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T16:20:19Z"
+  },
+  {
     "id": "brief-fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security-mpv65d2i",
     "briefSlug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
     "title": "FPV Mountain Surfing: Flight Planning, Wind Shadows, and Signal Security",
@@ -948,1551 +2505,5 @@
     "createdAt": "2026-05-31T17:44:29.302Z",
     "updatedAt": "2026-05-31T17:55:42.825Z",
     "publishedPath": "content/published/fpv-regulations-for-beginners-in-the-united-states.json"
-  },
-  {
-    "id": "racing-fai-drone-racing-calendar-update-2024-wdrc-recap-2025-world-games-dates",
-    "briefSlug": "fai-drone-racing-calendar-update-2024-wdrc-recap-2025-world-games-dates",
-    "title": "FAI Drone Racing Calendar Update: 2024 WDRC Recap and 2025 World Games Dates",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlight key past and upcoming FAI Drone Racing events, focusing on championship dates and locations.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.fai.org/event/fai-drone-sports",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "fai-drone-racing-calendar-update-2024-wdrc-recap-2025-world-games-dates",
-      "metaDescription": "Highlight key past and upcoming FAI Drone Racing events, focusing on championship dates and locations.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-minjae-kim-fai-drone-racing-world-cup-2024-champion",
-    "briefSlug": "minjae-kim-fai-drone-racing-world-cup-2024-champion",
-    "title": "MinJae Kim: Champion of the FAI Drone Racing World Cup 2024",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Announce the winner of the 2024 FAI Drone Racing World Cup and briefly introduce the pilot.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.fai.org/event/fai-drone-sports",
-      "news"
-    ],
-    "seo": {
-      "slug": "minjae-kim-fai-drone-racing-world-cup-2024-champion",
-      "metaDescription": "Announce the winner of the 2024 FAI Drone Racing World Cup and briefly introduce the pilot.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-fai-2026-drone-racing-permission-licensing",
-    "briefSlug": "fai-2026-drone-racing-permission-licensing",
-    "title": "FAI Outlines 2026 Drone Racing Permission and Licensing Requirements",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Essential guide for pilots planning to compete in FAI sanctioned events in 2026, detailing the required FAI Sporting Licence or FAI Permission for Drone Racing.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://droneracing.fai.org/",
-      "Rules & Regulations"
-    ],
-    "seo": {
-      "slug": "fai-2026-drone-racing-permission-licensing",
-      "metaDescription": "Essential guide for pilots planning to compete in FAI sanctioned events in 2026, detailing the required FAI Sporting Licence or FAI Permission for Drone Racing.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "Rules & Regulations"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-fai-15-drone-racing-world-cup-2026",
-    "briefSlug": "fai-15-drone-racing-world-cup-2026",
-    "title": "FAI Confirms 15 Drone Racing World Cup Events for 2026 Season",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An overview of the FAI's commitment to drone racing with a significant number of sanctioned World Cup events planned for the upcoming 2026 calendar year.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://droneracing.fai.org/",
-      "Event News"
-    ],
-    "seo": {
-      "slug": "fai-15-drone-racing-world-cup-2026",
-      "metaDescription": "An overview of the FAI's commitment to drone racing with a significant number of sanctioned World Cup events planned for the upcoming 2026 calendar year.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "Event News"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-2026-racing-calendar-global-qualifiers",
-    "briefSlug": "multigp-2026-racing-calendar-global-qualifiers",
-    "title": "MultiGP Unveils Extensive 2026 Racing Calendar Including Global Qualifiers and New Series",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "A look at MultiGP's diverse offerings for the 2026 season, catering to various skill levels and interests with events like the Global Qualifier Class B, College Drone Racing, eSport Series, and Pro Spec Series.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "knowledge",
-      "Event News"
-    ],
-    "seo": {
-      "slug": "multigp-2026-racing-calendar-global-qualifiers",
-      "metaDescription": "A look at MultiGP's diverse offerings for the 2026 season, catering to various skill levels and interests with events like the Global Qualifier Class B, College",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "Event News"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-2026-season-preview",
-    "briefSlug": "multigp-2026-season-preview",
-    "title": "MultiGP 2026 Season Preview: International Open and Key Series Dates",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlight upcoming major events and the launch of 2026 racing series.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/races/",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "multigp-2026-season-preview",
-      "metaDescription": "Highlight upcoming major events and the launch of 2026 racing series.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-international-open-2026-muncie",
-    "briefSlug": "multigp-international-open-2026-muncie",
-    "title": "International Open 2026 Announced for Muncie",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlighting the upcoming major MultiGP event.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/io26/",
-      "upcoming-events"
-    ],
-    "seo": {
-      "slug": "multigp-international-open-2026-muncie",
-      "metaDescription": "Highlighting the upcoming major MultiGP event.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "upcoming-events"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-cdrc-2026-report-multigp",
-    "briefSlug": "cdrc-2026-report-multigp",
-    "title": "CDRC 2026 Report Released by MultiGP",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Summarizing the outcomes and details of the College Drone Racing 2026 event.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/cdrc-2026-report/",
-      "news-and-results"
-    ],
-    "seo": {
-      "slug": "cdrc-2026-report-multigp",
-      "metaDescription": "Summarizing the outcomes and details of the College Drone Racing 2026 event.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news-and-results"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-racesync-ios-update-v1-8-2",
-    "briefSlug": "racesync-ios-update-v1-8-2",
-    "title": "RaceSync iOS App Updated to v1.8.2",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Announcing the latest improvements and features for the RaceSync mobile application.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/racesync-ios-update-v-1-8-2/",
-      "tech-updates"
-    ],
-    "seo": {
-      "slug": "racesync-ios-update-v1-8-2",
-      "metaDescription": "Announcing the latest improvements and features for the RaceSync mobile application.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "tech-updates"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-kings-of-tulsa-multigp-champs-2025-recap",
-    "briefSlug": "kings-of-tulsa-multigp-champs-2025-recap",
-    "title": "Kings of Tulsa: MultiGP Champs 2025 Recap",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Reviewing the highlights and winners from the MultiGP Championship 2025.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
-      "news-and-results"
-    ],
-    "seo": {
-      "slug": "kings-of-tulsa-multigp-champs-2025-recap",
-      "metaDescription": "Reviewing the highlights and winners from the MultiGP Championship 2025.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news-and-results"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-eu-champs-aichtal-history-made",
-    "briefSlug": "multigp-eu-champs-aichtal-history-made",
-    "title": "History Made in Aichtal: First MultiGP European Championship",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlights from the inaugural MultiGP European Championship held in Aichtal.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/multigp-eu-champs-aichtal/",
-      "news"
-    ],
-    "seo": {
-      "slug": "multigp-eu-champs-aichtal-history-made",
-      "metaDescription": "Highlights from the inaugural MultiGP European Championship held in Aichtal.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-chapters-benefits-start",
-    "briefSlug": "multigp-chapters-benefits-start",
-    "title": "MultiGP Chapters: Benefits and How to Start One",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An overview of MultiGP's chapter system, including benefits for pilots and organizers, and how to start a new chapter.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/chapters/chapter-benefits/",
-      "chapters"
-    ],
-    "seo": {
-      "slug": "multigp-chapters-benefits-start",
-      "metaDescription": "An overview of MultiGP's chapter system, including benefits for pilots and organizers, and how to start a new chapter.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "chapters"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-2026-series-overview",
-    "briefSlug": "multigp-2026-series-overview",
-    "title": "MultiGP 2026 Series Overview: Global Qualifier, Regional, eSport, and Pro Spec",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An overview of the various racing series planned by MultiGP for 2026, including Global Qualifier, Regional Series, eSport, and Pro Spec.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/races/multigp-series/",
-      "races"
-    ],
-    "seo": {
-      "slug": "multigp-2026-series-overview",
-      "metaDescription": "An overview of the various racing series planned by MultiGP for 2026, including Global Qualifier, Regional Series, eSport, and Pro Spec.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "races"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-cdra-2026-rules-overview",
-    "briefSlug": "multigp-cdra-2026-rules-overview",
-    "title": "MultiGP CDRA 2026 Season Rules Overview",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "A comprehensive summary of the official rules for the MultiGP Collegiate Drone Racing Association (CDRA) 2026 season, covering track setup, drone specifications, team structure, scoring, and championship qualification.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/rules/",
-      "rules"
-    ],
-    "seo": {
-      "slug": "multigp-cdra-2026-rules-overview",
-      "metaDescription": "A comprehensive summary of the official rules for the MultiGP Collegiate Drone Racing Association (CDRA) 2026 season, covering track setup, drone specifications",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "rules"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-cdrc-2026-qualification-guide",
-    "briefSlug": "multigp-cdrc-2026-qualification-guide",
-    "title": "Path to Glory: How to Qualify for the MultiGP CDRC 2026 Championship",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An in-depth look at the qualification process for the Collegiate Drone Racing Championship (CDRC) 2026, detailing how teams and individual pilots can secure their spot through IRL and Velocidrone leaderboards, including key deadlines and requirements.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/rules/",
-      "championship"
-    ],
-    "seo": {
-      "slug": "multigp-cdrc-2026-qualification-guide",
-      "metaDescription": "An in-depth look at the qualification process for the Collegiate Drone Racing Championship (CDRC) 2026, detailing how teams and individual pilots can secure the",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "championship"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-fai-drone-sports-calendar-update-2024-2025",
-    "briefSlug": "fai-drone-sports-calendar-update-2024-2025",
-    "title": "Upcoming FAI Drone Sports Events: WDRC, The World Games, and Drone Soccer Championships",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlight key dates and locations for major FAI drone sports events, including racing and soccer.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.fai.org/event/fai-drone-sports",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "fai-drone-sports-calendar-update-2024-2025",
-      "metaDescription": "Highlight key dates and locations for major FAI drone sports events, including racing and soccer.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-fai-drone-racing-2026-season-overview",
-    "briefSlug": "fai-drone-racing-2026-season-overview",
-    "title": "FAI Drone Racing 2026 Season Overview: Permissions and World Cup Events",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An overview of FAI's requirements for 2026 drone racing participation and the upcoming FAI Drone Racing World Cup events.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://droneracing.fai.org/",
-      "news"
-    ],
-    "seo": {
-      "slug": "fai-drone-racing-2026-season-overview",
-      "metaDescription": "An overview of FAI's requirements for 2026 drone racing participation and the upcoming FAI Drone Racing World Cup events.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-2026-global-qualifier-registration-new-series",
-    "briefSlug": "multigp-2026-global-qualifier-registration-new-series",
-    "title": "MultiGP 2026 Season Kicks Off with Global Qualifier Registration and New Series",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Details on MultiGP's 2026 season, including the Global Qualifier Class B registration opening on June 1st and other upcoming series.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "knowledge",
-      "news"
-    ],
-    "seo": {
-      "slug": "multigp-2026-global-qualifier-registration-new-series",
-      "metaDescription": "Details on MultiGP's 2026 season, including the Global Qualifier Class B registration opening on June 1st and other upcoming series.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-international-open-2026-muncie",
-    "briefSlug": "international-open-2026-muncie",
-    "title": "International Open 2026 Set for Muncie on June 10th",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Announce the date and location of MultiGP's premier upcoming event.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/io26/",
-      "upcoming-events"
-    ],
-    "seo": {
-      "slug": "international-open-2026-muncie",
-      "metaDescription": "Announce the date and location of MultiGP's premier upcoming event.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "upcoming-events"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-2026-series-launch",
-    "briefSlug": "multigp-2026-series-launch",
-    "title": "MultiGP Unveils 2026 Global Qualifier, Regional, eSport, and Pro Spec Series",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Provide an overview of the various racing series planned for the 2026 season.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/races/",
-      "league-news"
-    ],
-    "seo": {
-      "slug": "multigp-2026-series-launch",
-      "metaDescription": "Provide an overview of the various racing series planned for the 2026 season.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "league-news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-first-multigp-european-championship-aichtal-recap",
-    "briefSlug": "first-multigp-european-championship-aichtal-recap",
-    "title": "History Made in Aichtal: First MultiGP European Championship",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Detailing the historic inaugural MultiGP European Championship event.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/multigp-eu-champs-aichtal/",
-      "news-and-results"
-    ],
-    "seo": {
-      "slug": "first-multigp-european-championship-aichtal-recap",
-      "metaDescription": "Detailing the historic inaugural MultiGP European Championship event.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news-and-results"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-league-overview",
-    "briefSlug": "multigp-league-overview",
-    "title": "MultiGP: The World's Largest Professional Drone Racing League",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An overview of MultiGP's global presence, pilot network, and chapter system.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/chapters/",
-      "about-the-league"
-    ],
-    "seo": {
-      "slug": "multigp-league-overview",
-      "metaDescription": "An overview of MultiGP's global presence, pilot network, and chapter system.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "about-the-league"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-2026-global-qualifier-schedule",
-    "briefSlug": "multigp-2026-global-qualifier-schedule",
-    "title": "MultiGP 2026 Global Qualifier Schedule Announced",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Providing details on the upcoming 2026 Global Qualifier events and how to participate.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/2026-global-qualifier-schedule/",
-      "upcoming-events"
-    ],
-    "seo": {
-      "slug": "multigp-2026-global-qualifier-schedule",
-      "metaDescription": "Providing details on the upcoming 2026 Global Qualifier events and how to participate.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "upcoming-events"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-regional-series-2026",
-    "briefSlug": "multigp-regional-series-2026",
-    "title": "MultiGP Regional Series 2026 Details Released",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Information on the 2026 Regional Series, including how to find local races.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/regionalseries/",
-      "upcoming-events"
-    ],
-    "seo": {
-      "slug": "multigp-regional-series-2026",
-      "metaDescription": "Information on the 2026 Regional Series, including how to find local races.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "upcoming-events"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-esport-series-2026",
-    "briefSlug": "multigp-esport-series-2026",
-    "title": "MultiGP eSport Series 2026 Kicks Off",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Announcing the start of the 2026 eSport Series and participation details.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/esport",
-      "upcoming-events"
-    ],
-    "seo": {
-      "slug": "multigp-esport-series-2026",
-      "metaDescription": "Announcing the start of the 2026 eSport Series and participation details.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "upcoming-events"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-prospec-2026-series",
-    "briefSlug": "multigp-prospec-2026-series",
-    "title": "MultiGP Pro Spec 2026 Series Information and Leaderboard",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Details on the 2026 Pro Spec Series and access to the current 2025/26 leaderboard.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/prospec/",
-      "upcoming-events"
-    ],
-    "seo": {
-      "slug": "multigp-prospec-2026-series",
-      "metaDescription": "Details on the 2026 Pro Spec Series and access to the current 2025/26 leaderboard.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "upcoming-events"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-cdra-2026-drone-specs",
-    "briefSlug": "multigp-cdra-2026-drone-specs",
-    "title": "Drone Specifications for MultiGP CDRA 2026 Championship",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Detailed breakdown of the required drone specifications for the MultiGP CDRA 2026 National Championship, including frame size, battery, propellers, video transmitters, and LED requirements.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/rules/",
-      "tech"
-    ],
-    "seo": {
-      "slug": "multigp-cdra-2026-drone-specs",
-      "metaDescription": "Detailed breakdown of the required drone specifications for the MultiGP CDRA 2026 National Championship, including frame size, battery, propellers, video transm",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "tech"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-cdra-2026-qualification-path",
-    "briefSlug": "multigp-cdra-2026-qualification-path",
-    "title": "Path to the Podium: MultiGP CDRA 2026 Championship Qualification",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An explanation of the qualification process for the MultiGP CDRA 2026 Championship, highlighting the roles of the IRL Leaderboard, Velocidrone Tournament, and AMA membership.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/rules/",
-      "events"
-    ],
-    "seo": {
-      "slug": "multigp-cdra-2026-qualification-path",
-      "metaDescription": "An explanation of the qualification process for the MultiGP CDRA 2026 Championship, highlighting the roles of the IRL Leaderboard, Velocidrone Tournament, and A",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "events"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-cdra-2026-key-dates",
-    "briefSlug": "multigp-cdra-2026-key-dates",
-    "title": "Key Dates for MultiGP CDRA 2026 Season",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Important dates for the MultiGP CDRA 2026 season, including track release and championship qualification deadlines.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/rules/",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "multigp-cdra-2026-key-dates",
-      "metaDescription": "Important dates for the MultiGP CDRA 2026 season, including track release and championship qualification deadlines.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-global-drone-racing-league",
-    "briefSlug": "multigp-global-drone-racing-league",
-    "title": "MultiGP: The Global Drone Racing League",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Overview of MultiGP's scale and structure as a leading drone racing league.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/race-class-specifications/",
-      "league-news"
-    ],
-    "seo": {
-      "slug": "multigp-global-drone-racing-league",
-      "metaDescription": "Overview of MultiGP's scale and structure as a leading drone racing league.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "league-news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-international-open-2026-muncie-preview",
-    "briefSlug": "international-open-2026-muncie-preview",
-    "title": "International Open 2026: Muncie Gears Up for MultiGP's Next Main Event",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlighting the upcoming International Open event, its date, and location.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/race-class-specifications/",
-      "upcoming-events"
-    ],
-    "seo": {
-      "slug": "international-open-2026-muncie-preview",
-      "metaDescription": "Highlighting the upcoming International Open event, its date, and location.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "upcoming-events"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-champs-2025-kings-of-tulsa-recap",
-    "briefSlug": "multigp-champs-2025-kings-of-tulsa-recap",
-    "title": "MultiGP Champs 2025: Kings of Tulsa Recap",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Recap of the MultiGP Championship event held in 2025.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/race-class-specifications/",
-      "event-recaps"
-    ],
-    "seo": {
-      "slug": "multigp-champs-2025-kings-of-tulsa-recap",
-      "metaDescription": "Recap of the MultiGP Championship event held in 2025.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "event-recaps"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-european-championship-aichtal-recap",
-    "briefSlug": "multigp-european-championship-aichtal-recap",
-    "title": "History Made: First MultiGP European Championship in Aichtal",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Summary of the inaugural MultiGP European Championship event.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/race-class-specifications/",
-      "event-recaps"
-    ],
-    "seo": {
-      "slug": "multigp-european-championship-aichtal-recap",
-      "metaDescription": "Summary of the inaugural MultiGP European Championship event.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "event-recaps"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-multigp-race-classes-guide",
-    "briefSlug": "multigp-race-classes-guide",
-    "title": "MultiGP Race Classes: A Guide to Open, PRO Spec, Whoop, and More",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An overview of the various official race classes recognized by MultiGP.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/race-class-specifications/",
-      "rules-and-specs"
-    ],
-    "seo": {
-      "slug": "multigp-race-classes-guide",
-      "metaDescription": "An overview of the various official race classes recognized by MultiGP.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "rules-and-specs"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-racesync-ios-update-1-8-2",
-    "briefSlug": "racesync-ios-update-1-8-2",
-    "title": "RaceSync iOS Update v 1.8.2 Released",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Announcement of the latest update for the RaceSync iOS application.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.multigp.com/race-class-specifications/",
-      "software-updates"
-    ],
-    "seo": {
-      "slug": "racesync-ios-update-1-8-2",
-      "metaDescription": "Announcement of the latest update for the RaceSync iOS application.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "software-updates"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-saudi-dcl-launch-leap-2026",
-    "briefSlug": "saudi-dcl-launch-leap-2026",
-    "title": "Saudi Drone Champions League: First National Competition in Saudi Arabia",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlights the new national drone racing league, its mixed-reality format, and the upcoming live final at LEAP 2026 in Riyadh.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/saudi-drone-champions-league/",
-      "news"
-    ],
-    "seo": {
-      "slug": "saudi-dcl-launch-leap-2026",
-      "metaDescription": "Highlights the new national drone racing league, its mixed-reality format, and the upcoming live final at LEAP 2026 in Riyadh.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-dcl-overview-mixed-reality",
-    "briefSlug": "dcl-overview-mixed-reality",
-    "title": "Drone Champions League: Pioneering Mixed-Reality Drone Racing",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL \u2013 The Game.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/about-us/",
-      "about"
-    ],
-    "seo": {
-      "slug": "dcl-overview-mixed-reality",
-      "metaDescription": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL \u2013 The Game.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "about"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-dcl-current-standings",
-    "briefSlug": "dcl-current-standings",
-    "title": "DCL Current Standings: Spain Drone Team Leads After Falcon, Eagle, and Hawk Cups",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Reports on the latest team standings in the Drone Champions League, detailing points accumulated across the Falcon, Eagle, and Hawk Cups.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/",
-      "results"
-    ],
-    "seo": {
-      "slug": "dcl-current-standings",
-      "metaDescription": "Reports on the latest team standings in the Drone Champions League, detailing points accumulated across the Falcon, Eagle, and Hawk Cups.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "results"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-dcl-2026-season-draft",
-    "briefSlug": "dcl-2026-season-draft",
-    "title": "DCL 2026 Season Begins with New Pilot Draft Selection",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Announces the start of the DCL 2026 season and the ongoing draft selection process for new talent, highlighting the four pilots already selected.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl-season-2026/",
-      "news"
-    ],
-    "seo": {
-      "slug": "dcl-2026-season-draft",
-      "metaDescription": "Announces the start of the DCL 2026 season and the ongoing draft selection process for new talent, highlighting the four pilots already selected.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-dcl-the-game-features",
-    "briefSlug": "dcl-the-game-features",
-    "title": "DCL \u2013 The Game: Experience Drone Racing on 30+ Tracks",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Details the features of DCL \u2013 The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/game/",
-      "gaming"
-    ],
-    "seo": {
-      "slug": "dcl-the-game-features",
-      "metaDescription": "Details the features of DCL \u2013 The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "gaming"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-2025-dcl-standings-update",
-    "briefSlug": "2025-dcl-standings-update",
-    "title": "2025 Drone Champions League Standings Update",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Recap of the 2025 DCL season standings, highlighting top teams and cup performances including Falcon, Eagle, and Hawk Cups.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/league/",
-      "league-news"
-    ],
-    "seo": {
-      "slug": "2025-dcl-standings-update",
-      "metaDescription": "Recap of the 2025 DCL season standings, highlighting top teams and cup performances including Falcon, Eagle, and Hawk Cups.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "league-news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-dcl-teams-and-pilots-overview",
-    "briefSlug": "dcl-teams-and-pilots-overview",
-    "title": "Drone Champions League: Meet the Teams and Pilots",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An overview of the elite drone racing teams and their pilots competing in the Drone Champions League, highlighting their bases, managers, and DCL tenure.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "league"
-    ],
-    "seo": {
-      "slug": "dcl-teams-and-pilots-overview",
-      "metaDescription": "An overview of the elite drone racing teams and their pilots competing in the Drone Champions League, highlighting their bases, managers, and DCL tenure.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "league"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-team-profile-aspan",
-    "briefSlug": "team-profile-aspan",
-    "title": "Team Profile: Aspan - Kazakhstan's DCL Contenders",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "A detailed look at Aspan, the Drone Champions League team from Kazakhstan, including their manager, DCL entry year, and key pilots.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-aspan",
-      "metaDescription": "A detailed look at Aspan, the Drone Champions League team from Kazakhstan, including their manager, DCL entry year, and key pilots.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-team-profile-cyclone-drone-racing",
-    "briefSlug": "team-profile-cyclone-drone-racing",
-    "title": "Team Profile: Cyclone Drone Racing - USA's DCL Champions",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Explore Cyclone Drone Racing, the USA-based DCL team with one championship title, featuring their manager, DCL entry, and pilot roster.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-cyclone-drone-racing",
-      "metaDescription": "Explore Cyclone Drone Racing, the USA-based DCL team with one championship title, featuring their manager, DCL entry, and pilot roster.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-team-profile-raiden-racing",
-    "briefSlug": "team-profile-raiden-racing",
-    "title": "Team Profile: Raiden Racing - Japan's Multi-Title Winners",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-raiden-racing",
-      "metaDescription": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-team-profile-squadron78",
-    "briefSlug": "team-profile-squadron78",
-    "title": "Team Profile: Squadron78 - Argentina's DCL Entry",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-squadron78",
-      "metaDescription": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-team-profile-vexcel-spain-drone-team",
-    "briefSlug": "team-profile-vexcel-spain-drone-team",
-    "title": "Team Profile: Vexcel Spain Drone Team - Spain's DCL Veterans",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-vexcel-spain-drone-team",
-      "metaDescription": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-team-profile-wildcard-team",
-    "briefSlug": "team-profile-wildcard-team",
-    "title": "Team Profile: Wildcard Team - Liechtenstein's DCL Contenders",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-wildcard-team",
-      "metaDescription": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-raiden-racing-dcl-2025-champions-konigssee",
-    "briefSlug": "raiden-racing-dcl-2025-champions-konigssee",
-    "title": "Raiden Racing Conquers K\u00f6nigssee to Claim 2025 DCL Championship",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-      "latest-news"
-    ],
-    "seo": {
-      "slug": "raiden-racing-dcl-2025-champions-konigssee",
-      "metaDescription": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "latest-news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-salie1-dcl-2025-pilot-of-the-year",
-    "briefSlug": "salie1-dcl-2025-pilot-of-the-year",
-    "title": "Salie1: Spain Drone Team's 2025 DCL Pilot of the Year",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-      "pilot-spotlight"
-    ],
-    "seo": {
-      "slug": "salie1-dcl-2025-pilot-of-the-year",
-      "metaDescription": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "pilot-spotlight"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-thebob-dcl-2025-rookie-of-the-year",
-    "briefSlug": "thebob-dcl-2025-rookie-of-the-year",
-    "title": "TheBoB: Wild Card Team's 2025 DCL Rookie of the Year",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-      "pilot-spotlight"
-    ],
-    "seo": {
-      "slug": "thebob-dcl-2025-rookie-of-the-year",
-      "metaDescription": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "pilot-spotlight"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-dcl-2025-season-review-2026-outlook",
-    "briefSlug": "dcl-2025-season-review-2026-outlook",
-    "title": "DCL 2025 Season Review and Anticipation for 2026",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-      "league-news"
-    ],
-    "seo": {
-      "slug": "dcl-2025-season-review-2026-outlook",
-      "metaDescription": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "league-news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-street-league-season-v-2026-races-announced",
-    "briefSlug": "street-league-season-v-2026-races-announced",
-    "title": "Street League Announces Season V and Upcoming 2026 Races",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.streetleague.io/",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "street-league-season-v-2026-races-announced",
-      "metaDescription": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-street-league-spec-upcoming-races-empty",
-    "briefSlug": "street-league-spec-upcoming-races-empty",
-    "title": "Street League Spec: Upcoming Races Section Currently Empty",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.streetleague.io/races",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "street-league-spec-upcoming-races-empty",
-      "metaDescription": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-street-league-spec-pilot-resources",
-    "briefSlug": "street-league-spec-pilot-resources",
-    "title": "Street League Spec Offers Comprehensive Resources for Pilots",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.streetleague.io/races",
-      "resources"
-    ],
-    "seo": {
-      "slug": "street-league-spec-pilot-resources",
-      "metaDescription": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "resources"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "plan-fpv-pilot-roadmap-from-sim-to-first-flight",
-    "briefSlug": "fpv-pilot-roadmap-from-sim-to-first-flight",
-    "title": "FPV Pilot Roadmap: From Simulator to First Flight",
-    "category": "Flight Guides",
-    "status": "queued",
-    "topic": "The complete beginner-first path from simulator practice to your first real FPV flight.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [],
-    "seo": {
-      "slug": "fpv-pilot-roadmap-from-sim-to-first-flight",
-      "metaDescription": "The complete beginner-first path from simulator practice to your first real FPV flight.",
-      "keywords": [
-        "fpv roadmap",
-        "fpv pilot path",
-        "how to start fpv"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:52Z",
-    "updatedAt": "2026-06-06T16:20:52Z"
-  },
-  {
-    "id": "plan-fpv-starter-kits-2026-best-beginner-bundles",
-    "briefSlug": "fpv-starter-kits-2026-best-beginner-bundles",
-    "title": "Best FPV Starter Kits 2026: RTF Bundles for Beginners",
-    "category": "News and Reviews",
-    "status": "queued",
-    "topic": "Compare the best ready-to-fly FPV starter kits and what you need to buy first.",
-    "language": "en",
-    "template": "comparison",
-    "promptVersion": "v2",
-    "sourceHints": [],
-    "seo": {
-      "slug": "fpv-starter-kits-2026-best-beginner-bundles",
-      "metaDescription": "Compare the best ready-to-fly FPV starter kits and what you need to buy first.",
-      "keywords": [
-        "fpv starter kit",
-        "rtf fpv",
-        "beginner bundle"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:52Z",
-    "updatedAt": "2026-06-06T16:20:52Z"
-  },
-  {
-    "id": "plan-fpv-glossary-complete-terms-and-acronyms",
-    "briefSlug": "fpv-glossary-complete-terms-and-acronyms",
-    "title": "FPV Glossary: Complete Terms and Acronyms Guide",
-    "category": "Flight Guides",
-    "status": "queued",
-    "topic": "Decode every FPV term, acronym, and technical jargon from ACRO to VTX.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [],
-    "seo": {
-      "slug": "fpv-glossary-complete-terms-and-acronyms",
-      "metaDescription": "Decode every FPV term, acronym, and technical jargon from ACRO to VTX.",
-      "keywords": [
-        "fpv glossary",
-        "fpv terms",
-        "fpv acronyms"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:52Z",
-    "updatedAt": "2026-06-06T16:20:52Z"
-  },
-  {
-    "id": "plan-fpv-hardware-reference-guide-motors-escs-fcs",
-    "briefSlug": "fpv-hardware-reference-guide-motors-escs-fcs",
-    "title": "FPV Hardware Reference Guide: Motors, ESCs, and Flight Controllers",
-    "category": "Components",
-    "status": "queued",
-    "topic": "A comprehensive reference covering motor sizing, ESC protocols, and FC selection.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [],
-    "seo": {
-      "slug": "fpv-hardware-reference-guide-motors-escs-fcs",
-      "metaDescription": "A comprehensive reference covering motor sizing, ESC protocols, and FC selection.",
-      "keywords": [
-        "fpv hardware",
-        "motor guide",
-        "esc selection",
-        "flight controller"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:52Z",
-    "updatedAt": "2026-06-06T16:20:52Z"
-  },
-  {
-    "id": "plan-betaflight-firmware-tuning-complete-guide",
-    "briefSlug": "betaflight-firmware-tuning-complete-guide",
-    "title": "Betaflight Firmware Tuning: Complete Setup Guide",
-    "category": "Flight Control",
-    "status": "queued",
-    "topic": "Step-by-step Betaflight configuration, filter setup, and PID tuning workflow.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [],
-    "seo": {
-      "slug": "betaflight-firmware-tuning-complete-guide",
-      "metaDescription": "Step-by-step Betaflight configuration, filter setup, and PID tuning workflow.",
-      "keywords": [
-        "betaflight tuning",
-        "firmware setup",
-        "pid tuning guide"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:52Z",
-    "updatedAt": "2026-06-06T16:20:52Z"
   }
 ]

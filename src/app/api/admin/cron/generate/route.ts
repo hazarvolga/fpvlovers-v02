@@ -16,6 +16,12 @@ import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
 const LAST_RUN_FILE = path.join(process.cwd(), 'data', 'content-last-auto-run.json');
 const MAX_AUTO_GENERATE_PER_RUN = 1;
 
+function getBatchCount(req: Request): number {
+  const url = new URL(req.url);
+  const count = parseInt(url.searchParams.get('count') || url.searchParams.get('batch') || '1', 10);
+  return Math.min(Math.max(1, Number.isFinite(count) ? count : 1), 10);
+}
+
 type LastRunPayload = {
   generated_at: string;
   action: string;
@@ -60,169 +66,101 @@ export async function GET(req: Request) {
 
   try {
     const dryRun = isDryRun(req);
+    const batchCount = getBatchCount(req);
     const jobs = await loadContentJobsNew();
     const existingSlugs = buildExistingSlugSet(jobs);
 
+    // Process multiple queued jobs in batch
     const readyJobs = jobs.filter((j) => j.status === 'queued');
+    const batch = readyJobs.slice(0, batchCount);
+    const results: any[] = [];
+    let batchError: string | null = null;
 
-    if (readyJobs.length > 0) {
-      const job = readyJobs[0];
+    for (const job of batch) {
       if (dryRun) {
-        return NextResponse.json({
-          success: true,
-          dryRun: true,
-          action: 'would_generate',
-          job: { id: job.id, title: job.title, status: job.status },
-        });
+        results.push({ job: { id: job.id, title: job.title }, action: 'would_generate' });
+        continue;
       }
 
       if (!process.env.DIFY_APP_KEY?.trim()) {
-        writeLastRun({
-          action: 'blocked_missing_dify_key',
-          job: { id: job.id, title: job.title, status: job.status },
-          error: 'Workflow app key is not configured',
-        });
-
-        // Log to database in background
-        Promise.resolve().then(async () => {
-          try {
-            await logAutomationRun({
-              kind: 'generate',
-              status: 'blocked',
-              errorMessage: 'Workflow app key is not configured',
-              summary: { jobId: job.id, topic: job.topic }
-            });
-          } catch (dbErr) {
-            console.warn('[DB Status Log] Failed to log generate blocked run:', dbErr);
-          }
-        });
-
-        return NextResponse.json(
-          {
-            success: false,
-            action: 'blocked',
-            error: 'Workflow app key is not configured',
-            job: { id: job.id, title: job.title, status: job.status },
-          },
-          { status: 503 },
-        );
+        batchError = 'Workflow app key is not configured';
+        break;
       }
 
       job.status = 'generating';
       job.updatedAt = new Date().toISOString();
       await saveContentJobsNew(jobs);
 
-      const result = await generateContentViaDify({
-        topic: job.topic,
-        template: job.template,
-        language: job.language,
-        title: job.title,
-        category: job.category,
-        brief: {
-          primaryKeyword: job.seo.keywords[0] || job.title,
-          secondaryKeywords: job.seo.keywords.slice(1),
-          summary: job.topic,
-          outline: job.sourceHints,
-        },
-      });
-
-      const latestJobs = await loadContentJobsNew();
-      const index = latestJobs.findIndex((candidate) => candidate.id === job.id);
-      if (index === -1) {
-        throw new Error(`Generated job disappeared from queue: ${job.id}`);
-      }
-
-      const latestJob = latestJobs[index];
-      if (!result.content) {
-        latestJob.status = 'failed';
-        latestJob.feedback = 'Workflow returned no publishable content.';
-        latestJob.updatedAt = new Date().toISOString();
-        await saveContentJobsNew(latestJobs);
-        writeLastRun({
-          action: 'failed',
-          job: { id: latestJob.id, title: latestJob.title, status: latestJob.status },
-          error: latestJob.feedback,
-        });
-
-        // Log to database in background
-        Promise.resolve().then(async () => {
-          try {
-            await logAutomationRun({
-              kind: 'generate',
-              status: 'failed',
-              errorMessage: latestJob.feedback,
-              summary: { jobId: latestJob.id, topic: latestJob.topic, workflowRunId: result.workflowRunId }
-            });
-          } catch (dbErr) {
-            console.warn('[DB Status Log] Failed to log generate failed run:', dbErr);
-          }
-        });
-
-        return NextResponse.json(
-          {
-            success: false,
-            action: 'failed',
-            error: latestJob.feedback,
-            workflowRunId: result.workflowRunId,
+      try {
+        const result = await generateContentViaDify({
+          topic: job.topic,
+          template: job.template,
+          language: job.language,
+          title: job.title,
+          category: job.category,
+          brief: {
+            primaryKeyword: job.seo.keywords[0] || job.title,
+            secondaryKeywords: job.seo.keywords.slice(1),
+            summary: job.topic,
+            outline: job.sourceHints,
           },
-          { status: 502 },
-        );
-      }
+        });
 
-      latestJob.status = 'published';
-      latestJob.updatedAt = new Date().toISOString();
-      latestJob.publishedPath = await publishGeneratedContentArtifact(
-        result.content.seo.slug || latestJob.seo.slug || latestJob.briefSlug,
-        latestJob,
-        result.content,
-      );
-      latestJobs[index] = latestJob;
-      await saveContentJobsNew(latestJobs);
-      writeLastRun({
-        action: 'published',
-        job: {
-          id: latestJob.id,
-          title: latestJob.title,
-          status: latestJob.status,
-          publishedPath: latestJob.publishedPath,
-        },
-      });
+        const latestJobs = await loadContentJobsNew();
+        const index = latestJobs.findIndex((c) => c.id === job.id);
+        if (index === -1) throw new Error('Job disappeared');
 
-      // Log to database in background
-      Promise.resolve().then(async () => {
-        try {
-          await logAutomationRun({
-            kind: 'generate',
-            status: 'published',
-            summary: {
-              jobId: latestJob.id,
-              title: latestJob.title,
-              publishedPath: latestJob.publishedPath,
-              workflowRunId: result.workflowRunId,
-              totalTokens: result.totalTokens,
-              elapsedTime: result.elapsedTime
-            }
-          });
-        } catch (dbErr) {
-          console.warn('[DB Status Log] Failed to log generate published run:', dbErr);
+        const latestJob = latestJobs[index];
+        if (!result.content) {
+          latestJob.status = 'failed';
+          latestJob.feedback = 'Workflow returned no publishable content.';
+          latestJob.updatedAt = new Date().toISOString();
+          await saveContentJobsNew(latestJobs);
+          results.push({ job: { id: latestJob.id, title: latestJob.title }, action: 'failed' });
+          continue;
         }
+
+        latestJob.status = 'published';
+        latestJob.updatedAt = new Date().toISOString();
+        latestJob.publishedPath = await publishGeneratedContentArtifact(
+          result.content.seo.slug || latestJob.seo.slug || latestJob.briefSlug,
+          latestJob,
+          result.content,
+        );
+        latestJobs[index] = latestJob;
+        await saveContentJobsNew(latestJobs);
+        results.push({
+          job: { id: latestJob.id, title: latestJob.title, publishedPath: latestJob.publishedPath },
+          action: 'published',
+          workflowRunId: result.workflowRunId,
+          totalTokens: result.totalTokens,
+        });
+      } catch (e: any) {
+        job.status = 'failed';
+        job.feedback = e.message;
+        job.updatedAt = new Date().toISOString();
+        await saveContentJobsNew(jobs);
+        results.push({ job: { id: job.id, title: job.title }, action: 'failed', error: e.message });
+      }
+    }
+
+    if (batch.length > 0) {
+      writeLastRun({
+        action: batch.length === 1 ? results[0]?.action : 'batch',
+        count: results.filter((r) => r.action === 'published').length,
+        briefs: results.map((r) => ({ id: r.job?.id, title: r.job?.title })),
       });
 
       return NextResponse.json({
-        success: true,
-        action: 'published',
-        job: {
-          id: latestJob.id,
-          title: latestJob.title,
-          status: latestJob.status,
-          publishedPath: latestJob.publishedPath,
-        },
-        workflowRunId: result.workflowRunId,
-        totalTokens: result.totalTokens,
-        elapsedTime: result.elapsedTime,
+        success: batchError ? false : true,
+        action: batch.length > 1 ? 'batch_complete' : results[0]?.action,
+        batch: { total: batch.length, published: results.filter((r) => r.action === 'published').length, failed: results.filter((r) => r.action === 'failed').length },
+        results,
+        queueRemaining: readyJobs.length - batch.length,
       });
     }
 
+    // No queued jobs — enqueue new briefs
     const newBriefs = enqueueBestBriefs(firstWaveContentPlan, existingSlugs, MAX_AUTO_GENERATE_PER_RUN);
 
     // Also enqueue racing intelligence briefs
