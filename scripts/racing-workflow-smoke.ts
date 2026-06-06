@@ -1,3 +1,4 @@
+import './load-local-env';
 import { getRacingWorkflowStatus, runRacingIntelligenceWorkflow } from '../src/lib/racing-intelligence';
 
 async function main() {

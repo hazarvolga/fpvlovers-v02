@@ -1,4 +1,4 @@
-import { runWorkflow, type DifyWorkflowResponse } from '@/lib/dify-client';
+import { runWorkflow } from '@/lib/content-automation/dify-generation';
 import { WORKFLOW_IDS, WORKFLOW_TOKENS } from '@/lib/master-routing-tables';
 
 export type RacingWorkflowMode =
@@ -53,7 +53,7 @@ export type RacingWorkflowRun = {
   workflowName: string;
   workflowId: string;
   success: boolean;
-  status: DifyWorkflowResponse['status'] | 'not_configured';
+  status: string;
   workflowRunId?: string;
   totalTokens?: number;
   outputs: RacingWorkflowOutputs;
@@ -61,6 +61,12 @@ export type RacingWorkflowRun = {
 };
 
 const WORKFLOW_NAME = 'racingIntelligenceOrchestrator';
+
+function getConfiguredWorkflowId() {
+  return process.env.DIFY_RACING_WORKFLOW_ID?.trim()
+    || WORKFLOW_IDS[WORKFLOW_NAME]
+    || '';
+}
 
 function normalizeInput(input: RacingWorkflowInput): Record<string, unknown> {
   return {
@@ -108,8 +114,17 @@ function configurationPendingResult(input: RacingWorkflowInput, workflowId: stri
 function parseJsonObject(value: unknown): Record<string, unknown> | undefined {
   if (value && typeof value === 'object' && !Array.isArray(value)) return value as Record<string, unknown>;
   if (typeof value !== 'string') return undefined;
+  
+  let cleaned = value.trim();
+  
+  // Strip markdown JSON fences
+  const fenceMatch = cleaned.match(/```(?:json)?\s*([\s\S]*?)```/i);
+  if (fenceMatch?.[1]) {
+    cleaned = fenceMatch[1].trim();
+  }
+  
   try {
-    const parsed = JSON.parse(value) as unknown;
+    const parsed = JSON.parse(cleaned) as unknown;
     return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
       ? parsed as Record<string, unknown>
       : undefined;
@@ -133,7 +148,7 @@ function normalizeOutputs(outputs: Record<string, unknown>): RacingWorkflowOutpu
 }
 
 export function getRacingWorkflowStatus() {
-  const workflowId = WORKFLOW_IDS[WORKFLOW_NAME] || '';
+  const workflowId = getConfiguredWorkflowId();
   const token = WORKFLOW_TOKENS[WORKFLOW_NAME] || '';
   return {
     workflowName: WORKFLOW_NAME,
@@ -145,23 +160,22 @@ export function getRacingWorkflowStatus() {
 }
 
 export async function runRacingIntelligenceWorkflow(input: RacingWorkflowInput): Promise<RacingWorkflowRun> {
-  const workflowId = WORKFLOW_IDS[WORKFLOW_NAME] || '';
+  const workflowId = getConfiguredWorkflowId();
   const token = WORKFLOW_TOKENS[WORKFLOW_NAME] || '';
 
   if (!isConfigured(workflowId, token)) {
     return configurationPendingResult(input, workflowId || 'TODO-import-to-dify-first');
   }
 
-  const result = await runWorkflow(workflowId, normalizeInput(input), token);
+  const result = await runWorkflow(token, normalizeInput(input));
   return {
     configured: true,
     workflowName: WORKFLOW_NAME,
     workflowId,
     success: result.success,
-    status: result.status,
-    workflowRunId: result.workflowRunId,
-    totalTokens: result.totalTokens,
-    outputs: normalizeOutputs(result.outputs),
-    error: result.error,
+    status: result.success ? 'success' : 'failed',
+    workflowRunId: result.workflowRunId ?? undefined,
+    totalTokens: result.totalTokens ?? undefined,
+    outputs: normalizeOutputs(result.outputs ?? {}),
   };
 }

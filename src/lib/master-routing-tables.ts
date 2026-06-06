@@ -265,5 +265,5 @@ export const WORKFLOW_IDS: Record<string, string> = {
 
 export const WORKFLOW_TOKENS: Record<string, string> = {
   seoContentGenerator: 'app-XJogXujRpHH3Ri8dOU9F',
-  racingIntelligenceOrchestrator: process.env.DIFY_RACING_WORKFLOW_TOKEN || '',
+  racingIntelligenceOrchestrator: process.env.DIFY_RACING_WORKFLOW_TOKEN || 'app-0UY7DiroMEswRvqqOtlZ',
 };

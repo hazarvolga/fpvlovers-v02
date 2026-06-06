@@ -1,3 +1,4 @@
+import './load-local-env';
 import { getQueueStatus } from '../src/lib/crawl-queue';
 import { readRacingCrawlArtifact, getRacingArtifactDir } from '../src/lib/racing-crawl-artifacts';
 import { runRacingIntelligenceWorkflow } from '../src/lib/racing-intelligence';
@@ -34,16 +35,28 @@ function modeForSource(source: RacingSource) {
   return 'monitor_extract' as const;
 }
 
+function getLimitArg() {
+  const explicit = process.argv.find((arg) => arg.startsWith('--limit='));
+  if (!explicit) return undefined;
+
+  const value = Number.parseInt(explicit.replace('--limit=', ''), 10);
+  return Number.isFinite(value) && value > 0 ? value : undefined;
+}
+
 async function main() {
   const statusOnly = process.argv.includes('--status');
+  const limit = getLimitArg();
   const pack = applyQueueStatusToRacingSourcePack(readRacingSourcePack(), getQueueStatus().jobs);
   const crawledSources = pack.sources.filter((source) => source.status === 'crawled');
-  const artifactSources = crawledSources
+  let artifactSources = crawledSources
     .map((source) => ({ source, artifact: readArtifact(source) }))
     .filter((item): item is { source: RacingSource; artifact: CrawlArtifact } => Boolean(item.artifact));
 
+  if (limit) artifactSources = artifactSources.slice(0, limit);
+
   console.log('\nFPVLovers Racing Intelligence Ingest\n');
   console.log(`Sources: total=${pack.sources.length}, crawled=${crawledSources.length}, artifacts=${artifactSources.length}`);
+  if (limit) console.log(`Run limit: ${limit}`);
   console.log(`Artifact directory: ${getRacingArtifactDir()}`);
   console.log('Store summary:', JSON.stringify(getRacingStoreSummary(), null, 2));
 

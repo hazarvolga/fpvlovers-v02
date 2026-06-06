@@ -343,7 +343,7 @@ export async function runWorkflow(
     },
     body: JSON.stringify({
       inputs,
-      response_mode: 'streaming',
+      response_mode: 'blocking',
       user: 'fpvlovers-system',
     }),
     signal: AbortSignal.timeout(180000),
@@ -354,19 +354,20 @@ export async function runWorkflow(
     throw new Error(`DIFY_API_${resp.status}: ${err.slice(0, 300)}`);
   }
 
-  const streamed = await readWorkflowStream(resp);
-  const rawAnswer = JSON.stringify(streamed.outputs, null, 2);
+  const data = await resp.json();
+  const workflowData = data?.data || {};
+  const outputs: Record<string, unknown> = workflowData.outputs || {};
 
   return {
-    success: Object.keys(streamed.outputs).length > 0,
+    success: workflowData.status === 'succeeded',
     template: 'tech-article',
     content: null,
-    rawAnswer,
+    rawAnswer: JSON.stringify(outputs, null, 2),
     sources: [],
-    workflowRunId: streamed.workflowRunId,
-    totalTokens: streamed.totalTokens,
-    elapsedTime: streamed.elapsedTime,
-    outputs: streamed.outputs,
+    workflowRunId: data.workflow_run_id || workflowData.id || null,
+    totalTokens: workflowData.total_tokens ?? null,
+    elapsedTime: workflowData.elapsed_time ?? null,
+    outputs,
   };
 }
 
