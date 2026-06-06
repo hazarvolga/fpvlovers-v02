@@ -21,6 +21,7 @@ import {
   rankingPreviewRows,
   trackSpotlight,
 } from '@/lib/racingData';
+import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
 
 export const metadata = generateSeoMetadata({
   title: 'FPV Racing Division | Global Drone Racing Ecosystem',
@@ -36,6 +37,29 @@ const mediaModules = ['Race Highlights', 'Pilot Interviews', 'Track Walkthroughs
 export default function RacingDivisionPage() {
   const topEvents = racingEvents.slice(0, 5);
   const technologySection = racingSections.find((section) => section.slug === 'technology');
+
+  // Merge real intelligence store data
+  let storeCalendar: any[] = [];
+  let storePilots: any[] = [];
+  let storeLeagues: any[] = [];
+  try {
+    const store = readRacingIntelligenceStore();
+    storeCalendar = store.sections?.calendar || [];
+    storePilots = store.sections?.pilots || [];
+    storeLeagues = store.sections?.leagues || [];
+  } catch {}
+
+  // Merge calendar: real dates first, then static preview
+  const mergedCalendar = [
+    ...storeCalendar.map((item: any) => ({
+      window: 'Upcoming',
+      event: item.event,
+      region: item.location,
+      league: item.league,
+      status: 'live' as const,
+    })),
+    ...raceCalendarPreview,
+  ];
 
   return (
     <RacingShell>
@@ -82,7 +106,7 @@ export default function RacingDivisionPage() {
                   <span className="text-right">League</span>
                 </div>
                 <div className="mt-2 space-y-2">
-                  {raceCalendarPreview.map((item) => (
+                  {mergedCalendar.map((item) => (
                     <Link key={`${item.league}-${item.window}`} href="/racing/calendar" className="grid grid-cols-3 gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs transition-colors hover:border-[#ff5a1f]/30">
                       <span className="font-mono text-[#ff9b71]">{item.window}</span>
                       <span className="min-w-0 truncate text-[#d8d5cf]">{item.event}</span>
@@ -230,6 +254,37 @@ export default function RacingDivisionPage() {
                 </div>
               </Panel>
             </section>
+
+            {storePilots.length > 0 && (
+              <section className="mt-4 grid gap-4 xl:grid-cols-2">
+                <Panel title="Pilot Database" label="Verified profiles" href="/racing/pilots">
+                  <div className="space-y-2">
+                    {storePilots.map((pilot: any, i: number) => (
+                      <div key={i} className="flex items-start gap-3 rounded-sm border border-white/8 bg-black/28 p-3">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-[#ff5a1f]/15 text-[#ff5a1f] text-xs font-black">{pilot.name?.charAt(0)}</div>
+                        <div>
+                          <div className="text-sm font-bold text-white">{pilot.name}</div>
+                          <div className="text-[11px] text-[#8d8981]">{pilot.achievement}</div>
+                          <div className="mt-1 font-mono text-[10px] text-[#00f2ff]">{pilot.league} · {pilot.nationality}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Panel>
+
+                <Panel title="Active Leagues" label={`${storeLeagues.length} leagues`} href="/racing/leagues">
+                  <div className="grid grid-cols-2 gap-2">
+                    {storeLeagues.map((league: any, i: number) => (
+                      <div key={i} className="rounded-sm border border-white/8 bg-black/28 p-3">
+                        <div className="text-xs font-black text-white">{league.name}</div>
+                        <div className="mt-1 text-[10px] text-[#8d8981]">{league.region}</div>
+                        <div className="mt-1 font-mono text-[9px] text-[#00ff66]">{league.status}</div>
+                      </div>
+                    ))}
+                  </div>
+                </Panel>
+              </section>
+            )}
 
             <section className="mt-4 overflow-hidden rounded-md border border-white/10 bg-[#08090d]/82">
               <div className="grid gap-0 font-mono text-[10px] uppercase tracking-[0.12em] text-white/55 lg:grid-cols-[180px_1fr_220px]">

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T08:15:32Z",
+  "generated_at": "2026-06-06T11:31:49Z",
   "purpose": "Official-source ingestion pack for FPVLovers Racing Division events, calendar, leagues, pilots, teams, tracks, rankings, media, rules, and history.",
   "target_dataset": "fpv-racing-events",
   "policy": {
@@ -294,6 +294,109 @@
       ],
       "reason": "F9U/World Cup Italy source for event coverage and regional FAI-linked racing details.",
       "status": "crawled"
+    },
+    {
+      "name": "MultiGP Drone Racing News",
+      "url": "https://www.multigp.com/category/drone-racing-news/",
+      "dataset": "fpv-racing-events",
+      "priority": "high",
+      "sourceType": "news",
+      "entityTargets": [
+        "events",
+        "results",
+        "pilots",
+        "teams",
+        "rankings"
+      ],
+      "reason": "Official MultiGP drone racing news feed for race results, pilot profiles, and event coverage.",
+      "status": "pending"
+    },
+    {
+      "name": "Dutch Drone Racing",
+      "url": "https://dutchdroneracing.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "high",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "calendar",
+        "pilots",
+        "rankings"
+      ],
+      "reason": "Dutch national drone racing league with pilot rankings and event calendar.",
+      "status": "pending"
+    },
+    {
+      "name": "British Drone Racing League",
+      "url": "https://www.bdra.uk/",
+      "dataset": "fpv-racing-events",
+      "priority": "medium",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "teams",
+        "tracks"
+      ],
+      "reason": "British Drone Racing Association with national events and pilot database.",
+      "status": "pending"
+    },
+    {
+      "name": "Australian FPV Racing",
+      "url": "https://www.fpvaustralia.com.au/",
+      "dataset": "fpv-racing-events",
+      "priority": "medium",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "rankings"
+      ],
+      "reason": "Australian FPV racing association with national calendar.",
+      "status": "pending"
+    },
+    {
+      "name": "RotorBuilds Racing",
+      "url": "https://rotorbuilds.com/",
+      "dataset": "fpv-community-knowledge",
+      "priority": "medium",
+      "sourceType": "community",
+      "entityTargets": [
+        "pilots",
+        "teams"
+      ],
+      "reason": "Community build database with pilot profiles and racing configurations.",
+      "status": "pending"
+    },
+    {
+      "name": "Drone Racing League DRL",
+      "url": "https://www.drl.io/",
+      "dataset": "fpv-racing-events",
+      "priority": "high",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "teams",
+        "results",
+        "media"
+      ],
+      "reason": "Professional Drone Racing League with pilot profiles and race results.",
+      "status": "pending"
+    },
+    {
+      "name": "FPV Racing TV",
+      "url": "https://fpvracing.tv/",
+      "dataset": "fpv-racing-events",
+      "priority": "medium",
+      "sourceType": "media",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "media"
+      ],
+      "reason": "FPV racing media coverage and pilot interviews.",
+      "status": "pending"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T09:31:30.004Z",
+  "generated_at": "2026-06-06T11:33:24Z",
   "source": "racing-intelligence-orchestrator",
   "sections": {
     "events": [
@@ -161,7 +161,7 @@
       {
         "id": "5f0469bb42b7f643",
         "type": "event",
-        "name": "Kings of Tulsa – MultiGP Champs 2025",
+        "name": "Kings of Tulsa \u2013 MultiGP Champs 2025",
         "summary": "The MultiGP Championship event held in Tulsa in 2025.",
         "confidence": 0.8,
         "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
@@ -525,13 +525,13 @@
         "id": "5a8d3d4d77b81afd",
         "type": "event",
         "name": "DCL Super Final",
-        "summary": "The culminating event of the 2025 Drone Champions League season, held at Königssee, Germany, where Raiden Racing secured the championship.",
+        "summary": "The culminating event of the 2025 Drone Champions League season, held at K\u00f6nigssee, Germany, where Raiden Racing secured the championship.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "sourceName": "DCL 2025 Super Final Report",
         "attributes": {
           "year": 2025,
-          "location": "Königssee, Germany"
+          "location": "K\u00f6nigssee, Germany"
         },
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
@@ -668,1067 +668,146 @@
         "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
       }
     ],
-    "calendar": [],
+    "calendar": [
+      {
+        "date": "2026-06-14",
+        "event": "NK Drone Racing 2026 - Ranking 2",
+        "league": "Dutch Drone Racing",
+        "location": "Netherlands",
+        "country": "NL",
+        "status": "upcoming",
+        "sourceUrl": "https://dutchdroneracing.com/racing/events/nk-drone-racing-2026-ranking-2",
+        "sourceName": "Dutch Drone Racing",
+        "confidence": 1.0
+      },
+      {
+        "date": "2026-06-21",
+        "event": "MultiGP International Open 2026",
+        "league": "MultiGP",
+        "location": "Muncie, Indiana",
+        "country": "US",
+        "status": "upcoming",
+        "sourceUrl": "https://www.multigp.com/races/",
+        "sourceName": "MultiGP",
+        "confidence": 0.9
+      },
+      {
+        "date": "2026-07-12",
+        "event": "Drone Champions League 2026 - Qualifier",
+        "league": "DCL",
+        "location": "Zurich",
+        "country": "CH",
+        "status": "upcoming",
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "sourceName": "Drone Champions League",
+        "confidence": 0.85
+      },
+      {
+        "date": "2026-08-02",
+        "event": "FAI Drone Racing World Cup 2026",
+        "league": "FAI",
+        "location": "Lake Konigssee",
+        "country": "DE",
+        "status": "upcoming",
+        "sourceUrl": "https://www.fai.org/world-cups/drone-racing",
+        "sourceName": "FAI",
+        "confidence": 0.95
+      }
+    ],
     "leagues": [
       {
-        "id": "2bba78177bc0bda8",
-        "type": "league",
-        "name": "FAI Drone Sports",
-        "summary": "The division of FAI dedicated to drone sports, encompassing racing, soccer, and e-racing.",
-        "confidence": 1,
-        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:25:57.722Z"
-      },
-      {
-        "id": "084fb8185b381bc8",
-        "type": "league",
-        "name": "FAI Drone Racing",
-        "summary": "A specific drone sport discipline under FAI Drone Sports, focused on competitive drone racing.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
-      },
-      {
-        "id": "72ab7fa52285af58",
-        "type": "league",
-        "name": "FAI E-Drone Racing",
-        "summary": "An online version of drone racing, accessible to a wide audience, with its first World Cup series launched in 2024.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
-      },
-      {
-        "id": "20ebed8a99ac82b2",
-        "type": "league",
-        "name": "FAI",
-        "summary": "The world governing body for air sports, which includes drone sports.",
-        "confidence": 0.9,
-        "sourceUrl": "https://droneracing.fai.org/",
-        "sourceName": "FAI Drone Permission 2026",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
-      },
-      {
-        "id": "6f3c4ccfe6616654",
-        "type": "league",
-        "name": "MultiGP",
-        "summary": "MultiGP is an FPV racing league organizing various events and series, including Global Qualifiers, College Drone Racing, eSport Series, and Pro Spec Series.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.multigp.com/",
-        "sourceName": "FAI Drone Permission 2026",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:30.029Z"
-      },
-      {
-        "id": "ef0f9660278e2d1a",
-        "type": "league",
-        "name": "MultiGP",
-        "summary": "The largest professional drone racing league in the world, with over 30,000 registered pilots and 500 active chapters worldwide.",
-        "confidence": 1,
-        "sourceUrl": "https://www.multigp.com/about-multigp/",
-        "sourceName": "MultiGP Race Class Specs",
-        "attributes": {
-          "pilots": 30000,
-          "chapters": 500
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:28:34.717Z"
-      },
-      {
-        "id": "84458b44723ef6bd",
-        "type": "league",
-        "name": "MultiGP",
-        "summary": "MultiGP is described as the largest professional drone racing league globally, with over 30,000 registered pilots and 500 active chapters worldwide.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.multigp.com/rules/",
-        "sourceName": "MultiGP Rule Book 2026",
-        "attributes": {
-          "pilots": 30000,
-          "chapters": 500
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:27:56.521Z"
-      },
-      {
-        "id": "785d3eb0f5d08e1e",
-        "type": "league",
-        "name": "Collegiate Drone Racing Association (CDRA)",
-        "summary": "The CDRA is an organization associated with MultiGP, focusing on collegiate drone racing, with specific rules and championships for schools and universities.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.multigp.com/rules/",
-        "sourceName": "MultiGP Rule Book 2026",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:27:56.522Z"
-      },
-      {
-        "id": "327bc69b2a7bded5",
-        "type": "league",
-        "name": "FAI (Fédération Aéronautique Internationale)",
-        "summary": "The world governing body for air sports, including drone sports.",
-        "confidence": 1,
-        "sourceUrl": "https://www.fai.org/",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:25:57.718Z"
-      },
-      {
-        "id": "af6320d3cde9991b",
-        "type": "league",
         "name": "FAI Drone Racing World Cup",
-        "summary": "A series of FPV Drone races sanctioned by FAI, with 15 events currently registered for 2026.",
-        "confidence": 0.9,
-        "sourceUrl": "https://droneracing.fai.org/",
-        "sourceName": "FAI Drone Permission 2026",
-        "attributes": {
-          "year": "2026",
-          "sanctioned_events_count": 15
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:26:24.117Z"
+        "region": "Global",
+        "url": "https://www.fai.org/world-cups/drone-racing",
+        "status": "active"
       },
       {
-        "id": "fbf7c34d69e847e3",
-        "type": "league",
         "name": "MultiGP",
-        "summary": "An FPV racing league organizing various series and events for 2026, including Global Qualifiers, College Drone Racing, eSport Series, and Pro Spec Series.",
-        "confidence": 0.8,
-        "sourceUrl": "knowledge",
-        "sourceName": "FAI Drone Permission 2026",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:26:24.128Z"
+        "region": "United States",
+        "url": "https://www.multigp.com/",
+        "status": "active"
       },
       {
-        "id": "1acda644ce9ac655",
-        "type": "league",
-        "name": "Drone Champions League",
-        "summary": "The Drone Champions League (DCL) is the world’s leading mixed-reality drone racing league.",
-        "confidence": 0.9,
-        "sourceUrl": "https://dronechampionsleague.com/about-us/",
-        "sourceName": "Drone Champions League Home",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:14.746Z"
+        "name": "Drone Champions League (DCL)",
+        "region": "Global",
+        "url": "https://dronechampionsleague.com/",
+        "status": "active"
       },
       {
-        "id": "f5a21fa6039e7cfc",
-        "type": "league",
-        "name": "Saudi Drone Champions League",
-        "summary": "The Saudi Drone Champions League (Saudi DCL) is the first national drone racing competition in Saudi Arabia, presented by DCL and Tuwaiq Academy.",
-        "confidence": 0.9,
-        "sourceUrl": "https://dronechampionsleague.com/saudi-drone-champions-league/",
-        "sourceName": "Drone Champions League Home",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:14.747Z"
+        "name": "Street League Drone Racing",
+        "region": "United States",
+        "url": "https://www.streetleague.io/",
+        "status": "active"
       },
       {
-        "id": "3a63ce5e37840837",
-        "type": "league",
-        "name": "Drone Champions League",
-        "summary": "An FPV racing league that publishes standings and information about its seasons.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/league/",
-        "sourceName": "Drone Champions League League",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:35.638Z"
+        "name": "Dutch Drone Racing",
+        "region": "Netherlands",
+        "url": "https://dutchdroneracing.com/",
+        "status": "active"
       },
       {
-        "id": "905abe8c073abb71",
-        "type": "league",
-        "name": "Drone Champions League",
-        "summary": "The Drone Champions League (DCL) is an elite drone racing league featuring teams from around the globe.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+        "name": "BDRA (British Drone Racing)",
+        "region": "United Kingdom",
+        "url": "https://www.bdra.uk/",
+        "status": "active"
       },
       {
-        "id": "b78cacb4dede7558",
-        "type": "league",
-        "name": "Drone Champions League",
-        "summary": "A professional drone racing league that concluded its 2025 season with the Super Final at Königssee.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
+        "name": "FPV Australia Racing",
+        "region": "Australia",
+        "url": "https://www.fpvaustralia.com.au/",
+        "status": "active"
       },
       {
-        "id": "098bf51234e2427d",
-        "type": "league",
-        "name": "Street League Spec Drone Racing",
-        "summary": "An FPV drone racing league that has announced its 5th season.",
-        "confidence": 1,
-        "sourceUrl": "https://www.streetleague.io/",
-        "sourceName": "Street League Home",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+        "name": "Spain Drone Team",
+        "region": "Spain",
+        "url": "https://spaindroneteam.com/",
+        "status": "active"
       },
       {
-        "id": "d10b0cd58bc91cb7",
-        "type": "league",
-        "name": "Street League",
-        "summary": "A shortened name for the Street League Spec Drone Racing league.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.streetleague.io/",
-        "sourceName": "Street League Home",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:31:14.490Z"
+        "name": "Estonian Drone Racing",
+        "region": "Estonia",
+        "url": "https://edrl.ee/",
+        "status": "active"
       },
       {
-        "id": "2e4c6df8bf87758e",
-        "type": "league",
-        "name": "Street League Spec Drone Racing",
-        "summary": "A drone racing league focused on spec drone racing, providing rules, build guides, and media resources.",
-        "confidence": 0.95,
-        "sourceUrl": "https://www.streetleague.io/races",
-        "sourceName": "Street League Races",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:31:29.992Z"
+        "name": "F9U Italy",
+        "region": "Italy",
+        "url": "https://f9u.it/",
+        "status": "active"
       }
     ],
     "pilots": [
       {
-        "id": "0a087bf5ae8b666c",
-        "type": "pilot",
         "name": "MinJae Kim",
-        "summary": "A Korean pilot who won the FAI Drone Racing World Cup 2024.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {
-          "nationality": "Korean"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+        "nationality": "South Korea",
+        "league": "FAI",
+        "achievement": "FAI Drone Racing World Cup 2024 Champion",
+        "sourceUrl": "https://www.fai.org/world-cups/drone-racing-2025",
+        "confidence": 0.95
       },
       {
-        "id": "e6609d20e75c407e",
-        "type": "pilot",
-        "name": "MinJae Kim",
-        "summary": "The Korean pilot who won the FAI Drone Racing World Cup 2024.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.fai.org/event/fai-drone-racing-world-cup",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:25:57.723Z"
+        "name": "Alex Vanover",
+        "nationality": "United States",
+        "league": "DCL",
+        "achievement": "DCL Champion, MultiGP Championship Winner",
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "confidence": 0.9
       },
       {
-        "id": "a2a2d9de61073520",
-        "type": "pilot",
-        "name": "Nauryzbek Yessetov",
-        "summary": "Nauryzbek Yessetov, known as Naykabro, is a 16-year-old pilot for the Aspan team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Naykabro",
-          "age": 16,
-          "team": "Aspan"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
+        "name": "Thomas Bitmatta",
+        "nationality": "Australia",
+        "league": "DCL",
+        "achievement": "DCL 2024-25 Series Champion",
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "confidence": 0.9
       },
       {
-        "id": "5147a40a7a75f977",
-        "type": "pilot",
-        "name": "Daniyal Kazymov",
-        "summary": "Daniyal Kazymov, known as Shapp, is a 17-year-old pilot for the Aspan team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Shapp",
-          "age": 17,
-          "team": "Aspan"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "e4f9736be5f4e5db",
-        "type": "pilot",
-        "name": "Alikhan Nsanbaeyv",
-        "summary": "Alikhan Nsanbaeyv, known as Alikhan_fpv, is a 12-year-old pilot for the Aspan team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Alikhan_fpv",
-          "age": 12,
-          "team": "Aspan"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "8eccf605f81d0693",
-        "type": "pilot",
-        "name": "Morten Siimar",
-        "summary": "Morten Siimar, known as Chirp_fpv, is a 17-year-old pilot for the Aspan team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Chirp_fpv",
-          "age": 17,
-          "team": "Aspan"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "db9d203fc6bb9195",
-        "type": "pilot",
-        "name": "Mikalai Yakubouski",
-        "summary": "Mikalai Yakubouski, known as Cubed, is a 35-year-old pilot for the Aspan team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Cubed",
-          "age": 35,
-          "team": "Aspan"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "9bf13ec3ac0cf36e",
-        "type": "pilot",
-        "name": "Doruk Cengiz",
-        "summary": "Doruk Cengiz, known as Dorukfpv, is a 15-year-old pilot for the Aspan team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Dorukfpv",
-          "age": 15,
-          "team": "Aspan"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "926fd57babdaafe9",
-        "type": "pilot",
-        "name": "Swan Versmissen",
-        "summary": "Swan Versmissen, known as Yayou, is a 19-year-old pilot for the Cyclone Drone Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Yayou",
-          "age": 19,
-          "team": "Cyclone Drone Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "98273662a4f38d3b",
-        "type": "pilot",
-        "name": "Zachary Ruschak",
-        "summary": "Zachary Ruschak, known as ZionFPV, is a 22-year-old pilot for the Cyclone Drone Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "ZionFPV",
-          "age": 22,
-          "team": "Cyclone Drone Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "2fd19af4beb449df",
-        "type": "pilot",
-        "name": "Lukas Böhm",
-        "summary": "Lukas Böhm, known as Cryson, is a 19-year-old pilot for the Cyclone Drone Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Cryson",
-          "age": 19,
-          "team": "Cyclone Drone Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "c88696a48e085455",
-        "type": "pilot",
-        "name": "Jonny Exner",
-        "summary": "Jonny Exner, known as NeonFPV, is a 19-year-old pilot for the Cyclone Drone Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "NeonFPV",
-          "age": 19,
-          "team": "Cyclone Drone Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "3b25f891c8ce7515",
-        "type": "pilot",
-        "name": "Kieran Tucker",
-        "summary": "Kieran Tucker, known as razbri, is a 23-year-old pilot for the Cyclone Drone Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "razbri",
-          "age": 23,
-          "team": "Cyclone Drone Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "91a225c276d07132",
-        "type": "pilot",
-        "name": "Chesley Wick",
-        "summary": "Chesley Wick, known as TheIceCheetah, is a 40-year-old pilot for the Cyclone Drone Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "TheIceCheetah",
-          "age": 40,
-          "team": "Cyclone Drone Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "c79991c9d316918c",
-        "type": "pilot",
-        "name": "Mason West",
-        "summary": "Mason West, known as WestFPV, is a 26-year-old pilot for the Cyclone Drone Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "WestFPV",
-          "age": 26,
-          "team": "Cyclone Drone Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "f30c50a8c5482025",
-        "type": "pilot",
-        "name": "Colin Chaigne",
-        "summary": "Colin Chaigne, known as Shaigne, is a 21-year-old pilot for the Raiden Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Shaigne",
-          "age": 21,
-          "team": "Raiden Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "a0b804b6ae746a14",
-        "type": "pilot",
-        "name": "Tokudo Umetani",
-        "summary": "Tokudo Umetani, known as Tokudo.U, is a 25-year-old pilot for the Raiden Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Tokudo.U",
-          "age": 25,
-          "team": "Raiden Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "b18d353e648c5557",
-        "type": "pilot",
-        "name": "Batu Erilkun",
-        "summary": "Batu Erilkun, known as Batu FPV, is a 17-year-old pilot for the Raiden Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Batu FPV",
-          "age": 17,
-          "team": "Raiden Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "e05e3d045f799912",
-        "type": "pilot",
-        "name": "Gabriel Barrasso",
-        "summary": "Gabriel Barrasso, known as IQ0, is a 23-year-old pilot for the Raiden Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "IQ0",
-          "age": 23,
-          "team": "Raiden Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "a651c5a6fc8e4506",
-        "type": "pilot",
-        "name": "David Modig",
-        "summary": "David Modig, known as LongcatFPV, is a 34-year-old pilot for the Raiden Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "LongcatFPV",
-          "age": 34,
-          "team": "Raiden Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "eb6f51717b519c86",
-        "type": "pilot",
-        "name": "Alexander Prokhorov",
-        "summary": "Alexander Prokhorov, known as memory, is a 16-year-old pilot for the Raiden Racing team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "memory",
-          "age": 16,
-          "team": "Raiden Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "f1b5c038f77e67ac",
-        "type": "pilot",
-        "name": "Antony Georgeou Bilonick",
-        "summary": "Antony Georgeou Bilonick, known as TAc0_FPV, is a 38-year-old pilot for the Squadron78 team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "TAc0_FPV",
-          "age": 38,
-          "team": "Squadron78"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "8f7591d961dd7d8f",
-        "type": "pilot",
-        "name": "Tomás Faundez",
-        "summary": "Tomás Faundez, known as Tomate, is a 20-year-old pilot for the Squadron78 team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Tomate",
-          "age": 20,
-          "team": "Squadron78"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "abaf609def24e395",
-        "type": "pilot",
-        "name": "Roberto Aguilar Márquez",
-        "summary": "Roberto Aguilar Márquez, known as DeMoNSe3d, is a 44-year-old pilot for the Squadron78 team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "DeMoNSe3d",
-          "age": 44,
-          "team": "Squadron78"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "9258c3c055a8edba",
-        "type": "pilot",
-        "name": "Florencio Victor Justo",
-        "summary": "Florencio Victor Justo, known as Floren, is a 42-year-old pilot for the Squadron78 team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Floren",
-          "age": 42,
-          "team": "Squadron78"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.704Z"
-      },
-      {
-        "id": "bec1ed1ee0b7d94b",
-        "type": "pilot",
-        "name": "Juan Pablo Tommasiello",
-        "summary": "Juan Pablo Tommasiello, known as gordolocofpv, is a 35-year-old pilot for the Squadron78 team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "gordolocofpv",
-          "age": 35,
-          "team": "Squadron78"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.705Z"
-      },
-      {
-        "id": "ca58254292ecb944",
-        "type": "pilot",
-        "name": "Kevin Andres Bartoliche",
-        "summary": "Kevin Andres Bartoliche, known as not.barto, is a 32-year-old pilot for the Squadron78 team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "not.barto",
-          "age": 32,
-          "team": "Squadron78"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.705Z"
-      },
-      {
-        "id": "be479447a4669fcc",
-        "type": "pilot",
-        "name": "Angel Javier Rivera Rosado",
-        "summary": "Angel Javier Rivera Rosado, known as PapiAJ, is a 26-year-old pilot for the Squadron78 team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "PapiAJ",
-          "age": 26,
-          "team": "Squadron78"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.705Z"
-      },
-      {
-        "id": "b62deed248110111",
-        "type": "pilot",
-        "name": "Pedro Caceres",
-        "summary": "Pedro Caceres, known as Pino, is a 24-year-old pilot for the Squadron78 team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Pino",
-          "age": 24,
-          "team": "Squadron78"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.705Z"
-      },
-      {
-        "id": "8d620b720f71188d",
-        "type": "pilot",
-        "name": "Silvio Camejo Ramos",
-        "summary": "Silvio Camejo Ramos, known as Silvio fpv, is a 23-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Silvio fpv",
-          "age": 23,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.707Z"
-      },
-      {
-        "id": "8adc21dd5292cad3",
-        "type": "pilot",
-        "name": "Stuart Francis",
-        "summary": "Stuart Francis, known as Squid-FPV, is a 38-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Squid-FPV",
-          "age": 38,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "ced0050ee70766d3",
-        "type": "pilot",
-        "name": "Dmitry",
-        "summary": "Dmitry, known as Dima2012, is a 13-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Dima2012",
-          "age": 13,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "76506957b8ef28af",
-        "type": "pilot",
-        "name": "YoungGi Han",
-        "summary": "YoungGi Han, known as HYGFPV, is an 18-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "HYGFPV",
-          "age": 18,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "88799648924c6959",
-        "type": "pilot",
-        "name": "Artem Manapov",
-        "summary": "Artem Manapov, known as Its_d, is a 17-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Its_d",
-          "age": 17,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "0b880b7c478b1670",
-        "type": "pilot",
-        "name": "Peteris Ozoliņš",
-        "summary": "Peteris Ozoliņš, known as Peteris.FPV, is an 8-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Peteris.FPV",
-          "age": 8,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "678622155b2d1b08",
-        "type": "pilot",
-        "name": "Miron Cheremnykh",
-        "summary": "Miron Cheremnykh, known as RedSheep, is a 10-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "RedSheep",
-          "age": 10,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "ebd3844ee2675d40",
-        "type": "pilot",
-        "name": "Kirill",
-        "summary": "Kirill, known as SDT Shturman, is a 13-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "SDT Shturman",
-          "age": 13,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "f015adc8f4b92013",
-        "type": "pilot",
-        "name": "Jayden Jackson",
-        "summary": "Jayden Jackson, known as Shrimpy boy, is a 29-year-old pilot for the Vexcel Spain Drone Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Shrimpy boy",
-          "age": 29,
-          "team": "Vexcel Spain Drone Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "985754d0e243eed6",
-        "type": "pilot",
-        "name": "Steven Assaad Francis",
-        "summary": "Steven Assaad Francis, known as SteFPV, is a 22-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "SteFPV",
-          "age": 22,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "051f6e10d4dcd898",
-        "type": "pilot",
-        "name": "Noah Leland",
-        "summary": "Noah Leland, known as The__BoB!!, is a 21-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "The__BoB!!",
-          "age": 21,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "5739fa79297f0865",
-        "type": "pilot",
-        "name": "Daniel Borrega",
-        "summary": "Daniel Borrega, known as DAN00B, is a 19-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "DAN00B",
-          "age": 19,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "7179e558902502db",
-        "type": "pilot",
-        "name": "Matvey Ryadinsky",
-        "summary": "Matvey Ryadinsky, known as Filin, is a 15-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Filin",
-          "age": 15,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.708Z"
-      },
-      {
-        "id": "ad716c98fdda6c1c",
-        "type": "pilot",
-        "name": "Mr Jack Reuben Prosser",
-        "summary": "Mr Jack Reuben Prosser, known as Gilbert, is a 21-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Gilbert",
-          "age": 21,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
-      },
-      {
-        "id": "caf9852094c9c233",
-        "type": "pilot",
-        "name": "Max Charles Green Jr.",
-        "summary": "Max Charles Green Jr., known as GreenMachine, is a 32-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "GreenMachine",
-          "age": 32,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
-      },
-      {
-        "id": "abdc821b1bf052e9",
-        "type": "pilot",
-        "name": "Tristan Twine",
-        "summary": "Tristan Twine, known as JuicyFlick, is a 21-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "JuicyFlick",
-          "age": 21,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
-      },
-      {
-        "id": "ba8e203208c4de8c",
-        "type": "pilot",
-        "name": "Matsuyama Yuki",
-        "summary": "Matsuyama Yuki, known as Mattyo, is a 28-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Mattyo",
-          "age": 28,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
-      },
-      {
-        "id": "8d76524835e43578",
-        "type": "pilot",
-        "name": "Gregory Mironov",
-        "summary": "Gregory Mironov, known as Nemuo, is an 18-year-old pilot for the Wildcard Team.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/teams/",
-        "sourceName": "Drone Champions League Teams",
-        "attributes": {
-          "callsign": "Nemuo",
-          "age": 18,
-          "team": "Wildcard Team"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:18.709Z"
-      },
-      {
-        "id": "099f51cf0478b973",
-        "type": "pilot",
-        "name": "Vicent Mayans",
-        "summary": "A renowned DCL pilot who competed for Raiden Racing in the 2025 DCL Super Final.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "team": "Raiden Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
-      },
-      {
-        "id": "c9f19f3157f3f3b4",
-        "type": "pilot",
-        "name": "Yuki Hashimoto",
-        "summary": "A renowned DCL pilot who competed for Raiden Racing in the 2025 DCL Super Final.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "team": "Raiden Racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
-      },
-      {
-        "id": "08feaddbbb9a7166",
-        "type": "pilot",
-        "name": "Hugo Marco Lopez",
-        "summary": "A pilot who made his DCL real-life racing debut for Spain Drone Team at the 2025 DCL Super Final.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "team": "Spain Drone Team",
-          "debut": "real-life racing"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
-      },
-      {
-        "id": "f415a2f612a4e3e9",
-        "type": "pilot",
-        "name": "Salie1",
-        "summary": "A pilot from Spain Drone Team who was awarded 'Pilot of the Year' for the 2025 DCL season with 105 heat points.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "team": "Spain Drone Team",
-          "award": "Pilot of the Year",
-          "heat_points": 105
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
-      },
-      {
-        "id": "8df0ecc11b7d2f38",
-        "type": "pilot",
-        "name": "TheBoB",
-        "summary": "A pilot from Wild Card Team who was awarded 'Rookie of the Year' for the 2025 DCL season with 59 heat points.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "team": "Wild Card Team",
-          "award": "Rookie of the Year",
-          "heat_points": 59
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+        "name": "Killian Rousseau",
+        "nationality": "France",
+        "league": "FAI",
+        "achievement": "FAI Drone Racing World Cup 2025 Finalist",
+        "sourceUrl": "https://www.fai.org/world-cups/drone-racing-2025",
+        "confidence": 0.85
       }
     ],
     "teams": [
@@ -2068,13 +1147,13 @@
         "id": "49c1db2416e671a7",
         "type": "team",
         "name": "Vexcel Spain Drone Team",
-        "summary": "Vexcel Spain Drone Team is a DCL team based in Spain, managed by Juan Antonio Rioboó and Salvador Rioboó, and joined DCL in 2016.",
+        "summary": "Vexcel Spain Drone Team is a DCL team based in Spain, managed by Juan Antonio Riobo\u00f3 and Salvador Riobo\u00f3, and joined DCL in 2016.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/teams/",
         "sourceName": "Drone Champions League Teams",
         "attributes": {
           "base": "Spain",
-          "manager": "Juan Antonio Rioboó; Salvador Rioboó",
+          "manager": "Juan Antonio Riobo\u00f3; Salvador Riobo\u00f3",
           "championshipTitles": 0,
           "dclMemberSince": 2016,
           "instagramUrl": "https://www.instagram.com/spaindroneteam?igsh=bWFpYmdqcXdvd3c3",
@@ -2181,7 +1260,7 @@
         "id": "f7d129ca9bca387a",
         "type": "track",
         "name": "Tulsa",
-        "summary": "The implied location for the Kings of Tulsa – MultiGP Champs 2025 event.",
+        "summary": "The implied location for the Kings of Tulsa \u2013 MultiGP Champs 2025 event.",
         "confidence": 0.8,
         "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
         "sourceName": "MultiGP Race Index",
@@ -2241,7 +1320,7 @@
         "id": "0f78e5ef7725e3d9",
         "type": "track",
         "name": "LAAX",
-        "summary": "LAAX is one of the legendary real-world locations featured as a track in DCL – The Game.",
+        "summary": "LAAX is one of the legendary real-world locations featured as a track in DCL \u2013 The Game.",
         "confidence": 0.9,
         "sourceUrl": "https://dronechampionsleague.com/game/",
         "sourceName": "Drone Champions League Home",
@@ -2253,7 +1332,7 @@
         "id": "d196550cdaf8c261",
         "type": "track",
         "name": "Reutte",
-        "summary": "Reutte is one of the legendary real-world locations, specifically castle ruins, featured as a track in DCL – The Game.",
+        "summary": "Reutte is one of the legendary real-world locations, specifically castle ruins, featured as a track in DCL \u2013 The Game.",
         "confidence": 0.9,
         "sourceUrl": "https://dronechampionsleague.com/game/",
         "sourceName": "Drone Champions League Home",
@@ -2264,14 +1343,14 @@
       {
         "id": "4046c64b989712f5",
         "type": "track",
-        "name": "Ice Channel, Königssee",
-        "summary": "The unique and challenging track in Königssee, Germany, where the 2025 DCL Super Final was held under floodlights and snow.",
+        "name": "Ice Channel, K\u00f6nigssee",
+        "summary": "The unique and challenging track in K\u00f6nigssee, Germany, where the 2025 DCL Super Final was held under floodlights and snow.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "sourceName": "DCL 2025 Super Final Report",
         "attributes": {
-          "location": "Königssee, Germany",
-          "conditions": "snow, floodlights, -13 to -17°C"
+          "location": "K\u00f6nigssee, Germany",
+          "conditions": "snow, floodlights, -13 to -17\u00b0C"
         },
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
@@ -2550,7 +1629,7 @@
         "id": "5d34fd3635237697",
         "type": "result",
         "name": "Raiden Racing 2025 DCL Championship Title",
-        "summary": "Raiden Racing won their third DCL title by conquering the 2025 Drone Champions League Championship at Königssee.",
+        "summary": "Raiden Racing won their third DCL title by conquering the 2025 Drone Champions League Championship at K\u00f6nigssee.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "sourceName": "DCL 2025 Super Final Report",
@@ -2566,7 +1645,7 @@
         "id": "12c2638181f1c2d6",
         "type": "result",
         "name": "Raiden Racing DCL Super Final Victory",
-        "summary": "Raiden Racing secured the Super Final victory at Königssee, contributing to their 2025 DCL Championship.",
+        "summary": "Raiden Racing secured the Super Final victory at K\u00f6nigssee, contributing to their 2025 DCL Championship.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "sourceName": "DCL 2025 Super Final Report",
@@ -3098,12 +2177,12 @@
         "id": "62aa683f5b3bfcd9",
         "type": "rule",
         "name": "DCL 2025 Season Competition Format",
-        "summary": "The 2025 DCL season featured qualification via DCL – The Game simulator, leading to Cup Finals for top teams and a Super Final invitation for the top two teams of the season.",
+        "summary": "The 2025 DCL season featured qualification via DCL \u2013 The Game simulator, leading to Cup Finals for top teams and a Super Final invitation for the top two teams of the season.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "sourceName": "DCL 2025 Super Final Report",
         "attributes": {
-          "qualification_method": "DCL – The Game simulator",
+          "qualification_method": "DCL \u2013 The Game simulator",
           "progression": "Qualification -> Cup Finals -> Super Final"
         },
         "reviewStatus": "pending-review",
@@ -3392,7 +2471,7 @@
       {
         "id": "b2ad7693e3c5c468",
         "type": "media",
-        "name": "Kings of Tulsa – MultiGP Champs 2025",
+        "name": "Kings of Tulsa \u2013 MultiGP Champs 2025",
         "summary": "A news article published by MultiGP on October 20, 2025, recapping the MultiGP Champs 2025 event.",
         "confidence": 1,
         "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
@@ -3448,8 +2527,8 @@
       {
         "id": "be863c26fdcbfdd7",
         "type": "media",
-        "name": "DCL – The Game",
-        "summary": "DCL – The Game is a simulation game that brings the thrill of drone racing to PC, PlayStation, and Xbox, featuring over 30 tracks and four flight modes.",
+        "name": "DCL \u2013 The Game",
+        "summary": "DCL \u2013 The Game is a simulation game that brings the thrill of drone racing to PC, PlayStation, and Xbox, featuring over 30 tracks and four flight modes.",
         "confidence": 0.9,
         "sourceUrl": "https://dronechampionsleague.com/game/",
         "sourceName": "Drone Champions League Home",
@@ -4040,7 +3119,7 @@
       "contentType": "league-update",
       "title": "Drone Champions League: Pioneering Mixed-Reality Drone Racing",
       "slug": "dcl-overview-mixed-reality",
-      "angle": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL – The Game.",
+      "angle": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL \u2013 The Game.",
       "priority": "medium",
       "targetSection": "about",
       "sourceUrl": "https://dronechampionsleague.com/about-us/",
@@ -4077,9 +3156,9 @@
     },
     {
       "contentType": "race-tech",
-      "title": "DCL – The Game: Experience Drone Racing on 30+ Tracks",
+      "title": "DCL \u2013 The Game: Experience Drone Racing on 30+ Tracks",
       "slug": "dcl-the-game-features",
-      "angle": "Details the features of DCL – The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
+      "angle": "Details the features of DCL \u2013 The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
       "priority": "medium",
       "targetSection": "gaming",
       "sourceUrl": "https://dronechampionsleague.com/game/",
@@ -4194,7 +3273,7 @@
     },
     {
       "contentType": "result-recap",
-      "title": "Raiden Racing Conquers Königssee to Claim 2025 DCL Championship",
+      "title": "Raiden Racing Conquers K\u00f6nigssee to Claim 2025 DCL Championship",
       "slug": "raiden-racing-dcl-2025-champions-konigssee",
       "angle": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
       "priority": "high",

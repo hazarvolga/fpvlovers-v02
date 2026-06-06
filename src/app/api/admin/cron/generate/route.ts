@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
 import { enqueueBestBriefs } from '@/lib/content-automation/brief-from-source';
+import { enqueueRacingBriefs } from '@/lib/content-automation/racing-to-content';
 import { generateContentViaDify } from '@/lib/content-automation/dify-generation';
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
 import { firstWaveContentPlan } from '@/lib/content-plan';
@@ -10,6 +11,7 @@ import { authorizeCronRequest } from '@/lib/cron-auth';
 import { getPublishedSlugs } from '@/lib/content-automation/content-reader';
 import type { ContentJob } from '@/lib/content-automation/types';
 import { logAutomationRun } from '@/lib/server/automation-runs-store';
+import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
 
 const LAST_RUN_FILE = path.join(process.cwd(), 'data', 'content-last-auto-run.json');
 const MAX_AUTO_GENERATE_PER_RUN = 1;
@@ -223,7 +225,21 @@ export async function GET(req: Request) {
 
     const newBriefs = enqueueBestBriefs(firstWaveContentPlan, existingSlugs, MAX_AUTO_GENERATE_PER_RUN);
 
-    if (newBriefs.length === 0) {
+    // Also enqueue racing intelligence briefs
+    let racingBriefs: ContentJob[] = [];
+    try {
+      const racingStore = readRacingIntelligenceStore();
+      racingBriefs = enqueueRacingBriefs(racingStore.contentBriefs || [], 2);
+      if (racingBriefs.length > 0) {
+        for (const brief of racingBriefs) {
+          existingSlugs.add(brief.briefSlug);
+        }
+      }
+    } catch {
+      // Racing store may not exist yet
+    }
+
+    if (newBriefs.length === 0 && racingBriefs.length === 0) {
       const briefJobs = jobs.filter((j) => j.status === 'brief');
       if (briefJobs.length > 0) {
         const brief = briefJobs[0];
@@ -296,15 +312,14 @@ export async function GET(req: Request) {
       });
     }
 
-    for (const brief of newBriefs) {
-      brief.status = 'queued';
-      brief.updatedAt = new Date().toISOString();
-    }
-    await saveContentJobsNew([...jobs, ...newBriefs]);
+    const allNewBriefs = [...newBriefs, ...racingBriefs];
+    const draftJobs = await loadContentJobsNew();
+    const combined = [...draftJobs.filter((j) => j.status !== 'queued'), ...allNewBriefs.map((b) => ({ ...b, status: 'queued' as const, updatedAt: new Date().toISOString() })), ...draftJobs.filter((j) => j.status === 'queued')];
+    await saveContentJobsNew(combined);
     writeLastRun({
       action: 'enqueued',
-      count: newBriefs.length,
-      briefs: newBriefs.map((brief) => ({ id: brief.id, title: brief.title })),
+      count: newBriefs.length + racingBriefs.length,
+      briefs: allNewBriefs.map((brief) => ({ id: brief.id, title: brief.title })),
     });
 
     // Log to database in background
