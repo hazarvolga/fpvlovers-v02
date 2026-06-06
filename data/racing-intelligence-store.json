@@ -1,25 +1,1288 @@
 {
-  "generated_at": "2026-06-06T08:33:21.030Z",
+  "generated_at": "2026-06-06T09:17:53.073Z",
   "source": "racing-intelligence-orchestrator",
   "sections": {
-    "events": [],
+    "events": [
+      {
+        "id": "9d8426cc5d4d1f57",
+        "type": "event",
+        "name": "FAI World Drone Racing Championship (WDRC)",
+        "summary": "The biggest competition for elite drone racing pilots, organized by FAI.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      },
+      {
+        "id": "ca69454da0111b76",
+        "type": "event",
+        "name": "FAI Drone Racing World Cup",
+        "summary": "A series of drone racing competitions organized by FAI.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      },
+      {
+        "id": "a85613be9c68fd39",
+        "type": "event",
+        "name": "The World Games",
+        "summary": "An international multi-sport event where drone racing has been featured.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      },
+      {
+        "id": "57738beec3aa2998",
+        "type": "event",
+        "name": "FAI E-Drone Racing World Cup",
+        "summary": "The first series of an online drone racing competition, launched in 2024.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      },
+      {
+        "id": "1caedc65d2f8a448",
+        "type": "event",
+        "name": "FAI sanctioned category 2 drone events",
+        "summary": "These are drone events sanctioned by the FAI, requiring competitors to hold either an FAI Sporting Licence or an FAI Permission for Drone Racing.",
+        "confidence": 1,
+        "sourceUrl": "https://droneracing.fai.org/",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:30.029Z"
+      },
+      {
+        "id": "b5209fdaa74dde35",
+        "type": "event",
+        "name": "FAI Drone Racing World Cup events",
+        "summary": "Many FPV Drone races in 2026 qualify as FAI Drone Racing World Cup events, with 15 currently sanctioned by the FAI and registered on their calendar for 2026.",
+        "confidence": 1,
+        "sourceUrl": "https://droneracing.fai.org/",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "year": "2026",
+          "count": 15
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:30.029Z"
+      },
+      {
+        "id": "e2d1c328227c9485",
+        "type": "event",
+        "name": "MultiGP Global Qualifier Class B",
+        "summary": "A MultiGP FPV racing event for 2026, featuring beginner spec parts and a 250K prize pool, with registration opening on June 1.",
+        "confidence": 0.9,
+        "sourceUrl": "knowledge",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "year": "2026",
+          "class": "Class B",
+          "spec": "beginner spec parts",
+          "prize_pool": "250K",
+          "registration_start": "June 1"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:30.029Z"
+      },
+      {
+        "id": "87c481373eb89ff9",
+        "type": "event",
+        "name": "MultiGP Global Qualifier Track Design Contest",
+        "summary": "A contest organized by MultiGP for the 2026 Global Qualifier series, focused on track design.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/globalqualifier/2026-gq-track-design-contest/",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "year": "2026"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:30.029Z"
+      },
+      {
+        "id": "e10c80bd4e083649",
+        "type": "event",
+        "name": "College Drone Racing 2026",
+        "summary": "A drone racing initiative for colleges, associated with CDRA.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/cdra",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "13347a6c9c375ef3",
+        "type": "event",
+        "name": "eSport Series 2026",
+        "summary": "A MultiGP eSport racing series.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/esport",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "b84fc491b07bd55d",
+        "type": "event",
+        "name": "Pro Spec 2026 Series",
+        "summary": "A MultiGP racing series for Pro Spec class.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/prospec/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "4febe67a46e0e0ff",
+        "type": "event",
+        "name": "International Open 2026",
+        "summary": "An upcoming main event hosted by MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/io26/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "5f0469bb42b7f643",
+        "type": "event",
+        "name": "Kings of Tulsa – MultiGP Champs 2025",
+        "summary": "A past MultiGP Championship event held in Tulsa.",
+        "confidence": 1,
+        "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
+        "sourceName": "MultiGP Race Index",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+      },
+      {
+        "id": "9ade1d47a22d91cb",
+        "type": "event",
+        "name": "MultiGP European Championship",
+        "summary": "The first MultiGP European Championship, held in Aichtal.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/multigp-eu-champs-aichtal/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "location": "Aichtal"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "de17bf314febda4a",
+        "type": "event",
+        "name": "Global Qualifier 2026",
+        "summary": "A MultiGP racing series with a schedule and leaderboard.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/globalqualifier",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "7f52f4a5120bc46c",
+        "type": "event",
+        "name": "Regional Series 2026",
+        "summary": "A MultiGP racing series.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/regionalseries/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "2a8fbe9fdf4aef7f",
+        "type": "event",
+        "name": "MultiGP Champs 2025",
+        "summary": "A past MultiGP Championship event known as 'Kings of Tulsa'.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "location_hint": "Tulsa"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "572a5ec5e5e0d985",
+        "type": "event",
+        "name": "Global Qualifier Track Design Contest",
+        "summary": "A contest for designing tracks for the Global Qualifier.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/globalqualifier/2026-gq-track-design-contest/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "496e97132dd16a03",
+        "type": "event",
+        "name": "CDRC 2026",
+        "summary": "The Collegiate Drone Racing Championship (CDRC) for 2026 is the national championship event for the CDRA season.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/cdra/cdrc-2026/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "year": "2026"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      },
+      {
+        "id": "4ce92236101887af",
+        "type": "event",
+        "name": "CDRC 2025",
+        "summary": "The Collegiate Drone Racing Championship (CDRC) for 2025 is a past championship event for the CDRA.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/cdra/cdrc/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "year": "2025"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      },
+      {
+        "id": "8dae60d0038024cf",
+        "type": "event",
+        "name": "Velocidrone Tournament",
+        "summary": "A simulator-based tournament where registered teams can participate, contributing to championship qualification.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "platform": "Velocidrone",
+          "timing": "Held in February"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      }
+    ],
     "calendar": [],
-    "leagues": [],
-    "pilots": [],
-    "teams": [],
-    "tracks": [],
-    "rankings": [],
+    "leagues": [
+      {
+        "id": "2bba78177bc0bda8",
+        "type": "league",
+        "name": "FAI Drone Sports",
+        "summary": "The overarching category for drone-related air sports governed by the Fédération Aéronautique Internationale (FAI).",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.182Z"
+      },
+      {
+        "id": "084fb8185b381bc8",
+        "type": "league",
+        "name": "FAI Drone Racing",
+        "summary": "A specific drone sport discipline under FAI Drone Sports, focused on competitive drone racing.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      },
+      {
+        "id": "72ab7fa52285af58",
+        "type": "league",
+        "name": "FAI E-Drone Racing",
+        "summary": "An online version of drone racing, accessible to a wide audience, with its first World Cup series launched in 2024.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      },
+      {
+        "id": "20ebed8a99ac82b2",
+        "type": "league",
+        "name": "FAI",
+        "summary": "The FAI (Fédération Aéronautique Internationale) is the world governing body for air sports, which includes drone sports.",
+        "confidence": 1,
+        "sourceUrl": "https://droneracing.fai.org/",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:30.028Z"
+      },
+      {
+        "id": "6f3c4ccfe6616654",
+        "type": "league",
+        "name": "MultiGP",
+        "summary": "MultiGP is an FPV racing league organizing various events and series, including Global Qualifiers, College Drone Racing, eSport Series, and Pro Spec Series.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:30.029Z"
+      },
+      {
+        "id": "ef0f9660278e2d1a",
+        "type": "league",
+        "name": "MultiGP",
+        "summary": "MultiGP is described as the largest professional drone racing league in the world, hosting competitive gatherings and casual events.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/about-multigp/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "registered_pilots": "30,000",
+          "active_chapters_worldwide": "500"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "84458b44723ef6bd",
+        "type": "league",
+        "name": "MultiGP",
+        "summary": "MultiGP is a professional drone racing league with over 30,000 registered pilots and 500 active chapters worldwide.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "registered_pilots": "30,000+",
+          "active_chapters": "500+"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      },
+      {
+        "id": "785d3eb0f5d08e1e",
+        "type": "league",
+        "name": "Collegiate Drone Racing Association (CDRA)",
+        "summary": "The Collegiate Drone Racing Association (CDRA) is a league that outlines rules for track setup, drone specifications, team structure, scoring, and championship qualification.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "season_guide_url": "https://www.multigp.com/cdra/cdra-guide-for-pilots-and-organizers/"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      }
+    ],
+    "pilots": [
+      {
+        "id": "0a087bf5ae8b666c",
+        "type": "pilot",
+        "name": "MinJae Kim",
+        "summary": "A Korean pilot who won the FAI Drone Racing World Cup 2024.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {
+          "nationality": "Korean"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      }
+    ],
+    "teams": [
+      {
+        "id": "5a310f5e7361f03a",
+        "type": "team",
+        "name": "Team BlackSheep",
+        "summary": "A sponsor or partner of MultiGP.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.team-blacksheep.com/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "role": "sponsor/partner"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      },
+      {
+        "id": "953c8475b37ee914",
+        "type": "team",
+        "name": "Neros Tech",
+        "summary": "A brand associated with MultiGP, likely a sponsor or partner.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.neros.tech/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "396249f0d26e7fc8",
+        "type": "team",
+        "name": "HDZero",
+        "summary": "A brand associated with MultiGP, likely a sponsor or partner, also mentioned in drone VTX requirements.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.hd-zero.com/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "6a7dc0c8f2463f35",
+        "type": "team",
+        "name": "ToolkitRC",
+        "summary": "A brand associated with MultiGP, likely a sponsor or partner.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.toolkitrc.com/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "6203b36fbce13c04",
+        "type": "team",
+        "name": "Foxeer",
+        "summary": "A brand associated with MultiGP, likely a sponsor or partner.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.foxeer.com/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "143f943ea44c6b52",
+        "type": "team",
+        "name": "Drones In School",
+        "summary": "A brand associated with MultiGP, likely a sponsor or partner.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.dronesinschool.com/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "be26140924f1a065",
+        "type": "team",
+        "name": "Team-BlackSheep",
+        "summary": "A brand associated with MultiGP, likely a sponsor or partner.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.team-blacksheep.com/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      }
+    ],
+    "tracks": [
+      {
+        "id": "90a837dc0510c8e2",
+        "type": "track",
+        "name": "Hangzhou, China",
+        "summary": "The location where the 2024 FAI World Drone Racing Championship took place.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+      },
+      {
+        "id": "956ecf729b5a242d",
+        "type": "track",
+        "name": "Chengdu, People's Republic of China",
+        "summary": "The host city for The World Games 2025, which included Drone Racing.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.185Z"
+      },
+      {
+        "id": "8275601c58026c55",
+        "type": "track",
+        "name": "Muncie",
+        "summary": "The location for the International Open 2026 event.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/io26/",
+        "sourceName": "MultiGP Race Index",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+      },
+      {
+        "id": "f7d129ca9bca387a",
+        "type": "track",
+        "name": "Tulsa",
+        "summary": "The implied location for the Kings of Tulsa – MultiGP Champs 2025 event.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
+        "sourceName": "MultiGP Race Index",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+      },
+      {
+        "id": "168be22d28343c22",
+        "type": "track",
+        "name": "Aichtal",
+        "summary": "The location for the first MultiGP European Championship.",
+        "confidence": 1,
+        "sourceUrl": "https://www.multigp.com/multigp-eu-champs-aichtal/",
+        "sourceName": "MultiGP Race Index",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+      }
+    ],
+    "rankings": [
+      {
+        "id": "bfd14ea9f484dc5e",
+        "type": "ranking",
+        "name": "Wall of Fame",
+        "summary": "A section recognizing notable MultiGP pilots.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/wall-of-fame-multigp-pilots/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      },
+      {
+        "id": "96498a19eb23c55c",
+        "type": "ranking",
+        "name": "2026 Global Qualifier Leaderboard",
+        "summary": "The leaderboard for the 2026 Global Qualifier series.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/2026-global-qualifier-leaderboard/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      },
+      {
+        "id": "c3f646c6724a3f56",
+        "type": "ranking",
+        "name": "2025/26 Pro Spec Leaderboard",
+        "summary": "The current leaderboard for the 2025/26 Pro Spec series.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/prospec/current-leaderboard/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      }
+    ],
     "results": [],
-    "technology": [],
+    "technology": [
+      {
+        "id": "36462b8353f0ba0b",
+        "type": "rule",
+        "name": "FAI Sporting Licence",
+        "summary": "An FAI Sporting Licence, issued by a national FAI member, is required for competitors to participate in FAI sanctioned category 2 drone events.",
+        "confidence": 1,
+        "sourceUrl": "https://droneracing.fai.org/",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "validity": "calendar year of 2026"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:30.028Z"
+      },
+      {
+        "id": "9ad2ca03558de373",
+        "type": "rule",
+        "name": "FAI Permission for Drone Racing",
+        "summary": "An FAI Permission for Drone Racing can be purchased for 10 CHF and is required for competitors without an FAI Sporting Licence to participate in FAI sanctioned category 2 drone events.",
+        "confidence": 1,
+        "sourceUrl": "https://droneracing.fai.org/",
+        "sourceName": "FAI Drone Permission 2026",
+        "attributes": {
+          "cost": "10 CHF",
+          "validity": "calendar year of 2026"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:30.029Z"
+      },
+      {
+        "id": "b21665be41201e5f",
+        "type": "rule",
+        "name": "Rule Book 2026",
+        "summary": "The official rule book for MultiGP events.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/organizer-resources/rule-book/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "f40ced3439407da1",
+        "type": "rule",
+        "name": "Race Class Specifications",
+        "summary": "Detailed specifications for various drone racing classes.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/class-specifications/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "a16780f66f3808e0",
+        "type": "rule",
+        "name": "MultiGP Open Class",
+        "summary": "A specific race class within MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%220%22",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "3a3d0a36f3dfcc0f",
+        "type": "rule",
+        "name": "MultiGP PRO Spec",
+        "summary": "A specific race class within MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=8",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "f6c1d068a82c7246",
+        "type": "rule",
+        "name": "Tiny Whoop",
+        "summary": "A specific race class within MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%221%22",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "b63ebdfffd042afb",
+        "type": "rule",
+        "name": "Freedom Spec",
+        "summary": "A specific race class within MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%223%22",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "3531e32fbada9477",
+        "type": "rule",
+        "name": "Micro",
+        "summary": "A specific race class within MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%222%22",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "bb686bf1d88a85ff",
+        "type": "rule",
+        "name": "Mega Class",
+        "summary": "A specific race class within MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%225%22",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "aae46680b8c961fd",
+        "type": "rule",
+        "name": "Velocidrone",
+        "summary": "A specific race class within MultiGP, likely for simulator racing.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=%226%22",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "a8fc859cbdb848c2",
+        "type": "rule",
+        "name": "7\"SPEC",
+        "summary": "A specific race class within MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=4",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "d29e2a09f689ecb4",
+        "type": "rule",
+        "name": "5\"SPEC",
+        "summary": "A specific race class within MultiGP.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=7",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "fe97cd2ea8a2fd52",
+        "type": "rule",
+        "name": "E-Sport",
+        "summary": "A specific race class within MultiGP for eSport events.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/races/multigp-events/?raceClass=6",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.477Z"
+      },
+      {
+        "id": "8690d9ee201cb4f2",
+        "type": "rule",
+        "name": "CDRA 2026 Track Setup Rules",
+        "summary": "Rules for track setup specify that gates must be no larger than 7 feet wide and 6 feet tall, and flags must be at least 8 feet tall.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "gate_max_width": "7 feet",
+          "gate_max_height": "6 feet",
+          "flag_min_height": "8 feet"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      },
+      {
+        "id": "28bd7074a34eeef3",
+        "type": "rule",
+        "name": "CDRA 2026 Drone Specification Rules",
+        "summary": "Drone specifications for the 2026 championship include a maximum frame size of 305mm, max 6S battery cell count, max 6-inch propeller size, and a minimum of 4 LEDs required on all aircraft.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "max_frame_size": "305mm",
+          "max_battery_cell_count": "6S",
+          "max_propeller_size": "6 inches",
+          "vtx_requirements": "25mw Raceband or HDZero for National Championship",
+          "led_requirements": "Minimum 4 static LEDs, ideally RGB switchable, on aircraft for championship"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      },
+      {
+        "id": "39590cd1859deff7",
+        "type": "rule",
+        "name": "CDRA 2026 Team Rules",
+        "summary": "Teams have no maximum number of pilots, but only the three fastest pilot scores are used for team qualification.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "max_pilots_per_team": "unlimited",
+          "scoring_pilots_per_team": "3"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      },
+      {
+        "id": "41db2d6daf373744",
+        "type": "rule",
+        "name": "CDRA 2026 Scoring Rules",
+        "summary": "Pilots submit their fastest three consecutive lap times, which are converted to a point value using the formula 'score = 100 / time', and team scores are the sum of the three highest pilot scores.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "individual_submission": "fastest three consecutive lap times",
+          "lap_time_recording": "spotter with timer or onboard DVR",
+          "individual_score_formula": "100 / time",
+          "team_score_calculation": "sum of three highest pilot scores"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      },
+      {
+        "id": "155fe45cbe42a787",
+        "type": "rule",
+        "name": "CDRA 2026 Qualification Rules",
+        "summary": "Qualification for the championship involves the top 10 IRL teams and top 3 Velocidrone teams by the end of February, with remaining spots filled by individual rankings, and requires AMA membership for all participating pilots.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/rules/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "irl_team_qualification": "Top 10 teams by end of February",
+          "velocidrone_team_qualification": "Top 3 teams",
+          "individual_qualification": "Remaining spots from IRL then Velocidrone leaderboards",
+          "championship_pilot_limit": "6 qualified pilots per team",
+          "mandatory_membership": "Academy of Model Aeronautics (AMA) for championship pilots"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.072Z"
+      }
+    ],
     "academy": [],
     "history": [],
     "news": [],
-    "media": [],
+    "media": [
+      {
+        "id": "d08bc0142a2e4474",
+        "type": "media",
+        "name": "FAI Drone Sports Pictures",
+        "summary": "A Flickr collection of images related to FAI Drone Sports.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.flickr.com/photos/airsports_fai/collections/72157701426085444/",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {
+          "platform": "Flickr",
+          "contentType": "pictures"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.185Z"
+      },
+      {
+        "id": "4c358064a16b7ef3",
+        "type": "media",
+        "name": "FAI Drone Sports Videos",
+        "summary": "A YouTube playlist featuring videos related to FAI Drone Sports.",
+        "confidence": 0.8,
+        "sourceUrl": "https://youtube.com/playlist?list=PLyXQtZ_gjrxA2nG_HKUUBiAVNJldPoQR6&feature=shared",
+        "sourceName": "FAI Drone Sports Event Calendar",
+        "attributes": {
+          "platform": "YouTube",
+          "contentType": "videos"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:16:04.185Z"
+      },
+      {
+        "id": "8a9254f6ba20ed57",
+        "type": "media",
+        "name": "RaceSync App",
+        "summary": "A mobile application used for race management.",
+        "confidence": 0.9,
+        "sourceUrl": "https://apps.apple.com/us/app/racesync/id1491110680",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {
+          "platform": "iOS"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      },
+      {
+        "id": "6a295153b604d6de",
+        "type": "media",
+        "name": "ZippyQ",
+        "summary": "A tool provided by MultiGP, likely for race organization.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.multigp.com/zippyq/",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      },
+      {
+        "id": "97b68a14de40ae0f",
+        "type": "media",
+        "name": "MultiGP Discord",
+        "summary": "MultiGP's official Discord channel for community interaction.",
+        "confidence": 0.9,
+        "sourceUrl": "https://discord.gg/k6jg563yr3",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      },
+      {
+        "id": "886ebc20acc81c3e",
+        "type": "media",
+        "name": "MultiGP Facebook",
+        "summary": "Official Facebook page for MultiGP Drone Racing.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.facebook.com/MultiGPDroneRacing",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "platform": "Facebook"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "42b81d5668888b86",
+        "type": "media",
+        "name": "MultiGP Instagram",
+        "summary": "Official Instagram profile for MultiGP.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.instagram.com/multigp/",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "platform": "Instagram"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "98bc6e0599d3020f",
+        "type": "media",
+        "name": "MultiGP TikTok",
+        "summary": "Official TikTok account for MultiGP Racing.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.tiktok.com/@multigp_racing",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "platform": "TikTok"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "6a113bf5cb7e7a81",
+        "type": "media",
+        "name": "MultiGP Youtube",
+        "summary": "MultiGP's official YouTube channel.",
+        "confidence": 0.9,
+        "sourceUrl": "https://www.youtube.com/channel/UCg1di6tix5Ivs-InWnVm9EQ",
+        "sourceName": "MultiGP Chapters",
+        "attributes": {},
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+      },
+      {
+        "id": "e7b0e47fa71c9764",
+        "type": "media",
+        "name": "MultiGP Discord",
+        "summary": "Official Discord channel for MultiGP.",
+        "confidence": 0.8,
+        "sourceUrl": "https://discord.com/invite/GU3GkqQyDW",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "platform": "Discord"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      },
+      {
+        "id": "c57500ac6bf20ddb",
+        "type": "media",
+        "name": "MultiGP YouTube",
+        "summary": "Official YouTube channel for MultiGP.",
+        "confidence": 0.8,
+        "sourceUrl": "https://www.youtube.com/@MultiGP1",
+        "sourceName": "MultiGP Rule Book 2026",
+        "attributes": {
+          "platform": "YouTube"
+        },
+        "reviewStatus": "pending-review",
+        "lastVerifiedAt": "2026-06-06T09:17:53.073Z"
+      }
+    ],
     "hallOfFame": [],
     "futureSystems": []
   },
-  "contentBriefs": [],
+  "contentBriefs": [
+    {
+      "contentType": "calendar-update",
+      "title": "FAI Drone Racing Calendar Update: 2024 WDRC Recap and 2025 World Games Dates",
+      "slug": "fai-drone-racing-calendar-update-2024-wdrc-recap-2025-world-games-dates",
+      "angle": "Highlight key past and upcoming FAI Drone Racing events, focusing on championship dates and locations.",
+      "priority": "high",
+      "targetSection": "calendar",
+      "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+      "reviewRequired": true,
+      "id": "b5768e1aff60f7bb",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:16:04.188Z"
+    },
+    {
+      "contentType": "pilot-profile",
+      "title": "MinJae Kim: Champion of the FAI Drone Racing World Cup 2024",
+      "slug": "minjae-kim-fai-drone-racing-world-cup-2024-champion",
+      "angle": "Announce the winner of the 2024 FAI Drone Racing World Cup and briefly introduce the pilot.",
+      "priority": "medium",
+      "targetSection": "news",
+      "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+      "reviewRequired": true,
+      "id": "62375f7cd5fb59a1",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:16:04.189Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "FAI Outlines 2026 Drone Racing Permission and Licensing Requirements",
+      "slug": "fai-2026-drone-racing-permission-licensing",
+      "angle": "Essential guide for pilots planning to compete in FAI sanctioned events in 2026, detailing the required FAI Sporting Licence or FAI Permission for Drone Racing.",
+      "priority": "high",
+      "targetSection": "Rules & Regulations",
+      "sourceUrl": "https://droneracing.fai.org/",
+      "reviewRequired": true,
+      "id": "ef9ac36fb2230210",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:16:30.029Z"
+    },
+    {
+      "contentType": "event-preview",
+      "title": "FAI Confirms 15 Drone Racing World Cup Events for 2026 Season",
+      "slug": "fai-15-drone-racing-world-cup-2026",
+      "angle": "An overview of the FAI's commitment to drone racing with a significant number of sanctioned World Cup events planned for the upcoming 2026 calendar year.",
+      "priority": "medium",
+      "targetSection": "Event News",
+      "sourceUrl": "https://droneracing.fai.org/",
+      "reviewRequired": true,
+      "id": "67e00e27c30c05dc",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:16:30.029Z"
+    },
+    {
+      "contentType": "event-preview",
+      "title": "MultiGP Unveils Extensive 2026 Racing Calendar Including Global Qualifiers and New Series",
+      "slug": "multigp-2026-racing-calendar-global-qualifiers",
+      "angle": "A look at MultiGP's diverse offerings for the 2026 season, catering to various skill levels and interests with events like the Global Qualifier Class B, College Drone Racing, eSport Series, and Pro Spec Series.",
+      "priority": "high",
+      "targetSection": "Event News",
+      "sourceUrl": "knowledge",
+      "reviewRequired": true,
+      "id": "145028c62f82b99d",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:16:30.029Z"
+    },
+    {
+      "contentType": "calendar-update",
+      "title": "MultiGP 2026 Season Preview: International Open and Key Series Announced",
+      "slug": "multigp-2026-season-preview",
+      "angle": "Highlight upcoming major events and series for the 2026 MultiGP racing season, including the International Open and various competitive series.",
+      "priority": "high",
+      "targetSection": "calendar",
+      "sourceUrl": "https://www.multigp.com/races/",
+      "reviewRequired": true,
+      "id": "50d7c051fdfb5de8",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:16:50.908Z"
+    },
+    {
+      "contentType": "event-preview",
+      "title": "International Open 2026 Announced for Muncie",
+      "slug": "multigp-international-open-2026-muncie",
+      "angle": "Preview of MultiGP's upcoming major event, the International Open 2026, including its date and location.",
+      "priority": "high",
+      "targetSection": "events",
+      "sourceUrl": "https://www.multigp.com/io26/",
+      "reviewRequired": true,
+      "id": "69b0f6ac546aba7d",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:25.478Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "CDRC 2026 Report Released by MultiGP",
+      "slug": "cdrc-2026-report-multigp",
+      "angle": "Summary of the College Drone Racing 2026 event, as detailed in the official report.",
+      "priority": "medium",
+      "targetSection": "news",
+      "sourceUrl": "https://www.multigp.com/cdrc-2026-report/",
+      "reviewRequired": true,
+      "id": "633f3a5ebb2e4765",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:25.478Z"
+    },
+    {
+      "contentType": "race-tech",
+      "title": "RaceSync iOS App Updates to v1.8.2",
+      "slug": "racesync-ios-update-v1-8-2",
+      "angle": "Details on the latest update for the RaceSync iOS application, version 1.8.2.",
+      "priority": "medium",
+      "targetSection": "news",
+      "sourceUrl": "https://www.multigp.com/racesync-ios-update-v-1-8-2/",
+      "reviewRequired": true,
+      "id": "6fbb37e1c6553571",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:25.479Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "Kings of Tulsa: MultiGP Champs 2025 Recap",
+      "slug": "kings-of-tulsa-multigp-champs-2025-recap",
+      "angle": "A recap of the MultiGP Championship 2025 event, 'Kings of Tulsa'.",
+      "priority": "high",
+      "targetSection": "news",
+      "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
+      "reviewRequired": true,
+      "id": "416c5fc0bd0aa2f8",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:25.479Z"
+    },
+    {
+      "contentType": "result-recap",
+      "title": "History Made in Aichtal: First MultiGP European Championship",
+      "slug": "multigp-eu-champs-aichtal-history-made",
+      "angle": "Highlights from the inaugural MultiGP European Championship held in Aichtal.",
+      "priority": "high",
+      "targetSection": "news",
+      "sourceUrl": "https://www.multigp.com/multigp-eu-champs-aichtal/",
+      "reviewRequired": true,
+      "id": "bd438758dcff2c95",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:25.479Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "MultiGP Chapters: Benefits and How to Start One",
+      "slug": "multigp-chapters-benefits-start",
+      "angle": "An overview of MultiGP's chapter system, including benefits for pilots and organizers, and how to start a new chapter.",
+      "priority": "medium",
+      "targetSection": "chapters",
+      "sourceUrl": "https://www.multigp.com/chapters/chapter-benefits/",
+      "reviewRequired": true,
+      "id": "bb3a047bf983ae6e",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:25.479Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "MultiGP 2026 Series Overview: Global Qualifier, Regional, eSport, and Pro Spec",
+      "slug": "multigp-2026-series-overview",
+      "angle": "An overview of the various racing series planned by MultiGP for 2026, including Global Qualifier, Regional Series, eSport, and Pro Spec.",
+      "priority": "medium",
+      "targetSection": "races",
+      "sourceUrl": "https://www.multigp.com/races/multigp-series/",
+      "reviewRequired": true,
+      "id": "081b9d2209fb23d3",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:25.479Z"
+    },
+    {
+      "contentType": "league-update",
+      "title": "MultiGP CDRA 2026 Rules Overview: What Pilots and Teams Need to Know",
+      "slug": "multigp-cdra-2026-rules-overview",
+      "angle": "A comprehensive summary of the 2026 Collegiate Drone Racing Association (CDRA) rules, covering track setup, drone specifications, team structure, scoring, and championship qualification criteria.",
+      "priority": "high",
+      "targetSection": "rules",
+      "sourceUrl": "https://www.multigp.com/rules/",
+      "reviewRequired": true,
+      "id": "acb44adb95b67b93",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:53.073Z"
+    },
+    {
+      "contentType": "event-preview",
+      "title": "Path to Glory: How to Qualify for the MultiGP CDRC 2026 Championship",
+      "slug": "multigp-cdrc-2026-qualification-guide",
+      "angle": "An in-depth look at the qualification process for the Collegiate Drone Racing Championship (CDRC) 2026, detailing how teams and individual pilots can secure their spot through IRL and Velocidrone leaderboards, including key deadlines and requirements.",
+      "priority": "medium",
+      "targetSection": "championship",
+      "sourceUrl": "https://www.multigp.com/rules/",
+      "reviewRequired": true,
+      "id": "0c59ff27803410fe",
+      "reviewStatus": "pending-review",
+      "createdAt": "2026-06-06T09:17:53.073Z"
+    }
+  ],
   "workflowRuns": [
+    {
+      "id": "0c3ed509883f7410",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.multigp.com/rules/",
+      "sourceName": "MultiGP Rule Book 2026",
+      "workflowRunId": "e9723cd2-c588-4262-8c52-f5a3776cbb70",
+      "totalTokens": 8937,
+      "warnings": [
+        "The exact day in February for the Velocidrone Tournament is not specified.",
+        "The exact day in September for the 2026 Season Track Release is not specified, and the year (2025 for 2026 season) is implied rather than explicitly stated."
+      ],
+      "createdAt": "2026-06-06T09:17:53.073Z"
+    },
+    {
+      "id": "e4e56aebd8d51dc2",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.multigp.com/chapters/",
+      "sourceName": "MultiGP Chapters",
+      "workflowRunId": "f51c75a4-a623-483d-a3dd-0d4dd43b1e00",
+      "totalTokens": 12765,
+      "warnings": [],
+      "createdAt": "2026-06-06T09:17:25.479Z"
+    },
+    {
+      "id": "8644cb3bf2e283b2",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.multigp.com/races/",
+      "sourceName": "MultiGP Race Index",
+      "workflowRunId": "abae6c33-b109-4323-a73d-24589d298dec",
+      "totalTokens": 9924,
+      "warnings": [],
+      "createdAt": "2026-06-06T09:16:50.908Z"
+    },
+    {
+      "id": "c6ecbfa091763a10",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://droneracing.fai.org/",
+      "sourceName": "FAI Drone Permission 2026",
+      "workflowRunId": "11445e31-7ca3-4cb7-83b5-fecefdff606a",
+      "totalTokens": 6514,
+      "warnings": [
+        "Specific dates and locations for the 15 FAI Drone Racing World Cup events in 2026 are not detailed in the provided source, only a link to the FAI calendar.",
+        "The exact event dates for MultiGP Global Qualifier Class B, College Drone Racing 2026, eSport Series 2026, and Pro Spec 2026 Series are not provided, only the registration date for the MultiGP Global Qualifier Class B."
+      ],
+      "createdAt": "2026-06-06T09:16:30.029Z"
+    },
+    {
+      "id": "6b30d4e8baec03d9",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
+      "sourceName": "FAI Drone Sports Event Calendar",
+      "workflowRunId": "f338d34d-c387-4dd6-bc65-c6c00d9da816",
+      "totalTokens": 8785,
+      "warnings": [
+        "The FAI Drone Racing World Cup 2025 is stated to have 'now started!' but no specific start or end dates are provided, only the year."
+      ],
+      "createdAt": "2026-06-06T09:16:04.189Z"
+    },
     {
       "id": "0be96e3aec6df7d2",
       "workflowName": "racingIntelligenceOrchestrator",
