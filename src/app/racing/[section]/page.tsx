@@ -182,16 +182,57 @@ export default async function RacingSectionPage({ params }: PageProps) {
           </Panel>
         )}
 
-        <Panel title="SEO cluster" label="Search surface">
-          <ul className="space-y-3">
-            {section.seoTargets.map((target) => (
-              <li key={target} className="flex items-center justify-between gap-3 rounded-sm border border-white/8 bg-black/30 p-3">
-                <span className="text-sm text-[#d8d5cf]">{target}</span>
-                <span className="font-mono text-[9px] uppercase tracking-wider text-[#00f2ff]">target</span>
-              </li>
-            ))}
-          </ul>
-        </Panel>
+        {storeData.length > 0 ? (
+          <Panel title={`${section.title} data`} label={`${storeData.length} records`} className="w-full">
+            <div className="space-y-2 max-h-[400px] overflow-y-auto">
+              {storeData.slice(0, 15).map((item: any, i: number) => (
+                <div key={i} className="rounded-sm border border-white/8 bg-black/30 p-3 flex items-start gap-3">
+                  {item.position && <span className="font-mono text-lg font-black text-[#ff5a1f] shrink-0 w-8">#{item.position}</span>}
+                  <div className="flex-1 min-w-0">
+                    {item.name && <h3 className="text-sm font-black text-white">{item.name}</h3>}
+                    {item.pilot && <h3 className="text-sm font-black text-white">{item.pilot}</h3>}
+                    {item.event && <h3 className="text-sm font-black text-white">{item.event}</h3>}
+                    {item.title && <h3 className="text-sm font-black text-white">{item.title}</h3>}
+                    {item.summary && <p className="mt-1 text-xs text-[#9f9a91]">{item.summary}</p>}
+                    {item.achievement && <p className="mt-1 text-xs text-[#9f9a91]">{item.achievement}</p>}
+                    {item.reason && <p className="mt-1 text-xs text-[#9f9a91]">{item.reason}</p>}
+                    {item.description && <p className="mt-1 text-xs text-[#9f9a91]">{item.description}</p>}
+                    <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
+                      {item.nationality && <span className="font-mono text-[10px] text-white/40">{item.nationality}</span>}
+                      {item.team && <span className="font-mono text-[10px] text-white/40">{item.team}</span>}
+                      {item.league && <span className="font-mono text-[10px] text-[#00f2ff]">{item.league}</span>}
+                      {item.country && <span className="font-mono text-[10px] text-white/40">{item.country}</span>}
+                      {item.years_active && <span className="font-mono text-[10px] text-white/40">{item.years_active}</span>}
+                      {item.specialty && <span className="font-mono text-[10px] text-[#00ff66]">{item.specialty}</span>}
+                      {item.points && <span className="font-mono text-[10px] text-[#00ff66]">{item.points} pts</span>}
+                      {item.trend && <span className="font-mono text-[9px] text-white/30 uppercase">· {item.trend}</span>}
+                      {item.type && <span className="font-mono text-[9px] text-white/30 uppercase">· {item.type}</span>}
+                      {item.year && <span className="font-mono text-[9px] text-[#00f2ff]">· {item.year}</span>}
+                      {item.date && <span className="font-mono text-[10px] text-[#00ff66]">{item.date}</span>}
+                      {item.location && <span className="font-mono text-[10px] text-[#00f2ff]">{item.location}</span>}
+                      {item.difficulty && <span className="font-mono text-[10px] text-white/40">· {item.difficulty}</span>}
+                      {item.inducted && <span className="font-mono text-[10px] text-[#ff5a1f]">Inducted {item.inducted}</span>}
+                      {item.category && <span className="font-mono text-[10px] text-white/40">{item.category}</span>}
+                      {item.system && <span className="font-mono text-[10px] text-[#00ff66]">{item.system}</span>}
+                      {item.status && <span className="font-mono text-[9px] text-[#ff9b71] uppercase">{item.status}</span>}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </Panel>
+        ) : (
+          <Panel title="SEO cluster" label="Search surface">
+            <ul className="space-y-3">
+              {section.seoTargets.map((target) => (
+                <li key={target} className="flex items-center justify-between gap-3 rounded-sm border border-white/8 bg-black/30 p-3">
+                  <span className="text-sm text-[#d8d5cf]">{target}</span>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-[#00f2ff]">target</span>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        )}
       </section>
 
       <section className="mt-4 grid gap-4 xl:grid-cols-[1fr_1fr_0.9fr]">
