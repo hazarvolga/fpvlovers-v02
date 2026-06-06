@@ -140,17 +140,22 @@ export default async function RacingSectionPage({ params }: PageProps) {
               {storeData.slice(0, 10).map((item: any, i: number) => (
                 <div key={i} className="rounded-sm border border-white/8 bg-black/30 p-4">
                   {item.name && <h3 className="text-sm font-black text-white">{item.name}</h3>}
+                  {item.pilot && <h3 className="text-sm font-black text-white">{item.pilot}</h3>}
                   {item.event && <h3 className="text-sm font-black text-white">{item.event}</h3>}
                   {item.title && <h3 className="text-sm font-black text-white">{item.title}</h3>}
                   {item.summary && <p className="mt-1 text-xs text-[#9f9a91]">{item.summary}</p>}
                   {item.achievement && <p className="mt-1 text-xs text-[#9f9a91]">{item.achievement}</p>}
+                  {item.reason && <p className="mt-1 text-xs text-[#9f9a91]">{item.reason}</p>}
                   {item.description && <p className="mt-1 text-xs text-[#9f9a91]">{item.description}</p>}
                   {item.location && <p className="mt-1 font-mono text-[10px] text-[#00f2ff]">{item.location}{item.country ? ' · ' + item.country : ''}</p>}
                   {item.league && <p className="mt-1 font-mono text-[10px] text-white/40">{item.league}{item.difficulty ? ' · ' + item.difficulty : ''}</p>}
                   {item.nationality && <p className="mt-1 font-mono text-[10px] text-white/40">{item.nationality}{item.team ? ' · ' + item.team : ''}</p>}
+                  {item.years_active && <p className="mt-1 font-mono text-[10px] text-white/40">{item.years_active}</p>}
+                  {item.specialty && <p className="mt-1 font-mono text-[10px] text-[#00f2ff]">{item.specialty}</p>}
                   {item.date && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.date}</p>}
-                  {item.position && <span className="font-mono text-sm text-[#ff5a1f] font-black">#{item.position}</span>}
-                  {item.points && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.points} pts</p>}
+                  {item.position && <span className="font-mono text-sm text-[#ff5a1f] font-black mr-2">#{item.position}</span>}
+                  {item.points && <span className="font-mono text-[10px] text-[#00ff66]">{item.points} pts</span>}
+                  {item.trend && <span className="ml-2 font-mono text-[9px] text-white/30 uppercase">{item.trend}</span>}
                   {item.type && <span className="mt-1 inline-block font-mono text-[9px] text-white/30 uppercase">{item.type}</span>}
                   {item.year && <span className="mt-1 inline-block font-mono text-[9px] text-[#00f2ff] ml-2">{item.year}</span>}
                   {item.inducted && <p className="mt-1 font-mono text-[10px] text-[#ff5a1f]">Inducted: {item.inducted}</p>}
