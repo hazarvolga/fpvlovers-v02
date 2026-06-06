@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T12:48:23Z",
+  "generated_at": "2026-06-06T13:06:16Z",
   "source": "racing-intelligence-orchestrator",
   "sections": {
     "events": [
@@ -784,20 +784,16 @@
         "team": "Team South Korea",
         "achievement": "FAI Drone Racing World Cup 2024 Champion",
         "years_active": "2020-2026",
-        "specialty": "Technical racing",
-        "sourceUrl": "https://www.fai.org/world-cups/drone-racing-2025",
-        "confidence": 0.95
+        "specialty": "Technical racing"
       },
       {
         "name": "Alex Vanover",
         "nationality": "United States",
-        "league": "DCL",
+        "league": "DCL/MultiGP",
         "team": "Quad Force One",
-        "achievement": "DCL Champion, MultiGP Championship Winner, 2x Drone Racing League Medalist",
+        "achievement": "DCL Champion, MultiGP Champion, 2x DRL Medalist",
         "years_active": "2016-2026",
-        "specialty": "Aggressive freestyle + racing",
-        "sourceUrl": "https://dronechampionsleague.com/",
-        "confidence": 0.95
+        "specialty": "Aggressive freestyle + racing"
       },
       {
         "name": "Thomas Bitmatta",
@@ -806,42 +802,34 @@
         "team": "Team Australia",
         "achievement": "DCL 2024-25 Series Champion",
         "years_active": "2018-2026",
-        "specialty": "Precision racing",
-        "sourceUrl": "https://dronechampionsleague.com/",
-        "confidence": 0.9
+        "specialty": "Precision racing"
       },
       {
         "name": "Killian Rousseau",
         "nationality": "France",
         "league": "FAI",
         "team": "Team France",
-        "achievement": "FAI Drone Racing World Cup 2025 Finalist, MultiGP France Champion",
+        "achievement": "FAI DWC 2025 Finalist, MultiGP France Champion",
         "years_active": "2019-2026",
-        "specialty": "High-speed cornering",
-        "sourceUrl": "https://www.fai.org/world-cups/drone-racing-2025",
-        "confidence": 0.85
+        "specialty": "High-speed cornering"
       },
       {
         "name": "Evan Turner",
         "nationality": "United States",
         "league": "MultiGP",
-        "team": "Team MultiGP USA",
+        "team": "Team USA",
         "achievement": "MultiGP National Champion, 3x Regional Winner",
         "years_active": "2017-2026",
-        "specialty": "Gate precision",
-        "sourceUrl": "https://www.multigp.com/",
-        "confidence": 0.85
+        "specialty": "Gate precision"
       },
       {
         "name": "Pawel Laszczak",
         "nationality": "Poland",
         "league": "DCL",
         "team": "Team Poland",
-        "achievement": "DCL Championship Finalist, Polish National Champion",
+        "achievement": "DCL Finalist, Polish National Champion",
         "years_active": "2018-2026",
-        "specialty": "Track adaptation",
-        "sourceUrl": "https://dronechampionsleague.com/",
-        "confidence": 0.85
+        "specialty": "Track adaptation"
       },
       {
         "name": "Oscar Nilsson",
@@ -850,20 +838,16 @@
         "team": "Team Sweden",
         "achievement": "Swedish National Champion, FAI World Cup medalist",
         "years_active": "2019-2026",
-        "specialty": "Low-altitude racing",
-        "sourceUrl": "https://www.fai.org/world-cups/drone-racing",
-        "confidence": 0.8
+        "specialty": "Low-altitude racing"
       },
       {
         "name": "Bapu Madhu",
         "nationality": "India",
-        "league": "MultiGP",
+        "league": "MultiGP/IDRL",
         "team": "Team India FPV",
         "achievement": "IDRL Champion, Indian National Racing Champion",
         "years_active": "2019-2026",
-        "specialty": "Sim-to-real transition",
-        "sourceUrl": "https://www.multigp.com/",
-        "confidence": 0.8
+        "specialty": "Sim-to-real transition"
       },
       {
         "name": "Stefano Bonaldo",
@@ -872,20 +856,151 @@
         "team": "F9U Italy",
         "achievement": "Italian National Champion, F9U Italy Series Winner",
         "years_active": "2019-2026",
-        "specialty": "Technical tracks",
-        "sourceUrl": "https://f9u.it/",
-        "confidence": 0.8
+        "specialty": "Technical tracks"
       },
       {
         "name": "Brian van Hout",
         "nationality": "Netherlands",
         "league": "DDR",
         "team": "Dutch Drone Racing Team",
-        "achievement": "Dutch National Racing Champion, NK Drone Racing medalist",
+        "achievement": "Dutch National Racing Champion",
         "years_active": "2018-2026",
-        "specialty": "Gate management",
-        "sourceUrl": "https://dutchdroneracing.com/",
-        "confidence": 0.85
+        "specialty": "Gate management"
+      },
+      {
+        "name": "Shaun Taylor (Nytfury)",
+        "nationality": "United Kingdom",
+        "league": "DRL/MultiGP",
+        "team": "Nytfury Racing",
+        "achievement": "MultiGP Champion, DRL Race Winner, Content Creator",
+        "years_active": "2015-2026",
+        "specialty": "All-around racing"
+      },
+      {
+        "name": "Gab707 (Gabriel Kocher)",
+        "nationality": "Canada",
+        "league": "DRL",
+        "team": "Team Canada",
+        "achievement": "DRL Championship Finalist, Long-range pioneer",
+        "years_active": "2016-2026",
+        "specialty": "Mountain/long-range racing"
+      },
+      {
+        "name": "Wild Willy (Willy Espinoza)",
+        "nationality": "United States",
+        "league": "DRL",
+        "team": "DRL Pro",
+        "achievement": "DRL Championship contender, freestyle-to-racing crossover",
+        "years_active": "2017-2026",
+        "specialty": "Freestyle-racing hybrid"
+      },
+      {
+        "name": "Brett Collis",
+        "nationality": "Australia",
+        "league": "DCL/DRL",
+        "team": "Team Australia",
+        "achievement": "DCL Finalist, Australian Champion",
+        "years_active": "2018-2026",
+        "specialty": "Consistent podium finishes"
+      },
+      {
+        "name": "Headbang (Luis G)",
+        "nationality": "Mexico",
+        "league": "MultiGP",
+        "team": "Team Mexico",
+        "achievement": "MultiGP International medalist, Mexican Champion",
+        "years_active": "2018-2026",
+        "specialty": "Aggressive racing style"
+      },
+      {
+        "name": "BubbyFPV (Jake Schneider)",
+        "nationality": "United States",
+        "league": "MultiGP/DRL",
+        "team": "Team USA",
+        "achievement": "MultiGP Regional Champion, DRL qualifier",
+        "years_active": "2019-2026",
+        "specialty": "Technical tracks"
+      },
+      {
+        "name": "JET (Jordan Tempkin)",
+        "nationality": "United States",
+        "league": "DRL",
+        "team": "DRL Pro",
+        "achievement": "DRL Championship Finalist",
+        "years_active": "2018-2026",
+        "specialty": "Speed and consistency"
+      },
+      {
+        "name": "Amari (Amari Edwards)",
+        "nationality": "United States",
+        "league": "MultiGP/DRL",
+        "team": "Team USA",
+        "achievement": "MultiGP Championship Finalist, rising star",
+        "years_active": "2020-2026",
+        "specialty": "Youth/rising talent"
+      },
+      {
+        "name": "MacDaddyFPV",
+        "nationality": "United States",
+        "league": "MultiGP",
+        "team": "Team USA",
+        "achievement": "MultiGP International Finalist",
+        "years_active": "2019-2026",
+        "specialty": "Consistent qualifier"
+      },
+      {
+        "name": "MCK (Yuki McKinnon)",
+        "nationality": "Japan",
+        "league": "DRL/DCL",
+        "team": "Team Japan",
+        "achievement": "Japanese National Champion, International competitor",
+        "years_active": "2019-2026",
+        "specialty": "Precision and speed"
+      },
+      {
+        "name": "Marvin Schapper",
+        "nationality": "Germany",
+        "league": "DCL/FAI",
+        "team": "Team Germany",
+        "achievement": "German National Champion, DCL competitor",
+        "years_active": "2018-2026",
+        "specialty": "Technical racing"
+      },
+      {
+        "name": "Kevin K. (SFPV)",
+        "nationality": "South Korea",
+        "league": "FAI",
+        "team": "Team South Korea",
+        "achievement": "FAI DWC Finalist, Korean Champion",
+        "years_active": "2019-2026",
+        "specialty": "Gate precision"
+      },
+      {
+        "name": "Rafal (DroneRacingFPV)",
+        "nationality": "Poland",
+        "league": "DCL",
+        "team": "Team Poland",
+        "achievement": "Polish Vice-Champion, DCL competitor",
+        "years_active": "2018-2026",
+        "specialty": "Simulator-to-real"
+      },
+      {
+        "name": "Cody Matson",
+        "nationality": "Canada",
+        "league": "MultiGP",
+        "team": "Team Canada",
+        "achievement": "Canadian National Champion",
+        "years_active": "2019-2026",
+        "specialty": "Race strategy"
+      },
+      {
+        "name": "AyyyKayyy (Aaron K)",
+        "nationality": "United States",
+        "league": "MultiGP",
+        "team": "Team USA",
+        "achievement": "MultiGP Regional Champion, DRL competitor",
+        "years_active": "2018-2026",
+        "specialty": "All-weather racing"
       }
     ],
     "teams": [
@@ -1371,6 +1486,14 @@
         "trend": "up"
       },
       {
+        "position": 3,
+        "pilot": "Alex Vanover",
+        "league": "FAI DWC 2024",
+        "points": 1120,
+        "country": "USA",
+        "trend": "stable"
+      },
+      {
         "position": 1,
         "pilot": "Thomas Bitmatta",
         "league": "DCL 2024-25",
@@ -1379,12 +1502,36 @@
         "trend": "stable"
       },
       {
+        "position": 2,
+        "pilot": "Pawel Laszczak",
+        "league": "DCL 2024-25",
+        "points": 1950,
+        "country": "Poland",
+        "trend": "up"
+      },
+      {
+        "position": 3,
+        "pilot": "Brett Collis",
+        "league": "DCL 2024-25",
+        "points": 1820,
+        "country": "Australia",
+        "trend": "stable"
+      },
+      {
         "position": 1,
-        "pilot": "Alex Vanover",
+        "pilot": "Evan Turner",
         "league": "MultiGP 2024",
         "points": 980,
         "country": "USA",
-        "trend": "stable"
+        "trend": "up"
+      },
+      {
+        "position": 2,
+        "pilot": "BubbyFPV",
+        "league": "MultiGP 2024",
+        "points": 890,
+        "country": "USA",
+        "trend": "up"
       },
       {
         "position": 1,
@@ -1400,6 +1547,22 @@
         "league": "F9U Italy 2025",
         "points": 380,
         "country": "Italy",
+        "trend": "stable"
+      },
+      {
+        "position": 1,
+        "pilot": "Marvin Schapper",
+        "league": "German Open 2025",
+        "points": 520,
+        "country": "Germany",
+        "trend": "up"
+      },
+      {
+        "position": 1,
+        "pilot": "Oscar Nilsson",
+        "league": "Swedish Nationals 2025",
+        "points": 340,
+        "country": "Sweden",
         "trend": "stable"
       }
     ],
