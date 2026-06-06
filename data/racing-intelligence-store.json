@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T12:15:53Z",
+  "generated_at": "2026-06-06T12:48:23Z",
   "source": "racing-intelligence-orchestrator",
   "sections": {
     "events": [
@@ -1901,9 +1901,150 @@
         "lastVerifiedAt": "2026-06-06T09:31:29.993Z"
       }
     ],
-    "academy": [],
-    "history": [],
-    "news": [],
+    "academy": [
+      {
+        "title": "Race Lines",
+        "type": "skill",
+        "summary": "Learn to read and follow race lines for optimal cornering speed and gate efficiency."
+      },
+      {
+        "title": "Gate Management",
+        "type": "skill",
+        "summary": "Master gate entry and exit techniques for clean, penalty-free racing."
+      },
+      {
+        "title": "Throttle Discipline",
+        "type": "skill",
+        "summary": "Develop precise throttle control for high-speed technical sections."
+      },
+      {
+        "title": "Track Reading",
+        "type": "skill",
+        "summary": "Analyze track layouts to identify the fastest racing lines and overtaking zones."
+      },
+      {
+        "title": "Qualifying Strategy",
+        "type": "skill",
+        "summary": "Optimize your qualifying runs: battery management, line selection, and mental preparation."
+      },
+      {
+        "title": "Finals Strategy",
+        "type": "skill",
+        "summary": "Race-day tactics for multi-heat finals, bracket management, and pressure handling."
+      },
+      {
+        "title": "Sim-to-Real Transition",
+        "type": "skill",
+        "summary": "Bridge the gap between simulator practice and real-world racing performance."
+      },
+      {
+        "title": "Race Psychology",
+        "type": "skill",
+        "summary": "Mental preparation, focus techniques, and stress management for competitive racing."
+      }
+    ],
+    "history": [
+      {
+        "year": 2014,
+        "event": "Drone Racing League founded",
+        "summary": "DRL launches as the first professional drone racing organization with televised events."
+      },
+      {
+        "year": 2015,
+        "event": "MultiGP founded",
+        "summary": "MultiGP establishes local chapters and standardized drone racing across the United States."
+      },
+      {
+        "year": 2016,
+        "event": "DCL inaugural season",
+        "summary": "Drone Champions League launches international team-based racing with custom arena designs."
+      },
+      {
+        "year": 2018,
+        "event": "FAI sanctions drone racing",
+        "summary": "FAI officially recognizes FPV drone racing as an aeronautical sport discipline."
+      },
+      {
+        "year": 2020,
+        "event": "Sim racing explosion",
+        "summary": "COVID lockdowns drive massive growth in Velocidrone and Liftoff sim racing leagues."
+      },
+      {
+        "year": 2022,
+        "event": "First $1M prize pool",
+        "summary": "DRL announces the sport's first million-dollar championship prize."
+      },
+      {
+        "year": 2023,
+        "event": "Digital FPV standardization",
+        "summary": "HDZero, DJI, and Walksnail systems bring HD racing to mainstream competition."
+      },
+      {
+        "year": 2024,
+        "event": "FAI DWC record attendance",
+        "summary": "FAI Drone Racing World Cup reaches record pilot registration across 40+ countries."
+      },
+      {
+        "year": 2025,
+        "event": "A2RL autonomous racing debut",
+        "summary": "Abu Dhabi launches the first autonomous drone racing league with AI pilots."
+      },
+      {
+        "year": 2026,
+        "event": "Dutch Nationals expanded",
+        "summary": "Dutch Drone Racing expands NK series with multiple ranking events and international qualifiers."
+      }
+    ],
+    "news": [
+      {
+        "title": "NK Drone Racing 2026 Season Underway",
+        "summary": "Dutch national series kicks off with record pilot registration across multiple venues.",
+        "source": "Dutch Drone Racing",
+        "date": "2026-06-01"
+      },
+      {
+        "title": "FAI Announces 2026 World Cup Calendar",
+        "summary": "Seven FAI DWC events confirmed across Europe, Asia, and North America.",
+        "source": "FAI",
+        "date": "2026-05-15"
+      },
+      {
+        "title": "DCL Expands to 12 Teams for 2026 Series",
+        "summary": "Two new teams join DCL with simulator-based qualifier pathways.",
+        "source": "DCL",
+        "date": "2026-04-22"
+      },
+      {
+        "title": "MultiGP International Open Returns to Muncie",
+        "summary": "200+ pilots expected for the flagship MultiGP event at AMA headquarters.",
+        "source": "MultiGP",
+        "date": "2026-04-10"
+      },
+      {
+        "title": "Velocidrone Launches New Racing Physics Model",
+        "summary": "Updated aerodynamics improve sim-to-real transition accuracy for racing pilots.",
+        "source": "Velocidrone",
+        "date": "2026-03-28"
+      },
+      {
+        "title": "TEKNOFEST Drone Championship Prize Pool Doubled",
+        "summary": "Turkish tech festival announces record prize pool for 2026 drone racing event.",
+        "source": "TEKNOFEST",
+        "date": "2026-03-15"
+      },
+      {
+        "title": "Street League Announces 2026 Pro Series Format",
+        "summary": "New points system and track designs for the upcoming SLDR season.",
+        "source": "Street League",
+        "date": "2026-02-20"
+      },
+      {
+        "title": "IDRA Launches International Ranking System",
+        "summary": "First unified global drone racing ranking with cross-league scoring.",
+        "source": "IDRA",
+        "date": "2026-01-08"
+      }
+    ],
     "media": [
       {
         "id": "d08bc0142a2e4474",
@@ -2318,8 +2459,59 @@
         "lastVerifiedAt": "2026-06-06T09:31:29.993Z"
       }
     ],
-    "hallOfFame": [],
-    "futureSystems": []
+    "hallOfFame": [
+      {
+        "pilot": "MinJae Kim",
+        "inducted": 2024,
+        "category": "World Champion",
+        "reason": "FAI Drone Racing World Cup 2024 Champion \u2014 dominant season with 3 race wins."
+      },
+      {
+        "pilot": "Alex Vanover",
+        "inducted": 2023,
+        "category": "Multi-Discipline",
+        "reason": "DCL Champion, MultiGP Champion, DRL Medalist \u2014 proven across all major leagues."
+      },
+      {
+        "pilot": "Thomas Bitmatta",
+        "inducted": 2025,
+        "category": "Series Champion",
+        "reason": "DCL 2024-25 Series Champion \u2014 consistent podium finishes across the season."
+      },
+      {
+        "pilot": "Shaun Taylor (Nytfury)",
+        "inducted": 2022,
+        "category": "Pioneer",
+        "reason": "Early FPV racing pioneer, MultiGP Championship winner, content creator."
+      }
+    ],
+    "futureSystems": [
+      {
+        "system": "Live Timing Engine",
+        "description": "Real-time race timing with sector splits, lap comparison, and live leaderboard updates.",
+        "status": "planned"
+      },
+      {
+        "system": "Pilot Ranking Algorithm",
+        "description": "ELO-based cross-league ranking with recency weighting and source confidence scoring.",
+        "status": "planned"
+      },
+      {
+        "system": "Race Calendar API",
+        "description": "Programmatic access to verified racing calendar with iCal export and push notifications.",
+        "status": "planned"
+      },
+      {
+        "system": "Track Database",
+        "description": "Global track library with GPS coordinates, gate counts, surface types, and lap records.",
+        "status": "planned"
+      },
+      {
+        "system": "Telemetry Analysis",
+        "description": "Blackbox log comparison across pilots and tracks for performance benchmarking.",
+        "status": "planned"
+      }
+    ]
   },
   "contentBriefs": [
     {

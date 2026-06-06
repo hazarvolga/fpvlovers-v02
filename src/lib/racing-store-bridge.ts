@@ -1,52 +1,17 @@
 import { readRacingIntelligenceStore } from './racing-intelligence-store';
 
-export function getStoreCalendar() {
-  try {
-    return readRacingIntelligenceStore().sections?.calendar || [];
-  } catch { return []; }
-}
-
-export function getStorePilots() {
-  try {
-    return readRacingIntelligenceStore().sections?.pilots || [];
-  } catch { return []; }
-}
-
-export function getStoreLeagues() {
-  try {
-    return readRacingIntelligenceStore().sections?.leagues || [];
-  } catch { return []; }
-}
-
-export function getStoreEvents() {
-  try {
-    return readRacingIntelligenceStore().sections?.events || [];
-  } catch { return []; }
-}
-
-export function getStoreTracks() {
-  try {
-    return readRacingIntelligenceStore().sections?.tracks || [];
-  } catch { return []; }
-}
-
-export function getStoreRankings() {
-  try {
-    return readRacingIntelligenceStore().sections?.rankings || [];
-  } catch { return []; }
-}
-
-export function getStoreResults() {
-  try {
-    return readRacingIntelligenceStore().sections?.results || [];
-  } catch { return []; }
-}
-
-export function getStoreTeams() {
-  try {
-    return readRacingIntelligenceStore().sections?.teams || [];
-  } catch { return []; }
-}
+export function getStoreCalendar() { try { return readRacingIntelligenceStore().sections?.calendar || []; } catch { return []; } }
+export function getStorePilots() { try { return readRacingIntelligenceStore().sections?.pilots || []; } catch { return []; } }
+export function getStoreLeagues() { try { return readRacingIntelligenceStore().sections?.leagues || []; } catch { return []; } }
+export function getStoreEvents() { try { return readRacingIntelligenceStore().sections?.events || []; } catch { return []; } }
+export function getStoreTracks() { try { return readRacingIntelligenceStore().sections?.tracks || []; } catch { return []; } }
+export function getStoreRankings() { try { return readRacingIntelligenceStore().sections?.rankings || []; } catch { return []; } }
+export function getStoreResults() { try { return readRacingIntelligenceStore().sections?.results || []; } catch { return []; } }
+export function getStoreTeams() { try { return readRacingIntelligenceStore().sections?.teams || []; } catch { return []; } }
+export function getStoreAcademy() { try { return readRacingIntelligenceStore().sections?.academy || []; } catch { return []; } }
+export function getStoreHistory() { try { return readRacingIntelligenceStore().sections?.history || []; } catch { return []; } }
+export function getStoreNews() { try { return readRacingIntelligenceStore().sections?.news || []; } catch { return []; } }
+export function getStoreHallOfFame() { try { return readRacingIntelligenceStore().sections?.hallOfFame || []; } catch { return []; } }
 
 export function getStoreSection(slug: string) {
   try {

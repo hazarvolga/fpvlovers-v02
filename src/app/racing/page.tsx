@@ -12,14 +12,10 @@ import {
 import { RacingPanel as Panel, RacingShell, RacingStatusDot as StatusDot } from '@/features/racing/components/RacingChrome';
 import { generateSeoMetadata } from '@/lib/seo/metadata';
 import {
-  raceCalendarPreview,
   racingCrawlerTargets,
-  racingEvents,
   racingMission,
   racingSections,
   rankingMethodology,
-  rankingPreviewRows,
-  trackSpotlight,
 } from '@/lib/racingData';
 import {
   getStorePilots,
@@ -54,21 +50,18 @@ export default function RacingDivisionPage() {
   const summary = getStoreSummary();
 
   const topEvents = storeEvents.length > 0
-    ? storeEvents.slice(0, 8).map((e: any) => ({ id: e.name, name: e.name, scope: e.summary || e.type || 'Racing event' }))
-    : racingEvents.slice(0, 5);
-  const technologySection = racingSections.find((section) => section.slug === 'technology');
+    ? storeEvents.slice(0, 8).map((e: any) => ({ id: e.name || e.title, name: e.name || e.title, scope: e.summary || e.type || 'Racing event' }))
+    : [];
 
-  // Merge calendar: real dates first, then static preview
-  const mergedCalendar = [
-    ...storeCalendar.map((item: any) => ({
-      window: 'Upcoming',
-      event: item.event,
-      region: item.location,
-      league: item.league,
-      status: 'live' as const,
-    })),
-    ...raceCalendarPreview,
-  ];
+  const topRankings = storeRankings.length > 0 ? storeRankings : [];
+
+  const topTrack = storeTracks.length > 0 ? storeTracks[0] : null;
+  const trackData = topTrack || { name: 'Track library', gateCount: '0', lapDistance: '0m', speedRating: 'N/A', difficulty: 'N/A' };
+
+  // Calendar merge
+  const mergedCalendar = storeCalendar.length > 0
+    ? storeCalendar.map((item: any) => ({ window: 'Upcoming', event: item.event, region: item.location, league: item.league, status: 'live' as const }))
+    : [{ window: 'Season', event: 'Race calendar loading...', region: 'Global', league: 'Intelligence Pipeline', status: 'live' as const }];
 
   return (
     <RacingShell>
@@ -134,18 +127,18 @@ export default function RacingDivisionPage() {
               <Panel title="World rankings preview" label="Rating model" href="/racing/rankings">
                 <div className="grid grid-cols-[44px_1fr_110px] border-b border-white/8 pb-2 font-mono text-[10px] uppercase tracking-[0.14em] text-white/38">
                   <span>Pos</span>
-                  <span>Entity</span>
-                  <span className="text-right">Signal</span>
+                  <span>Pilot</span>
+                  <span className="text-right">Points</span>
                 </div>
                 <div className="mt-2 space-y-2">
-                  {(storeRankings.length > 0 ? storeRankings : rankingPreviewRows).slice(0, 5).map((row: any, i: number) => (
+                  {topRankings.slice(0, 5).map((row: any, i: number) => (
                     <div key={row.position} className="grid grid-cols-[44px_1fr_110px] gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs">
                       <span className="font-mono text-lg font-black text-white">{row.position}</span>
                       <span>
-                        <span className="block font-bold text-[#d8d5cf]">{row.entity}</span>
-                        <span className="mt-1 block text-[11px] text-[#8d8981]">{row.scope}</span>
+                        <span className="block font-bold text-[#d8d5cf]">{row.pilot}</span>
+                        <span className="mt-1 block text-[11px] text-[#8d8981]">{row.league} · {row.country}</span>
                       </span>
-                      <span className="text-right text-[11px] text-[#00ff66]">{row.ratingSignal}</span>
+                      <span className="text-right text-[11px] text-[#00ff66]">{row.points} pts</span>
                     </div>
                   ))}
                 </div>
@@ -179,11 +172,11 @@ export default function RacingDivisionPage() {
                     <div className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.12em] text-white/50">Map renderer planned</div>
                   </div>
                   <div className="space-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-white/42">
-                    <div className="text-sm font-black text-white">{trackSpotlight.name}</div>
-                    <div>Gates: <span className="text-[#00f2ff]">{trackSpotlight.gateCount}</span></div>
-                    <div>Length: <span className="text-[#00f2ff]">{trackSpotlight.lapDistance}</span></div>
-                    <div>Speed: <span className="text-[#ff9b71]">{trackSpotlight.speedRating}</span></div>
-                    <div>Risk: <span className="text-[#ff9b71]">{trackSpotlight.difficulty}</span></div>
+                    <div className="text-sm font-black text-white">{(trackData as any).name || 'Track'}</div>
+                    <div>Location: <span className="text-[#00f2ff]">{(topTrack as any)?.location || 'Global'}</span></div>
+                    <div>League: <span className="text-[#00f2ff]">{(topTrack as any)?.league || 'Multi-league'}</span></div>
+                    <div>Type: <span className="text-[#ff9b71]">{(topTrack as any)?.type || 'Outdoor'}</span></div>
+                    <div>Difficulty: <span className="text-[#ff9b71]">{(topTrack as any)?.difficulty || 'Medium'}</span></div>
                   </div>
                 </div>
               </Panel>
@@ -215,7 +208,7 @@ export default function RacingDivisionPage() {
 
               <Panel title="Race technology" label="Engineering side" href="/racing/technology">
                 <div className="grid grid-cols-2 gap-2">
-                  {(technologySection?.modules ?? []).slice(0, 6).map((moduleName) => (
+                  {(racingSections.find((s) => s.slug === 'technology')?.modules ?? []).slice(0, 6).map((moduleName) => (
                     <div key={moduleName} className="rounded-sm border border-white/8 bg-black/28 p-3 text-xs text-[#d8d5cf]">
                       <Zap className="mb-2 h-4 w-4 text-[#00f2ff]" />
                       {moduleName}
