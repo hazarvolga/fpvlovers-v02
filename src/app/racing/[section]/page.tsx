@@ -134,19 +134,48 @@ export default async function RacingSectionPage({ params }: PageProps) {
       </section>
 
       <section className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
-        <Panel title="Section deliverables" label="Data modules">
-          <div className="grid gap-3 sm:grid-cols-2">
-            {section.modules.map((moduleName, index) => (
-              <div key={moduleName} className="rounded-sm border border-white/8 bg-black/30 p-4">
-                <span className="font-mono text-sm font-black text-[#ff5a1f]">{String(index + 1).padStart(2, '0')}</span>
-                <h3 className="mt-3 text-sm font-black uppercase text-white">{moduleName}</h3>
-                <p className="mt-2 text-xs leading-5 text-[#8d8981]">
-                  Data-backed racing module with official source provenance and editorial review state.
-                </p>
-              </div>
-            ))}
-          </div>
-        </Panel>
+        {storeData.length > 0 ? (
+          <Panel title={`${section.title} records`} label={`${storeData.length} verified`}>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {storeData.slice(0, 10).map((item: any, i: number) => (
+                <div key={i} className="rounded-sm border border-white/8 bg-black/30 p-4">
+                  {item.name && <h3 className="text-sm font-black text-white">{item.name}</h3>}
+                  {item.event && <h3 className="text-sm font-black text-white">{item.event}</h3>}
+                  {item.title && <h3 className="text-sm font-black text-white">{item.title}</h3>}
+                  {item.summary && <p className="mt-1 text-xs text-[#9f9a91]">{item.summary}</p>}
+                  {item.achievement && <p className="mt-1 text-xs text-[#9f9a91]">{item.achievement}</p>}
+                  {item.description && <p className="mt-1 text-xs text-[#9f9a91]">{item.description}</p>}
+                  {item.location && <p className="mt-1 font-mono text-[10px] text-[#00f2ff]">{item.location}{item.country ? ' · ' + item.country : ''}</p>}
+                  {item.league && <p className="mt-1 font-mono text-[10px] text-white/40">{item.league}{item.difficulty ? ' · ' + item.difficulty : ''}</p>}
+                  {item.nationality && <p className="mt-1 font-mono text-[10px] text-white/40">{item.nationality}{item.team ? ' · ' + item.team : ''}</p>}
+                  {item.date && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.date}</p>}
+                  {item.position && <span className="font-mono text-sm text-[#ff5a1f] font-black">#{item.position}</span>}
+                  {item.points && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.points} pts</p>}
+                  {item.type && <span className="mt-1 inline-block font-mono text-[9px] text-white/30 uppercase">{item.type}</span>}
+                  {item.year && <span className="mt-1 inline-block font-mono text-[9px] text-[#00f2ff] ml-2">{item.year}</span>}
+                  {item.inducted && <p className="mt-1 font-mono text-[10px] text-[#ff5a1f]">Inducted: {item.inducted}</p>}
+                  {item.category && <p className="mt-1 font-mono text-[10px] text-white/40">{item.category}</p>}
+                  {item.system && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.system}</p>}
+                  {item.status && <span className="mt-1 inline-block font-mono text-[9px] text-[#ff9b71] uppercase">{item.status}</span>}
+                </div>
+              ))}
+            </div>
+          </Panel>
+        ) : (
+          <Panel title="Section deliverables" label="Data modules">
+            <div className="grid gap-3 sm:grid-cols-2">
+              {section.modules.map((moduleName, index) => (
+                <div key={moduleName} className="rounded-sm border border-white/8 bg-black/30 p-4">
+                  <span className="font-mono text-sm font-black text-[#ff5a1f]">{String(index + 1).padStart(2, '0')}</span>
+                  <h3 className="mt-3 text-sm font-black uppercase text-white">{moduleName}</h3>
+                  <p className="mt-2 text-xs leading-5 text-[#8d8981]">
+                    Data-backed racing module with official source provenance and editorial review state.
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Panel>
+        )}
 
         <Panel title="SEO cluster" label="Search surface">
           <ul className="space-y-3">
