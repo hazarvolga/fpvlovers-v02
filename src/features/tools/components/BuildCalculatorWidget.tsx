@@ -83,23 +83,25 @@ function NumberInput({
 }) {
   const inputId = `calc-${field.key}`;
   return (
-    <div className="space-y-2">
-      <label htmlFor={inputId} className="flex items-center justify-between gap-3 text-[10px] font-black uppercase tracking-widest text-[#9eeef2]">
+    <div className="space-y-1.5">
+      <label htmlFor={inputId} className="flex items-center justify-between gap-2 text-[10px] font-black uppercase tracking-widest text-[#9eeef2]">
         <span>{field.label}</span>
-        <span className="text-[#d8d5cf]">{value}{field.suffix}</span>
       </label>
-      <input
-        id={inputId}
-        type="number"
-        inputMode="decimal"
-        min={field.min}
-        max={field.max}
-        step={field.step || 1}
-        value={value}
-        aria-label={`${field.label} (${field.suffix})`}
-        onChange={(event) => onChange(field.key, Number(event.target.value))}
-        className="w-full bg-[#080808] border border-white/10 px-3 py-2.5 font-mono text-sm text-white outline-none transition-colors focus:border-[#28d7df]"
-      />
+      <div className="relative">
+        <input
+          id={inputId}
+          type="number"
+          inputMode="decimal"
+          min={field.min}
+          max={field.max}
+          step={field.step || 1}
+          value={value}
+          aria-label={`${field.label} (${field.suffix})`}
+          onChange={(event) => onChange(field.key, Number(event.target.value))}
+          className="w-full bg-[#080808] border border-white/10 pl-3 pr-10 py-2.5 font-mono text-sm text-white outline-none transition-colors focus:border-[#28d7df]"
+        />
+        <span className="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[11px] text-[#8e8b86]">{field.suffix}</span>
+      </div>
     </div>
   );
 }
@@ -232,7 +234,7 @@ export function BuildCalculatorWidget() {
               <RotateCcw className="w-4 h-4" />
             </Button>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
             {STYLE_OPTIONS.map((option) => (
               <button
                 key={option.value}
@@ -256,7 +258,7 @@ export function BuildCalculatorWidget() {
           <h2 className="text-sm font-black uppercase tracking-widest text-white mb-4 flex items-center gap-2">
             <Activity className="w-4 h-4 text-[#28d7df]" /> Weight Stack
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {WEIGHT_FIELDS.map((field) => (
               <NumberInput key={field.key} field={field} value={Number(build[field.key])} onChange={setNumber} />
             ))}
