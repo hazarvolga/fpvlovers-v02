@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T11:31:49Z",
+  "generated_at": "2026-06-06T11:48:48Z",
   "purpose": "Official-source ingestion pack for FPVLovers Racing Division events, calendar, leagues, pilots, teams, tracks, rankings, media, rules, and history.",
   "target_dataset": "fpv-racing-events",
   "policy": {
@@ -309,7 +309,7 @@
         "rankings"
       ],
       "reason": "Official MultiGP drone racing news feed for race results, pilot profiles, and event coverage.",
-      "status": "pending"
+      "status": "crawled"
     },
     {
       "name": "Dutch Drone Racing",
@@ -324,7 +324,7 @@
         "rankings"
       ],
       "reason": "Dutch national drone racing league with pilot rankings and event calendar.",
-      "status": "pending"
+      "status": "crawled"
     },
     {
       "name": "British Drone Racing League",
@@ -339,7 +339,7 @@
         "tracks"
       ],
       "reason": "British Drone Racing Association with national events and pilot database.",
-      "status": "pending"
+      "status": "crawled"
     },
     {
       "name": "Australian FPV Racing",
@@ -353,7 +353,7 @@
         "rankings"
       ],
       "reason": "Australian FPV racing association with national calendar.",
-      "status": "pending"
+      "status": "crawled"
     },
     {
       "name": "RotorBuilds Racing",
@@ -366,7 +366,7 @@
         "teams"
       ],
       "reason": "Community build database with pilot profiles and racing configurations.",
-      "status": "pending"
+      "status": "crawled"
     },
     {
       "name": "Drone Racing League DRL",
@@ -396,6 +396,152 @@
         "media"
       ],
       "reason": "FPV racing media coverage and pilot interviews.",
+      "status": "crawled"
+    },
+    {
+      "name": "Tech Drone League (TDL)",
+      "url": "https://www.techdroneleague.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "high",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "teams",
+        "results",
+        "media"
+      ],
+      "reason": "Emerging tech-focused drone racing league.",
+      "status": "crawled"
+    },
+    {
+      "name": "World Drone Cup (WDC)",
+      "url": "https://worlddronecup.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "high",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "rankings",
+        "results"
+      ],
+      "reason": "International drone cup with global rankings.",
+      "status": "crawled"
+    },
+    {
+      "name": "TEKNOFEST Drone Championship",
+      "url": "https://teknofestdronesampiyonasi.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "high",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "calendar",
+        "results"
+      ],
+      "reason": "Biggest Turkish tech festival drone racing.",
+      "status": "crawled"
+    },
+    {
+      "name": "Turkiye Drone Race (TDR)",
+      "url": "https://turkiyedronerace.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "high",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "tracks"
+      ],
+      "reason": "Turkish national drone racing league.",
+      "status": "crawled"
+    },
+    {
+      "name": "A2RL (Abu Dhabi Autonomous)",
+      "url": "https://a2rl.io/",
+      "dataset": "fpv-racing-events",
+      "priority": "medium",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "technology",
+        "media"
+      ],
+      "reason": "Autonomous drone racing Abu Dhabi.",
+      "status": "pending"
+    },
+    {
+      "name": "DRSK (Drone Racing Slovakia)",
+      "url": "https://www.droneracingslovakia.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "medium",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "calendar"
+      ],
+      "reason": "Slovak national drone racing league.",
+      "status": "crawled"
+    },
+    {
+      "name": "Fenworks Educational Leagues",
+      "url": "https://fenworks.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "medium",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "academy",
+        "pilots"
+      ],
+      "reason": "Educational drone racing for students.",
+      "status": "crawled"
+    },
+    {
+      "name": "EreaDrone (e-Drone Racing)",
+      "url": "https://ereadrone.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "medium",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "calendar"
+      ],
+      "reason": "European e-drone racing world cup.",
+      "status": "crawled"
+    },
+    {
+      "name": "Velocidrone Racing League",
+      "url": "https://www.velocidrone.com/",
+      "dataset": "fpv-racing-events",
+      "priority": "medium",
+      "sourceType": "simulator",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "tracks",
+        "technology"
+      ],
+      "reason": "Leading FPV simulator racing leagues.",
+      "status": "crawled"
+    },
+    {
+      "name": "IDRA (Intl Drone Racing)",
+      "url": "https://www.idra.co/",
+      "dataset": "fpv-racing-events",
+      "priority": "high",
+      "sourceType": "league",
+      "entityTargets": [
+        "events",
+        "pilots",
+        "rankings",
+        "rules"
+      ],
+      "reason": "International Drone Racing Association.",
       "status": "pending"
     }
   ]
