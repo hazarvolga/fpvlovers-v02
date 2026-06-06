@@ -23,6 +23,7 @@ import {
   rankingPreviewRows,
   trackSpotlight,
 } from '@/lib/racingData';
+import { getStoreSection, getStoreCalendar, getStorePilots, getStoreLeagues } from '@/lib/racing-store-bridge';
 
 type PageProps = {
   params: Promise<{ section: string }>;
@@ -63,6 +64,7 @@ function sectionSignal(status: string) {
 export default async function RacingSectionPage({ params }: PageProps) {
   const { section: slug } = await params;
   const section = getRacingSection(slug);
+  const storeData = getStoreSection(slug);
 
   if (!section) {
     notFound();
@@ -70,6 +72,17 @@ export default async function RacingSectionPage({ params }: PageProps) {
 
   const Icon = racingSectionIcons[section.slug];
   const adjacentSections = racingSections.filter((item) => item.slug !== section.slug).slice(0, 6);
+  const dataCount = storeData.length;
+
+  // Merge calendar items
+  const calendarItems = slug === 'calendar' ? [
+    ...getStoreCalendar().slice(0, 4).map((item: any) => ({
+      window: 'Upcoming',
+      event: item.event,
+      league: item.league,
+    })),
+    ...raceCalendarPreview,
+  ] : raceCalendarPreview;
 
   return (
     <RacingShell currentSlug={section.slug} breadcrumbCurrent={section.title}>
@@ -105,12 +118,12 @@ export default async function RacingSectionPage({ params }: PageProps) {
           </div>
           <div className="mt-4 grid grid-cols-2 gap-3 font-mono text-[10px] uppercase tracking-[0.12em]">
             <div className="rounded-sm border border-white/8 bg-black/30 p-3">
-              <span className="block text-white/40">Modules</span>
-              <span className="mt-2 block text-2xl font-black text-white">{section.modules.length}</span>
+              <span className="block text-white/40">Records</span>
+              <span className="mt-2 block text-2xl font-black text-white">{dataCount || section.modules.length}</span>
             </div>
             <div className="rounded-sm border border-white/8 bg-black/30 p-3">
-              <span className="block text-white/40">SEO targets</span>
-              <span className="mt-2 block text-2xl font-black text-white">{section.seoTargets.length}</span>
+              <span className="block text-white/40">Source</span>
+              <span className="mt-2 block text-2xl font-black text-white">{dataCount > 0 ? 'Store' : 'Schema'}</span>
             </div>
           </div>
           <div className="mt-4 border-t border-white/8 pt-3 font-mono text-[10px] uppercase tracking-[0.12em] text-white/42">
@@ -149,7 +162,7 @@ export default async function RacingSectionPage({ params }: PageProps) {
       <section className="mt-4 grid gap-4 xl:grid-cols-[1fr_1fr_0.9fr]">
         <Panel title="Calendar feed" label="Season model" href="/racing/calendar">
           <div className="space-y-2">
-            {raceCalendarPreview.map((item) => (
+            {calendarItems.map((item) => (
               <Link key={`${item.league}-${item.window}`} href="/racing/calendar" className="grid grid-cols-[86px_1fr_86px] gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs transition-colors hover:border-[#ff5a1f]/30">
                 <span className="font-mono text-[#ff9b71]">{item.window}</span>
                 <span className="min-w-0 truncate text-[#d8d5cf]">{item.event}</span>
@@ -184,6 +197,27 @@ export default async function RacingSectionPage({ params }: PageProps) {
           </div>
         </Panel>
       </section>
+
+      {storeData.length > 0 && (
+        <Panel title="Intelligence pipeline records" label={`${storeData.length} verified`} className="mt-4">
+          <div className="grid gap-3 md:grid-cols-2">
+            {storeData.slice(0, 10).map((item: any, i: number) => (
+              <div key={i} className="rounded-sm border border-white/8 bg-black/30 p-4">
+                {item.name && <h3 className="text-sm font-black text-white">{item.name}</h3>}
+                {item.event && <h3 className="text-sm font-black text-white">{item.event}</h3>}
+                {item.title && <h3 className="text-sm font-black text-white">{item.title}</h3>}
+                {item.summary && <p className="mt-1 text-xs text-[#9f9a91]">{item.summary}</p>}
+                {item.achievement && <p className="mt-1 text-xs text-[#9f9a91]">{item.achievement}</p>}
+                {item.location && <p className="mt-1 font-mono text-[10px] text-[#00f2ff]">{item.location}{item.country ? ' · ' + item.country : ''}</p>}
+                {item.league && <p className="mt-1 font-mono text-[10px] text-white/40">{item.league}{item.difficulty ? ' · ' + item.difficulty : ''}</p>}
+                {item.nationality && <p className="mt-1 font-mono text-[10px] text-white/40">{item.nationality}{item.team ? ' · ' + item.team : ''}</p>}
+                {item.date && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.date}</p>}
+                {item.position && <span className="font-mono text-xs text-[#ff5a1f]">#{item.position}</span>}
+              </div>
+            ))}
+          </div>
+        </Panel>
+      )}
 
       {section.slug === 'events' && (
         <Panel title="Seed event database" label="Official-source index" className="mt-4">

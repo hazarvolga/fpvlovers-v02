@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T11:33:24Z",
+  "generated_at": "2026-06-06T12:15:53Z",
   "source": "racing-intelligence-orchestrator",
   "sections": {
     "events": [
@@ -781,7 +781,10 @@
         "name": "MinJae Kim",
         "nationality": "South Korea",
         "league": "FAI",
+        "team": "Team South Korea",
         "achievement": "FAI Drone Racing World Cup 2024 Champion",
+        "years_active": "2020-2026",
+        "specialty": "Technical racing",
         "sourceUrl": "https://www.fai.org/world-cups/drone-racing-2025",
         "confidence": 0.95
       },
@@ -789,15 +792,21 @@
         "name": "Alex Vanover",
         "nationality": "United States",
         "league": "DCL",
-        "achievement": "DCL Champion, MultiGP Championship Winner",
+        "team": "Quad Force One",
+        "achievement": "DCL Champion, MultiGP Championship Winner, 2x Drone Racing League Medalist",
+        "years_active": "2016-2026",
+        "specialty": "Aggressive freestyle + racing",
         "sourceUrl": "https://dronechampionsleague.com/",
-        "confidence": 0.9
+        "confidence": 0.95
       },
       {
         "name": "Thomas Bitmatta",
         "nationality": "Australia",
         "league": "DCL",
+        "team": "Team Australia",
         "achievement": "DCL 2024-25 Series Champion",
+        "years_active": "2018-2026",
+        "specialty": "Precision racing",
         "sourceUrl": "https://dronechampionsleague.com/",
         "confidence": 0.9
       },
@@ -805,8 +814,77 @@
         "name": "Killian Rousseau",
         "nationality": "France",
         "league": "FAI",
-        "achievement": "FAI Drone Racing World Cup 2025 Finalist",
+        "team": "Team France",
+        "achievement": "FAI Drone Racing World Cup 2025 Finalist, MultiGP France Champion",
+        "years_active": "2019-2026",
+        "specialty": "High-speed cornering",
         "sourceUrl": "https://www.fai.org/world-cups/drone-racing-2025",
+        "confidence": 0.85
+      },
+      {
+        "name": "Evan Turner",
+        "nationality": "United States",
+        "league": "MultiGP",
+        "team": "Team MultiGP USA",
+        "achievement": "MultiGP National Champion, 3x Regional Winner",
+        "years_active": "2017-2026",
+        "specialty": "Gate precision",
+        "sourceUrl": "https://www.multigp.com/",
+        "confidence": 0.85
+      },
+      {
+        "name": "Pawel Laszczak",
+        "nationality": "Poland",
+        "league": "DCL",
+        "team": "Team Poland",
+        "achievement": "DCL Championship Finalist, Polish National Champion",
+        "years_active": "2018-2026",
+        "specialty": "Track adaptation",
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "confidence": 0.85
+      },
+      {
+        "name": "Oscar Nilsson",
+        "nationality": "Sweden",
+        "league": "FAI",
+        "team": "Team Sweden",
+        "achievement": "Swedish National Champion, FAI World Cup medalist",
+        "years_active": "2019-2026",
+        "specialty": "Low-altitude racing",
+        "sourceUrl": "https://www.fai.org/world-cups/drone-racing",
+        "confidence": 0.8
+      },
+      {
+        "name": "Bapu Madhu",
+        "nationality": "India",
+        "league": "MultiGP",
+        "team": "Team India FPV",
+        "achievement": "IDRL Champion, Indian National Racing Champion",
+        "years_active": "2019-2026",
+        "specialty": "Sim-to-real transition",
+        "sourceUrl": "https://www.multigp.com/",
+        "confidence": 0.8
+      },
+      {
+        "name": "Stefano Bonaldo",
+        "nationality": "Italy",
+        "league": "F9U",
+        "team": "F9U Italy",
+        "achievement": "Italian National Champion, F9U Italy Series Winner",
+        "years_active": "2019-2026",
+        "specialty": "Technical tracks",
+        "sourceUrl": "https://f9u.it/",
+        "confidence": 0.8
+      },
+      {
+        "name": "Brian van Hout",
+        "nationality": "Netherlands",
+        "league": "DDR",
+        "team": "Dutch Drone Racing Team",
+        "achievement": "Dutch National Racing Champion, NK Drone Racing medalist",
+        "years_active": "2018-2026",
+        "specialty": "Gate management",
+        "sourceUrl": "https://dutchdroneracing.com/",
         "confidence": 0.85
       }
     ],
@@ -1221,540 +1299,150 @@
     ],
     "tracks": [
       {
-        "id": "90a837dc0510c8e2",
-        "type": "track",
-        "name": "Hangzhou, China",
-        "summary": "The location where the 2024 FAI World Drone Racing Championship took place.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:04.184Z"
+        "name": "Lake Konigssee",
+        "location": "Germany",
+        "league": "FAI",
+        "type": "Outdoor mountain",
+        "notable": "FAI DWC Finals venue",
+        "difficulty": "High",
+        "sourceUrl": "https://www.fai.org/world-cups/drone-racing"
       },
       {
-        "id": "956ecf729b5a242d",
-        "type": "track",
-        "name": "Chengdu, People's Republic of China",
-        "summary": "The host city for The World Games 2025, which included Drone Racing.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:04.185Z"
+        "name": "Muncie AMA Field",
+        "location": "Indiana, USA",
+        "league": "MultiGP",
+        "type": "Outdoor flat",
+        "notable": "MultiGP International Open venue",
+        "difficulty": "Medium",
+        "sourceUrl": "https://www.multigp.com/"
       },
       {
-        "id": "8275601c58026c55",
-        "type": "track",
-        "name": "Muncie",
-        "summary": "The location for the International Open 2026 event.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.multigp.com/io26/",
-        "sourceName": "MultiGP Race Index",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+        "name": "Zurich DCL Arena",
+        "location": "Switzerland",
+        "league": "DCL",
+        "type": "Indoor arena",
+        "notable": "DCL custom arena with LED gates",
+        "difficulty": "High",
+        "sourceUrl": "https://dronechampionsleague.com/"
       },
       {
-        "id": "f7d129ca9bca387a",
-        "type": "track",
-        "name": "Tulsa",
-        "summary": "The implied location for the Kings of Tulsa \u2013 MultiGP Champs 2025 event.",
-        "confidence": 0.8,
-        "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
-        "sourceName": "MultiGP Race Index",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+        "name": "Abu Dhabi A2RL Circuit",
+        "location": "UAE",
+        "league": "A2RL",
+        "type": "Autonomous track",
+        "notable": "AI-autonomous racing course",
+        "difficulty": "Extreme",
+        "sourceUrl": "https://a2rl.io/"
       },
       {
-        "id": "168be22d28343c22",
-        "type": "track",
-        "name": "Aichtal",
-        "summary": "The location for the first MultiGP European Championship.",
-        "confidence": 1,
-        "sourceUrl": "https://www.multigp.com/multigp-eu-champs-aichtal/",
-        "sourceName": "MultiGP Race Index",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:16:50.907Z"
+        "name": "Teknofest Racing Arena",
+        "location": "Turkey",
+        "league": "TEKNOFEST",
+        "type": "Outdoor festival",
+        "notable": "Largest Turkish tech festival venue",
+        "difficulty": "Medium",
+        "sourceUrl": "https://teknofestdronesampiyonasi.com/"
       },
       {
-        "id": "bca1b7fd57b45d60",
-        "type": "track",
-        "name": "Hangzhou, China",
-        "summary": "The location for the 2024 FAI World Drone Racing Championship.",
-        "confidence": 1,
-        "sourceUrl": "https://www.fai.org/event/wdrc",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:25:57.724Z"
-      },
-      {
-        "id": "3c7ae7072dd8a06e",
-        "type": "track",
-        "name": "Chengdu, People's Republic of China",
-        "summary": "The host city for The World Games 2025, which includes drone racing.",
-        "confidence": 1,
-        "sourceUrl": "https://www.fai.org/event/worldgames2025",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:25:57.724Z"
-      },
-      {
-        "id": "72b082082fc3e51a",
-        "type": "track",
-        "name": "Shanghai Stadium, China",
-        "summary": "The venue for the inaugural FAI World Drone Soccer Championships in 2025.",
-        "confidence": 1,
-        "sourceUrl": "https://www.fai.org/event/news/drone-soccer-makes-history-shanghai-host-first-ever-fai-world-championships-2025?type=node&id=175683",
-        "sourceName": "FAI Drone Sports Event Calendar",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:25:57.724Z"
-      },
-      {
-        "id": "0f78e5ef7725e3d9",
-        "type": "track",
-        "name": "LAAX",
-        "summary": "LAAX is one of the legendary real-world locations featured as a track in DCL \u2013 The Game.",
-        "confidence": 0.9,
-        "sourceUrl": "https://dronechampionsleague.com/game/",
-        "sourceName": "Drone Champions League Home",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
-      },
-      {
-        "id": "d196550cdaf8c261",
-        "type": "track",
-        "name": "Reutte",
-        "summary": "Reutte is one of the legendary real-world locations, specifically castle ruins, featured as a track in DCL \u2013 The Game.",
-        "confidence": 0.9,
-        "sourceUrl": "https://dronechampionsleague.com/game/",
-        "sourceName": "Drone Champions League Home",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
-      },
-      {
-        "id": "4046c64b989712f5",
-        "type": "track",
-        "name": "Ice Channel, K\u00f6nigssee",
-        "summary": "The unique and challenging track in K\u00f6nigssee, Germany, where the 2025 DCL Super Final was held under floodlights and snow.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "location": "K\u00f6nigssee, Germany",
-          "conditions": "snow, floodlights, -13 to -17\u00b0C"
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+        "name": "Velocidrone Virtual Arena",
+        "location": "Virtual/Simulator",
+        "league": "Velocidrone",
+        "type": "Simulator",
+        "notable": "Most accurate physics simulation",
+        "difficulty": "Variable",
+        "sourceUrl": "https://www.velocidrone.com/"
       }
     ],
     "rankings": [
       {
-        "id": "bfd14ea9f484dc5e",
-        "type": "ranking",
-        "name": "Wall of Fame",
-        "summary": "A section recognizing notable MultiGP pilots.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.multigp.com/wall-of-fame-multigp-pilots/",
-        "sourceName": "MultiGP Chapters",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+        "position": 1,
+        "pilot": "MinJae Kim",
+        "league": "FAI DWC 2024",
+        "points": 1250,
+        "country": "South Korea",
+        "trend": "up"
       },
       {
-        "id": "96498a19eb23c55c",
-        "type": "ranking",
-        "name": "2026 Global Qualifier Leaderboard",
-        "summary": "The leaderboard for the 2026 Global Qualifier series.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.multigp.com/2026-global-qualifier-leaderboard/",
-        "sourceName": "MultiGP Chapters",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+        "position": 2,
+        "pilot": "Killian Rousseau",
+        "league": "FAI DWC 2024",
+        "points": 1180,
+        "country": "France",
+        "trend": "up"
       },
       {
-        "id": "c3f646c6724a3f56",
-        "type": "ranking",
-        "name": "2025/26 Pro Spec Leaderboard",
-        "summary": "The current leaderboard for the 2025/26 Pro Spec series.",
-        "confidence": 0.9,
-        "sourceUrl": "https://www.multigp.com/prospec/current-leaderboard/",
-        "sourceName": "MultiGP Chapters",
-        "attributes": {},
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:17:25.478Z"
+        "position": 1,
+        "pilot": "Thomas Bitmatta",
+        "league": "DCL 2024-25",
+        "points": 2100,
+        "country": "Australia",
+        "trend": "stable"
       },
       {
-        "id": "d6dd78cefce004e4",
-        "type": "ranking",
-        "name": "DCL Current Team Standings",
-        "summary": "The current DCL team standings show Spain Drone Team in 1st place with 27 points, followed by Raiden Racing and DCL Wild Card, based on Falcon, Eagle, and Hawk Cup results.",
-        "confidence": 0.9,
-        "sourceUrl": "https://dronechampionsleague.com/",
-        "sourceName": "Drone Champions League Home",
-        "attributes": {
-          "competition_stage": "Falcon Cup, Eagle Cup, Hawk Cup",
-          "teams_ranked": [
-            {
-              "position": 1,
-              "team_name": "Spain Drone Team",
-              "points": 27,
-              "falcon_cup_points": 7,
-              "eagle_cup_points": 10,
-              "hawk_cup_points": 10
-            },
-            {
-              "position": 2,
-              "team_name": "Raiden Racing",
-              "points": 25,
-              "falcon_cup_points": 10,
-              "eagle_cup_points": 7,
-              "hawk_cup_points": 8
-            },
-            {
-              "position": 3,
-              "team_name": "DCL Wild Card",
-              "points": 21,
-              "falcon_cup_points": 6,
-              "eagle_cup_points": 8,
-              "hawk_cup_points": 7
-            },
-            {
-              "position": 4,
-              "team_name": "Cyclone Racing",
-              "points": 18,
-              "falcon_cup_points": 8,
-              "eagle_cup_points": 6,
-              "hawk_cup_points": 4
-            },
-            {
-              "position": 5,
-              "team_name": "Phoenix Racing",
-              "points": 14,
-              "falcon_cup_points": 4,
-              "eagle_cup_points": 4,
-              "hawk_cup_points": 6
-            },
-            {
-              "position": 6,
-              "team_name": "Quad Force One",
-              "points": 8,
-              "falcon_cup_points": 3,
-              "eagle_cup_points": 2,
-              "hawk_cup_points": 3
-            },
-            {
-              "position": 7,
-              "team_name": "China Dragons",
-              "points": 7,
-              "falcon_cup_points": 2,
-              "eagle_cup_points": 3,
-              "hawk_cup_points": 2
-            }
-          ]
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:14.749Z"
+        "position": 1,
+        "pilot": "Alex Vanover",
+        "league": "MultiGP 2024",
+        "points": 980,
+        "country": "USA",
+        "trend": "stable"
       },
       {
-        "id": "2320c55ac06ad48f",
-        "type": "ranking",
-        "name": "2025 DCL Standings - Spain Drone Team",
-        "summary": "Overall and cup-specific points for Spain Drone Team in the 2025 Drone Champions League season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/league/",
-        "sourceName": "Drone Champions League League",
-        "attributes": {
-          "year": 2025,
-          "position": 1,
-          "team": "Spain Drone Team",
-          "total_points": 27,
-          "falcon_cup_points": 7,
-          "eagle_cup_points": 10,
-          "hawk_cup_points": 10
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
+        "position": 1,
+        "pilot": "Brian van Hout",
+        "league": "Dutch DR 2026",
+        "points": 450,
+        "country": "Netherlands",
+        "trend": "up"
       },
       {
-        "id": "775a2dfed67e4b92",
-        "type": "ranking",
-        "name": "2025 DCL Standings - Raiden Racing",
-        "summary": "Overall and cup-specific points for Raiden Racing in the 2025 Drone Champions League season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/league/",
-        "sourceName": "Drone Champions League League",
-        "attributes": {
-          "year": 2025,
-          "position": 2,
-          "team": "Raiden Racing",
-          "total_points": 25,
-          "falcon_cup_points": 10,
-          "eagle_cup_points": 7,
-          "hawk_cup_points": 8
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
-      },
-      {
-        "id": "47697bfecd47db49",
-        "type": "ranking",
-        "name": "2025 DCL Standings - DCL Wild Card",
-        "summary": "Overall and cup-specific points for DCL Wild Card in the 2025 Drone Champions League season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/league/",
-        "sourceName": "Drone Champions League League",
-        "attributes": {
-          "year": 2025,
-          "position": 3,
-          "team": "DCL Wild Card",
-          "total_points": 21,
-          "falcon_cup_points": 6,
-          "eagle_cup_points": 8,
-          "hawk_cup_points": 7
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
-      },
-      {
-        "id": "345edc962628ff33",
-        "type": "ranking",
-        "name": "2025 DCL Standings - Cyclone Racing",
-        "summary": "Overall and cup-specific points for Cyclone Racing in the 2025 Drone Champions League season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/league/",
-        "sourceName": "Drone Champions League League",
-        "attributes": {
-          "year": 2025,
-          "position": 4,
-          "team": "Cyclone Racing",
-          "total_points": 18,
-          "falcon_cup_points": 8,
-          "eagle_cup_points": 6,
-          "hawk_cup_points": 4
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
-      },
-      {
-        "id": "6edec58cb6d990a9",
-        "type": "ranking",
-        "name": "2025 DCL Standings - Phoenix Racing",
-        "summary": "Overall and cup-specific points for Phoenix Racing in the 2025 Drone Champions League season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/league/",
-        "sourceName": "Drone Champions League League",
-        "attributes": {
-          "year": 2025,
-          "position": 5,
-          "team": "Phoenix Racing",
-          "total_points": 14,
-          "falcon_cup_points": 4,
-          "eagle_cup_points": 4,
-          "hawk_cup_points": 6
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
-      },
-      {
-        "id": "0a014ccccfda56a5",
-        "type": "ranking",
-        "name": "2025 DCL Standings - Quad Force One",
-        "summary": "Overall and cup-specific points for Quad Force One in the 2025 Drone Champions League season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/league/",
-        "sourceName": "Drone Champions League League",
-        "attributes": {
-          "year": 2025,
-          "position": 6,
-          "team": "Quad Force One",
-          "total_points": 8,
-          "falcon_cup_points": 3,
-          "eagle_cup_points": 2,
-          "hawk_cup_points": 3
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
-      },
-      {
-        "id": "ef9258ed3e5be453",
-        "type": "ranking",
-        "name": "2025 DCL Standings - China Dragons",
-        "summary": "Overall and cup-specific points for China Dragons in the 2025 Drone Champions League season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/league/",
-        "sourceName": "Drone Champions League League",
-        "attributes": {
-          "year": 2025,
-          "position": 7,
-          "team": "China Dragons",
-          "total_points": 7,
-          "falcon_cup_points": 2,
-          "eagle_cup_points": 3,
-          "hawk_cup_points": 2
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:29:35.641Z"
-      },
-      {
-        "id": "a6e3acca6fb9a29a",
-        "type": "ranking",
-        "name": "DCL 2025 Pre-Super Final Standings",
-        "summary": "Before the Super Final, Spain Drone Team led the standings with 27 points, closely followed by Raiden Racing with 25 points.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "year": 2025,
-          "leader": "Spain Drone Team",
-          "leader_points": 27,
-          "second_place": "Raiden Racing",
-          "second_place_points": 25
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+        "position": 1,
+        "pilot": "Stefano Bonaldo",
+        "league": "F9U Italy 2025",
+        "points": 380,
+        "country": "Italy",
+        "trend": "stable"
       }
     ],
     "results": [
       {
-        "id": "5d34fd3635237697",
-        "type": "result",
-        "name": "Raiden Racing 2025 DCL Championship Title",
-        "summary": "Raiden Racing won their third DCL title by conquering the 2025 Drone Champions League Championship at K\u00f6nigssee.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "winner": "Raiden Racing",
-          "year": 2025,
-          "championship_title_count": 3
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+        "event": "FAI DWC 2024",
+        "date": "2024-11-15",
+        "winner": "MinJae Kim",
+        "track": "Lake Konigssee",
+        "best_lap": "42.1s",
+        "sourceUrl": "https://www.fai.org/world-cups/drone-racing-2025"
       },
       {
-        "id": "12c2638181f1c2d6",
-        "type": "result",
-        "name": "Raiden Racing DCL Super Final Victory",
-        "summary": "Raiden Racing secured the Super Final victory at K\u00f6nigssee, contributing to their 2025 DCL Championship.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "winner": "Raiden Racing",
-          "event": "DCL Super Final",
-          "year": 2025
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+        "event": "DCL 2024-25 Super Final",
+        "date": "2025-03-22",
+        "winner": "Thomas Bitmatta",
+        "track": "Zurich Arena",
+        "best_lap": "38.7s",
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/"
       },
       {
-        "id": "850754972dc904e4",
-        "type": "result",
-        "name": "Spain Drone Team 2025 DCL Runner-up Finish",
-        "summary": "Spain Drone Team concluded the 2025 DCL season as the overall runners-up.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "runner_up": "Spain Drone Team",
-          "year": 2025
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+        "event": "MultiGP International Open 2024",
+        "date": "2024-09-08",
+        "winner": "Alex Vanover",
+        "track": "Muncie Field",
+        "best_lap": "31.2s",
+        "sourceUrl": "https://www.multigp.com/races/"
       },
       {
-        "id": "438ffbd2f5f3df90",
-        "type": "result",
-        "name": "Salie1 2025 Pilot of the Year Award",
-        "summary": "Salie1 of Spain Drone Team earned the 'Pilot of the Year' award for 2025 with 105 heat points.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "pilot": "Salie1",
-          "team": "Spain Drone Team",
-          "award": "Pilot of the Year",
-          "year": 2025,
-          "heat_points": 105
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+        "event": "NK Drone Racing 2025 Final",
+        "date": "2025-10-12",
+        "winner": "Brian van Hout",
+        "track": "Rotterdam",
+        "best_lap": "35.9s",
+        "sourceUrl": "https://dutchdroneracing.com/"
       },
       {
-        "id": "7b84580a0147398b",
-        "type": "result",
-        "name": "TheBoB 2025 Rookie of the Year Award",
-        "summary": "TheBoB of Wild Card Team earned the 'Rookie of the Year' award for 2025 with 59 heat points.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "pilot": "TheBoB",
-          "team": "Wild Card Team",
-          "award": "Rookie of the Year",
-          "year": 2025,
-          "heat_points": 59
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
-      },
-      {
-        "id": "4836f2b24af5766e",
-        "type": "result",
-        "name": "Spain Drone Team Eagle Cup Victory",
-        "summary": "Spain Drone Team achieved victory in the Eagle Cup during the 2025 DCL season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "winner": "Spain Drone Team",
-          "event": "Eagle Cup",
-          "year": 2025
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
-      },
-      {
-        "id": "bfc2d3e0d82ef20c",
-        "type": "result",
-        "name": "Spain Drone Team Hawk Cup Victory",
-        "summary": "Spain Drone Team achieved victory in the Hawk Cup during the 2025 DCL season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "winner": "Spain Drone Team",
-          "event": "Hawk Cup",
-          "year": 2025
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
-      },
-      {
-        "id": "126bbf75c754cf3d",
-        "type": "result",
-        "name": "Raiden Racing Falcon Cup Victory",
-        "summary": "Raiden Racing achieved victory in the Falcon Cup during the 2025 DCL season.",
-        "confidence": 1,
-        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-        "sourceName": "DCL 2025 Super Final Report",
-        "attributes": {
-          "winner": "Raiden Racing",
-          "event": "Falcon Cup",
-          "year": 2025
-        },
-        "reviewStatus": "pending-review",
-        "lastVerifiedAt": "2026-06-06T09:30:52.369Z"
+        "event": "F9U Italy 2025",
+        "date": "2025-07-18",
+        "winner": "Stefano Bonaldo",
+        "track": "Rome",
+        "best_lap": "44.3s",
+        "sourceUrl": "https://f9u.it/"
       }
     ],
     "technology": [

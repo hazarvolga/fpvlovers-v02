@@ -21,7 +21,16 @@ import {
   rankingPreviewRows,
   trackSpotlight,
 } from '@/lib/racingData';
-import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
+import {
+  getStorePilots,
+  getStoreLeagues,
+  getStoreCalendar,
+  getStoreEvents,
+  getStoreTracks,
+  getStoreRankings,
+  getStoreResults,
+  getStoreSummary,
+} from '@/lib/racing-store-bridge';
 
 export const metadata = generateSeoMetadata({
   title: 'FPV Racing Division | Global Drone Racing Ecosystem',
@@ -35,19 +44,19 @@ const academySkills = ['Race Lines', 'Gate Management', 'Throttle Discipline', '
 const mediaModules = ['Race Highlights', 'Pilot Interviews', 'Track Walkthroughs', 'Technical Breakdowns'];
 
 export default function RacingDivisionPage() {
-  const topEvents = racingEvents.slice(0, 5);
-  const technologySection = racingSections.find((section) => section.slug === 'technology');
+  const storePilots = getStorePilots();
+  const storeLeagues = getStoreLeagues();
+  const storeCalendar = getStoreCalendar();
+  const storeEvents = getStoreEvents();
+  const storeRankings = getStoreRankings();
+  const storeResults = getStoreResults();
+  const storeTracks = getStoreTracks();
+  const summary = getStoreSummary();
 
-  // Merge real intelligence store data
-  let storeCalendar: any[] = [];
-  let storePilots: any[] = [];
-  let storeLeagues: any[] = [];
-  try {
-    const store = readRacingIntelligenceStore();
-    storeCalendar = store.sections?.calendar || [];
-    storePilots = store.sections?.pilots || [];
-    storeLeagues = store.sections?.leagues || [];
-  } catch {}
+  const topEvents = storeEvents.length > 0
+    ? storeEvents.slice(0, 8).map((e: any) => ({ id: e.name, name: e.name, scope: e.summary || e.type || 'Racing event' }))
+    : racingEvents.slice(0, 5);
+  const technologySection = racingSections.find((section) => section.slug === 'technology');
 
   // Merge calendar: real dates first, then static preview
   const mergedCalendar = [
@@ -129,7 +138,7 @@ export default function RacingDivisionPage() {
                   <span className="text-right">Signal</span>
                 </div>
                 <div className="mt-2 space-y-2">
-                  {rankingPreviewRows.map((row) => (
+                  {(storeRankings.length > 0 ? storeRankings : rankingPreviewRows).slice(0, 5).map((row: any, i: number) => (
                     <div key={row.position} className="grid grid-cols-[44px_1fr_110px] gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs">
                       <span className="font-mono text-lg font-black text-white">{row.position}</span>
                       <span>
@@ -290,19 +299,23 @@ export default function RacingDivisionPage() {
               <div className="grid gap-0 font-mono text-[10px] uppercase tracking-[0.12em] text-white/55 lg:grid-cols-[180px_1fr_220px]">
                 <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3 text-[#00ff66] lg:border-b-0 lg:border-r">
                   <Radio className="h-4 w-4" />
-                  Live timing feed
+                  Intelligence pipeline
                 </div>
-                <div className="grid grid-cols-2 gap-3 border-b border-white/10 px-4 py-3 sm:grid-cols-5 lg:border-b-0">
-                  <span>Rank: <span className="text-[#00ff66]">schema</span></span>
-                  <span>Pilot: <span className="text-white">pending</span></span>
-                  <span>Last lap: <span className="text-white">--.--</span></span>
-                  <span>Speed: <span className="text-white">source</span></span>
-                  <span>Gap: <span className="text-white">pending</span></span>
+                <div className="grid grid-cols-3 gap-3 border-b border-white/10 px-4 py-3 sm:grid-cols-6 lg:border-b-0">
+                  {summary && [
+                    {label:'Pilots',val:summary.pilots},
+                    {label:'Events',val:summary.events},
+                    {label:'Leagues',val:summary.leagues},
+                    {label:'Tracks',val:summary.tracks},
+                    {label:'Rankings',val:summary.rankings},
+                    {label:'Results',val:summary.results},
+                  ].map(s => (
+                    <span key={s.label}>{s.label}: <span className="text-white">{s.val}</span></span>
+                  ))}
                 </div>
-                <Link href="/racing/future-systems" className="flex items-center justify-center gap-2 px-4 py-3 text-[#ff5a1f] transition-colors hover:bg-[#ff5a1f]/10 hover:text-white">
-                  View live timing roadmap
-                  <ChevronRight className="h-3.5 w-3.5" />
-                </Link>
+                <div className="flex items-center justify-end gap-4 px-4 py-3">
+                  <span>Source: <span className="text-white">36 official</span></span>
+                </div>
               </div>
             </section>
     </RacingShell>
