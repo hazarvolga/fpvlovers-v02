@@ -75,8 +75,9 @@ export default async function RacingSectionPage({ params }: PageProps) {
   const dataCount = storeData.length;
 
   // Merge calendar items
-  const calendarItems = slug === 'calendar' ? [
-    ...getStoreCalendar().slice(0, 4).map((item: any) => ({
+  const storeCal = getStoreCalendar();
+  const calendarItems = slug === 'calendar' && storeCal.length > 0 ? [
+    ...storeCal.slice(0, 4).map((item: any) => ({
       window: 'Upcoming',
       event: item.event,
       league: item.league,
@@ -263,7 +264,19 @@ export default async function RacingSectionPage({ params }: PageProps) {
       {section.slug === 'calendar' && (
         <Panel title="Calendar filter model" label="Filters" className="mt-4">
           <div className="grid gap-3 md:grid-cols-4">
-            {['Region', 'League', 'Race class', 'Date range', 'Status', 'Country', 'Venue type', 'Source confidence'].map((filter) => (
+            {storeCal.length > 0 ? [
+              {label:'Regions', vals:[...new Set(storeCal.map((c:any)=>c.country||c.location))].slice(0,4)},
+              {label:'Leagues', vals:[...new Set(storeCal.map((c:any)=>c.league))].filter(Boolean)},
+              {label:'Status', vals:['upcoming','completed','live']},
+              {label:'Confidence', vals:['verified (1.0)','high (0.9)','medium (0.8)']},
+            ].map((f) => (
+              <div key={f.label} className="rounded-sm border border-white/8 bg-black/30 p-4">
+                <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#ff5a1f] mb-2">{f.label}</div>
+                {f.vals.map((v: string) => (
+                  <div key={v} className="font-mono text-[9px] text-[#d8d5cf] py-0.5">{v}</div>
+                ))}
+              </div>
+            )) : ['Region', 'League', 'Race class', 'Date range', 'Status', 'Country', 'Venue type', 'Source confidence'].map((filter) => (
               <div key={filter} className="rounded-sm border border-white/8 bg-black/30 p-4 font-mono text-[10px] uppercase tracking-[0.14em] text-[#d8d5cf]">
                 {filter}
               </div>
