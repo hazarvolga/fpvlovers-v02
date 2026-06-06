@@ -22,7 +22,7 @@
         "history"
       ],
       "reason": "FAI event calendar and drone sports hub for sanctioned competitions, dates, countries, and event links.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "FAI Drone Racing World Cup 2025",
@@ -38,7 +38,7 @@
         "history"
       ],
       "reason": "Official FAI World Cup edition page with F9U rules, registered competitions, bulletins, results, reports, and final ranking links.",
-      "status": "failed"
+      "status": "pending"
     },
     {
       "name": "FAI Drone Racing World Cup Main",
@@ -53,7 +53,7 @@
         "rules"
       ],
       "reason": "Current FAI Drone Racing World Cup entry point for edition pages and official calendar references.",
-      "status": "failed"
+      "status": "pending"
     },
     {
       "name": "FAI Drone Permission 2026",
@@ -67,7 +67,7 @@
         "events"
       ],
       "reason": "Official participation/permission page confirming 2026 FAI drone-racing event context and calendar linkage.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "MultiGP Race Index",
@@ -83,7 +83,7 @@
         "tracks"
       ],
       "reason": "Official MultiGP race, series, rulebook, class spec, tracks, and news navigation source.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "MultiGP Chapters",
@@ -98,7 +98,7 @@
         "teams"
       ],
       "reason": "Official chapter infrastructure for regional racing footprint and local race discovery.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "MultiGP Rule Book 2026",
@@ -112,7 +112,7 @@
         "technology"
       ],
       "reason": "Official race rule and class compliance source for Racing Academy and Technology sections.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "MultiGP Race Class Specs",
@@ -127,7 +127,7 @@
         "aircraft"
       ],
       "reason": "Official class specs for race aircraft categories, limits, and competition structure.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Drone Champions League Home",
@@ -143,7 +143,7 @@
         "history"
       ],
       "reason": "Official DCL homepage with current standings, league overview, media links, teams, and league positioning.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Drone Champions League League",
@@ -158,7 +158,7 @@
         "teams"
       ],
       "reason": "Official DCL league format and competition context for team-based racing pages.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Drone Champions League Teams",
@@ -173,7 +173,7 @@
         "sponsors"
       ],
       "reason": "Official DCL team and roster source for Racing Division team/pilot database.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "DCL 2025 Super Final Report",
@@ -189,7 +189,7 @@
         "media"
       ],
       "reason": "Official DCL championship report with final standings context, winning team, pilots, season awards, and historical notes.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Street League Home",
@@ -205,7 +205,7 @@
         "rules"
       ],
       "reason": "Official Street League homepage with season announcement, upcoming races, standings entry, partners, and series links.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Street League Races",
@@ -219,7 +219,7 @@
         "classes"
       ],
       "reason": "Official Street League race listing and category filters.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Street League Leaderboard",
@@ -234,7 +234,7 @@
         "results"
       ],
       "reason": "Official Street League standings page for leaderboard/ranking ingestion.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Street League Rules Downloads",
@@ -248,7 +248,7 @@
         "technology"
       ],
       "reason": "Official Street League resources for rules, downloads, and build/spec references.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Spain Drone Team",
@@ -263,7 +263,7 @@
         "media"
       ],
       "reason": "Official team source for DCL team database and pilot profile confirmation.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "Estonian Drone Racing League",
@@ -278,7 +278,7 @@
         "regional-leagues"
       ],
       "reason": "Regional league with schedule and standings signals for European racing coverage.",
-      "status": "failed"
+      "status": "crawled"
     },
     {
       "name": "F9U Italy",
@@ -293,7 +293,7 @@
         "regional-leagues"
       ],
       "reason": "F9U/World Cup Italy source for event coverage and regional FAI-linked racing details.",
-      "status": "failed"
+      "status": "crawled"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-06T08:19:52.532Z",
+  "generated_at": "2026-06-06T08:33:21.030Z",
   "source": "racing-intelligence-orchestrator",
   "sections": {
     "events": [],
@@ -20,6 +20,102 @@
   },
   "contentBriefs": [],
   "workflowRuns": [
+    {
+      "id": "0be96e3aec6df7d2",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "ebdc3364-9920-4fd2-b2bd-f5e08de51989",
+      "totalTokens": 3388,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:33:21.030Z"
+    },
+    {
+      "id": "379319faeb0c910f",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "4b1226ed-5c83-408c-a942-3926003e5916",
+      "totalTokens": 5946,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:32:28.229Z"
+    },
+    {
+      "id": "499de7c6ba352150",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "ed19eaee-2bc3-4078-8a1a-daea49bccb66",
+      "totalTokens": 5824,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:31:59.011Z"
+    },
+    {
+      "id": "b4cb76c7884ce671",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "a1376610-d6bb-4865-acb6-035f232c07ab",
+      "totalTokens": 2248,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:31:30.048Z"
+    },
+    {
+      "id": "69bb2b8a8c112fe0",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "4d7af035-320b-4089-8e2d-caa4c895962d",
+      "totalTokens": 8018,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:29:36.329Z"
+    },
+    {
+      "id": "379c20b796e6b921",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "85840202-e713-4e5b-81bb-bc093467d5d4",
+      "totalTokens": 8262,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:28:04.892Z"
+    },
+    {
+      "id": "16e0f6d5dfea57cb",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "f316a7ba-ab18-4895-b9f6-4defac8fcccb",
+      "totalTokens": 11388,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:27:04.038Z"
+    },
+    {
+      "id": "8417e581c6d23d2c",
+      "workflowName": "racingIntelligenceOrchestrator",
+      "workflowId": "3db2925b-0374-436f-acfe-1153b45942f5",
+      "configured": true,
+      "success": true,
+      "status": "success",
+      "workflowRunId": "13b05c5f-c55e-4670-8dcf-cde5452ea721",
+      "totalTokens": 3367,
+      "warnings": [],
+      "createdAt": "2026-06-06T08:26:32.216Z"
+    },
     {
       "id": "db372930bc3045c8",
       "workflowName": "racingIntelligenceOrchestrator",

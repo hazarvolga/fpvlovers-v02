@@ -1,9 +1,9 @@
 {
-  "daily_limit": 10000,
-  "used_today": 6139,
+  "daily_limit": 50000,
+  "used_today": 15577,
   "reset_at": "2026-06-06T23:59:59Z",
-  "last_call_ts": 1780733992531,
-  "calls_today": 2,
+  "last_call_ts": 1780734801026,
+  "calls_today": 8,
   "errors_today": 0,
   "groq_calls_today": 0,
   "history": [
@@ -22,6 +22,54 @@
     {
       "ts": "2026-06-06T08:19:52.531Z",
       "tokens": 934,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:26:32.210Z",
+      "tokens": 934,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:27:04.037Z",
+      "tokens": 5550,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:28:04.891Z",
+      "tokens": 2996,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:29:36.327Z",
+      "tokens": 3661,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:31:30.044Z",
+      "tokens": 594,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:31:59.007Z",
+      "tokens": 644,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:32:28.228Z",
+      "tokens": 633,
+      "endpoint": "/workflows/run",
+      "status": "success"
+    },
+    {
+      "ts": "2026-06-06T08:33:21.026Z",
+      "tokens": 565,
       "endpoint": "/workflows/run",
       "status": "success"
     }
