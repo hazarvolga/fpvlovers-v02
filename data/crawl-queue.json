@@ -249,122 +249,144 @@
       "id": "mpuzyx29iuul",
       "url": "https://intofpv.com/t-blackbox-analysis",
       "dataset": "fpv-troubleshooting",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.505Z",
-      "updatedAt": "2026-06-01T10:47:00.888Z"
+      "updatedAt": "2026-06-08T14:13:38.301Z",
+      "docId": "f275050f-92cd-46",
+      "tokens": 2213
     },
     {
       "id": "mpuzyx29vzvg",
       "url": "https://oscarliang.com/blackbox/",
       "dataset": "fpv-troubleshooting",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.505Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:01.833Z",
+      "docId": "1fb00aa9-4c2b-46",
+      "tokens": 49680
     },
     {
       "id": "mpuzyx2952ac",
       "url": "https://betaflight.com/docs/wiki/guides/current/Blackbox",
       "dataset": "fpv-troubleshooting",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.505Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:04.004Z",
+      "docId": "50155208-c9e1-48",
+      "tokens": 1918
     },
     {
       "id": "mpuzyx285o7o",
       "url": "https://oscarliang.com/rpm-filter/",
       "dataset": "fpv-flight-tuning",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.504Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:08.832Z",
+      "docId": "3e316772-a92f-4d",
+      "tokens": 33936
     },
     {
       "id": "mpuzyx28ode5",
       "url": "https://oscarliang.com/betaflight-filtering/",
       "dataset": "fpv-flight-tuning",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.504Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:15.003Z",
+      "docId": "cddf2b77-1d18-4e",
+      "tokens": 36116
     },
     {
       "id": "mpuzyx28cypd",
       "url": "https://betaflight.com/docs/wiki/guides/current/RPM-Filter",
       "dataset": "fpv-flight-tuning",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.504Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:16.799Z",
+      "docId": "3ba8b04f-e503-4b",
+      "tokens": 1924
     },
     {
       "id": "mpuzyx28s8h8",
       "url": "https://betaflight.com/docs/wiki/guides/current/Filter-Tuning",
       "dataset": "fpv-flight-tuning",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.504Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:18.286Z",
+      "docId": "4fee9c95-8b88-4a",
+      "tokens": 1933
     },
     {
       "id": "mpuzyx27gp8h",
       "url": "https://intofpv.com/t-pid-tuning-guide",
       "dataset": "fpv-pid-profiles",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.503Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:20.789Z",
+      "docId": "2c605b68-c3a0-4a",
+      "tokens": 17035
     },
     {
       "id": "mpuzyx27txh1",
       "url": "https://theuavtech.com/presets/",
       "dataset": "fpv-pid-profiles",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.503Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:25.789Z",
+      "docId": "4b226fa2-b942-45",
+      "tokens": 1655
     },
     {
       "id": "mpuzyx27t3r1",
       "url": "https://oscarliang.com/pid/",
       "dataset": "fpv-pid-profiles",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.503Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:31.607Z",
+      "docId": "3aacdb99-1eab-47",
+      "tokens": 48719
     },
     {
       "id": "mpuzyx26ze46",
       "url": "https://betaflight.com/docs/wiki/guides/current/PID-Tuning-Guide",
       "dataset": "fpv-pid-profiles",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-01T09:19:29.502Z",
-      "updatedAt": "2026-06-01T10:47:00.890Z"
+      "updatedAt": "2026-06-08T14:14:34.439Z",
+      "docId": "80546489-0756-44",
+      "tokens": 65452
     },
     {
       "id": "mpr9bonzg6bx",
@@ -409,100 +431,118 @@
       "id": "mpr9bonxuir4",
       "url": "https://www.hd-zero.com/products",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.989Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:14:38.799Z",
+      "docId": "dfe71936-1bac-48",
+      "tokens": 5821
     },
     {
       "id": "mpr9bonw59ss",
       "url": "https://www.team-blacksheep.com/products",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:14:45.695Z",
+      "docId": "4a938d1b-7067-42",
+      "tokens": 19470
     },
     {
       "id": "mpr9bonwooi9",
       "url": "https://chinahobbyline.com/collections/fpv-batteries",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:14:59.224Z",
+      "docId": "f88eb51d-516e-4b",
+      "tokens": 175806
     },
     {
       "id": "mpr9bonw80g0",
       "url": "https://betafpv.com/collections",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:15:05.277Z",
+      "docId": "202ecb27-dfbe-40",
+      "tokens": 24583
     },
     {
       "id": "mpr9bonwlrik",
       "url": "https://pyrodrone.com/collections/flight-controllers-escs",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:15:14.468Z",
+      "docId": "5f595c0f-5df1-43",
+      "tokens": 78024
     },
     {
       "id": "mpr9bonwaaze",
       "url": "https://pyrodrone.com/collections/motors",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:15:32.067Z",
+      "docId": "90ee7119-8006-43",
+      "tokens": 144545
     },
     {
       "id": "mpr9bonwr9xl",
       "url": "https://www.racedayquads.com/collections/fc-esc",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:15:43.065Z",
+      "docId": "d25cff50-030b-46",
+      "tokens": 108123
     },
     {
       "id": "mpr9bonw7mga",
       "url": "https://www.racedayquads.com/collections/motors",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:15:50.946Z",
+      "docId": "547a47c0-f777-46",
+      "tokens": 88660
     },
     {
       "id": "mpr9bonwmoyu",
       "url": "https://www.racedayquads.com/collections/frames",
       "dataset": "fpv-components-specs",
-      "status": "pending",
+      "status": "completed",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:47:00.891Z"
+      "updatedAt": "2026-06-08T14:16:02.992Z",
+      "docId": "a0b23087-7a79-49",
+      "tokens": 136375
     },
     {
       "id": "mpr9bonww5zf",
@@ -755,8 +795,8 @@
   },
   "stats": {
     "total": 63,
-    "pending": 20,
-    "completed": 34,
+    "pending": 0,
+    "completed": 54,
     "failed": 9,
     "throttled": 0
   }
