@@ -24,6 +24,7 @@ import {
   trackSpotlight,
 } from '@/lib/racingData';
 import { getStoreSection, getStoreCalendar, getStorePilots, getStoreLeagues } from '@/lib/racing-store-bridge';
+import LiveTimingFeed from '@/features/racing/components/LiveTimingFeed';
 
 type PageProps = {
   params: Promise<{ section: string }>;
@@ -385,24 +386,8 @@ export default async function RacingSectionPage({ params }: PageProps) {
         </Panel>
       )}
 
-      <section className="mt-4 overflow-hidden rounded-md border border-white/10 bg-[#08090d]/82">
-        <div className="grid gap-0 font-mono text-[10px] uppercase tracking-[0.12em] text-white/55 lg:grid-cols-[180px_1fr_220px]">
-          <div className="flex items-center gap-2 border-b border-white/10 px-4 py-3 text-[#00ff66] lg:border-b-0 lg:border-r">
-            <Radio className="h-4 w-4" />
-            Live timing feed
-          </div>
-          <div className="grid grid-cols-2 gap-3 border-b border-white/10 px-4 py-3 sm:grid-cols-5 lg:border-b-0">
-            <span>Rank: <span className="text-[#00ff66]">schema</span></span>
-            <span>Pilot: <span className="text-white">pending</span></span>
-            <span>Last lap: <span className="text-white">--.--</span></span>
-            <span>Speed: <span className="text-white">source</span></span>
-            <span>Gap: <span className="text-white">pending</span></span>
-          </div>
-          <Link href="/racing/future-systems" className="flex items-center justify-center gap-2 px-4 py-3 text-[#ff5a1f] transition-colors hover:bg-[#ff5a1f]/10 hover:text-white">
-            View live timing roadmap
-            <ChevronRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
+      <section className="mt-4">
+        <LiveTimingFeed />
       </section>
 
       <section className="mt-4 grid gap-4 lg:grid-cols-[1fr_1fr]">

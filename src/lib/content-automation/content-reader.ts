@@ -41,9 +41,12 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
       : resolvedMedia.imageSources
   };
 
-  const coverImage = media.coverImage?.src?.startsWith('/api/content/media/cover/')
-    ? resolvedMedia.coverImage || { ...media.coverImage, src: buildCoverImageUrl(parsed.slug) }
-    : media.coverImage;
+  const coverImage = resolvedMedia.coverImage || {
+    src: buildCoverImageUrl(parsed.slug),
+    alt: parsed.title || parsed.slug,
+    caption: parsed.excerpt || 'FPVLovers editorial content',
+    credit: 'FPVLovers generated artwork',
+  };
 
   // Dynamically split sections that contain H2 headings to enable beautiful inline image scattering!
   let bodySections = parsed.bodySections || [];

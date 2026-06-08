@@ -1,5 +1,58 @@
 [
   {
+    "id": "racing-team-profile-squadron78",
+    "briefSlug": "team-profile-squadron78",
+    "title": "Team Profile: Squadron78 - Argentina's DCL Entry",
+    "category": "Racing",
+    "status": "published",
+    "topic": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-squadron78",
+      "metaDescription": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:53:51.785Z",
+    "publishedPath": "content/published/team-profile-squadron78-argentina-s-dcl-entry.json"
+  },
+  {
+    "id": "racing-team-profile-raiden-racing",
+    "briefSlug": "team-profile-raiden-racing",
+    "title": "Team Profile: Raiden Racing - Japan's Multi-Title Winners",
+    "category": "Racing",
+    "status": "generating",
+    "topic": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-raiden-racing",
+      "metaDescription": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-06T17:50:48.294Z"
+  },
+  {
     "id": "racing-team-profile-cyclone-drone-racing",
     "briefSlug": "team-profile-cyclone-drone-racing",
     "title": "Team Profile: Cyclone Drone Racing - USA's DCL Champions",
@@ -1269,58 +1322,6 @@
     },
     "createdAt": "2026-06-06T16:20:19Z",
     "updatedAt": "2026-06-06T16:29:19.073Z"
-  },
-  {
-    "id": "racing-team-profile-raiden-racing",
-    "briefSlug": "team-profile-raiden-racing",
-    "title": "Team Profile: Raiden Racing - Japan's Multi-Title Winners",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-raiden-racing",
-      "metaDescription": "Discover Raiden Racing, the Japanese DCL team boasting three championship titles, their manager, DCL entry, and pilot lineup.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-team-profile-squadron78",
-    "briefSlug": "team-profile-squadron78",
-    "title": "Team Profile: Squadron78 - Argentina's DCL Entry",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-squadron78",
-      "metaDescription": "An in-depth look at Squadron78, the Drone Champions League team from Argentina, including their manager, DCL entry year, and pilot roster.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
   },
   {
     "id": "racing-team-profile-vexcel-spain-drone-team",

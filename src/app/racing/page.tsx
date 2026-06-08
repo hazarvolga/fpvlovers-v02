@@ -27,6 +27,7 @@ import {
   getStoreResults,
   getStoreSummary,
 } from '@/lib/racing-store-bridge';
+import LiveTimingFeed from '@/features/racing/components/LiveTimingFeed';
 
 export const metadata = generateSeoMetadata({
   title: 'FPV Racing Division | Global Drone Racing Ecosystem',
@@ -287,6 +288,10 @@ export default function RacingDivisionPage() {
                 </Panel>
               </section>
             )}
+
+            <section className="mt-4">
+              <LiveTimingFeed />
+            </section>
 
             <section className="mt-4 overflow-hidden rounded-md border border-white/10 bg-[#08090d]/82">
               <div className="grid gap-0 font-mono text-[10px] uppercase tracking-[0.12em] text-white/55 lg:grid-cols-[180px_1fr_220px]">
