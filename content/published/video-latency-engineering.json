@@ -21,12 +21,12 @@
       "title": "Video Latency Engineering: Glass-to-Glass Measurements & Penetration Limits",
       "content": "## 1. The FPV Video Pipeline\n\nThe video link is a pilot's eyes. Glass-to-glass latency represents the total delay from the camera sensor capturing a frame to the goggle display illuminating.\n\n### 1.1 Analog Zero-Latency\nAnalog video systems stream raw video lines as they are read from the sensor, bypassing digital encoding. Glass-to-glass latency is constant ($< 10\\text{ ms}$), providing unmatched feedback for racing.\n\n---\n\n## 2. Digital Video encoding (DJI, Walksnail, HDZero)\n\nDigital FPV systems convert the analog sensor data into compressed digital streams (H.264/H.265) before transmitting.\n\n### 2.1 HDZero (Uncompressed Digital)\nHDZero uses uncompressed digital transmission. Like analog, it transmits line-by-line. Latency is constant and fixed at $\\approx 14-16\\text{ ms}$ regardless of range.\n\n### 2.2 DJI & Walksnail (Compressed Digital)\nDJI and Walksnail compress frames to achieve high resolution (1080p).\n* **Variable Latency:** Total delay varies ($25-45\\text{ ms}$) depending on signal quality.\n* **Buffer Delay:** Bad RF conditions force packet retransmissions, increasing buffer delays and causing frame drops.\n\n---\n\n## 3. Signal Penetration & Frequency Dynamics\n\nDigital systems rely on error correction coding to survive signal reflections. If RF attenuation exceeds the error correction threshold, the stream will instantly pixelate or freeze.",
       "imageMatch": {
-        "src": "https://oscarliang.com/wp-content/uploads/2025/08/pcbway-banner-22-08-2025-1-1.jpg",
-        "alt": "sponsor-banner",
-        "caption": "sponsor-banner",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/betaflight-filtering/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://www.racedayquads.com/cdn/shop/files/flywoo-flywoo-firefly-dc16-nano-baby-v2-0-1-6-analog-micro-frame-kit-frame-30756239999089.jpg?v=1737236219&width=533",
+        "alt": "FLYWOO Frame Flywoo Firefly DC16 Nano Baby V2.0 1.6\" Analog Micro Frame Kit",
+        "caption": "FLYWOO Frame Flywoo Firefly DC16 Nano Baby V2.0 1.6\" Analog Micro Frame Kit",
+        "source": "racedayquads.com",
+        "sourceUrl": "https://www.racedayquads.com/collections/frames",
+        "credit": "Source: racedayquads.com",
         "license": "attribution"
       }
     }
@@ -50,12 +50,12 @@
     },
     "gallery": [
       {
-        "src": "https://oscarliang.com/wp-content/uploads/2025/08/pcbway-banner-22-08-2025-1-1.jpg",
-        "alt": "sponsor-banner",
-        "caption": "sponsor-banner",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/betaflight-filtering/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://www.racedayquads.com/cdn/shop/files/flywoo-flywoo-firefly-dc16-nano-baby-v2-0-1-6-analog-micro-frame-kit-frame-30756239999089.jpg?v=1737236219&width=533",
+        "alt": "FLYWOO Frame Flywoo Firefly DC16 Nano Baby V2.0 1.6\" Analog Micro Frame Kit",
+        "caption": "FLYWOO Frame Flywoo Firefly DC16 Nano Baby V2.0 1.6\" Analog Micro Frame Kit",
+        "source": "racedayquads.com",
+        "sourceUrl": "https://www.racedayquads.com/collections/frames",
+        "credit": "Source: racedayquads.com",
         "license": "attribution"
       }
     ],

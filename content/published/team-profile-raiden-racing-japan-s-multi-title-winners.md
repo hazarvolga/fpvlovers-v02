@@ -232,6 +232,6 @@ The adrenaline, the immersion, the community – it's all waiting for you. Now t
 
 **Welcome to the skies, pilot!**
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/Bildschirmfoto-2025-12-11-um-13.48.21-scaled.jpg)
+_Source: dronechampionsleague.com_
 

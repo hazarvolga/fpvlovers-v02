@@ -226,6 +226,6 @@ Armed with this comprehensive knowledge, you're not just a pilot; you're an arch
 
 Ready to apply your newfound knowledge? Share your most challenging build or troubleshooting experience in the comments below, or explore our advanced tuning guides to further refine your flight. Join the FPV ORACLE community and elevate your craft!
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1767973806__img_4713__original.jpeg?auto=format&w=1024)
+_Source: judgeme.imgix.net_
 

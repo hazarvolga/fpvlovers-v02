@@ -242,6 +242,6 @@ You've now got the knowledge to confidently navigate the world of FPV motors. By
 
 Remember, the perfect motor isn't necessarily the biggest or fastest, but the one that creates the most harmonious and efficient power system for *your* specific needs. Ready to put your knowledge to the test? Share your ideal motor setup in the comments below or check out our recommended motor brands for your next build!
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from pyrodrone.com](https://pyrodrone.com/cdn/shop/products/569A1011_1066cd1b-ba96-452d-92e7-44193b1baf4d_512x512.jpg?v=1602876520)
+_Source: pyrodrone.com_
 

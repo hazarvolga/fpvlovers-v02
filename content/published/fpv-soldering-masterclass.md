@@ -215,6 +215,6 @@ Every perfectly soldered joint is a testament to your skill and attention to det
 
 Don't let soldering intimidate you. Grab your iron, practice on some scrap, and apply these techniques to your next FPV build. With patience, practice, and the right approach, you'll soon be building drones with confidence and enjoying more exhilarating flights than ever before. Happy soldering, and happy flying!
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1771716600__1000015086__original.jpg?auto=format&w=1024)
+_Source: judgeme.imgix.net_
 

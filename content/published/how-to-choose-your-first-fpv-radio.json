@@ -36,12 +36,12 @@
       "title": "Gamepad vs. Traditional Box: Finding Your Ergonomic Fit",
       "content": "Modern FPV radios are divided into three primary form factors. Your choice depends entirely on how you hold your control sticks:\n\n1.  **Gamepad Style (e.g., RadioMaster Pocket, Jumper T-Lite):** Compact, highly portable, and designed like a console controller. This is ideal for **'thumbers'**—pilots who control the sticks by placing their thumbs on top of the stick ends. Gamepad radios fit easily into standard backpacks.\n2.  **Full-Size Box Style (e.g., RadioMaster TX16S, Jumper T20):** Traditional, larger, heavy-duty radios featuring large color touchscreens, multiple hardware switches, and extensive battery capacity. These are excellent for **'pinchers'**—pilots who hold the sticks between their thumb and index finger for extreme precision.\n3.  **Compact Hybrid Style (e.g., RadioMaster Boxer):** The current sweet spot in FPV. Hybrids offer the full-sized gimbals and switch layouts of a box radio but in a smaller, highly ergonomic shell. It caters to both thumbers and pinchers and is the default recommendation for new pilots.",
       "imageMatch": {
-        "src": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
-        "alt": "FPV image from oscarliang.com",
-        "caption": "Source: oscarliang.com",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/pid/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+        "alt": "FPV image from judgeme.imgix.net",
+        "caption": "Source: judgeme.imgix.net",
+        "source": "judgeme.imgix.net",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: judgeme.imgix.net",
         "license": "attribution"
       }
     },
@@ -50,12 +50,12 @@
       "title": "The Science of Gimbals: Potentiometers vs. Hall Effect Sensors",
       "content": "The stick mechanisms inside your radio are called **gimbals**. They translate the physical deflection of your sticks into numerical PWM values sent to the drone. Gimbals come in two distinct technologies:\n\n*   **Potentiometer Gimbals:** These use physical contact brushes sliding along carbon tracks to measure resistance. Because they rely on physical friction, they wear down over time, collect dust, develop dead zones, and begin to jitter. Jittery gimbals will manifest as erratic flight behavior.\n*   **Hall Effect Gimbals:** These use non-contact magnetic sensors to measure stick position. Because there are no physical brushes wearing down, Hall effect gimbals never wear out, remain perfectly smooth, and deliver razor-sharp precision indefinitely.\n\n> [!IMPORTANT]\n> **THE HALL EFFECT REQUIREMENT**\n> Never buy a radio with potentiometer gimbals. Ensure your first radio explicitly features **Hall Effect Gimbals** (like the AG01 or standard RadioMaster Hall gimbals). The difference in stick resolution and long-term durability is non-negotiable.",
       "imageMatch": {
-        "src": "https://droneracing.fai.org/images/licence1.jpg",
-        "alt": "FPV image from droneracing.fai.org",
-        "caption": "Source: droneracing.fai.org",
-        "source": "droneracing.fai.org",
-        "sourceUrl": "https://droneracing.fai.org/",
-        "credit": "Source: droneracing.fai.org",
+        "src": "https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg",
+        "alt": "FPV image from dronechampionsleague.com",
+        "caption": "Source: dronechampionsleague.com",
+        "source": "dronechampionsleague.com",
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "credit": "Source: dronechampionsleague.com",
         "license": "attribution"
       }
     },
@@ -64,7 +64,7 @@
       "title": "RF Protocols: ExpressLRS (ELRS) is the Only Modern Choice",
       "content": "The radio transmitter speaks to the drone's receiver using a specific wireless protocol. In the past, FPV was dominated by proprietary, low-range protocols like FrSky D8/D16, FlySky, and expensive systems like TBS Crossfire.\n\nIn 2026, **ExpressLRS (ELRS)** has completely taken over the FPV ecosystem. ELRS is an open-source, ultra-low latency, long-range radio link operating on the LoRa (Long Range) modulation format. It offers:\n\n*   **Unmatched Range:** Even at a low 100mW power setting, ELRS can easily penetrate miles of trees and structures.\n*   **Ultra-Low Latency:** Packet rates up to 1000Hz ensure your drone reacts to stick movements in fractions of a millisecond.\n*   **Open-Source Updates:** Frequent community updates keep the link incredibly secure and feature-rich.\n\nWhen buying a radio, **always choose the internal ExpressLRS 2.4GHz version**. Do not buy the '4-in-1' or 'CC2500' multi-protocol version unless you plan to fly older analog toy drones; ELRS 2.4G is the gold standard for all modern FQP, freestyle, racing, and cinematic quads.",
       "imageMatch": {
-        "src": "https://judgeme.imgix.net/rotor-riot/1779742367__17453__original.jpg?auto=format&w=1024",
+        "src": "https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024",
         "alt": "FPV image from judgeme.imgix.net",
         "caption": "Source: judgeme.imgix.net",
         "source": "judgeme.imgix.net",
@@ -78,12 +78,12 @@
       "title": "EdgeTX: The Operating System of Modern FPV",
       "content": "Premium FPV radios run **EdgeTX**, an open-source, community-driven operating system designed specifically for radio transmitters. EdgeTX handles model management, lets you customize voice telemetry readouts (e.g. configuring the radio to speak your active battery voltage every 30 seconds), and provides an interface for adjusting radio settings.\n\nEdgeTX utilizes **LUA Scripts**—lightweight program files loaded on the radio's SD card—to configure external hardware. The most famous is the **ELRS LUA Script**, which lets you change your packet rates, transmitter power output (e.g., 25mW to 1000mW dynamic power), and bind phrases directly from the radio screen without ever connecting to a computer.",
       "imageMatch": {
-        "src": "https://droneracing.fai.org/images/licence2.jpg",
-        "alt": "FPV image from droneracing.fai.org",
-        "caption": "Source: droneracing.fai.org",
-        "source": "droneracing.fai.org",
-        "sourceUrl": "https://droneracing.fai.org/",
-        "credit": "Source: droneracing.fai.org",
+        "src": "https://chinahobbyline.com/cdn/shop/products/202009091406_512x512.jpg?v=1687832502",
+        "alt": "CNHL Black Series 2200mAh 4S 40C LiPo Battery with XT60 plug",
+        "caption": "CNHL Black Series 2200mAh 4S 40C LiPo Battery with XT60 plug",
+        "source": "chinahobbyline.com",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "credit": "Source: chinahobbyline.com",
         "license": "attribution"
       }
     }
@@ -116,25 +116,25 @@
         "license": "attribution"
       },
       {
-        "src": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
-        "alt": "FPV image from oscarliang.com",
-        "caption": "Source: oscarliang.com",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/pid/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+        "alt": "FPV image from judgeme.imgix.net",
+        "caption": "Source: judgeme.imgix.net",
+        "source": "judgeme.imgix.net",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: judgeme.imgix.net",
         "license": "attribution"
       },
       {
-        "src": "https://droneracing.fai.org/images/licence1.jpg",
-        "alt": "FPV image from droneracing.fai.org",
-        "caption": "Source: droneracing.fai.org",
-        "source": "droneracing.fai.org",
-        "sourceUrl": "https://droneracing.fai.org/",
-        "credit": "Source: droneracing.fai.org",
+        "src": "https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg",
+        "alt": "FPV image from dronechampionsleague.com",
+        "caption": "Source: dronechampionsleague.com",
+        "source": "dronechampionsleague.com",
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "credit": "Source: dronechampionsleague.com",
         "license": "attribution"
       },
       {
-        "src": "https://judgeme.imgix.net/rotor-riot/1779742367__17453__original.jpg?auto=format&w=1024",
+        "src": "https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024",
         "alt": "FPV image from judgeme.imgix.net",
         "caption": "Source: judgeme.imgix.net",
         "source": "judgeme.imgix.net",

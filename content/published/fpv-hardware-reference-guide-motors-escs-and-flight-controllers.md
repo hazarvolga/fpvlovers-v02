@@ -277,6 +277,6 @@ Evet, FPV donanımı büyük ölçüde modülerdir! Farklı markaların bileşen
 
 FPV donanımının büyüleyici dünyasına derinlemesine bir dalış yaptınız! Beyin gibi çalışan Uçuş Kontrol Kartı'ndan güçlü LiPo bataryalara kadar, her temel bileşenin amacını ve bağlantısını artık anlıyorsunuz. Bu bilgi, FPV drone'unuzu inşa etme, onarma ve gerçekten ustalaşma yolundaki ilk adımdır. Bu bilgiyi eyleme dönüştürmeye hazır mısınız? Başlangıç kitlerini keşfetmeye başlayın, ilk çerçevenizi seçin veya ayrıntılı inşa rehberlerine dalın. Gökyüzü artık bir sınır değil; yeni oyun alanınız. Keyifli uçuşlar!
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![Rotor Riot](https://rotorriot.com/cdn/shop/files/bundles-desktop.jpg?v=1776949301&width=1110)
+_Rotor Riot_
 

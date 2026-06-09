@@ -289,6 +289,6 @@ Regulations vary by country. In many places (like the US, under FAA rules), recr
 
 Congratulations, future FPV pilot! You've just completed the 'Zero to Race Ready' roadmap, equipping yourself with the foundational knowledge to embark on your FPV racing adventure. Remember, every master was once a beginner. Embrace the crashes, celebrate the small victories, and never stop learning. The FPV community is vibrant and welcoming, ready to support you every step of the way. Now, take that first step, get your gear, hit the simulator, and prepare to experience the world from a whole new perspective. The sky is calling, and your race is about to begin! **Ready to gear up? Check out our recommended beginner FPV racing kits and start your journey today!**
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/Bildschirmfoto-2025-12-11-um-13.45.04-scaled.jpg)
 _Source: dronechampionsleague.com_
 

@@ -92,6 +92,9 @@ const PATH_DENYLIST = [
   // Common vendor chrome patterns
   'blank.gif', 'transparent.gif', 'loading.gif', 'spinner.',
   'arrow', 'star.png', 'star.gif', 'checkmark',
+  // Generic placeholders
+  'untitled', '404', 'licence', 'sportac', 'bracket', 'header', 'footer', 'default',
+  'banner', 'promo', 'background', 'bg-', 'pattern',
   // CDN product thumbnails that are too small
   '_thumb', '_small', '_xs', '-xs.', '-sm.', '_mini',
 ];
@@ -158,6 +161,7 @@ function jaccard(a: Set<string>, b: Set<string>): number {
 function matchImagesToSections(
   images: HarvestedImage[],
   sections: BodySection[],
+  globalUsageCount: Map<string, number>
 ): Map<string, HarvestedImage> {
   const result = new Map<string, HarvestedImage>();
   const usedImages = new Set<string>();
@@ -170,17 +174,25 @@ function matchImagesToSections(
     for (const img of images) {
       if (usedImages.has(img.id)) continue;
       const imgTokens = tokenize(`${img.alt} ${img.context}`);
-      const score = jaccard(sectionTokens, imgTokens);
+      let score = jaccard(sectionTokens, imgTokens);
+      
+      // Heavily penalize overused images across ALL articles
+      const usage = globalUsageCount.get(img.src) || 0;
+      if (usage > 0) {
+        score = score / Math.pow(1.5, usage);
+      }
+
       if (score > bestScore) {
         bestScore = score;
         bestImage = img;
       }
     }
 
-    // Only assign if score is meaningful
-    if (bestImage && bestScore > 0.02) {
+    // Only assign if score is meaningful (stricter threshold)
+    if (bestImage && bestScore > 0.04) {
       result.set(section.id, bestImage);
       usedImages.add(bestImage.id);
+      globalUsageCount.set(bestImage.src, (globalUsageCount.get(bestImage.src) || 0) + 1);
     }
   }
 
@@ -256,6 +268,8 @@ async function main() {
 
   let updated = 0;
   let skipped = 0;
+  
+  const globalUsageCount = new Map<string, number>();
 
   for (const file of files) {
     const jsonPath = path.join(publishedDir, file);
@@ -291,8 +305,8 @@ async function main() {
     // Use full pool if we have few images
     if (relevantImages.length < 3) relevantImages = allImages;
 
-    // Jaccard match
-    const matchMap = matchImagesToSections(relevantImages, sections);
+    // Jaccard match with global usage tracking
+    const matchMap = matchImagesToSections(relevantImages, sections, globalUsageCount);
 
     if (matchMap.size === 0) {
       console.log(`  Skip ${slug}: no image matches found`);

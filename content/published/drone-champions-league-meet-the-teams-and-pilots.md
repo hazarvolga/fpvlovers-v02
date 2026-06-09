@@ -235,6 +235,6 @@ While possible, it's generally recommended for beginners to start with an RTF (R
 
 From your first tentative flights in a simulator to carving precise lines on a physical track, the journey into FPV racing is incredibly rewarding. With dedication, practice, and the right knowledge, you'll soon be experiencing the unparalleled thrill of competitive drone racing. Are you ready to take the sticks? Dive in, start practicing, and join the vibrant FPV community today!
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/Bildschirmfoto-2025-12-11-um-13.36.41-scaled.jpg)
 _Source: dronechampionsleague.com_
 

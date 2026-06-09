@@ -21,12 +21,12 @@
       "title": "LiPo Performance Engineering: Internal Resistance, Voltage Sag & Thermal Physics",
       "content": "## 1. The Chemistry of LiPo Discharge\n\nLithium Polymer (LiPo) batteries store electrical energy chemically. During flight, lithium ions move from the anode to the cathode, creating an external current.\n\n### 1.1 Internal Resistance (IR) & Ohmic Sag\nEvery cell possesses an internal resistance ($R_{int}$). When drawing a high current $I$ (often exceeding 100A in FPV punchouts), the terminal voltage drops instantly due to ohmic losses:\n\n$$V_{terminal} = V_{oc} - I \\cdot R_{int}$$\n\nThis voltage sag reduces overall motor RPM, limiting maximum thrust.\n\n---\n\n## 2. Decoding C-Ratings & Capacity\n\nThe C-rating represents the maximum continuous discharge rate of the pack:\n\n$$I_{max} = \\text{Capacity (Ah)} \\cdot \\text{C-Rating}$$\n\n### 2.1 The C-Rating Myth\nMany FPV packs claim 150C+ continuous ratings. However, continuous discharge at these levels would melt the internal nickel tabs within seconds. Real continuous C-ratings rarely exceed 40-50C.\n\n---\n\n## 3. Thermal Degradation & Swelling\n\nDrawing current raises cell temperature. If the internal temperature exceeds $60^\\circ\\text{C}$, the polymer electrolyte degrades, producing gas that causes cell swelling (puffing) and irreversible capacity loss.",
       "imageMatch": {
-        "src": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
-        "alt": "FPV image from oscarliang.com",
-        "caption": "Source: oscarliang.com",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/pid/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://chinahobbyline.com/cdn/shop/files/1_33377184-2c96-4c38-925b-7139ddd7c2db_512x512.jpg?v=1686278572",
+        "alt": "CNHL 2200mAh 2S Lipo Battery - Dimensions and Weight",
+        "caption": "CNHL 2200mAh 2S Lipo Battery - Dimensions and Weight",
+        "source": "chinahobbyline.com",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "credit": "Source: chinahobbyline.com",
         "license": "attribution"
       }
     }
@@ -50,12 +50,12 @@
     },
     "gallery": [
       {
-        "src": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
-        "alt": "FPV image from oscarliang.com",
-        "caption": "Source: oscarliang.com",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/pid/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://chinahobbyline.com/cdn/shop/files/1_33377184-2c96-4c38-925b-7139ddd7c2db_512x512.jpg?v=1686278572",
+        "alt": "CNHL 2200mAh 2S Lipo Battery - Dimensions and Weight",
+        "caption": "CNHL 2200mAh 2S Lipo Battery - Dimensions and Weight",
+        "source": "chinahobbyline.com",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "credit": "Source: chinahobbyline.com",
         "license": "attribution"
       }
     ],

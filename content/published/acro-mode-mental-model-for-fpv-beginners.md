@@ -8,8 +8,8 @@ Ever watched an FPV drone thread an impossible gap, dive a skyscraper, or execut
 
 For a beginner, switching to Acro mode is not just a setting change—it is a complete psychological and physical paradigm shift. You are transitioning from a system where you tell the drone *where to look* (stabilized attitude control) to a system where you command the drone's *rate of rotation* (angular velocity control). Understanding this conceptual model is the absolute key to unlocking FPV flight, saving hundreds of dollars in crashed carbon fiber, and developing the subconscious muscle memory required for premium, high-fidelity flight maneuvers.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![How To Use Blackbox Betaflight 4.3](https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg)
+_How To Use Blackbox Betaflight 4.3_
 
 ## Why Angle Mode is a Trap for Muscle Memory
 
@@ -31,8 +31,8 @@ To master Acro mode, you must understand its core physical law: **Stick deflecti
 
 Think of it as steering a car versus steering a boat. In a car, if you hold the steering wheel turned, the car turns. If you center the wheel, the car goes straight. In Acro mode FPV, your stick inputs are like nudges. You nudge the drone into a specific attitude (e.g., tilted 15 degrees forward for forward flight), return the sticks to center, and the drone locks to that attitude and cruises. To stop, you must nudge the stick in the opposite direction.
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/2026-Season-Bracket-9x16-1.png)
-_Source: dronechampionsleague.com_
+![SDT Sponsors](https://spaindroneteam.com/wp-content/uploads/2025/03/SECCION-SPONSORS.png)
+_SDT Sponsors_
 
 ## Calibration Drills for Simulator Practice
 
@@ -45,8 +45,8 @@ Perform these four specific flight calibration drills:
 3.  **The Coordinated Turn:** A common beginner mistake is turning only with Roll or only with Yaw. To make a clean, aerodynamic turn, you must coordinate both sticks. Tilt the roll stick slightly to the right while pushing the yaw stick slightly to the right, and apply a small touch of throttle to fight gravity. The nose of the drone should smoothly carve through the turn without sliding.
 4.  **The Figure-8 Tracking:** Locate two trees or pylons in the simulator. Fly a flat, continuous figure-8 pattern around them. Focus on maintaining a constant altitude and speed. This drill forces you to coordinate left-hand and right-hand stick inputs under pressure.
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![FPV image from fpvknowitall.com](https://www.fpvknowitall.com/wp-content/uploads/2023/09/qav-s-2-analog-kit.webp)
+_Source: fpvknowitall.com_
 
 ## Crucial Bench Setup & Safety Warnings
 
@@ -60,6 +60,6 @@ When you are ready to transition from virtual flight to a real FPV quadcopter, s
 *   **Visual Line of Sight & Spotters:** When flying FPV goggles on your face, you are visually isolated. Always fly with an active visual observer (spotter) who can monitor the surrounding airspace for pedestrians, animals, or low-flying aircraft.
 *   **LiPo Storage Safety:** Always balance charge your LiPo batteries in a fireproof bag or ammo box. Never charge a battery that is physically dented, swollen, or punctured, and never leave charging batteries unattended.
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence2.jpg)
-_Source: droneracing.fai.org_
+![Rotor Riot](https://rotorriot.com/cdn/shop/files/Desktop_Homepage_Feature_Block_-_Gift_Card.png?v=1770843094&width=1880)
+_Rotor Riot_
 

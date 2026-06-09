@@ -228,6 +228,6 @@ By understanding their core differences, mastering safe charging practices with 
 
 Which battery type powers your FPV adventures? Share your experiences and tips in the comments below, and don't forget to subscribe for more FPV insights!
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![Size and weight overview of cnhl 1300mah 6s 130c lipo battery](https://chinahobbyline.com/cdn/shop/files/1301306BK_1b074c04-3a90-489f-8592-565d8161282f_512x512.jpg?v=1772001464)
+_Size and weight overview of cnhl 1300mah 6s 130c lipo battery_
 

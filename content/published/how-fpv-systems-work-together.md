@@ -34,6 +34,6 @@ Gyro Telemetry <--- Motors <--- ESC (Motor Speed) <-----+
 * **Electrical Ground Loops:** Bad grounding routes electrical noise from the motors directly into the analog video line, causing heavy diagonal line static in the goggles.
 * **Voltage Sag Crashes:** High-current motor loads can sag battery voltage below the FC regulator's minimum input, triggering an immediate mid-air flight controller reboot.
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2023/0215/20230215060238395.jpg)
+_Source: en.tmotor.com_
 

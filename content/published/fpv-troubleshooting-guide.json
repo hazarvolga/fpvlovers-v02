@@ -20,12 +20,12 @@
       "title": "Start With Safety",
       "content": "Before diving into complex debugging, always start with the basics. **Remove props** before bench testing. Check your **battery voltage** with a multimeter. Verify all **solder joints** are shiny and solid. A cold solder joint is the root cause of more FPV problems than any other single issue.",
       "imageMatch": {
-        "src": "https://www.fai.org/sites/default/files/styles/basic_page_highlighted_xlarge/public/banners_faidroneworld2018.png?itok=yAKMQBkG",
-        "alt": "FPV image from fai.org",
-        "caption": "Source: fai.org",
-        "source": "fai.org",
-        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
-        "credit": "Source: fai.org",
+        "src": "https://dronechampionsleague.com/wp-content/uploads/2025/04/1.webp",
+        "alt": "FPV image from dronechampionsleague.com",
+        "caption": "Source: dronechampionsleague.com",
+        "source": "dronechampionsleague.com",
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "credit": "Source: dronechampionsleague.com",
         "license": "attribution"
       }
     },
@@ -34,7 +34,21 @@
       "title": "No Video? Isolate the Chain",
       "content": "When your goggles show nothing:\n- Verify the **VTX and goggles are on the same channel**\n- Check the **camera wiring** — is it getting power?\n- Try a **different antenna**\n- Is the **VTX antenna connected**? Running a VTX without an antenna can damage it\n\nWork backwards: goggle → VRX → antenna → VTX → camera. Isolate each link.",
       "imageMatch": {
-        "src": "https://judgeme.imgix.net/rotor-riot/1774559120__1000003535__original.jpg?auto=format&w=1024",
+        "src": "https://rotorriot.com/cdn/shop/files/CL2-4S-ELRS5..jpg?v=1764108025&width=1722",
+        "alt": "Drones",
+        "caption": "Drones",
+        "source": "rotorriot.com",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: rotorriot.com",
+        "license": "attribution"
+      }
+    },
+    {
+      "id": "no-arm",
+      "title": "Won't Arm? Read the Flags",
+      "content": "Connect to Betaflight and check the **Arming Disable Flags** in the Setup tab. Common causes:\n- **Throttle not at zero** (adjust endpoints)\n- **Accelerometer not calibrated** (calibrate on level surface)\n- **RX loss** (check receiver binding and protocol)\n- **GPS not locked** (if GPS rescue is enabled)\n\nThe arming flags tell you exactly what's wrong.",
+      "imageMatch": {
+        "src": "https://judgeme.imgix.net/rotor-riot-store/1767380059__1000002620__original.jpg?auto=format&w=1024",
         "alt": "FPV image from judgeme.imgix.net",
         "caption": "Source: judgeme.imgix.net",
         "source": "judgeme.imgix.net",
@@ -44,25 +58,11 @@
       }
     },
     {
-      "id": "no-arm",
-      "title": "Won't Arm? Read the Flags",
-      "content": "Connect to Betaflight and check the **Arming Disable Flags** in the Setup tab. Common causes:\n- **Throttle not at zero** (adjust endpoints)\n- **Accelerometer not calibrated** (calibrate on level surface)\n- **RX loss** (check receiver binding and protocol)\n- **GPS not locked** (if GPS rescue is enabled)\n\nThe arming flags tell you exactly what's wrong.",
-      "imageMatch": {
-        "src": "https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg",
-        "alt": "FPV image from oscarliang.com",
-        "caption": "Source: oscarliang.com",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/rpm-filter/",
-        "credit": "Source: oscarliang.com",
-        "license": "attribution"
-      }
-    },
-    {
       "id": "bench-testing",
       "title": "Bench Testing Checklist",
       "content": "Before every first flight after a repair:\n1. **Smoke stopper** on first power-up\n2. Verify **motor direction** in Betaflight Motors tab\n3. **Props off** for motor testing\n4. Check **failsafe** behavior (turn off radio, verify disarm)\n5. **Range test** your radio link\n6. Verify **OSD elements** are visible in goggles",
       "imageMatch": {
-        "src": "https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800",
+        "src": "https://rotorriot.com/cdn/shop/files/motor-png.png?v=1763398242&width=1800",
         "alt": "Rotor Riot",
         "caption": "Rotor Riot",
         "source": "rotorriot.com",
@@ -76,7 +76,7 @@
       "title": "Prevention and Maintenance",
       "content": "Most FPV problems are preventable with regular maintenance:\n- **Conformal coat** your electronics for moisture protection\n- Check **antenna connections** after every crash\n- Inspect **frame screws** for tightness\n- Clean **motor bearings** periodically\n- Keep **spare antennas, props, and standoffs** in your field kit",
       "imageMatch": {
-        "src": "https://judgeme.imgix.net/rotor-riot-store/1767477640__image_2026-01-03_170134848__original.png?auto=format&w=1024",
+        "src": "https://judgeme.imgix.net/rotor-riot/1773700959__1000002728__original.jpg?auto=format&w=1024",
         "alt": "FPV image from judgeme.imgix.net",
         "caption": "Source: judgeme.imgix.net",
         "source": "judgeme.imgix.net",
@@ -107,34 +107,34 @@
     },
     "gallery": [
       {
-        "src": "https://www.fai.org/sites/default/files/styles/basic_page_highlighted_xlarge/public/banners_faidroneworld2018.png?itok=yAKMQBkG",
-        "alt": "FPV image from fai.org",
-        "caption": "Source: fai.org",
-        "source": "fai.org",
-        "sourceUrl": "https://www.fai.org/event/fai-drone-sports",
-        "credit": "Source: fai.org",
+        "src": "https://dronechampionsleague.com/wp-content/uploads/2025/04/1.webp",
+        "alt": "FPV image from dronechampionsleague.com",
+        "caption": "Source: dronechampionsleague.com",
+        "source": "dronechampionsleague.com",
+        "sourceUrl": "https://dronechampionsleague.com/",
+        "credit": "Source: dronechampionsleague.com",
         "license": "attribution"
       },
       {
-        "src": "https://intofpv.com/images/smilies/smile.png",
-        "alt": "Smile",
-        "caption": "Smile",
-        "source": "intofpv.com",
-        "sourceUrl": "https://intofpv.com/t-pid-tuning-guide",
-        "credit": "Source: intofpv.com",
+        "src": "https://rotorriot.com/cdn/shop/files/CL2-4S-ELRS5..jpg?v=1764108025&width=1722",
+        "alt": "Drones",
+        "caption": "Drones",
+        "source": "rotorriot.com",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: rotorriot.com",
         "license": "attribution"
       },
       {
-        "src": "https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg",
-        "alt": "FPV image from oscarliang.com",
-        "caption": "Source: oscarliang.com",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/rpm-filter/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://judgeme.imgix.net/rotor-riot-store/1767380059__1000002620__original.jpg?auto=format&w=1024",
+        "alt": "FPV image from judgeme.imgix.net",
+        "caption": "Source: judgeme.imgix.net",
+        "source": "judgeme.imgix.net",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: judgeme.imgix.net",
         "license": "attribution"
       },
       {
-        "src": "https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800",
+        "src": "https://rotorriot.com/cdn/shop/files/motor-png.png?v=1763398242&width=1800",
         "alt": "Rotor Riot",
         "caption": "Rotor Riot",
         "source": "rotorriot.com",

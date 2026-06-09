@@ -8,8 +8,8 @@ Mountain surfing is one of the most breathtaking yet demanding disciplines in FP
 
 Before flying, pilots must conduct extensive topography mapping using tools like Google Earth 3D and local aeronautical charts to identify ridge lines, launch locations, and potential emergency landing spots. Launching from the correct altitude is critical: flying *up* a mountain drains battery power exponentially due to lower air density and gravity resistance, while launching from the peak and surfing *down* allows you to leverage gravity, conserving battery voltage for the climb back up. Always secure a clear line-of-sight path from your ground station to the entire flight path to prevent RF signal blocks by rock massives.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024)
+_Source: judgeme.imgix.net_
 
 ## Understanding Wind Shadows, Thermal Drafts, and Rotors
 
@@ -21,8 +21,8 @@ A mountain is a massive obstacle that forces air flows upward, creating violent 
 
 **Safety Warning**: Never surf the leeward side of a ridge line at low altitudes. The turbulent rotors can easily overwhelm your PID controller, causing a complete loss of attitude control and forcing a crash into the rock face.
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_8363-scaled.jpg)
+_Source: dronechampionsleague.com_
 
 ## Signal Security: RF Penetration and Line-of-Sight
 
@@ -32,8 +32,8 @@ RF propagation in high-altitude alpine environments is governed by unforgiving p
 - **Multipathing**: Solid rock walls reflect RF signals, creating signal echoes (multipathing) that degrade analog video and induce digital packet latency. High-gain directional patch antennas on your goggles are mandatory for maintaining clear video feeds.
 - **Diffraction**: When flying behind a ridge line, the RF signal does not penetrate the rock. It diffracts slightly over the edge, creating a rapid signal drop-off. If your LQ drops below 90% (on ELRS 250Hz), immediately climb in altitude to restore clean line-of-sight before a critical failsafe is triggered.
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence2.jpg)
-_Source: droneracing.fai.org_
+![FPV image from pub.mdpi-res.com](https://pub.mdpi-res.com/announcement/16821.jpeg?1780917841?v=1780886311)
+_Source: pub.mdpi-res.com_
 
 ## Li-Ion Battery Builds for High-Altitude Endurance
 
@@ -43,8 +43,8 @@ Standard LiPo batteries are excellent for high-current freestyle maneuvers but l
 - **Discharge Rate**: Li-Ion packs cannot deliver the massive burst current of LiPos. Sudden full-throttle climbs will cause massive voltage sag, potentially triggering a low-voltage cutoff. Pilots must manage throttle smoothly, keeping current draw below the cells' continuous discharge rating (typically 45A for P45B).
 - **Temperature Effects**: High altitudes are cold. Cold temperatures drastically increase the internal resistance of battery cells, reducing efficiency. Conformal coat your battery packs or wrap them in thermal insulation to preserve cell heat during winter or high-altitude flights.
 
-![the dimensions of cnhl 4s 5000mah 70c lipo battery](https://chinahobbyline.com/cdn/shop/files/C2C04A7642FE2DE0DC392D411A517561_512x512.jpg?v=1780479051)
-_the dimensions of cnhl 4s 5000mah 70c lipo battery_
+![Battery Accessories](https://www.racedayquads.com/cdn/shop/files/nav-batteries-battery-accessories.webp?v=13686893933264686524)
+_Battery Accessories_
 
 ## Emergency Procedures and GPS Rescue Checklist
 

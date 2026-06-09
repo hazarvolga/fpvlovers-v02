@@ -37,6 +37,6 @@ Amplitude
 
 Every filter introduced into the signal chain adds delay. A phase delay in the gyro signal of even $2-3\text{ ms}$ reduces the PID loop's phase margin, rendering it unstable and prone to propwash oscillations.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg)
-_Source: oscarliang.com_
+![HQ Juicy J37 4.9x3.7x3 Props - Choose Color](https://rotorriot.com/cdn/shop/products/hqprop_juicy_j37_4.9x3.7x3_propeller_1.jpg?v=1642525451&width=1000)
+_HQ Juicy J37 4.9x3.7x3 Props - Choose Color_
 

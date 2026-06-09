@@ -241,6 +241,6 @@ The path to becoming a skilled FPV pilot is paved with practice and perseverance
 
 The FPV racing scene is dynamic, innovative, and incredibly rewarding. Whether you dream of competing on a global stage or simply enjoying the unparalleled freedom of flight, your adventure starts now. Grab your radio, fire up that simulator, and prepare to experience the world from a breathtaking, first-person perspective. The track is calling – are you ready to answer?
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/games.png)
 _Source: droneracing.fai.org_
 

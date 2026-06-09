@@ -227,6 +227,6 @@ You'll need a dedicated FPV radio transmitter (like a Radiomaster Zorro/Boxer or
 
 Don't let your FPV journey be grounded by crashes or limited practice. Investing in one of the **best FPV simulators for 2026** is the smartest move you can make to accelerate your learning, master complex maneuvers, and stay ahead in this dynamic hobby. Pick your simulator, plug in your radio, and start flying towards FPV mastery today!
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![Lifehaker Logo](https://static2.manualslib.com/public/img/lifehaker.png)
+_Lifehaker Logo_
 

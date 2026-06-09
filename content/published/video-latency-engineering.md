@@ -31,6 +31,6 @@ DJI and Walksnail compress frames to achieve high resolution (1080p).
 
 Digital systems rely on error correction coding to survive signal reflections. If RF attenuation exceeds the error correction threshold, the stream will instantly pixelate or freeze.
 
-![sponsor-banner](https://oscarliang.com/wp-content/uploads/2025/08/pcbway-banner-22-08-2025-1-1.jpg)
-_sponsor-banner_
+![FLYWOO Frame Flywoo Firefly DC16 Nano Baby V2.0 1.6" Analog Micro Frame Kit](https://www.racedayquads.com/cdn/shop/files/flywoo-flywoo-firefly-dc16-nano-baby-v2-0-1-6-analog-micro-frame-kit-frame-30756239999089.jpg?v=1737236219&width=533)
+_FLYWOO Frame Flywoo Firefly DC16 Nano Baby V2.0 1.6" Analog Micro Frame Kit_
 

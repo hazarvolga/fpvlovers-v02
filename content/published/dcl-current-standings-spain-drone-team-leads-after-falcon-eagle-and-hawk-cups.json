@@ -40,22 +40,13 @@
     },
     "gallery": [
       {
-        "src": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop&q=70",
-        "alt": "Action photography of sports gear outdoor on a race track",
-        "caption": "Action photography of sports gear outdoor on a race track",
-        "source": "Unsplash",
-        "sourceUrl": "https://unsplash.com/s/photos/race-track-action",
-        "credit": "Photo on Unsplash",
-        "license": "Unsplash License"
-      },
-      {
-        "src": "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=70",
-        "alt": "Close-up of a racing pilot looking through goggles with absolute focus",
-        "caption": "Close-up of a racing pilot looking through goggles with absolute focus",
-        "source": "Unsplash",
-        "sourceUrl": "https://unsplash.com/s/photos/focus-pilot",
-        "credit": "Photo on Unsplash",
-        "license": "Unsplash License"
+        "src": "https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_4228-scaled.jpg",
+        "alt": "FPV image from dronechampionsleague.com",
+        "caption": "Source: dronechampionsleague.com",
+        "source": "dronechampionsleague.com",
+        "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+        "credit": "Source: dronechampionsleague.com",
+        "license": "attribution"
       }
     ],
     "figureCaptions": [

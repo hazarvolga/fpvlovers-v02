@@ -219,6 +219,6 @@ The world of FPV racing is an exhilarating frontier, offering endless opportunit
 
 Ready to take the plunge? Armed with this roadmap, you have everything you need to begin your FPV racing adventure. **Start your pilot journey today, connect with the FPV community, and prepare to experience the thrill of flight like never before!**
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg)
 _Source: dronechampionsleague.com_
 

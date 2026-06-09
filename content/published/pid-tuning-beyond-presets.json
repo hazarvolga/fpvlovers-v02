@@ -21,12 +21,12 @@
       "title": "PID Tuning Beyond Presets: Control Loop Mathematics & Dynamic Idle Control",
       "content": "## 1. Multirotor Control Loop Dynamics\n\nmultirotor control is governed by a closed-loop feedback controller. The mathematical representation of the control output $u(t)$ is defined by:\n\n$$u(t) = K_p e(t) + K_i \\int_{0}^{t} e(\\tau) d\\tau + K_d \\frac{de(t)}{dt}$$\n\nWhere $e(t)$ represents the error between the pilot's commanded rate and the raw gyro angular velocity.\n\n```\n[Closed-Loop FPV Control Diagram]\n                 +--------+\nPilot Target --->|  PID   |---> Motors ---> Gyro Rate\n     |           +--------+                        |\n     +<------------(Error Feedback)---------------+\n```\n\n---\n\n## 2. Advanced Control Parameters\n\n### 2.1 Feed Forward (FF)\nFeed Forward bypasses the feedback loop, directly scaling pilot stick acceleration into motor output. This decreases latency but can overshoot if raw mechanical torque cannot keep pace with command velocities.\n\n### 2.2 Dynamic Idle Control\nDynamic Idle maintains a minimum motor RPM during zero-throttle maneuvers by dynamically raising the idle thrust based on real-time gyro telemetry. This prevents low-throttle propwash desyncs and improves control during nose-down hangtime.\n\n---\n\n## 3. Real-world Oscillation Diagnostics\n\n### 3.1 Bounce-back\nWhen a pilot finishes a rapid roll, the drone should halt instantly. If it overshoots and bounces, $K_d$ is insufficient to damp $K_p$, or Feed Forward decay is too sharp.\n\n### 3.2 Low-Frequency Wobbles\nA heavy, low-frequency wobble ($5-15\\text{ Hz}$) indicates excessive $K_p$ gain, exceeding the airframe's control authority threshold.",
       "imageMatch": {
-        "src": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
-        "alt": "FPV image from oscarliang.com",
-        "caption": "Source: oscarliang.com",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/pid/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://github.com/bw1129/PIDtoolbox/raw/master/images/PID_Compensation_Animated.gif",
+        "alt": "PID animation",
+        "caption": "PID animation",
+        "source": "github.com",
+        "sourceUrl": "https://betaflight.com/docs/wiki/guides/current/PID-Tuning-Guide",
+        "credit": "Source: github.com",
         "license": "attribution"
       }
     }
@@ -50,12 +50,12 @@
     },
     "gallery": [
       {
-        "src": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
-        "alt": "FPV image from oscarliang.com",
-        "caption": "Source: oscarliang.com",
-        "source": "oscarliang.com",
-        "sourceUrl": "https://oscarliang.com/pid/",
-        "credit": "Source: oscarliang.com",
+        "src": "https://github.com/bw1129/PIDtoolbox/raw/master/images/PID_Compensation_Animated.gif",
+        "alt": "PID animation",
+        "caption": "PID animation",
+        "source": "github.com",
+        "sourceUrl": "https://betaflight.com/docs/wiki/guides/current/PID-Tuning-Guide",
+        "credit": "Source: github.com",
         "license": "attribution"
       }
     ],

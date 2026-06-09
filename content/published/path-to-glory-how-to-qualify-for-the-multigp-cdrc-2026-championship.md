@@ -292,6 +292,6 @@ FPV yarışı, sadece bir hobi olmaktan öte; becerilerinizi zorlayan, teknik bi
 
 Ready to take flight? Explore our recommended FPV racing starter kits and begin your journey today!
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![FPV image from pub.mdpi-res.com](https://pub.mdpi-res.com/announcement/16816.jpg?1780917841?v=1780657082)
+_Source: pub.mdpi-res.com_
 

@@ -10,8 +10,8 @@ Enter **ExpressLRS (ELRS)**. ELRS is an open-source, high-performance radio cont
 
 Whether you are flying a Tiny Whoop inside a concrete building or exploring a mountain ridge miles away, ExpressLRS ensures your control sticks react instantly to your inputs. For beginners, ELRS is the ultimate safety net, virtually eliminating the risk of losing control due to a signal dropout.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2024/1209/20241209091439607.jpg)
+_Source: en.tmotor.com_
 
 ## Binding Phrases: The End of Physical Bind Buttons
 
@@ -21,8 +21,8 @@ During firmware flashing, you enter a secret, customized text phrase (e.g., `ome
 
 When you power on your radio transmitter and your drone, they wirelessly broadcast their hashed identifiers. If they match, they **bind instantly and automatically** within milliseconds. You never have to press a bind button again. Any drone you build or buy in the future will automatically connect to your radio the instant it powers up, provided you flash it with the same binding phrase.
 
-![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2026/0129/20260129015053688.jpg)
-_Source: en.tmotor.com_
+![the dimensions of cnhl 4s 5000mah 70c lipo battery](https://chinahobbyline.com/cdn/shop/files/C2C04A7642FE2DE0DC392D411A517561_512x512.jpg?v=1780479051)
+_the dimensions of cnhl 4s 5000mah 70c lipo battery_
 
 ## Flashing Firmware via Wi-Fi: The Modern Procedural Flow
 
@@ -35,8 +35,8 @@ Flashing firmware is done via the official **ExpressLRS Configurator** software.
 3.  **Build the Firmware:** Open the ExpressLRS Configurator. Select your regulatory domain (e.g., ISM 2.4GHz), select your receiver brand (e.g., Happymodel EP1 or RadioMaster RP1), enter your custom **Binding Phrase**, and click **Build** to compile the firmware binary file.
 4.  **Upload the Binary:** Open a web browser and navigate to `http://10.0.0.1`. A localized web interface will load. Drag and drop your compiled `.bin` file into the upload box and click **Update**. The receiver will flash itself, reboot, and immediately bind to your transmitter.
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![Pilotos del SDT](https://spaindroneteam.com/wp-content/uploads/2025/03/SECCION-PILOTOS_00000.png)
+_Pilotos del SDT_
 
 ## The EdgeTX LUA Script: Managing Rates and Power Output
 
@@ -48,8 +48,8 @@ To configure ExpressLRS settings directly from your radio, you must utilize the 
 *   **Telemetry Ratio:** Dictates how often the drone transmits sensor data (such as Link Quality, RSSI, and battery voltage) back to your radio. A ratio of **1:32 or 1:64** ensures consistent data updates without overcrowding the RF link.
 *   **Dynamic Power:** ELRS can dynamically scale its output power based on signal strength. Enable dynamic power with a maximum threshold of **250mW**. If you fly close, the radio will transmit at a safe, battery-saving 25mW; if you fly behind trees and signal drops, it will automatically boost up to 250mW in microseconds to prevent a failsafe.
 
-![404 Not Found](https://www.racedayquads.com/cdn/shop/files/404-hero.png?v=1719439236&width=946)
-_404 Not Found_
+![logo](https://www-cdn.djiits.com/dps/85801b4cd1c5717503bc327335f36ef9.svg)
+_logo_
 
 ## ExpressLRS Safety Guidelines & Telemetry Auditing
 
@@ -62,6 +62,6 @@ To maintain operational safety, you must monitor your FPV link health in real-ti
 > **TRANSMITTER ANTENNA SAFETY**
 > Never power on your radio transmitter (TX) module or internal RF module without the transmitter antenna securely attached. Powering on an RF transmitter without a load (antenna) causes the outgoing high-frequency energy to bounce back into the amplifier circuitry, destroying the RF chip in seconds due to thermal overload. Always attach the antenna first.
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1767973806__img_4713__original.jpeg?auto=format&w=1024)
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1779983389__1779983385708-1000009536__original.jpg?auto=format&w=1024)
 _Source: judgeme.imgix.net_
 

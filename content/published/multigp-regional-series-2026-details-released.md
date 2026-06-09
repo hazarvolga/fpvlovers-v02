@@ -166,6 +166,6 @@ FPV racing is more than just a sport; it's a vibrant ecosystem of innovation, sk
 
 What are your predictions for the next FPV racing season? Share your thoughts, favorite pilots, or groundbreaking tech in the comments below, and stay tuned for more in-depth FPV analysis!
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
-_Source: dronechampionsleague.com_
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2026/0430/20260430060027542.jpg)
+_Source: en.tmotor.com_
 

@@ -235,6 +235,6 @@ Hayır. FPV drone'larını uçurmak genellikle belirli kurallara ve düzenlemele
 
 FPV yarış yolculuğunuza başlamak, öğrenme, zorluklar ve muazzam tatminle dolu heyecan verici bir maceradır. Bir simülatörün sanal gökyüzünden, kapılardan geçmenin gerçek dünya heyecanına kadar, her adım sizi yetenekli bir FPV pilotu olmaya yaklaştırır. Unutmayın, pratik tutarlılığı, kendinize karşı sabır ve canlı FPV topluluğuyla etkileşim, en büyük varlıklarınızdır. Peki, ne bekliyorsunuz? Ekipmanınızı kapın, simülatörünüzü çalıştırın ve FPV yarış dünyasını daha önce hiç olmadığı gibi deneyimlemeye hazırlanın. Pist sizi bekliyor – iyi uçuşlar!
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from emax-usa.com](https://emax-usa.com/cdn/shop/products/569A7497_100x.jpg?v=1645660195)
+_Source: emax-usa.com_
 

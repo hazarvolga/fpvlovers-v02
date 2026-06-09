@@ -276,6 +276,6 @@ Becoming 'good' is subjective, but with dedicated practice (1-2 hours daily on a
 
 The journey into FPV racing is an incredibly rewarding one, filled with challenges, triumphs, and an unparalleled sense of freedom. From the virtual tracks of your simulator to the thrilling gates of your first real race, every step builds your skill and confidence. Remember to prioritize safety, embrace the learning process, and connect with the vibrant FPV community. Now that you have your progression path, it's time to take the plunge. Grab your gear, charge your batteries, and prepare to redefine your perception of flight. The skies are calling – are you ready to answer? **Start your FPV racing adventure today!**
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
-_Source: dronechampionsleague.com_
+![SDT Sponsors](https://spaindroneteam.com/wp-content/uploads/2025/03/SECCION-SPONSORS.png)
+_SDT Sponsors_
 

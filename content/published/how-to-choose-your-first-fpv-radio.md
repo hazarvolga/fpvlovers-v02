@@ -19,8 +19,8 @@ Modern FPV radios are divided into three primary form factors. Your choice depen
 2.  **Full-Size Box Style (e.g., RadioMaster TX16S, Jumper T20):** Traditional, larger, heavy-duty radios featuring large color touchscreens, multiple hardware switches, and extensive battery capacity. These are excellent for **'pinchers'**—pilots who hold the sticks between their thumb and index finger for extreme precision.
 3.  **Compact Hybrid Style (e.g., RadioMaster Boxer):** The current sweet spot in FPV. Hybrids offer the full-sized gimbals and switch layouts of a box radio but in a smaller, highly ergonomic shell. It caters to both thumbers and pinchers and is the default recommendation for new pilots.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024)
+_Source: judgeme.imgix.net_
 
 ## The Science of Gimbals: Potentiometers vs. Hall Effect Sensors
 
@@ -33,8 +33,8 @@ The stick mechanisms inside your radio are called **gimbals**. They translate th
 > **THE HALL EFFECT REQUIREMENT**
 > Never buy a radio with potentiometer gimbals. Ensure your first radio explicitly features **Hall Effect Gimbals** (like the AG01 or standard RadioMaster Hall gimbals). The difference in stick resolution and long-term durability is non-negotiable.
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg)
+_Source: dronechampionsleague.com_
 
 ## RF Protocols: ExpressLRS (ELRS) is the Only Modern Choice
 
@@ -48,7 +48,7 @@ In 2026, **ExpressLRS (ELRS)** has completely taken over the FPV ecosystem. ELRS
 
 When buying a radio, **always choose the internal ExpressLRS 2.4GHz version**. Do not buy the '4-in-1' or 'CC2500' multi-protocol version unless you plan to fly older analog toy drones; ELRS 2.4G is the gold standard for all modern FQP, freestyle, racing, and cinematic quads.
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1779742367__17453__original.jpg?auto=format&w=1024)
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024)
 _Source: judgeme.imgix.net_
 
 ## EdgeTX: The Operating System of Modern FPV
@@ -57,6 +57,6 @@ Premium FPV radios run **EdgeTX**, an open-source, community-driven operating sy
 
 EdgeTX utilizes **LUA Scripts**—lightweight program files loaded on the radio's SD card—to configure external hardware. The most famous is the **ELRS LUA Script**, which lets you change your packet rates, transmitter power output (e.g., 25mW to 1000mW dynamic power), and bind phrases directly from the radio screen without ever connecting to a computer.
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence2.jpg)
-_Source: droneracing.fai.org_
+![CNHL Black Series 2200mAh 4S 40C LiPo Battery with XT60 plug](https://chinahobbyline.com/cdn/shop/products/202009091406_512x512.jpg?v=1687832502)
+_CNHL Black Series 2200mAh 4S 40C LiPo Battery with XT60 plug_
 

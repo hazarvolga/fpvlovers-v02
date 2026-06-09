@@ -253,6 +253,6 @@ The FPV community is incredibly supportive, so don't hesitate to seek out local 
 
 Ready to dive deeper? **Explore our recommended beginner FPV racing kits and start your flight training today!**
 
-![FPV image from fpvknowitall.com](https://www.fpvknowitall.com/wp-content/uploads/2023/09/qav-s-2-analog-kit.webp)
-_Source: fpvknowitall.com_
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot-store/1767477640__image_2026-01-03_170134848__original.png?auto=format&w=1024)
+_Source: judgeme.imgix.net_
 

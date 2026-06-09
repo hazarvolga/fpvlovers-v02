@@ -151,6 +151,6 @@ The world of FPV offers unparalleled freedom and excitement, but it's a privileg
 
 Don't let regulations ground your passion! Bookmark this guide and regularly check the FAA's official website for the latest updates. Fly smart, fly safe, and keep your FPV adventures soaring legally in the United States!
 
-![How To Use Blackbox Betaflight 4.3](https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg)
-_How To Use Blackbox Betaflight 4.3_
+![Flying drone over a city.](https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-article-images/fa_drone_security.jpg)
+_Flying drone over a city._
 

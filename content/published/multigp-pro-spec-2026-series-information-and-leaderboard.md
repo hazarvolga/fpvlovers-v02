@@ -129,6 +129,6 @@ From the nail-biting finishes to the groundbreaking tech, FPV racing continues t
 
 What were your favorite moments from this week's races? Share your thoughts and predictions in the comments below, and subscribe to stay ahead of the curve!
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
-_Source: dronechampionsleague.com_
+![FPV image from multigp.com](https://www.multigp.com/wp-content/uploads/2025/06/road-to-champs.png)
+_Source: multigp.com_
 

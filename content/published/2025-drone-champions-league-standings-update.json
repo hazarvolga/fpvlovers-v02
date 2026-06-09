@@ -40,22 +40,13 @@
     },
     "gallery": [
       {
-        "src": "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70",
-        "alt": "FPV racing gates and high-visibility track flags outdoors",
-        "caption": "FPV racing gates and high-visibility track flags outdoors",
-        "source": "Unsplash",
-        "sourceUrl": "https://unsplash.com/s/photos/racing-flags",
-        "credit": "Photo on Unsplash",
-        "license": "Unsplash License"
-      },
-      {
-        "src": "https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&auto=format&fit=crop&q=70",
-        "alt": "Long-exposure light trails from FPV racing drones on a night track",
-        "caption": "Long-exposure light trails from FPV racing drones on a night track",
-        "source": "Unsplash",
-        "sourceUrl": "https://unsplash.com/s/photos/light-trails",
-        "credit": "Photo on Unsplash",
-        "license": "Unsplash License"
+        "src": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
+        "alt": "FPV image from oscarliang.com",
+        "caption": "Source: oscarliang.com",
+        "source": "oscarliang.com",
+        "sourceUrl": "https://oscarliang.com/pid/",
+        "credit": "Source: oscarliang.com",
+        "license": "attribution"
       }
     ],
     "figureCaptions": [

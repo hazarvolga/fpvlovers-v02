@@ -75,7 +75,7 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
           id: `${sec.id}-sub-${partIndex++}`,
           title: sectionTitle,
           content: sectionContent,
-          imageMatch: sec.imageMatch,
+          imageMatch: partIndex === 2 ? sec.imageMatch : undefined,
         });
       }
     } else {

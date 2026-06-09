@@ -270,6 +270,6 @@ The FPV community is incredibly welcoming and helpful. Join online forums, Disco
 
 Ready to take the plunge? Check out our curated list of recommended beginner FPV racing gear, complete with links and detailed reviews. Your incredible journey into the world of first-person flight starts now. See you in the skies!
 
-![FPV image from fpvknowitall.com](https://www.fpvknowitall.com/wp-content/uploads/2023/09/qav-s-2-analog-kit.webp)
-_Source: fpvknowitall.com_
+![FPV image from emax-usa.com](https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_100x.jpg?v=1637194872)
+_Source: emax-usa.com_
 

@@ -239,6 +239,6 @@ Cinematic FPV focuses on smooth, storytelling footage with stable builds and pre
 
 Whether your passion lies in crafting visually stunning narratives or pushing the limits of aerial acrobatics, the world of FPV offers endless possibilities. By understanding the nuances of cinematic vs. freestyle FPV, you can make informed decisions about your gear, practice, and ultimately, your flight style. So, which path will you choose, or will you dare to master both? Grab your goggles, hit the sticks, and start your FPV journey today!
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/sportac.png)
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/olymp1.png)
 _Source: droneracing.fai.org_
 

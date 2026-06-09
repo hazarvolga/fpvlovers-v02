@@ -46,6 +46,6 @@ During rapid descents through dirty air, the propeller encounters its own vortex
 2. Immediate, massive D-term response attempting to damp the rate spikes.
 3. If D-term gain is too low, the oscillation persists; if too high, D-term feedback loops create thermal runaways.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/Rookie-of-the-Year-1x1-1.jpg)
+_Source: dronechampionsleague.com_
 

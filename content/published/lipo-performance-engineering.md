@@ -32,6 +32,6 @@ Many FPV packs claim 150C+ continuous ratings. However, continuous discharge at 
 
 Drawing current raises cell temperature. If the internal temperature exceeds $60^\circ\text{C}$, the polymer electrolyte degrades, producing gas that causes cell swelling (puffing) and irreversible capacity loss.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![CNHL 2200mAh 2S Lipo Battery - Dimensions and Weight](https://chinahobbyline.com/cdn/shop/files/1_33377184-2c96-4c38-925b-7139ddd7c2db_512x512.jpg?v=1686278572)
+_CNHL 2200mAh 2S Lipo Battery - Dimensions and Weight_
 

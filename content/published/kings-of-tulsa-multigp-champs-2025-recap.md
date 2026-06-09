@@ -306,6 +306,6 @@ The world of FPV racing is waiting for you. It's a journey filled with challenge
 
 Ready to take the plunge? Join the fpvlovers.com.tr community today, share your progress, ask questions, and connect with fellow FPV enthusiasts across Turkey. We can't wait to see you on the track!
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_4228-scaled.jpg)
-_Source: dronechampionsleague.com_
+![FPV image from multigp.com](https://www.multigp.com/wp-content/uploads/2025/10/10-10-25-2025-MultiGP-Champs-Photos-Photos-by-Patrick-Quiring-of-PQ-Multimedia-603-1024x577.webp)
+_Source: multigp.com_
 

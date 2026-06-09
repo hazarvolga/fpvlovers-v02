@@ -31,6 +31,6 @@ Pitch defines the theoretical distance a propeller moves forward in one revoluti
 
 High disc loading occurs when a heavy multirotor uses small propellers (e.g. 3-inch cinewhoops). High disc loading leads to severe aerodynamic instability in descents, forcing the PID controller to work in highly turbulent vortex states.
 
-![How To Use Blackbox Betaflight 4.3](https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg)
-_How To Use Blackbox Betaflight 4.3_
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg)
+_Source: en.tmotor.com_
 

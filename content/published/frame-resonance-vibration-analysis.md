@@ -31,6 +31,6 @@ Soft-mounting the FC using silicone gummies isolates the board, acting as a low-
 * **True X Layout:** Symmetrical arms, balanced inertia, but narrow carbon plates can resonate easily on Pitch.
 * **Deadcat Layout:** Front arms pushed out for clean camera views. The asymmetric geometry creates complex arm resonance frequencies, requiring separate filtering for Roll and Pitch.
 
-![sponsor-banner](https://oscarliang.com/wp-content/uploads/2025/08/pcbway-banner-22-08-2025-1-1.jpg)
-_sponsor-banner_
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2025/1117/20251117051314949.jpg)
+_Source: en.tmotor.com_
 

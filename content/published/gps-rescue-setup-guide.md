@@ -281,6 +281,6 @@ Implementing Betaflight GPS Rescue Mode is one of the most impactful upgrades yo
 
 Have you successfully used GPS Rescue in a sticky situation? Share your stories and tips in the comments below, or explore our other guides for more FPV mastery!
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg)
-_Source: oscarliang.com_
+![Review picture](https://judgeme.imgix.net/chinahobbyline/1779470244__1000007908__original.jpg?auto=format&w=240)
+_Review picture_
 

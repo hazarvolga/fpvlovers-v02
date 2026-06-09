@@ -40,6 +40,6 @@ When a pilot finishes a rapid roll, the drone should halt instantly. If it overs
 ### 3.2 Low-Frequency Wobbles
 A heavy, low-frequency wobble ($5-15\text{ Hz}$) indicates excessive $K_p$ gain, exceeding the airframe's control authority threshold.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![PID animation](https://github.com/bw1129/PIDtoolbox/raw/master/images/PID_Compensation_Animated.gif)
+_PID animation_
 

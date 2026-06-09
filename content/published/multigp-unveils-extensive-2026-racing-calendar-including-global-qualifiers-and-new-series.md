@@ -249,6 +249,6 @@ The initial investment for a beginner setup can range from $300-$600. While cras
 
 FPV racing is a thrilling and rewarding journey that challenges your reflexes, technical skills, and mental fortitude. From understanding the core components to mastering advanced flight techniques and tuning your drone for peak performance, this guide has equipped you with the knowledge to embark on your pilot's journey. Remember, practice is key, and every crash is a lesson learned. So grab your gear, hit the simulator, and prepare to experience the exhilarating world of FPV racing. **Ready to take the skies? Share your first flight experiences in the comments below or join an FPV community to find local pilots and tracks!**
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
-_Source: droneracing.fai.org_
+![Review picture](https://judgeme.imgix.net/chinahobbyline/1779589215__img_0373__original.jpeg?auto=format&w=240)
+_Review picture_
 

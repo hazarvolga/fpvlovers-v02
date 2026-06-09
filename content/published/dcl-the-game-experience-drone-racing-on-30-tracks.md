@@ -240,6 +240,6 @@ Embarking on your `FPV racing` journey is an exciting adventure filled with chal
 
 **Ready to launch?** Check out our recommended `beginner FPV drone` kits and `FPV racing gear` to kickstart your journey today!
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/Bildschirmfoto-2025-12-11-um-13.45.04-scaled.jpg)
 _Source: dronechampionsleague.com_
 

@@ -266,6 +266,6 @@ Remember that this initial cost covers the essentials. Over time, you'll likely 
 
 The world of FPV racing is a thrilling, rewarding, and constantly evolving adventure. From the moment you first strap on those goggles in a simulator to the exhilarating rush of your first real-world flight, you're embarking on a journey of skill, speed, and community. With the right gear, dedicated practice, and a passion for flight, you'll be navigating gates and challenging fellow pilots in no time. Don't let the initial learning curve deter you; every FPV champion started exactly where you are now. So, what are you waiting for? Grab your controller, fire up a simulator, and take the first step towards becoming an FPV racing pilot today!
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_4228-scaled.jpg)
-_Source: dronechampionsleague.com_
+![Tinyhawk II RTF Kit - With Controller & Goggles](https://emax-usa.com/cdn/shop/products/photo-3012_1000x1000.progressive.jpg?v=1590535126)
+_Tinyhawk II RTF Kit - With Controller & Goggles_
 

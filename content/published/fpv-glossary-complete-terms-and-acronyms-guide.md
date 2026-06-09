@@ -210,6 +210,6 @@ Congratulations! You've just navigated the intricate lexicon of FPV drones. By u
 
 The world of FPV is constantly evolving, but with this foundational glossary, you're well-equipped to keep up. Don't be afraid to revisit these terms as you grow in your FPV journey. Now that you speak the language, it's time to put your knowledge to the test. Explore our other guides and tutorials to start building your first drone or take to the skies with newfound confidence!
 
-![FPV image from fpvknowitall.com](https://www.fpvknowitall.com/wp-content/uploads/2023/09/qav-s-2-analog-kit.webp)
-_Source: fpvknowitall.com_
+![Rotor Riot](https://rotorriot.com/cdn/shop/files/Desktop_Homepage_Feature_Block_-_Kwad_Crew.png?v=1770843712&width=1880)
+_Rotor Riot_
 

@@ -312,6 +312,6 @@ FPV racing demands patience and resilience. You will crash, you will break props
 
 We at fpvlovers.com.tr would love to hear about your journey! What gear did you start with? What was your first simulator experience like? Share your **how to start FPV racing** story in the comments below, or connect with us on social media! Happy flying, pilots!
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
-_Source: dronechampionsleague.com_
+![FPV image from emax-usa.com](https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_3_100x.png?v=1637194873)
+_Source: emax-usa.com_
 

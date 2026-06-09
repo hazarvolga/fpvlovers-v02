@@ -38,6 +38,6 @@ Enabling bidirectional DShot forces the ESC to transmit a telemetry packet back 
 
 Higher PWM switching frequencies (e.g. 48kHz or 96kHz) smooth out motor operation and increase throttle resolution but increase switching losses in the MOSFET gates, leading to higher ESC temperatures.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg)
-_Source: oscarliang.com_
+![ESCs \(Electronic Speed Controllers\)](https://www.racedayquads.com/cdn/shop/files/nav-all-electronics-escs-electronic-speed-controllers.webp?v=3773967901496022457)
+_ESCs \(Electronic Speed Controllers\)_
 

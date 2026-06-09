@@ -216,6 +216,6 @@ Don't just read about it – go fly it! Take these insights to your next session
 
 We challenge you, the FPV community, to put these techniques into practice. Capture your most fluid, most captivating cinematic orbits. Share your masterpieces with us at fpvlovers.com.tr and show the world the beauty and precision of truly cinematic FPV. The skies are your canvas; go paint your story.
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2026/0129/20260129015053688.jpg)
+_Source: en.tmotor.com_
 

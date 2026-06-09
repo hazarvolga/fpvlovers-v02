@@ -250,6 +250,6 @@ The most common mistake is trying to go too fast, too soon, especially in real l
 
 The world of FPV racing is exhilarating and constantly evolving. By following this guide, you've laid a strong foundation for your journey from aspiring pilot to track master. Remember, consistency in practice, patience, and a willingness to learn are your greatest assets. Now, it's time to take that knowledge, fire up your simulator, or head to your local flying field. The gates are open, and your first race awaits! Ready to take flight? Share your FPV racing journey in the comments below or find a local FPV community to connect with today!
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/sportac.png)
-_Source: droneracing.fai.org_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_4353-scaled.jpg)
+_Source: dronechampionsleague.com_
 

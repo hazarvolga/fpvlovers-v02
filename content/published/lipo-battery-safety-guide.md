@@ -253,6 +253,6 @@ Now that you're armed with this essential knowledge, go forth and fly with confi
 
 **Ready to take your FPV knowledge further? Explore our other FPV build guides and become a true master of the skies!**
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
-_Source: oscarliang.com_
+![Size and weight overview of cnhl 5200mah 6s 90c lipo battery](https://chinahobbyline.com/cdn/shop/files/520906EC5_22c37d9d-9d73-4d14-b1aa-fbf5b238784b_512x512.jpg?v=1760336026)
+_Size and weight overview of cnhl 5200mah 6s 90c lipo battery_
 

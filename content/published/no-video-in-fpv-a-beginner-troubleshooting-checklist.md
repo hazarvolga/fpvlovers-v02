@@ -259,6 +259,6 @@ Every time you troubleshoot and fix a problem, you gain invaluable experience an
 
 Don't let a black screen keep you grounded. Use this guide, get your hands dirty, and get that FPV feed back! Once you've successfully diagnosed and fixed your issue, share your experience in the comments below. What was the culprit? What tips did you find most useful? Your insights can help countless other pilots facing the same frustrations. Now go forth, troubleshoot, and fly on!
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot-store/1767477640__image_2026-01-03_170134848__original.png?auto=format&w=1024)
-_Source: judgeme.imgix.net_
+![CNHL Black Series 1500mAh 3S Lipo Battery Dimensions and Weight](https://chinahobbyline.com/cdn/shop/files/1501003BK300mm_512x512.jpg?v=1688536594)
+_CNHL Black Series 1500mAh 3S Lipo Battery Dimensions and Weight_
 

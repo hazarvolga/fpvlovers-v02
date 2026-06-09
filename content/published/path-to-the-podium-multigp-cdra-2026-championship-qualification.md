@@ -241,6 +241,6 @@ FPV yarışları bir hobiden çok daha fazlasıdır; beceri geliştirme, teknik 
 
 **Uçmaya hazır mısınız? FPV yarış yolculuğunuzu aşağıdaki yorumlarda bizimle paylaşın veya diğer pilotlarla bağlantı kurmak ve yarışmaya başlamak için yerel bir FPV kulübü bulun!**
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_4228-scaled.jpg)
-_Source: dronechampionsleague.com_
+![Picture of Author Daniel Ulises Campos-Delgado](https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-author-images/Daniel_Ulises_Campos-Delgado.png)
+_Picture of Author Daniel Ulises Campos-Delgado_
 

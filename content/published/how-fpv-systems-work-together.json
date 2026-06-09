@@ -21,12 +21,12 @@
       "title": "How FPV Systems Work Together: System Integration & Electrical Architecture",
       "content": "## 1. The FPV Aircraft as an Integrated System\n\nAn FPV multirotor is an interconnected system of electrical, radio, and mechanical components. Every system depends on the others; a flaw in one component cascades through the entire aircraft.\n\n---\n\n## 2. Core Subsystems\n\n### 2.1 The Electrical Bus\nThe battery delivers raw power (up to 25V) to the ESC. The ESC regulates motor speeds and supplies clean $5\\text{V}$ and $9\\text{V}$ power to the Flight Controller (FC), radio receiver (RX), and video transmitter (VTX).\n\n### 2.2 Signal Pathways\n1. **Pilot Inputs** are transmitted via RF waves ($2.4\\text{ GHz}$) to the RX.\n2. **RX** forwards digital packets (using CRSF protocol) to the FC.\n3. **FC** reads gyro sensors, runs PID calculations, and sends motor commands to the ESC via DShot.\n\n```\n[Multirotor Signal Architecture]\nPilot Sticks ---> Tx (Radio) ---> Rx (Receiver) ---> FC (Flight Controller)\n                                                        |\nGyro Telemetry <--- Motors <--- ESC (Motor Speed) <-----+\n```\n\n---\n\n## 3. Common System Cascading Failures\n\n* **Electrical Ground Loops:** Bad grounding routes electrical noise from the motors directly into the analog video line, causing heavy diagonal line static in the goggles.\n* **Voltage Sag Crashes:** High-current motor loads can sag battery voltage below the FC regulator's minimum input, triggering an immediate mid-air flight controller reboot.",
       "imageMatch": {
-        "src": "https://droneracing.fai.org/images/licence1.jpg",
-        "alt": "FPV image from droneracing.fai.org",
-        "caption": "Source: droneracing.fai.org",
-        "source": "droneracing.fai.org",
-        "sourceUrl": "https://droneracing.fai.org/",
-        "credit": "Source: droneracing.fai.org",
+        "src": "https://en.tmotor.com/uploadfile/2023/0215/20230215060238395.jpg",
+        "alt": "FPV image from en.tmotor.com",
+        "caption": "Source: en.tmotor.com",
+        "source": "en.tmotor.com",
+        "sourceUrl": "https://uav-en.tmotor.com/",
+        "credit": "Source: en.tmotor.com",
         "license": "attribution"
       }
     }
@@ -50,12 +50,12 @@
     },
     "gallery": [
       {
-        "src": "https://droneracing.fai.org/images/licence1.jpg",
-        "alt": "FPV image from droneracing.fai.org",
-        "caption": "Source: droneracing.fai.org",
-        "source": "droneracing.fai.org",
-        "sourceUrl": "https://droneracing.fai.org/",
-        "credit": "Source: droneracing.fai.org",
+        "src": "https://en.tmotor.com/uploadfile/2023/0215/20230215060238395.jpg",
+        "alt": "FPV image from en.tmotor.com",
+        "caption": "Source: en.tmotor.com",
+        "source": "en.tmotor.com",
+        "sourceUrl": "https://uav-en.tmotor.com/",
+        "credit": "Source: en.tmotor.com",
         "license": "attribution"
       }
     ],

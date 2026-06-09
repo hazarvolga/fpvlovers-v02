@@ -231,6 +231,6 @@ Remember, practice, persistence, and passion are your greatest tools. Every cras
 
 So, what are you waiting for? Join the FPV community, find a local club, dive into a simulator, and start your high-speed, immersive racing adventure today! The sky is calling, and your drone is ready to answer.
 
-![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/Superfinal-Thumb-16x9-1.jpg)
 _Source: dronechampionsleague.com_
 
