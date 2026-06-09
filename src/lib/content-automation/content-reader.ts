@@ -41,7 +41,12 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
       : resolvedMedia.imageSources
   };
 
-  const coverImage = resolvedMedia.coverImage || {
+  const coverImage = parsed.media?.coverImage || (parsed.coverImage ? {
+    src: parsed.coverImage,
+    alt: parsed.title || parsed.slug,
+    caption: parsed.excerpt || 'FPVLovers editorial content',
+    credit: 'FPVLovers generated artwork',
+  } : null) || resolvedMedia.coverImage || {
     src: buildCoverImageUrl(parsed.slug),
     alt: parsed.title || parsed.slug,
     caption: parsed.excerpt || 'FPVLovers editorial content',
