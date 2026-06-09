@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/17841003/pexels-photo-17841003.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV pilot wearing goggles and holding a drone controller outdoors",
-      "caption": "The complete beginner-first path from simulator practice to your first real FPV flight.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-man-wearing-goggles-and-controlling-a-drone-17841003/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://www-cdn.djiits.com/dps/cee842f19dde1561650754528f49d6b5.svg",
+      "alt": "logo",
+      "caption": "logo",
+      "source": "www-cdn.djiits.com",
+      "sourceUrl": "https://www.dji.com/downloads",
+      "credit": "Source: www-cdn.djiits.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T16:35:55.205Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://www-cdn.djiits.com/dps/cee842f19dde1561650754528f49d6b5.svg"
 }

@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/gps-rescue-setup-guide?v=cover-v2",
-      "alt": "FPV drone and controller prepared before a flight",
-      "caption": "A step-by-step configuration tutorial detailing how to wire a GPS module, enable UBLOX/NMEA protocols in Betaflight, co…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/",
-      "credit": "Photo on Pexels",
-      "license": "Pexels License"
+      "src": "https://judgeme.imgix.net/chinahobbyline/1779470244__1000007908__original.jpg?auto=format&w=240",
+      "alt": "Review picture",
+      "caption": "Review picture",
+      "source": "judgeme.imgix.net",
+      "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+      "credit": "Source: judgeme.imgix.net",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:19:10.725Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://judgeme.imgix.net/chinahobbyline/1779470244__1000007908__original.jpg?auto=format&w=240"
 }

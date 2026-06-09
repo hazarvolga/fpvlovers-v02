@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=800&q=80",
-      "alt": "Abstract digital transmission noise",
-      "caption": "Real-time digital video encoding pipelines and high-speed data streams.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/glass-transmission-625624792",
-      "credit": "Photo by John Barker on Unsplash"
+      "src": "https://www.racedayquads.com/cdn/shop/files/flywoo-flywoo-firefly-dc16-nano-baby-v2-0-1-6-analog-micro-frame-kit-frame-30756239999089.jpg?v=1737236219&width=533",
+      "alt": "FLYWOO Frame Flywoo Firefly DC16 Nano Baby V2.0 1.6\" Analog Micro Frame Kit",
+      "caption": "FLYWOO Frame Flywoo Firefly DC16 Nano Baby V2.0 1.6\" Analog Micro Frame Kit",
+      "source": "racedayquads.com",
+      "sourceUrl": "https://www.racedayquads.com/collections/frames",
+      "credit": "Source: racedayquads.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.021Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://www.racedayquads.com/cdn/shop/files/flywoo-flywoo-firefly-dc16-nano-baby-v2-0-1-6-analog-micro-frame-kit-frame-30756239999089.jpg?v=1737236219&width=533"
 }

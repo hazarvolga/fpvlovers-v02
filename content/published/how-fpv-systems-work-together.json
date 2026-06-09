@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-      "alt": "Motherboard circuitry lines",
-      "caption": "Integrated electrical paths and flight controller signal networks.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/integrated-circuits-625624792",
-      "credit": "Photo by Alexandre Debiève on Unsplash"
+      "src": "https://en.tmotor.com/uploadfile/2023/0215/20230215060238395.jpg",
+      "alt": "FPV image from en.tmotor.com",
+      "caption": "Source: en.tmotor.com",
+      "source": "en.tmotor.com",
+      "sourceUrl": "https://uav-en.tmotor.com/",
+      "credit": "Source: en.tmotor.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.024Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://en.tmotor.com/uploadfile/2023/0215/20230215060238395.jpg"
 }

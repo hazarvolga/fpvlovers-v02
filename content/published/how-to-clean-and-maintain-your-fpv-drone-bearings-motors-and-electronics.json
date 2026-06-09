@@ -30,11 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/how-to-clean-and-maintain-your-fpv-drone-bearings-motors-and-electronics?v=cover-v2",
-      "alt": "How to Clean and Maintain Your FPV Drone: Bearings, Motors, and Electronics cover illustration",
-      "caption": "A checklist-based tutorial covering bearing lubrication, cleaning mud/grass out of motors, waterproofing electronics wi…",
-      "source": "FPVLovers local raster media layer",
-      "credit": "FPVLovers generated PNG artwork"
+      "src": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Bildschirmfoto-2025-12-11-um-13.48.21-scaled.jpg",
+      "alt": "FPV image from dronechampionsleague.com",
+      "caption": "Source: dronechampionsleague.com",
+      "source": "dronechampionsleague.com",
+      "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "credit": "Source: dronechampionsleague.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -57,5 +59,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:13:12.246Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Bildschirmfoto-2025-12-11-um-13.48.21-scaled.jpg"
 }

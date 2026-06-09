@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/9182733/pexels-photo-9182733.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "Close-up photo of a drone controller at sunset",
-      "caption": "A practical buying guide that helps new pilots choose a radio based on protocol support, ergonomics, and future upgrade…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-drone-controller-9182733/",
-      "credit": "Photo by Erik Mclean on Pexels",
-      "license": "Pexels License"
+      "src": "https://rotorriot.com/cdn/shop/files/Cinemini-4s-2.5-B_T-DJI-04_25Nov2025-3.jpg?v=1764106993&width=1493",
+      "alt": "Cinemini 4S 2.5\" Pro-Spec Built & Tuned Drone - DJI 04 Pro / DJI",
+      "caption": "Cinemini 4S 2.5\" Pro-Spec Built & Tuned Drone - DJI 04 Pro / DJI",
+      "source": "rotorriot.com",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: rotorriot.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:46:11.554Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://rotorriot.com/cdn/shop/files/Cinemini-4s-2.5-B_T-DJI-04_25Nov2025-3.jpg?v=1764106993&width=1493"
 }

@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
-      "alt": "Data visualization on a screen",
-      "caption": "Advanced flight data visualization and telemetry spectral analysis.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/a-computer-screen-with-a-graph-on-it-625624792",
-      "credit": "Photo by Luke Chesser on Unsplash"
+      "src": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Rookie-of-the-Year-1x1-1.jpg",
+      "alt": "FPV image from dronechampionsleague.com",
+      "caption": "Source: dronechampionsleague.com",
+      "source": "dronechampionsleague.com",
+      "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "credit": "Source: dronechampionsleague.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.009Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Rookie-of-the-Year-1x1-1.jpg"
 }

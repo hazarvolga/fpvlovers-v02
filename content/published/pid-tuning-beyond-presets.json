@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
-      "alt": "Abstract mathematical control waves",
-      "caption": "Control loop mathematical dynamics and frequency response curves.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/abstract-waves-lines-art-625624792",
-      "credit": "Photo by Milad Fakurian on Unsplash"
+      "src": "https://github.com/bw1129/PIDtoolbox/raw/master/images/PID_Compensation_Animated.gif",
+      "alt": "PID animation",
+      "caption": "PID animation",
+      "source": "github.com",
+      "sourceUrl": "https://betaflight.com/docs/wiki/guides/current/PID-Tuning-Guide",
+      "credit": "Source: github.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.014Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://github.com/bw1129/PIDtoolbox/raw/master/images/PID_Compensation_Animated.gif"
 }

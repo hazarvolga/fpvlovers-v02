@@ -30,11 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/long-range-fpv-basics-how-to-fly-beyond-the-trees-safely?v=cover-v2",
-      "alt": "Long Range FPV Basics: How to Fly Beyond the Trees Safely cover illustration",
-      "caption": "A beginner long-range guide exploring protocol choices (ELRS 915MHz vs 2.4GHz), battery options (Li-Ion vs LiPo), GPS s…",
-      "source": "FPVLovers local raster media layer",
-      "credit": "FPVLovers generated PNG artwork"
+      "src": "https://rotorriot.com/cdn/shop/files/RR2388.jpg?v=1764778400&width=1200",
+      "alt": "Hypetrain REVO 5 Replacement Bell",
+      "caption": "Hypetrain REVO 5 Replacement Bell",
+      "source": "rotorriot.com",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: rotorriot.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -57,5 +59,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:05:31.355Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://rotorriot.com/cdn/shop/files/RR2388.jpg?v=1764778400&width=1200"
 }

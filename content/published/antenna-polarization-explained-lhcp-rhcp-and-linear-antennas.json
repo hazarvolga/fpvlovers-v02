@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/12888404/pexels-photo-12888404.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "Close-up photo of an FPV racing drone with an action camera",
-      "caption": "A physics-to-hardware guide explaining circular polarization (LHCP/RHCP), linear antennas, matching transmitter and rec…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/close-up-shot-of-a-drone-12888404/",
-      "credit": "Photo by FLYANDI FPV on Pexels",
-      "license": "Pexels License"
+      "src": "https://judgeme.imgix.net/rotor-riot/1774559120__1000003535__original.jpg?auto=format&w=1024",
+      "alt": "FPV image from judgeme.imgix.net",
+      "caption": "Source: judgeme.imgix.net",
+      "source": "judgeme.imgix.net",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: judgeme.imgix.net",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:10:07.851Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://judgeme.imgix.net/rotor-riot/1774559120__1000003535__original.jpg?auto=format&w=1024"
 }

@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/14828474/pexels-photo-14828474.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone and controller prepared before a flight",
-      "caption": "A beginner-first walkthrough of the FPV starter stack, the order to buy gear, and the safest way to get ready for a fir…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/",
-      "credit": "Photo on Pexels",
-      "license": "Pexels License"
+      "src": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+      "alt": "FPV image from judgeme.imgix.net",
+      "caption": "Source: judgeme.imgix.net",
+      "source": "judgeme.imgix.net",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: judgeme.imgix.net",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:48:54.436Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024"
 }

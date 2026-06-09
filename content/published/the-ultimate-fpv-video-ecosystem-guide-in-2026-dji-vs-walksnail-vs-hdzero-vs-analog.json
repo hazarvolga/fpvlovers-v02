@@ -30,11 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog?v=cover-v2",
-      "alt": "The Ultimate FPV Video Ecosystem Guide in 2026: DJI vs Walksnail vs HDZero vs Analog cover illustration",
-      "caption": "A comparative review of the four major FPV video systems, outlining the tradeoffs in latency, image quality, cost, sign…",
-      "source": "FPVLovers local raster media layer",
-      "credit": "FPVLovers generated PNG artwork"
+      "src": "https://www.racedayquads.com/cdn/shop/files/nav-hd-digital-hdzero-hd-fpv.webp?v=8319763892070456882",
+      "alt": "HDZero HD FPV",
+      "caption": "HDZero HD FPV",
+      "source": "racedayquads.com",
+      "sourceUrl": "https://www.racedayquads.com/collections/fc-esc",
+      "credit": "Source: racedayquads.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -57,5 +59,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:23:48.800Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://www.racedayquads.com/cdn/shop/files/nav-hd-digital-hdzero-hd-fpv.webp?v=8319763892070456882"
 }

@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/12888404/pexels-photo-12888404.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "Close-up photo of an FPV racing drone with an action camera",
-      "caption": "A hardware guide explaining the difference between True X, Squashed X, Deadcat, and Stretch X frame geometries, carbon…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/close-up-shot-of-a-drone-12888404/",
-      "credit": "Photo by FLYANDI FPV on Pexels",
-      "license": "Pexels License"
+      "src": "https://rotorriot.com/cdn/shop/files/Bubito-Starter-ECHO.png?v=1708626445&width=1000",
+      "alt": "Bundles",
+      "caption": "Bundles",
+      "source": "rotorriot.com",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: rotorriot.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:20:44.278Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://rotorriot.com/cdn/shop/files/Bubito-Starter-ECHO.png?v=1708626445&width=1000"
 }

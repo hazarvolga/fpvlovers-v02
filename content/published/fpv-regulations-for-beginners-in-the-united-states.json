@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/14828474/pexels-photo-14828474.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone and controller prepared before a flight",
-      "caption": "A beginner-friendly overview of the U.S. FPV rules, with practical focus on safe flying habits and common compliance qu…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/",
-      "credit": "Photo on Pexels",
-      "license": "Pexels License"
+      "src": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-article-images/fa_drone_security.jpg",
+      "alt": "Flying drone over a city.",
+      "caption": "Flying drone over a city.",
+      "source": "ieeexplore.ieee.org",
+      "sourceUrl": "https://ieeexplore.ieee.org/",
+      "credit": "Source: ieeexplore.ieee.org",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:55:42.825Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-article-images/fa_drone_security.jpg"
 }

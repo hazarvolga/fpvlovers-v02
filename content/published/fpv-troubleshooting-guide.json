@@ -99,11 +99,13 @@
   "promptVersion": "v2",
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/fpv-troubleshooting-guide",
-      "alt": "FPV Troubleshooting Guide: Fix the Most Common Problems Fast cover illustration",
-      "caption": "A practical troubleshooting hub for the most common FPV issues, organized by symptom so new pilots can find a fix quickly.",
-      "source": "FPVLovers local media layer",
-      "credit": "FPVLovers generated artwork"
+      "src": "https://dronechampionsleague.com/wp-content/uploads/2025/04/1.webp",
+      "alt": "FPV image from dronechampionsleague.com",
+      "caption": "Source: dronechampionsleague.com",
+      "source": "dronechampionsleague.com",
+      "sourceUrl": "https://dronechampionsleague.com/",
+      "credit": "Source: dronechampionsleague.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -150,5 +152,6 @@
     "attribution": [
       "Copyright-safe media generated locally by FPVLovers"
     ]
-  }
+  },
+  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/04/1.webp"
 }

@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/17841003/pexels-photo-17841003.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV pilot wearing goggles and holding a drone controller outdoors",
-      "caption": "A comparison-led guide to the first goggle purchase, with a clear look at analog and digital tradeoffs for new pilots.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-man-wearing-goggles-and-controlling-a-drone-17841003/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg",
+      "alt": "FPV image from oscarliang.com",
+      "caption": "Source: oscarliang.com",
+      "source": "oscarliang.com",
+      "sourceUrl": "https://oscarliang.com/betaflight-filtering/",
+      "credit": "Source: oscarliang.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:47:54.196Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg"
 }

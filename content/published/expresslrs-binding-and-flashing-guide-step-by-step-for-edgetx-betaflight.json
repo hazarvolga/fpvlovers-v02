@@ -30,11 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight?v=cover-v2",
-      "alt": "ExpressLRS Binding and Flashing Guide: Step-by-Step for EdgeTX & Betaflight cover illustration",
-      "caption": "A step-by-step tutorial explaining how to configure ExpressLRS (ELRS) on FPV drones, compile firmware via ELRS Configur…",
-      "source": "FPVLovers local raster media layer",
-      "credit": "FPVLovers generated PNG artwork"
+      "src": "https://droneracing.fai.org/images/games.png",
+      "alt": "FPV image from droneracing.fai.org",
+      "caption": "Source: droneracing.fai.org",
+      "source": "droneracing.fai.org",
+      "sourceUrl": "https://droneracing.fai.org/",
+      "credit": "Source: droneracing.fai.org",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -57,5 +59,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:25:25.560Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://droneracing.fai.org/images/games.png"
 }

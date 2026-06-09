@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/17841003/pexels-photo-17841003.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV pilot wearing goggles and holding a drone controller outdoors",
-      "caption": "A complete beginner-first structural and electrical breakdown of a standard FPV drone, explaining how frames, motors, E…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-man-wearing-goggles-and-controlling-a-drone-17841003/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://judgeme.imgix.net/rotor-riot/1767973806__img_4713__original.jpeg?auto=format&w=1024",
+      "alt": "FPV image from judgeme.imgix.net",
+      "caption": "Source: judgeme.imgix.net",
+      "source": "judgeme.imgix.net",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: judgeme.imgix.net",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:13:30.982Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://judgeme.imgix.net/rotor-riot/1767973806__img_4713__original.jpeg?auto=format&w=1024"
 }

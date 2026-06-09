@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/30382834/pexels-photo-30382834.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone with an action camera on an outdoor surface",
-      "caption": "Highlights the new national drone racing league, its mixed-reality format, and the upcoming live final at LEAP 2026 in…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://emax-usa.com/cdn/shop/products/photo-3012_1000x1000.progressive.jpg?v=1590535126",
+      "alt": "Tinyhawk II RTF Kit - With Controller & Goggles",
+      "caption": "Tinyhawk II RTF Kit - With Controller & Goggles",
+      "source": "emax-usa.com",
+      "sourceUrl": "https://emax-usa.com/",
+      "credit": "Source: emax-usa.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:37:41.011Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://emax-usa.com/cdn/shop/products/photo-3012_1000x1000.progressive.jpg?v=1590535126"
 }

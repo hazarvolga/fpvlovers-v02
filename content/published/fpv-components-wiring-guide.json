@@ -99,11 +99,13 @@
   "promptVersion": "v2",
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/fpv-components-wiring-guide",
-      "alt": "FPV Components and Wiring Guide: What Each Part Does cover illustration",
-      "caption": "A beginner-friendly map of every core FPV component, what it does, and how the signal and power paths fit together.",
-      "source": "FPVLovers local media layer",
-      "credit": "FPVLovers generated artwork"
+      "src": "https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800",
+      "alt": "Rotor Riot",
+      "caption": "Rotor Riot",
+      "source": "rotorriot.com",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: rotorriot.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -150,5 +152,6 @@
     "attribution": [
       "Copyright-safe media generated locally by FPVLovers"
     ]
-  }
+  },
+  "coverImage": "https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800"
 }

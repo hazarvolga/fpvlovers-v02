@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
-      "alt": "Copper windings of a motor",
-      "caption": "High-density copper motor stator windings and magnetic bell assemblies.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/copper-wire-lot-625624792",
-      "credit": "Photo by Science in HD on Unsplash"
+      "src": "https://pyrodrone.com/cdn/shop/files/aos-supernova-2207-1980kv-brushless-motor-rcinpower_512x512.png?v=1706083918",
+      "alt": "FPV image from pyrodrone.com",
+      "caption": "Source: pyrodrone.com",
+      "source": "pyrodrone.com",
+      "sourceUrl": "https://pyrodrone.com/collections/motors",
+      "credit": "Source: pyrodrone.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.016Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://pyrodrone.com/cdn/shop/files/aos-supernova-2207-1980kv-brushless-motor-rcinpower_512x512.png?v=1706083918"
 }

@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/betaflight-pid-basics?v=cover-v2",
-      "alt": "FPV drone and controller prepared before a flight",
-      "caption": "A simple explanation of PID tuning that helps new pilots understand what changes matter and what to leave alone.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/",
-      "credit": "Photo on Pexels",
-      "license": "Pexels License"
+      "src": "https://cdn.shopify.com/s/files/1/0123/4406/6148/files/drone.png",
+      "alt": "FPV image from cdn.shopify.com",
+      "caption": "Source: cdn.shopify.com",
+      "source": "cdn.shopify.com",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: cdn.shopify.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:52:55.563Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://cdn.shopify.com/s/files/1/0123/4406/6148/files/drone.png"
 }

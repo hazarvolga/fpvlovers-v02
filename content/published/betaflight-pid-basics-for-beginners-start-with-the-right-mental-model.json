@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/14828474/pexels-photo-14828474.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone and controller prepared before a flight",
-      "caption": "A simple explanation of PID tuning that helps new pilots understand what changes matter and what to leave alone.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/",
-      "credit": "Photo on Pexels",
-      "license": "Pexels License"
+      "src": "https://judgeme.imgix.net/rotor-riot-store/1767654818__img_4340__original.jpeg?auto=format&w=1024",
+      "alt": "FPV image from judgeme.imgix.net",
+      "caption": "Source: judgeme.imgix.net",
+      "source": "judgeme.imgix.net",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: judgeme.imgix.net",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:52:55.563Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://judgeme.imgix.net/rotor-riot-store/1767654818__img_4340__original.jpeg?auto=format&w=1024"
 }

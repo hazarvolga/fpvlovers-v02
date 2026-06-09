@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/9241777/pexels-photo-9241777.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "Hands soldering components on a printed circuit board",
-      "caption": "A hands-on build tutorial covering essential soldering equipment (TS100/TS101, pinecil), choosing leaded vs lead-free s…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-person-using-a-soldering-iron-on-a-printed-circuit-board-9241777/",
-      "credit": "Photo by Mikhail Nilov on Pexels",
-      "license": "Pexels License"
+      "src": "https://static2.manualslib.com/public/img/add.png",
+      "alt": "Addictivetips Logo",
+      "caption": "Addictivetips Logo",
+      "source": "static2.manualslib.com",
+      "sourceUrl": "https://www.manualslib.com/",
+      "credit": "Source: static2.manualslib.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:22:06.756Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://static2.manualslib.com/public/img/add.png"
 }

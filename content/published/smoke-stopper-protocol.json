@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/12888404/pexels-photo-12888404.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "Close-up photo of an FPV racing drone with an action camera",
-      "caption": "A critical electronics guide explaining the function of a smoke stopper, bench testing procedures, current thresholds,…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/close-up-shot-of-a-drone-12888404/",
-      "credit": "Photo by FLYANDI FPV on Pexels",
-      "license": "Pexels License"
+      "src": "https://static2.manualslib.com/public/img/cnet.png",
+      "alt": "Cnet Logo",
+      "caption": "Cnet Logo",
+      "source": "static2.manualslib.com",
+      "sourceUrl": "https://www.manualslib.com/",
+      "credit": "Source: static2.manualslib.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:15:27.180Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://static2.manualslib.com/public/img/cnet.png"
 }

@@ -30,11 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/failsafe-settings-safe-flight-practices-what-happens-when-you-lose-signal?v=cover-v2",
-      "alt": "Failsafe Settings & Safe Flight Practices: What Happens When You Lose Signal cover illustration",
-      "caption": "A flight safety tutorial focusing on configuring Failsafe Stage 1 and Stage 2 in Betaflight, receiver channel loss valu…",
-      "source": "FPVLovers local raster media layer",
-      "credit": "FPVLovers generated PNG artwork"
+      "src": "https://judgeme.imgix.net/rotor-riot/1767973806__img_4713__original.jpeg?auto=format&w=1024",
+      "alt": "FPV image from judgeme.imgix.net",
+      "caption": "Source: judgeme.imgix.net",
+      "source": "judgeme.imgix.net",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: judgeme.imgix.net",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -57,5 +59,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:11:37.197Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://judgeme.imgix.net/rotor-riot/1767973806__img_4713__original.jpeg?auto=format&w=1024"
 }

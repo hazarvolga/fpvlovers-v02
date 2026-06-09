@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/9241777/pexels-photo-9241777.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "Hands soldering components on a printed circuit board",
-      "caption": "A symptom-based checklist for the most common FPV problem: the goggles power on, but no usable video appears.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-person-using-a-soldering-iron-on-a-printed-circuit-board-9241777/",
-      "credit": "Photo by Mikhail Nilov on Pexels",
-      "license": "Pexels License"
+      "src": "https://chinahobbyline.com/cdn/shop/files/1501003BK300mm_512x512.jpg?v=1688536594",
+      "alt": "CNHL Black Series 1500mAh 3S Lipo Battery Dimensions and Weight",
+      "caption": "CNHL Black Series 1500mAh 3S Lipo Battery Dimensions and Weight",
+      "source": "chinahobbyline.com",
+      "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+      "credit": "Source: chinahobbyline.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:45:41.440Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://chinahobbyline.com/cdn/shop/files/1501003BK300mm_512x512.jpg?v=1688536594"
 }

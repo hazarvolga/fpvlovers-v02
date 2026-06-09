@@ -100,11 +100,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/acro-mode-mental-model-for-fpv-beginners?v=cover-v2",
-      "alt": "Acro Mode stick movements and FPV flight trajectory visualization",
-      "caption": "Acro Mode calibration: understanding angular velocity inputs instead of angle-based stabilization.",
-      "source": "FPVLovers local raster media layer",
-      "credit": "FPVLovers generated PNG artwork"
+      "src": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+      "alt": "How To Use Blackbox Betaflight 4.3",
+      "caption": "How To Use Blackbox Betaflight 4.3",
+      "source": "oscarliang.com",
+      "sourceUrl": "https://oscarliang.com/blackbox/",
+      "credit": "Source: oscarliang.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -154,5 +156,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-01T14:05:00.000Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg"
 }

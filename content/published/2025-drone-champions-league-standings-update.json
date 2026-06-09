@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/30382834/pexels-photo-30382834.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone with an action camera on an outdoor surface",
-      "caption": "Recap of the 2025 DCL season standings, highlighting top teams and cup performances including Falcon, Eagle, and Hawk C…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
+      "alt": "FPV image from oscarliang.com",
+      "caption": "Source: oscarliang.com",
+      "source": "oscarliang.com",
+      "sourceUrl": "https://oscarliang.com/pid/",
+      "credit": "Source: oscarliang.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:45:58.902Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg"
 }

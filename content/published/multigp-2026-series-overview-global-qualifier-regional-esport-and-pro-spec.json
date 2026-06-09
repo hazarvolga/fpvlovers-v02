@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/30382834/pexels-photo-30382834.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone with an action camera on an outdoor surface",
-      "caption": "An overview of the various racing series planned by MultiGP for 2026, including Global Qualifier, Regional Series, eSpo…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://chinahobbyline.com/cdn/shop/files/1_883e2525-41c0-4434-b870-328ee3fb73c9_512x512.jpg?v=1728638515",
+      "alt": "2 Packs CNHL Black Series V2.0 1300mAh 22.2V 6S 130C Lipo Battery with XT60 Plug",
+      "caption": "2 Packs CNHL Black Series V2.0 1300mAh 22.2V 6S 130C Lipo Battery with XT60 Plug",
+      "source": "chinahobbyline.com",
+      "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+      "credit": "Source: chinahobbyline.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:00:41.469Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://chinahobbyline.com/cdn/shop/files/1_883e2525-41c0-4434-b870-328ee3fb73c9_512x512.jpg?v=1728638515"
 }

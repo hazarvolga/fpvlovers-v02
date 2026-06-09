@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/lipo-battery-safety-guide?v=cover-v2",
-      "alt": "FPV drone with an action camera on an outdoor surface",
-      "caption": "A comprehensive safety and configuration guide explaining how LiPo batteries work, safe charging rates (1C), storage vo…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://chinahobbyline.com/cdn/shop/files/520906EC5_22c37d9d-9d73-4d14-b1aa-fbf5b238784b_512x512.jpg?v=1760336026",
+      "alt": "Size and weight overview of cnhl 5200mah 6s 90c lipo battery",
+      "caption": "Size and weight overview of cnhl 5200mah 6s 90c lipo battery",
+      "source": "chinahobbyline.com",
+      "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+      "credit": "Source: chinahobbyline.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:28:46.159Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://chinahobbyline.com/cdn/shop/files/520906EC5_22c37d9d-9d73-4d14-b1aa-fbf5b238784b_512x512.jpg?v=1760336026"
 }

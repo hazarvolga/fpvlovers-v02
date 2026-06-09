@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/12888404/pexels-photo-12888404.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "Close-up photo of an FPV racing drone with an action camera",
-      "caption": "A component comparison guide explaining the structural differences between cinematic cinebops/cinewhoops and durable fr…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/close-up-shot-of-a-drone-12888404/",
-      "credit": "Photo by FLYANDI FPV on Pexels",
-      "license": "Pexels License"
+      "src": "https://droneracing.fai.org/images/olymp1.png",
+      "alt": "FPV image from droneracing.fai.org",
+      "caption": "Source: droneracing.fai.org",
+      "source": "droneracing.fai.org",
+      "sourceUrl": "https://droneracing.fai.org/",
+      "credit": "Source: droneracing.fai.org",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:07:20.638Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://droneracing.fai.org/images/olymp1.png"
 }

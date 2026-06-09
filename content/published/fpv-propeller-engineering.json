@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80",
-      "alt": "Abstract blades or geometry",
-      "caption": "Aerodynamic propeller profile geometry and drag distribution curves.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/abstract-geometric-blades-625624792",
-      "credit": "Photo by Jason Leung on Unsplash"
+      "src": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+      "alt": "FPV image from en.tmotor.com",
+      "caption": "Source: en.tmotor.com",
+      "source": "en.tmotor.com",
+      "sourceUrl": "https://uav-en.tmotor.com/",
+      "credit": "Source: en.tmotor.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.018Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg"
 }

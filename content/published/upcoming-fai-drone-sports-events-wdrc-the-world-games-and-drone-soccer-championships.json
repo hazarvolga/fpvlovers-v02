@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/30382834/pexels-photo-30382834.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone with an action camera on an outdoor surface",
-      "caption": "Highlight key dates and locations for major FAI drone sports events, including racing and soccer.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://f9u.it/wp-content/uploads/2026/03/cropped-immagine_2026-03-10_105411990.png",
+      "alt": "FPV image from f9u.it",
+      "caption": "Source: f9u.it",
+      "source": "f9u.it",
+      "sourceUrl": "https://f9u.it/",
+      "credit": "Source: f9u.it",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:05:43.386Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://f9u.it/wp-content/uploads/2026/03/cropped-immagine_2026-03-10_105411990.png"
 }

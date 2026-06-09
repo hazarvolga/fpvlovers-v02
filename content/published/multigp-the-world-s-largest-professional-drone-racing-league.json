@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/30382834/pexels-photo-30382834.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone with an action camera on an outdoor surface",
-      "caption": "An overview of MultiGP's global presence, pilot network, and chapter system.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://spaindroneteam.com/wp-content/uploads/2025/03/SECCION-SPONSORS.png",
+      "alt": "SDT Sponsors",
+      "caption": "SDT Sponsors",
+      "source": "spaindroneteam.com",
+      "sourceUrl": "https://spaindroneteam.com/",
+      "credit": "Source: spaindroneteam.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:15:14.984Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://spaindroneteam.com/wp-content/uploads/2025/03/SECCION-SPONSORS.png"
 }

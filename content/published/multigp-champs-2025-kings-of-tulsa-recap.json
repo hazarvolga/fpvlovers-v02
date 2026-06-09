@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/30382834/pexels-photo-30382834.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone with an action camera on an outdoor surface",
-      "caption": "Recap of the MultiGP Championship event held in 2025.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "credit": "Photo by UMUT on Pexels",
-      "license": "Pexels License"
+      "src": "https://www.multigp.com/wp-content/uploads/2025/10/10-10-25-2025-MultiGP-Champs-Photos-Photos-by-Patrick-Quiring-of-PQ-Multimedia-603-1024x577.webp",
+      "alt": "FPV image from multigp.com",
+      "caption": "Source: multigp.com",
+      "source": "multigp.com",
+      "sourceUrl": "https://www.multigp.com/chapters/",
+      "credit": "Source: multigp.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:31:09.476Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://www.multigp.com/wp-content/uploads/2025/10/10-10-25-2025-MultiGP-Champs-Photos-Photos-by-Patrick-Quiring-of-PQ-Multimedia-603-1024x577.webp"
 }

@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/9182733/pexels-photo-9182733.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "Close-up photo of a drone controller at sunset",
-      "caption": "A comprehensive reference covering motor sizing, ESC protocols, and FC selection.",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-drone-controller-9182733/",
-      "credit": "Photo by Erik Mclean on Pexels",
-      "license": "Pexels License"
+      "src": "https://rotorriot.com/cdn/shop/files/bundles-desktop.jpg?v=1776949301&width=1110",
+      "alt": "Rotor Riot",
+      "caption": "Rotor Riot",
+      "source": "rotorriot.com",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: rotorriot.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T16:40:32.641Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://rotorriot.com/cdn/shop/files/bundles-desktop.jpg?v=1776949301&width=1110"
 }

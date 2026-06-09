@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1577533870320-2c31e7e41028?w=1200&auto=format&fit=crop&q=70",
-      "alt": "Drone flying outdoors over an open landscape",
-      "caption": "A step-by-step procedure for your first battery in the real world. Learn physical layout checks, proper arming protocol…",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/s/photos/fpv-drone",
-      "credit": "Photo on Unsplash",
-      "license": "Unsplash License"
+      "src": "https://judgeme.imgix.net/chinahobbyline/1779589215__img_0373__original.jpeg?auto=format&w=240",
+      "alt": "Review picture",
+      "caption": "Review picture",
+      "source": "judgeme.imgix.net",
+      "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+      "credit": "Source: judgeme.imgix.net",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:11:11.610Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://judgeme.imgix.net/chinahobbyline/1779589215__img_0373__original.jpeg?auto=format&w=240"
 }

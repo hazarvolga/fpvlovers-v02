@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1504890001746-a9a68edd06e5?w=1200&auto=format&fit=crop&q=70",
-      "alt": "Creative perspective of a drone flying through a dense forest canopy",
-      "caption": "A masterclass guide on executing orbital paths for cinematic capture. Learn mechanical tilting synchronization, 180-deg…",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/s/photos/drone-forest",
-      "credit": "Photo on Unsplash",
-      "license": "Unsplash License"
+      "src": "https://en.tmotor.com/uploadfile/2026/0129/20260129015053688.jpg",
+      "alt": "FPV image from en.tmotor.com",
+      "caption": "Source: en.tmotor.com",
+      "source": "en.tmotor.com",
+      "sourceUrl": "https://uav-en.tmotor.com/",
+      "credit": "Source: en.tmotor.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -66,5 +66,6 @@
   },
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:22:43.678Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://en.tmotor.com/uploadfile/2026/0129/20260129015053688.jpg"
 }

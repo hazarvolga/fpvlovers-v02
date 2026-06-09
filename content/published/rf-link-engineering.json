@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=800&q=80",
-      "alt": "Telemetry signal towers or waves",
-      "caption": "High-frequency radio wave propagation and antenna polarization paths.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/radio-waves-625624792",
-      "credit": "Photo by Hector Achautla on Unsplash"
+      "src": "https://rotorriot.com/cdn/shop/files/bundle-rev3.jpg?v=1765559971&width=800",
+      "alt": "Long Range Drone Bundle - Explorer LR 4 HD DJI O4 Pro Micro",
+      "caption": "Long Range Drone Bundle - Explorer LR 4 HD DJI O4 Pro Micro",
+      "source": "rotorriot.com",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: rotorriot.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.020Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://rotorriot.com/cdn/shop/files/bundle-rev3.jpg?v=1765559971&width=800"
 }

@@ -99,11 +99,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/how-to-choose-your-first-fpv-radio?v=cover-v2",
-      "alt": "RadioMaster Boxer FPV radio transmitter sitting on a workbench",
-      "caption": "RadioMaster Boxer: The premium standard in hybrid FPV radio transmitters.",
-      "source": "FPVLovers local raster media layer",
-      "credit": "FPVLovers generated PNG artwork"
+      "src": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+      "alt": "How To Use Blackbox Betaflight 4.3",
+      "caption": "How To Use Blackbox Betaflight 4.3",
+      "source": "oscarliang.com",
+      "sourceUrl": "https://oscarliang.com/blackbox/",
+      "credit": "Source: oscarliang.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -153,5 +155,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-01T14:07:05.000Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg"
 }

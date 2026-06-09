@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://images.pexels.com/photos/14828474/pexels-photo-14828474.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      "alt": "FPV drone and controller prepared before a flight",
-      "caption": "A step-by-step configuration tutorial detailing how to wire a GPS module, enable UBLOX/NMEA protocols in Betaflight, co…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/",
-      "credit": "Photo on Pexels",
-      "license": "Pexels License"
+      "src": "https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg",
+      "alt": "FPV image from oscarliang.com",
+      "caption": "Source: oscarliang.com",
+      "source": "oscarliang.com",
+      "sourceUrl": "https://oscarliang.com/rpm-filter/",
+      "credit": "Source: oscarliang.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:19:10.725Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg"
 }

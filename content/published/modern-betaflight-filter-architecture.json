@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=800&q=80",
-      "alt": "Signal waves and filters",
-      "caption": "High-frequency signal processing and filter attenuation visualizer.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/white-and-blue-abstract-painting-625624792",
-      "credit": "Photo by Samuel Scrimshaw on Unsplash"
+      "src": "https://rotorriot.com/cdn/shop/products/hqprop_juicy_j37_4.9x3.7x3_propeller_1.jpg?v=1642525451&width=1000",
+      "alt": "HQ Juicy J37 4.9x3.7x3 Props - Choose Color",
+      "caption": "HQ Juicy J37 4.9x3.7x3 Props - Choose Color",
+      "source": "rotorriot.com",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: rotorriot.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.015Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://rotorriot.com/cdn/shop/products/hqprop_juicy_j37_4.9x3.7x3_propeller_1.jpg?v=1642525451&width=1000"
 }

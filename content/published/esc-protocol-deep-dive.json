@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
-      "alt": "Microchip on circuit board",
-      "caption": "Close-up of high-speed FPV ESC driver circuitry and MOSFET gates.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/computer-chip-625624792",
-      "credit": "Photo by Alexandre Debiève on Unsplash"
+      "src": "https://www.racedayquads.com/cdn/shop/files/nav-all-electronics-escs-electronic-speed-controllers.webp?v=3773967901496022457",
+      "alt": "ESCs \\(Electronic Speed Controllers\\)",
+      "caption": "ESCs \\(Electronic Speed Controllers\\)",
+      "source": "racedayquads.com",
+      "sourceUrl": "https://www.racedayquads.com/collections/fc-esc",
+      "credit": "Source: racedayquads.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.017Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://www.racedayquads.com/cdn/shop/files/nav-all-electronics-escs-electronic-speed-controllers.webp?v=3773967901496022457"
 }

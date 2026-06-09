@@ -30,13 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/fpv-motors-kv-and-stator-explained?v=cover-v2",
-      "alt": "Close-up photo of an FPV racing drone with an action camera",
-      "caption": "An educational guide detailing stator size numbering (e.g. 2207, 2306), KV options, battery voltage (4S vs 6S) scaling,…",
-      "source": "Pexels",
-      "sourceUrl": "https://www.pexels.com/photo/close-up-shot-of-a-drone-12888404/",
-      "credit": "Photo by FLYANDI FPV on Pexels",
-      "license": "Pexels License"
+      "src": "https://pyrodrone.com/cdn/shop/products/569A1013_faaf1e94-b29b-4b5b-be2f-03d05bb89219_512x512.jpg?v=1602876520",
+      "alt": "FPV image from pyrodrone.com",
+      "caption": "Source: pyrodrone.com",
+      "source": "pyrodrone.com",
+      "sourceUrl": "https://pyrodrone.com/collections/motors",
+      "credit": "Source: pyrodrone.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -60,5 +60,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:26:58.349Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://pyrodrone.com/cdn/shop/products/569A1013_faaf1e94-b29b-4b5b-be2f-03d05bb89219_512x512.jpg?v=1602876520"
 }

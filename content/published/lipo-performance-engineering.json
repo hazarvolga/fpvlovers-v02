@@ -41,12 +41,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://images.unsplash.com/photo-1620283085439-39620a1e21c4?auto=format&fit=crop&w=800&q=80",
-      "alt": "Energy cells close up",
-      "caption": "High-density Lithium Polymer FPV battery cells under mechanical stress.",
-      "source": "Unsplash",
-      "sourceUrl": "https://unsplash.com/photos/abstract-light-cells-625624792",
-      "credit": "Photo by FlyD on Unsplash"
+      "src": "https://chinahobbyline.com/cdn/shop/files/1_33377184-2c96-4c38-925b-7139ddd7c2db_512x512.jpg?v=1686278572",
+      "alt": "CNHL 2200mAh 2S Lipo Battery - Dimensions and Weight",
+      "caption": "CNHL 2200mAh 2S Lipo Battery - Dimensions and Weight",
+      "source": "chinahobbyline.com",
+      "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+      "credit": "Source: chinahobbyline.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -69,5 +70,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.019Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://chinahobbyline.com/cdn/shop/files/1_33377184-2c96-4c38-925b-7139ddd7c2db_512x512.jpg?v=1686278572"
 }

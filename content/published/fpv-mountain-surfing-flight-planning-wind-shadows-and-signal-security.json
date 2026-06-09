@@ -102,11 +102,13 @@
   "promptVersion": "v2",
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
-      "alt": "FPV Mountain Surfing: Flight Planning, Wind Shadows, and Signal Security cover illustration",
-      "caption": "An advanced tactical guide for high-altitude ridge surfing. Explores mountain thermal flows and wind shadows, RF line-of-sight propagation, custom high-density Li-Ion pack builds, and emergency GPS rescue fail-safe protocols.",
-      "source": "FPVLovers local media layer",
-      "credit": "FPVLovers generated artwork"
+      "src": "https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024",
+      "alt": "FPV image from judgeme.imgix.net",
+      "caption": "Source: judgeme.imgix.net",
+      "source": "judgeme.imgix.net",
+      "sourceUrl": "https://rotorriot.com/",
+      "credit": "Source: judgeme.imgix.net",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -153,5 +155,6 @@
     "attribution": [
       "Copyright-safe media generated locally by FPVLovers"
     ]
-  }
+  },
+  "coverImage": "https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024"
 }

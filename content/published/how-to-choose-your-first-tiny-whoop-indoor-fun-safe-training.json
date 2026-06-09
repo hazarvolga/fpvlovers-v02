@@ -30,11 +30,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training?v=cover-v2",
-      "alt": "How to Choose Your First Tiny Whoop: Indoor Fun & Safe Training cover illustration",
-      "caption": "A comparative review of the tiny whoop category (65mm, 75mm, 85mm), brushed vs brushless motors, choosing analog vs HD…",
-      "source": "FPVLovers local raster media layer",
-      "credit": "FPVLovers generated PNG artwork"
+      "src": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_1000x1000.progressive.jpg?v=1637194872",
+      "alt": "Tinyhawk III FPV Racing Drone - Ready To Fly \\(RTF\\) w/ Controller and Goggles",
+      "caption": "Tinyhawk III FPV Racing Drone - Ready To Fly \\(RTF\\) w/ Controller and Goggles",
+      "source": "emax-usa.com",
+      "sourceUrl": "https://emax-usa.com/",
+      "credit": "Source: emax-usa.com",
+      "license": "attribution"
     },
     "gallery": [
       {
@@ -64,5 +66,6 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:43:58.600Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "coverImage": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_1000x1000.progressive.jpg?v=1637194872"
 }
