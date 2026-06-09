@@ -44,25 +44,26 @@ export type HarvestStore = {
 };
 
 /** Hostname fragments that never carry editorial value. */
-const HOST_DENYLIST = ['gravatar.com', 'placeholder.com', 'placehold.it', 'doubleclick.net'];
+const HOST_DENYLIST = [
+  'gravatar.com', 'placeholder.com', 'placehold.it', 'doubleclick.net',
+  'staticflickr.com', 'googlesyndication.com', 'googletagmanager.com',
+  'facebook.com', 'twitter.com', 'instagram.com',
+];
 
 /**
  * Filename / path fragments that indicate chrome (logos, icons, tracking
  * pixels, avatars, sprites) rather than editorial photography.
  */
 const PATH_DENYLIST = [
-  'logo',
-  'icon',
-  'favicon',
-  'sprite',
-  'avatar',
-  'spacer',
-  'pixel',
-  'badge',
-  'button',
-  'placeholder',
-  'thumbnail-default',
-  'data:image',
+  'logo', 'icon', 'favicon', 'sprite', 'avatar', 'spacer', 'pixel',
+  'badge', 'button', 'placeholder', 'thumbnail-default', 'data:image',
+  // Forum / community chrome
+  'smilies', 'smileys', 'emoticon', 'emoji',
+  // Common vendor chrome patterns
+  'blank.gif', 'transparent.gif', 'loading.gif', 'spinner.',
+  'arrow', 'star.png', 'star.gif', 'checkmark',
+  // CDN product thumbnails that are too small
+  '_thumb', '_small', '_xs', '-xs.', '-sm.', '_mini',
 ];
 
 function cleanText(value: string): string {

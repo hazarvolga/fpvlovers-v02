@@ -244,6 +244,6 @@ Understanding Betaflight PID basics is a game-changer for any FPV pilot. By gras
 
 Ready to take your FPV skills to the next level? Share your tuning journey in the comments below, and subscribe for more in-depth FPV guides and tutorials!
 
-![Smile](https://intofpv.com/images/smilies/smile.png)
-_Smile_
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
 

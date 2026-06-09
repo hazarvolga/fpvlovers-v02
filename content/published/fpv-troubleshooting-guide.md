@@ -19,8 +19,8 @@ When your goggles show nothing:
 
 Work backwards: goggle → VRX → antenna → VTX → camera. Isolate each link.
 
-![Smile](https://intofpv.com/images/smilies/smile.png)
-_Smile_
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1774559120__1000003535__original.jpg?auto=format&w=1024)
+_Source: judgeme.imgix.net_
 
 ## Won't Arm? Read the Flags
 
@@ -57,6 +57,6 @@ Most FPV problems are preventable with regular maintenance:
 - Clean **motor bearings** periodically
 - Keep **spare antennas, props, and standoffs** in your field kit
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1774559120__1000003535__original.jpg?auto=format&w=1024)
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot-store/1767477640__image_2026-01-03_170134848__original.png?auto=format&w=1024)
 _Source: judgeme.imgix.net_
 

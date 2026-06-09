@@ -21,8 +21,8 @@ During firmware flashing, you enter a secret, customized text phrase (e.g., `ome
 
 When you power on your radio transmitter and your drone, they wirelessly broadcast their hashed identifiers. If they match, they **bind instantly and automatically** within milliseconds. You never have to press a bind button again. Any drone you build or buy in the future will automatically connect to your radio the instant it powers up, provided you flash it with the same binding phrase.
 
-![Smile](https://intofpv.com/images/smilies/smile.png)
-_Smile_
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2026/0129/20260129015053688.jpg)
+_Source: en.tmotor.com_
 
 ## Flashing Firmware via Wi-Fi: The Modern Procedural Flow
 

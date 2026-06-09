@@ -79,10 +79,21 @@ type PublishedArtifact = {
 };
 
 // ─── IMAGE HELPERS ─────────────────────────────────────────────────────────
-const HOST_DENYLIST = ['gravatar.com', 'placeholder.com', 'placehold.it', 'doubleclick.net'];
+const HOST_DENYLIST = [
+  'gravatar.com', 'placeholder.com', 'placehold.it', 'doubleclick.net',
+  'staticflickr.com', 'googlesyndication.com', 'googletagmanager.com',
+  'facebook.com', 'twitter.com', 'instagram.com',
+];
 const PATH_DENYLIST = [
   'logo', 'icon', 'favicon', 'sprite', 'avatar', 'spacer', 'pixel',
   'badge', 'button', 'placeholder', 'thumbnail-default', 'data:image',
+  // Forum / community chrome
+  'smilies', 'smileys', 'emoticon', 'emoji',
+  // Common vendor chrome patterns
+  'blank.gif', 'transparent.gif', 'loading.gif', 'spinner.',
+  'arrow', 'star.png', 'star.gif', 'checkmark',
+  // CDN product thumbnails that are too small
+  '_thumb', '_small', '_xs', '-xs.', '-sm.', '_mini',
 ];
 
 function isEditorialImage(src: string): boolean {

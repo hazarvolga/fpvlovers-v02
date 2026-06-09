@@ -36,12 +36,12 @@
       "title": "Binding Phrases: The End of Physical Bind Buttons",
       "content": "If you have ever flown older RC systems, you probably remember the frustration of pressing tiny bind buttons on receivers while trying to plug in batteries with three hands. ExpressLRS completely eliminates this physical chore through **Custom Binding Phrases**.\n\nDuring firmware flashing, you enter a secret, customized text phrase (e.g., `omega_pilot_2026`) into the ELRS Configurator. This phrase is mathematically hashed into a unique 6-byte identifier and embedded directly into the transmitter (TX) and receiver (RX) firmware. \n\nWhen you power on your radio transmitter and your drone, they wirelessly broadcast their hashed identifiers. If they match, they **bind instantly and automatically** within milliseconds. You never have to press a bind button again. Any drone you build or buy in the future will automatically connect to your radio the instant it powers up, provided you flash it with the same binding phrase.",
       "imageMatch": {
-        "src": "https://intofpv.com/images/smilies/smile.png",
-        "alt": "Smile",
-        "caption": "Smile",
-        "source": "intofpv.com",
-        "sourceUrl": "https://intofpv.com/t-pid-tuning-guide",
-        "credit": "Source: intofpv.com",
+        "src": "https://en.tmotor.com/uploadfile/2026/0129/20260129015053688.jpg",
+        "alt": "FPV image from en.tmotor.com",
+        "caption": "Source: en.tmotor.com",
+        "source": "en.tmotor.com",
+        "sourceUrl": "https://uav-en.tmotor.com/",
+        "credit": "Source: en.tmotor.com",
         "license": "attribution"
       }
     },
