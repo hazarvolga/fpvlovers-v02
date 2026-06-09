@@ -1,10 +1,8 @@
----
-title: "GPS Rescue Reliability: Satellite Geometry, Fail-safe Logic & Recovery Loops"
-slug: "gps-rescue-reliability"
-category: "Systems"
-excerpt: "A critical technical safety report on Betaflight GPS Rescue systems, examining satellite lock geometry, home point calculations, and failsafe recovery loops."
-publishedAt: "2026-06-02T07:41:42.023Z"
----
+# GPS Rescue Reliability: Satellite Geometry, Fail-safe Logic & Recovery Loops
+
+> A critical technical safety report on Betaflight GPS Rescue systems, examining satellite lock geometry, home point calculations, and failsafe recovery loops.
+
+## GPS Rescue Reliability: Satellite Geometry, Fail-safe Logic & Recovery Loops
 
 ## 1. Home Point Calculations & Satellite Lock
 
@@ -33,3 +31,7 @@ If satellite count drops below 4 during the flight, the FC loses triangulation. 
 
 ### 3.2 Glitchy Barometers
 A faulty barometer can report false altitude spikes, forcing the FC to descend prematurely into trees or water.
+
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg)
+_Source: oscarliang.com_
+

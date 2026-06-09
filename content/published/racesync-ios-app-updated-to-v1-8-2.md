@@ -237,6 +237,6 @@ FPV racing is a journey of continuous learning. There will be crashes, frustrati
 
 The world of FPV racing is dynamic, challenging, and incredibly rewarding. With the knowledge and guidance from this ultimate beginner's guide, you're now equipped to embark on your own high-flying adventure. Remember, every master started as a beginner, and with dedication, practice, and a passion for flight, you too can become a formidable FPV racing pilot. Don't just dream about flying – grab your gear, hit the simulator, and start your FPV racing journey today!
 
-![Action photography of sports gear outdoor on a race track](https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop&q=70)
-_Action photography of sports gear outdoor on a race track_
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
 

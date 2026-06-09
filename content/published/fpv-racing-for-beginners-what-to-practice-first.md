@@ -189,3 +189,6 @@ Look for local FPV clubs through online searches ("FPV club [your city]"), check
 
 The world of FPV racing is more accessible and exciting than ever before. With advancements in technology simplifying the learning curve and a vibrant, supportive community ready to welcome new pilots, there's never been a better time to take the plunge. From understanding the basics and gathering your essential gear to mastering flight in a simulator and connecting with local enthusiasts, you now have a comprehensive roadmap to begin your journey. The thrill of FPV flight, the challenge of racing, and the camaraderie of the community are all within your reach. Don't just watch from the sidelines – grab your goggles, power up your drone, and start your FPV adventure today!
 
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+

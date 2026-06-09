@@ -185,3 +185,6 @@ FPV yarışmalarını takip etmek için DRL ve MultiGP'nin YouTube kanallarını
 
 FPV yarış dünyası, insan zekasının, pilotluk becerisinin ve teknolojik ilerlemenin bir kanıtıdır. Şampiyonların uçtuğu stratejik hatlardan, sınırları zorlayan çığır açan donanımlara kadar, her zaman keşfedilecek yeni bir şeyler vardır. En son gelişmeleri takip edin, favori pilotlarınızı izleyin ve hatta belki kendiniz gökyüzüne çıkın. FPV yarışının yeni çağı daha yeni başlıyor – tek bir dönüşü bile kaçırmayın! Mevcut FPV yarış metası hakkındaki düşüncelerinizi aşağıdaki yorumlarda paylaşın!
 
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2025/1209/20251209043748602.jpg)
+_Source: en.tmotor.com_
+

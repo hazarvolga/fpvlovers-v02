@@ -1,10 +1,8 @@
----
-title: "PID Tuning Beyond Presets: Control Loop Mathematics & Dynamic Idle Control"
-slug: "pid-tuning-beyond-presets"
-category: "Flight Control"
-excerpt: "An engineering deep dive into the mathematical mechanics of multirotor PID control loops, Feed Forward dynamics, and high-frequency dynamic idle algorithms."
-publishedAt: "2026-06-02T07:41:42.014Z"
----
+# PID Tuning Beyond Presets: Control Loop Mathematics & Dynamic Idle Control
+
+> An engineering deep dive into the mathematical mechanics of multirotor PID control loops, Feed Forward dynamics, and high-frequency dynamic idle algorithms.
+
+## PID Tuning Beyond Presets: Control Loop Mathematics & Dynamic Idle Control
 
 ## 1. Multirotor Control Loop Dynamics
 
@@ -41,3 +39,7 @@ When a pilot finishes a rapid roll, the drone should halt instantly. If it overs
 
 ### 3.2 Low-Frequency Wobbles
 A heavy, low-frequency wobble ($5-15\text{ Hz}$) indicates excessive $K_p$ gain, exceeding the airframe's control authority threshold.
+
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+

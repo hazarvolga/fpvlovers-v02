@@ -182,6 +182,6 @@ Yes! Indoor FPV racing, often with tiny "whoop" style drones (like the BetaFPV C
 
 FPV racing is an exhilarating journey of skill, speed, and community. With the right gear, dedicated practice, and a passion for flight, you're well on your way to becoming a formidable pilot. Don't be intimidated by the learning curve; every expert started as a beginner. So, grab your gear, fire up that simulator, and prepare to take to the skies. The FPV racing world is waiting for you! Ready to make your first purchase? Explore our recommended beginner FPV racing kits and start your high-speed adventure today!
 
-![Drone in open airspace with sky and terrain context](https://images.unsplash.com/photo-1511098520684-2bf7d4f4f8af?w=1200&auto=format&fit=crop&q=70)
-_Drone in open airspace with sky and terrain context_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

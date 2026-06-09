@@ -1,13 +1,13 @@
----
-title: "FPV Troubleshooting Guide: Fix the Most Common Problems Fast"
-slug: "fpv-troubleshooting-guide"
-metaDescription: "Diagnose no-video, no-arm, binding, and startup issues with a simple FPV troubleshooting flow built for beginners."
-category: "Troubleshooting"
----
-
 # FPV Troubleshooting Guide: Fix the Most Common Problems Fast
 
+> A practical troubleshooting hub for the most common FPV issues, organized by symptom so new pilots can find a fix quickly.
+
+## Start With Safety
+
 Before diving into complex debugging, always start with the basics. **Remove props** before bench testing. Check your **battery voltage** with a multimeter. Verify all **solder joints** are shiny and solid. A cold solder joint is the root cause of more FPV problems than any other single issue.
+
+![FPV image from fai.org](https://www.fai.org/sites/default/files/styles/basic_page_highlighted_xlarge/public/banners_faidroneworld2018.png?itok=yAKMQBkG)
+_Source: fai.org_
 
 ## No Video? Isolate the Chain
 
@@ -19,6 +19,9 @@ When your goggles show nothing:
 
 Work backwards: goggle → VRX → antenna → VTX → camera. Isolate each link.
 
+![Smile](https://intofpv.com/images/smilies/smile.png)
+_Smile_
+
 ## Won't Arm? Read the Flags
 
 Connect to Betaflight and check the **Arming Disable Flags** in the Setup tab. Common causes:
@@ -28,6 +31,9 @@ Connect to Betaflight and check the **Arming Disable Flags** in the Setup tab. C
 - **GPS not locked** (if GPS rescue is enabled)
 
 The arming flags tell you exactly what's wrong.
+
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg)
+_Source: oscarliang.com_
 
 ## Bench Testing Checklist
 
@@ -39,6 +45,9 @@ Before every first flight after a repair:
 5. **Range test** your radio link
 6. Verify **OSD elements** are visible in goggles
 
+![Rotor Riot](https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800)
+_Rotor Riot_
+
 ## Prevention and Maintenance
 
 Most FPV problems are preventable with regular maintenance:
@@ -47,3 +56,7 @@ Most FPV problems are preventable with regular maintenance:
 - Inspect **frame screws** for tightness
 - Clean **motor bearings** periodically
 - Keep **spare antennas, props, and standoffs** in your field kit
+
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1774559120__1000003535__original.jpg?auto=format&w=1024)
+_Source: judgeme.imgix.net_
+

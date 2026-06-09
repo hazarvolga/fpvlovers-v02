@@ -223,6 +223,6 @@ FPV topluluğu, dünyanın en destekleyici ve tutkulu topluluklarından biridir.
 
 Şimdi sıra sizde! Simülatörde pratik yapmaya başlayın, ilk ekipmanınızı araştırın ve FPV yarışının heyecan verici dünyasına adım atın. Gökyüzü sizi bekliyor! fpvlovers.com.tr olarak, bu inanılmaz yolculuğunuzda size destek olmaktan mutluluk duyarız. İyi uçuşlar!
 
-![Close-up of a racing pilot looking through goggles with absolute focus](https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=70)
-_Close-up of a racing pilot looking through goggles with absolute focus_
+![FPV image from multigp.com](https://www.multigp.com/wp-content/uploads/2025/10/10-10-25-2025-MultiGP-Champs-Photos-Photos-by-Patrick-Quiring-of-PQ-Multimedia-603-1024x577.webp)
+_Source: multigp.com_
 

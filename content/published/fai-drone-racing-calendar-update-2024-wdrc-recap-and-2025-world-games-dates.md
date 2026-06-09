@@ -150,6 +150,6 @@ The best way is to visit **MultiGP.com** and use their chapter locator to find l
 
 From the adrenaline-pumping finishes to the intricate dance of technology and skill, FPV racing is a sport constantly evolving. Staying informed about the latest results, pilot strategies, and technological breakthroughs is key to appreciating its depth. What were your favorite moments from the recent races, or what tech innovation excites you most? Share your thoughts in the comments below, and subscribe for your next weekly FPV Racing Digest!
 
-![FPV racing gates and high-visibility track flags outdoors](https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70)
-_FPV racing gates and high-visibility track flags outdoors_
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/sportac.png)
+_Source: droneracing.fai.org_
 

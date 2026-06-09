@@ -290,6 +290,6 @@ You've taken the first crucial step by learning the roadmap to FPV racing. From 
 
 Join the vibrant FPV community, practice consistently, and prepare for an exhilarating journey filled with speed, precision, and unforgettable moments. The world of FPV racing is waiting for you. Ready to take flight? Share your FPV racing aspirations in the comments below!
 
-![Close-up of a racing pilot looking through goggles with absolute focus](https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=70)
-_Close-up of a racing pilot looking through goggles with absolute focus_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

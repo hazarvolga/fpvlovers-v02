@@ -1,10 +1,8 @@
----
-title: "Motor Efficiency Engineering: Torque, KV Scaling & Thermal Dynamics"
-slug: "motor-efficiency-engineering"
-category: "Propulsion"
-excerpt: "An engineering paper analyzing brushless motor efficiency, stator volume calculations, KV selection constraints, and copper losses under high-current flight loads."
-publishedAt: "2026-06-02T07:41:42.016Z"
----
+# Motor Efficiency Engineering: Torque, KV Scaling & Thermal Dynamics
+
+> An engineering paper analyzing brushless motor efficiency, stator volume calculations, KV selection constraints, and copper losses under high-current flight loads.
+
+## Motor Efficiency Engineering: Torque, KV Scaling & Thermal Dynamics
 
 ## 1. Stator Physics & Electromagnetic Torque
 
@@ -32,3 +30,7 @@ $$P_{loss} = I^2 \cdot R$$
 ## 3. Motor Thermal Runaway
 
 Excessive current draw leads to thermal loading. If stators exceed $150^\circ\text{C}$, the neodymium magnets (typically N52SH grade) undergo irreversible demagnetization, causing permanent torque loss.
+
+![FPV image from pyrodrone.com](https://pyrodrone.com/cdn/shop/files/aos-supernova-2207-1980kv-brushless-motor-rcinpower_512x512.png?v=1706083918)
+_Source: pyrodrone.com_
+

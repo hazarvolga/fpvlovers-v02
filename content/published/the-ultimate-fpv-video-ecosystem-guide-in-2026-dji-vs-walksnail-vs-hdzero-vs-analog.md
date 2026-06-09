@@ -200,3 +200,6 @@ The choice between analog and digital FPV in 2026 is less about one being defini
 
 As you embark on or continue your FPV journey, consider what truly matters to you: the crisp, immersive views of digital, or the raw, immediate connection of analog. The future of FPV is vibrant and diverse, offering incredible options for every pilot. Which path will you choose? Share your thoughts and experiences in the comments below, or explore our other guides to deepen your FPV knowledge!
 
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+

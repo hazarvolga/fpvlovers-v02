@@ -227,6 +227,6 @@ The best way is to search for local FPV clubs or groups on Facebook, Reddit, or 
 
 The world of FPV racing is dynamic, challenging, and incredibly rewarding. With the right gear, dedicated practice, and a passion for flight, you'll be tearing through gates and competing in no time. So, what are you waiting for? Grab your simulator, choose your first drone, and prepare for takeoff. The skies are calling! Share your FPV journey with us in the comments below, or find a local FPV club to connect with fellow pilots and get started today!
 
-![Long-exposure light trails from FPV racing drones on a night track](https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&auto=format&fit=crop&q=70)
-_Long-exposure light trails from FPV racing drones on a night track_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

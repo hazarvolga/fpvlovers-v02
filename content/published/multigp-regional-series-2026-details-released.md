@@ -166,6 +166,6 @@ FPV racing is more than just a sport; it's a vibrant ecosystem of innovation, sk
 
 What are your predictions for the next FPV racing season? Share your thoughts, favorite pilots, or groundbreaking tech in the comments below, and stay tuned for more in-depth FPV analysis!
 
-![FPV racing gates and high-visibility track flags outdoors](https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70)
-_FPV racing gates and high-visibility track flags outdoors_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

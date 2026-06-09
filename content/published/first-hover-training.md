@@ -211,6 +211,6 @@ Yes, you can. Stabilized modes offer self-leveling, making initial lift-off and 
 
 Mastering your FPV first hover training is more than just a technical achievement; it's your rite of passage into the exhilarating world of FPV. By diligently following the 'Crawl, Walk, Hover' method – from simulator drills to real-world micro-adjustments – you're building a rock-solid foundation for all future flights. Embrace the process, celebrate small victories, and remember that every moment spent with sticks in hand is a step closer to becoming a truly proficient pilot. Now, take that deep breath, trust your training, and get ready to defy gravity. **Are you ready to take the sticks and conquer your first FPV hover?**
 
-![FPV-style drone photographed outdoors before flight](https://images.unsplash.com/photo-1699084582693-e53096751634?w=1200&auto=format&fit=crop&q=70)
-_FPV-style drone photographed outdoors before flight_
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
 

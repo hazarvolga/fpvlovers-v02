@@ -100,6 +100,6 @@ FPV yarışlarının geleceği parlak görünüyor; artan profesyonelleşme, bü
 
 FPV yarışları, sadece bir spor değil; teknoloji, beceri ve insan çabasının hızla gelişen bir sınırıdır. Pistteki yoğun rekabetten atölyedeki çığır açan yeniliklere kadar, FPV yarışlarının anlatısı sürekli olarak yazılıyor. Size görünmeyen hikayeleri, en son sonuçları ve bu heyecan verici sporun gelecekteki gidişatını sunmaya devam edeceğimiz güncellemelerimiz için bizi takip etmeye devam edin. Hiçbir anı kaçırmayın – FPV yarış dünyasına dair gerçek zamanlı güncellemeler ve özel içgörüler için bültenimize abone olun!
 
-![Close-up of a racing pilot looking through goggles with absolute focus](https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=70)
-_Close-up of a racing pilot looking through goggles with absolute focus_
+![FPV image from en.tmotor.com](https://en.tmotor.com/uploadfile/2025/1209/20251209043748602.jpg)
+_Source: en.tmotor.com_
 

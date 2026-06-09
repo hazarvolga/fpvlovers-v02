@@ -240,6 +240,6 @@ Embarking on your `FPV racing` journey is an exciting adventure filled with chal
 
 **Ready to launch?** Check out our recommended `beginner FPV drone` kits and `FPV racing gear` to kickstart your journey today!
 
-![FPV racing gates and high-visibility track flags outdoors](https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70)
-_FPV racing gates and high-visibility track flags outdoors_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

@@ -1,10 +1,8 @@
----
-title: "Video Latency Engineering: Glass-to-Glass Measurements & Penetration Limits"
-slug: "video-latency-engineering"
-category: "Communication"
-excerpt: "An advanced technical report analyzing FPV video transmission latencies, detailing encoding pipelines, signal penetration, and digital vs analog glass-to-glass delay metrics."
-publishedAt: "2026-06-02T07:41:42.021Z"
----
+# Video Latency Engineering: Glass-to-Glass Measurements & Penetration Limits
+
+> An advanced technical report analyzing FPV video transmission latencies, detailing encoding pipelines, signal penetration, and digital vs analog glass-to-glass delay metrics.
+
+## Video Latency Engineering: Glass-to-Glass Measurements & Penetration Limits
 
 ## 1. The FPV Video Pipeline
 
@@ -32,3 +30,7 @@ DJI and Walksnail compress frames to achieve high resolution (1080p).
 ## 3. Signal Penetration & Frequency Dynamics
 
 Digital systems rely on error correction coding to survive signal reflections. If RF attenuation exceeds the error correction threshold, the stream will instantly pixelate or freeze.
+
+![sponsor-banner](https://oscarliang.com/wp-content/uploads/2025/08/pcbway-banner-22-08-2025-1-1.jpg)
+_sponsor-banner_
+

@@ -241,6 +241,6 @@ FPV yarışları bir hobiden çok daha fazlasıdır; beceri geliştirme, teknik 
 
 **Uçmaya hazır mısınız? FPV yarış yolculuğunuzu aşağıdaki yorumlarda bizimle paylaşın veya diğer pilotlarla bağlantı kurmak ve yarışmaya başlamak için yerel bir FPV kulübü bulun!**
 
-![FPV racing gates and high-visibility track flags outdoors](https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70)
-_FPV racing gates and high-visibility track flags outdoors_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_4228-scaled.jpg)
+_Source: dronechampionsleague.com_
 

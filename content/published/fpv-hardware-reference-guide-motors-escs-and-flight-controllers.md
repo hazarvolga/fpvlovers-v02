@@ -277,6 +277,6 @@ Evet, FPV donanımı büyük ölçüde modülerdir! Farklı markaların bileşen
 
 FPV donanımının büyüleyici dünyasına derinlemesine bir dalış yaptınız! Beyin gibi çalışan Uçuş Kontrol Kartı'ndan güçlü LiPo bataryalara kadar, her temel bileşenin amacını ve bağlantısını artık anlıyorsunuz. Bu bilgi, FPV drone'unuzu inşa etme, onarma ve gerçekten ustalaşma yolundaki ilk adımdır. Bu bilgiyi eyleme dönüştürmeye hazır mısınız? Başlangıç kitlerini keşfetmeye başlayın, ilk çerçevenizi seçin veya ayrıntılı inşa rehberlerine dalın. Gökyüzü artık bir sınır değil; yeni oyun alanınız. Keyifli uçuşlar!
 
-![Modern FPV video goggles and VR hardware on a tech desk](https://images.unsplash.com/photo-1563720223185-11003d516935?w=1200&auto=format&fit=crop&q=70)
-_Modern FPV video goggles and VR hardware on a tech desk_
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
 

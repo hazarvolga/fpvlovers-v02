@@ -1,10 +1,8 @@
----
-title: "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation"
-slug: "rf-link-engineering"
-category: "Communication"
-excerpt: "A technical study of high-speed FPV control links, analyzing ExpressLRS packet rates, signal-to-noise ratio boundaries, and Link Quality indicators."
-publishedAt: "2026-06-02T07:41:42.020Z"
----
+# RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation
+
+> A technical study of high-speed FPV control links, analyzing ExpressLRS packet rates, signal-to-noise ratio boundaries, and Link Quality indicators.
+
+## RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation
 
 ## 1. ExpressLRS Architecture & Packet Rates
 
@@ -38,3 +36,7 @@ Link Quality (%)
 ## 3. Multipath Interference & Antenna Diversity
 
 Radio waves reflect off concrete structures, arriving at the receiver at slightly different times. Antenna diversity systems mitigate this by dynamically switching to the receiver antenna with the cleanest phase angle.
+
+![Long Range Drone Bundle - Explorer LR 4 HD DJI O4 Pro Micro](https://rotorriot.com/cdn/shop/files/bundle-rev3.jpg?v=1765559971&width=800)
+_Long Range Drone Bundle - Explorer LR 4 HD DJI O4 Pro Micro_
+

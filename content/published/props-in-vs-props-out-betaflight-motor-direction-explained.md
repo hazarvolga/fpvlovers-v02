@@ -205,3 +205,6 @@ By understanding the nuances of each, you can make an informed decision and fine
 
 Ready to dial in your drone? Experiment with both setups, fine-tune your PID's, and discover what truly elevates your FPV journey! Share your preferred setup in the comments below!
 
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+

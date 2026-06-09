@@ -228,3 +228,6 @@ By understanding their core differences, mastering safe charging practices with 
 
 Which battery type powers your FPV adventures? Share your experiences and tips in the comments below, and don't forget to subscribe for more FPV insights!
 
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
+_Source: droneracing.fai.org_
+

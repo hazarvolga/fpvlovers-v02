@@ -182,3 +182,6 @@ Understanding and correctly implementing antenna polarization is not just an adv
 
 Take a moment to check your FPV gear right now – are all your antennas perfectly matched? Share your polarization tips and experiences in the comments below!
 
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1774559120__1000003535__original.jpg?auto=format&w=1024)
+_Source: judgeme.imgix.net_
+

@@ -19,7 +19,16 @@
     {
       "id": "intro",
       "title": "FPV Propeller Engineering: Disc Loading, Blade Pitch & Aerodynamic Drag",
-      "content": "## 1. Propeller Aerodynamics\n\nmultirotor propellers generate lift by pushing air downwards. The thrust $T$ generated is mathematically defined by the momentum theory equation:\n\n$$T = 2 \\cdot \\rho \\cdot A \\cdot v_i^2$$\n\nWhere $\\rho$ is air density, $A$ is the disc area, and $v_i$ is the induced velocity of the airflow.\n\n---\n\n## 2. Aerodynamic Pitch, Blade Count & Grip\n\n### 2.1 Propeller Pitch\nPitch defines the theoretical distance a propeller moves forward in one revolution.\n* **Low Pitch (e.g. 5x4.3):** High efficiency, quick acceleration, low current draw, but lower top-end speed.\n* **High Pitch (e.g. 5x4.8 or 5x5.1):** High top-end speed, but requires significant motor torque, draws extreme current, and suffers from heavy aerodynamic drag at low throttle.\n\n### 2.2 Bi-Blade vs Tri-Blade Dynamics\n* **Bi-Blade:** Lowest drag, highest thermodynamic efficiency. Ideal for ultra-light long range.\n* **Tri-Blade:** Balanced grip, high thrust, linear throttle response. Standard for freestyle and racing.\n\n---\n\n## 3. Disc Loading & Airflow Contamination\n\nHigh disc loading occurs when a heavy multirotor uses small propellers (e.g. 3-inch cinewhoops). High disc loading leads to severe aerodynamic instability in descents, forcing the PID controller to work in highly turbulent vortex states."
+      "content": "## 1. Propeller Aerodynamics\n\nmultirotor propellers generate lift by pushing air downwards. The thrust $T$ generated is mathematically defined by the momentum theory equation:\n\n$$T = 2 \\cdot \\rho \\cdot A \\cdot v_i^2$$\n\nWhere $\\rho$ is air density, $A$ is the disc area, and $v_i$ is the induced velocity of the airflow.\n\n---\n\n## 2. Aerodynamic Pitch, Blade Count & Grip\n\n### 2.1 Propeller Pitch\nPitch defines the theoretical distance a propeller moves forward in one revolution.\n* **Low Pitch (e.g. 5x4.3):** High efficiency, quick acceleration, low current draw, but lower top-end speed.\n* **High Pitch (e.g. 5x4.8 or 5x5.1):** High top-end speed, but requires significant motor torque, draws extreme current, and suffers from heavy aerodynamic drag at low throttle.\n\n### 2.2 Bi-Blade vs Tri-Blade Dynamics\n* **Bi-Blade:** Lowest drag, highest thermodynamic efficiency. Ideal for ultra-light long range.\n* **Tri-Blade:** Balanced grip, high thrust, linear throttle response. Standard for freestyle and racing.\n\n---\n\n## 3. Disc Loading & Airflow Contamination\n\nHigh disc loading occurs when a heavy multirotor uses small propellers (e.g. 3-inch cinewhoops). High disc loading leads to severe aerodynamic instability in descents, forcing the PID controller to work in highly turbulent vortex states.",
+      "imageMatch": {
+        "src": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+        "alt": "How To Use Blackbox Betaflight 4.3",
+        "caption": "How To Use Blackbox Betaflight 4.3",
+        "source": "oscarliang.com",
+        "sourceUrl": "https://oscarliang.com/blackbox/",
+        "credit": "Source: oscarliang.com",
+        "license": "attribution"
+      }
     }
   ],
   "internalLinks": [
@@ -39,7 +48,17 @@
       "sourceUrl": "https://unsplash.com/photos/abstract-geometric-blades-625624792",
       "credit": "Photo by Jason Leung on Unsplash"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+        "alt": "How To Use Blackbox Betaflight 4.3",
+        "caption": "How To Use Blackbox Betaflight 4.3",
+        "source": "oscarliang.com",
+        "sourceUrl": "https://oscarliang.com/blackbox/",
+        "credit": "Source: oscarliang.com",
+        "license": "attribution"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
       "https://unsplash.com/photos/abstract-geometric-blades-625624792"

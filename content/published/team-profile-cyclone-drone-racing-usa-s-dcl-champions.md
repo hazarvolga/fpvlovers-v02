@@ -231,6 +231,6 @@ Remember, practice, persistence, and passion are your greatest tools. Every cras
 
 So, what are you waiting for? Join the FPV community, find a local club, dive into a simulator, and start your high-speed, immersive racing adventure today! The sky is calling, and your drone is ready to answer.
 
-![Long-exposure light trails from FPV racing drones on a night track](https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&auto=format&fit=crop&q=70)
-_Long-exposure light trails from FPV racing drones on a night track_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

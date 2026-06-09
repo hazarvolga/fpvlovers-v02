@@ -255,6 +255,6 @@ FPV racing is a challenging but incredibly rewarding hobby. There will be crashe
 
 Don't wait! The world of FPV racing is exciting, dynamic, and welcoming. Grab a simulator, connect your radio, and start practicing. Visit fpvlovers.com.tr for more guides, product reviews, and to connect with fellow FPV enthusiasts. Your high-octane adventure begins now! See you on the track!
 
-![Long-exposure light trails from FPV racing drones on a night track](https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&auto=format&fit=crop&q=70)
-_Long-exposure light trails from FPV racing drones on a night track_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

@@ -1,10 +1,8 @@
----
-title: "FPV Propeller Engineering: Disc Loading, Blade Pitch & Aerodynamic Drag"
-slug: "fpv-propeller-engineering"
-category: "Propulsion"
-excerpt: "An advanced aerodynamic study of FPV propellers, detailing thrust-to-power calculations, pitch angles, disc loading constraints, and propwash interaction physics."
-publishedAt: "2026-06-02T07:41:42.018Z"
----
+# FPV Propeller Engineering: Disc Loading, Blade Pitch & Aerodynamic Drag
+
+> An advanced aerodynamic study of FPV propellers, detailing thrust-to-power calculations, pitch angles, disc loading constraints, and propwash interaction physics.
+
+## FPV Propeller Engineering: Disc Loading, Blade Pitch & Aerodynamic Drag
 
 ## 1. Propeller Aerodynamics
 
@@ -32,3 +30,7 @@ Pitch defines the theoretical distance a propeller moves forward in one revoluti
 ## 3. Disc Loading & Airflow Contamination
 
 High disc loading occurs when a heavy multirotor uses small propellers (e.g. 3-inch cinewhoops). High disc loading leads to severe aerodynamic instability in descents, forcing the PID controller to work in highly turbulent vortex states.
+
+![How To Use Blackbox Betaflight 4.3](https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg)
+_How To Use Blackbox Betaflight 4.3_
+

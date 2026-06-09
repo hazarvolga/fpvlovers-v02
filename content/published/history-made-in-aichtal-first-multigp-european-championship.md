@@ -214,3 +214,6 @@ Facebook grupları (örn. "Türkiye FPV Drone Yarışları"), Discord sunucular�
 
 FPV yarış dünyası, teknoloji, beceri ve adrenalin karışımını eşsiz bir şekilde sunan heyecan verici bir sınırdır. Merakın ilk kıvılcımından, ilk yarış kapınızdan muzaffer bir şekilde geçmeye kadar, bu 'Sıfırdan Yarışa Hazır' planı yolu çizdi. Temel ekipmanlardan ve simülatör eğitiminden drone montajına, ayarlamaya ve canlı FPV topluluğunda yerinizi bulmaya kadar her şeyi ele aldık. Bu yolculuk adanmışlık, pratik ve öğrenmeye istekli olmayı gerektirir, ancak ödüller – hızın verdiği haz, kontrolün hassasiyeti ve diğer pilotlarla olan dostluk – muazzamdır. Peki, ne bekliyorsunuz? Gökyüzü sizi çağırıyor ve FPV yarış maceranız daha yeni başlıyor. Uçuşa geçmeye ve olmanız gereken pilot olmaya hazır mısınız? Dalın, pratik yapmaya başlayın ve sizi pistte görelim!
 
+![FPV image from multigp.com](https://www.multigp.com/wp-content/uploads/2025/09/DSC09520-1024x683.webp)
+_Source: multigp.com_
+

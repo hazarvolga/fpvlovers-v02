@@ -153,6 +153,6 @@ For reliable news and updates, check the official websites of major leagues like
 
 FPV racing continues its exhilarating ascent, fueled by passionate pilots, groundbreaking technology, and a vibrant global community. As we look to the future, the narratives unfolding on and off the track promise even more speed, skill, and innovation. From the dedicated training regimens of elite pilots to the relentless pursuit of technological advantage, every aspect of FPV racing contributes to its captivating allure. Stay tuned for the next chapter in this incredible sport. What's your favorite FPV racing moment? Share your thoughts and join the conversation in the comments below!
 
-![Action photography of sports gear outdoor on a race track](https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop&q=70)
-_Action photography of sports gear outdoor on a race track_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

@@ -238,3 +238,6 @@ The FPV community is one of the most welcoming and helpful out there. Join onlin
 
 So, go ahead, *choose your first tiny whoop*, and prepare to see the world from an entirely new perspective. Happy flying!
 
+![FPV image from fpvknowitall.com](https://www.fpvknowitall.com/wp-content/uploads/2023/09/qav-s-2-analog-kit.webp)
+_Source: fpvknowitall.com_
+

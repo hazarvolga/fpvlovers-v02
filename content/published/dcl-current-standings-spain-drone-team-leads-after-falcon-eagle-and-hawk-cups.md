@@ -203,6 +203,6 @@ Absolutely! Practicing indoors, especially with **Tiny Whoops** or similar micro
 
 You've now got the roadmap to enter the thrilling world of FPV racing. From understanding the essential gear and mastering simulator skills to executing advanced maneuvers and strategizing for your first race, the path is clear. The FPV community is vibrant and welcoming, ready to support you every step of the way. Don't just dream of flying – grab your gear, hit the sim, and start your engines. The gates are open, and your first race win awaits! **Join an FPV community today and share your journey!**
 
-![Close-up of a racing pilot looking through goggles with absolute focus](https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=70)
-_Close-up of a racing pilot looking through goggles with absolute focus_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_4228-scaled.jpg)
+_Source: dronechampionsleague.com_
 

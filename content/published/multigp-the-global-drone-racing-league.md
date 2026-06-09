@@ -312,6 +312,6 @@ FPV racing demands patience and resilience. You will crash, you will break props
 
 We at fpvlovers.com.tr would love to hear about your journey! What gear did you start with? What was your first simulator experience like? Share your **how to start FPV racing** story in the comments below, or connect with us on social media! Happy flying, pilots!
 
-![Close-up of a racing pilot looking through goggles with absolute focus](https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=70)
-_Close-up of a racing pilot looking through goggles with absolute focus_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/Untitled-10-06-scaled.png)
+_Source: dronechampionsleague.com_
 

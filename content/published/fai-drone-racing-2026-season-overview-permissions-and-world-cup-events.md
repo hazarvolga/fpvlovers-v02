@@ -162,6 +162,6 @@ New rules primarily aim to enhance safety, standardize equipment for fair compet
 
 The world of FPV racing is constantly evolving, pushing the boundaries of technology and human skill. By staying informed with the FPV Racing Insider, you're not just a spectator – you're part of the conversation. Don't miss another update; subscribe to our newsletter for exclusive insights and real-time news delivered straight to your inbox. What's your take on the latest FPV racing developments? Share your thoughts in the comments below!
 
-![Long-exposure light trails from FPV racing drones on a night track](https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&auto=format&fit=crop&q=70)
-_Long-exposure light trails from FPV racing drones on a night track_
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/sportac.png)
+_Source: droneracing.fai.org_
 

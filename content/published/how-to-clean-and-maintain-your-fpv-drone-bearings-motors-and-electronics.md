@@ -160,3 +160,6 @@ Mastering the art of FPV drone cleaning is an essential skill for any serious pi
 
 Now that you're equipped with the knowledge to perform a professional-grade deep clean, put these techniques into practice! What are your go-to cleaning hacks or essential tools for keeping your drone in top shape? Do you have any specific tips for how to clean FPV drone components after a particularly nasty crash? Share your FPV maintenance tips in the comments below and help other pilots keep their quads pristine and ready to rip!
 
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+

@@ -216,6 +216,6 @@ Don't just read about it – go fly it! Take these insights to your next session
 
 We challenge you, the FPV community, to put these techniques into practice. Capture your most fluid, most captivating cinematic orbits. Share your masterpieces with us at fpvlovers.com.tr and show the world the beauty and precision of truly cinematic FPV. The skies are your canvas; go paint your story.
 
-![Drone flying outdoors over an open landscape](https://images.unsplash.com/photo-1577533870320-2c31e7e41028?w=1200&auto=format&fit=crop&q=70)
-_Drone flying outdoors over an open landscape_
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
 

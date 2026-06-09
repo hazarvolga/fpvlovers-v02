@@ -213,3 +213,6 @@ Kesinlikle evet! FPV simülatörleri, gerçek dronunuzu kırma riski olmadan pra
 
 The world of FPV racing is exhilarating, challenging, and incredibly rewarding. With this comprehensive guide, you're now equipped with the knowledge to embark on your 'Zero to Race Day' journey. From choosing your first drone to mastering complex maneuvers, the sky is no longer the limit – it's your playground. Hazır mısın dalmaya? Önerilen ekipmanlarımızı keşfedin, yerel bir kulübe katılın ve FPV yarış maceranıza bugün başlayın!
 
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+

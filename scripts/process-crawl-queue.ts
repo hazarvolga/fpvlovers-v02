@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { Pool } from 'pg';
 
 const QUEUE_FILE = path.join(process.cwd(), 'data', 'crawl-queue.json');
 const ENV_FILE = path.join(process.cwd(), '.env.local');
@@ -95,6 +96,54 @@ async function sha256(text: string): Promise<string> {
   return crypto.createHash('sha256').update(text).digest('hex');
 }
 
+async function saveRawContentToDatabase(url: string, dataset: string, markdown: string) {
+  if (!process.env.DB_HOST || !process.env.DB_DATABASE) {
+    console.log('- [DB] Skipping raw content save: DB environment variables not configured.');
+    return;
+  }
+
+  const host = process.env.DB_HOST === '80.225.231.62' && process.env.NODE_ENV !== 'production' 
+    ? '127.0.0.1' 
+    : process.env.DB_HOST;
+  const port = process.env.DB_HOST === '80.225.231.62' && process.env.NODE_ENV !== 'production'
+    ? 5435
+    : parseInt(process.env.DB_PORT || '5432', 10);
+
+  const pool = new Pool({
+    host,
+    port,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    connectionTimeoutMillis: 5000,
+  });
+
+  try {
+    const urlHash = crypto.createHash('sha256').update(url).digest('hex');
+    let domain = 'unknown';
+    try {
+      domain = new URL(url).hostname.replace(/^www\./, '');
+    } catch {}
+
+    console.log(`- [DB] Saving raw content to Dify DB (host: ${host}:${port}, hash: ${urlHash.slice(0, 8)}...)`);
+    await pool.query(
+      `INSERT INTO content_engine.raw_content (
+        url, url_hash, domain, dataset_target, raw_markdown, is_active, updated_at
+      ) VALUES ($1, $2, $3, $4, $5, true, NOW())
+      ON CONFLICT (url_hash) DO UPDATE SET
+        raw_markdown = EXCLUDED.raw_markdown,
+        is_active = true,
+        updated_at = NOW()`,
+      [url, urlHash, domain, dataset, markdown]
+    );
+    console.log('- [DB] Raw content saved successfully.');
+  } catch (err: any) {
+    console.error(`- [DB] Failed to save raw content: ${err.message}`);
+  } finally {
+    await pool.end();
+  }
+}
+
 async function processQueue() {
   console.log('--- STARTING CRAWL QUEUE CONSUMER ---');
   if (!DIFY_API_KEY) {
@@ -156,6 +205,9 @@ async function processQueue() {
       }
 
       console.log(`- Crawl succeeded! Length: ${markdown.length} characters.`);
+
+      // Save raw content to Dify PostgreSQL database
+      await saveRawContentToDatabase(job.url, job.dataset || 'fpv-community-knowledge', markdown);
 
       // 2. Route the dataset name to UUID
       const datasetName = job.dataset || 'fpv-community-knowledge';

@@ -253,3 +253,6 @@ Now that you're armed with this essential knowledge, go forth and fly with confi
 
 **Ready to take your FPV knowledge further? Explore our other FPV build guides and become a true master of the skies!**
 
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+

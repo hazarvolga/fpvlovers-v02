@@ -253,6 +253,6 @@ The FPV community is incredibly supportive, so don't hesitate to seek out local 
 
 Ready to dive deeper? **Explore our recommended beginner FPV racing kits and start your flight training today!**
 
-![FPV racing gates and high-visibility track flags outdoors](https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70)
-_FPV racing gates and high-visibility track flags outdoors_
+![FPV image from fpvknowitall.com](https://www.fpvknowitall.com/wp-content/uploads/2023/09/qav-s-2-analog-kit.webp)
+_Source: fpvknowitall.com_
 

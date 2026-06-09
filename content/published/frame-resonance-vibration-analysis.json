@@ -19,7 +19,16 @@
     {
       "id": "intro",
       "title": "Frame Resonance & Vibration Analysis: Carbon Fiber Mechanics & Gyro Contamination",
-      "content": "## 1. Structural Resonance of Carbon Fiber\n\nMultirotor frames are cut from carbon fiber sheets. While extremely strong, carbon fiber possesses natural resonance frequencies ($150-300\\text{ Hz}$). When the motors spin, they generate vibrations that match these frequencies, causing the frame to resonate.\n\n---\n\n## 2. Gyro Contamination Path\n\nFrame vibrations are conducted directly to the Flight Controller (FC) board. The onboard gyro sensor registers this high-frequency noise, which corrupts the PID control loop.\n\n```\n[Vibration Contamination Path]\nMotors ---> Arms ---> Frame Plates ---> FC Standoffs ---> Gyro Sensor\n                         |                                  |\n                   (Resonance Peak)                 (PID Loop Corruption)\n```\n\n### 2.1 Mitigation via Soft-Mounting\nSoft-mounting the FC using silicone gummies isolates the board, acting as a low-pass filter to damp vibrations above $100\\text{ Hz}$.\n\n---\n\n## 3. Frame Layout Stiffness Comparisons\n\n* **True X Layout:** Symmetrical arms, balanced inertia, but narrow carbon plates can resonate easily on Pitch.\n* **Deadcat Layout:** Front arms pushed out for clean camera views. The asymmetric geometry creates complex arm resonance frequencies, requiring separate filtering for Roll and Pitch."
+      "content": "## 1. Structural Resonance of Carbon Fiber\n\nMultirotor frames are cut from carbon fiber sheets. While extremely strong, carbon fiber possesses natural resonance frequencies ($150-300\\text{ Hz}$). When the motors spin, they generate vibrations that match these frequencies, causing the frame to resonate.\n\n---\n\n## 2. Gyro Contamination Path\n\nFrame vibrations are conducted directly to the Flight Controller (FC) board. The onboard gyro sensor registers this high-frequency noise, which corrupts the PID control loop.\n\n```\n[Vibration Contamination Path]\nMotors ---> Arms ---> Frame Plates ---> FC Standoffs ---> Gyro Sensor\n                         |                                  |\n                   (Resonance Peak)                 (PID Loop Corruption)\n```\n\n### 2.1 Mitigation via Soft-Mounting\nSoft-mounting the FC using silicone gummies isolates the board, acting as a low-pass filter to damp vibrations above $100\\text{ Hz}$.\n\n---\n\n## 3. Frame Layout Stiffness Comparisons\n\n* **True X Layout:** Symmetrical arms, balanced inertia, but narrow carbon plates can resonate easily on Pitch.\n* **Deadcat Layout:** Front arms pushed out for clean camera views. The asymmetric geometry creates complex arm resonance frequencies, requiring separate filtering for Roll and Pitch.",
+      "imageMatch": {
+        "src": "https://oscarliang.com/wp-content/uploads/2025/08/pcbway-banner-22-08-2025-1-1.jpg",
+        "alt": "sponsor-banner",
+        "caption": "sponsor-banner",
+        "source": "oscarliang.com",
+        "sourceUrl": "https://oscarliang.com/betaflight-filtering/",
+        "credit": "Source: oscarliang.com",
+        "license": "attribution"
+      }
     }
   ],
   "internalLinks": [
@@ -39,7 +48,17 @@
       "sourceUrl": "https://unsplash.com/photos/carbon-fiber-weave-625624792",
       "credit": "Photo by NASA on Unsplash"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "https://oscarliang.com/wp-content/uploads/2025/08/pcbway-banner-22-08-2025-1-1.jpg",
+        "alt": "sponsor-banner",
+        "caption": "sponsor-banner",
+        "source": "oscarliang.com",
+        "sourceUrl": "https://oscarliang.com/betaflight-filtering/",
+        "credit": "Source: oscarliang.com",
+        "license": "attribution"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
       "https://unsplash.com/photos/carbon-fiber-weave-625624792"

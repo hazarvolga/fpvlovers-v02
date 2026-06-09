@@ -233,6 +233,6 @@ The world of FPV racing is thrilling, challenging, and incredibly rewarding. By 
 
 Ready to take flight? Explore our recommended beginner FPV racing kits and start your adventure today!
 
-![FPV racing gates and high-visibility track flags outdoors](https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70)
-_FPV racing gates and high-visibility track flags outdoors_
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
 

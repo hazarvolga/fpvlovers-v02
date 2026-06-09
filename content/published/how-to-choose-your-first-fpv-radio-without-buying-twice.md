@@ -273,3 +273,6 @@ With the right FPV radio in hand and a solid understanding of its setup, you're 
 
 Which radio will you choose to kickstart your FPV journey? Share your thoughts in the comments below!
 
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+

@@ -270,6 +270,6 @@ The FPV community is incredibly welcoming and helpful. Join online forums, Disco
 
 Ready to take the plunge? Check out our curated list of recommended beginner FPV racing gear, complete with links and detailed reviews. Your incredible journey into the world of first-person flight starts now. See you in the skies!
 
-![Action photography of sports gear outdoor on a race track](https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop&q=70)
-_Action photography of sports gear outdoor on a race track_
+![FPV image from fpvknowitall.com](https://www.fpvknowitall.com/wp-content/uploads/2023/09/qav-s-2-analog-kit.webp)
+_Source: fpvknowitall.com_
 

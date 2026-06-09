@@ -8,6 +8,9 @@ Ever watched an FPV drone thread an impossible gap, dive a skyscraper, or execut
 
 For a beginner, switching to Acro mode is not just a setting change—it is a complete psychological and physical paradigm shift. You are transitioning from a system where you tell the drone *where to look* (stabilized attitude control) to a system where you command the drone's *rate of rotation* (angular velocity control). Understanding this conceptual model is the absolute key to unlocking FPV flight, saving hundreds of dollars in crashed carbon fiber, and developing the subconscious muscle memory required for premium, high-fidelity flight maneuvers.
 
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+
 ## Why Angle Mode is a Trap for Muscle Memory
 
 When first starting out, many pilots are tempted to use **Angle (stabilized) Mode**. In Angle mode, the flight controller's onboard accelerometer is fully active. Pushing the pitch stick forward tilts the drone forward; releasing the stick returns the drone to a level hover. 
@@ -15,6 +18,9 @@ When first starting out, many pilots are tempted to use **Angle (stabilized) Mod
 While this feels safe, **Angle mode is a trap for muscle memory**. In Angle mode, you are constantly fighting against the drone's self-leveling software. If you want to keep flying forward, you must keep holding pressure on the pitch stick. This creates a 'rubber band' relationship between your thumbs and the aircraft. 
 
 In contrast, FPV flight is defined by continuous momentum and aerodynamic tracking. If you train your hands to hold constant stick pressure to maintain attitude, your brain will build the wrong neural pathways. When you eventually switch to Acro mode, that constant pressure will cause the drone to continuously rotate until it flips upside down and plummets into the ground. To fly FPV, you must break the self-leveling habit immediately and calibrate your brain to manual rate controls.
+
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg)
+_Source: oscarliang.com_
 
 ## The Stick Dynamics: Controlling Velocity, Not Attitude
 
@@ -24,6 +30,9 @@ To master Acro mode, you must understand its core physical law: **Stick deflecti
 *   **Acro Mode (Angular Velocity Control):** Center stick = No rotation (the drone maintains its current tilt angle indefinitely). 50% Pitch Forward stick = Rotate forward at 300 degrees per second. Pushing the stick and returning it to center leaves the drone tilted forward. It will stay at that exact angle until you apply an opposite command.
 
 Think of it as steering a car versus steering a boat. In a car, if you hold the steering wheel turned, the car turns. If you center the wheel, the car goes straight. In Acro mode FPV, your stick inputs are like nudges. You nudge the drone into a specific attitude (e.g., tilted 15 degrees forward for forward flight), return the sticks to center, and the drone locks to that attitude and cruises. To stop, you must nudge the stick in the opposite direction.
+
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2026/04/2026-Season-Bracket-9x16-1.png)
+_Source: dronechampionsleague.com_
 
 ## Calibration Drills for Simulator Practice
 
@@ -36,6 +45,9 @@ Perform these four specific flight calibration drills:
 3.  **The Coordinated Turn:** A common beginner mistake is turning only with Roll or only with Yaw. To make a clean, aerodynamic turn, you must coordinate both sticks. Tilt the roll stick slightly to the right while pushing the yaw stick slightly to the right, and apply a small touch of throttle to fight gravity. The nose of the drone should smoothly carve through the turn without sliding.
 4.  **The Figure-8 Tracking:** Locate two trees or pylons in the simulator. Fly a flat, continuous figure-8 pattern around them. Focus on maintaining a constant altitude and speed. This drill forces you to coordinate left-hand and right-hand stick inputs under pressure.
 
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
+_Source: droneracing.fai.org_
+
 ## Crucial Bench Setup & Safety Warnings
 
 When you are ready to transition from virtual flight to a real FPV quadcopter, safety must be your absolute priority. FPV drones are powerful machines with high-speed brushless motors and razor-sharp carbon fiber frames.
@@ -47,3 +59,7 @@ When you are ready to transition from virtual flight to a real FPV quadcopter, s
 *   **Failsafe Check:** Configure your Betaflight failsafe immediately. In the event of a radio signal loss, the flight controller must cut power to the motors instantly (`Drop` configuration). Never set failsafe to `Land` on an FPV drone, as a runaway drone can cause severe accidents.
 *   **Visual Line of Sight & Spotters:** When flying FPV goggles on your face, you are visually isolated. Always fly with an active visual observer (spotter) who can monitor the surrounding airspace for pedestrians, animals, or low-flying aircraft.
 *   **LiPo Storage Safety:** Always balance charge your LiPo batteries in a fireproof bag or ammo box. Never charge a battery that is physically dented, swollen, or punctured, and never leave charging batteries unattended.
+
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence2.jpg)
+_Source: droneracing.fai.org_
+

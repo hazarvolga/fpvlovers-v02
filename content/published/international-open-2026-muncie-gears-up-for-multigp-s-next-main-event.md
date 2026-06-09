@@ -303,6 +303,6 @@ FPV racing can be challenging, but every crash is a lesson, and every successful
 
 Are you ready to take the plunge? Grab your gear, hit the simulator, and get ready to experience the world from a whole new perspective. Join the fpvlovers.com.tr community, share your first flight videos, ask questions, and connect with fellow enthusiasts. Your FPV racing adventure starts now!
 
-![Action photography of sports gear outdoor on a race track](https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop&q=70)
-_Action photography of sports gear outdoor on a race track_
+![FPV image from fai.org](https://www.fai.org/sites/default/files/styles/basic_page_highlighted_xlarge/public/banners_faidroneworld2018.png?itok=yAKMQBkG)
+_Source: fai.org_
 

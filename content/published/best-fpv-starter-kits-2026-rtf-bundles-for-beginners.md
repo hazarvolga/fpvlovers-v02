@@ -198,6 +198,6 @@ Remember to consider your learning style, your budget, and your future FPV aspir
 
 Ready to take the plunge? Don't wait! Explore the **BetaFPV Cetus Pro**, **EMAX Tinyhawk III Plus**, and **Eachine Novice IV** kits. Read reviews, watch some flight videos, and choose the kit that calls to your inner pilot. The skies are waiting!
 
-![FPV pilot wearing goggles and holding a drone controller outdoors](https://images.pexels.com/photos/17841003/pexels-photo-17841003.jpeg?auto=compress&cs=tinysrgb&w=1200)
-_FPV pilot wearing goggles and holding a drone controller outdoors_
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
+_Source: droneracing.fai.org_
 

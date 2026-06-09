@@ -233,6 +233,6 @@ FPV racing is an exhilarating journey that combines skill, technology, and commu
 
 Start your FPV racing adventure today! Explore our recommended beginner kits and simulators to take your first step. fpvlovers.com.tr olarak, bu heyecan verici yolda size destek olmaya hazırız!
 
-![FPV racing gates and high-visibility track flags outdoors](https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70)
-_FPV racing gates and high-visibility track flags outdoors_
+![FPV image from multigp.com](https://www.multigp.com/wp-content/uploads/2025/09/DSC09520-1024x683.webp)
+_Source: multigp.com_
 

@@ -306,6 +306,6 @@ The world of FPV racing is waiting for you. It's a journey filled with challenge
 
 Ready to take the plunge? Join the fpvlovers.com.tr community today, share your progress, ask questions, and connect with fellow FPV enthusiasts across Turkey. We can't wait to see you on the track!
 
-![Action photography of sports gear outdoor on a race track](https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop&q=70)
-_Action photography of sports gear outdoor on a race track_
+![FPV image from dronechampionsleague.com](https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_4228-scaled.jpg)
+_Source: dronechampionsleague.com_
 

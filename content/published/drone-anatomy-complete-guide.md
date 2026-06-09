@@ -226,6 +226,6 @@ Armed with this comprehensive knowledge, you're not just a pilot; you're an arch
 
 Ready to apply your newfound knowledge? Share your most challenging build or troubleshooting experience in the comments below, or explore our advanced tuning guides to further refine your flight. Join the FPV ORACLE community and elevate your craft!
 
-![FPV pilot wearing high-tech video goggles preparing to launch](https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&auto=format&fit=crop&q=70)
-_FPV pilot wearing high-tech video goggles preparing to launch_
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
 

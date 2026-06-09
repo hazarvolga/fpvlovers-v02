@@ -303,6 +303,6 @@ Consistent practice is key. Spend dedicated time in a realistic FPV simulator da
 
 The world of FPV racing is exhilarating, challenging, and incredibly rewarding. From the first hesitant flights in a simulator to the thrill of navigating a real-world track, every step is a testament to your growing skill and passion. This 'Pilot's Roadmap' has equipped you with the foundational knowledge and actionable steps to begin your journey. Remember, consistency in practice, a willingness to learn, and a passion for flight are your greatest assets. The gates are open, the track is clear, and your first race victory awaits. Are you ready to dive in and make your mark? Join a local FPV racing club or online community today and start your engines!
 
-![Long-exposure light trails from FPV racing drones on a night track](https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1200&auto=format&fit=crop&q=70)
-_Long-exposure light trails from FPV racing drones on a night track_
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/sportac.png)
+_Source: droneracing.fai.org_
 

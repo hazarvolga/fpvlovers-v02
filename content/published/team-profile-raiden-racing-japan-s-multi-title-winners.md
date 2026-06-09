@@ -232,6 +232,6 @@ The adrenaline, the immersion, the community – it's all waiting for you. Now t
 
 **Welcome to the skies, pilot!**
 
-![Action photography of sports gear outdoor on a race track](https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop&q=70)
-_Action photography of sports gear outdoor on a race track_
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
+_Source: droneracing.fai.org_
 

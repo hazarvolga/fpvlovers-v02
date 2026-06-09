@@ -1,11 +1,8 @@
----
-title: "FPV Components and Wiring Guide: What Each Part Does"
-slug: "fpv-components-wiring-guide"
-metaDescription: "Understand the main FPV drone parts, how they connect, and the wiring logic behind a clean beginner build."
-category: "Build Guides"
----
-
 # FPV Components and Wiring Guide: What Each Part Does
+
+> A beginner-friendly map of every core FPV component, what it does, and how the signal and power paths fit together.
+
+## The Six Core Components
 
 Every FPV drone has six core components working together:
 1. **Frame** — the skeleton that holds everything
@@ -16,6 +13,9 @@ Every FPV drone has six core components working together:
 6. **Receiver** — listens to your radio commands
 
 Understanding each component's role is the first step to building and repairing with confidence.
+
+![ESCs \(Electronic Speed Controllers\)](https://www.racedayquads.com/cdn/shop/files/nav-all-electronics-escs-electronic-speed-controllers.webp?v=3773967901496022457)
+_ESCs \(Electronic Speed Controllers\)_
 
 ## Power Flow: How Electricity Moves
 
@@ -28,6 +28,9 @@ Battery → ESC pads (main power) → FC via ESC harness (5V/3.3V regulated) →
 
 **Golden rule**: Never connect battery voltage directly to a 5V pad. You'll fry the component instantly.
 
+![the dimensions of cnhl 4s 5000mah 70c lipo battery](https://chinahobbyline.com/cdn/shop/files/C2C04A7642FE2DE0DC392D411A517561_512x512.jpg?v=1780479051)
+_the dimensions of cnhl 4s 5000mah 70c lipo battery_
+
 ## Signal Flow: How Commands Travel
 
 Radio sticks → Receiver → FC (via UART RX) → FC processes → ESC (via protocol) → Motors.
@@ -39,6 +42,9 @@ Radio sticks → Receiver → FC (via UART RX) → FC processes → ESC (via pro
 
 Video flows the opposite way: Camera → FC/OSD → VTX → antenna → goggle receiver.
 
+![Rotor Riot](https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800)
+_Rotor Riot_
+
 ## Wiring Best Practices
 
 - **Use the right gauge wire**: 14-16AWG for battery leads, 20-22AWG for motor wires, 26-28AWG for signal wires
@@ -48,6 +54,9 @@ Video flows the opposite way: Camera → FC/OSD → VTX → antenna → goggle r
 - **Label your UARTs**: know which UART is for VTX, which for receiver, which for GPS
 - Common mistake: RX pad on FC goes to TX on peripheral, TX goes to RX
 
+![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot-store/1767477640__image_2026-01-03_170134848__original.png?auto=format&w=1024)
+_Source: judgeme.imgix.net_
+
 ## Compatibility Checks
 
 Before buying components, verify:
@@ -56,3 +65,7 @@ Before buying components, verify:
 - **Motor KV** matches your battery voltage (6S: 1700-1950KV, 4S: 2400-2700KV for 5-inch)
 - **VTX mounting** fits your frame's VTX slot
 - **Receiver protocol** matches your radio (ELRS, Crossfire, Tracer)
+
+![CineMini 2.5" Frame](https://rotorriot.com/cdn/shop/files/CineMiniFrame1.png?v=1744041396&width=400)
+_CineMini 2.5" Frame_
+

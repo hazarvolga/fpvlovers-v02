@@ -1,10 +1,8 @@
----
-title: "Frame Resonance & Vibration Analysis: Carbon Fiber Mechanics & Gyro Contamination"
-slug: "frame-resonance-vibration-analysis"
-category: "Systems"
-excerpt: "A deep physical study on carbon fiber structural resonance, analyzing vibration transfer paths, frame stiffness parameters, and gyro noise prevention."
-publishedAt: "2026-06-02T07:41:42.021Z"
----
+# Frame Resonance & Vibration Analysis: Carbon Fiber Mechanics & Gyro Contamination
+
+> A deep physical study on carbon fiber structural resonance, analyzing vibration transfer paths, frame stiffness parameters, and gyro noise prevention.
+
+## Frame Resonance & Vibration Analysis: Carbon Fiber Mechanics & Gyro Contamination
 
 ## 1. Structural Resonance of Carbon Fiber
 
@@ -32,3 +30,7 @@ Soft-mounting the FC using silicone gummies isolates the board, acting as a low-
 
 * **True X Layout:** Symmetrical arms, balanced inertia, but narrow carbon plates can resonate easily on Pitch.
 * **Deadcat Layout:** Front arms pushed out for clean camera views. The asymmetric geometry creates complex arm resonance frequencies, requiring separate filtering for Roll and Pitch.
+
+![sponsor-banner](https://oscarliang.com/wp-content/uploads/2025/08/pcbway-banner-22-08-2025-1-1.jpg)
+_sponsor-banner_
+

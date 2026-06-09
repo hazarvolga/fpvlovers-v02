@@ -258,6 +258,6 @@ The FPV community is one of the most supportive and passionate you'll find. Join
 
 With this **FPV roadmap** in hand, you're now equipped with the knowledge to embark on an incredible journey. From selecting your first **fpv gear recommendations** to mastering complex aerial maneuvers, the sky is no longer the limit – it's your playground. So, grab your radio, fire up that simulator, and prepare to unleash your inner pilot. Your personalized FPV adventure awaits!
 
-![FPV pilot wearing high-tech video goggles preparing to launch](https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=1200&auto=format&fit=crop&q=70)
-_FPV pilot wearing high-tech video goggles preparing to launch_
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
 

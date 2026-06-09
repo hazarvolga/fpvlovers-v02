@@ -1,10 +1,8 @@
----
-title: "Modern Betaflight Filter Architecture: Dynamic Notch, RPM Filtering & Latency Tradeoffs"
-slug: "modern-betaflight-filter-architecture"
-category: "Flight Control"
-excerpt: "A research-grade analysis of multirotor noise filtering strategies, detailing the dynamic notch filter, bi-directional DShot RPM filtering, and phase delay latency tradeoffs."
-publishedAt: "2026-06-02T07:41:42.015Z"
----
+# Modern Betaflight Filter Architecture: Dynamic Notch, RPM Filtering & Latency Tradeoffs
+
+> A research-grade analysis of multirotor noise filtering strategies, detailing the dynamic notch filter, bi-directional DShot RPM filtering, and phase delay latency tradeoffs.
+
+## Modern Betaflight Filter Architecture: Dynamic Notch, RPM Filtering & Latency Tradeoffs
 
 ## 1. Multirotor Noise Spectrum
 
@@ -38,3 +36,7 @@ Amplitude
 ## 3. Filter Latency & Phase Delay
 
 Every filter introduced into the signal chain adds delay. A phase delay in the gyro signal of even $2-3\text{ ms}$ reduces the PID loop's phase margin, rendering it unstable and prone to propwash oscillations.
+
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg)
+_Source: oscarliang.com_
+

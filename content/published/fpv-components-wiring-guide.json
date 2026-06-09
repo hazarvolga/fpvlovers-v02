@@ -18,27 +18,72 @@
     {
       "id": "overview",
       "title": "The Six Core Components",
-      "content": "Every FPV drone has six core components working together:\n1. **Frame** — the skeleton that holds everything\n2. **Flight Controller (FC)** — the brain running Betaflight\n3. **ESC** (Electronic Speed Controllers) — the muscles driving motors\n4. **Motors** — spin the propellers\n5. **VTX + Camera** — your eyes in the sky\n6. **Receiver** — listens to your radio commands\n\nUnderstanding each component's role is the first step to building and repairing with confidence."
+      "content": "Every FPV drone has six core components working together:\n1. **Frame** — the skeleton that holds everything\n2. **Flight Controller (FC)** — the brain running Betaflight\n3. **ESC** (Electronic Speed Controllers) — the muscles driving motors\n4. **Motors** — spin the propellers\n5. **VTX + Camera** — your eyes in the sky\n6. **Receiver** — listens to your radio commands\n\nUnderstanding each component's role is the first step to building and repairing with confidence.",
+      "imageMatch": {
+        "src": "https://www.racedayquads.com/cdn/shop/files/nav-all-electronics-escs-electronic-speed-controllers.webp?v=3773967901496022457",
+        "alt": "ESCs \\(Electronic Speed Controllers\\)",
+        "caption": "ESCs \\(Electronic Speed Controllers\\)",
+        "source": "racedayquads.com",
+        "sourceUrl": "https://www.racedayquads.com/collections/fc-esc",
+        "credit": "Source: racedayquads.com",
+        "license": "attribution"
+      }
     },
     {
       "id": "power-flow",
       "title": "Power Flow: How Electricity Moves",
-      "content": "Battery → ESC pads (main power) → FC via ESC harness (5V/3.3V regulated) → peripherals.\n\n- **LiPo battery** provides raw voltage (4S=14.8V, 6S=22.2V) to ESC main pads\n- ESC steps down voltage for FC through the **ESC-to-FC cable**\n- FC distributes **5V** to VTX, camera, receiver, GPS\n- Some VTXs need **direct battery voltage** (Vbat) for full power\n\n**Golden rule**: Never connect battery voltage directly to a 5V pad. You'll fry the component instantly."
+      "content": "Battery → ESC pads (main power) → FC via ESC harness (5V/3.3V regulated) → peripherals.\n\n- **LiPo battery** provides raw voltage (4S=14.8V, 6S=22.2V) to ESC main pads\n- ESC steps down voltage for FC through the **ESC-to-FC cable**\n- FC distributes **5V** to VTX, camera, receiver, GPS\n- Some VTXs need **direct battery voltage** (Vbat) for full power\n\n**Golden rule**: Never connect battery voltage directly to a 5V pad. You'll fry the component instantly.",
+      "imageMatch": {
+        "src": "https://chinahobbyline.com/cdn/shop/files/C2C04A7642FE2DE0DC392D411A517561_512x512.jpg?v=1780479051",
+        "alt": "the dimensions of cnhl 4s 5000mah 70c lipo battery",
+        "caption": "the dimensions of cnhl 4s 5000mah 70c lipo battery",
+        "source": "chinahobbyline.com",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "credit": "Source: chinahobbyline.com",
+        "license": "attribution"
+      }
     },
     {
       "id": "signal-flow",
       "title": "Signal Flow: How Commands Travel",
-      "content": "Radio sticks → Receiver → FC (via UART RX) → FC processes → ESC (via protocol) → Motors.\n\n- **Radio gimbals** send stick positions to the transmitter module\n- **Receiver** decodes the signal and sends channel values to FC via serial (SBUS/CRSF)\n- **FC gyro** measures rotation, PID loop calculates motor corrections\n- **ESC protocol** (DShot300/600) sends digital commands to each ESC\n\nVideo flows the opposite way: Camera → FC/OSD → VTX → antenna → goggle receiver."
+      "content": "Radio sticks → Receiver → FC (via UART RX) → FC processes → ESC (via protocol) → Motors.\n\n- **Radio gimbals** send stick positions to the transmitter module\n- **Receiver** decodes the signal and sends channel values to FC via serial (SBUS/CRSF)\n- **FC gyro** measures rotation, PID loop calculates motor corrections\n- **ESC protocol** (DShot300/600) sends digital commands to each ESC\n\nVideo flows the opposite way: Camera → FC/OSD → VTX → antenna → goggle receiver.",
+      "imageMatch": {
+        "src": "https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800",
+        "alt": "Rotor Riot",
+        "caption": "Rotor Riot",
+        "source": "rotorriot.com",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: rotorriot.com",
+        "license": "attribution"
+      }
     },
     {
       "id": "wiring",
       "title": "Wiring Best Practices",
-      "content": "- **Use the right gauge wire**: 14-16AWG for battery leads, 20-22AWG for motor wires, 26-28AWG for signal wires\n- **Twist signal and ground** wires together to reduce electrical noise\n- **Secure wires** with zip ties away from spinning props\n- **Use a smoke stopper** on first power-up — it can save your entire build\n- **Label your UARTs**: know which UART is for VTX, which for receiver, which for GPS\n- Common mistake: RX pad on FC goes to TX on peripheral, TX goes to RX"
+      "content": "- **Use the right gauge wire**: 14-16AWG for battery leads, 20-22AWG for motor wires, 26-28AWG for signal wires\n- **Twist signal and ground** wires together to reduce electrical noise\n- **Secure wires** with zip ties away from spinning props\n- **Use a smoke stopper** on first power-up — it can save your entire build\n- **Label your UARTs**: know which UART is for VTX, which for receiver, which for GPS\n- Common mistake: RX pad on FC goes to TX on peripheral, TX goes to RX",
+      "imageMatch": {
+        "src": "https://judgeme.imgix.net/rotor-riot-store/1767477640__image_2026-01-03_170134848__original.png?auto=format&w=1024",
+        "alt": "FPV image from judgeme.imgix.net",
+        "caption": "Source: judgeme.imgix.net",
+        "source": "judgeme.imgix.net",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: judgeme.imgix.net",
+        "license": "attribution"
+      }
     },
     {
       "id": "compatibility",
       "title": "Compatibility Checks",
-      "content": "Before buying components, verify:\n- **FC mounting holes** match your frame (30.5x30.5, 20x20, or whoop)\n- **ESC protocol** is supported by your FC (all modern FCs support DShot)\n- **Motor KV** matches your battery voltage (6S: 1700-1950KV, 4S: 2400-2700KV for 5-inch)\n- **VTX mounting** fits your frame's VTX slot\n- **Receiver protocol** matches your radio (ELRS, Crossfire, Tracer)"
+      "content": "Before buying components, verify:\n- **FC mounting holes** match your frame (30.5x30.5, 20x20, or whoop)\n- **ESC protocol** is supported by your FC (all modern FCs support DShot)\n- **Motor KV** matches your battery voltage (6S: 1700-1950KV, 4S: 2400-2700KV for 5-inch)\n- **VTX mounting** fits your frame's VTX slot\n- **Receiver protocol** matches your radio (ELRS, Crossfire, Tracer)",
+      "imageMatch": {
+        "src": "https://rotorriot.com/cdn/shop/files/CineMiniFrame1.png?v=1744041396&width=400",
+        "alt": "CineMini 2.5\" Frame",
+        "caption": "CineMini 2.5\" Frame",
+        "source": "rotorriot.com",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: rotorriot.com",
+        "license": "attribution"
+      }
     }
   ],
   "internalLinks": [
@@ -60,7 +105,44 @@
       "source": "FPVLovers local media layer",
       "credit": "FPVLovers generated artwork"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "https://www.racedayquads.com/cdn/shop/files/nav-all-electronics-escs-electronic-speed-controllers.webp?v=3773967901496022457",
+        "alt": "ESCs \\(Electronic Speed Controllers\\)",
+        "caption": "ESCs \\(Electronic Speed Controllers\\)",
+        "source": "racedayquads.com",
+        "sourceUrl": "https://www.racedayquads.com/collections/fc-esc",
+        "credit": "Source: racedayquads.com",
+        "license": "attribution"
+      },
+      {
+        "src": "https://chinahobbyline.com/cdn/shop/files/C2C04A7642FE2DE0DC392D411A517561_512x512.jpg?v=1780479051",
+        "alt": "the dimensions of cnhl 4s 5000mah 70c lipo battery",
+        "caption": "the dimensions of cnhl 4s 5000mah 70c lipo battery",
+        "source": "chinahobbyline.com",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "credit": "Source: chinahobbyline.com",
+        "license": "attribution"
+      },
+      {
+        "src": "https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800",
+        "alt": "Rotor Riot",
+        "caption": "Rotor Riot",
+        "source": "rotorriot.com",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: rotorriot.com",
+        "license": "attribution"
+      },
+      {
+        "src": "https://judgeme.imgix.net/rotor-riot-store/1767477640__image_2026-01-03_170134848__original.png?auto=format&w=1024",
+        "alt": "FPV image from judgeme.imgix.net",
+        "caption": "Source: judgeme.imgix.net",
+        "source": "judgeme.imgix.net",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: judgeme.imgix.net",
+        "license": "attribution"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
       "Local SVG illustration generated from the published content metadata"

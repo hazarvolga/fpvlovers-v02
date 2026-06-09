@@ -1,10 +1,8 @@
----
-title: "How FPV Systems Work Together: System Integration & Electrical Architecture"
-slug: "how-fpv-systems-work-together"
-category: "Systems"
-excerpt: "A comprehensive systems engineering study on the FPV aircraft as an integrated electrical and signal processing system."
-publishedAt: "2026-06-02T07:41:42.024Z"
----
+# How FPV Systems Work Together: System Integration & Electrical Architecture
+
+> A comprehensive systems engineering study on the FPV aircraft as an integrated electrical and signal processing system.
+
+## How FPV Systems Work Together: System Integration & Electrical Architecture
 
 ## 1. The FPV Aircraft as an Integrated System
 
@@ -35,3 +33,7 @@ Gyro Telemetry <--- Motors <--- ESC (Motor Speed) <-----+
 
 * **Electrical Ground Loops:** Bad grounding routes electrical noise from the motors directly into the analog video line, causing heavy diagonal line static in the goggles.
 * **Voltage Sag Crashes:** High-current motor loads can sag battery voltage below the FC regulator's minimum input, triggering an immediate mid-air flight controller reboot.
+
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
+_Source: droneracing.fai.org_
+

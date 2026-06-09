@@ -192,31 +192,103 @@ function markdownFromRecord(record: Record<string, unknown>): string {
   return nested || asString(record.raw_markdown) || asString(record.text) || '';
 }
 
-export async function harvestImagesFromDatabase(urls: string[]): Promise<HarvestedImage[]> {
-  if (!urls || urls.length === 0) return [];
+/**
+ * Extract domain from a URL string, stripping www prefix.
+ * Returns null if the string is not a valid URL (e.g. keyword hints like "teams").
+ */
+function extractDomain(urlOrHint: string): string | null {
+  try {
+    const parsed = new URL(urlOrHint);
+    return parsed.hostname.replace(/^www\./, '');
+  } catch {
+    return null;
+  }
+}
+
+export async function harvestImagesFromDatabase(hints: string[]): Promise<HarvestedImage[]> {
+  if (!hints || hints.length === 0) return [];
+  if (!process.env.DB_HOST || !process.env.DB_DATABASE) return [];
+
+  // Separate real URLs from keyword hints
+  const urls = hints.filter((h) => extractDomain(h) !== null);
+  const keywords = hints.filter((h) => extractDomain(h) === null);
+  const domains = [...new Set(urls.map((u) => extractDomain(u)).filter(Boolean) as string[])];
+
+  if (urls.length === 0 && domains.length === 0) return [];
+
+  // Support SSH tunnel redirect: local dev connects via 127.0.0.1:5435
+  const host =
+    process.env.DB_HOST === '80.225.231.62' && process.env.NODE_ENV !== 'production'
+      ? '127.0.0.1'
+      : process.env.DB_HOST;
+  const port =
+    process.env.DB_HOST === '80.225.231.62' && process.env.NODE_ENV !== 'production'
+      ? 5435
+      : parseInt(process.env.DB_PORT || '5432', 10);
+
   try {
     const { Pool } = await import('pg');
     const pool = new Pool({
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT || '5432', 10),
+      host,
+      port,
       user: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       connectionTimeoutMillis: 5000,
     });
 
-    const result = await pool.query(
-      `SELECT url, raw_markdown 
-       FROM content_engine.raw_content 
-       WHERE url = ANY($1) AND is_active = true`,
-      [urls]
-    );
+    let rows: Array<{ url: string; raw_markdown: string }> = [];
+
+    // Step 1: Try exact URL matches first
+    if (urls.length > 0) {
+      const exactResult = await pool.query<{ url: string; raw_markdown: string }>(
+        `SELECT url, raw_markdown
+         FROM content_engine.raw_content
+         WHERE url = ANY($1) AND is_active = true`,
+        [urls],
+      );
+      rows = exactResult.rows;
+    }
+
+    // Step 2: If no exact matches, fall back to domain-level matching
+    if (rows.length === 0 && domains.length > 0) {
+      const domainPatterns = domains.map((d) => `%${d}%`);
+      // Build OR conditions for each domain
+      const conditions = domainPatterns.map((_, i) => `url LIKE $${i + 1}`).join(' OR ');
+      const domainResult = await pool.query<{ url: string; raw_markdown: string }>(
+        `SELECT url, raw_markdown
+         FROM content_engine.raw_content
+         WHERE (${conditions}) AND is_active = true
+         LIMIT 20`,
+        domainPatterns,
+      );
+      rows = domainResult.rows;
+    }
+
     await pool.end();
 
-    const store = harvestImagesFromCrawlRecords(result.rows);
-    return store.images;
+    if (rows.length === 0) return [];
+
+    const store = harvestImagesFromCrawlRecords(rows);
+    let images = store.images;
+
+    // Step 3: If we have keyword hints, filter/boost images whose context matches any keyword
+    if (keywords.length > 0 && images.length > 0) {
+      const keywordLower = keywords.map((k) => k.toLowerCase());
+      const scored = images.map((img) => {
+        const contextLower = (img.context + ' ' + img.alt).toLowerCase();
+        const matchCount = keywordLower.filter((kw) => contextLower.includes(kw)).length;
+        return { img, matchCount };
+      });
+      // Sort by keyword match score (descending), keep all images but prioritize matching ones
+      scored.sort((a, b) => b.matchCount - a.matchCount);
+      images = scored.map((s) => s.img);
+    }
+
+    return images;
   } catch (err) {
     console.error('Error harvesting images from database:', err);
     return [];
   }
 }
+

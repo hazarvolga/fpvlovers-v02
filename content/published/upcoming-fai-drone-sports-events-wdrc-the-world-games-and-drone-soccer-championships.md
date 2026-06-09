@@ -128,6 +128,6 @@ Many major **FPV racing** events are streamed live on platforms like YouTube, Tw
 
 **FPV racing** is a sport in constant motion, driven by the relentless pursuit of speed, precision, and innovation. By looking beyond the simple **FPV race results**, we gain a deeper appreciation for the strategic brilliance of its pilots, the engineering marvels of its drones, and the vibrant community that fuels its growth. The future of **FPV racing** is bright, promising even more thrilling **FPV competition** and technological breakthroughs. Don't just watch the races; understand what makes them fly. Follow the next **FPV drone racing event**, explore the cutting-edge **FPV gear for racing**, and perhaps even consider joining the ranks of **FPV pilots** yourself!
 
-![FPV racing gates and high-visibility track flags outdoors](https://images.unsplash.com/photo-1506157786151-b8491531f063?w=1200&auto=format&fit=crop&q=70)
-_FPV racing gates and high-visibility track flags outdoors_
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/sportac.png)
+_Source: droneracing.fai.org_
 

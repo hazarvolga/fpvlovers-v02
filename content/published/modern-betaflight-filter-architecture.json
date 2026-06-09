@@ -19,7 +19,16 @@
     {
       "id": "intro",
       "title": "Modern Betaflight Filter Architecture: Dynamic Notch, RPM Filtering & Latency Tradeoffs",
-      "content": "## 1. Multirotor Noise Spectrum\n\nMultirotor multirotors generate extreme high-frequency vibration from mechanical motor imbalances and aerodynamic propeller drag. This noise ($100-1000\\text{ Hz}$) must be removed before the PID loop processes gyro data, or D-term gains will amplify it, causing motor overheating.\n\n---\n\n## 2. Advanced Filtering Technologies\n\n### 2.1 Bi-directional DShot & RPM Filtering\nBy enabling bi-directional communication between the Flight Controller (FC) and the ESC, the FC receives real-time motor telemetry containing exact motor RPM values. This allows the FC to deploy narrow, surgical notch filters tracking the fundamental harmonic frequency of each motor:\n\n$$f_{harmonic} = \\frac{\\text{RPM}}{60} \\cdot n_{\\text{magnets}}$$\n\n### 2.2 The Dynamic Notch Filter\nThe dynamic notch filter uses a fast Fourier transform (FFT) algorithm to track the loudest noise bands across the spectrum and dynamically place notch filters over them.\n\n```\n[RPM vs Dynamic Notch Filtering]\nAmplitude\n  ^\n  |     ___      ___ (Unfiltered Noise Peak)\n  |    /   \\    /   \\\n  |===|=====\\==|=====\\=== (Filter Attenuation)\n  |   \\_____/  \\_____/\n  +-------------------------------------> Frequency\n```\n\n---\n\n## 3. Filter Latency & Phase Delay\n\nEvery filter introduced into the signal chain adds delay. A phase delay in the gyro signal of even $2-3\\text{ ms}$ reduces the PID loop's phase margin, rendering it unstable and prone to propwash oscillations."
+      "content": "## 1. Multirotor Noise Spectrum\n\nMultirotor multirotors generate extreme high-frequency vibration from mechanical motor imbalances and aerodynamic propeller drag. This noise ($100-1000\\text{ Hz}$) must be removed before the PID loop processes gyro data, or D-term gains will amplify it, causing motor overheating.\n\n---\n\n## 2. Advanced Filtering Technologies\n\n### 2.1 Bi-directional DShot & RPM Filtering\nBy enabling bi-directional communication between the Flight Controller (FC) and the ESC, the FC receives real-time motor telemetry containing exact motor RPM values. This allows the FC to deploy narrow, surgical notch filters tracking the fundamental harmonic frequency of each motor:\n\n$$f_{harmonic} = \\frac{\\text{RPM}}{60} \\cdot n_{\\text{magnets}}$$\n\n### 2.2 The Dynamic Notch Filter\nThe dynamic notch filter uses a fast Fourier transform (FFT) algorithm to track the loudest noise bands across the spectrum and dynamically place notch filters over them.\n\n```\n[RPM vs Dynamic Notch Filtering]\nAmplitude\n  ^\n  |     ___      ___ (Unfiltered Noise Peak)\n  |    /   \\    /   \\\n  |===|=====\\==|=====\\=== (Filter Attenuation)\n  |   \\_____/  \\_____/\n  +-------------------------------------> Frequency\n```\n\n---\n\n## 3. Filter Latency & Phase Delay\n\nEvery filter introduced into the signal chain adds delay. A phase delay in the gyro signal of even $2-3\\text{ ms}$ reduces the PID loop's phase margin, rendering it unstable and prone to propwash oscillations.",
+      "imageMatch": {
+        "src": "https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg",
+        "alt": "FPV image from oscarliang.com",
+        "caption": "Source: oscarliang.com",
+        "source": "oscarliang.com",
+        "sourceUrl": "https://oscarliang.com/betaflight-filtering/",
+        "credit": "Source: oscarliang.com",
+        "license": "attribution"
+      }
     }
   ],
   "internalLinks": [
@@ -39,7 +48,17 @@
       "sourceUrl": "https://unsplash.com/photos/white-and-blue-abstract-painting-625624792",
       "credit": "Photo by Samuel Scrimshaw on Unsplash"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg",
+        "alt": "FPV image from oscarliang.com",
+        "caption": "Source: oscarliang.com",
+        "source": "oscarliang.com",
+        "sourceUrl": "https://oscarliang.com/betaflight-filtering/",
+        "credit": "Source: oscarliang.com",
+        "license": "attribution"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
       "https://unsplash.com/photos/white-and-blue-abstract-painting-625624792"

@@ -19,7 +19,16 @@
     {
       "id": "intro",
       "title": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation",
-      "content": "## 1. ExpressLRS Architecture & Packet Rates\n\nExpressLRS (ELRS) utilizes LoRa (Long Range) modulation on $2.4\\text{ GHz}$ or $900\\text{ MHz}$ bands.\n* **150Hz Packet Rate:** Slow updates, but extremely long range due to high sensitivity.\n* **1000Hz (1kHz) Packet Rate:** Near-zero latency ($1\\text{ ms}$ updates), ideal for racing, but highly vulnerable to RF path attenuation.\n\n---\n\n## 2. Link Quality (LQ) vs. RSSI\n\n### 2.1 RSSI (Received Signal Strength Indicator)\nRSSI measures raw signal power. However, high background noise can inflate RSSI while the link is failing.\n\n### 2.2 Link Quality (LQ)\nLQ measures the percentage of successfully received packets over a rolling window. An LQ of 100% means zero packet loss. If LQ drops below 80%, control delay increases, and a failsafe is imminent.\n\n```\n[RF Signal Range vs Link Quality]\nLink Quality (%)\n100 |==============================\\\n    |                              \\\n 80 |                               \\  <-- Warning Zone\n    |                                \\\n  0 +---------------------------------\\-------> Distance (km)\n                                   (Failsafe)\n```\n\n---\n\n## 3. Multipath Interference & Antenna Diversity\n\nRadio waves reflect off concrete structures, arriving at the receiver at slightly different times. Antenna diversity systems mitigate this by dynamically switching to the receiver antenna with the cleanest phase angle."
+      "content": "## 1. ExpressLRS Architecture & Packet Rates\n\nExpressLRS (ELRS) utilizes LoRa (Long Range) modulation on $2.4\\text{ GHz}$ or $900\\text{ MHz}$ bands.\n* **150Hz Packet Rate:** Slow updates, but extremely long range due to high sensitivity.\n* **1000Hz (1kHz) Packet Rate:** Near-zero latency ($1\\text{ ms}$ updates), ideal for racing, but highly vulnerable to RF path attenuation.\n\n---\n\n## 2. Link Quality (LQ) vs. RSSI\n\n### 2.1 RSSI (Received Signal Strength Indicator)\nRSSI measures raw signal power. However, high background noise can inflate RSSI while the link is failing.\n\n### 2.2 Link Quality (LQ)\nLQ measures the percentage of successfully received packets over a rolling window. An LQ of 100% means zero packet loss. If LQ drops below 80%, control delay increases, and a failsafe is imminent.\n\n```\n[RF Signal Range vs Link Quality]\nLink Quality (%)\n100 |==============================\\\n    |                              \\\n 80 |                               \\  <-- Warning Zone\n    |                                \\\n  0 +---------------------------------\\-------> Distance (km)\n                                   (Failsafe)\n```\n\n---\n\n## 3. Multipath Interference & Antenna Diversity\n\nRadio waves reflect off concrete structures, arriving at the receiver at slightly different times. Antenna diversity systems mitigate this by dynamically switching to the receiver antenna with the cleanest phase angle.",
+      "imageMatch": {
+        "src": "https://rotorriot.com/cdn/shop/files/bundle-rev3.jpg?v=1765559971&width=800",
+        "alt": "Long Range Drone Bundle - Explorer LR 4 HD DJI O4 Pro Micro",
+        "caption": "Long Range Drone Bundle - Explorer LR 4 HD DJI O4 Pro Micro",
+        "source": "rotorriot.com",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: rotorriot.com",
+        "license": "attribution"
+      }
     }
   ],
   "internalLinks": [
@@ -39,7 +48,17 @@
       "sourceUrl": "https://unsplash.com/photos/radio-waves-625624792",
       "credit": "Photo by Hector Achautla on Unsplash"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "https://rotorriot.com/cdn/shop/files/bundle-rev3.jpg?v=1765559971&width=800",
+        "alt": "Long Range Drone Bundle - Explorer LR 4 HD DJI O4 Pro Micro",
+        "caption": "Long Range Drone Bundle - Explorer LR 4 HD DJI O4 Pro Micro",
+        "source": "rotorriot.com",
+        "sourceUrl": "https://rotorriot.com/",
+        "credit": "Source: rotorriot.com",
+        "license": "attribution"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
       "https://unsplash.com/photos/radio-waves-625624792"

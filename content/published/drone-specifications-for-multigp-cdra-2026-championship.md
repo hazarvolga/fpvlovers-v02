@@ -259,6 +259,6 @@ You've now got the roadmap to embark on your FPV racing adventure, from understa
 
 The journey from a beginner to a confident FPV racer is one of dedication, practice, and a passion for flight. There will be crashes, frustration, and moments of triumph. Embrace it all! Don't wait! Grab your simulator, start practicing, and take the first step towards becoming an FPV racing pilot. The skies are calling!
 
-![Close-up of a racing pilot looking through goggles with absolute focus](https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=1200&auto=format&fit=crop&q=70)
-_Close-up of a racing pilot looking through goggles with absolute focus_
+![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/licence1.jpg)
+_Source: droneracing.fai.org_
 

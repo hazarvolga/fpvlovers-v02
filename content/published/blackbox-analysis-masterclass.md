@@ -1,10 +1,8 @@
----
-title: "Blackbox Analysis Masterclass: Decoding Gyro Spectral Densities & PID Traces"
-slug: "blackbox-analysis-masterclass"
-category: "Flight Control"
-excerpt: "An advanced research paper detailing flight data extraction, gyro noise identification, spectral notch filter validation, and propwash oscillation analysis using Betaflight Blackbox logs."
-publishedAt: "2026-06-02T07:41:42.009Z"
----
+# Blackbox Analysis Masterclass: Decoding Gyro Spectral Densities & PID Traces
+
+> An advanced research paper detailing flight data extraction, gyro noise identification, spectral notch filter validation, and propwash oscillation analysis using Betaflight Blackbox logs.
+
+## Blackbox Analysis Masterclass: Decoding Gyro Spectral Densities & PID Traces
 
 ## 1. The Anatomy of Flight Telemetry
 
@@ -47,3 +45,7 @@ During rapid descents through dirty air, the propeller encounters its own vortex
 1. Sharp, chaotic gyro rate spikes on Roll and Pitch.
 2. Immediate, massive D-term response attempting to damp the rate spikes.
 3. If D-term gain is too low, the oscillation persists; if too high, D-term feedback loops create thermal runaways.
+
+![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+_Source: oscarliang.com_
+
