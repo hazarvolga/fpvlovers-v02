@@ -1,17 +1,18 @@
 import React from 'react';
+import Image from 'next/image';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
 import { AISummaryBox } from '@/components/ui/AISummaryBox';
 import { AffiliateCard } from '@/features/monetization/components/AffiliateCard';
-import { MonitorPlay, Trophy, Cpu, Gamepad2, Zap, ShieldAlert } from 'lucide-react';
+import { MonitorPlay, Trophy, Cpu, Gamepad2, Zap, ShieldAlert, CheckCircle2, AlertTriangle, PlayCircle } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 export const metadata = {
   title: 'FPV Simulator Training Guide & Best Sims | FPV LOVERS',
   description: 'Master the sticks before you fly real carbon. Compare the best FPV simulators like VelociDrone, Liftoff, and Uncrashed, and find the right radio.',
 };
 
-async function fetchSimulatorData() {
-  await new Promise(r => setTimeout(r, 600));
+function getSimulatorData() {
   return {
     summary: "Simulators are the definitive entry point to FPV. Data indicates pilots who spend 40+ hours in Acro mode on a simulator face an 85% lower crash rate on their maiden flight. You will crash thousands of times while learning; doing it in a simulator costs nothing, while doing it in real life costs hundreds of dollars. Avoid Bluetooth gamepads (Xbox/PlayStation) due to centered throttles and lag; a dedicated FPV radio transmitter connected via USB is mandatory for true muscle memory development.",
     whySims: [
@@ -21,65 +22,89 @@ async function fetchSimulatorData() {
     ],
     topSims: [
       { 
-        name: "Liftoff FPV", 
-        type: "Software", 
-        focus: "Beginner Friendly & Community", 
-        price: "$19.99",
-        desc: "The most popular starting point. Great graphics, huge Steam Workshop support for custom tracks and drones, and a solid physics engine for freestyle."
-      },
-      { 
         name: "VelociDrone", 
-        type: "Software", 
-        focus: "Racing & Ultimate Physics", 
+        type: "Racing & Esports", 
+        focus: "Ultimate Physics & Racing Dynamics", 
         price: "$22.00",
-        desc: "The choice of professional racers. Graphics are slightly dated, but the physics engine is arguably the most realistic, especially for high-speed cornering."
+        desc: "The undisputed choice of professional FPV racers. While its graphics are slightly dated compared to modern Unreal Engine 5 titles, its physics engine is incredibly accurate, especially regarding cornering grip, propwash, and aerodynamic drag.",
+        physics: "10/10 - Industry standard for racing physics.",
+        graphics: "6/10 - Functional but dated.",
+        hardware: "Low-End PC / Mac Compatible",
+        pros: ["Unmatched flight dynamics", "Huge competitive multiplayer scene", "Runs well on older laptops"],
+        cons: ["Visuals lack modern polish", "UI can be confusing for beginners", "Maps feel sterile"],
+        imageUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1024",
       },
       { 
-        name: "Uncrashed", 
-        type: "Software", 
-        focus: "Cinematic & Graphics", 
+        name: "Liftoff: FPV Drone Racing", 
+        type: "Freestyle & Community", 
+        focus: "Beginner Friendly & Steam Workshop", 
+        price: "$19.99",
+        desc: "The most popular starting point for new pilots. It strikes a great balance between realistic physics and beautiful environments. Backed by a massive Steam Workshop community for custom tracks and drones.",
+        physics: "8/10 - Slightly 'floaty' but excellent for learning.",
+        graphics: "8/10 - Vibrant and detailed environments.",
+        hardware: "Mid-Range PC Required",
+        pros: ["Massive Steam Workshop community", "Licensed real-world drone parts", "Great tutorial for absolute beginners"],
+        cons: ["Physics can feel slightly gravity-defying", "High system requirements for max settings"],
+        imageUrl: "https://images.unsplash.com/photo-1517420704952-d8f3992e98fa?auto=format&fit=crop&q=80&w=1024",
+      },
+      { 
+        name: "Uncrashed : FPV Drone Simulator", 
+        type: "Cinematic Freestyle", 
+        focus: "Stunning Graphics & Chasing", 
         price: "$14.99",
-        desc: "Stunning visual fidelity. Best for pilots who want to practice cinematic flying, chasing cars, and navigating realistic, beautiful environments."
+        desc: "Built for the cinematic pilot. If you want to practice chasing rally cars, flying down mountains, or diving skyscrapers in breathtaking visual fidelity, Uncrashed is the most beautiful simulator available.",
+        physics: "7.5/10 - Good for freestyle, less accurate for racing.",
+        graphics: "10/10 - Unreal Engine 5 visual masterpiece.",
+        hardware: "High-End PC Required",
+        pros: ["Breathtaking graphics and lighting", "Dynamic moving targets (cars, trains)", "Great for cinematic practice"],
+        cons: ["Demands a powerful GPU", "Physics aren't as tight as VelociDrone"],
+        imageUrl: "https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&q=80&w=1024",
       },
       { 
         name: "Tryp FPV", 
-        type: "Software", 
-        focus: "Massive Open World", 
+        type: "Open World Exploration", 
+        focus: "Massive Maps & Cinematic Scenarios", 
         price: "$16.99",
-        desc: "Features enormous, continuous maps ideal for long-range cruising and cinematic practice, with moving targets like wingsuit base jumpers and rally cars."
+        desc: "Features enormous, continuous 64km² maps ideal for long-range cruising and cinematic practice. Includes unique scenarios like wingsuit base jumpers, motorcycles, and massive canyons.",
+        physics: "8/10 - Solid freestyle dynamics.",
+        graphics: "9.5/10 - Gorgeous open worlds.",
+        hardware: "High-End PC Required",
+        pros: ["Incredibly huge open-world maps", "Unique chasing scenarios (wingsuits)", "Beautiful environmental design"],
+        cons: ["Extremely heavy on PC resources", "Can stutter on mid-range hardware"],
+        imageUrl: "https://images.unsplash.com/photo-1579803815615-1207af150d1d?auto=format&fit=crop&q=80&w=1024",
       }
     ],
     gear: [
       {
         title: "Radiomaster Boxer (ELRS)",
-        description: "The absolute sweet spot for most pilots. Full-size gimbals, compact gamepad-style body, and a powerful built-in 1W ExpressLRS module.",
+        description: "The absolute sweet spot for most pilots. Full-size hall gimbals, a compact gamepad-style body, and a powerful built-in 1W ExpressLRS module. It's everything a modern pilot needs.",
         price: "$139.99",
-        url: "#",
-        image: "https://picsum.photos/seed/boxer/800/600",
+        url: "https://www.radiomasterrc.com/products/boxer-radio-controller",
+        image: "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png",
         tag: "EDITORS CHOICE"
       },
       {
-        title: "Radiomaster TX16S MKII",
-        description: "The gold standard traditional radio. Features a large color touch screen, hall effect gimbals, and maximum switches for complex setups.",
-        price: "$199.99",
-        url: "#",
-        image: "https://picsum.photos/seed/tx16s/800/600",
-        tag: "PREMIUM CHOICE"
+        title: "Radiomaster Pocket (ELRS)",
+        description: "A highly affordable, ultra-compact ELRS radio with removable stick ends. Perfect for slipping into a backpack or for pilots on a tight budget just starting in simulators.",
+        price: "$64.99",
+        url: "https://www.radiomasterrc.com/products/pocket-radio-controller",
+        image: "https://www.radiomasterrc.com/cdn/shop/files/Pocket_Charcoal_2_1024x1024.png",
+        tag: "BUDGET ENTRY"
       },
       {
-        title: "Radiomaster Pocket",
-        description: "A highly affordable, ultra-compact ELRS radio with removable stick ends. Perfect for slipping into a backpack or for pilots on a tight budget.",
-        price: "$64.99",
-        url: "#",
-        image: "https://picsum.photos/seed/pocket/800/600",
-        tag: "BUDGET ENTRY"
+        title: "Radiomaster TX16S MKII",
+        description: "The gold standard traditional radio. Features a large color touch screen, CNC hall effect gimbals, and maximum switches for complex setups and fixed-wing pilots.",
+        price: "$199.99",
+        url: "https://www.radiomasterrc.com/products/tx16s-mark-ii-radio-controller",
+        image: "https://www.radiomasterrc.com/cdn/shop/products/TX16SMKII-ELRS-1_1024x1024.png",
+        tag: "PREMIUM CHOICE"
       }
     ]
   };
 }
 
-export default async function SimulatorsPage() {
-  const data = await fetchSimulatorData();
+export default function SimulatorsPage() {
+  const data = getSimulatorData();
   const breadcrumbs = [
     { label: 'Pilot Academy', href: '/academy' },
     { label: 'Simulator Training', isCurrentPage: true }
@@ -89,17 +114,19 @@ export default async function SimulatorsPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-8 flex flex-col gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="lg:col-span-8 flex flex-col gap-12">
 
           {/* HERO */}
-          <div className="relative p-8 hex-panel glass-panel overflow-hidden">
-             <div className="absolute inset-0 bg-gradient-to-br from-[#00F2FF]/10 to-transparent pointer-events-none" />
-             <MonitorPlay className="w-12 h-12 text-[#00F2FF] mb-6 opacity-80" />
-             <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
-               Simulator <span className="text-[#00F2FF]">Training</span>
+          <div className="relative p-10 hex-panel glass-panel overflow-hidden border border-[#00F2FF]/20 rounded-2xl">
+             <div className="absolute inset-0 bg-gradient-to-br from-[#00F2FF]/10 via-[#00F2FF]/5 to-transparent pointer-events-none" />
+             <div className="absolute -right-10 -top-10 w-64 h-64 bg-[#00F2FF]/10 blur-[80px] rounded-full pointer-events-none" />
+             
+             <MonitorPlay className="w-14 h-14 text-[#00F2FF] mb-6 opacity-90 drop-shadow-[0_0_15px_rgba(0,242,255,0.5)]" />
+             <h1 className="text-4xl md:text-6xl font-black uppercase text-white tracking-tighter mb-4 leading-none">
+               Simulator <br/><span className="text-[#00F2FF]">Training Guide</span>
              </h1>
-             <p className="text-sm font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest">
+             <p className="text-xs md:text-sm font-mono text-[#00F2FF]/80 max-w-2xl leading-relaxed uppercase tracking-[0.2em] mt-6 border-l-2 border-[#00F2FF]/50 pl-4">
                 {"// Execute initial muscle memory calibration. Real-world gravity algorithms simulated in safe environments."}
              </p>
           </div>
@@ -107,59 +134,126 @@ export default async function SimulatorsPage() {
           <AISummaryBox content={data.summary} />
 
           {/* WHY USE A SIMULATOR */}
-          <div className="space-y-6">
-             <div className="flex items-center gap-2 border-b border-[#333333] pb-2">
-                <ShieldAlert className="w-5 h-5 text-[#22C55E]" />
-                <h3 className="text-lg font-black uppercase text-[#f8fafc] tracking-widest">Why You Must Start Here</h3>
+          <div className="space-y-8">
+             <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                <ShieldAlert className="w-6 h-6 text-[#22C55E]" />
+                <h2 className="text-2xl font-black uppercase text-white tracking-tight">Why You Must Start Here</h2>
              </div>
-             <div className="grid sm:grid-cols-3 gap-4">
+             <div className="grid sm:grid-cols-3 gap-6">
                 {data.whySims.map((reason, i) => (
-                   <div key={i} className="bg-black/40 p-5 border border-[#1A1A1A] rounded-md hover:border-[#22C55E]/40 transition-colors">
-                      <h4 className="text-[#22C55E] font-bold mb-2 uppercase text-sm tracking-wider">{reason.title}</h4>
+                   <div key={i} className="bg-gradient-to-b from-black/60 to-black/30 p-6 border border-white/5 rounded-xl hover:border-[#22C55E]/40 hover:bg-[#22C55E]/5 transition-all duration-300 shadow-lg">
+                      <div className="flex items-center gap-2 mb-4">
+                        <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
+                        <h4 className="text-white font-bold uppercase text-sm tracking-widest">{reason.title}</h4>
+                      </div>
                       <p className="text-[#A0A0A0] text-sm leading-relaxed">{reason.text}</p>
                    </div>
                 ))}
              </div>
           </div>
 
-          {/* TOP SIMULATORS */}
-          <div className="space-y-6">
-             <div className="flex items-center gap-2 border-b border-[#333333] pb-2">
-                <Gamepad2 className="w-5 h-5 text-[#00A8B3]" />
-                <h3 className="text-lg font-black uppercase text-[#f8fafc] tracking-widest">Top Flight Simulators</h3>
+          {/* TOP SIMULATORS COMPARISON */}
+          <div className="space-y-8">
+             <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                <Gamepad2 className="w-6 h-6 text-[#00F2FF]" />
+                <h2 className="text-2xl font-black uppercase text-white tracking-tight">Top FPV Simulators Compared</h2>
              </div>
 
-             <div className="grid sm:grid-cols-2 gap-5">
+             <div className="flex flex-col gap-8">
                 {data.topSims.map((sim, i) => (
-                   <div key={i} className="bg-black/50 p-5 border border-[#1A1A1A] hex-panel relative group hover:border-[#00F2FF]/50 transition-colors flex flex-col h-full">
-                      <div className="flex justify-between items-start mb-3">
-                         <div>
-                            <div className="text-[10px] text-[#00F2FF] mb-1 tracking-widest">{sim.type}</div>
-                            <div className="text-white font-bold text-xl">{sim.name}</div>
+                   <div key={i} className="bg-black/40 border border-white/10 rounded-2xl overflow-hidden group hover:border-[#00F2FF]/40 transition-all duration-500 shadow-xl flex flex-col md:flex-row">
+                      {/* Image Side */}
+                      <div className="relative w-full md:w-2/5 aspect-[16/9] md:aspect-auto overflow-hidden bg-[#0A0A0C]">
+                         <Image
+                           src={sim.imageUrl}
+                           alt={sim.name}
+                           fill
+                           unoptimized={true}
+                           className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
+                         />
+                         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/90 md:to-black/80" />
+                         <div className="absolute top-4 left-4">
+                           <Badge className="bg-black/50 backdrop-blur-md border border-white/20 text-white font-mono text-[10px] uppercase">{sim.hardware}</Badge>
                          </div>
-                         <div className="text-[#FF5C00] font-black bg-[#FF5C00]/10 px-2 py-1 rounded text-sm">{sim.price}</div>
                       </div>
-                      <div className="text-[#A0A0A0] text-xs mb-3 font-mono border-l-2 border-[#333] pl-2">FOCUS: {sim.focus}</div>
-                      <p className="text-[#D0D0D0] text-sm leading-relaxed flex-grow">{sim.desc}</p>
+                      
+                      {/* Content Side */}
+                      <div className="p-6 md:p-8 flex flex-col w-full md:w-3/5 relative z-10 -mt-6 md:mt-0 bg-gradient-to-t from-black/90 md:bg-none to-transparent">
+                         <div className="flex justify-between items-start mb-4">
+                            <div>
+                               <div className="text-[10px] text-[#00F2FF] mb-2 tracking-[0.2em] uppercase font-bold">{sim.type}</div>
+                               <h3 className="text-white font-black text-2xl tracking-tight">{sim.name}</h3>
+                            </div>
+                            <div className="text-[#FF5C00] font-black bg-[#FF5C00]/10 px-3 py-1.5 rounded border border-[#FF5C00]/20 text-sm shadow-[0_0_10px_rgba(255,92,0,0.2)]">
+                              {sim.price}
+                            </div>
+                         </div>
+                         
+                         <p className="text-[#D0D0D0] text-sm leading-relaxed mb-6">
+                           {sim.desc}
+                         </p>
+
+                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                            <div className="bg-white/5 p-3 rounded border border-white/5">
+                               <div className="text-[10px] text-[#A0A0A0] uppercase tracking-widest mb-1 flex items-center gap-1"><Cpu className="w-3 h-3"/> Physics</div>
+                               <div className="text-xs text-white font-semibold">{sim.physics}</div>
+                            </div>
+                            <div className="bg-white/5 p-3 rounded border border-white/5">
+                               <div className="text-[10px] text-[#A0A0A0] uppercase tracking-widest mb-1 flex items-center gap-1"><PlayCircle className="w-3 h-3"/> Graphics</div>
+                               <div className="text-xs text-white font-semibold">{sim.graphics}</div>
+                            </div>
+                         </div>
+
+                         <div className="grid grid-cols-2 gap-4 mt-auto">
+                            <div>
+                               <div className="text-[10px] text-[#22C55E] uppercase tracking-widest font-bold mb-2">Pros</div>
+                               <ul className="space-y-1">
+                                 {sim.pros.map((pro, j) => (
+                                   <li key={j} className="text-[11px] text-[#A0A0A0] flex items-start gap-1.5">
+                                      <span className="text-[#22C55E] mt-0.5">+</span> {pro}
+                                   </li>
+                                 ))}
+                               </ul>
+                            </div>
+                            <div>
+                               <div className="text-[10px] text-red-400 uppercase tracking-widest font-bold mb-2">Cons</div>
+                               <ul className="space-y-1">
+                                 {sim.cons.map((con, j) => (
+                                   <li key={j} className="text-[11px] text-[#A0A0A0] flex items-start gap-1.5">
+                                      <span className="text-red-400 mt-0.5">-</span> {con}
+                                   </li>
+                                 ))}
+                               </ul>
+                            </div>
+                         </div>
+                      </div>
                    </div>
                 ))}
              </div>
           </div>
 
-          {/* HARDWARE */}
-          <div className="space-y-6">
-             <div className="flex items-center gap-2 border-b border-[#333333] pb-2 mt-4">
-                <Trophy className="w-5 h-5 text-[#FF5C00]" />
-                <h3 className="text-lg font-black uppercase text-[#f8fafc] tracking-widest">Required Interface Hardware</h3>
+          {/* REQUIRED HARDWARE */}
+          <div className="space-y-8 mt-4">
+             <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                <Trophy className="w-6 h-6 text-[#FF5C00]" />
+                <h2 className="text-2xl font-black uppercase text-white tracking-tight">Required Interface Hardware</h2>
              </div>
              
-             <p className="text-[#A0A0A0] text-sm mb-4">
-               To fly a simulator correctly, you need a real FPV radio transmitter. Do not use an Xbox or PlayStation controller; their throttle sticks re-center automatically, which will teach you the wrong muscle memory for Acro mode.
-             </p>
+             <div className="bg-[#FF5C00]/10 border border-[#FF5C00]/20 rounded-xl p-5 flex items-start gap-4">
+                <AlertTriangle className="w-6 h-6 text-[#FF5C00] flex-shrink-0 mt-0.5" />
+                <div>
+                   <h4 className="text-white font-bold mb-1">Crucial Warning: Do Not Use Gamepads!</h4>
+                   <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                     To fly a simulator correctly, you need a real FPV radio transmitter. Do not use an Xbox or PlayStation controller; their throttle sticks re-center automatically, which will teach you the wrong muscle memory for Acro mode and lead to immediate crashes in real life.
+                   </p>
+                </div>
+             </div>
 
-             <div className="flex flex-col gap-4">
+             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
                 {data.gear.map((item, i) => (
-                   <AffiliateCard key={i} {...item} />
+                   <div key={i} className="flex h-full">
+                     <AffiliateCard {...item} />
+                   </div>
                 ))}
              </div>
           </div>
@@ -167,7 +261,16 @@ export default async function SimulatorsPage() {
         </div>
 
         {/* SIDEBAR */}
-        <aside className="lg:col-span-4 hidden lg:flex flex-col gap-6">
+        <aside className="lg:col-span-4 hidden lg:flex flex-col gap-8 sticky top-28">
+           <div className="bg-black/50 border border-white/10 rounded-2xl p-6 shadow-xl">
+             <h3 className="text-sm font-black uppercase text-white tracking-widest mb-4 flex items-center gap-2">
+               <Zap className="w-4 h-4 text-[#FFD700]" /> Pro Tip
+             </h3>
+             <p className="text-sm text-[#A0A0A0] leading-relaxed">
+               Most modern ELRS radios (like the Radiomaster Boxer) support Bluetooth Joystick mode, but for the absolute lowest latency, always connect your radio to your PC using a high-quality USB-C data cable.
+             </p>
+           </div>
+           
            <AdStickySidebar />
         </aside>
       </div>

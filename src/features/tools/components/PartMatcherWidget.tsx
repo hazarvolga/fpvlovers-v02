@@ -8,6 +8,7 @@ import { analyzeBuildCompatibility } from '@/lib/tools/component-compatibility';
 import type { BuildSelection, BuildSlot, FpvCatalogProduct, FpvProductType } from '@/lib/tools/fpv-product-types';
 import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
+import { AffiliateCard } from '@/features/monetization/components/AffiliateCard';
 
 type Props = {
   products: FpvCatalogProduct[];
@@ -177,6 +178,20 @@ export function PartMatcherWidget({ products }: Props) {
                   </option>
                 ))}
               </select>
+              {selection[slot.slot] && (() => {
+                 const selectedProduct = options.find(p => p.id === selection[slot.slot])!;
+                 return (
+                 <div className="mt-3">
+                    <AffiliateCard 
+                       title={selectedProduct.name}
+                       description={`${selectedProduct.brand} ${selectedProduct.category}`}
+                       price={`$${selectedProduct.price.toFixed(2)}`}
+                       url={selectedProduct.url || '#'}
+                       image={selectedProduct.imageUrl || '/images/placeholders/part-placeholder.jpg'}
+                    />
+                 </div>
+                 );
+              })()}
             </div>
           );
         })}

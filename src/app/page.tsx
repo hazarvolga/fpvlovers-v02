@@ -22,7 +22,7 @@ function ArticleCard({ card, accent = 'cyan' }: { card: HomepageSectionCard; acc
             alt={card.coverImageAlt || card.title}
             fill
             sizes="(min-width: 768px) 33vw, 100vw"
-            unoptimized={bypassOptimization}
+            unoptimized={true}
             className="h-full w-full object-cover opacity-[0.92] transition duration-500 group-hover:scale-[1.03] group-hover:opacity-100"
           />
         </Link>
@@ -133,7 +133,7 @@ export default async function HomePage() {
                     fill
                     priority
                     sizes="(min-width: 1024px) 50vw, 100vw"
-                    unoptimized={bypassHeroOptimization}
+                    unoptimized={true}
                     className="h-full w-full object-cover opacity-[0.94] transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
                   />
                 )}

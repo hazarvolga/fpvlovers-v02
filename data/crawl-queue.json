@@ -1,6 +1,977 @@
 {
   "jobs": [
     {
+      "id": "mq82jsh3v3q7",
+      "url": "https://hglrc.com/pages/manuals",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.855Z",
+      "updatedAt": "2026-06-10T13:05:39.010Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsfj2n2m",
+      "url": "https://www.t-motor.com/download",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.799Z",
+      "updatedAt": "2026-06-10T13:05:51.247Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsfj2kgi",
+      "url": "https://mateksys.com/?page_id=2&page=10",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.799Z",
+      "updatedAt": "2026-06-10T13:06:02.085Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsfjzwy0",
+      "url": "https://mateksys.com/?page_id=2&page=9",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.799Z",
+      "updatedAt": "2026-06-10T13:06:12.746Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsfjx1oi",
+      "url": "https://mateksys.com/?page_id=2&page=8",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.799Z",
+      "updatedAt": "2026-06-10T13:06:23.603Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsfi6d1p",
+      "url": "https://mateksys.com/?page_id=2&page=7",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.799Z",
+      "updatedAt": "2026-06-10T13:06:34.346Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsdzkpik",
+      "url": "https://mateksys.com/?page_id=2&page=6",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.743Z",
+      "updatedAt": "2026-06-10T13:06:44.977Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsdzdtfi",
+      "url": "https://mateksys.com/?page_id=2&page=5",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.743Z",
+      "updatedAt": "2026-06-10T13:06:55.487Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsdz1860",
+      "url": "https://mateksys.com/?page_id=2&page=2",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.743Z",
+      "updatedAt": "2026-06-10T13:07:05.985Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsdz0cc4",
+      "url": "https://mateksys.com/?page_id=2",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.743Z",
+      "updatedAt": "2026-06-10T13:07:16.492Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsdzlv8y",
+      "url": "https://www.happymodel.cn/index.php/category/manual",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.743Z",
+      "updatedAt": "2026-06-10T13:07:27.020Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsck2xve",
+      "url": "https://runcam.com/download",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.692Z",
+      "updatedAt": "2026-06-10T13:07:37.523Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsck20fg",
+      "url": "https://emax-usa.com/pages/manuals",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.692Z",
+      "updatedAt": "2026-06-10T13:07:48.118Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsck5iv2",
+      "url": "https://team-blacksheep.com/support",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.692Z",
+      "updatedAt": "2026-06-10T13:07:58.652Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsck3a65",
+      "url": "https://www.radiomasterrc.com/pages/downloads",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.692Z",
+      "updatedAt": "2026-06-10T13:08:09.221Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsckvx3r",
+      "url": "https://flywoo.net/blogs/flywoo-blogs",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.692Z",
+      "updatedAt": "2026-06-10T13:08:19.829Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsa7tywt",
+      "url": "https://iflight-rc.com/blogs/news",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.607Z",
+      "updatedAt": "2026-06-10T13:08:30.417Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsa7kt0g",
+      "url": "https://betafpv.com/blogs/blog",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.607Z",
+      "updatedAt": "2026-06-10T13:08:40.979Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsa747de",
+      "url": "https://orqafpv.com/support",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.607Z",
+      "updatedAt": "2026-06-10T13:08:51.542Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsa74ndt",
+      "url": "https://fatshark.com/pages/support",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.607Z",
+      "updatedAt": "2026-06-10T13:09:02.092Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82jsa7hmm0",
+      "url": "https://caddxfpv.com/pages/download",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.607Z",
+      "updatedAt": "2026-06-10T13:09:12.700Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82js8izz7o",
+      "url": "https://www.dji.com/support/product/o3-air-unit",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.546Z",
+      "updatedAt": "2026-06-10T13:09:23.286Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82js8iceko",
+      "url": "https://www.fpvknowitall.com",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.546Z",
+      "updatedAt": "2026-06-10T13:09:33.869Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82js8ijtuk",
+      "url": "https://propwashed.com",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.546Z",
+      "updatedAt": "2026-06-10T13:09:44.381Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82js8ip6sg",
+      "url": "https://elrs-configurator.expresslrs.org",
+      "dataset": "",
+      "status": "failed",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.546Z",
+      "updatedAt": "2026-06-10T13:09:54.886Z",
+      "error": "fetch failed"
+    },
+    {
+      "id": "mq82js8iad66",
+      "url": "https://www.xplane.com/fpv",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.546Z",
+      "updatedAt": "2026-06-10T12:52:42.546Z"
+    },
+    {
+      "id": "mq82js6svyoc",
+      "url": "https://www.tbs-electronics.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.484Z",
+      "updatedAt": "2026-06-10T12:52:42.484Z"
+    },
+    {
+      "id": "mq82js6s0qbf",
+      "url": "https://www.rotor-riot.com/pages/sim-training",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.484Z",
+      "updatedAt": "2026-06-10T12:52:42.484Z"
+    },
+    {
+      "id": "mq82js6sm2k3",
+      "url": "https://www.rotor-riot.com/pages/quadcopter-parts",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.484Z",
+      "updatedAt": "2026-06-10T12:52:42.484Z"
+    },
+    {
+      "id": "mq82js6s9kio",
+      "url": "https://www.reddit.com/r/UAV",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.484Z",
+      "updatedAt": "2026-06-10T12:52:42.484Z"
+    },
+    {
+      "id": "mq82js6syk6z",
+      "url": "https://www.reddit.com/r/racing",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.484Z",
+      "updatedAt": "2026-06-10T12:52:42.484Z"
+    },
+    {
+      "id": "mq82js5al38r",
+      "url": "https://www.reddit.com/r/Multicopter",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.430Z",
+      "updatedAt": "2026-06-10T12:52:42.430Z"
+    },
+    {
+      "id": "mq82js5a93tf",
+      "url": "https://www.reddit.com/r/fpvfreestyle",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.430Z",
+      "updatedAt": "2026-06-10T12:52:42.430Z"
+    },
+    {
+      "id": "mq82js5a7lka",
+      "url": "https://www.openrx2.org",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.430Z",
+      "updatedAt": "2026-06-10T12:52:42.430Z"
+    },
+    {
+      "id": "mq82js5a1ieg",
+      "url": "https://www.multigp.org/teams",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.430Z",
+      "updatedAt": "2026-06-10T12:52:42.430Z"
+    },
+    {
+      "id": "mq82js5a8l5g",
+      "url": "https://www.multigp.org/races",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.430Z",
+      "updatedAt": "2026-06-10T12:52:42.430Z"
+    },
+    {
+      "id": "mq82js3b842t",
+      "url": "https://www.multigp.org/events",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.359Z",
+      "updatedAt": "2026-06-10T12:52:42.359Z"
+    },
+    {
+      "id": "mq82js3bmgux",
+      "url": "https://www.multigp.org",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.359Z",
+      "updatedAt": "2026-06-10T12:52:42.359Z"
+    },
+    {
+      "id": "mq82js3bthbp",
+      "url": "https://www.multicopter.cn",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.359Z",
+      "updatedAt": "2026-06-10T12:52:42.359Z"
+    },
+    {
+      "id": "mq82js3bfgqb",
+      "url": "https://www.inav.xyz",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.359Z",
+      "updatedAt": "2026-06-10T12:52:42.359Z"
+    },
+    {
+      "id": "mq82js3bpwxa",
+      "url": "https://www.geprc.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.359Z",
+      "updatedAt": "2026-06-10T12:52:42.359Z"
+    },
+    {
+      "id": "mq82js1ouk7u",
+      "url": "https://www.gearbest.com/fpv-drones",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.300Z",
+      "updatedAt": "2026-06-10T12:52:42.300Z"
+    },
+    {
+      "id": "mq82js1oujhc",
+      "url": "https://www.fpvresource.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.300Z",
+      "updatedAt": "2026-06-10T12:52:42.300Z"
+    },
+    {
+      "id": "mq82js1ofz23",
+      "url": "https://www.fpvmodel.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.300Z",
+      "updatedAt": "2026-06-10T12:52:42.300Z"
+    },
+    {
+      "id": "mq82js1op34s",
+      "url": "https://www.fpvfreestyle.eu",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.300Z",
+      "updatedAt": "2026-06-10T12:52:42.300Z"
+    },
+    {
+      "id": "mq82js1oafhd",
+      "url": "https://www.foxtech.com.cn/en",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.300Z",
+      "updatedAt": "2026-06-10T12:52:42.300Z"
+    },
+    {
+      "id": "mq82jrzmfjqo",
+      "url": "https://www.foxtech.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.226Z",
+      "updatedAt": "2026-06-10T12:52:42.226Z"
+    },
+    {
+      "id": "mq82jrzmnwy3",
+      "url": "https://www.flywoo.net/en",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.226Z",
+      "updatedAt": "2026-06-10T12:52:42.226Z"
+    },
+    {
+      "id": "mq82jrzmvmev",
+      "url": "https://www.ebay.com/sch/i.html?k=fpv",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.226Z",
+      "updatedAt": "2026-06-10T12:52:42.226Z"
+    },
+    {
+      "id": "mq82jrzmyzlt",
+      "url": "https://www.ebay.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.226Z",
+      "updatedAt": "2026-06-10T12:52:42.226Z"
+    },
+    {
+      "id": "mq82jrzmmxik",
+      "url": "https://www.droneheroes.com/races",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.226Z",
+      "updatedAt": "2026-06-10T12:52:42.226Z"
+    },
+    {
+      "id": "mq82jrx9w2p5",
+      "url": "https://www.dji.com/support",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.141Z",
+      "updatedAt": "2026-06-10T12:52:42.141Z"
+    },
+    {
+      "id": "mq82jrx97sfj",
+      "url": "https://www.dji.com/en/fpv-combo",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.141Z",
+      "updatedAt": "2026-06-10T12:52:42.141Z"
+    },
+    {
+      "id": "mq82jrx95eus",
+      "url": "https://www.dji.com/en",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.141Z",
+      "updatedAt": "2026-06-10T12:52:42.141Z"
+    },
+    {
+      "id": "mq82jrx9k4os",
+      "url": "https://www.cleanflight.com/configurator",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.141Z",
+      "updatedAt": "2026-06-10T12:52:42.141Z"
+    },
+    {
+      "id": "mq82jrx9z8qs",
+      "url": "https://www.betafpv.com/collections/fpv-frames",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.141Z",
+      "updatedAt": "2026-06-10T12:52:42.141Z"
+    },
+    {
+      "id": "mq82jrv8dzci",
+      "url": "https://www.betafpv.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.068Z",
+      "updatedAt": "2026-06-10T12:52:42.068Z"
+    },
+    {
+      "id": "mq82jrv8fpkv",
+      "url": "https://www.banggood.com/search",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.068Z",
+      "updatedAt": "2026-06-10T12:52:42.068Z"
+    },
+    {
+      "id": "mq82jrv88e2r",
+      "url": "https://www.amazon.com/s",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.068Z",
+      "updatedAt": "2026-06-10T12:52:42.068Z"
+    },
+    {
+      "id": "mq82jrv89rc1",
+      "url": "https://www.aliexpress.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.068Z",
+      "updatedAt": "2026-06-10T12:52:42.068Z"
+    },
+    {
+      "id": "mq82jrv8fre3",
+      "url": "https://wiki.ros.org/ROS",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.068Z",
+      "updatedAt": "2026-06-10T12:52:42.068Z"
+    },
+    {
+      "id": "mq82jrtnti7v",
+      "url": "https://velocidrone.com/download",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.011Z",
+      "updatedAt": "2026-06-10T12:52:42.011Z"
+    },
+    {
+      "id": "mq82jrtn48gh",
+      "url": "https://velocidrone.com/courses",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.011Z",
+      "updatedAt": "2026-06-10T12:52:42.011Z"
+    },
+    {
+      "id": "mq82jrtnsjoe",
+      "url": "https://rotorbuilds.com/news",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.011Z",
+      "updatedAt": "2026-06-10T12:52:42.011Z"
+    },
+    {
+      "id": "mq82jrtnhk7r",
+      "url": "https://rotorbuilds.com/blog",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.011Z",
+      "updatedAt": "2026-06-10T12:52:42.011Z"
+    },
+    {
+      "id": "mq82jrtn8jvo",
+      "url": "https://rotorbuilds.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:42.011Z",
+      "updatedAt": "2026-06-10T12:52:42.011Z"
+    },
+    {
+      "id": "mq82jrrjcxwq",
+      "url": "https://oscarliang.com/fpv-racing",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.935Z",
+      "updatedAt": "2026-06-10T12:52:41.935Z"
+    },
+    {
+      "id": "mq82jrrj2vgk",
+      "url": "https://oscarliang.com/fpv-drones",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.935Z",
+      "updatedAt": "2026-06-10T12:52:41.935Z"
+    },
+    {
+      "id": "mq82jrrjbq0y",
+      "url": "https://oscarliang.com/esc-guide",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.935Z",
+      "updatedAt": "2026-06-10T12:52:41.935Z"
+    },
+    {
+      "id": "mq82jrrjpyvm",
+      "url": "https://oscarliang.com/drone-radio-guide",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.935Z",
+      "updatedAt": "2026-06-10T12:52:41.935Z"
+    },
+    {
+      "id": "mq82jrrjq4pf",
+      "url": "https://oscarliang.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.935Z",
+      "updatedAt": "2026-06-10T12:52:41.935Z"
+    },
+    {
+      "id": "mq82jrnz80r4",
+      "url": "https://inav.xyz/tools",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.807Z",
+      "updatedAt": "2026-06-10T12:52:41.807Z"
+    },
+    {
+      "id": "mq82jrnzsg9f",
+      "url": "https://holybro.com/collections",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.807Z",
+      "updatedAt": "2026-06-10T12:52:41.807Z"
+    },
+    {
+      "id": "mq82jrnzajky",
+      "url": "https://holybro.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.807Z",
+      "updatedAt": "2026-06-10T12:52:41.807Z"
+    },
+    {
+      "id": "mq82jrnzvy8c",
+      "url": "https://github.com/PX4/PX4-Autopilot",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.807Z",
+      "updatedAt": "2026-06-10T12:52:41.807Z"
+    },
+    {
+      "id": "mq82jrnzuv9h",
+      "url": "https://github.com/fpv-wtf/OpenIPC",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:41.807Z",
+      "updatedAt": "2026-06-10T12:52:41.807Z"
+    },
+    {
+      "id": "mq82jqn7v4ab",
+      "url": "https://github.com/fpv-wtf/firmware",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:40.483Z",
+      "updatedAt": "2026-06-10T12:52:40.483Z"
+    },
+    {
+      "id": "mq82jqn7c58g",
+      "url": "https://github.com/fpv-wtf",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:40.483Z",
+      "updatedAt": "2026-06-10T12:52:40.483Z"
+    },
+    {
+      "id": "mq82jqn7y16q",
+      "url": "https://github.com/cleanflight/cleanflight-configurator",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:40.483Z",
+      "updatedAt": "2026-06-10T12:52:40.483Z"
+    },
+    {
+      "id": "mq82jqn7jw6f",
+      "url": "https://github.com/cleanflight",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:40.483Z",
+      "updatedAt": "2026-06-10T12:52:40.483Z"
+    },
+    {
+      "id": "mq82jqn78ywf",
+      "url": "https://github.com/betaflight/betaflight",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:40.483Z",
+      "updatedAt": "2026-06-10T12:52:40.483Z"
+    },
+    {
+      "id": "mq82jq4gg4uv",
+      "url": "https://gazebow.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:39.808Z",
+      "updatedAt": "2026-06-10T12:52:39.808Z"
+    },
+    {
+      "id": "mq82jq4gn61r",
+      "url": "https://fpvworldchampionships.com/teams",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:39.808Z",
+      "updatedAt": "2026-06-10T12:52:39.808Z"
+    },
+    {
+      "id": "mq82jq4g6572",
+      "url": "https://fpvone.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:39.808Z",
+      "updatedAt": "2026-06-10T12:52:39.808Z"
+    },
+    {
+      "id": "mq82jq4f34ar",
+      "url": "https://fpvfreerider-forum.de",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:39.808Z",
+      "updatedAt": "2026-06-10T12:52:39.808Z"
+    },
+    {
+      "id": "mq82jq4emsuj",
+      "url": "https://emax.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-10T12:52:39.806Z",
+      "updatedAt": "2026-06-10T12:52:39.807Z"
+    },
+    {
       "id": "mpwf02h00dp7",
       "url": "https://f9u.it/",
       "dataset": "fpv-racing-events",
@@ -9,9 +980,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:57:14.973Z",
-      "docId": "artifact-https://f9u.it/",
-      "tokens": 6047
+      "updatedAt": "2026-06-09T09:05:19.683Z",
+      "tokens": 6047,
+      "docId": "dry-49fbad3a26d1"
     },
     {
       "id": "mpwf02h06fm9",
@@ -22,9 +993,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:57:30.529Z",
-      "docId": "artifact-https://edrl.ee/",
-      "tokens": 1350
+      "updatedAt": "2026-06-09T09:05:24.458Z",
+      "tokens": 1350,
+      "docId": "dry-9eb3dc42d764"
     },
     {
       "id": "mpwf02h0wsg3",
@@ -35,9 +1006,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:57:48.681Z",
-      "docId": "artifact-https://spaindrone",
-      "tokens": 13419
+      "updatedAt": "2026-06-09T09:05:31.688Z",
+      "tokens": 13418,
+      "docId": "dry-4c1c00b57c2d"
     },
     {
       "id": "mpwf02h0aja1",
@@ -48,9 +1019,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:59:28.477Z",
-      "docId": "artifact-https://www.street",
-      "tokens": 1537
+      "updatedAt": "2026-06-09T09:05:35.986Z",
+      "tokens": 1537,
+      "docId": "dry-f2cc009f1d4c"
     },
     {
       "id": "mpwf02h0oxxu",
@@ -61,9 +1032,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:59:42.607Z",
-      "docId": "artifact-https://www.street",
-      "tokens": 1574
+      "updatedAt": "2026-06-09T09:05:39.128Z",
+      "tokens": 1574,
+      "docId": "dry-21b406cd6bac"
     },
     {
       "id": "mpwf02h028t2",
@@ -74,9 +1045,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T09:59:56.640Z",
-      "docId": "artifact-https://www.street",
-      "tokens": 1444
+      "updatedAt": "2026-06-09T09:05:42.646Z",
+      "tokens": 1444,
+      "docId": "dry-dce4e0f84668"
     },
     {
       "id": "mpwf02h0t2su",
@@ -87,9 +1058,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:00:11.259Z",
-      "docId": "artifact-https://www.street",
-      "tokens": 3960
+      "updatedAt": "2026-06-09T09:05:46.015Z",
+      "tokens": 3854,
+      "docId": "dry-54e57e749d57"
     },
     {
       "id": "mpwf02h01dfu",
@@ -100,9 +1071,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:00:27.148Z",
-      "docId": "artifact-https://dronechamp",
-      "tokens": 15470
+      "updatedAt": "2026-06-09T09:05:51.597Z",
+      "tokens": 15692,
+      "docId": "dry-2cc3770ef82f"
     },
     {
       "id": "mpwf02h0xl85",
@@ -113,9 +1084,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:02:29.806Z",
-      "docId": "artifact-https://dronechamp",
-      "tokens": 14904
+      "updatedAt": "2026-06-09T09:05:56.450Z",
+      "tokens": 15083,
+      "docId": "dry-6d4382535418"
     },
     {
       "id": "mpwf02h08q6h",
@@ -126,9 +1097,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:02:45.140Z",
-      "docId": "artifact-https://dronechamp",
-      "tokens": 10500
+      "updatedAt": "2026-06-09T09:06:01.224Z",
+      "tokens": 10524,
+      "docId": "dry-b266eafb942b"
     },
     {
       "id": "mpwf02h0qi7d",
@@ -139,9 +1110,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:03:00.483Z",
-      "docId": "artifact-https://dronechamp",
-      "tokens": 23071
+      "updatedAt": "2026-06-09T09:06:06.525Z",
+      "tokens": 22225,
+      "docId": "dry-ffa69ca68ca2"
     },
     {
       "id": "mpwf02h05ydz",
@@ -152,9 +1123,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:03:21.949Z",
-      "docId": "artifact-https://www.multig",
-      "tokens": 16434
+      "updatedAt": "2026-06-09T09:06:13.854Z",
+      "tokens": 16434,
+      "docId": "dry-d1337d025c2f"
     },
     {
       "id": "mpwf02h08dcq",
@@ -165,9 +1136,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:03:38.865Z",
-      "docId": "artifact-https://www.multig",
-      "tokens": 8544
+      "updatedAt": "2026-06-09T09:06:18.855Z",
+      "tokens": 8544,
+      "docId": "dry-c3221ab89764"
     },
     {
       "id": "mpwf02h0ry9y",
@@ -178,9 +1149,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:05:10.101Z",
-      "docId": "artifact-https://www.multig",
-      "tokens": 16144
+      "updatedAt": "2026-06-09T09:06:24.618Z",
+      "tokens": 15993,
+      "docId": "dry-556c0f01e5d4"
     },
     {
       "id": "mpwf02h0d0r6",
@@ -191,9 +1162,9 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:05:28.614Z",
-      "docId": "artifact-https://www.multig",
-      "tokens": 16090
+      "updatedAt": "2026-06-09T09:06:30.396Z",
+      "tokens": 16090,
+      "docId": "dry-5970a229bfb5"
     },
     {
       "id": "mpwf02h0bnt9",
@@ -204,45 +1175,42 @@
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:05:44.650Z",
-      "docId": "artifact-https://droneracin",
-      "tokens": 2462
+      "updatedAt": "2026-06-09T09:06:35.370Z",
+      "tokens": 2462,
+      "docId": "dry-6e090acb25f3"
     },
     {
       "id": "mpwf02h0fiwp",
       "url": "https://www.fai.org/world-cups/drone-racing",
       "dataset": "fpv-racing-events",
-      "status": "failed",
+      "status": "pending",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:05:57.808Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:04.338Z"
     },
     {
       "id": "mpwf02h04lt5",
       "url": "https://www.fai.org/world-cups/drone-racing-2025",
       "dataset": "fpv-racing-events",
-      "status": "failed",
+      "status": "pending",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.588Z",
-      "updatedAt": "2026-06-02T10:06:10.679Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:05.581Z"
     },
     {
       "id": "mpwf02gzc5ny",
       "url": "https://www.fai.org/event/fai-drone-sports",
       "dataset": "fpv-racing-events",
-      "status": "completed",
+      "status": "pending",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-06-02T09:08:03.587Z",
-      "updatedAt": "2026-06-02T10:06:26.587Z",
-      "docId": "artifact-https://www.fai.or",
+      "updatedAt": "2026-06-10T11:49:06.410Z",
       "tokens": 15016
     },
     {
@@ -548,49 +1516,45 @@
       "id": "mpr9bonww5zf",
       "url": "https://www.getfpv.com/batteries.html",
       "dataset": "fpv-components-specs",
-      "status": "failed",
+      "status": "pending",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:36:45.171Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:07.522Z"
     },
     {
       "id": "mpr9bonw7p5y",
       "url": "https://www.getfpv.com/quad-parts/flight-controllers.html",
       "dataset": "fpv-components-specs",
-      "status": "failed",
+      "status": "pending",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:36:45.896Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:08.198Z"
     },
     {
       "id": "mpr9bonwpcf8",
       "url": "https://www.getfpv.com/quad-parts/motors.html",
       "dataset": "fpv-components-specs",
-      "status": "failed",
+      "status": "pending",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:36:46.557Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:08.869Z"
     },
     {
       "id": "mpr9bonwkau6",
       "url": "https://www.getfpv.com/quad-parts/frames.html",
       "dataset": "fpv-components-specs",
-      "status": "failed",
+      "status": "pending",
       "priority": 0,
       "retries": 0,
       "maxRetries": 3,
       "createdAt": "2026-05-29T18:30:16.988Z",
-      "updatedAt": "2026-06-01T10:36:47.193Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:09.674Z"
     },
     {
       "id": "18bfcc5d-6891-45bd-9e90-e374b2aa606e",
@@ -635,13 +1599,12 @@
       "id": "84a47b0e-2883-4c8e-9029-ebde542ecd13",
       "url": "https://download.foxeer.com/",
       "dataset": "fpv-components-specs",
-      "status": "failed",
+      "status": "pending",
       "priority": 3,
       "retries": 0,
       "maxRetries": 2,
       "createdAt": "2026-05-21T10:13:09Z",
-      "updatedAt": "2026-06-01T10:36:48.987Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:11.467Z"
     },
     {
       "id": "d861cbcb-997c-455d-b58d-159b98f99792",
@@ -725,13 +1688,12 @@
       "id": "b2f929bd-c7b5-4a3a-a739-71943f4f766f",
       "url": "https://device.report/",
       "dataset": "fpv-components-specs",
-      "status": "failed",
+      "status": "pending",
       "priority": 3,
       "retries": 0,
       "maxRetries": 2,
       "createdAt": "2026-05-21T10:13:09Z",
-      "updatedAt": "2026-06-01T10:36:49.689Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:12.334Z"
     },
     {
       "id": "a792c133-09ec-40b9-84af-bcfdbf125752",
@@ -763,13 +1725,12 @@
       "id": "f31a3af8-e506-4ef8-96f6-ebca0261d159",
       "url": "https://forum.donanimarsivi.com/",
       "dataset": "fpv-community-knowledge",
-      "status": "failed",
+      "status": "pending",
       "priority": 3,
       "retries": 0,
       "maxRetries": 2,
       "createdAt": "2026-05-21T10:13:09Z",
-      "updatedAt": "2026-06-01T10:36:50.624Z",
-      "error": "Crawler HTTP 500"
+      "updatedAt": "2026-06-10T11:49:13.255Z"
     },
     {
       "id": "a95aa761-1390-46ae-8413-614f1cbf76ad",
@@ -820,10 +1781,10 @@
     ]
   },
   "stats": {
-    "total": 63,
-    "pending": 0,
-    "completed": 54,
-    "failed": 9,
+    "total": 149,
+    "pending": 71,
+    "completed": 53,
+    "failed": 25,
     "throttled": 0
   }
 }

@@ -1,0 +1,126 @@
+{
+  "fpv-flight-tuning": {
+    "queries": {
+      "pid tuning best practices": {
+        "count": 0,
+        "topScore": 0
+      },
+      "propwash fix": {
+        "count": 0,
+        "topScore": 0
+      },
+      "blackbox analysis guide": {
+        "count": 0,
+        "topScore": 0
+      }
+    }
+  },
+  "fpv-pid-profiles": {
+    "queries": {
+      "betaflight 4.4 pid profile": {
+        "count": 0,
+        "topScore": 0
+      },
+      "cinewhoop pid tune": {
+        "count": 1,
+        "topScore": 0.68257374
+      }
+    }
+  },
+  "fpv-troubleshooting": {
+    "queries": {
+      "drone flipping on takeoff": {
+        "count": 0,
+        "topScore": 0
+      },
+      "video loss mid flight": {
+        "count": 0,
+        "topScore": 0
+      },
+      "esc desync": {
+        "count": 1,
+        "topScore": 0.65665823
+      }
+    }
+  },
+  "fpv-components-specs": {
+    "queries": {
+      "speedybee f405 v3 specs": {
+        "count": 1,
+        "topScore": 0.70253009
+      },
+      "gemfan 51466 weight": {
+        "count": 0,
+        "topScore": 0
+      },
+      "tbs crossfire micro tx power": {
+        "count": 0,
+        "topScore": 0
+      }
+    }
+  },
+  "fpv-build-guides": {
+    "queries": {
+      "how to build a 5 inch drone": {
+        "count": 0,
+        "topScore": 0
+      },
+      "soldering esc to flight controller": {
+        "count": 0,
+        "topScore": 0
+      }
+    }
+  },
+  "fpv-news-reviews": {
+    "queries": {
+      "dji o4 air unit review": {
+        "count": 3,
+        "topScore": 0.70659554
+      },
+      "new fatshark goggles 2025": {
+        "count": 0,
+        "topScore": 0
+      }
+    }
+  },
+  "fpv-racing-events": {
+    "queries": {
+      "fai drone racing world cup 2025": {
+        "count": 0,
+        "topScore": 0
+      },
+      "multigp global qualifier tracks": {
+        "count": 1,
+        "topScore": 0.69513112
+      }
+    }
+  },
+  "fpv-community-knowledge": {
+    "queries": {
+      "how to practice in liftoff": {
+        "count": 0,
+        "topScore": 0
+      },
+      "best drone for beginners": {
+        "count": 0,
+        "topScore": 0
+      }
+    }
+  },
+  "fpv-regulations": {
+    "queries": {
+      "faa remote id rules": {
+        "count": 0,
+        "topScore": 0
+      },
+      "shgm iha kayit 2025": {
+        "count": 0,
+        "topScore": 0
+      },
+      "easa open category drones": {
+        "count": 0,
+        "topScore": 0
+      }
+    }
+  }
+}

@@ -1,10 +1,9 @@
 {
-  "generated_at": "2026-06-01T08:13:21.459838+00:00",
+  "generated_at": "2026-06-10T12:52:42.859033+00:00",
   "source_workbook": "/Users/hazarekiz/Projects/fpv-autoblog-v2/FPV_RAG_Web_List_CLEAN.xlsx",
   "offset": 0,
-  "limit": 5,
+  "limit": null,
   "batch_size": 5,
-  "success_count": 0,
-  "failed_count": 0,
-  "results": []
+  "queued_count": 86,
+  "mode": "queue"
 }

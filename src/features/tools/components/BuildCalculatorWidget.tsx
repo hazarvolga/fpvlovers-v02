@@ -17,23 +17,38 @@ const STYLE_OPTIONS: { value: BuildStyle; label: string; hint: string }[] = [
   { value: 'whoop', label: 'Whoop', hint: '3.2:1 target' },
 ];
 
-const DEFAULT_BUILD: BuildCalculatorInput = {
-  style: 'freestyle',
-  frameWeight: 130,
-  motorWeight: 32,
-  stackWeight: 28,
-  videoWeight: 36,
-  propWeight: 18,
-  batteryWeight: 190,
-  payloadWeight: 0,
-  cellCount: 6,
-  batteryCapacityMah: 1100,
-  batteryCRating: 100,
-  motorKv: 1900,
-  propDiameter: 5,
-  propPitch: 3.6,
-  escAmpRating: 45,
+const PRESETS: Record<string, BuildCalculatorInput> = {
+  'whoop': {
+    style: 'whoop',
+    frameWeight: 5, motorWeight: 3, stackWeight: 4, videoWeight: 4,
+    propWeight: 1, batteryWeight: 12, payloadWeight: 0,
+    cellCount: 1, batteryCapacityMah: 300, batteryCRating: 50,
+    motorKv: 19000, propDiameter: 1.6, propPitch: 1.5, escAmpRating: 5,
+  },
+  '3inch': {
+    style: 'freestyle',
+    frameWeight: 40, motorWeight: 10, stackWeight: 12, videoWeight: 15,
+    propWeight: 4, batteryWeight: 80, payloadWeight: 0,
+    cellCount: 4, batteryCapacityMah: 650, batteryCRating: 80,
+    motorKv: 3600, propDiameter: 3, propPitch: 2, escAmpRating: 20,
+  },
+  '5inch': {
+    style: 'freestyle',
+    frameWeight: 130, motorWeight: 32, stackWeight: 28, videoWeight: 36,
+    propWeight: 18, batteryWeight: 190, payloadWeight: 0,
+    cellCount: 6, batteryCapacityMah: 1100, batteryCRating: 100,
+    motorKv: 1900, propDiameter: 5, propPitch: 3.6, escAmpRating: 45,
+  },
+  '7inch': {
+    style: 'longRange',
+    frameWeight: 180, motorWeight: 42, stackWeight: 30, videoWeight: 40,
+    propWeight: 35, batteryWeight: 350, payloadWeight: 150,
+    cellCount: 6, batteryCapacityMah: 3000, batteryCRating: 60,
+    motorKv: 1300, propDiameter: 7, propPitch: 4, escAmpRating: 50,
+  }
 };
+
+const DEFAULT_BUILD: BuildCalculatorInput = PRESETS['5inch'];
 
 type NumberField = {
   key: keyof Omit<BuildCalculatorInput, 'style'>;
@@ -110,22 +125,37 @@ function Metric({
   label,
   value,
   tone = 'cyan',
+  progress
 }: {
   label: string;
   value: string;
-  tone?: 'cyan' | 'orange' | 'green' | 'white';
+  tone?: 'cyan' | 'orange' | 'green' | 'white' | 'red';
+  progress?: { value: number; max: number };
 }) {
-  const color = {
-    cyan: 'text-[#28d7df]',
-    orange: 'text-[#ff5a1f]',
-    green: 'text-[#00FF66]',
-    white: 'text-white',
-  }[tone];
+  const colors = {
+    cyan: { text: 'text-[#28d7df]', border: 'border-[#28d7df]/30', bg: 'bg-[#28d7df]' },
+    orange: { text: 'text-[#ff5a1f]', border: 'border-[#ff5a1f]/30', bg: 'bg-[#ff5a1f]' },
+    green: { text: 'text-[#00FF66]', border: 'border-[#00FF66]/30', bg: 'bg-[#00FF66]' },
+    red: { text: 'text-red-500', border: 'border-red-500/30', bg: 'bg-red-500' },
+    white: { text: 'text-white', border: 'border-white/20', bg: 'bg-white' },
+  };
+
+  const style = colors[tone];
 
   return (
-    <div className="border border-white/10 bg-black/35 p-4">
-      <div className="text-[10px] uppercase tracking-widest text-[#8e8b86] font-mono mb-2">{label}</div>
-      <div className={cn('text-2xl font-black tracking-tight', color)}>{value}</div>
+    <div className={cn("border bg-black/35 p-4 relative overflow-hidden", style.border)}>
+      <div className="relative z-10">
+        <div className="text-[10px] uppercase tracking-widest text-[#8e8b86] font-mono mb-2">{label}</div>
+        <div className={cn('text-2xl font-black tracking-tight drop-shadow-md', style.text)}>{value}</div>
+      </div>
+      {progress && (
+        <div className="absolute bottom-0 left-0 h-1 w-full bg-black/50">
+          <div 
+            className={cn("h-full transition-all duration-500 ease-out", style.bg)} 
+            style={{ width: `${Math.min(100, (progress.value / progress.max) * 100)}%` }}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -224,15 +254,21 @@ export function BuildCalculatorWidget() {
   return (
     <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-6">
       <div className="space-y-6">
-        <section className="border border-white/10 bg-[#050505] p-5">
+        <section className="border border-[#28d7df]/20 bg-[#050505] p-5 shadow-[inset_0_0_20px_rgba(40,215,223,0.05)]">
           <div className="flex items-center justify-between gap-4 mb-4">
             <div>
-              <h2 className="text-sm font-black uppercase tracking-widest text-white">Flight Profile</h2>
-              <p className="text-xs text-[#8e8b86] mt-1">Choose the thrust target before sizing the build.</p>
+              <h2 className="text-sm font-black uppercase tracking-widest text-[#28d7df]">Presets & Profile</h2>
+              <p className="text-xs text-[#8e8b86] mt-1">Load a quick preset or choose your target thrust style.</p>
             </div>
-            <Button variant="ghost" size="sm" onClick={() => setBuild(DEFAULT_BUILD)} title="Reset calculator">
-              <RotateCcw className="w-4 h-4" />
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['whoop'])} title="1S Whoop" className="text-[10px] border border-white/10">Whoop</Button>
+              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['3inch'])} title="3-inch" className="text-[10px] border border-white/10">3&quot;</Button>
+              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['5inch'])} title="5-inch" className="text-[10px] border border-[#28d7df]/50 text-[#28d7df]">5&quot;</Button>
+              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['7inch'])} title="7-inch" className="text-[10px] border border-white/10">7&quot;</Button>
+              <Button variant="ghost" size="sm" onClick={() => setBuild(DEFAULT_BUILD)} title="Reset calculator" className="ml-2">
+                <RotateCcw className="w-4 h-4" />
+              </Button>
+            </div>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
             {STYLE_OPTIONS.map((option) => (
@@ -243,7 +279,7 @@ export function BuildCalculatorWidget() {
                 className={cn(
                   'border px-3 py-3 text-left transition-colors',
                   build.style === option.value
-                    ? 'border-[#28d7df] bg-[#28d7df]/10 text-white'
+                    ? 'border-[#28d7df] bg-[#28d7df]/10 text-white shadow-[0_0_10px_rgba(40,215,223,0.3)]'
                     : 'border-white/10 bg-white/[0.02] text-[#8e8b86] hover:border-white/25',
                 )}
               >
@@ -290,14 +326,14 @@ export function BuildCalculatorWidget() {
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <Metric label="AUW" value={`${result.auw}g`} tone="white" />
-            <Metric label="Dry Weight" value={`${result.dryWeight}g`} />
-            <Metric label="Thrust Ratio" value={`${result.estimatedThrustRatio}:1`} tone={result.estimatedThrustRatio >= result.targetThrustRatio ? 'green' : 'orange'} />
-            <Metric label="Required" value={`${result.requiredThrustPerMotor}g/m`} tone="orange" />
-            <Metric label="Est. Thrust" value={`${result.estimatedThrustPerMotor}g/m`} />
-            <Metric label="Hover" value={`${result.estimatedHoverThrottle}%`} tone={result.estimatedHoverThrottle <= 35 ? 'green' : 'orange'} />
-            <Metric label="Flight Time" value={`${result.estimatedFlightTimeMin}m`} tone="green" />
-            <Metric label="Peak Current" value={`${result.estimatedPeakCurrent}A/m`} tone={result.currentMargin >= 8 ? 'green' : 'orange'} />
+            <Metric label="AUW" value={`${result.auw}g`} tone="white" progress={{value: result.auw, max: 2000}} />
+            <Metric label="Dry Weight" value={`${result.dryWeight}g`} progress={{value: result.dryWeight, max: 1500}} />
+            <Metric label="Thrust Ratio" value={`${result.estimatedThrustRatio}:1`} tone={result.estimatedThrustRatio >= result.targetThrustRatio ? 'green' : result.estimatedThrustRatio < result.targetThrustRatio * 0.8 ? 'red' : 'orange'} progress={{value: result.estimatedThrustRatio, max: 15}} />
+            <Metric label="Est. Thrust" value={`${result.estimatedThrustPerMotor}g/m`} progress={{value: result.estimatedThrustPerMotor, max: 2500}} />
+            <Metric label="Hover Throt." value={`${result.estimatedHoverThrottle}%`} tone={result.estimatedHoverThrottle <= 35 ? 'green' : result.estimatedHoverThrottle > 50 ? 'red' : 'orange'} progress={{value: result.estimatedHoverThrottle, max: 100}} />
+            <Metric label="Flight Time" value={`${result.estimatedFlightTimeMin}m`} tone={result.estimatedFlightTimeMin >= 5 ? 'green' : result.estimatedFlightTimeMin <= 2.5 ? 'red' : 'cyan'} progress={{value: result.estimatedFlightTimeMin, max: 15}} />
+            <Metric label="Peak Current" value={`${result.estimatedPeakCurrent}A/m`} tone={result.currentMargin >= 8 ? 'green' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: result.estimatedPeakCurrent, max: 100}} />
+            <Metric label="ESC Margin" value={`${result.currentMargin > 0 ? '+' : ''}${result.currentMargin}A`} tone={result.currentMargin >= 8 ? 'cyan' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: Math.max(0, result.currentMargin), max: 30}} />
           </div>
         </section>
 

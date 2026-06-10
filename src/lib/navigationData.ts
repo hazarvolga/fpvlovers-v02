@@ -138,10 +138,22 @@ export const navigationData = [
         icon: Radio
       },
       {
+        title: "Hardware Analyzer",
+        href: "/tools/hardware-analyzer",
+        description: "AI diagnostic engine for compatibility checks.",
+        icon: Cpu
+      },
+      {
         title: "Blackbox Tuning",
         href: "/tools/blackbox-tuning",
         description: "Analyze flight logs to optimize PID and filters.",
         icon: Radio
+      },
+      {
+        title: "Flight Critic",
+        href: "/tools/flight-critic",
+        description: "AI-driven cinematic flight footage analysis.",
+        icon: Video
       }
     ]
   },

@@ -26,7 +26,7 @@ loadEnv();
 
 const DIFY_BASE = process.env.DIFY_BASE_URL || 'https://dify.affexai.tr/v1';
 const DIFY_API_KEY = process.env.DIFY_API_KEY;
-const CRAWLER_ENDPOINT = 'http://141.148.206.187/c4ai/crawl';
+const CRAWLER_ENDPOINT = process.env.CRAWL4AI_PRIMARY_CRAWL_URL || 'http://161.118.171.201:3002/crawl';
 
 const DATASET_IDS: Record<string, string> = {
   'fpv-flight-tuning': 'd1d5e44b-4dde-445a-a686-67a1cc0d926c',

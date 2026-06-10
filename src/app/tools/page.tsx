@@ -1,6 +1,112 @@
-import { redirect } from 'next/navigation';
+import React from 'react';
+import Link from 'next/link';
+import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
+import { Cpu, Activity, Zap, Calculator, Crosshair, Wrench } from 'lucide-react';
 
-export default function ToolsPage() {
-  redirect('/tools/component-duel');
+export const metadata = {
+  title: 'Oracle Tools Hub | FPVLovers',
+  description: 'AI-Powered diagnostic engines, calculators, and hardware analyzers for FPV Pilots.',
+};
+
+const TOOLS = [
+  {
+    name: 'Hardware Analyzer',
+    description: 'AI-powered diagnostic engine for component compatibility and risk assessment.',
+    href: '/tools/hardware-analyzer',
+    icon: Cpu,
+    color: 'text-[#00A8B3]',
+    borderColor: 'border-[#00A8B3]/20',
+    shadowColor: 'shadow-[inset_0_0_40px_rgba(0,168,179,0.05)]',
+    hoverColor: 'hover:border-[#00A8B3]/50',
+  },
+  {
+    name: 'Blackbox Tuning',
+    description: 'Upload your Betaflight logs and get expert tuning recommendations.',
+    href: '/tools/blackbox-tuning',
+    icon: Activity,
+    color: 'text-[#FF5C00]',
+    borderColor: 'border-[#FF5C00]/20',
+    shadowColor: 'shadow-[inset_0_0_40px_rgba(255,92,0,0.05)]',
+    hoverColor: 'hover:border-[#FF5C00]/50',
+  },
+  {
+    name: 'Component Duel',
+    description: 'Side-by-side FPV hardware comparisons against reference data.',
+    href: '/tools/component-duel',
+    icon: Zap,
+    color: 'text-[#FFD700]',
+    borderColor: 'border-[#FFD700]/20',
+    shadowColor: 'shadow-[inset_0_0_40px_rgba(255,215,0,0.05)]',
+    hoverColor: 'hover:border-[#FFD700]/50',
+  },
+  {
+    name: 'Build Calculator',
+    description: 'Calculate thrust, RPM, flight time and battery draw for your custom build.',
+    href: '/tools/calculator',
+    icon: Calculator,
+    color: 'text-[#00FF66]',
+    borderColor: 'border-[#00FF66]/20',
+    shadowColor: 'shadow-[inset_0_0_40px_rgba(0,255,102,0.05)]',
+    hoverColor: 'hover:border-[#00FF66]/50',
+  },
+  {
+    name: 'Part Matcher',
+    description: 'Find the perfect matching components for your next FPV drone build.',
+    href: '/tools/part-matcher',
+    icon: Wrench,
+    color: 'text-[#FF00FF]',
+    borderColor: 'border-[#FF00FF]/20',
+    shadowColor: 'shadow-[inset_0_0_40px_rgba(255,0,255,0.05)]',
+    hoverColor: 'hover:border-[#FF00FF]/50',
+  },
+  {
+    name: 'Flight Critic',
+    description: 'Upload your flight footage and receive AI-driven cinematic analysis.',
+    href: '/tools/flight-critic',
+    icon: Crosshair,
+    color: 'text-[#0088FF]',
+    borderColor: 'border-[#0088FF]/20',
+    shadowColor: 'shadow-[inset_0_0_40px_rgba(0,136,255,0.05)]',
+    hoverColor: 'hover:border-[#0088FF]/50',
+  }
+];
+
+export default function ToolsHubPage() {
+  const breadcrumbs = [
+    { label: 'Oracle Tools', isCurrentPage: true }
+  ];
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
+      <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
+
+      <div className="relative p-8 hex-panel glass-panel overflow-hidden border-[#FF5C00]/20 shadow-[inset_0_0_80px_rgba(255,92,0,0.05)] text-center mb-12">
+         <Wrench className="w-12 h-12 text-[#FF5C00] mb-6 opacity-80 inline-block" />
+         <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
+           Oracle <span className="text-[#FF5C00]">Tools Hub</span>
+         </h1>
+         <p className="text-sm font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest mx-auto">
+           {"// A suite of AI-powered diagnostic engines and calculators for FPV Pilots."}
+         </p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {TOOLS.map((tool) => (
+          <Link key={tool.name} href={tool.href} className="group block">
+            <div className={`h-full relative p-6 hex-panel glass-panel border ${tool.borderColor} ${tool.shadowColor} ${tool.hoverColor} transition-all duration-300`}>
+              <div className="flex flex-col h-full">
+                <tool.icon className={`w-10 h-10 ${tool.color} mb-4 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all`} />
+                <h2 className="text-xl font-black uppercase text-white tracking-tight mb-3">
+                  {tool.name}
+                </h2>
+                <p className="text-sm font-mono text-[#A0A0A0] leading-relaxed flex-grow">
+                  {tool.description}
+                </p>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }
-

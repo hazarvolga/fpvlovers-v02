@@ -245,6 +245,28 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
     });
   }
 
+  // Ensure unique cover images by prioritizing the highly-relevant, locally-matched hardware image or gallery image
+  let finalCoverImage = coverImage;
+  const firstMatchedSection = bodySections.find(s => s.imageMatch);
+  if (firstMatchedSection?.imageMatch) {
+    finalCoverImage = {
+      src: firstMatchedSection.imageMatch.src,
+      alt: firstMatchedSection.imageMatch.alt || parsed.title || parsed.slug,
+      caption: firstMatchedSection.imageMatch.caption || parsed.excerpt || '',
+      credit: firstMatchedSection.imageMatch.source || 'FPVLovers hardware catalog',
+      sourceUrl: firstMatchedSection.imageMatch.sourceUrl || '',
+    };
+  } else if (media.gallery && media.gallery.length > 0) {
+    const firstGalleryImage = media.gallery[0];
+    finalCoverImage = {
+      src: firstGalleryImage.src,
+      alt: firstGalleryImage.alt || parsed.title || parsed.slug,
+      caption: firstGalleryImage.caption || parsed.excerpt || '',
+      credit: firstGalleryImage.credit || 'FPVLovers gallery',
+      sourceUrl: firstGalleryImage.sourceUrl || '',
+    };
+  }
+
   return {
     ...(parsed as PublishedArtifact),
     title,
@@ -252,7 +274,7 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
     bodySections,
     media: {
       ...media,
-      coverImage,
+      coverImage: finalCoverImage,
     },
   };
 }
