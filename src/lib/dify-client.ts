@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
 import { getCached, setCached, hashInput } from '@/lib/llm-cache';
-import { WORKFLOW_TOKENS } from '@/lib/master-routing-tables';
 
 const USAGE_FILE = path.join(process.cwd(), 'data', 'embedding-usage.json');
 const BUDGET_LOG = path.join(process.cwd(), 'data', 'api-budget-log.json');
@@ -440,38 +439,4 @@ export async function runWorkflow(
   });
 
   return normalizeWorkflowResponse(response);
-}
-
-// ─── SPECIFIC WORKFLOW WRAPPERS ───
-
-export async function runSeoContentGenerator(inputs: { topic: string; keywords?: string[]; targetAudience?: string }) {
-  return runWorkflow('seoContentGenerator', inputs, WORKFLOW_TOKENS.seoContentGenerator);
-}
-
-export async function runAffiliateOrchestrator(inputs: { contentUrl: string; productIds: string[] }) {
-  return runWorkflow('affiliateOrchestrator', inputs, WORKFLOW_TOKENS.affiliateOrchestrator);
-}
-
-export async function runSponsorshipOrchestrator(inputs: { brandName: string; campaignGoals: string }) {
-  return runWorkflow('sponsorshipOrchestrator', inputs, WORKFLOW_TOKENS.sponsorshipOrchestrator);
-}
-
-export async function runMetadataEnrichment(inputs: { articleId: string; rawContent: string }) {
-  return runWorkflow('metadataEnrichment', inputs, WORKFLOW_TOKENS.metadataEnrichment);
-}
-
-export async function runScheduledPublisher(inputs: { articleId: string; publishDate: string; platforms: string[] }) {
-  return runWorkflow('scheduledPublisher', inputs, WORKFLOW_TOKENS.scheduledPublisher);
-}
-
-export async function runDronePartMatcher(inputs: { partType: string; specs: Record<string, any>; targetBuild?: string }) {
-  return runWorkflow('dronePartMatcher', inputs, WORKFLOW_TOKENS.dronePartMatcher);
-}
-
-export async function runHdTuneAnalyzer(inputs: { logFileUrl?: string; pilotSkillLevel?: string; blackboxData?: any }) {
-  return runWorkflow('hdTuneAnalyzer', inputs, WORKFLOW_TOKENS.hdTuneAnalyzer);
-}
-
-export async function runDroneBuildRecommender(inputs: { budget: number; frameSize: string; primaryUse: string }) {
-  return runWorkflow('droneBuildRecommender', inputs, WORKFLOW_TOKENS.droneBuildRecommender);
 }

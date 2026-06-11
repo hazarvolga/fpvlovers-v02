@@ -266,11 +266,4 @@ export const WORKFLOW_IDS: Record<string, string> = {
 export const WORKFLOW_TOKENS: Record<string, string> = {
   seoContentGenerator: 'app-XJogXujRpHH3Ri8dOU9F',
   racingIntelligenceOrchestrator: process.env.DIFY_RACING_WORKFLOW_TOKEN || 'app-0UY7DiroMEswRvqqOtlZ',
-  affiliateOrchestrator: process.env.DIFY_AFFILIATE_WORKFLOW_TOKEN || 'TODO_IMPORT',
-  sponsorshipOrchestrator: process.env.DIFY_SPONSOR_WORKFLOW_TOKEN || 'TODO_IMPORT',
-  metadataEnrichment: process.env.DIFY_METADATA_WORKFLOW_TOKEN || 'TODO_IMPORT',
-  scheduledPublisher: process.env.DIFY_PUBLISHER_WORKFLOW_TOKEN || 'TODO_IMPORT',
-  dronePartMatcher: process.env.DIFY_PART_WORKFLOW_TOKEN || 'TODO_IMPORT',
-  hdTuneAnalyzer: process.env.DIFY_HDTUNE_WORKFLOW_TOKEN || 'TODO_IMPORT',
-  droneBuildRecommender: process.env.DIFY_BUILD_WORKFLOW_TOKEN || 'TODO_IMPORT',
 };
