@@ -90,59 +90,84 @@ export default async function HomePage() {
 
   return (
     <div className="pb-20">
-      <section className="px-4 pt-32 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:items-end">
+      <section className="px-4 pt-32 sm:px-6 lg:px-8 border-b border-white/5 pb-10 bg-[#09090b]">
+        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="max-w-3xl">
-            <h1 className="text-5xl font-black tracking-tight text-white sm:text-6xl lg:text-7xl">
-              FPV learning, builds, and tools without the noise.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-[#bdb7ad]">
-              FPVLovers brings practical FPV guides, setup references, build calculators, and tuning workflows into one clean cockpit for pilots who want to fly better.
-            </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button size="lg" asChild>
-                <Link href="/academy/roadmap">
-                  Start the academy <Zap className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
-                <Link href="/tools/calculator">Open build calculator</Link>
-              </Button>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="flex h-2 w-2 rounded-full bg-[#00FF66] animate-pulse" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#00FF66]">System Online / Awaiting Input</span>
             </div>
-            <div className="mt-10 grid max-w-2xl grid-cols-3 gap-4 border-y border-white/10 py-5">
+            
+            <h1 className="text-4xl font-bold tracking-tight text-zinc-100 sm:text-5xl lg:text-6xl uppercase leading-[1.1]">
+              <span className="text-zinc-500 block text-2xl sm:text-3xl mb-2 font-mono tracking-widest">FPVLOVERS</span>
+              Flight Control &<br /> Telemetry Hub
+            </h1>
+            
+            <p className="mt-6 max-w-2xl text-sm leading-7 text-zinc-400 font-mono">
+              Actionable engineering data, real-time pulse feeds, build calculators, and tuning references designed for zero-latency decision making.
+            </p>
+            
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <Link 
+                href="/academy/roadmap"
+                className="group relative flex items-center justify-between gap-4 rounded-sm border border-[#FF5C00]/40 bg-[#FF5C00]/10 px-6 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-[#FF5C00] transition-all hover:bg-[#FF5C00]/20 hover:border-[#FF5C00]"
+              >
+                <span>Initialize Academy</span>
+                <Zap className="h-4 w-4" />
+                <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF5C00] transition-all duration-300 group-hover:w-full" />
+              </Link>
+              
+              <Link 
+                href="/tools/calculator"
+                className="group relative flex items-center justify-between gap-4 rounded-sm border border-white/10 bg-white/5 px-6 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-zinc-300 transition-all hover:bg-white/10 hover:text-white"
+              >
+                <span>Access Calculator</span>
+                <Calculator className="h-4 w-4" />
+                <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-white/30 transition-all duration-300 group-hover:w-full" />
+              </Link>
+            </div>
+            
+            <div className="mt-12 grid max-w-2xl grid-cols-3 gap-4 border-t border-white/5 pt-6">
               {[
-                ['Academy', 'Beginner path'],
-                ['Engineering', 'Build references'],
-                ['Tools', 'Practical calculators'],
+                ['Status', 'Active'],
+                ['Uplink', 'Secured'],
+                ['Version', 'OS-v2.0'],
               ].map(([label, value]) => (
-                <div key={label}>
-                  <div className="font-mono text-xs uppercase tracking-[0.16em] text-[#77736d]">{label}</div>
-                  <div className="mt-1 text-sm font-semibold text-[#d8d5cf]">{value}</div>
+                <div key={label} className="border-l border-white/10 pl-3">
+                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-600">{label}</div>
+                  <div className="mt-1 font-mono text-xs font-bold text-zinc-300 uppercase">{value}</div>
                 </div>
               ))}
             </div>
           </div>
 
           {heroCard && (
-            <Link href={heroCard.href} className="group block overflow-hidden rounded-lg border border-white/10 bg-[#101112]/75 shadow-[0_28px_80px_rgba(0,0,0,0.34)]">
-              <div className="relative aspect-[16/11] overflow-hidden">
-                {heroCard.coverImage && (
-                  <Image
-                    src={heroCard.coverImage}
-                    alt={heroCard.coverImageAlt || heroCard.title}
-                    fill
-                    priority
-                    sizes="(min-width: 1024px) 50vw, 100vw"
-                    unoptimized={true}
-                    className="h-full w-full object-cover opacity-[0.94] transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
-                  />
-                )}
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#070707] to-transparent p-6">
-                  <Badge variant="amber">{heroCard.category}</Badge>
-                  <h2 className="mt-3 max-w-xl text-2xl font-bold leading-tight text-white">{heroCard.title}</h2>
+            <div className="relative group">
+              <div className="absolute -inset-1 rounded-sm bg-gradient-to-tr from-[#00F2FF]/20 to-[#FF5C00]/20 opacity-0 blur transition duration-500 group-hover:opacity-100" />
+              <Link href={heroCard.href} className="relative block overflow-hidden rounded-sm border border-white/10 bg-[#18181b]">
+                <div className="border-b border-white/5 px-4 py-2 bg-[#09090b] flex justify-between items-center">
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">Featured Datastream</span>
+                  <Badge variant="outline" className="rounded-none border-white/10 text-[9px] bg-white/5 text-zinc-300">{heroCard.category}</Badge>
                 </div>
-              </div>
-            </Link>
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  {heroCard.coverImage && (
+                    <Image
+                      src={heroCard.coverImage}
+                      alt={heroCard.coverImageAlt || heroCard.title}
+                      fill
+                      priority
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      unoptimized={true}
+                      className="h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100 mix-blend-luminosity hover:mix-blend-normal"
+                    />
+                  )}
+                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/80 to-transparent p-6">
+                    <h2 className="mt-3 max-w-xl text-xl font-bold leading-tight text-zinc-100 uppercase tracking-wide group-hover:text-[#00F2FF] transition-colors">{heroCard.title}</h2>
+                    <p className="mt-2 line-clamp-2 text-xs font-mono text-zinc-400">{heroCard.excerpt}</p>
+                  </div>
+                </div>
+              </Link>
+            </div>
           )}
         </div>
       </section>
@@ -151,14 +176,17 @@ export default async function HomePage() {
         <PilotPulseWidget />
       </section>
 
-      <section className="mx-auto mt-16 grid max-w-7xl gap-4 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+      <section className="mx-auto mt-12 grid max-w-7xl gap-4 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
         {secondaryHeroCards.map((card) => (
           <ArticleCard key={card.slug} card={card} />
         ))}
-        <div className="rounded-lg border border-[#ff5a1f]/20 bg-[#ff5a1f]/8 p-6">
-          <div className="font-mono text-xs uppercase tracking-[0.16em] text-[#ff9b71]">{content.sponsorSlot.title}</div>
-          <h3 className="mt-3 text-xl font-bold text-white">Partner-ready FPV placements</h3>
-          <p className="mt-3 text-sm leading-6 text-[#bdb7ad]">{content.sponsorSlot.description}</p>
+        <div className="rounded-sm border border-[#00F2FF]/20 bg-[#00F2FF]/5 p-6 flex flex-col justify-center">
+          <div className="font-mono text-[9px] uppercase tracking-widest text-[#00F2FF] flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#00F2FF] animate-pulse" />
+            {content.sponsorSlot.title}
+          </div>
+          <h3 className="mt-4 text-sm font-bold text-zinc-100 uppercase tracking-wide">Partner-ready FPV placements</h3>
+          <p className="mt-2 text-xs leading-5 text-zinc-400 font-mono">{content.sponsorSlot.description}</p>
         </div>
       </section>
 
@@ -205,19 +233,19 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Tools To Build Faster" href="/tools" icon={Calculator} />
+      <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8 border-t border-white/5 pt-12">
+        <SectionHeading title="System Utilities" href="/tools" icon={Calculator} />
         <div className="grid gap-4 md:grid-cols-3">
           {content.toolCards.map((card, index) => (
-            <Link key={card.href} href={card.href} className="group rounded-lg border border-white/10 bg-[#101112]/78 p-6 transition hover:border-[#ff5a1f]/35">
-              <div className="mb-8 flex items-center justify-between">
-                <div className="flex h-11 w-11 items-center justify-center rounded-md bg-[#ff5a1f]/12 text-[#ff9b71]">
-                  {index === 0 ? <Calculator className="h-5 w-5" /> : index === 1 ? <Cpu className="h-5 w-5" /> : <Zap className="h-5 w-5" />}
+            <Link key={card.href} href={card.href} className="group rounded-sm border border-white/5 bg-[#18181b]/50 p-6 transition hover:border-[#FF5C00]/40 hover:bg-[#18181b]">
+              <div className="mb-6 flex items-center justify-between border-b border-white/5 pb-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#FF5C00]/10 text-[#FF5C00] transition-colors group-hover:bg-[#FF5C00] group-hover:text-black">
+                  {index === 0 ? <Calculator className="h-4 w-4" /> : index === 1 ? <Cpu className="h-4 w-4" /> : <Zap className="h-4 w-4" />}
                 </div>
-                <span className="font-mono text-xs text-[#77736d]">{card.label}</span>
+                <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-600 group-hover:text-zinc-400 transition-colors">SYS_UTILITY_{index + 1}</span>
               </div>
-              <h3 className="text-xl font-bold text-white group-hover:text-[#ff9b71]">{card.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-[#9f9a91]">{card.description}</p>
+              <h3 className="text-sm font-bold text-zinc-200 uppercase tracking-wide group-hover:text-[#FF5C00] transition-colors">{card.title}</h3>
+              <p className="mt-2 text-[11px] leading-5 text-zinc-500 font-mono">{card.description}</p>
             </Link>
           ))}
         </div>

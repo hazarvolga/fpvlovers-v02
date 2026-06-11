@@ -1,8 +1,13 @@
 import type { Metadata } from 'next';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 import { Navbar } from '@/features/layout/components/Navbar';
 import { SearchSection } from '@/features/layout/components/SearchSection';
 import { SiteFooter } from '@/features/layout/components/SiteFooter';
+import { MobileUtilityBar } from '@/features/layout/components/MobileUtilityBar';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { SessionProvider } from 'next-auth/react';
@@ -15,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`dark ${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="font-sans min-h-screen antialiased selection:bg-[#ff5a1f]/30 selection:text-white relative" suppressHydrationWarning>
         <SessionProvider>
           {/* Subtle global atmosphere. Tool pages can opt into heavier cockpit UI locally. */}
@@ -26,7 +31,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
           <Navbar />
           <SearchSection />
-          <main className="relative z-10">{children}</main>
+          <main className="relative z-10 pb-16 lg:pb-0">{children}</main>
+          <MobileUtilityBar />
           <SiteFooter />
           <Analytics />
           {process.env.NEXT_PUBLIC_GA_ID && (

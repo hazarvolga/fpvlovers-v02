@@ -80,26 +80,26 @@ export default function ToolsHubPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
-      <div className="relative p-8 hex-panel glass-panel overflow-hidden border-[#FF5C00]/20 shadow-[inset_0_0_80px_rgba(255,92,0,0.05)] text-center mb-12">
+      <div className="relative p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden text-center mb-12">
          <Wrench className="w-12 h-12 text-[#FF5C00] mb-6 opacity-80 inline-block" />
-         <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
+         <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-4">
            Oracle <span className="text-[#FF5C00]">Tools Hub</span>
          </h1>
-         <p className="text-sm font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest mx-auto">
-           {"// A suite of AI-powered diagnostic engines and calculators for FPV Pilots."}
+         <p className="text-sm font-sans text-zinc-400 max-w-2xl leading-relaxed mx-auto">
+           A suite of AI-powered diagnostic engines and calculators for FPV Pilots.
          </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {TOOLS.map((tool) => (
           <Link key={tool.name} href={tool.href} className="group block">
-            <div className={`h-full relative p-6 hex-panel glass-panel border ${tool.borderColor} ${tool.shadowColor} ${tool.hoverColor} transition-all duration-300`}>
+            <div className={`h-full relative p-6 bg-zinc-950 rounded-xl border border-white/5 ${tool.hoverColor} hover:shadow-2xl transition-all duration-300`}>
               <div className="flex flex-col h-full">
-                <tool.icon className={`w-10 h-10 ${tool.color} mb-4 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all`} />
-                <h2 className="text-xl font-black uppercase text-white tracking-tight mb-3">
+                <tool.icon className={`w-10 h-10 ${tool.color} mb-4 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-transform`} />
+                <h2 className="text-xl font-bold tracking-tight text-zinc-100 mb-3">
                   {tool.name}
                 </h2>
-                <p className="text-sm font-mono text-[#A0A0A0] leading-relaxed flex-grow">
+                <p className="text-sm font-sans text-zinc-400 leading-relaxed flex-grow">
                   {tool.description}
                 </p>
               </div>

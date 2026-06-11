@@ -118,12 +118,12 @@ export default function SimulatorsPage() {
         <div className="lg:col-span-8 flex flex-col gap-12">
 
           {/* HERO */}
-          <div className="relative p-10 hex-panel glass-panel overflow-hidden border border-[#00F2FF]/20 rounded-2xl">
+          <div className="relative p-10 md:p-14 border border-white/5 bg-zinc-950 rounded-2xl overflow-hidden shadow-2xl">
              <div className="absolute inset-0 bg-gradient-to-br from-[#00F2FF]/10 via-[#00F2FF]/5 to-transparent pointer-events-none" />
              <div className="absolute -right-10 -top-10 w-64 h-64 bg-[#00F2FF]/10 blur-[80px] rounded-full pointer-events-none" />
              
              <MonitorPlay className="w-14 h-14 text-[#00F2FF] mb-6 opacity-90 drop-shadow-[0_0_15px_rgba(0,242,255,0.5)]" />
-             <h1 className="text-4xl md:text-6xl font-black uppercase text-white tracking-tighter mb-4 leading-none">
+             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-zinc-100 mb-4 leading-none">
                Simulator <br/><span className="text-[#00F2FF]">Training Guide</span>
              </h1>
              <p className="text-xs md:text-sm font-mono text-[#00F2FF]/80 max-w-2xl leading-relaxed uppercase tracking-[0.2em] mt-6 border-l-2 border-[#00F2FF]/50 pl-4">
@@ -135,18 +135,18 @@ export default function SimulatorsPage() {
 
           {/* WHY USE A SIMULATOR */}
           <div className="space-y-8">
-             <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+             <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                 <ShieldAlert className="w-6 h-6 text-[#22C55E]" />
-                <h2 className="text-2xl font-black uppercase text-white tracking-tight">Why You Must Start Here</h2>
+                <h2 className="text-2xl font-bold uppercase text-zinc-100 tracking-tight">Why You Must Start Here</h2>
              </div>
              <div className="grid sm:grid-cols-3 gap-6">
                 {data.whySims.map((reason, i) => (
-                   <div key={i} className="bg-gradient-to-b from-black/60 to-black/30 p-6 border border-white/5 rounded-xl hover:border-[#22C55E]/40 hover:bg-[#22C55E]/5 transition-all duration-300 shadow-lg">
+                   <div key={i} className="bg-zinc-900/50 p-6 border border-white/5 rounded-xl hover:border-[#22C55E]/40 hover:bg-[#22C55E]/5 transition-all duration-300 shadow-lg">
                       <div className="flex items-center gap-2 mb-4">
                         <CheckCircle2 className="w-4 h-4 text-[#22C55E]" />
-                        <h4 className="text-white font-bold uppercase text-sm tracking-widest">{reason.title}</h4>
+                        <h4 className="text-zinc-100 font-bold uppercase text-sm tracking-widest">{reason.title}</h4>
                       </div>
-                      <p className="text-[#A0A0A0] text-sm leading-relaxed">{reason.text}</p>
+                      <p className="text-zinc-400 text-sm leading-relaxed">{reason.text}</p>
                    </div>
                 ))}
              </div>
@@ -154,16 +154,16 @@ export default function SimulatorsPage() {
 
           {/* TOP SIMULATORS COMPARISON */}
           <div className="space-y-8">
-             <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+             <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                 <Gamepad2 className="w-6 h-6 text-[#00F2FF]" />
-                <h2 className="text-2xl font-black uppercase text-white tracking-tight">Top FPV Simulators Compared</h2>
+                <h2 className="text-2xl font-bold uppercase text-zinc-100 tracking-tight">Top FPV Simulators Compared</h2>
              </div>
 
              <div className="flex flex-col gap-8">
                 {data.topSims.map((sim, i) => (
-                   <div key={i} className="bg-black/40 border border-white/10 rounded-2xl overflow-hidden group hover:border-[#00F2FF]/40 transition-all duration-500 shadow-xl flex flex-col md:flex-row">
+                   <div key={i} className="bg-zinc-950 border border-white/5 rounded-2xl overflow-hidden group hover:border-[#00F2FF]/40 transition-all duration-500 shadow-xl flex flex-col md:flex-row">
                       {/* Image Side */}
-                      <div className="relative w-full md:w-2/5 aspect-[16/9] md:aspect-auto overflow-hidden bg-[#0A0A0C]">
+                      <div className="relative w-full md:w-2/5 aspect-[16/9] md:aspect-auto overflow-hidden bg-zinc-900">
                          <Image
                            src={sim.imageUrl}
                            alt={sim.name}
@@ -171,45 +171,45 @@ export default function SimulatorsPage() {
                            unoptimized={true}
                            className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
                          />
-                         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/90 md:to-black/80" />
+                         <div className="absolute inset-0 bg-gradient-to-r from-transparent to-zinc-950/90 md:to-zinc-950/80" />
                          <div className="absolute top-4 left-4">
-                           <Badge className="bg-black/50 backdrop-blur-md border border-white/20 text-white font-mono text-[10px] uppercase">{sim.hardware}</Badge>
+                           <Badge className="bg-zinc-900/50 backdrop-blur-md border border-white/10 text-zinc-100 font-mono text-[10px] uppercase">{sim.hardware}</Badge>
                          </div>
                       </div>
                       
                       {/* Content Side */}
-                      <div className="p-6 md:p-8 flex flex-col w-full md:w-3/5 relative z-10 -mt-6 md:mt-0 bg-gradient-to-t from-black/90 md:bg-none to-transparent">
+                      <div className="p-6 md:p-8 flex flex-col w-full md:w-3/5 relative z-10 -mt-6 md:mt-0 bg-gradient-to-t from-zinc-950/90 md:bg-none to-transparent">
                          <div className="flex justify-between items-start mb-4">
                             <div>
                                <div className="text-[10px] text-[#00F2FF] mb-2 tracking-[0.2em] uppercase font-bold">{sim.type}</div>
-                               <h3 className="text-white font-black text-2xl tracking-tight">{sim.name}</h3>
+                               <h3 className="text-zinc-100 font-bold text-2xl tracking-tight">{sim.name}</h3>
                             </div>
-                            <div className="text-[#FF5C00] font-black bg-[#FF5C00]/10 px-3 py-1.5 rounded border border-[#FF5C00]/20 text-sm shadow-[0_0_10px_rgba(255,92,0,0.2)]">
+                            <div className="text-[#FF5C00] font-bold bg-[#FF5C00]/10 px-3 py-1.5 rounded border border-[#FF5C00]/20 text-sm shadow-[0_0_10px_rgba(255,92,0,0.2)]">
                               {sim.price}
                             </div>
                          </div>
                          
-                         <p className="text-[#D0D0D0] text-sm leading-relaxed mb-6">
+                         <p className="text-zinc-400 text-sm leading-relaxed mb-6">
                            {sim.desc}
                          </p>
 
                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                            <div className="bg-white/5 p-3 rounded border border-white/5">
-                               <div className="text-[10px] text-[#A0A0A0] uppercase tracking-widest mb-1 flex items-center gap-1"><Cpu className="w-3 h-3"/> Physics</div>
-                               <div className="text-xs text-white font-semibold">{sim.physics}</div>
+                            <div className="bg-zinc-900 p-3 rounded-lg border border-white/5">
+                               <div className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1 flex items-center gap-1"><Cpu className="w-3 h-3"/> Physics</div>
+                               <div className="text-xs text-zinc-100 font-semibold">{sim.physics}</div>
                             </div>
-                            <div className="bg-white/5 p-3 rounded border border-white/5">
-                               <div className="text-[10px] text-[#A0A0A0] uppercase tracking-widest mb-1 flex items-center gap-1"><PlayCircle className="w-3 h-3"/> Graphics</div>
-                               <div className="text-xs text-white font-semibold">{sim.graphics}</div>
+                            <div className="bg-zinc-900 p-3 rounded-lg border border-white/5">
+                               <div className="text-[10px] text-zinc-500 uppercase tracking-widest mb-1 flex items-center gap-1"><PlayCircle className="w-3 h-3"/> Graphics</div>
+                               <div className="text-xs text-zinc-100 font-semibold">{sim.graphics}</div>
                             </div>
                          </div>
 
                          <div className="grid grid-cols-2 gap-4 mt-auto">
                             <div>
                                <div className="text-[10px] text-[#22C55E] uppercase tracking-widest font-bold mb-2">Pros</div>
-                               <ul className="space-y-1">
+                                <ul className="space-y-1">
                                  {sim.pros.map((pro, j) => (
-                                   <li key={j} className="text-[11px] text-[#A0A0A0] flex items-start gap-1.5">
+                                   <li key={j} className="text-[11px] text-zinc-400 flex items-start gap-1.5">
                                       <span className="text-[#22C55E] mt-0.5">+</span> {pro}
                                    </li>
                                  ))}
@@ -219,7 +219,7 @@ export default function SimulatorsPage() {
                                <div className="text-[10px] text-red-400 uppercase tracking-widest font-bold mb-2">Cons</div>
                                <ul className="space-y-1">
                                  {sim.cons.map((con, j) => (
-                                   <li key={j} className="text-[11px] text-[#A0A0A0] flex items-start gap-1.5">
+                                   <li key={j} className="text-[11px] text-zinc-400 flex items-start gap-1.5">
                                       <span className="text-red-400 mt-0.5">-</span> {con}
                                    </li>
                                  ))}
@@ -234,16 +234,16 @@ export default function SimulatorsPage() {
 
           {/* REQUIRED HARDWARE */}
           <div className="space-y-8 mt-4">
-             <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+             <div className="flex items-center gap-3 border-b border-white/5 pb-4">
                 <Trophy className="w-6 h-6 text-[#FF5C00]" />
-                <h2 className="text-2xl font-black uppercase text-white tracking-tight">Required Interface Hardware</h2>
+                <h2 className="text-2xl font-bold uppercase text-zinc-100 tracking-tight">Required Interface Hardware</h2>
              </div>
              
              <div className="bg-[#FF5C00]/10 border border-[#FF5C00]/20 rounded-xl p-5 flex items-start gap-4">
                 <AlertTriangle className="w-6 h-6 text-[#FF5C00] flex-shrink-0 mt-0.5" />
                 <div>
-                   <h4 className="text-white font-bold mb-1">Crucial Warning: Do Not Use Gamepads!</h4>
-                   <p className="text-[#A0A0A0] text-sm leading-relaxed">
+                   <h4 className="text-zinc-100 font-bold mb-1">Crucial Warning: Do Not Use Gamepads!</h4>
+                   <p className="text-zinc-400 text-sm leading-relaxed">
                      To fly a simulator correctly, you need a real FPV radio transmitter. Do not use an Xbox or PlayStation controller; their throttle sticks re-center automatically, which will teach you the wrong muscle memory for Acro mode and lead to immediate crashes in real life.
                    </p>
                 </div>
@@ -262,11 +262,11 @@ export default function SimulatorsPage() {
 
         {/* SIDEBAR */}
         <aside className="lg:col-span-4 hidden lg:flex flex-col gap-8 sticky top-28">
-           <div className="bg-black/50 border border-white/10 rounded-2xl p-6 shadow-xl">
-             <h3 className="text-sm font-black uppercase text-white tracking-widest mb-4 flex items-center gap-2">
+           <div className="bg-zinc-950 border border-white/5 rounded-xl p-6 shadow-xl">
+             <h3 className="text-sm font-bold uppercase text-zinc-100 tracking-widest mb-4 flex items-center gap-2">
                <Zap className="w-4 h-4 text-[#FFD700]" /> Pro Tip
              </h3>
-             <p className="text-sm text-[#A0A0A0] leading-relaxed">
+             <p className="text-sm text-zinc-400 leading-relaxed">
                Most modern ELRS radios (like the Radiomaster Boxer) support Bluetooth Joystick mode, but for the absolute lowest latency, always connect your radio to your PC using a high-quality USB-C data cable.
              </p>
            </div>

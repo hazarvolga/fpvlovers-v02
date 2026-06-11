@@ -104,11 +104,26 @@ async function dbEnqueueUrls(urls: string[], dataset?: string): Promise<CrawlJob
   return newJobs;
 }
 
+interface DbCrawlJobRow {
+  id: string;
+  url: string;
+  dataset: string | null;
+  status: string;
+  priority: number | null;
+  retries: number | null;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+  nextRetryAt: string | Date | null;
+  tokens?: string | null;
+  docId?: string | null;
+  error?: string | null;
+}
+
 async function dbGetNextBatch(batchSize: number, retryDelaysMs: number[]): Promise<CrawlJob[]> {
   const now = new Date();
   try {
     // Select eligible jobs with row lock to support multiple concurrent crawlers
-    const res = await query<any>(`
+    const res = await query<DbCrawlJobRow>(`
       SELECT 
         id, url, dataset_key as dataset, status, priority, retry_count as retries,
         created_at as "createdAt", updated_at as "updatedAt", next_attempt_at as "nextRetryAt"
@@ -120,11 +135,11 @@ async function dbGetNextBatch(batchSize: number, retryDelaysMs: number[]): Promi
       FOR UPDATE SKIP LOCKED
     `, [now, batchSize]);
 
-    return res.rows.map(row => ({
+    return res.rows.map((row: DbCrawlJobRow) => ({
       id: row.id,
       url: row.url,
       dataset: row.dataset || undefined,
-      status: row.status,
+      status: row.status as CrawlJob['status'],
       priority: row.priority || 0,
       retries: row.retries || 0,
       maxRetries: retryDelaysMs.length,
@@ -220,7 +235,7 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
 
 async function dbGetQueueStatus(config: CrawlQueue['config']): Promise<CrawlQueue> {
   try {
-    const res = await query<any>(`
+    const res = await query<DbCrawlJobRow>(`
       SELECT 
         id, url, dataset_key as dataset, status, priority, retry_count as retries,
         created_at as "createdAt", updated_at as "updatedAt", next_attempt_at as "nextRetryAt",
@@ -229,11 +244,11 @@ async function dbGetQueueStatus(config: CrawlQueue['config']): Promise<CrawlQueu
       ORDER BY created_at DESC
     `);
 
-    const jobs: CrawlJob[] = res.rows.map(row => ({
+    const jobs: CrawlJob[] = res.rows.map((row: DbCrawlJobRow) => ({
       id: row.id,
       url: row.url,
       dataset: row.dataset || undefined,
-      status: row.status,
+      status: row.status as CrawlJob['status'],
       priority: row.priority || 0,
       retries: row.retries || 0,
       maxRetries: config.retryDelaysMs.length,

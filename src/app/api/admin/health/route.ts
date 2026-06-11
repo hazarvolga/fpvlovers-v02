@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { checkCrawlerHealth } from '@/lib/crawler-health';
-import { checkDbHealth } from '@/lib/server/db';
+import { healthCheck } from '@/lib/server/db';
 import { getStorageMode } from '@/lib/server/storage-mode';
 
 const DIFY_PAGES = [
@@ -53,10 +53,10 @@ export async function GET() {
 
   // 3. Check PostgreSQL Database Health
   const storageMode = getStorageMode();
-  const dbHealth = await checkDbHealth();
+  const dbHealth = await healthCheck();
   services.push({
     name: `PostgreSQL (${storageMode} mode)`,
-    status: dbHealth.healthy ? 'up' : (storageMode === 'files' ? 'up' : 'down'),
+    status: dbHealth.ok ? 'up' : (storageMode === 'files' ? 'up' : 'down'),
     latency: dbHealth.latencyMs || 0,
     detail: dbHealth.error ? `DB Error: ${dbHealth.error}` : `Connection active`,
   });

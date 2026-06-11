@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronRight, Menu, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -59,20 +60,23 @@ export function Navbar() {
   return (
     <nav
       className={cn(
-        'fixed top-0 z-50 w-full border-b transition-all duration-300',
+        'fixed top-0 z-50 w-full border-b transition-all duration-300 font-sans',
         scrolled
-          ? 'border-white/10 bg-[#080808]/88 shadow-[0_18px_50px_rgba(0,0,0,0.28)] backdrop-blur-xl'
-          : 'border-white/6 bg-[#080808]/62 backdrop-blur-md',
+          ? 'border-white/5 bg-[#09090b]/90 shadow-2xl backdrop-blur-xl'
+          : 'border-transparent bg-[#09090b]/50 backdrop-blur-md',
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3 group" aria-label="FPVLovers home" onClick={closeNavigation}>
-          <div className="flex h-9 w-9 items-center justify-center rounded-md border border-[#ff5a1f]/35 bg-[#ff5a1f]/12 text-[#ff9b71] transition-colors group-hover:border-[#ff5a1f]/70">
-            <span className="text-sm font-black tracking-tight">FPV</span>
-          </div>
-          <div className="flex flex-col leading-none">
-            <span className="text-base font-black tracking-tight text-white">FPVLovers</span>
-            <span className="mt-1 text-[11px] font-medium text-[#8d8981]">Academy, builds, tools</span>
+        <Link href="/" className="flex items-center gap-3 group animate-pulse" aria-label="FPVLovers home" onClick={closeNavigation}>
+          <div className="relative h-12 w-[220px]">
+            <Image
+              src="/logo-type.png"
+              alt="FPVLovers Logo"
+              fill
+              sizes="220px"
+              priority
+              className="object-contain object-left"
+            />
           </div>
         </Link>
 
@@ -92,16 +96,15 @@ export function Navbar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-[#bdb7ad] transition-colors hover:bg-white/[0.06] hover:text-white',
-                    isActive && 'bg-white/8 text-white',
+                    'flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-wider text-zinc-400 transition-colors hover:text-zinc-100',
+                    isActive && 'text-zinc-100'
                   )}
                   aria-haspopup="menu"
                   aria-expanded={isOpen}
                   onClick={closeNavigation}
                 >
-                  <item.icon className={cn('h-4 w-4', isActive ? 'text-[#ff9b71]' : 'text-[#77736d]')} />
                   {item.title}
-                  {hasItems && <ChevronDown className={cn('h-3.5 w-3.5 text-[#77736d] transition-transform', isOpen && 'rotate-180 text-[#ff9b71]')} />}
+                  {hasItems && <ChevronDown className={cn('h-3.5 w-3.5 opacity-50 transition-transform', isOpen && 'rotate-180 opacity-100')} />}
                 </Link>
 
                 {hasItems && (
@@ -112,11 +115,10 @@ export function Navbar() {
                     )}
                     role="menu"
                   >
-                    <div className="overflow-hidden rounded-lg border border-white/10 bg-[#0b0b0c]/95 shadow-[0_28px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-                      <div className="border-b border-white/8 px-4 py-3">
-                        <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-[#ff9b71]">{item.label}</div>
-                        <div className="mt-1 flex items-center gap-2 text-sm font-bold text-white">
-                          <item.icon className="h-4 w-4 text-[#d8d5cf]" />
+                    <div className="overflow-hidden rounded-md border border-white/5 bg-[#18181b]/95 shadow-2xl backdrop-blur-xl">
+                      <div className="border-b border-white/5 px-4 py-3 bg-[#09090b]">
+                        <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">{item.label}</div>
+                        <div className="mt-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-zinc-100">
                           {item.title}
                         </div>
                       </div>
@@ -128,24 +130,24 @@ export function Navbar() {
                               key={subItem.href}
                               href={subItem.href}
                               className={cn(
-                                'group flex items-start gap-3 rounded-md px-3 py-3 transition-colors hover:bg-white/[0.06]',
-                                subActive && 'bg-white/8',
+                                'group flex items-start gap-3 rounded-md px-3 py-3 transition-colors hover:bg-white/5',
+                                subActive && 'bg-white/5',
                               )}
                               onClick={() => setActiveMenu(null)}
                               role="menuitem"
                             >
                               <div className={cn(
-                                'mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-[#8d8981] transition-colors group-hover:border-[#ff5a1f]/35 group-hover:text-[#ff9b71]',
-                                subActive && 'border-[#ff5a1f]/45 text-[#ff9b71]',
+                                'mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-white/5 bg-black/20 text-zinc-500 transition-colors group-hover:border-[#00F2FF]/30 group-hover:text-[#00F2FF]',
+                                subActive && 'border-[#00F2FF]/50 text-[#00F2FF]',
                               )}>
-                                <subItem.icon className="h-4 w-4" />
+                                <subItem.icon className="h-3.5 w-3.5" />
                               </div>
                               <div className="min-w-0 flex-1">
-                                <div className="flex items-center justify-between gap-3 text-sm font-bold text-[#ebe7df]">
+                                <div className="flex items-center justify-between gap-3 text-xs font-bold uppercase tracking-wider text-zinc-300 group-hover:text-zinc-100">
                                   <span>{subItem.title}</span>
-                                  <ChevronRight className="h-3.5 w-3.5 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-70" />
+                                  <ChevronRight className="h-3 w-3 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-70" />
                                 </div>
-                                <p className="mt-1 line-clamp-2 text-xs leading-5 text-[#8d8981]">{subItem.description}</p>
+                                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-zinc-500">{subItem.description}</p>
                               </div>
                             </Link>
                           );
@@ -165,17 +167,17 @@ export function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-2 rounded-md border border-[#00F2FF]/30 hover:border-[#00F2FF] bg-[#00F2FF]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#00F2FF] transition-all hover:bg-[#00F2FF]/10 cursor-pointer"
+                className="flex items-center gap-2 rounded-sm border border-[#00F2FF]/30 hover:border-[#00F2FF] bg-[#00F2FF]/5 px-3.5 py-2 text-[10px] font-mono uppercase tracking-widest text-[#00F2FF] transition-all hover:bg-[#00F2FF]/10 cursor-pointer"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-[#00FF66] animate-ping animate-duration-1000" />
                 🛰️ {session.user?.name || 'Pilot'}
                 <ChevronDown className="w-3.5 h-3.5 ml-1 opacity-70" />
               </button>
               {userMenuOpen && (
-                <div className="absolute right-0 mt-2 w-56 rounded-md border border-white/10 bg-[#0b0b0c] p-2 shadow-2xl z-50 text-xs font-mono">
-                  <div className="px-3 py-2 border-b border-white/5 mb-1.5">
-                    <span className="text-[#888] uppercase block text-[9px]">Authorized Operator</span>
-                    <span className="text-white font-bold block truncate">{session.user?.email}</span>
+                <div className="absolute right-0 mt-2 w-56 rounded-sm border border-white/5 bg-[#18181b] p-2 shadow-2xl z-50 text-[10px] font-mono uppercase tracking-widest">
+                  <div className="px-3 py-2 border-b border-white/5 mb-1.5 bg-[#09090b] rounded-sm">
+                    <span className="text-zinc-600 block text-[9px]">Authorized Operator</span>
+                    <span className="text-zinc-300 font-bold block truncate mt-1">{session.user?.email}</span>
                   </div>
                   <Link
                     href="/academy/dossier"
@@ -251,7 +253,7 @@ export function Navbar() {
           ) : (
             <Link
               href="/auth/signin"
-              className="rounded-md bg-[#ff5a1f] hover:bg-[#ff5a1f]/90 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all border-b-2 border-[#9E3900]"
+              className="rounded-sm bg-[#FF5C00] hover:bg-[#FF5C00]/90 px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white transition-all"
             >
               Authorize
             </Link>
@@ -275,16 +277,16 @@ export function Navbar() {
             {navLinks.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
-                <div key={item.href} className="rounded-lg border border-white/8 bg-white/[0.02] p-2">
+                <div key={item.href} className="rounded-sm border border-white/5 bg-[#18181b]/50 p-2">
                   <Link
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-3 rounded-md px-3 py-3 text-sm font-semibold text-[#bdb7ad]',
-                      isActive && 'bg-white/8 text-white',
+                      'flex items-center gap-3 rounded-sm px-3 py-3 text-[11px] font-bold uppercase tracking-wider text-zinc-400 transition-colors',
+                      isActive && 'bg-white/5 text-zinc-100',
                     )}
                     onClick={closeNavigation}
                   >
-                    <item.icon className={cn('h-4 w-4', isActive ? 'text-[#ff9b71]' : 'text-[#77736d]')} />
+                    <item.icon className={cn('h-3.5 w-3.5', isActive ? 'text-[#00F2FF]' : 'text-zinc-500')} />
                     <span className="flex-1">{item.title}</span>
                     <ChevronRight className="h-4 w-4 text-[#77736d]" />
                   </Link>
@@ -297,12 +299,12 @@ export function Navbar() {
                             key={subItem.href}
                             href={subItem.href}
                             className={cn(
-                              'flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[#9f9a91] transition-colors hover:bg-white/[0.05] hover:text-white',
-                              subActive && 'bg-white/8 text-white',
+                              'flex items-center gap-2 rounded-sm px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 transition-colors hover:bg-white/5 hover:text-zinc-300',
+                              subActive && 'bg-white/5 text-zinc-300',
                             )}
                             onClick={closeNavigation}
                           >
-                            <subItem.icon className={cn('h-3.5 w-3.5', subActive ? 'text-[#ff9b71]' : 'text-[#77736d]')} />
+                            <subItem.icon className={cn('h-3 w-3', subActive ? 'text-[#00F2FF]' : 'text-zinc-600')} />
                             {subItem.title}
                           </Link>
                         );
@@ -336,10 +338,10 @@ export function Navbar() {
               ) : (
                 <Link
                   href="/auth/signin"
-                  className="flex items-center justify-center rounded-md bg-[#ff5a1f] py-3 text-sm font-bold uppercase tracking-wider text-white border-b-2 border-[#9E3900]"
+                  className="flex items-center justify-center rounded-sm bg-[#FF5C00] py-3 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white"
                   onClick={closeNavigation}
                 >
-                  Authorize Signal (Sign In)
+                  Authorize Signal
                 </Link>
               )}
             </div>

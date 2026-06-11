@@ -13,13 +13,13 @@ export const metadata = generateSeoMetadata({
 
 function TelemetryMeter({ label, value, unit, status, color = '#FF5C00' }: { label: string; value: string; unit: string; status: string; color?: string }) {
   return (
-    <div className="bg-[#0b0c10] border border-white/5 p-4 rounded-sm font-mono flex flex-col justify-between">
+    <div className="bg-zinc-950 border border-white/5 p-4 rounded-xl font-mono flex flex-col justify-between">
       <div className="flex justify-between items-center mb-2">
         <span className="text-[9px] uppercase tracking-widest text-white/40">{label}</span>
         <span className="text-[9px] uppercase px-1.5 py-0.5 bg-white/5 rounded" style={{ color }}>{status}</span>
       </div>
       <div className="flex items-baseline gap-1">
-        <span className="text-2xl font-black tracking-tighter text-white">{value}</span>
+        <span className="text-2xl font-bold tracking-tight text-zinc-100">{value}</span>
         <span className="text-[10px] text-white/50">{unit}</span>
       </div>
       <div className="w-full bg-white/5 h-1 mt-3 rounded-full overflow-hidden">
@@ -49,19 +49,19 @@ function ResearchCategoryCard({
   href: string;
 }) {
   return (
-    <div className="relative group overflow-hidden border border-white/10 bg-[#07080c]/60 backdrop-blur-md rounded-md p-6 hover:border-white/20 transition-all flex flex-col justify-between">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+    <div className="relative group overflow-hidden border border-white/10 bg-zinc-950 shadow-xl rounded-xl p-8 hover:border-white/20 transition-all flex flex-col justify-between">
+      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
       <div className="absolute left-0 top-0 w-1 h-full" style={{ backgroundColor: color }} />
       
       <div>
         <div className="flex justify-between items-start mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 flex items-center justify-center bg-white/5 border border-white/10 rounded-sm">
+            <div className="w-10 h-10 flex items-center justify-center bg-white/5 border border-white/10 rounded-lg">
               <Icon className="w-5 h-5" style={{ color }} />
             </div>
             <div>
               <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/40">RESEARCH DIVISION // {id}</span>
-              <h2 className="text-xl font-black uppercase tracking-tight text-white mt-0.5">{title}</h2>
+              <h2 className="text-xl font-bold uppercase tracking-tight text-zinc-100 mt-0.5">{title}</h2>
             </div>
           </div>
           <div className="flex gap-2">
@@ -74,7 +74,7 @@ function ResearchCategoryCard({
         {/* Division Telemetries */}
         <div className="grid grid-cols-2 gap-2 mb-6 font-mono text-[10px]">
           {metrics.map((m, i) => (
-            <div key={i} className="bg-white/[0.02] border border-white/5 p-2 rounded-sm">
+            <div key={i} className="bg-white/[0.02] border border-white/5 p-2 rounded-lg">
               <span className="text-white/40 block text-[8px] uppercase tracking-widest">{m.label}</span>
               <span className="font-bold block mt-0.5" style={{ color }}>{m.value}</span>
             </div>
@@ -88,7 +88,7 @@ function ResearchCategoryCard({
             <Link
               key={i}
               href={`/article/${p.slug}`}
-              className="flex items-center justify-between p-2.5 bg-black/40 border border-white/5 hover:border-white/10 transition-colors group/link rounded-sm"
+              className="flex items-center justify-between p-2.5 bg-zinc-900 border border-white/5 hover:border-white/10 transition-colors group/link rounded-lg"
             >
               <div className="flex items-center gap-2 min-w-0">
                 <span className="font-mono text-[9px] text-white/30">[{String(i + 1).padStart(2, '0')}]</span>
@@ -102,7 +102,7 @@ function ResearchCategoryCard({
 
       <Link
         href={href}
-        className="w-full block border border-white/10 font-mono text-[10px] uppercase tracking-widest py-3 text-center text-white/60 group-hover:text-white group-hover:border-white/30 hover:bg-white/5 rounded-sm transition-all"
+        className="w-full block border border-white/10 font-mono text-[10px] uppercase tracking-widest py-3 text-center text-white/60 group-hover:text-white group-hover:border-white/30 hover:bg-white/5 rounded-lg transition-all"
       >
         ACCESS_DIVISION_HUD
       </Link>
@@ -116,7 +116,7 @@ export default function EngineeringHomepage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#030406]">
+    <div className="min-h-screen bg-zinc-950 text-zinc-300 font-sans">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
         <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
@@ -125,23 +125,23 @@ export default function EngineeringHomepage() {
           <div className="lg:col-span-8 flex flex-col gap-8">
             
             {/* HERO MODULE */}
-            <section className="relative border border-white/10 bg-[#07080c]/80 backdrop-blur-sm p-8 overflow-hidden rounded-md">
-              <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
-                style={{ backgroundImage: 'radial-gradient(circle, white 0.5px, transparent 0.5px)', backgroundSize: '16px 16px' }}
+            <section className="relative border border-white/10 bg-zinc-900 p-10 md:p-12 overflow-hidden rounded-xl shadow-2xl">
+              <div className="absolute inset-0 opacity-20 pointer-events-none"
+                style={{ backgroundImage: 'radial-gradient(circle, #3f3f46 1px, transparent 1px)', backgroundSize: '24px 24px' }}
               />
               <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-12 h-12 flex items-center justify-center bg-[#FF5C00]/10 border border-[#FF5C00]/20 rounded-md">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 flex items-center justify-center bg-[#FF5C00]/10 border border-[#FF5C00]/20 rounded-xl">
                     <Wrench className="w-6 h-6 text-[#FF5C00]" />
                   </div>
                   <div>
                     <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#FF5C00]">FPV RESEARCH DIVISION // V2</span>
-                    <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-white mt-1">
+                    <h1 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-zinc-100 mt-1">
                       ENGINEERING <span className="text-[#FF5C00]">LAB</span>
                     </h1>
                   </div>
                 </div>
-                <p className="text-xs text-white/50 leading-relaxed font-sans max-w-3xl mb-6">
+                <p className="text-lg text-zinc-400 leading-relaxed max-w-3xl mb-8">
                   Advanced theoretical and structural multirotor research. Designed exclusively for builders, tuners, and competitive pilots investigating the physical limits and mathematical constraints governing flight performance.
                 </p>
 
@@ -154,14 +154,13 @@ export default function EngineeringHomepage() {
             </section>
 
             {/* RESEARCH DIVISIONS HUB */}
-            <section className="space-y-4">
-              <div className="flex items-center gap-3 border-b border-white/10 pb-3">
-                <div className="w-6 h-6 flex items-center justify-center bg-[#FF5C00]/10 border border-[#FF5C00]/30 rounded-sm">
-                  <Compass className="w-3.5 h-3.5 text-[#FF5C00]" />
+            <section className="space-y-6">
+              <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+                <div className="w-8 h-8 flex items-center justify-center bg-zinc-900 border border-white/10 rounded-xl">
+                  <Compass className="w-4 h-4 text-zinc-300" />
                 </div>
                 <div>
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-white/40">SYS_COCKPIT_MAPPING</span>
-                  <h3 className="text-base font-black uppercase text-white tracking-wider">Research Divisions & Sectors</h3>
+                  <h3 className="text-xl font-bold tracking-tight text-zinc-100">Research Divisions & Sectors</h3>
                 </div>
               </div>
 
@@ -241,7 +240,7 @@ export default function EngineeringHomepage() {
             </section>
 
             {/* ACADEMY PROGRESSION CAPTURE */}
-            <section className="bg-gradient-to-r from-transparent to-white/[0.02] border border-white/10 p-6 rounded-md font-mono text-xs text-white/50 leading-relaxed flex flex-col sm:flex-row justify-between items-center gap-4">
+            <section className="bg-gradient-to-r from-transparent to-white/[0.02] border border-white/10 p-6 rounded-xl font-mono text-xs text-white/50 leading-relaxed flex flex-col sm:flex-row justify-between items-center gap-4">
               <div className="flex gap-3 items-center">
                 <ShieldCheck className="w-5 h-5 text-[#00FF66] shrink-0" />
                 <p className="font-sans">

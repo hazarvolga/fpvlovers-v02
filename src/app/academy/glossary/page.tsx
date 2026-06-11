@@ -303,17 +303,18 @@ export default function GlossaryPage() {
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       {/* SECTION 1: SEARCH FIRST (Primary Entry Point) */}
-      <div className="relative p-8 md:p-12 border border-white/5 rounded-lg bg-gradient-to-b from-[#0B0B0C] to-black shadow-2xl mb-12 overflow-hidden">
+      <div className="relative p-8 md:p-12 bg-zinc-950 border border-white/5 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] rounded-2xl mb-12 overflow-hidden">
         {/* Sleek tactical cockpit accent */}
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#FF5C00]/10 via-[#00F2FF] to-[#00FF66]/10" />
-        <div className="absolute top-4 right-4 text-[9px] text-[#666] tracking-widest uppercase">{"[SYS_CONSOLE_VER_4.5]"}</div>
+        <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#FF5C00]/20 via-[#00F2FF] to-[#00FF66]/20" />
+        <div className="absolute top-4 right-4 text-[9px] text-[#00F2FF] tracking-widest uppercase">{"[SYS_CONSOLE_VER_4.5]"}</div>
         
         <BookOpen className="w-10 h-10 text-[#FF5C00] mb-6 opacity-90" />
         
-        <h1 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tighter mb-3">
+        <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-100 mb-3 leading-none">
           FPV <span className="text-[#00F2FF]">Terminology Operating System</span>
         </h1>
-        <p className="text-xs uppercase text-[#8D8981] tracking-widest max-w-2xl leading-relaxed mb-8">
+        <p className="text-xs uppercase text-zinc-400 tracking-widest max-w-2xl leading-relaxed mb-8">
           {"// DECODE ACRONYMS, HARDWARE SYSTEMS, AND FLIGHT PROBLEMS INSTANTLY"}
         </p>
 
@@ -330,13 +331,13 @@ export default function GlossaryPage() {
         </div>
 
         {/* Suggestion Shortcuts */}
-        <div className="flex flex-wrap gap-2 items-center mt-4 text-[10px]">
-          <span className="text-[#555] uppercase">Quick Search:</span>
+        <div className="flex flex-wrap gap-2 items-center mt-4 text-[10px] relative z-10">
+          <span className="text-[#A0A0A0] uppercase">Quick Search:</span>
           {popularKeywords.map((kw) => (
             <button
               key={kw}
               onClick={() => handleKeywordShortcut(kw)}
-              className="px-2.5 py-1 bg-white/[0.03] border border-[#222] text-[#A0A0A0] hover:text-[#00F2FF] hover:border-[#00F2FF]/30 rounded transition-all cursor-pointer uppercase"
+              className="px-2.5 py-1 bg-[#00F2FF]/5 border border-[#00F2FF]/20 text-[#00F2FF] hover:bg-[#00F2FF]/10 hover:border-[#00F2FF]/40 hover:text-white rounded transition-all cursor-pointer uppercase"
             >
               {kw}
             </button>
@@ -363,19 +364,19 @@ export default function GlossaryPage() {
             <div
               key={item.slug}
               onClick={() => handleOpenDossier(item)}
-              className="bg-[#050907]/30 p-5 border border-[#0F1C14] hover:border-[#00FF66]/40 rounded group transition-all duration-300 cursor-pointer flex flex-col justify-between"
+              className="bg-zinc-950 p-5 border border-white/5 hover:bg-zinc-900/50 hover:border-[#00FF66]/40 rounded-xl group transition-all duration-300 cursor-pointer flex flex-col justify-between"
             >
               <div className="flex flex-col gap-2.5">
-                <div className="flex justify-between items-center text-[9px] font-mono uppercase tracking-widest text-[#555]">
+                <div className="flex justify-between items-center text-[9px] font-mono uppercase tracking-widest text-zinc-500">
                   <span className="text-[#00FF66] font-bold">CORE CONCEPT</span>
                   <span className="px-1.5 py-0.5 rounded border border-[#00FF66]/20 bg-[#00FF66]/5 text-[#00FF66]">
                     Phase {item.relatedAcademyModules[0] ? item.relatedAcademyModules[0].slice(-1) : '1'}
                   </span>
                 </div>
-                <h4 className="text-sm font-black uppercase text-white group-hover:text-[#00FF66] transition-colors">
+                <h4 className="text-sm font-bold uppercase text-zinc-100 group-hover:text-[#00FF66] transition-colors">
                   {item.term}
                 </h4>
-                <p className="text-xs text-[#8D8981] leading-relaxed line-clamp-2">
+                <p className="text-xs text-zinc-400 leading-relaxed line-clamp-2">
                   {item.plainLanguageExplanation}
                 </p>
               </div>
@@ -411,15 +412,15 @@ export default function GlossaryPage() {
           {systemCategories.map((sys, idx) => {
             const Icon = sys.icon;
             return (
-              <div key={idx} className={`border rounded p-6 flex flex-col justify-between gap-5 transition-all duration-300 ${sys.bgClass}`}>
+              <div key={idx} className={`border border-white/5 rounded-xl p-6 flex flex-col justify-between gap-5 transition-all duration-300 bg-zinc-950 hover:bg-zinc-900/50 ${sys.bgClass}`}>
                 <div className="flex flex-col gap-2.5">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-white/[0.02] border border-white/5 rounded text-white" style={{ color: sys.color }}>
+                    <div className="p-2 bg-white/[0.02] border border-white/5 rounded text-zinc-100" style={{ color: sys.color }}>
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-sm font-black uppercase text-white tracking-tight">{sys.title}</h3>
+                    <h3 className="text-sm font-bold uppercase text-zinc-100 tracking-tight">{sys.title}</h3>
                   </div>
-                  <p className="text-xs text-[#8D8981] leading-relaxed">{sys.description}</p>
+                  <p className="text-xs text-zinc-400 leading-relaxed">{sys.description}</p>
                 </div>
 
                 <div className="flex flex-col gap-1.5 pt-3 border-t border-white/[0.03]">
@@ -499,17 +500,17 @@ export default function GlossaryPage() {
               <div
                 key={term.slug}
                 onClick={() => handleOpenDossier(term)}
-                className="group flex flex-col md:flex-row md:items-center justify-between p-4 border border-[#1A1A1E] bg-[#0A0B0C]/45 hover:bg-black/60 hover:border-white/10 rounded transition-all duration-200 cursor-pointer gap-2"
+                className="group flex flex-col md:flex-row md:items-center justify-between p-4 border border-white/5 bg-zinc-950 hover:bg-zinc-900/50 hover:border-[#00F2FF]/40 rounded-xl transition-all duration-200 cursor-pointer gap-2"
               >
                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 flex-1">
-                  <div className="w-6 h-6 shrink-0 flex items-center justify-center bg-white/[0.02] border border-white/5 text-[10px] text-[#A0A0A0] font-bold uppercase rounded">
+                  <div className="w-6 h-6 shrink-0 flex items-center justify-center bg-white/[0.02] border border-white/5 text-[10px] text-zinc-400 font-bold uppercase rounded">
                     {term.term.charAt(0)}
                   </div>
                   <div className="min-w-0">
-                    <h4 className="text-sm font-black text-white uppercase group-hover:text-[#00F2FF] transition-colors">
+                    <h4 className="text-sm font-bold text-zinc-100 uppercase group-hover:text-[#00F2FF] transition-colors">
                       {term.term}
                     </h4>
-                    <p className="text-xs text-[#8D8981] line-clamp-1 mt-0.5 leading-relaxed">
+                    <p className="text-xs text-zinc-400 line-clamp-1 mt-0.5 leading-relaxed">
                       {term.plainLanguageExplanation}
                     </p>
                   </div>
@@ -566,19 +567,19 @@ export default function GlossaryPage() {
             <div
               key={profile.id}
               onClick={() => setSelectedBuildDna(selectedBuildDna === profile.id ? null : profile.id)}
-              className={`p-5 rounded border transition-all duration-300 cursor-pointer flex flex-col gap-3 ${
+              className={`p-5 rounded-xl border transition-all duration-300 cursor-pointer flex flex-col gap-3 ${
                 selectedBuildDna === profile.id
-                  ? 'bg-[#060A10]/75 border-[#00F2FF]/50 shadow-[inset_0_0_20px_rgba(0,242,255,0.05)]'
-                  : 'bg-black/45 border-[#1D1D22] hover:border-white/10'
+                  ? 'bg-zinc-900/80 border-[#00F2FF]/50 shadow-[inset_0_0_20px_rgba(0,242,255,0.05)]'
+                  : 'bg-zinc-950 border-white/5 hover:bg-zinc-900/50 hover:border-white/10'
               }`}
             >
               <div className="flex justify-between items-center">
-                <h4 className="text-sm font-black uppercase text-white tracking-tight">{profile.title}</h4>
+                <h4 className="text-sm font-bold uppercase text-zinc-100 tracking-tight">{profile.title}</h4>
                 <span className="text-[10px] text-[#00F2FF] uppercase font-bold">
                   {selectedBuildDna === profile.id ? '[COLLAPSE]' : '[DETAILS]'}
                 </span>
               </div>
-              <p className="text-xs text-[#8D8981] leading-relaxed">{profile.description}</p>
+              <p className="text-xs text-zinc-400 leading-relaxed">{profile.description}</p>
               
               {selectedBuildDna === profile.id && (
                 <div className="flex flex-col gap-3 pt-3 border-t border-white/[0.04] text-[11px] text-[#A0A0A0] leading-relaxed">

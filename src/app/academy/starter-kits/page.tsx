@@ -308,16 +308,16 @@ export default function StarterKitsPage() {
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       {/* HERO SECTION */}
-      <div className="relative p-10 border border-white/5 rounded-lg bg-gradient-to-b from-[#0B0B0C] to-black shadow-2xl mb-12 overflow-hidden text-center max-w-5xl mx-auto">
+      <div className="relative p-10 border border-white/5 rounded-2xl bg-zinc-950 shadow-2xl mb-12 overflow-hidden text-center max-w-5xl mx-auto">
         <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#FF5C00]/10 via-[#00F2FF] to-[#00FF66]/10" />
         
         <PackagePlus className="w-12 h-12 text-[#FF5C00] mx-auto mb-6 opacity-90" />
         
-        <h1 className="text-3xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4 leading-tight">
+        <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-100 mb-4 leading-tight">
           Don&apos;t Choose a Drone.<br/>
           <span className="text-[#00F2FF]">Choose the Pilot You Want to Become.</span>
         </h1>
-        <p className="text-xs md:text-sm text-[#8D8981] max-w-3xl mx-auto leading-relaxed uppercase tracking-wider mb-8">
+        <p className="text-xs md:text-sm text-zinc-400 max-w-3xl mx-auto leading-relaxed uppercase tracking-wider mb-8">
           Every FPV journey starts with a mission. Select your mission profile and FPV Lovers will guide you through the equipment, training path, Academy roadmap, and future upgrade journey.
         </p>
 
@@ -362,16 +362,16 @@ export default function StarterKitsPage() {
               <div
                 key={p.id}
                 onClick={() => handleSelectMission(p.id)}
-                className={`p-5 rounded border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
+                className={`p-5 rounded-xl border transition-all duration-300 cursor-pointer flex flex-col justify-between ${
                   isSelected 
-                    ? 'bg-[#060A10]/75 border-[#00F2FF]/60 shadow-[inset_0_0_20px_rgba(0,242,255,0.05)] scale-[1.02]' 
-                    : 'bg-black/45 border-[#1D1D22] hover:border-[#00F2FF]/30 hover:bg-black/80'
+                    ? 'bg-zinc-900/80 border-[#00F2FF]/60 shadow-[inset_0_0_20px_rgba(0,242,255,0.05)] scale-[1.02]' 
+                    : 'bg-zinc-950 border-white/5 hover:border-[#00F2FF]/30 hover:bg-zinc-900/50'
                 }`}
               >
                 <div className="flex flex-col gap-3">
                   <span className="text-3xl filter drop-shadow-[0_0_8px_rgba(255,255,255,0.1)]">{p.emoji}</span>
                   <div>
-                    <h3 className="text-xs font-black uppercase text-white tracking-tight leading-tight">{p.title}</h3>
+                    <h3 className="text-xs font-bold uppercase text-zinc-100 tracking-tight leading-tight">{p.title}</h3>
                     <span className={`inline-block text-[8px] font-bold px-1.5 py-0.5 rounded border uppercase mt-1.5 ${
                       p.difficulty === 'Beginner' ? 'text-[#00FF66] border-[#00FF66]/20 bg-[#00FF66]/5' :
                       p.difficulty === 'Intermediate' ? 'text-[#00F2FF] border-[#00F2FF]/20 bg-[#00F2FF]/5' :
@@ -397,15 +397,15 @@ export default function StarterKitsPage() {
 
       {/* SECTION 2 — MISSION DETAIL VIEW */}
       <div ref={detailSectionRef} className="mb-16 scroll-mt-24">
-        <div className="border border-white/5 rounded-lg bg-[#0B0B0C]/45 p-6 md:p-8 relative overflow-hidden">
-          <div className="absolute top-4 right-4 text-[9px] text-[#555] tracking-widest uppercase">{"[PILOT_DOSSIER_LOADED]"}</div>
+        <div className="border border-white/5 rounded-xl bg-zinc-950 p-6 md:p-8 relative overflow-hidden">
+          <div className="absolute top-4 right-4 text-[9px] text-zinc-500 tracking-widest uppercase">{"[PILOT_DOSSIER_LOADED]"}</div>
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#0c0c0e_1px,transparent_1px),linear-gradient(to_bottom,#0c0c0e_1px,transparent_1px)] bg-[size:30px_30px] opacity-[0.15] pointer-events-none" />
           
           <div className="flex items-center gap-4 border-b border-white/5 pb-4 mb-6">
             <span className="text-4xl filter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">{activeProfile.emoji}</span>
             <div>
               <span className="text-[9px] text-[#00F2FF] uppercase font-bold tracking-widest block">Active Dashboard</span>
-              <h2 className="text-xl md:text-2xl font-black uppercase text-white tracking-tight">{activeProfile.title} Loadout</h2>
+              <h2 className="text-xl md:text-2xl font-bold uppercase text-zinc-100 tracking-tight">{activeProfile.title} Loadout</h2>
             </div>
           </div>
 
@@ -418,15 +418,15 @@ export default function StarterKitsPage() {
                   <span className="w-1.5 h-1.5 bg-[#00F2FF] rounded-full animate-pulse" />
                   Mission Overview
                 </h4>
-                <p className="text-xs leading-relaxed text-[#DFDFDF] bg-black/60 border border-[#1A1A1E] p-4 rounded uppercase">
+                <p className="text-xs leading-relaxed text-zinc-400 bg-zinc-900 border border-white/5 p-4 rounded-xl uppercase">
                   {activeProfile.overview}
                 </p>
               </div>
 
               {/* Goals */}
               <div>
-                <h4 className="text-xs uppercase text-[#A0A0A0] tracking-wider mb-2 font-bold">Target Flight Objectives</h4>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-[#8D8981]">
+                <h4 className="text-xs uppercase text-zinc-400 tracking-wider mb-2 font-bold">Target Flight Objectives</h4>
+                <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-zinc-500">
                   {activeProfile.goals.map((g, i) => (
                     <li key={i} className="flex items-center gap-2 uppercase">
                       <span className="text-[#00FF66] font-bold">✓</span> {g}
@@ -437,18 +437,18 @@ export default function StarterKitsPage() {
 
               {/* Curve and Pitfalls */}
               <div className="grid col-1 md:grid-cols-2 gap-4">
-                <div className="p-4 border border-white/5 bg-black/40 rounded">
+                <div className="p-4 border border-white/5 bg-zinc-900 rounded-xl">
                   <span className="text-[10px] text-[#00FF66] uppercase font-bold block mb-1">Expected Learning Curve:</span>
-                  <p className="text-xs text-[#8D8981] leading-relaxed uppercase">{activeProfile.learningCurve}</p>
+                  <p className="text-xs text-zinc-400 leading-relaxed uppercase">{activeProfile.learningCurve}</p>
                 </div>
-                <div className="p-4 border border-[#FF5C00]/20 bg-[#FF5C00]/[0.02] rounded">
+                <div className="p-4 border border-[#FF5C00]/20 bg-[#FF5C00]/[0.02] rounded-xl">
                   <span className="text-[10px] text-[#FF5C00] uppercase font-bold block mb-1">Typical Beginner Mistake:</span>
-                  <p className="text-xs text-[#8D8981] leading-relaxed uppercase">{activeProfile.pitfalls}</p>
+                  <p className="text-xs text-zinc-400 leading-relaxed uppercase">{activeProfile.pitfalls}</p>
                 </div>
               </div>
 
               {/* Loadout Hardware decision */}
-              <div className="border border-white/5 rounded bg-black/60 p-5 mt-4">
+              <div className="border border-white/5 rounded-xl bg-zinc-900 p-5 mt-4">
                 <h3 className="text-xs uppercase text-[#00F2FF] tracking-widest font-black border-b border-white/5 pb-2.5 mb-4">
                   🚀 Recommended Pilot Loadout Details
                 </h3>

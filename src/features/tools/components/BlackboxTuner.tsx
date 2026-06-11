@@ -135,17 +135,17 @@ export function BlackboxTunerWidget() {
 
   return (
     <div className="flex flex-col gap-8 w-full">
-      <div className="flex flex-col gap-3 border border-[#333333] bg-[#0A0A0B] p-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col gap-3 border border-white/10 bg-zinc-950 rounded-xl p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="text-[10px] font-black uppercase tracking-widest text-[#FF5C00]">CSV / Text Review</div>
-          <p className="mt-1 max-w-2xl font-mono text-xs leading-5 text-[#888888]">
+          <div className="text-[10px] font-bold uppercase tracking-widest text-[#FF5C00]">CSV / Text Review</div>
+          <p className="mt-1 max-w-2xl font-mono text-xs leading-5 text-zinc-400">
             Upload a CSV export, CLI dump, or short text excerpt. Raw .bbl/.bfl binary parsing is not enabled yet.
           </p>
         </div>
         <Button
           type="button"
           variant="outline"
-          className="h-10 shrink-0 border-[#333333] font-mono text-xs uppercase tracking-widest text-white hover:border-[#FF5C00] hover:text-[#FF5C00]"
+          className="h-10 shrink-0 border-white/10 font-mono text-xs uppercase tracking-widest text-zinc-300 hover:border-[#FF5C00] hover:text-[#FF5C00]"
           onClick={loadSample}
         >
           Load Sample
@@ -154,7 +154,7 @@ export function BlackboxTunerWidget() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="space-y-2">
-           <label htmlFor="blackbox-drone-type" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+           <label htmlFor="blackbox-drone-type" className="text-[10px] font-bold tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Cpu className="w-3 h-3" aria-hidden="true" /> Drone Configuration
            </label>
            <input
@@ -164,12 +164,12 @@ export function BlackboxTunerWidget() {
              value={formData.droneType}
              onChange={handleInputChange}
              placeholder='e.g., 5" Freestyle'
-             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors"
+             className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
 
         <div className="space-y-2">
-           <label htmlFor="blackbox-battery" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+           <label htmlFor="blackbox-battery" className="text-[10px] font-bold tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Activity className="w-3 h-3" aria-hidden="true" /> Battery Setup
            </label>
            <input
@@ -179,12 +179,12 @@ export function BlackboxTunerWidget() {
              value={formData.batterySpec}
              onChange={handleInputChange}
              placeholder="e.g., 6S"
-             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors"
+             className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
 
         <div className="space-y-2">
-           <label htmlFor="blackbox-gyro" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+           <label htmlFor="blackbox-gyro" className="text-[10px] font-bold tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Radio className="w-3 h-3" aria-hidden="true" /> Flight DNA Gyro Sensor
            </label>
            <select
@@ -192,7 +192,7 @@ export function BlackboxTunerWidget() {
              name="gyroModel"
              value={formData.gyroModel}
              onChange={handleInputChange}
-             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors appearance-none"
+             className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors appearance-none rounded-lg"
            >
              <option value="">-- SELECT SENSOR --</option>
              <option value="ICM42688P">ICM42688P (Sensitive High-Hz)</option>
@@ -203,7 +203,7 @@ export function BlackboxTunerWidget() {
         </div>
 
         <div className="space-y-2 sm:col-span-3">
-           <label htmlFor="blackbox-problem" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+           <label htmlFor="blackbox-problem" className="text-[10px] font-bold tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <ShieldAlert className="w-3 h-3" aria-hidden="true" /> Issue / Symptoms
            </label>
            <input
@@ -213,12 +213,12 @@ export function BlackboxTunerWidget() {
              value={formData.problem}
              onChange={handleInputChange}
              placeholder="e.g., Propwash oscillations during sharp turns"
-             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors"
+             className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
 
         <div className="space-y-2 sm:col-span-3">
-           <label htmlFor="blackbox-log-data" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+           <label htmlFor="blackbox-log-data" className="text-[10px] font-bold tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <BarChart2 className="w-3 h-3" aria-hidden="true" /> Log Insights / Gyro Traces Summary
            </label>
            <textarea
@@ -228,12 +228,12 @@ export function BlackboxTunerWidget() {
              onChange={handleInputChange}
              rows={3}
              placeholder="e.g., Gyro traces show 150Hz resonance..."
-             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors resize-none"
+             className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors resize-none rounded-lg"
            />
         </div>
 
         <div className="space-y-2 sm:col-span-3">
-           <label htmlFor="blackbox-file" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+           <label htmlFor="blackbox-file" className="text-[10px] font-bold tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Upload className="w-3 h-3" aria-hidden="true" /> Optional CSV / CLI Dump
            </label>
            <input
@@ -241,15 +241,15 @@ export function BlackboxTunerWidget() {
              type="file"
              accept=".csv,.log,.txt"
              onChange={(event) => setSelectedFile(event.target.files?.[0] || null)}
-             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white file:mr-4 file:border-0 file:bg-[#FF5C00] file:px-3 file:py-2 file:text-xs file:font-black file:uppercase file:tracking-widest file:text-white focus:outline-none focus:border-[#FF5C00] transition-colors"
+             className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white file:mr-4 file:border-0 file:bg-[#FF5C00] file:px-3 file:py-2 file:text-xs file:font-bold file:uppercase file:tracking-widest file:text-black file:rounded-md focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
-           <p className="text-[10px] font-mono text-[#666666] uppercase">
+           <p className="text-[10px] font-mono text-zinc-500 uppercase">
              MVP limit: 256KB text excerpt. Export CSV/text from Blackbox Explorer before uploading.
            </p>
         </div>
 
         <div className="space-y-2 sm:col-span-3">
-           <label htmlFor="blackbox-current-pids" className="text-[10px] font-black tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
+           <label htmlFor="blackbox-current-pids" className="text-[10px] font-bold tracking-widest uppercase text-[#FF5C00] flex items-center gap-2">
              <Radio className="w-3 h-3" aria-hidden="true" /> Current PIDs
            </label>
            <input
@@ -259,14 +259,14 @@ export function BlackboxTunerWidget() {
              value={formData.currentPIDs}
              onChange={handleInputChange}
              placeholder="e.g., P: 45, I: 80, D: 40, FF: 100"
-             className="w-full bg-[#0A0A0B] border border-[#333333] px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors"
+             className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
       </div>
 
       <Button
-        variant="cyber"
-        className="w-full h-14 text-lg border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white group"
+        variant="outline"
+        className="w-full h-14 text-lg font-bold uppercase tracking-widest bg-[#FF5C00] text-black border-none hover:bg-[#FF5C00]/90 mt-4 group"
         onClick={analyzeLog}
         disabled={loading || !canAnalyze}
       >
@@ -278,7 +278,7 @@ export function BlackboxTunerWidget() {
         ) : (
           <>
             <Send className="w-5 h-5 mr-2" />
-            INITIATE PID ANALYSIS
+            <span className="text-black group-hover:text-black">INITIATE PID ANALYSIS</span>
           </>
         )}
       </Button>
@@ -290,39 +290,39 @@ export function BlackboxTunerWidget() {
       )}
 
       {result && (
-        <div className="mt-8 pt-8 border-t border-[#333333]">
+        <div className="mt-8 pt-8 border-t border-white/10">
           <div className="flex items-center gap-2 mb-6">
             <Activity className="w-5 h-5 text-[#FF5C00]" aria-hidden="true" />
-            <h2 className="text-xl font-black uppercase text-white tracking-tight">Tuning Solution Matrix</h2>
+            <h2 className="text-xl font-bold tracking-tight text-zinc-100">Tuning Solution Matrix</h2>
           </div>
 
           <div className="mb-6 grid grid-cols-1 sm:grid-cols-4 gap-3">
-            <div className="border border-[#333333] bg-[#0A0A0B] p-3">
-              <div className="text-[9px] uppercase tracking-widest text-[#666666]">Source</div>
-              <div className="text-sm font-black text-[#FF5C00] uppercase">{sourceLabel}</div>
-              <div className="mt-1 text-[10px] font-mono uppercase text-[#666666]">{source || 'local'}</div>
+            <div className="border border-white/10 bg-zinc-950 p-3 rounded-lg">
+              <div className="text-[9px] uppercase tracking-widest text-zinc-500">Source</div>
+              <div className="text-sm font-bold text-[#FF5C00] uppercase">{sourceLabel}</div>
+              <div className="mt-1 text-[10px] font-mono uppercase text-zinc-500">{source || 'local'}</div>
             </div>
-            <div className="border border-[#333333] bg-[#0A0A0B] p-3">
-              <div className="text-[9px] uppercase tracking-widest text-[#666666]">Confidence</div>
-              <div className="text-sm font-black text-white">{confidence ?? '--'}/100</div>
+            <div className="border border-white/10 bg-zinc-950 p-3 rounded-lg">
+              <div className="text-[9px] uppercase tracking-widest text-zinc-500">Confidence</div>
+              <div className="text-sm font-bold text-white">{confidence ?? '--'}/100</div>
             </div>
-            <div className="border border-[#333333] bg-[#0A0A0B] p-3">
-              <div className="text-[9px] uppercase tracking-widest text-[#666666]">Retrieval</div>
-              <div className="text-sm font-black text-white">{retrievalConfidence ?? 0}/100</div>
+            <div className="border border-white/10 bg-zinc-950 p-3 rounded-lg">
+              <div className="text-[9px] uppercase tracking-widest text-zinc-500">Retrieval</div>
+              <div className="text-sm font-bold text-white">{retrievalConfidence ?? 0}/100</div>
             </div>
-            <div className="border border-[#333333] bg-[#0A0A0B] p-3">
-              <div className="text-[9px] uppercase tracking-widest text-[#666666]">Risk</div>
-              <div className="text-sm font-black text-white uppercase">{riskLevel || 'unknown'}</div>
-              <div className="mt-1 text-[10px] font-mono uppercase text-[#666666]">{gatewayLabel}</div>
+            <div className="border border-white/10 bg-zinc-950 p-3 rounded-lg">
+              <div className="text-[9px] uppercase tracking-widest text-zinc-500">Risk</div>
+              <div className="text-sm font-bold text-white uppercase">{riskLevel || 'unknown'}</div>
+              <div className="mt-1 text-[10px] font-mono uppercase text-zinc-500">{gatewayLabel}</div>
             </div>
           </div>
 
           {sources.length > 0 && (
-            <div className="mb-6 border border-[#333333] bg-[#0A0A0B] p-4">
-              <div className="mb-3 text-[10px] font-black uppercase tracking-widest text-[#FF5C00]">Retrieved Sources</div>
+            <div className="mb-6 border border-white/10 bg-zinc-950 p-4 rounded-lg">
+              <div className="mb-3 text-[10px] font-bold uppercase tracking-widest text-[#FF5C00]">Retrieved Sources</div>
               <div className="space-y-2">
                 {sources.map((item, index) => (
-                  <div key={`${item.title}-${index}`} className="font-mono text-xs text-[#B0B0B0]">
+                  <div key={`${item.title}-${index}`} className="font-mono text-xs text-zinc-400">
                     {item.url ? (
                       <a href={item.url} target="_blank" rel="noreferrer" className="text-[#00F2FF] hover:text-white">
                         {item.title}
@@ -330,14 +330,14 @@ export function BlackboxTunerWidget() {
                     ) : (
                       <span>{item.title}</span>
                     )}
-                    {item.dataset && <span className="text-[#666666]"> · {item.dataset}</span>}
+                    {item.dataset && <span className="text-zinc-500"> · {item.dataset}</span>}
                   </div>
                 ))}
               </div>
             </div>
           )}
 
-          <div className="prose prose-invert prose-p:font-mono prose-p:text-sm prose-p:text-[#A0A0A0] prose-headings:font-black prose-headings:uppercase prose-headings:text-[#FF5C00] prose-li:font-mono prose-li:text-sm max-w-none">
+          <div className="prose prose-invert prose-p:text-sm prose-p:text-zinc-300 prose-headings:font-bold prose-headings:text-[#FF5C00] prose-li:text-sm max-w-none">
             <ReactMarkdown>{result}</ReactMarkdown>
           </div>
         </div>

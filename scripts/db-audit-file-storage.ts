@@ -63,8 +63,11 @@ interface AuditReport {
   };
   productCatalog: {
     totalItems: number;
+    componentCount: number;
+    productCount: number;
     inferredType: 'components' | 'products' | 'mixed' | 'unknown';
     keysFound: string[];
+    categories: Record<string, number>;
   };
   monetization: {
     affiliatesCount: number;
@@ -160,32 +163,50 @@ function runAudit() {
   // 4. Product Catalog Shape Analysis
   const catalogFile = path.join(DATA_DIR, 'fpv-products.catalog.json');
   const catalog = safeReadJson<unknown>(catalogFile);
-  let totalCatalogItems = 0;
+  let componentCount = 0;
+  let productCount = 0;
   let catalogType: 'components' | 'products' | 'mixed' | 'unknown' = 'unknown';
   let keysFound: string[] = [];
+  const categories: Record<string, number> = {};
 
-  if (catalog) {
-    if (Array.isArray(catalog)) {
-      totalCatalogItems = catalog.length;
-      if (totalCatalogItems > 0) {
-        const firstItem = catalog[0] as Record<string, unknown>;
-        keysFound = Object.keys(firstItem);
-        const hasCommercialKeys = keysFound.some(k => ['price', 'url', 'merchant', 'affiliate'].includes(k));
-        const hasSpecKeys = keysFound.some(k => ['specs', 'category', 'stator', 'kv', 'weight'].includes(k));
-        if (hasCommercialKeys && hasSpecKeys) {
-          catalogType = 'mixed';
-        } else if (hasCommercialKeys) {
-          catalogType = 'products';
-        } else if (hasSpecKeys) {
-          catalogType = 'components';
+  if (catalog && typeof catalog === 'object' && !Array.isArray(catalog)) {
+    const catObj = catalog as Record<string, unknown>;
+    keysFound = Object.keys(catObj);
+
+    // Count components array
+    if (Array.isArray(catObj.components)) {
+      componentCount = catObj.components.length;
+      for (const item of catObj.components) {
+        if (item && typeof item === 'object' && 'category' in item) {
+          const cat = String((item as Record<string, unknown>).category ?? 'unknown');
+          categories[cat] = (categories[cat] ?? 0) + 1;
         }
       }
-    } else if (typeof catalog === 'object') {
-      keysFound = Object.keys(catalog);
-      catalogType = 'components'; // key-value specs
-      totalCatalogItems = keysFound.length;
     }
+
+    // Count products array
+    if (Array.isArray(catObj.products)) {
+      productCount = catObj.products.length;
+      for (const item of catObj.products) {
+        if (item && typeof item === 'object' && 'category' in item) {
+          const cat = String((item as Record<string, unknown>).category ?? 'unknown');
+          categories[cat] = (categories[cat] ?? 0) + 1;
+        }
+      }
+    }
+
+    if (componentCount > 0 && productCount > 0) {
+      catalogType = 'mixed';
+    } else if (componentCount > 0) {
+      catalogType = 'components';
+    } else if (productCount > 0) {
+      catalogType = 'products';
+    }
+  } else if (Array.isArray(catalog)) {
+    componentCount = catalog.length;
+    catalogType = 'unknown';
   }
+  const totalCatalogItems = componentCount + productCount;
 
   // 5. Monetization & Metrics Counts
   const affiliates = safeReadJson<unknown[]>(path.join(DATA_DIR, 'affiliates.json')) || [];
@@ -216,8 +237,11 @@ function runAudit() {
     },
     productCatalog: {
       totalItems: totalCatalogItems,
+      componentCount,
+      productCount,
       inferredType: catalogType,
       keysFound,
+      categories,
     },
     monetization: {
       affiliatesCount: affiliates.length,

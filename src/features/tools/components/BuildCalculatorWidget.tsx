@@ -2,12 +2,13 @@
 // Interactive FPV build calculator needs local input state and instant derived outputs.
 
 import React, { useEffect, useMemo, useState } from 'react';
-import { Activity, AlertTriangle, Battery, Gauge, RotateCcw, ShieldCheck, Zap } from 'lucide-react';
+import { Activity, AlertTriangle, Battery, Gauge, RotateCcw, ShieldCheck, Zap, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { calculateBuild, type BuildCalculatorInput, type BuildStyle } from '@/lib/tools/build-calculator';
 import { loadDossierFromBrowser } from '@/lib/state/dossier-serializer';
 import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
+import { motion, AnimatePresence } from 'motion/react';
 
 const STYLE_OPTIONS: { value: BuildStyle; label: string; hint: string }[] = [
   { value: 'freestyle', label: 'Freestyle', hint: '5:1 target' },
@@ -98,11 +99,11 @@ function NumberInput({
 }) {
   const inputId = `calc-${field.key}`;
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2">
       <label htmlFor={inputId} className="flex items-center justify-between gap-2 text-[10px] font-black uppercase tracking-widest text-[#9eeef2]">
         <span>{field.label}</span>
       </label>
-      <div className="relative">
+      <div className="relative group">
         <input
           id={inputId}
           type="number"
@@ -113,9 +114,9 @@ function NumberInput({
           value={value}
           aria-label={`${field.label} (${field.suffix})`}
           onChange={(event) => onChange(field.key, Number(event.target.value))}
-          className="w-full bg-[#080808] border border-white/10 pl-3 pr-10 py-2.5 font-mono text-sm text-white outline-none transition-colors focus:border-[#28d7df]"
+          className="w-full appearance-none border border-white/10 bg-black px-4 pr-12 py-3 font-mono text-sm text-white outline-none focus:border-[#28d7df] focus:ring-1 focus:ring-[#28d7df]/50 transition-all group-hover:border-white/30"
         />
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[11px] text-[#8e8b86]">{field.suffix}</span>
+        <span className="absolute right-4 top-1/2 -translate-y-1/2 font-mono text-xs text-[#8e8b86] pointer-events-none">{field.suffix}</span>
       </div>
     </div>
   );
@@ -133,26 +134,35 @@ function Metric({
   progress?: { value: number; max: number };
 }) {
   const colors = {
-    cyan: { text: 'text-[#28d7df]', border: 'border-[#28d7df]/30', bg: 'bg-[#28d7df]' },
-    orange: { text: 'text-[#ff5a1f]', border: 'border-[#ff5a1f]/30', bg: 'bg-[#ff5a1f]' },
-    green: { text: 'text-[#00FF66]', border: 'border-[#00FF66]/30', bg: 'bg-[#00FF66]' },
-    red: { text: 'text-red-500', border: 'border-red-500/30', bg: 'bg-red-500' },
-    white: { text: 'text-white', border: 'border-white/20', bg: 'bg-white' },
+    cyan: { text: 'text-[#28d7df]', border: 'border-l-[#28d7df]', bg: 'bg-[#28d7df]' },
+    orange: { text: 'text-[#ff5a1f]', border: 'border-l-[#ff5a1f]', bg: 'bg-[#ff5a1f]' },
+    green: { text: 'text-[#00FF66]', border: 'border-l-[#00FF66]', bg: 'bg-[#00FF66]' },
+    red: { text: 'text-[#ff3333]', border: 'border-l-[#ff3333]', bg: 'bg-[#ff3333]' },
+    white: { text: 'text-white', border: 'border-l-white/20', bg: 'bg-white' },
   };
 
   const style = colors[tone];
 
   return (
-    <div className={cn("border bg-black/35 p-4 relative overflow-hidden", style.border)}>
-      <div className="relative z-10">
-        <div className="text-[10px] uppercase tracking-widest text-[#8e8b86] font-mono mb-2">{label}</div>
-        <div className={cn('text-2xl font-black tracking-tight drop-shadow-md', style.text)}>{value}</div>
+    <div className={cn("bg-black/40 border border-white/5 p-5 relative overflow-hidden transition-colors border-l-2", style.border)}>
+      <div className="relative z-10 flex flex-col justify-between h-full">
+        <div className="text-[10px] uppercase tracking-[0.15em] text-[#8e8b86] font-mono mb-3">{label}</div>
+        <motion.div 
+          key={value}
+          initial={{ opacity: 0.5, y: -4 }}
+          animate={{ opacity: 1, y: 0 }}
+          className={cn('text-2xl lg:text-3xl font-mono font-medium tracking-tighter drop-shadow-md', style.text)}
+        >
+          {value}
+        </motion.div>
       </div>
       {progress && (
-        <div className="absolute bottom-0 left-0 h-1 w-full bg-black/50">
-          <div 
-            className={cn("h-full transition-all duration-500 ease-out", style.bg)} 
-            style={{ width: `${Math.min(100, (progress.value / progress.max) * 100)}%` }}
+        <div className="absolute bottom-0 left-0 h-1 w-full bg-white/5">
+          <motion.div 
+            initial={{ width: 0 }}
+            animate={{ width: `${Math.min(100, (progress.value / progress.max) * 100)}%` }}
+            transition={{ type: "spring", stiffness: 40, damping: 12 }}
+            className={cn("h-full opacity-60", style.bg)} 
           />
         </div>
       )}
@@ -166,6 +176,7 @@ export function BuildCalculatorWidget() {
   const [review, setReview] = useState<BuildWizardApiResponse | null>(null);
   const [reviewLoading, setReviewLoading] = useState(false);
   const [reviewError, setReviewError] = useState<string | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     // Load dossier client-side from secure cookie
@@ -251,169 +262,236 @@ export function BuildCalculatorWidget() {
       ? 'border-yellow-300/35 text-yellow-300'
       : 'border-red-400/35 text-red-400';
 
+  // Sub-components to render Outputs cleanly
+  const renderDiagnosticOutput = () => (
+    <section className="bg-zinc-950 rounded-xl border border-white/5 p-6 lg:p-8 shadow-2xl">
+      <div className="flex items-start justify-between gap-4 mb-6">
+        <div>
+          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-white">Diagnostic Output</h2>
+          <p className="text-xs text-[#8e8b86] mt-2 font-mono uppercase tracking-widest">Live telemetry estimate</p>
+        </div>
+        <div className={cn('border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] rounded-full', verdictTone)}>
+          {result.verdict}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
+        <Metric label="AUW" value={`${result.auw}g`} tone="white" progress={{value: result.auw, max: 2000}} />
+        <Metric label="Dry Weight" value={`${result.dryWeight}g`} progress={{value: result.dryWeight, max: 1500}} />
+        <Metric label="Thrust Ratio" value={`${result.estimatedThrustRatio}:1`} tone={result.estimatedThrustRatio >= result.targetThrustRatio ? 'green' : result.estimatedThrustRatio < result.targetThrustRatio * 0.8 ? 'red' : 'orange'} progress={{value: result.estimatedThrustRatio, max: 15}} />
+        <Metric label="Est. Thrust" value={`${result.estimatedThrustPerMotor}g/m`} progress={{value: result.estimatedThrustPerMotor, max: 2500}} />
+        <Metric label="Hover Throt." value={`${result.estimatedHoverThrottle}%`} tone={result.estimatedHoverThrottle <= 35 ? 'green' : result.estimatedHoverThrottle > 50 ? 'red' : 'orange'} progress={{value: result.estimatedHoverThrottle, max: 100}} />
+        <Metric label="Flight Time" value={`${result.estimatedFlightTimeMin}m`} tone={result.estimatedFlightTimeMin >= 5 ? 'green' : result.estimatedFlightTimeMin <= 2.5 ? 'red' : 'cyan'} progress={{value: result.estimatedFlightTimeMin, max: 15}} />
+        <Metric label="Peak Current" value={`${result.estimatedPeakCurrent}A/m`} tone={result.currentMargin >= 8 ? 'green' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: result.estimatedPeakCurrent, max: 100}} />
+        <Metric label="ESC Margin" value={`${result.currentMargin > 0 ? '+' : ''}${result.currentMargin}A`} tone={result.currentMargin >= 8 ? 'cyan' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: Math.max(0, result.currentMargin), max: 30}} />
+      </div>
+    </section>
+  );
+
+  const renderFitWindow = () => (
+    <section className="bg-zinc-950 rounded-xl border border-white/5 p-6 lg:p-8 shadow-2xl">
+      <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-white mb-6 flex items-center gap-3">
+        <Gauge className="w-4 h-4 text-[#00F2FF]" /> Fit Window
+      </h2>
+      <div className="space-y-5 font-mono text-[13px]">
+        <div className="flex items-center justify-between border-b border-white/5 pb-4">
+          <span className="text-[#8e8b86] uppercase tracking-widest text-[10px]">Voltage</span>
+          <span className="text-white">{result.nominalVoltage}V nominal / {result.fullVoltage}V full</span>
+        </div>
+        <div className="flex items-center justify-between border-b border-white/5 pb-4">
+          <span className="text-[#8e8b86] uppercase tracking-widest text-[10px]">Safe KV Range</span>
+          <span className="text-[#28d7df]">{result.safeKvRange.min}-{result.safeKvRange.max}KV</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-[#8e8b86] uppercase tracking-widest text-[10px]">Disc Loading</span>
+          <span className="text-white">{result.discLoading} kg/m²</span>
+        </div>
+      </div>
+    </section>
+  );
+
+  const renderSafetyNotes = () => (
+    <section className="bg-zinc-950 rounded-xl border border-white/5 p-6 lg:p-8 shadow-2xl">
+      <h2 className="text-sm font-black uppercase tracking-[0.2em] text-white mb-6 flex items-center gap-3">
+        {result.warnings.length ? <AlertTriangle className="w-4 h-4 text-yellow-300" /> : <ShieldCheck className="w-4 h-4 text-[#00FF66]" />}
+        Safety Notes
+      </h2>
+      <AnimatePresence mode="popLayout">
+        {result.warnings.length ? (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
+            {result.warnings.map((warning) => (
+              <div key={warning} className="border-l-2 border-yellow-300 bg-yellow-300/5 p-4 text-xs font-mono text-[#d8d5cf] leading-relaxed">
+                {warning}
+              </div>
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="border-l-2 border-[#00FF66] bg-[#00FF66]/5 p-4 text-xs font-mono text-[#d8d5cf] leading-relaxed">
+            SYSTEM GREEN. No major fit warnings detected. Verify manufacturer thrust tables before purchasing parts.
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+
+  const renderBuildReviewPanel = () => (
+    <section className="bg-zinc-950 rounded-xl border border-[#00F2FF]/20 p-6 lg:p-8 relative overflow-hidden shadow-2xl">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-[#00F2FF]/5 blur-[50px] rounded-full pointer-events-none" />
+      <div className="flex items-start justify-between gap-4 mb-6 relative z-10">
+        <div>
+          <h2 className="text-sm font-black uppercase tracking-[0.2em] text-white">Guided Build Review</h2>
+          <p className="text-[10px] text-[#8e8b86] mt-2 font-mono uppercase tracking-widest leading-relaxed">AI analysis against established RAG datasets.</p>
+        </div>
+        {review?.source && (
+          <span className={cn(
+            'border px-3 py-1.5 text-[10px] font-black uppercase tracking-[0.2em] rounded-full',
+            review.source === 'dify' ? 'border-[#28d7df]/35 text-[#28d7df]' : 'border-yellow-300/35 text-yellow-300',
+          )}>
+            {review.source}
+          </span>
+        )}
+      </div>
+
+      <Button variant="outline" className="w-full h-14 relative z-10 font-bold tracking-widest text-xs uppercase bg-[#FF5C00] text-black border-none hover:bg-[#FF5C00]/90" onClick={runBuildReview} disabled={reviewLoading}>
+        <Zap className="w-4 h-4 mr-3" /> {reviewLoading ? 'ANALYZING...' : 'RUN AI REVIEW'}
+      </Button>
+
+      {reviewError && (
+        <div className="mt-6 border-l-2 border-yellow-300 bg-yellow-300/5 p-4 text-xs font-mono text-yellow-100 leading-relaxed relative z-10">
+          {reviewError}
+        </div>
+      )}
+
+      {review?.markdown && (
+        <div className="prose prose-invert prose-sm mt-8 max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-widest prose-headings:text-white prose-p:text-[#A0A0A0] prose-li:text-[#A0A0A0] prose-strong:text-white relative z-10">
+          <ReactMarkdown>{review.markdown}</ReactMarkdown>
+        </div>
+      )}
+    </section>
+  );
+
   return (
-    <div className="grid grid-cols-1 xl:grid-cols-[1.15fr_0.85fr] gap-6">
-      <div className="space-y-6">
-        <section className="border border-[#28d7df]/20 bg-[#050505] p-5 shadow-[inset_0_0_20px_rgba(40,215,223,0.05)]">
-          <div className="flex items-center justify-between gap-4 mb-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 relative items-start">
+      
+      {/* LEFT COLUMN: INPUTS */}
+      <div className="space-y-8 pb-32 lg:pb-0">
+        <section className="bg-zinc-950 rounded-xl border border-white/5 p-6 lg:p-8 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-50" />
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mb-8">
             <div>
-              <h2 className="text-sm font-black uppercase tracking-widest text-[#28d7df]">Presets & Profile</h2>
-              <p className="text-xs text-[#8e8b86] mt-1">Load a quick preset or choose your target thrust style.</p>
+              <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-[#00F2FF]">Presets & Profile</h2>
+              <p className="text-[10px] font-mono text-[#8e8b86] mt-2 uppercase tracking-widest">Target Thrust Style</p>
             </div>
-            <div className="flex gap-2">
-              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['whoop'])} title="1S Whoop" className="text-[10px] border border-white/10">Whoop</Button>
-              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['3inch'])} title="3-inch" className="text-[10px] border border-white/10">3&quot;</Button>
-              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['5inch'])} title="5-inch" className="text-[10px] border border-[#28d7df]/50 text-[#28d7df]">5&quot;</Button>
-              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['7inch'])} title="7-inch" className="text-[10px] border border-white/10">7&quot;</Button>
-              <Button variant="ghost" size="sm" onClick={() => setBuild(DEFAULT_BUILD)} title="Reset calculator" className="ml-2">
-                <RotateCcw className="w-4 h-4" />
+            <div className="flex flex-wrap gap-2">
+              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['whoop'])} className="text-[10px] font-mono uppercase tracking-widest border border-white/10 hover:bg-zinc-800 text-zinc-300">Whoop</Button>
+              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['3inch'])} className="text-[10px] font-mono uppercase tracking-widest border border-white/10 hover:bg-zinc-800 text-zinc-300">3&quot;</Button>
+              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['5inch'])} className="text-[10px] font-mono uppercase tracking-widest border border-[#00F2FF]/50 text-[#00F2FF] bg-[#00F2FF]/5 hover:bg-[#00F2FF]/10">5&quot;</Button>
+              <Button variant="ghost" size="sm" onClick={() => setBuild(PRESETS['7inch'])} className="text-[10px] font-mono uppercase tracking-widest border border-white/10 hover:bg-zinc-800 text-zinc-300">7&quot;</Button>
+              <Button variant="ghost" size="sm" onClick={() => setBuild(DEFAULT_BUILD)} title="Reset calculator" className="ml-2 border border-white/10 hover:bg-zinc-800 text-zinc-300">
+                <RotateCcw className="w-3.5 h-3.5 text-[#8e8b86]" />
               </Button>
             </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             {STYLE_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 type="button"
                 onClick={() => setBuild((current) => ({ ...current, style: option.value }))}
                 className={cn(
-                  'border px-3 py-3 text-left transition-colors',
+                  'border px-4 py-4 text-left transition-all duration-300',
                   build.style === option.value
-                    ? 'border-[#28d7df] bg-[#28d7df]/10 text-white shadow-[0_0_10px_rgba(40,215,223,0.3)]'
-                    : 'border-white/10 bg-white/[0.02] text-[#8e8b86] hover:border-white/25',
+                    ? 'border-[#00F2FF]/50 bg-[#00F2FF]/10 text-white rounded-lg shadow-lg'
+                    : 'border-white/5 bg-zinc-900 rounded-lg text-zinc-400 hover:border-white/10 hover:bg-zinc-800 hover:text-white',
                 )}
               >
-                <span className="block text-xs font-black uppercase tracking-wide">{option.label}</span>
-                <span className="block text-[10px] font-mono mt-1">{option.hint}</span>
+                <span className="block text-xs font-black uppercase tracking-[0.2em]">{option.label}</span>
+                <span className="block text-[10px] font-mono mt-2 opacity-70">{option.hint}</span>
               </button>
             ))}
           </div>
         </section>
 
-        <section className="border border-white/10 bg-[#050505] p-5">
-          <h2 className="text-sm font-black uppercase tracking-widest text-white mb-4 flex items-center gap-2">
-            <Activity className="w-4 h-4 text-[#28d7df]" /> Weight Stack
+        <section className="bg-zinc-950 rounded-xl border border-white/5 p-6 lg:p-8 shadow-2xl">
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-zinc-300 mb-8 flex items-center gap-3">
+            <Activity className="w-5 h-5 text-white/50" /> Weight Stack
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
             {WEIGHT_FIELDS.map((field) => (
               <NumberInput key={field.key} field={field} value={Number(build[field.key])} onChange={setNumber} />
             ))}
           </div>
         </section>
 
-        <section className="border border-white/10 bg-[#050505] p-5">
-          <h2 className="text-sm font-black uppercase tracking-widest text-white mb-4 flex items-center gap-2">
-            <Battery className="w-4 h-4 text-[#ff5a1f]" /> Powertrain
+        <section className="bg-zinc-950 rounded-xl border border-white/5 p-6 lg:p-8 shadow-2xl">
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-zinc-300 mb-8 flex items-center gap-3">
+            <Battery className="w-5 h-5 text-white/50" /> Powertrain
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5">
             {POWER_FIELDS.map((field) => (
               <NumberInput key={field.key} field={field} value={Number(build[field.key])} onChange={setNumber} />
             ))}
           </div>
         </section>
+        
+        <div className="hidden lg:block">
+           <Button variant="ghost" className="w-full h-14 border border-white/10 hover:bg-white/5 font-mono text-[10px] uppercase tracking-widest text-[#8e8b86]" onClick={copySnapshot}>
+             {copied ? 'COPIED TO CLIPBOARD' : 'COPY SNAPSHOT JSON'}
+           </Button>
+        </div>
       </div>
 
-      <aside className="space-y-6">
-        <section className="border border-white/10 bg-[#050505] p-5">
-          <div className="flex items-start justify-between gap-4 mb-5">
-            <div>
-              <h2 className="text-sm font-black uppercase tracking-widest text-white">Diagnostic Output</h2>
-              <p className="text-xs text-[#8e8b86] mt-1">Live estimate for a quad build.</p>
-            </div>
-            <div className={cn('border px-2 py-1 text-[10px] font-black uppercase tracking-widest', verdictTone)}>
-              {result.verdict}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <Metric label="AUW" value={`${result.auw}g`} tone="white" progress={{value: result.auw, max: 2000}} />
-            <Metric label="Dry Weight" value={`${result.dryWeight}g`} progress={{value: result.dryWeight, max: 1500}} />
-            <Metric label="Thrust Ratio" value={`${result.estimatedThrustRatio}:1`} tone={result.estimatedThrustRatio >= result.targetThrustRatio ? 'green' : result.estimatedThrustRatio < result.targetThrustRatio * 0.8 ? 'red' : 'orange'} progress={{value: result.estimatedThrustRatio, max: 15}} />
-            <Metric label="Est. Thrust" value={`${result.estimatedThrustPerMotor}g/m`} progress={{value: result.estimatedThrustPerMotor, max: 2500}} />
-            <Metric label="Hover Throt." value={`${result.estimatedHoverThrottle}%`} tone={result.estimatedHoverThrottle <= 35 ? 'green' : result.estimatedHoverThrottle > 50 ? 'red' : 'orange'} progress={{value: result.estimatedHoverThrottle, max: 100}} />
-            <Metric label="Flight Time" value={`${result.estimatedFlightTimeMin}m`} tone={result.estimatedFlightTimeMin >= 5 ? 'green' : result.estimatedFlightTimeMin <= 2.5 ? 'red' : 'cyan'} progress={{value: result.estimatedFlightTimeMin, max: 15}} />
-            <Metric label="Peak Current" value={`${result.estimatedPeakCurrent}A/m`} tone={result.currentMargin >= 8 ? 'green' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: result.estimatedPeakCurrent, max: 100}} />
-            <Metric label="ESC Margin" value={`${result.currentMargin > 0 ? '+' : ''}${result.currentMargin}A`} tone={result.currentMargin >= 8 ? 'cyan' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: Math.max(0, result.currentMargin), max: 30}} />
-          </div>
-        </section>
-
-        <section className="border border-white/10 bg-[#050505] p-5">
-          <h2 className="text-sm font-black uppercase tracking-widest text-white mb-4 flex items-center gap-2">
-            <Gauge className="w-4 h-4 text-[#28d7df]" /> Fit Window
-          </h2>
-          <div className="space-y-4 font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <span className="text-[#8e8b86]">Voltage</span>
-              <span className="text-white">{result.nominalVoltage}V nominal / {result.fullVoltage}V full</span>
-            </div>
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <span className="text-[#8e8b86]">Safe KV Range</span>
-              <span className="text-[#28d7df]">{result.safeKvRange.min}-{result.safeKvRange.max}KV</span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="text-[#8e8b86]">Disc Loading</span>
-              <span className="text-white">{result.discLoading} kg/m2</span>
-            </div>
-          </div>
-        </section>
-
-        <section className="border border-white/10 bg-[#050505] p-5">
-          <h2 className="text-sm font-black uppercase tracking-widest text-white mb-4 flex items-center gap-2">
-            {result.warnings.length ? <AlertTriangle className="w-4 h-4 text-yellow-300" /> : <ShieldCheck className="w-4 h-4 text-[#00FF66]" />}
-            Safety Notes
-          </h2>
-          {result.warnings.length ? (
-            <div className="space-y-3">
-              {result.warnings.map((warning) => (
-                <div key={warning} className="border border-yellow-300/20 bg-yellow-300/5 p-3 text-xs text-[#d8d5cf] leading-relaxed">
-                  {warning}
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="border border-[#00FF66]/20 bg-[#00FF66]/5 p-3 text-xs text-[#d8d5cf] leading-relaxed">
-              No major fit warnings. Verify manufacturer thrust tables before purchasing parts.
-            </div>
-          )}
-        </section>
-
-        <section className="border border-white/10 bg-[#050505] p-5">
-          <div className="flex items-start justify-between gap-4 mb-4">
-            <div>
-              <h2 className="text-sm font-black uppercase tracking-widest text-white">Guided Build Review</h2>
-              <p className="text-xs text-[#8e8b86] mt-1">Calculator stays deterministic; the review layer adds source-backed build guidance.</p>
-            </div>
-            {review?.source && (
-              <span className={cn(
-                'border px-2 py-1 text-[10px] font-black uppercase tracking-widest',
-                review.source === 'dify' ? 'border-[#28d7df]/35 text-[#28d7df]' : 'border-yellow-300/35 text-yellow-300',
-              )}>
-                {review.source}
-              </span>
-            )}
-          </div>
-
-          <Button variant="cyber" className="w-full h-12" onClick={runBuildReview} disabled={reviewLoading}>
-            <Zap className="w-4 h-4 mr-2" /> {reviewLoading ? 'Running Build Review...' : 'Run Build Review'}
-          </Button>
-
-          {reviewError && (
-            <div className="mt-4 border border-yellow-300/20 bg-yellow-300/5 p-3 text-xs text-yellow-100 leading-relaxed">
-              {reviewError}
-            </div>
-          )}
-
-          {review?.markdown && (
-            <div className="prose prose-invert prose-sm mt-5 max-w-none prose-headings:font-black prose-headings:uppercase prose-headings:tracking-widest prose-headings:text-white prose-p:text-[#d8d5cf] prose-li:text-[#d8d5cf]">
-              <ReactMarkdown>{review.markdown}</ReactMarkdown>
-            </div>
-          )}
-        </section>
-
-        <Button variant="cyber" className="w-full h-12" onClick={copySnapshot}>
-          <Zap className="w-4 h-4 mr-2" /> {copied ? 'Snapshot Copied' : 'Copy Build Snapshot'}
-        </Button>
+      {/* RIGHT COLUMN: OUTPUTS (DESKTOP) */}
+      <aside className="hidden lg:flex flex-col space-y-8 sticky top-28 h-fit pb-12">
+        {renderDiagnosticOutput()}
+        {renderFitWindow()}
+        {renderSafetyNotes()}
+        {renderBuildReviewPanel()}
       </aside>
+
+      {/* MOBILE BOTTOM DRAWER: OUTPUTS */}
+      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
+        
+        <div 
+          className="bg-zinc-950 border-t border-white/10 p-4 flex items-center justify-between pointer-events-auto cursor-pointer shadow-[0_-10px_40px_rgba(0,0,0,0.8)]"
+          onClick={() => setDrawerOpen(!drawerOpen)}
+        >
+          <div className="flex items-center gap-4">
+            <div className={cn('w-2 h-2 rounded-full shadow-[0_0_8px_currentColor]', result.verdict === 'balanced' ? 'text-[#00FF66] bg-[#00FF66]' : result.verdict === 'caution' ? 'text-yellow-300 bg-yellow-300' : 'text-red-500 bg-red-500')} />
+            <div className="font-mono text-xs text-white uppercase tracking-widest">
+              <span className="text-[#8e8b86] mr-2">THRUST</span> {result.estimatedThrustRatio}:1
+            </div>
+            <div className="font-mono text-xs text-white uppercase tracking-widest">
+              <span className="text-[#8e8b86] mr-2">TIME</span> {result.estimatedFlightTimeMin}m
+            </div>
+          </div>
+          <ChevronUp className={cn("w-5 h-5 text-[#28d7df] transition-transform duration-300", drawerOpen && "rotate-180")} />
+        </div>
+
+        {/* Expandable Drawer Content */}
+        <AnimatePresence>
+          {drawerOpen && (
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="bg-zinc-950 border-t border-white/10 h-[80vh] overflow-y-auto pointer-events-auto pb-safe shadow-2xl"
+            >
+              <div className="p-4 space-y-6">
+                {renderDiagnosticOutput()}
+                {renderFitWindow()}
+                {renderSafetyNotes()}
+                {renderBuildReviewPanel()}
+                <Button variant="ghost" className="w-full h-12 border border-white/10 font-mono text-[10px] uppercase tracking-widest" onClick={copySnapshot}>
+                  {copied ? 'COPIED TO CLIPBOARD' : 'COPY SNAPSHOT JSON'}
+                </Button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
     </div>
   );
 }

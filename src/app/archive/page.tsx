@@ -101,21 +101,24 @@ export default function ArchiveIndexPage() {
         <div className="lg:col-span-8 flex flex-col gap-8">
           
           {/* Header Panel */}
-          <div className="relative p-8 hex-panel glass-panel overflow-hidden border-[#FF5C00]/20 shadow-[inset_0_0_80px_rgba(255,92,0,0.03)] bg-[#050810]/70 rounded-lg">
-            <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
-            <Database className="w-12 h-12 text-[#FF5C00] mb-6 opacity-80" />
-            <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
-              Drone <span className="text-[#FF5C00]">Archive V2</span>
+          <div className="relative p-8 border border-white/5 bg-[#18181b] rounded-sm">
+            <Database className="w-8 h-8 text-[#00F2FF] mb-6 opacity-80" />
+            <div className="flex items-center gap-3 mb-4">
+              <span className="flex h-1.5 w-1.5 rounded-full bg-[#00F2FF] animate-pulse" />
+              <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#00F2FF]">Archive Initialization</span>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold uppercase text-zinc-100 tracking-tight mb-2">
+              Drone <span className="text-[#FF5C00]">Archive</span> V2
             </h1>
-            <p className="text-xs uppercase text-[#A0A0A0] tracking-widest max-w-2xl leading-relaxed">
+            <p className="text-[11px] uppercase text-zinc-500 font-mono tracking-widest max-w-2xl leading-relaxed">
               {"// THE FPV SPECIES EVOLUTION DATABASE — FROM MISSION TO AIRCRAFT DESIGN"}
             </p>
           </div>
 
-          <div className="p-6 border border-[#FF5C00]/20 bg-[#FF5C00]/5 rounded text-xs leading-relaxed flex items-start gap-3">
-            <Info className="w-5 h-5 text-[#FF5C00] flex-shrink-0 mt-0.5" />
-            <div>
-              <span className="text-white font-black uppercase text-xs">EVOLUTIONARY TAXONOMY MATRIX:</span> Welcome to the digital registry of FPV flight dynamics. In this archive, categories are not treated as shopping collections. Instead, they represent distinct physical **Species**, engineered specifically to solve distinct **Missions**. Explore the designs, Build DNA, and evolution milestones below.
+          <div className="p-6 border border-white/10 bg-white/5 rounded-sm text-[11px] leading-relaxed flex items-start gap-3">
+            <Info className="w-4 h-4 text-zinc-400 flex-shrink-0 mt-0.5" />
+            <div className="text-zinc-400 font-mono">
+              <span className="text-zinc-200 font-bold uppercase text-[11px]">EVOLUTIONARY TAXONOMY MATRIX:</span> Welcome to the digital registry of FPV flight dynamics. In this archive, categories are not treated as shopping collections. Instead, they represent distinct physical **Species**, engineered specifically to solve distinct **Missions**. Explore the designs, Build DNA, and evolution milestones below.
             </div>
           </div>
 
@@ -125,45 +128,45 @@ export default function ArchiveIndexPage() {
               <Target className="w-5 h-5 text-[#FF5C00]" /> Operational Species Registry
             </h3>
 
-            <div className="grid gap-6">
+            <div className="grid gap-4">
               {archiveCategories.map((cat) => {
                 const IconComponent = cat.icon;
                 return (
                   <div
                     key={cat.id}
-                    className="p-6 border border-[#1A1A1A] bg-[#050810]/50 hover:bg-[#0A0D14] transition-colors duration-200 rounded-lg relative overflow-hidden group border-l-2 border-l-[#FF5C00]/40 hover:border-l-[#FF5C00]"
+                    className="p-6 border border-white/5 bg-[#18181b]/50 hover:bg-[#18181b] transition-colors duration-200 rounded-sm relative group border-l-2 border-l-transparent hover:border-l-[#FF5C00]"
                   >
                     <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                       <div className="flex items-start gap-4">
-                        <div className="bg-[#FF5C00]/10 p-3 rounded border border-[#FF5C00]/20 text-[#FF5C00] group-hover:bg-[#FF5C00]/20 transition-colors">
-                          <IconComponent className="w-6 h-6" />
+                        <div className="bg-white/5 p-3 rounded-sm border border-white/10 text-zinc-400 group-hover:text-[#FF5C00] transition-colors">
+                          <IconComponent className="w-5 h-5" />
                         </div>
                         <div>
-                          <span className="text-[10px] text-[#A0A0A0] uppercase font-black tracking-widest">{cat.name}</span>
-                          <h4 className="text-lg font-black uppercase text-white tracking-tight mt-0.5">
+                          <span className="text-[9px] text-zinc-500 uppercase font-bold tracking-widest">{cat.name}</span>
+                          <h4 className="text-base font-bold uppercase text-zinc-100 tracking-wide mt-1 group-hover:text-[#FF5C00] transition-colors">
                             {cat.subtitle}
                           </h4>
-                          <p className="text-xs text-[#b0bfd6] mt-2 leading-relaxed max-w-xl">
+                          <p className="text-[11px] font-mono text-zinc-400 mt-2 leading-relaxed max-w-xl">
                             {cat.desc}
                           </p>
 
                           {/* Telemetry quick overview */}
-                          <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 pt-3 border-t border-white/[0.04] text-[10px] font-mono">
+                          <div className="mt-5 grid grid-cols-2 md:grid-cols-4 gap-4 pt-4 border-t border-white/5 text-[9px] font-mono uppercase tracking-widest">
                             <div>
-                              <span className="text-[#8d8981] block">WEIGHT:</span>
-                              <span className="text-white font-bold">{cat.telemetry.weight}</span>
+                              <span className="text-zinc-600 block mb-1">WEIGHT</span>
+                              <span className="text-zinc-300 font-bold">{cat.telemetry.weight}</span>
                             </div>
                             <div>
-                              <span className="text-[#8d8981] block">MOTORS:</span>
-                              <span className="text-white font-bold">{cat.telemetry.motors}</span>
+                              <span className="text-zinc-600 block mb-1">MOTORS</span>
+                              <span className="text-zinc-300 font-bold">{cat.telemetry.motors}</span>
                             </div>
                             <div>
-                              <span className="text-[#8d8981] block">PROP SIZE:</span>
-                              <span className="text-white font-bold">{cat.telemetry.props}</span>
+                              <span className="text-zinc-600 block mb-1">PROP SIZE</span>
+                              <span className="text-zinc-300 font-bold">{cat.telemetry.props}</span>
                             </div>
                             <div>
-                              <span className="text-[#8d8981] block">ENVELOPE:</span>
-                              <span className="text-white font-bold truncate block max-w-[120px]">{cat.telemetry.envelope}</span>
+                              <span className="text-zinc-600 block mb-1">ENVELOPE</span>
+                              <span className="text-zinc-300 font-bold truncate block max-w-[120px]">{cat.telemetry.envelope}</span>
                             </div>
                           </div>
 
@@ -172,7 +175,7 @@ export default function ArchiveIndexPage() {
                       <a
                         id={cat.testId}
                         href={cat.link}
-                        className="bg-black/50 hover:bg-[#FF5C00] border border-[#333333] hover:border-[#FF5C00] text-xs text-[#A0A0A0] hover:text-white font-black py-2.5 px-4 rounded uppercase tracking-wider transition-all duration-200 flex-shrink-0 self-end md:self-center"
+                        className="bg-white/5 hover:bg-[#FF5C00]/10 border border-white/10 hover:border-[#FF5C00]/40 text-[10px] text-zinc-400 hover:text-[#FF5C00] font-bold py-3 px-5 rounded-sm uppercase tracking-widest transition-all duration-200 flex-shrink-0 self-end md:self-center"
                       >
                         Inspect Species →
                       </a>
@@ -191,32 +194,32 @@ export default function ArchiveIndexPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <a
                 href="/archive/long-range"
-                className="p-5 border border-[#1A1A1A] bg-[#050810]/50 hover:bg-[#0A0D14] transition-colors rounded-lg flex justify-between items-center group border-l-2 border-l-[#FF5C00]/30 hover:border-l-[#FF5C00]"
+                className="p-5 border border-white/5 bg-[#18181b]/50 hover:bg-[#18181b] transition-colors rounded-sm flex justify-between items-center group border-l-2 border-l-transparent hover:border-l-[#00F2FF]"
               >
                 <div>
-                  <h4 className="text-sm font-black uppercase text-white group-hover:text-[#FF5C00] transition-colors">
+                  <h4 className="text-sm font-bold uppercase text-zinc-200 group-hover:text-[#00F2FF] transition-colors">
                     Alpine Peak Surfing
                   </h4>
-                  <span className="text-[10px] text-[#A0A0A0] uppercase block mt-1">
+                  <span className="text-[9px] text-zinc-500 font-mono uppercase block mt-1 tracking-widest">
                     Ideal Species: Long-Range Explorer
                   </span>
                 </div>
-                <span className="text-[#FF5C00] text-xs font-black uppercase">Study Spec →</span>
+                <span className="text-[#00F2FF] text-[10px] font-bold uppercase tracking-widest">Study Spec →</span>
               </a>
 
               <a
                 href="/archive/freestyle"
-                className="p-5 border border-[#1A1A1A] bg-[#050810]/50 hover:bg-[#0A0D14] transition-colors rounded-lg flex justify-between items-center group border-l-2 border-l-[#FF5C00]/30 hover:border-l-[#FF5C00]"
+                className="p-5 border border-white/5 bg-[#18181b]/50 hover:bg-[#18181b] transition-colors rounded-sm flex justify-between items-center group border-l-2 border-l-transparent hover:border-l-[#00FF66]"
               >
                 <div>
-                  <h4 className="text-sm font-black uppercase text-white group-hover:text-[#FF5C00] transition-colors">
+                  <h4 className="text-sm font-bold uppercase text-zinc-200 group-hover:text-[#00FF66] transition-colors">
                     Bando Proximity Acro
                   </h4>
-                  <span className="text-[10px] text-[#A0A0A0] uppercase block mt-1">
+                  <span className="text-[9px] text-zinc-500 font-mono uppercase block mt-1 tracking-widest">
                     Ideal Species: Freestyle Tactician
                   </span>
                 </div>
-                <span className="text-[#FF5C00] text-xs font-black uppercase">Study Spec →</span>
+                <span className="text-[#00FF66] text-[10px] font-bold uppercase tracking-widest">Study Spec →</span>
               </a>
             </div>
           </div>

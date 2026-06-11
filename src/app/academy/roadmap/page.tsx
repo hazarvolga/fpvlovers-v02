@@ -285,7 +285,7 @@ export default function RoadmapPage() {
   const activeObj = getActiveObjective();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-[#f8fafc] font-mono">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-zinc-300 font-sans">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       {/* Offline Bar & Sync Notification HUD */}
@@ -312,16 +312,15 @@ export default function RoadmapPage() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-8 flex flex-col gap-8">
+        <div className="lg:col-span-8 flex flex-col gap-10">
           
           {/* Header Panel */}
-          <div className="relative p-8 hex-panel glass-panel overflow-hidden border-[#00F2FF]/20 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] bg-[#050810]/70 rounded-lg">
-            <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
-            <div className="flex flex-col sm:flex-row justify-between items-start gap-6">
+          <div className="relative p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden">
+            <div className="flex flex-col sm:flex-row justify-between items-start gap-8 relative z-10">
               <div>
-                <MapIcon className="w-12 h-12 text-[#00F2FF] mb-6 opacity-80" />
-                <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
-                  Pilot <span className="text-[#00F2FF]">Roadmap</span>
+                <MapIcon className="w-12 h-12 text-[#FF5C00] mb-6" />
+                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-4">
+                  Pilot <span className="text-[#FF5C00]">Roadmap</span>
                 </h1>
                 <p className="text-xs uppercase text-[#A0A0A0] tracking-widest max-w-2xl leading-relaxed mb-4">
                   {"// INTERACTIVE MULTI-DISCIPLINE FLIGHT PROGRESSION MATRIX (FPM)"}
@@ -334,14 +333,14 @@ export default function RoadmapPage() {
                 </button>
               </div>
               {dossier ? (
-                <div className="flex flex-col gap-2 items-end w-full sm:w-auto">
+                <div className="flex flex-col gap-3 items-end w-full sm:w-auto">
                   <a
                     href="/academy/dossier"
-                    className="text-right bg-[#00F2FF]/5 hover:bg-[#00F2FF]/10 border border-[#00F2FF]/20 hover:border-[#00F2FF] p-4 rounded text-xs block transition-all duration-200 w-full sm:w-auto"
+                    className="text-right bg-zinc-900 border border-white/10 hover:border-white/30 p-5 rounded-lg text-xs block transition-all duration-200 w-full sm:w-auto"
                   >
-                    <div className="flex items-center justify-end gap-2">
+                    <div className="flex items-center justify-end gap-2 mb-2">
                       {syncing && <span className="animate-spin text-[#00F2FF]">⚙️</span>}
-                      <p className="text-[#00F2FF] font-black uppercase" title="Your official telemetry pilot identifier.">CALLSIGN: {dossier.callsign} ℹ️</p>
+                      <p className="text-zinc-100 font-mono font-bold uppercase tracking-widest" title="Your official telemetry pilot identifier.">CALLSIGN: {dossier.callsign}</p>
                     </div>
                     <p className="text-[#A0A0A0] mt-1 font-black" title="Your specialized flight class calibrated during assessment.">CLASS: {dossier.assignedClass} ℹ️</p>
                     <p className="text-[#00FF66] mt-1 font-mono uppercase tracking-widest" title="Operational Readiness Level: your active pilot qualification tier.">
@@ -389,9 +388,9 @@ export default function RoadmapPage() {
           {/* Active Flight Objective HUD / Guest Mode Activation CTA */}
           {dossier ? (
             activeObj && (
-              <div className="relative p-6 border border-[#FF5C00]/30 bg-[#FF5C00]/5 rounded-lg shadow-[0_0_30px_rgba(255,92,0,0.05)] overflow-hidden hex-panel">
-                <div className="absolute top-0 right-0 bg-[#FF5C00]/10 text-[#FF5C00] text-[9px] uppercase font-black px-3 py-1 border-b border-l border-[#FF5C00]/20 tracking-widest animate-pulse">
-                  [!] Active Flight Objective
+              <div className="relative p-8 border border-white/5 bg-zinc-900 rounded-xl shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 bg-[#FF5C00] text-black text-[10px] uppercase font-bold px-4 py-1 tracking-widest">
+                  Active Flight Objective
                 </div>
                 
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mt-2">
@@ -421,7 +420,7 @@ export default function RoadmapPage() {
                         setVerifyingModule(activeObj.module);
                         setCheckedObjectives({});
                       }}
-                      className="text-center bg-black/50 hover:bg-[#00FF66]/10 text-white hover:text-[#00FF66] border border-[#333333] hover:border-[#00FF66]/40 font-black py-3 px-6 rounded text-xs uppercase tracking-wider transition-all duration-200"
+                      className="text-center bg-zinc-800 hover:bg-[#00FF66]/10 text-zinc-100 hover:text-[#00FF66] border border-white/10 hover:border-[#00FF66]/40 font-bold py-3 px-6 rounded-lg text-xs uppercase tracking-wider transition-all duration-200"
                     >
                       Checkoff Complete
                     </button>
@@ -430,20 +429,20 @@ export default function RoadmapPage() {
               </div>
             )
           ) : (
-            <div className="relative p-6 border border-[#FF5C00]/30 bg-[#FF5C00]/5 rounded-lg shadow-[0_0_30px_rgba(255,92,0,0.05)] overflow-hidden hex-panel">
-              <div className="absolute top-0 right-0 bg-[#FF5C00]/10 text-[#FF5C00] text-[9px] uppercase font-black px-3 py-1 border-b border-l border-[#FF5C00]/20 tracking-widest animate-pulse">
-                [!] Dossier Offline
+            <div className="relative p-8 border border-white/10 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden">
+              <div className="absolute top-0 right-0 bg-zinc-800 text-zinc-300 text-[10px] uppercase font-bold px-4 py-1 tracking-widest">
+                Dossier Offline
               </div>
               
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mt-2">
                 <div className="space-y-2">
-                  <p className="text-xs uppercase text-[#FF5C00] font-black tracking-widest">
+                  <p className="text-xs uppercase text-[#FF5C00] font-bold tracking-widest">
                     Telemetry Inactive // Guest Onboarding
                   </p>
-                  <h4 className="text-xl font-black uppercase text-white tracking-tight">
+                  <h4 className="text-xl font-bold uppercase text-zinc-100 tracking-tight">
                     Initialize Flight Credentials
                   </h4>
-                  <p className="text-xs text-[#A0A0A0] leading-relaxed max-w-xl">
+                  <p className="text-sm text-zinc-400 leading-relaxed max-w-xl font-sans">
                     Welcome, Guest Operator. To unlock non-linear flight paths, access dynamic compatibility critics, and track your operational readiness, you must establish your Pilot Dossier profile.
                   </p>
                 </div>
@@ -462,20 +461,20 @@ export default function RoadmapPage() {
 
           {/* Cloud Telemetry Integration Sync CTA for Guests */}
           {!session && dossier && (
-            <div className="relative p-6 border border-[#00F2FF]/30 bg-[#00F2FF]/5 rounded-lg shadow-[0_0_30px_rgba(0,242,255,0.05)] overflow-hidden hex-panel">
-              <div className="absolute top-0 right-0 bg-[#00F2FF]/10 text-[#00F2FF] text-[9px] uppercase font-black px-3 py-1 border-b border-l border-[#00F2FF]/20 tracking-widest animate-pulse">
-                [!] CLOUD BACKUP PENDING
+            <div className="relative p-8 border border-[#00F2FF]/20 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden">
+              <div className="absolute top-0 right-0 bg-[#00F2FF] text-black text-[10px] uppercase font-bold px-4 py-1 tracking-widest">
+                Cloud Backup Pending
               </div>
               
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mt-2">
                 <div className="space-y-2">
-                  <p className="text-xs uppercase text-[#00F2FF] font-black tracking-widest">
+                  <p className="text-xs uppercase text-[#00F2FF] font-bold tracking-widest">
                     CLOUD SYNC DISCONNECTED // OPERATING IN LOCAL STORAGE
                   </p>
-                  <h4 className="text-xl font-black uppercase text-white tracking-tight">
+                  <h4 className="text-xl font-bold uppercase text-zinc-100 tracking-tight">
                     Protect & Backup Flight Progress
                   </h4>
-                  <p className="text-xs text-[#A0A0A0] leading-relaxed max-w-xl">
+                  <p className="text-sm text-zinc-400 leading-relaxed max-w-xl font-sans">
                     Your flight dossier progress is currently saved in local browser cookie cache. Sign up or log in to sync all ratings to your cloud pilot account.
                   </p>
                 </div>
@@ -494,9 +493,9 @@ export default function RoadmapPage() {
 
           {/* Matrix Phase List */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2 border-b border-[#333333] pb-2 mt-4">
+            <div className="flex items-center gap-2 border-b border-white/10 pb-2 mt-4">
               <Flag className="w-5 h-5 text-[#00F2FF]" />
-              <h3 className="text-lg font-black uppercase text-[#f8fafc] tracking-widest">
+              <h3 className="text-lg font-bold uppercase text-zinc-100 tracking-widest">
                 Qualification Nodes
               </h3>
             </div>
@@ -508,7 +507,7 @@ export default function RoadmapPage() {
                     <span className="text-[#00F2FF] font-black text-sm uppercase bg-[#00F2FF]/10 px-2 py-0.5 rounded border border-[#00F2FF]/20">
                       PHASE 0{i}
                     </span>
-                    <h4 className="text-xl font-black uppercase text-white tracking-tight">{phase.name}</h4>
+                    <h4 className="text-xl font-black uppercase text-zinc-100 tracking-tight">{phase.name}</h4>
                   </div>
 
                   <div className="grid gap-6 pl-4 border-l border-[#00F2FF]/10">
@@ -520,28 +519,28 @@ export default function RoadmapPage() {
                         return (
                           <div
                             key={mod.id}
-                            className={`p-6 border hex-panel transition-colors relative rounded-lg overflow-hidden ${
+                            className={`p-8 border rounded-xl overflow-hidden transition-all duration-300 ${
                               isCompleted
-                                ? "bg-[#00FF66]/5 border-[#00FF66]/20 hover:bg-[#00FF66]/10"
+                                ? "bg-zinc-900 border-white/5 hover:border-white/10"
                                 : isLocked
-                                ? "bg-[#050810]/20 border-red-950/10 opacity-50 select-none pointer-events-none"
-                                : "bg-[#050810]/50 border-[#1A1A1A] hover:bg-[#0A0D14]"
+                                ? "bg-zinc-950 border-white/5 opacity-50 select-none pointer-events-none"
+                                : "bg-zinc-900 border-[#FF5C00]/30 hover:border-[#FF5C00]/60 shadow-[0_0_30px_rgba(255,92,0,0.05)]"
                             }`}
                           >
                             {/* Visual Padlock Overlay if locked */}
                             {isLocked && !isCompleted && (
-                              <div className="absolute inset-0 bg-[#050810]/40 backdrop-blur-[0.5px] z-10 flex flex-col items-center justify-center text-center p-4">
-                                <Lock className="w-6 h-6 text-red-500 mb-1 opacity-60" />
-                                <span className="text-[9px] uppercase text-red-400 tracking-widest font-black">Path Locked</span>
+                              <div className="absolute inset-0 bg-zinc-950/80 backdrop-blur-[1px] z-10 flex flex-col items-center justify-center text-center p-4">
+                                <Lock className="w-8 h-8 text-zinc-500 mb-2" />
+                                <span className="text-[10px] uppercase text-zinc-400 tracking-widest font-bold">Path Locked</span>
                               </div>
                             )}
 
                             <div className="flex justify-between items-start mb-4">
                               <div>
-                                <h5 className="text-lg font-black uppercase text-white tracking-tight">
+                                <h5 className="text-lg font-black uppercase text-zinc-100 tracking-tight">
                                   {mod.name}
                                 </h5>
-                                <p className="text-[10px] uppercase text-[#A0A0A0] font-mono mt-0.5 tracking-widest">
+                                <p className="text-[10px] uppercase text-zinc-400 font-mono mt-0.5 tracking-widest">
                                   MODULE ID: {mod.id}
                                 </p>
                               </div>
@@ -560,7 +559,7 @@ export default function RoadmapPage() {
                                     <Lock className="w-3.5 h-3.5" /> LOCKED
                                   </span>
                                 ) : (
-                                  <span className="inline-flex items-center gap-1 text-[10px] uppercase text-[#A0A0A0] bg-black/40 px-2 py-1 rounded border border-[#333333]">
+                                  <span className="inline-flex items-center gap-1 text-[10px] uppercase text-zinc-400 bg-zinc-800 px-2 py-1 rounded border border-white/10">
                                     <Shield className="w-3.5 h-3.5" /> QUALIFYING
                                   </span>
                                 )}
@@ -574,7 +573,7 @@ export default function RoadmapPage() {
                                 </h6>
                                 <ul className="space-y-2">
                                   {mod.objectives.map((obj, j) => (
-                                    <li key={j} className="flex items-start gap-2 text-xs text-[#A0A0A0]">
+                                    <li key={j} className="flex items-start gap-2 text-xs text-zinc-400">
                                       <CheckSquare className="w-3.5 h-3.5 text-[#00F2FF] mt-0.5 flex-shrink-0" />
                                       {obj}
                                     </li>
@@ -584,8 +583,8 @@ export default function RoadmapPage() {
 
                               {/* Clickable required study guides */}
                               {mod.requiredArticles.length > 0 && (
-                                <div className="border-t border-[#1A1A1A] pt-4 mt-4 space-y-2 z-20 relative">
-                                  <p className="text-[10px] uppercase text-[#A0A0A0] tracking-widest flex items-center gap-1">
+                                <div className="border-t border-white/5 pt-4 mt-4 space-y-2 z-20 relative">
+                                  <p className="text-[10px] uppercase text-zinc-400 tracking-widest flex items-center gap-1">
                                     <BookOpen className="w-3 h-3 text-[#00F2FF]" /> Required Study Material:
                                   </p>
                                   <div className="flex flex-col gap-1.5 pl-4">
@@ -606,16 +605,16 @@ export default function RoadmapPage() {
                                 </div>
                               )}
 
-                              <div className="border-t border-[#1A1A1A] pt-4 flex flex-wrap justify-between items-center gap-4 z-20 relative">
-                                <div className="text-[10px] uppercase text-[#A0A0A0]">
+                              <div className="border-t border-white/5 pt-4 flex flex-wrap justify-between items-center gap-4 z-20 relative">
+                                <div className="text-[10px] uppercase text-zinc-400">
                                   GATE TYPE:{" "}
                                   <span className="text-[#FF5C00] font-black uppercase">
                                     {mod.qualificationGate.type}
                                   </span>
                                 </div>
                                 {mod.qualificationGate.checkpointName && (
-                                  <div className="text-[10px] uppercase text-[#A0A0A0]">
-                                    GOAL: <span className="text-white font-mono">{mod.qualificationGate.checkpointName}</span>
+                                  <div className="text-[10px] uppercase text-zinc-400">
+                                    GOAL: <span className="text-zinc-100 font-mono">{mod.qualificationGate.checkpointName}</span>
                                   </div>
                                 )}
                               </div>
@@ -654,21 +653,20 @@ export default function RoadmapPage() {
 
       {/* Sortie Verification Checklist Modal */}
       {verifyingModule && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 animate-fadeIn">
-          <div className="relative w-full max-w-lg border border-[#FF5C00]/30 bg-[#050810] rounded-lg shadow-[0_0_50px_rgba(255,92,0,0.15)] font-mono text-[#f8fafc] overflow-hidden hex-panel">
-            <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-fadeIn">
+          <div className="relative w-full max-w-lg border border-white/10 bg-zinc-950 rounded-xl shadow-2xl font-sans text-zinc-300 overflow-hidden">
             
             {/* Header */}
-            <div className="p-6 border-b border-[#1A1A1A] flex justify-between items-start">
+            <div className="p-8 border-b border-white/5 flex justify-between items-start">
               <div>
                 <span className="text-[10px] uppercase text-[#FF5C00] font-black tracking-widest">Sortie Verification Protocol</span>
-                <h3 className="text-xl font-black uppercase text-white tracking-tight mt-1">
+                <h3 className="text-xl font-black uppercase text-zinc-100 tracking-tight mt-1">
                   {verifyingModule.name}
                 </h3>
               </div>
               <button
                 onClick={() => setVerifyingModule(null)}
-                className="text-[#A0A0A0] hover:text-white transition-colors text-lg"
+                className="text-zinc-500 hover:text-zinc-100 transition-colors text-lg"
               >
                 ✕
               </button>
@@ -676,8 +674,8 @@ export default function RoadmapPage() {
             
             {/* Content */}
             <div className="p-6 space-y-6">
-              <p className="text-xs text-[#A0A0A0] uppercase tracking-wider leading-relaxed border-b border-[#1A1A1A]/50 pb-2">
-                Operator: <span className="text-white font-bold">{dossier?.callsign}</span> — Class: <span className="text-[#FF5C00] font-bold">{dossier?.assignedClass}</span>
+              <p className="text-xs text-zinc-400 uppercase tracking-wider leading-relaxed border-b border-white/5 pb-2">
+                Operator: <span className="text-zinc-100 font-bold">{dossier?.callsign}</span> — Class: <span className="text-[#FF5C00] font-bold">{dossier?.assignedClass}</span>
               </p>
               
               <div className="space-y-4">
@@ -689,7 +687,7 @@ export default function RoadmapPage() {
                   {verifyingModule.objectives.map((obj, index) => (
                     <label
                       key={index}
-                      className="flex items-start gap-3 p-3 bg-[#0A0D14] border border-[#1A1A1A] hover:border-[#00F2FF]/20 rounded cursor-pointer transition-all duration-150 group"
+                      className="flex items-start gap-3 p-3 bg-zinc-900 border border-white/5 hover:border-[#00F2FF]/20 rounded-lg cursor-pointer transition-all duration-150 group"
                     >
                       <input
                         type="checkbox"
@@ -700,9 +698,9 @@ export default function RoadmapPage() {
                             [index]: e.target.checked,
                           });
                         }}
-                        className="mt-0.5 w-4 h-4 rounded bg-black border-[#333333] text-[#00FF66] focus:ring-0 focus:ring-offset-0"
+                        className="mt-0.5 w-4 h-4 rounded bg-zinc-800 border-white/10 text-[#00FF66] focus:ring-0 focus:ring-offset-0"
                       />
-                      <span className="text-xs text-[#A0A0A0] group-hover:text-white leading-relaxed">
+                      <span className="text-xs text-zinc-400 group-hover:text-zinc-100 leading-relaxed">
                         {obj}
                       </span>
                     </label>
@@ -710,16 +708,16 @@ export default function RoadmapPage() {
                 </div>
               </div>
               
-              <p className="text-[10px] text-yellow-500/80 leading-relaxed bg-yellow-500/5 p-3 border border-yellow-500/20 rounded">
+              <p className="text-[10px] text-yellow-500/80 leading-relaxed bg-yellow-500/5 p-3 border border-yellow-500/20 rounded-lg">
                 ▲ ATTENTION: By deploying this qualification rating, you pledge that you have successfully completed the physical/simulated target objectives and are flight-ready for this rating phase.
               </p>
             </div>
             
             {/* Footer */}
-            <div className="p-6 border-t border-[#1A1A1A] flex gap-4 justify-end bg-[#0A0D14]/40">
+            <div className="p-6 border-t border-white/5 flex gap-4 justify-end bg-zinc-900/50">
               <button
                 onClick={() => setVerifyingModule(null)}
-                className="bg-black/50 hover:bg-black border border-[#333333] hover:border-[#FF5C00]/40 text-[#A0A0A0] hover:text-white font-black py-2.5 px-5 rounded text-xs uppercase tracking-wider transition-all duration-200"
+                className="bg-zinc-800 hover:bg-zinc-700 border border-white/10 text-zinc-400 hover:text-white font-bold py-2.5 px-5 rounded-lg text-xs uppercase tracking-wider transition-all duration-200"
               >
                 Cancel
               </button>
@@ -730,7 +728,7 @@ export default function RoadmapPage() {
                   setVerifyingModule(null);
                 }}
                 disabled={verifyingModule.objectives.some((_, index) => !checkedObjectives[index])}
-                className="bg-[#00FF66] hover:bg-[#00FF66]/90 disabled:bg-[#1A1A1A] disabled:text-[#4A4A4A] disabled:border-transparent text-black border-b-4 border-[#00A341] disabled:border-b-0 font-black py-2.5 px-6 rounded text-xs uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5"
+                className="bg-[#00FF66] hover:bg-[#00FF66]/90 disabled:bg-zinc-800 disabled:text-zinc-500 disabled:border-transparent text-black border-none font-bold py-2.5 px-6 rounded-lg text-xs uppercase tracking-wider transition-all duration-200 flex items-center gap-1.5"
               >
                 Deploy Qualification
               </button>
@@ -742,20 +740,19 @@ export default function RoadmapPage() {
       {/* Cockpit Manual System Modal */}
       {isManualOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 animate-fadeIn">
-          <div className="relative w-full max-w-2xl border border-[#00F2FF]/30 bg-[#050810] rounded-lg shadow-[0_0_50px_rgba(0,242,255,0.15)] font-mono text-[#f8fafc] overflow-hidden hex-panel">
-            <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />
+          <div className="relative w-full max-w-2xl border border-white/10 bg-zinc-950 rounded-xl shadow-2xl font-sans text-zinc-100 overflow-hidden">
             
             {/* Header */}
-            <div className="p-6 border-b border-[#1A1A1A] flex justify-between items-start">
+            <div className="p-6 border-b border-white/5 flex justify-between items-start">
               <div>
-                <span className="text-[10px] uppercase text-[#00F2FF] font-black tracking-widest">Ecosystem intelligence</span>
-                <h3 className="text-xl font-black uppercase text-white tracking-tight mt-1">
-                  SYSTEM_MANUAL // MATRIX SCHEMATIC
+                <span className="text-[10px] uppercase text-[#00F2FF] font-bold tracking-widest">Ecosystem intelligence</span>
+                <h3 className="text-xl font-bold uppercase tracking-tight mt-1">
+                  System Manual // Matrix Schematic
                 </h3>
               </div>
               <button
                 onClick={() => setIsManualOpen(false)}
-                className="text-[#A0A0A0] hover:text-white transition-colors text-lg"
+                className="text-zinc-500 hover:text-zinc-100 transition-colors text-lg"
               >
                 ✕
               </button>
@@ -764,38 +761,38 @@ export default function RoadmapPage() {
             {/* Content */}
             <div className="p-6 space-y-6 max-h-[60vh] overflow-y-auto custom-scrollbar">
               <div className="grid gap-6">
-                <div className="p-4 border border-[#333333] bg-black/40 rounded">
-                  <h4 className="text-xs uppercase text-[#FF5C00] font-black tracking-widest mb-2">
+                <div className="p-4 border border-white/5 bg-zinc-900 rounded-lg">
+                  <h4 className="text-xs uppercase text-[#FF5C00] font-bold tracking-widest mb-2">
                     1. Initialize Dossier (SYS.INITIALIZE)
                   </h4>
-                  <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                  <p className="text-sm text-zinc-400 leading-relaxed font-sans">
                     Completing your scenario-based pilot assessment determines your flight class archetype and sets your default calibration variables.
                   </p>
                 </div>
                 
-                <div className="p-4 border border-[#333333] bg-black/40 rounded">
-                  <h4 className="text-xs uppercase text-[#00F2FF] font-black tracking-widest mb-2">
+                <div className="p-4 border border-white/5 bg-zinc-900 rounded-lg">
+                  <h4 className="text-xs uppercase text-[#00F2FF] font-bold tracking-widest mb-2">
                     2. Milestone Progression (SYS.FPM)
                   </h4>
-                  <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                  <p className="text-sm text-zinc-400 leading-relaxed font-sans">
                     Follow the locked branches. Unlocking active sorties requires you to read study modules, complete objective criteria, and digitally self-certify physical/simulated skill readiness.
                   </p>
                 </div>
                 
-                <div className="p-4 border border-[#333333] bg-black/40 rounded">
-                  <h4 className="text-xs uppercase text-[#00FF66] font-black tracking-widest mb-2">
+                <div className="p-4 border border-white/5 bg-zinc-900 rounded-lg">
+                  <h4 className="text-xs uppercase text-[#00FF66] font-bold tracking-widest mb-2">
                     3. Cloud Sync Telemetry (SYS.CLOUD_SYNC)
                   </h4>
-                  <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                  <p className="text-sm text-zinc-400 leading-relaxed font-sans">
                     Your progression cache is stored safely in your browser cookies when operating as a guest. Authenticating your session automatically merges and uploads your milestones to your database profile.
                   </p>
                 </div>
                 
-                <div className="p-4 border border-[#333333] bg-black/40 rounded">
-                  <h4 className="text-xs uppercase text-yellow-500 font-black tracking-widest mb-2">
+                <div className="p-4 border border-white/5 bg-zinc-900 rounded-lg">
+                  <h4 className="text-xs uppercase text-yellow-500 font-bold tracking-widest mb-2">
                     4. Off-Grid Mode (SYS.OFFLINE_RECOVERY)
                   </h4>
-                  <p className="text-xs text-[#A0A0A0] leading-relaxed">
+                  <p className="text-sm text-zinc-400 leading-relaxed font-sans">
                     When telemetry connections drop, you can certify modules offline. Ratings are saved in browser cache and deployed instantly when the link is recovered.
                   </p>
                 </div>
@@ -803,10 +800,10 @@ export default function RoadmapPage() {
             </div>
             
             {/* Footer */}
-            <div className="p-6 border-t border-[#1A1A1A] flex justify-end bg-[#0A0D14]/40">
+            <div className="p-6 border-t border-white/5 flex justify-end bg-zinc-900/50">
               <button
                 onClick={() => setIsManualOpen(false)}
-                className="bg-black/50 hover:bg-[#FF5C00]/10 text-white hover:text-[#FF5C00] border border-[#333333] hover:border-[#FF5C00]/40 font-black py-2.5 px-6 rounded text-xs uppercase tracking-wider transition-all duration-200"
+                className="bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-white/10 font-bold py-2.5 px-6 rounded-lg text-xs uppercase tracking-wider transition-all duration-200"
               >
                 [x] TERMINATE SIGNAL
               </button>

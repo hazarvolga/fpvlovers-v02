@@ -121,12 +121,12 @@ export function PartMatcherWidget({ products }: Props) {
     <div className="flex w-full flex-col gap-8">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h3 className="text-xs font-mono uppercase tracking-[0.3em] text-[#666666]">Compatibility Matrix v2.1</h3>
-          <p className="mt-1 text-xs text-[#8e8b86]">Catalog-backed checks. Live catalog expansion is in progress; guided review stays behind the server gateway.</p>
+          <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">Compatibility Matrix v2.1</h3>
+          <p className="mt-1 text-xs text-zinc-400">Catalog-backed checks. Live catalog expansion is in progress; guided review stays behind the server gateway.</p>
         </div>
         <button
           onClick={fillDemo}
-          className="self-start border-b border-[#00F2FF]/20 text-[10px] font-mono text-[#00F2FF]/60 transition-colors hover:text-[#00F2FF]"
+          className="self-start border-b border-[#00F2FF]/20 text-[10px] font-bold uppercase tracking-widest text-[#00F2FF]/60 transition-colors hover:text-[#00F2FF]"
         >
           [LOAD_CATALOG_BUILD]
         </button>
@@ -141,7 +141,7 @@ export function PartMatcherWidget({ products }: Props) {
             id="part-matcher-style"
             value={selection.style}
             onChange={(event) => setStyle(event.target.value as BuildSelection['style'])}
-            className="w-full border border-[#333333] bg-[#050505] px-4 py-4 font-mono text-sm text-white outline-none transition-all focus:border-[#00F2FF]"
+            className="w-full border border-white/10 bg-zinc-950 px-4 py-4 font-mono text-sm text-white outline-none transition-all focus:border-[#00F2FF] rounded-lg"
           >
             <option value="freestyle">Freestyle</option>
             <option value="racing">Racing</option>
@@ -164,7 +164,7 @@ export function PartMatcherWidget({ products }: Props) {
                 id={inputId}
                 value={selection[slot.slot] || ''}
                 onChange={(event) => setSlot(slot.slot, event.target.value)}
-                className="w-full border border-[#333333] bg-[#050505] px-4 py-4 font-mono text-sm text-white outline-none transition-all focus:border-[#00F2FF]"
+                className="w-full border border-white/10 bg-zinc-950 px-4 py-4 font-mono text-sm text-white outline-none transition-all focus:border-[#00F2FF] rounded-lg"
               >
                 <option value="">Select {slot.label}</option>
                 {!options.length && (
@@ -197,11 +197,11 @@ export function PartMatcherWidget({ products }: Props) {
         })}
       </div>
 
-      <section className="border border-white/10 bg-[#050505] p-5">
+      <section className="border border-white/5 bg-zinc-950 rounded-xl shadow-2xl p-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Diagnostic Output</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">
+            <h2 className="text-2xl font-black tracking-tight text-zinc-100">Diagnostic Output</h2>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">
               {hasStarted ? result.summary : 'Select components to begin compatibility checks.'}
             </p>
           </div>
@@ -210,7 +210,7 @@ export function PartMatcherWidget({ products }: Props) {
               {result.verdict} / {result.score}
             </div>
           ) : (
-            <div className="border border-white/10 px-3 py-2 text-xs font-black uppercase tracking-widest text-[#8e8b86]">
+            <div className="border border-white/10 px-3 py-2 text-xs font-bold uppercase tracking-widest text-zinc-500">
               standby
             </div>
           )}
@@ -252,11 +252,11 @@ export function PartMatcherWidget({ products }: Props) {
         ) : null}
       </section>
 
-      <section className="border border-white/10 bg-[#050505] p-5">
+      <section className="border border-white/5 bg-zinc-950 rounded-xl shadow-2xl p-6">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h2 className="text-2xl font-black uppercase tracking-tighter text-white">Compatibility Review</h2>
-            <p className="mt-2 text-sm leading-relaxed text-[#A0A0A0]">Deterministic checks return instantly; the review gateway adds source-backed buying and risk guidance when it responds in time.</p>
+            <h2 className="text-2xl font-black tracking-tight text-zinc-100">Compatibility Review</h2>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">Deterministic checks return instantly; the review gateway adds source-backed buying and risk guidance when it responds in time.</p>
           </div>
           {review?.source && (
             <span className={cn(
@@ -268,7 +268,7 @@ export function PartMatcherWidget({ products }: Props) {
           )}
         </div>
 
-        <Button variant="cyber" className="mt-5 h-14 w-full uppercase tracking-[0.18em]" onClick={runGuidedReview} disabled={reviewLoading || !requiredComplete}>
+        <Button variant="outline" className="mt-6 h-14 w-full uppercase tracking-widest font-bold bg-[#FF5C00] text-black border-none hover:bg-[#FF5C00]/90" onClick={runGuidedReview} disabled={reviewLoading || !requiredComplete}>
           {reviewLoading ? 'Running Compatibility Review...' : requiredComplete ? 'Run Compatibility Review' : 'Complete Required Parts'}
         </Button>
 

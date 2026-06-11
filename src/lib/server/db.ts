@@ -1,33 +1,11 @@
-// Resilient DB Client with local type definitions and automatic .env.local loader
-import { EventEmitter } from 'events';
+import { Pool } from 'pg';
 import * as fs from 'fs';
 import * as path from 'path';
+import { EventEmitter } from 'events';
 
-// Declare minimal interface types to mock pg types safely in TypeScript compiler
-export interface QueryResultRow {
-  [column: string]: any;
-}
+// ─── Programmatic .env.local loader ──────────────────────────────────
+// For script execution contexts where Next.js environment is not initialized
 
-export interface QueryResult<T extends QueryResultRow = any> {
-  rows: T[];
-  rowCount: number | null;
-  command: string;
-  oid: number;
-  fields: any[];
-}
-
-export interface PoolClient {
-  query<T extends QueryResultRow = any>(text: string, params?: unknown[]): Promise<QueryResult<T>>;
-  release(destroy?: boolean | Error): void;
-}
-
-export interface Pool extends EventEmitter {
-  connect(): Promise<PoolClient>;
-  query<T extends QueryResultRow = any>(text: string, params?: unknown[]): Promise<QueryResult<T>>;
-  end(): Promise<void>;
-}
-
-// Programmatic .env.local loader for script execution contexts where Next.js environment is not initialized
 function loadEnvLocal() {
   const envPath = path.join(process.cwd(), '.env.local');
   if (fs.existsSync(envPath)) {
@@ -56,86 +34,170 @@ function loadEnvLocal() {
   }
 }
 
-let poolInstance: Pool | null = null;
+// ─── Configuration ───────────────────────────────────────────────────
 
-export function getPool(): Pool {
-  if (poolInstance) return poolInstance;
-
-  // Run .env.local loader before checking environment variables
+function getPoolConfig(): NonNullable<ConstructorParameters<typeof Pool>[0]> {
   loadEnvLocal();
 
-  // Dynamically load 'pg' module to prevent compilation failures when type links are missing
-   
-  const pg = require('pg');
-  const maxPoolSize = process.env.FPV_DB_POOL_MAX 
-    ? parseInt(process.env.FPV_DB_POOL_MAX, 10) 
-    : 3;
-
   const connectionString = process.env.FPV_DATABASE_URL;
+  const poolMax = parseInt(process.env.FPV_DB_POOL_MAX || '3', 10);
+  const maxPool = Number.isFinite(poolMax) && poolMax > 0 ? poolMax : 3;
 
-  let rawPool: any;
+  const enableSsl =
+    (connectionString && connectionString.includes('sslmode=require')) ||
+    process.env.FPV_DB_SSL === 'true';
+
+  const sslConfig = enableSsl ? { ssl: { rejectUnauthorized: false } } : {};
+
   if (connectionString) {
-    console.log('Initializing PostgreSQL pool using connection string (max pool size:', maxPoolSize, ')');
-    rawPool = new pg.Pool({
+    return {
       connectionString,
-      max: maxPoolSize,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 5000,
-    });
-  } else {
-    const host = process.env.DB_HOST;
-    const port = process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432;
-    const user = process.env.DB_USERNAME;
-    const password = process.env.DB_PASSWORD;
-    const database = process.env.DB_DATABASE;
-
-    if (!host || !database) {
-      console.warn('DB configuration missing in environment. Lazy pool initialization deferred.');
-    }
-
-    console.log(`Initializing PostgreSQL pool with host ${host}:${port}/${database} (max pool size: ${maxPoolSize})`);
-    rawPool = new pg.Pool({
-      host,
-      port,
-      user,
-      password,
-      database,
-      max: maxPoolSize,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 5000,
-    });
+      max: maxPool,
+      connectionTimeoutMillis: 5_000,
+      idleTimeoutMillis: 30_000,
+      statement_timeout: 10_000,
+      ...sslConfig,
+    };
   }
 
-  rawPool.on('error', (err: Error) => {
-    console.error('Unexpected error on idle PostgreSQL client', err);
-  });
+  // Fallback to legacy individual env vars
+  const host = process.env.DB_HOST;
+  const port = process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 5432;
+  const user = process.env.DB_USERNAME;
+  const password = process.env.DB_PASSWORD;
+  const database = process.env.DB_DATABASE;
 
-  poolInstance = rawPool as Pool;
-  return poolInstance;
+  if (!host || !database) {
+    console.warn('[fpv-db] Neither FPV_DATABASE_URL nor DB_HOST/DB_DATABASE set. Pool initialization may fail.');
+  }
+
+  return {
+    host,
+    port,
+    user,
+    password,
+    database,
+    max: maxPool,
+    connectionTimeoutMillis: 5_000,
+    idleTimeoutMillis: 30_000,
+    statement_timeout: 10_000,
+    ...sslConfig,
+  };
 }
 
-export async function query<T extends QueryResultRow = any>(
+// ─── Lazy Singleton Pool ─────────────────────────────────────────────
+
+export interface DbPool {
+  query: (text: string, params?: unknown[]) => Promise<any>;
+  connect: () => Promise<any>;
+  end: () => Promise<void>;
+  on: (event: string, listener: (...args: any[]) => void) => this;
+}
+
+let _pool: DbPool | null = null;
+
+/** Return the shared pool, creating it on first call. */
+export function getPool(): DbPool {
+  if (!_pool) {
+    const config = getPoolConfig();
+    _pool = new Pool(config) as unknown as DbPool;
+
+    // Surface unexpected pool errors instead of crashing silently.
+    (_pool as unknown as EventEmitter).on('error', (err: Error) => {
+      console.error('[fpv-db] Unexpected pool error:', err.message);
+    });
+
+    const connInfo = config.connectionString
+      ? 'connection string'
+      : `${config.host}:${config.port}/${config.database}`;
+    console.log(`[fpv-db] Initializing PostgreSQL pool using ${connInfo} (max: ${config.max})`);
+  }
+  return _pool!;
+}
+
+// ─── Query Helper ────────────────────────────────────────────────────
+
+export interface QueryResultRow {
+  [column: string]: any;
+}
+
+export interface QueryResult<T extends QueryResultRow> {
+  rows: T[];
+  command: string;
+  rowCount: number | null;
+  oid: number;
+  fields: any[];
+}
+
+/**
+ * Execute a parameterised SQL query and return typed rows.
+ *
+ * @example
+ * const { rows } = await query<ContentJobRow>(
+ *   'SELECT * FROM fpvlovers_app.content_jobs WHERE status = $1',
+ *   ['queued'],
+ * );
+ */
+export async function query<T extends QueryResultRow = QueryResultRow>(
   text: string,
-  params?: unknown[]
+  params?: unknown[],
 ): Promise<QueryResult<T>> {
-  const activePool = getPool();
-  return activePool.query<T>(text, params);
+  const pool = getPool();
+  return pool.query(text, params) as unknown as Promise<QueryResult<T>>;
 }
 
+// ─── Client Helper ───────────────────────────────────────────────────
+
+export interface PoolClient {
+  query: <T extends QueryResultRow = QueryResultRow>(text: string, params?: unknown[]) => Promise<QueryResult<T>>;
+  release: (err?: Error | boolean) => void;
+}
+
+/** Acquire a client from the pool for transaction work. Remember to release(). */
 export async function getClient(): Promise<PoolClient> {
-  const activePool = getPool();
-  return activePool.connect();
+  const pool = getPool();
+  const client = await pool.connect();
+  return client as unknown as PoolClient;
 }
 
-export async function checkDbHealth(): Promise<{ healthy: boolean; error?: string; latencyMs?: number }> {
-  const start = Date.now();
+// ─── Health Check ────────────────────────────────────────────────────
+
+export interface DbHealthResult {
+  ok: boolean;
+  latencyMs: number;
+  serverVersion?: string;
+  error?: string;
+}
+
+export async function healthCheck(): Promise<DbHealthResult> {
+  const start = performance.now();
   try {
-    const res = await query('SELECT 1 as ok');
-    const latencyMs = Date.now() - start;
-    const healthy = res.rows[0]?.ok === 1;
-    return { healthy, latencyMs };
-  } catch (error) {
-    const err = error instanceof Error ? error.message : String(error);
-    return { healthy: false, error: err };
+    const pool = getPool();
+    const res = await pool.query(
+      'SELECT version() AS version',
+    ) as unknown as QueryResult<{ version: string }>;
+    const latencyMs = Math.round(performance.now() - start);
+    return {
+      ok: true,
+      latencyMs,
+      serverVersion: res.rows[0]?.version,
+    };
+  } catch (err: unknown) {
+    const latencyMs = Math.round(performance.now() - start);
+    return {
+      ok: false,
+      latencyMs,
+      error: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+// ─── Graceful Shutdown ───────────────────────────────────────────────
+
+/** Drain and close the pool. Safe to call multiple times. */
+export async function closePool(): Promise<void> {
+  if (_pool) {
+    await _pool.end();
+    _pool = null;
   }
 }

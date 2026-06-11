@@ -51,151 +51,151 @@ export default function FreestylePage() {
         <div className="lg:col-span-8 flex flex-col gap-8">
 
           {/* Header Billboard */}
-          <div className="relative h-64 md:h-80 w-full overflow-hidden hex-panel border border-[#FF5C00]/30 shadow-[0_0_50px_rgba(255,92,0,0.1)] rounded-lg">
+          <div className="relative h-64 md:h-80 w-full overflow-hidden border border-white/5 bg-[#18181b] rounded-sm">
              <Image
                 src="https://images.unsplash.com/photo-1524522173746-f628baad3644?w=1200&auto=format&fit=crop&q=70"
                 alt="Freestyle FPV Drone"
                 fill
-                className="object-cover opacity-30 mix-blend-hard-light grayscale-[40%]"
+                className="object-cover opacity-20 mix-blend-luminosity"
              />
-             <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#FF5C00]/10 z-10" />
-             <div className="absolute inset-0 scanline-anim bg-gradient-to-b from-transparent via-[#FF5C00]/10 to-transparent z-10 pointer-events-none" />
+             <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/80 to-transparent z-10" />
+             <div className="absolute inset-0 scanline-anim bg-gradient-to-b from-transparent via-[#00F2FF]/5 to-transparent z-10 pointer-events-none" />
              <div className="absolute bottom-8 left-8 z-20">
-                <div className="flex items-center gap-2 mb-2">
-                   <Zap className="w-5 h-5 text-[#FF5C00]" />
-                   <span className="text-[10px] font-black uppercase text-[#FF5C00] tracking-widest">AERODYNAMIC SPECIES: 5-INCH ACROBATIC</span>
+                <div className="flex items-center gap-3 mb-4">
+                   <span className="flex h-1.5 w-1.5 rounded-full bg-[#00FF66] animate-pulse" />
+                   <span className="text-[9px] font-bold uppercase text-[#00FF66] tracking-widest">AERODYNAMIC SPECIES: 5-INCH ACROBATIC</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter shadow-black drop-shadow-xl">
+                <h1 className="text-4xl md:text-5xl font-bold uppercase text-zinc-100 tracking-tight shadow-black drop-shadow-xl">
                   Freestyle <span className="text-[#FF5C00]">Tactician</span>
                 </h1>
              </div>
           </div>
 
           {/* Species Introductory Block */}
-          <div className="glass-panel p-6 border-l-2 border-[#FF5C00] bg-[#FF5C00]/5 text-xs text-[#b0bfd6] leading-relaxed rounded-md">
+          <div className="p-6 border-l-2 border-[#FF5C00] bg-[#18181b] text-[11px] text-zinc-400 font-mono leading-relaxed rounded-sm">
             {"// AERODYNAMIC SPECIES TAXONOMY: 5-inch acrobatic multirotor systems. The apex predator of the FPV ecosystem. Optimized for high-G structural endurance, mechanical symmetry, and carry limits. High torque-to-weight ratios allow pilots to surf architectural gaps, execute complex roll-pitch-yaw maneuvers, and carry full-sized action cameras."}
           </div>
 
           {/* Mission Profile Section */}
-          <div className="border border-[#1A1A1A] bg-[#050810]/40 p-6 rounded-lg">
-            <h3 className="text-lg font-black uppercase text-white border-b border-[#1f2937] pb-3 mb-4 tracking-wide flex items-center gap-2">
-              <Target className="w-4 h-4 text-[#FF5C00]" /> Mission Profile Overview
+          <div className="border border-white/5 bg-[#18181b]/50 p-6 rounded-sm">
+            <h3 className="text-[13px] font-bold uppercase text-zinc-100 border-b border-white/5 pb-3 mb-5 tracking-widest flex items-center gap-2">
+              <Target className="w-4 h-4 text-[#00F2FF]" /> Mission Profile Overview
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-[11px] font-mono leading-relaxed">
               <div>
-                <span className="text-[#FF5C00] font-black uppercase block mb-1">MISSION PURPOSE:</span>
-                <p className="text-[#b0bfd6]">High-G acrobatic maneuvers, structural collision resistance, architectural proximity surfing, and gravity-defying momentum control.</p>
+                <span className="text-zinc-500 font-bold uppercase block mb-1">MISSION PURPOSE</span>
+                <p className="text-zinc-300">High-G acrobatic maneuvers, structural collision resistance, architectural proximity surfing, and gravity-defying momentum control.</p>
               </div>
               <div>
-                <span className="text-[#FF5C00] font-black uppercase block mb-1">TYPICAL OBJECTIVES:</span>
-                <p className="text-[#b0bfd6]">Acro flips, bando dives, power loops, yaw-spin transitions, and creative artistic flow tracking.</p>
+                <span className="text-zinc-500 font-bold uppercase block mb-1">TYPICAL OBJECTIVES</span>
+                <p className="text-zinc-300">Acro flips, bando dives, power loops, yaw-spin transitions, and creative artistic flow tracking.</p>
               </div>
               <div>
-                <span className="text-[#FF5C00] font-black uppercase block mb-1">TYPICAL ENVIRONMENT:</span>
-                <p className="text-[#b0bfd6]">Abandoned urban complexes (bandos), skateparks, dense forest canopies, open fields with architectural structural markers, and dynamic vertical structures.</p>
+                <span className="text-zinc-500 font-bold uppercase block mb-1">TYPICAL ENVIRONMENT</span>
+                <p className="text-zinc-300">Abandoned urban complexes (bandos), skateparks, dense forest canopies, open fields with architectural structural markers, and dynamic vertical structures.</p>
               </div>
               <div>
-                <span className="text-[#FF5C00] font-black uppercase block mb-1">PILOTING DIFFICULTY:</span>
-                <p className="text-[#b0bfd6]">**Intermediate to Advanced**. Requires fine stick muscle memory and sub-conscious acro muscle reactions under steep physical penalties for error.</p>
+                <span className="text-zinc-500 font-bold uppercase block mb-1">PILOTING DIFFICULTY</span>
+                <p className="text-zinc-300">**Intermediate to Advanced**. Requires fine stick muscle memory and sub-conscious acro muscle reactions under steep physical penalties for error.</p>
               </div>
             </div>
           </div>
 
           {/* Evolution Timeline */}
-          <div className="border border-[#1A1A1A] bg-[#050810]/40 p-6 rounded-lg">
-            <h3 className="text-lg font-black uppercase text-white border-b border-[#1f2937] pb-3 mb-4 tracking-wide flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-[#FF5C00]" /> Evolution Timeline
+          <div className="border border-white/5 bg-[#18181b]/50 p-6 rounded-sm">
+            <h3 className="text-[13px] font-bold uppercase text-zinc-100 border-b border-white/5 pb-3 mb-5 tracking-widest flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-[#00F2FF]" /> Evolution Timeline
             </h3>
-            <div className="space-y-4 text-xs">
-              <div className="border-l border-[#FF5C00]/30 pl-4 relative">
-                <div className="absolute w-2.5 h-2.5 rounded-full bg-[#FF5C00] -left-[6px] top-1" />
-                <span className="text-white font-bold block">2015 — Early H-Frame & Brushed Acro</span>
-                <p className="text-[#A0A0A0] mt-1">Introduction of thick carbon H-frames. Heavy components and low battery cell configurations limited acrobatic throttle range.</p>
+            <div className="space-y-6 text-[11px] font-mono">
+              <div className="border-l border-white/10 pl-4 relative">
+                <div className="absolute w-2 h-2 rounded-none bg-zinc-600 -left-[4.5px] top-1" />
+                <span className="text-zinc-200 font-bold block uppercase tracking-wide">2015 — Early H-Frame & Brushed Acro</span>
+                <p className="text-zinc-500 mt-1">Introduction of thick carbon H-frames. Heavy components and low battery cell configurations limited acrobatic throttle range.</p>
               </div>
-              <div className="border-l border-[#FF5C00]/30 pl-4 relative">
-                <div className="absolute w-2.5 h-2.5 rounded-full bg-[#FF5C00] -left-[6px] top-1" />
-                <span className="text-white font-bold block">2017 — True-X and 4S Standardization</span>
-                <p className="text-[#A0A0A0] mt-1">Frames transition to pure symmetrical True-X geometries, aligning pitching and rolling inertia. High discharge 4S LiPos become the standard.</p>
+              <div className="border-l border-white/10 pl-4 relative">
+                <div className="absolute w-2 h-2 rounded-none bg-zinc-600 -left-[4.5px] top-1" />
+                <span className="text-zinc-200 font-bold block uppercase tracking-wide">2017 — True-X and 4S Standardization</span>
+                <p className="text-zinc-500 mt-1">Frames transition to pure symmetrical True-X geometries, aligning pitching and rolling inertia. High discharge 4S LiPos become the standard.</p>
               </div>
-              <div className="border-l border-[#FF5C00]/30 pl-4 relative">
-                <div className="absolute w-2.5 h-2.5 rounded-full bg-[#FF5C00] -left-[6px] top-1" />
-                <span className="text-white font-bold block">2019 — The 6S Voltage Revolution</span>
-                <p className="text-[#A0A0A0] mt-1">Pilots migrate to 6S high voltage battery cells paired with low-KV motors, drastically reducing sag, cooling electronics, and widening acro envelopes.</p>
+              <div className="border-l border-white/10 pl-4 relative">
+                <div className="absolute w-2 h-2 rounded-none bg-zinc-600 -left-[4.5px] top-1" />
+                <span className="text-zinc-200 font-bold block uppercase tracking-wide">2019 — The 6S Voltage Revolution</span>
+                <p className="text-zinc-500 mt-1">Pilots migrate to 6S high voltage battery cells paired with low-KV motors, drastically reducing sag, cooling electronics, and widening acro envelopes.</p>
               </div>
-              <div className="border-l border-[#FF5C00]/30 pl-4 relative">
-                <div className="absolute w-2.5 h-2.5 rounded-full bg-[#FF5C00] -left-[6px] top-1" />
-                <span className="text-white font-bold block">2021 — Carbon Resonance Analysis</span>
-                <p className="text-[#A0A0A0] mt-1">Introduction of harmonic modeling in frame carbon design. Software gyro filtering is optimized, allowing crisp, propwash-free acro tunes.</p>
+              <div className="border-l border-white/10 pl-4 relative">
+                <div className="absolute w-2 h-2 rounded-none bg-zinc-600 -left-[4.5px] top-1" />
+                <span className="text-zinc-200 font-bold block uppercase tracking-wide">2021 — Carbon Resonance Analysis</span>
+                <p className="text-zinc-500 mt-1">Introduction of harmonic modeling in frame carbon design. Software gyro filtering is optimized, allowing crisp, propwash-free acro tunes.</p>
               </div>
-              <div className="border-l border-[#FF5C00]/30 pl-4 relative">
-                <div className="absolute w-2.5 h-2.5 rounded-full bg-[#FF5C00] -left-[6px] top-1" />
-                <span className="text-white font-bold block">2023 — Clean digital recording integration</span>
-                <p className="text-[#A0A0A0] mt-1">Arrival of high-bitrate HD systems capable of 4K stabilized capture directly onboard, removing the absolute dependency on secondary heavy action cams.</p>
+              <div className="border-l border-[#00F2FF]/50 pl-4 relative">
+                <div className="absolute w-2 h-2 rounded-none bg-[#00F2FF] shadow-[0_0_10px_#00F2FF] -left-[4.5px] top-1" />
+                <span className="text-zinc-200 font-bold block uppercase tracking-wide">2023 — Clean digital recording integration</span>
+                <p className="text-zinc-500 mt-1">Arrival of high-bitrate HD systems capable of 4K stabilized capture directly onboard, removing the absolute dependency on secondary heavy action cams.</p>
               </div>
             </div>
           </div>
 
           {/* Technical Specs Panel */}
-          <div className="border border-[#1A1A1A] bg-[#050810]/40 p-6 rounded-lg">
-            <h3 className="text-lg font-black uppercase text-white border-b border-[#1f2937] pb-3 mb-4 tracking-wide flex items-center gap-2">
-              <Settings className="w-4 h-4 text-[#FF5C00]" /> Telemetry & Hardware Blueprint
+          <div className="border border-white/5 bg-[#18181b]/50 p-6 rounded-sm">
+            <h3 className="text-[13px] font-bold uppercase text-zinc-100 border-b border-white/5 pb-3 mb-5 tracking-widest flex items-center gap-2">
+              <Settings className="w-4 h-4 text-[#00F2FF]" /> Telemetry & Hardware Blueprint
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {freestyleSpecs.map((spec, idx) => (
-                <div key={idx} className="flex justify-between border-b border-white/[0.04] pb-2 text-xs">
-                  <span className="text-[#8d8981] font-semibold">{spec.label}:</span>
-                  <span className="text-white font-bold text-right">{spec.val}</span>
+                <div key={idx} className="flex justify-between border-b border-white/5 pb-2 text-[10px] font-mono">
+                  <span className="text-zinc-500 font-bold uppercase tracking-widest">{spec.label}</span>
+                  <span className="text-zinc-200 font-bold text-right ml-4">{spec.val}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Flight DNA Analysis */}
-          <div className="border border-[#1A1A1A] bg-[#050810]/40 p-6 rounded-lg">
-            <h3 className="text-lg font-black uppercase text-white border-b border-[#1f2937] pb-3 mb-4 tracking-wide flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#FF5C00]" /> Flight DNA
+          <div className="border border-white/5 bg-[#18181b]/50 p-6 rounded-sm">
+            <h3 className="text-[13px] font-bold uppercase text-zinc-100 border-b border-white/5 pb-3 mb-5 tracking-widest flex items-center gap-2">
+              <Activity className="w-4 h-4 text-[#00F2FF]" /> Flight DNA
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs leading-relaxed text-[#b0bfd6]">
-              <div className="p-4 border border-white/[0.02] bg-white/[0.01] rounded">
-                <span className="text-white font-black block mb-1">MOMENTUM SURFING:</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] font-mono leading-relaxed text-zinc-400">
+              <div className="p-5 border border-white/5 bg-[#18181b] rounded-sm">
+                <span className="text-zinc-200 font-bold block mb-2 uppercase tracking-wide">MOMENTUM SURFING</span>
                 The 5-inch species has the perfect kinetic mass envelope. Pilots cut the throttle and &quot;throw&quot; the drone, allowing it to surf gravity arcs with highly predictable trajectories.
               </div>
-              <div className="p-4 border border-white/[0.02] bg-white/[0.01] rounded">
-                <span className="text-white font-black block mb-1">PROPWASH SUSCEPTIBILITY:</span>
+              <div className="p-5 border border-white/5 bg-[#18181b] rounded-sm">
+                <span className="text-zinc-200 font-bold block mb-2 uppercase tracking-wide">PROPWASH SUSCEPTIBILITY</span>
                 Freestyle drones frequently descend back through their own dynamic thrust wake, creating aerodynamic instability (&quot;propwash&quot;) that requires optimized PID/D-term dampening.
               </div>
-              <div className="p-4 border border-white/[0.02] bg-white/[0.01] rounded">
-                <span className="text-white font-black block mb-1">AXIS BALANCED INERTIA:</span>
+              <div className="p-5 border border-white/5 bg-[#18181b] rounded-sm">
+                <span className="text-zinc-200 font-bold block mb-2 uppercase tracking-wide">AXIS BALANCED INERTIA</span>
                 Aligning mass along the central roll-pitch line creates highly symmetrical rotational physics, ensuring acro snaps (rolls/flips) complete without axial drift.
               </div>
-              <div className="p-4 border border-white/[0.02] bg-white/[0.01] rounded">
-                <span className="text-white font-black block mb-1">AGGRESSIVE POWER RAILS:</span>
+              <div className="p-5 border border-white/5 bg-[#18181b] rounded-sm">
+                <span className="text-zinc-200 font-bold block mb-2 uppercase tracking-wide">AGGRESSIVE POWER RAILS</span>
                 Fast 2207 stators can draw massive transient current spikes (up to 120A burst), requiring ultra-low ESR capacitors (35V 1000uF) to prevent video static.
               </div>
             </div>
           </div>
 
           {/* Seminal Aircraft Archetypes */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-black uppercase text-white border-b border-[#1f2937] pb-3 tracking-wide flex items-center gap-2">
-              <Activity className="w-4 h-4 text-[#FF5C00]" /> Seminal Reference Aircraft
+          <div className="space-y-4">
+            <h3 className="text-[13px] font-bold uppercase text-zinc-100 border-b border-white/5 pb-3 tracking-widest flex items-center gap-2">
+              <Activity className="w-4 h-4 text-[#00F2FF]" /> Seminal Reference Aircraft
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {representativeAircraft.map((build, idx) => (
-                <div key={idx} className="p-5 border border-[#1f2937] bg-[#050810]/30 hover:border-[#FF5C00]/40 transition-colors duration-200 rounded-lg flex flex-col justify-between">
+                <div key={idx} className="p-6 border border-white/5 bg-[#18181b]/50 hover:bg-[#18181b] transition-colors duration-200 rounded-sm flex flex-col justify-between group">
                   <div>
-                    <span className="text-[10px] text-[#FF5C00] font-black uppercase tracking-wider">{build.class}</span>
-                    <h4 className="text-base font-black text-white uppercase mt-1 mb-2">{build.name}</h4>
-                    <p className="text-xs text-[#8d8981] leading-relaxed mb-3">{build.desc}</p>
+                    <span className="text-[9px] text-[#FF5C00] font-bold uppercase tracking-widest">{build.class}</span>
+                    <h4 className="text-sm font-bold text-zinc-100 uppercase mt-2 mb-3 tracking-wide group-hover:text-[#00F2FF] transition-colors">{build.name}</h4>
+                    <p className="text-[11px] font-mono text-zinc-400 leading-relaxed mb-4">{build.desc}</p>
                     
-                    <div className="space-y-2 border-t border-white/[0.04] pt-3 text-[11px]">
+                    <div className="space-y-3 border-t border-white/5 pt-4 text-[10px] font-mono">
                       <div>
-                        <span className="text-[#8d8981] uppercase font-semibold">DESIGN CHOICE:</span>
-                        <p className="text-white mt-0.5 leading-relaxed">{build.designRationale}</p>
+                        <span className="text-zinc-600 uppercase font-bold tracking-widest block mb-1">DESIGN CHOICE</span>
+                        <p className="text-zinc-300 leading-relaxed">{build.designRationale}</p>
                       </div>
-                      <div className="mt-2">
-                        <span className="text-[#FF5C00] uppercase font-semibold">HISTORICAL IMPACT:</span>
-                        <p className="text-white mt-0.5 leading-relaxed">{build.impact}</p>
+                      <div>
+                        <span className="text-[#00F2FF] uppercase font-bold tracking-widest block mb-1">HISTORICAL IMPACT</span>
+                        <p className="text-zinc-300 leading-relaxed">{build.impact}</p>
                       </div>
                     </div>
                   </div>
@@ -205,73 +205,77 @@ export default function FreestylePage() {
           </div>
 
           {/* Advantages & Limitations */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="border border-green-500/20 bg-green-500/[0.02] p-5 rounded-lg text-xs">
-              <h4 className="text-green-400 font-bold uppercase mb-2">ADVANTAGES</h4>
-              <ul className="space-y-2 list-disc list-inside text-[#b0bfd6]">
-                <li>Unmatched power-to-weight ratio (up to 12:1 thrust curves).</li>
-                <li>Highly durable design with cheap, modular arms.</li>
-                <li>Excellent flight control resolution under Betaflight tuning.</li>
-                <li>Carries full-sized heavy action cameras effortlessly.</li>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="border border-[#00FF66]/20 bg-[#00FF66]/5 p-6 rounded-sm text-[11px] font-mono">
+              <h4 className="text-[#00FF66] font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-[#00FF66] rounded-none" /> Advantages
+              </h4>
+              <ul className="space-y-3 list-none text-zinc-300">
+                <li className="flex gap-2 before:content-['+'] before:text-[#00FF66] before:font-bold">Unmatched power-to-weight ratio (up to 12:1 thrust curves).</li>
+                <li className="flex gap-2 before:content-['+'] before:text-[#00FF66] before:font-bold">Highly durable design with cheap, modular arms.</li>
+                <li className="flex gap-2 before:content-['+'] before:text-[#00FF66] before:font-bold">Excellent flight control resolution under Betaflight tuning.</li>
+                <li className="flex gap-2 before:content-['+'] before:text-[#00FF66] before:font-bold">Carries full-sized heavy action cameras effortlessly.</li>
               </ul>
             </div>
-            <div className="border border-red-500/20 bg-red-500/[0.02] p-5 rounded-lg text-xs">
-              <h4 className="text-red-400 font-bold uppercase mb-2">LIMITATIONS</h4>
-              <ul className="space-y-2 list-disc list-inside text-[#b0bfd6]">
-                <li>High noise signature, attracting attention in public areas.</li>
-                <li>Exposed, dangerous propellers—cannot operate near humans.</li>
-                <li>Short overall flight duration (typically 4 to 5 minutes).</li>
-                <li>High kinetic damage index in steep high-speed crashes.</li>
+            <div className="border border-[#FF5C00]/20 bg-[#FF5C00]/5 p-6 rounded-sm text-[11px] font-mono">
+              <h4 className="text-[#FF5C00] font-bold uppercase tracking-widest mb-4 flex items-center gap-2">
+                <span className="w-2 h-2 bg-[#FF5C00] rounded-none" /> Limitations
+              </h4>
+              <ul className="space-y-3 list-none text-zinc-300">
+                <li className="flex gap-2 before:content-['-'] before:text-[#FF5C00] before:font-bold">High noise signature, attracting attention in public areas.</li>
+                <li className="flex gap-2 before:content-['-'] before:text-[#FF5C00] before:font-bold">Exposed, dangerous propellers—cannot operate near humans.</li>
+                <li className="flex gap-2 before:content-['-'] before:text-[#FF5C00] before:font-bold">Short overall flight duration (typically 4 to 5 minutes).</li>
+                <li className="flex gap-2 before:content-['-'] before:text-[#FF5C00] before:font-bold">High kinetic damage index in steep high-speed crashes.</li>
               </ul>
             </div>
           </div>
 
           {/* Required Articles & Knowledge base */}
-          <div className="border border-[#1f2937] bg-[#050810]/20 p-6 rounded-lg">
-            <h3 className="text-lg font-black uppercase text-white border-b border-[#1f2937] pb-3 mb-4 tracking-wide flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#FF5C00]" /> Core Species Knowledge Database
+          <div className="border border-white/5 bg-[#18181b]/50 p-6 rounded-sm">
+            <h3 className="text-[13px] font-bold uppercase text-zinc-100 border-b border-white/5 pb-3 mb-5 tracking-widest flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#00F2FF]" /> Core Species Knowledge Database
             </h3>
-            <ul className="space-y-3 text-xs text-[#b0bfd6]">
-              <li className="flex justify-between items-center border-b border-white/[0.04] pb-2">
-                <span>1. Evolution of Freestyle FPV: From heavy carbon boxes to advanced, optimized acro structures</span>
-                <a href="/academy/roadmap" className="text-[#FF5C00] hover:underline font-bold">Read Article →</a>
+            <ul className="space-y-4 text-[11px] font-mono text-zinc-400">
+              <li className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-white/5 pb-3">
+                <span>01. Evolution of Freestyle FPV: From heavy carbon boxes to advanced, optimized acro structures</span>
+                <a href="/academy/roadmap" className="text-[#FF5C00] hover:text-white uppercase font-bold tracking-widest transition-colors flex-shrink-0">Read Article →</a>
               </li>
-              <li className="flex justify-between items-center border-b border-white/[0.04] pb-2">
-                <span>2. Why 5-Inch Became the Standard: The golden ratio of disk loading, weight, and momentum</span>
-                <a href="/academy/roadmap" className="text-[#FF5C00] hover:underline font-bold">Read Article →</a>
+              <li className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-white/5 pb-3">
+                <span>02. Why 5-Inch Became the Standard: The golden ratio of disk loading, weight, and momentum</span>
+                <a href="/academy/roadmap" className="text-[#FF5C00] hover:text-white uppercase font-bold tracking-widest transition-colors flex-shrink-0">Read Article →</a>
               </li>
-              <li className="flex justify-between items-center border-b border-white/[0.04] pb-2">
-                <span>3. Modern Freestyle Build DNA: Framing carbon weave specs, standoffs, and electronics isolation</span>
-                <a href="/academy/roadmap" className="text-[#FF5C00] hover:underline font-bold">Read Article →</a>
+              <li className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-white/5 pb-3">
+                <span>03. Modern Freestyle Build DNA: Framing carbon weave specs, standoffs, and electronics isolation</span>
+                <a href="/academy/roadmap" className="text-[#FF5C00] hover:text-white uppercase font-bold tracking-widest transition-colors flex-shrink-0">Read Article →</a>
               </li>
-              <li className="flex justify-between items-center border-b border-white/[0.04] pb-2">
-                <span>4. Frame Geometry Analysis: Deconstructing Squashed-X, True-X, and Wide-X axis control</span>
-                <a href="/academy/roadmap" className="text-[#FF5C00] hover:underline font-bold">Read Article →</a>
+              <li className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-white/5 pb-3">
+                <span>04. Frame Geometry Analysis: Deconstructing Squashed-X, True-X, and Wide-X axis control</span>
+                <a href="/academy/roadmap" className="text-[#FF5C00] hover:text-white uppercase font-bold tracking-widest transition-colors flex-shrink-0">Read Article →</a>
               </li>
-              <li className="flex justify-between items-center">
-                <span>5. Freestyle Flight DNA: Gravity transitions, momentum arcs, and dynamic propwash tuning</span>
-                <a href="/engineering/workshop" className="text-[#FF5C00] hover:underline font-bold">Read Article →</a>
+              <li className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                <span>05. Freestyle Flight DNA: Gravity transitions, momentum arcs, and dynamic propwash tuning</span>
+                <a href="/engineering/workshop" className="text-[#FF5C00] hover:text-white uppercase font-bold tracking-widest transition-colors flex-shrink-0">Read Article →</a>
               </li>
             </ul>
           </div>
 
           {/* Related Reference Academy Guides */}
-          <div className="border border-[#1f2937] bg-[#050810]/20 p-6 rounded-lg">
-            <h3 className="text-lg font-black uppercase text-white border-b border-[#1f2937] pb-3 mb-4 tracking-wide flex items-center gap-2">
-              <Target className="w-4 h-4 text-[#FF5C00]" /> Related Reference Academy Guides
+          <div className="border border-white/5 bg-[#18181b]/50 p-6 rounded-sm">
+            <h3 className="text-[13px] font-bold uppercase text-zinc-100 border-b border-white/5 pb-3 mb-5 tracking-widest flex items-center gap-2">
+              <Target className="w-4 h-4 text-[#00F2FF]" /> Related Reference Academy Guides
             </h3>
-            <ul className="space-y-3 text-xs">
-              <li className="flex justify-between items-center border-b border-white/[0.04] pb-2">
-                <span className="text-white">Betaflight PID Basics: Understanding P, I, D and Feedforward Tuning</span>
-                <a href="/academy/roadmap" className="text-[#FF5C00] hover:underline uppercase font-bold">Open Guide →</a>
+            <ul className="space-y-4 text-[11px] font-mono text-zinc-400">
+              <li className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-white/5 pb-3">
+                <span className="text-zinc-300">Betaflight PID Basics: Understanding P, I, D and Feedforward Tuning</span>
+                <a href="/academy/roadmap" className="text-[#00F2FF] hover:text-white uppercase font-bold tracking-widest transition-colors flex-shrink-0">Open Guide →</a>
               </li>
-              <li className="flex justify-between items-center border-b border-white/[0.04] pb-2">
-                <span className="text-white">How to Pick the Best 5-Inch FPV Frame: Stretchy vs Squashed Geometry</span>
-                <a href="/academy/roadmap" className="text-[#FF5C00] hover:underline uppercase font-bold">Open Guide →</a>
+              <li className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 border-b border-white/5 pb-3">
+                <span className="text-zinc-300">How to Pick the Best 5-Inch FPV Frame: Stretchy vs Squashed Geometry</span>
+                <a href="/academy/roadmap" className="text-[#00F2FF] hover:text-white uppercase font-bold tracking-widest transition-colors flex-shrink-0">Open Guide →</a>
               </li>
-              <li className="flex justify-between items-center">
-                <span className="text-white">Capacitor Soldering: Preventing Spikes and Video Noise in 6S Builds</span>
-                <a href="/engineering/workshop" className="text-[#FF5C00] hover:underline uppercase font-bold">Open Guide →</a>
+              <li className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+                <span className="text-zinc-300">Capacitor Soldering: Preventing Spikes and Video Noise in 6S Builds</span>
+                <a href="/engineering/workshop" className="text-[#00F2FF] hover:text-white uppercase font-bold tracking-widest transition-colors flex-shrink-0">Open Guide →</a>
               </li>
             </ul>
           </div>

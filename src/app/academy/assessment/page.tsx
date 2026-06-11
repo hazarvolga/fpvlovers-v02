@@ -254,29 +254,28 @@ export default function PilotAssessmentPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-32 text-[#f8fafc] font-mono">
+    <div className="max-w-4xl mx-auto px-4 py-32 text-zinc-100 font-sans">
       {isIntroMode ? (
         /* Intro screen */
-        <div className="p-8 border border-[#00F2FF]/10 bg-[#050810]/80 rounded-lg shadow-[0_0_50px_rgba(0,242,255,0.05)] relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,242,255,0.03),transparent)] pointer-events-none" />
+        <div className="p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl relative overflow-hidden">
           
-          <div className="mb-8 border-b border-[#00F2FF]/20 pb-4">
-            <h1 className="text-3xl md:text-4xl font-black uppercase tracking-widest text-white">
+          <div className="mb-8 border-b border-white/5 pb-4">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-100">
               Pilot <span className="text-[#00F2FF]">Archetype Assessment</span>
             </h1>
-            <p className="text-xs uppercase text-[#A0A0A0] mt-1 tracking-widest">
+            <p className="text-xs uppercase text-zinc-500 mt-1 tracking-widest font-mono">
               {"// PROFILING FLIGHT TRAJECTORY CODES"}
             </p>
           </div>
 
-          <p className="text-sm leading-relaxed text-[#A0A0A0] mb-8">
+          <p className="text-sm leading-relaxed text-zinc-400 mb-8 font-sans">
             Welcome, operator. The FPV flight envelope is diverse. To qualify your flight path in the **Flight Progression Matrix (FPM)**, you must complete the Pilot Archetype Assessment. 
             This assessment poses 5 critical flight scenarios to decode your default operational instincts and assign your core Pilot Class.
           </p>
 
           <form onSubmit={handleStartQuiz} className="space-y-6 max-w-xl">
             <div>
-              <label className="block text-sm uppercase text-[#A0A0A0] mb-2 tracking-widest">
+              <label className="block text-xs font-bold uppercase text-zinc-400 mb-2 tracking-widest">
                 Declare Callsign (Operator Tag):
               </label>
               <input
@@ -284,7 +283,7 @@ export default function PilotAssessmentPage() {
                 value={callsign}
                 onChange={(e) => setCallsign(e.target.value)}
                 placeholder="e.g. MAVERICK"
-                className="w-full bg-[#0A0D14] border border-[#00F2FF]/20 p-3 rounded text-white focus:outline-none focus:border-[#00F2FF] font-mono text-lg uppercase tracking-wider"
+                className="w-full bg-zinc-900 border border-white/10 p-4 rounded-lg text-white focus:outline-none focus:border-[#00F2FF] font-mono text-lg uppercase tracking-wider"
                 maxLength={12}
                 required
               />
@@ -292,7 +291,7 @@ export default function PilotAssessmentPage() {
 
             <button
               type="submit"
-              className="w-full sm:w-auto inline-flex items-center gap-2 bg-[#00F2FF]/10 hover:bg-[#00F2FF]/20 text-[#00F2FF] font-black py-4 px-8 rounded uppercase tracking-wider transition-colors duration-200 border border-[#00F2FF]/30"
+              className="w-full sm:w-auto inline-flex justify-center items-center gap-2 bg-[#00F2FF]/10 hover:bg-[#00F2FF]/20 text-[#00F2FF] font-bold py-4 px-8 rounded-lg uppercase tracking-wider transition-colors duration-200 border border-[#00F2FF]/30 text-sm"
             >
               Initialize Assessment <ChevronRight className="w-5 h-5" />
             </button>
@@ -300,17 +299,16 @@ export default function PilotAssessmentPage() {
         </div>
       ) : !isFinished ? (
         /* Scenario question screens */
-        <div className="p-8 border border-[#00F2FF]/10 bg-[#050810]/80 rounded-lg shadow-[0_0_50px_rgba(0,242,255,0.05)] relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,242,255,0.03),transparent)] pointer-events-none" />
+        <div className="p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl relative overflow-hidden">
           
-          <div className="mb-6 flex justify-between items-center text-xs text-[#A0A0A0]">
-            <span className="uppercase tracking-widest text-[#00F2FF] font-black">
+          <div className="mb-6 flex justify-between items-center text-xs text-zinc-500 font-mono">
+            <span className="uppercase tracking-widest text-[#00F2FF] font-bold">
               SCENARIO PROTOCOL: 0{PAA_SCENARIOS[currentQuestionIndex].id} / 05
             </span>
-            <span className="font-mono">PILOT: {callsign.toUpperCase()}</span>
+            <span>PILOT: {callsign.toUpperCase()}</span>
           </div>
 
-          <h2 className="text-xl md:text-2xl font-black text-white uppercase tracking-tight mb-8 leading-tight">
+          <h2 className="text-xl md:text-2xl font-bold text-zinc-100 tracking-tight mb-8 leading-tight">
             {PAA_SCENARIOS[currentQuestionIndex].question}
           </h2>
 
@@ -321,16 +319,16 @@ export default function PilotAssessmentPage() {
                 <button
                   key={index}
                   onClick={() => handleAnswerSelect(opt.archetype)}
-                  className="w-full text-left p-5 bg-[#0A0D14]/80 border border-[#1A1A1A] hover:border-[#00F2FF]/40 rounded hover:bg-[#00F2FF]/5 transition-all duration-200 group flex items-start gap-4"
+                  className="w-full text-left p-5 bg-zinc-900/50 border border-white/5 hover:border-[#00F2FF]/40 rounded-lg hover:bg-zinc-900 transition-all duration-200 group flex items-start gap-4"
                 >
-                  <div className="bg-[#1A1A1A] group-hover:bg-[#00F2FF]/10 p-2.5 rounded text-[#A0A0A0] group-hover:text-[#00F2FF] border border-[#333333] group-hover:border-[#00F2FF]/20 flex-shrink-0 mt-0.5">
+                  <div className="bg-zinc-800 group-hover:bg-[#00F2FF]/10 p-2.5 rounded-lg text-zinc-400 group-hover:text-[#00F2FF] border border-white/5 group-hover:border-[#00F2FF]/20 flex-shrink-0 mt-0.5 transition-colors">
                     <IconComponent className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-sm font-black text-white uppercase tracking-wide group-hover:text-[#00F2FF] leading-snug">
+                    <p className="text-sm font-bold text-zinc-100 group-hover:text-[#00F2FF] leading-snug transition-colors">
                       {opt.text}
                     </p>
-                    <p className="text-xs text-[#A0A0A0] mt-1 font-mono leading-relaxed opacity-80">
+                    <p className="text-xs text-zinc-400 mt-1 font-sans leading-relaxed">
                       {opt.details}
                     </p>
                   </div>
@@ -341,36 +339,35 @@ export default function PilotAssessmentPage() {
         </div>
       ) : (
         /* Quiz result deployment screen */
-        <div className="p-8 border border-[#00FF66]/10 bg-[#050810]/80 rounded-lg shadow-[0_0_50px_rgba(0,255,102,0.05)] relative overflow-hidden text-center max-w-2xl mx-auto">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,255,102,0.03),transparent)] pointer-events-none" />
+        <div className="p-8 md:p-12 border border-[#00FF66]/20 bg-zinc-950 rounded-xl shadow-2xl relative overflow-hidden text-center max-w-2xl mx-auto">
           
           <Award className="w-16 h-16 text-[#00FF66] mx-auto mb-6 animate-pulse" />
           
-          <h2 className="text-3xl font-black uppercase text-white tracking-widest mb-2">
+          <h2 className="text-3xl font-bold tracking-tight text-zinc-100 mb-2">
             Assessment <span className="text-[#00FF66]">Cleared</span>
           </h2>
-          <p className="text-xs uppercase text-[#A0A0A0] tracking-widest mb-8">
+          <p className="text-xs uppercase text-zinc-500 tracking-widest mb-8 font-mono">
             {"// DOSSIER SPECIFICATION RESOLVED"}
           </p>
 
-          <div className="bg-[#0A0D14] border border-[#00FF66]/20 p-6 rounded-lg mb-8 max-w-md mx-auto text-left">
-            <h3 className="text-xs uppercase text-[#00FF66] font-black border-b border-[#00FF66]/10 pb-2 mb-4 tracking-widest flex items-center gap-2">
+          <div className="bg-zinc-900 border border-white/5 p-6 rounded-xl mb-8 max-w-md mx-auto text-left shadow-inner">
+            <h3 className="text-xs uppercase text-[#00FF66] font-bold border-b border-white/5 pb-2 mb-4 tracking-widest flex items-center gap-2">
               <UserCheck className="w-4 h-4" /> Operator Credentials
             </h3>
-            <p className="text-sm text-white uppercase tracking-wider">
-              PILOT TAG: <span className="text-[#00F2FF] font-black">{callsign.toUpperCase()}</span>
+            <p className="text-sm text-zinc-100 uppercase tracking-wider font-mono">
+              PILOT TAG: <span className="text-[#00F2FF] font-bold">{callsign.toUpperCase()}</span>
             </p>
-            <p className="text-sm text-white uppercase tracking-wider mt-2">
-              CORE CLASS: <span className="text-[#FF5C00] font-black">{calculatedClass}</span>
+            <p className="text-sm text-zinc-100 uppercase tracking-wider mt-2 font-mono">
+              CORE CLASS: <span className="text-[#FF5C00] font-bold">{calculatedClass}</span>
             </p>
-            <p className="text-sm text-white uppercase tracking-wider mt-2">
-              INITIAL ORL: <span className="text-[#00FF66] font-black">ORL-0 (Initiation)</span>
+            <p className="text-sm text-zinc-100 uppercase tracking-wider mt-2 font-mono">
+              INITIAL ORL: <span className="text-[#00FF66] font-bold">ORL-0 (Initiation)</span>
             </p>
           </div>
 
           <button
             onClick={handleDeployDossier}
-            className="w-full bg-[#00FF66] hover:bg-[#00FF66]/90 text-black font-black py-4 px-8 rounded uppercase tracking-wider transition-colors duration-200 border-b-4 border-[#00A341] text-sm"
+            className="w-full bg-[#00FF66] hover:bg-[#00FF66]/90 text-black font-bold py-4 px-8 rounded-lg uppercase tracking-wider transition-colors duration-200 border-none text-sm"
           >
             Deploy Credentials & Enter Roadmap
           </button>

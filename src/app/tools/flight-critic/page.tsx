@@ -93,21 +93,20 @@ export default function FlightCriticPage() {
     : "";
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-[#f8fafc] font-mono">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-zinc-100">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 flex flex-col gap-8">
           
           {/* Header Panel */}
-          <div className="relative p-8 hex-panel glass-panel overflow-hidden border-[#FF5C00]/20 shadow-[inset_0_0_80px_rgba(255,92,0,0.03)] bg-[#050810]/70 rounded-lg">
-            <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
+          <div className="relative p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden">
             <Shield className="w-12 h-12 text-[#FF5C00] mb-6 opacity-80" />
-            <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-4">
+            <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-4">
               Flight <span className="text-[#FF5C00]">Critic</span>
             </h1>
-            <p className="text-xs uppercase text-[#A0A0A0] tracking-widest max-w-2xl leading-relaxed">
-              {"// PHYSICAL & ELECTRICAL COMPATIBILITY AUDITOR"}
+            <p className="text-sm text-zinc-400 max-w-2xl leading-relaxed font-sans">
+              Physical and electrical compatibility auditor for your active Build DNA.
             </p>
           </div>
 
@@ -117,46 +116,46 @@ export default function FlightCriticPage() {
               <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-6">
                 
                 {/* Score Dial Card */}
-                <div className={`p-6 border rounded-lg flex flex-col justify-between items-center text-center ${verdictBorder}`}>
+                <div className={`p-6 border rounded-xl flex flex-col justify-between items-center text-center ${verdictBorder}`}>
                   <div className="w-full border-b border-white/5 pb-3 mb-4">
-                    <span className="text-[10px] text-[#A0A0A0] uppercase block tracking-widest">
+                    <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest">
                       READINESS STATUS
                     </span>
-                    <span className="text-lg font-black text-white uppercase block mt-1">
+                    <span className="text-lg font-bold text-white uppercase block mt-1">
                       {auditResult.verdict}
                     </span>
                   </div>
 
                   <div className="my-6">
-                    <span className={`text-6xl font-black ${scoreColor}`}>
+                    <span className={`text-6xl font-black tracking-tighter ${scoreColor}`}>
                       {auditResult.score}%
                     </span>
-                    <span className="block text-[10px] text-[#A0A0A0] uppercase mt-2 tracking-widest">
+                    <span className="block text-[10px] text-zinc-500 font-bold uppercase mt-2 tracking-widest">
                       COMPATIBILITY INDEX
                     </span>
                   </div>
 
-                  <div className="text-[10px] text-[#A0A0A0] uppercase leading-relaxed max-w-xs">
-                    ACTIVE CALLSIGN: <span className="text-white font-black">{dossier.callsign}</span>
+                  <div className="text-[10px] text-zinc-400 uppercase leading-relaxed max-w-xs font-mono">
+                    ACTIVE CALLSIGN: <span className="text-white font-bold">{dossier.callsign}</span>
                     <br />
-                    BUILD CLASS: <span className="text-[#FF5C00] font-black">{build.droneClass}</span>
+                    BUILD CLASS: <span className="text-[#FF5C00] font-bold">{build.droneClass}</span>
                   </div>
                 </div>
 
                 {/* Mission selection panel */}
-                <div className="p-6 border border-[#1A1A1A] bg-[#050810]/80 rounded-lg flex flex-col justify-between">
+                <div className="p-6 border border-white/5 bg-zinc-950 rounded-xl flex flex-col justify-between shadow-lg">
                   <div>
-                    <h3 className="text-xs uppercase text-[#00F2FF] font-black border-b border-white/5 pb-2 mb-4 tracking-widest flex items-center gap-2">
+                    <h3 className="text-xs uppercase text-[#00F2FF] font-bold border-b border-white/5 pb-2 mb-4 tracking-widest flex items-center gap-2">
                       <Compass className="w-4 h-4" /> Operational Mission Audit
                     </h3>
-                    <p className="text-xs leading-relaxed text-[#A0A0A0] mb-6">
+                    <p className="text-xs leading-relaxed text-zinc-400 mb-6 font-sans">
                       By default, Flight Critic audits core physical and electrical compatibility. To test if this layout matches specific flight mission bounds, select a target envelope:
                     </p>
 
                     <select
                       value={selectedMissionId}
                       onChange={handleMissionChange}
-                      className="w-full bg-[#0A0D14] border border-[#00F2FF]/20 p-3.5 rounded text-white focus:outline-none focus:border-[#00F2FF] font-mono text-xs uppercase"
+                      className="w-full bg-zinc-900 border border-white/10 p-3.5 rounded-lg text-white focus:outline-none focus:border-[#00F2FF] font-mono text-xs uppercase"
                     >
                       <option value="">-- Core Physical Audit Only --</option>
                       {SYSTEM_MISSIONS.map(m => (
@@ -168,12 +167,12 @@ export default function FlightCriticPage() {
                   </div>
 
                   {selectedMission && (
-                    <div className="mt-6 border border-white/5 bg-black/40 p-4 rounded text-xs">
-                      <span className="text-[10px] text-[#FF5C00] font-black uppercase tracking-widest block mb-1">
+                    <div className="mt-6 border border-white/5 bg-zinc-900/50 p-4 rounded-lg text-xs font-mono">
+                      <span className="text-[10px] text-[#FF5C00] font-bold uppercase tracking-widest block mb-1">
                         TARGET ENVELOPE REQUIREMENTS
                       </span>
-                      <span className="text-white block font-black uppercase">{selectedMission.name}</span>
-                      <span className="text-[#A0A0A0] block mt-1">
+                      <span className="text-white block font-bold uppercase">{selectedMission.name}</span>
+                      <span className="text-zinc-400 block mt-1">
                         Max Wind: {selectedMission.envelope.maxWindSpeedKph} KPH | Weight: {selectedMission.envelope.allowableWeightClass}
                       </span>
                     </div>
@@ -183,7 +182,7 @@ export default function FlightCriticPage() {
 
               {/* Audited Warnings Card List */}
               <div className="space-y-4">
-                <h3 className="text-lg font-black uppercase text-[#f8fafc] border-b border-[#333333] pb-2 tracking-widest">
+                <h3 className="text-lg font-bold uppercase text-zinc-100 border-b border-white/10 pb-2 tracking-widest">
                   Diagnostic Alert Logs
                 </h3>
 
@@ -194,28 +193,28 @@ export default function FlightCriticPage() {
                       const isCaut = w.level === "caution";
                       
                       const alertBorder = isCrit
-                        ? "border-red-900/30 bg-red-950/10 border-l-4 border-l-red-500"
+                        ? "border-red-900/30 bg-red-950/20 border-l-4 border-l-red-500"
                         : isCaut
-                          ? "border-yellow-900/20 bg-yellow-950/10 border-l-4 border-l-yellow-500"
-                          : "border-blue-900/20 bg-blue-950/10 border-l-4 border-l-blue-500";
+                          ? "border-yellow-900/20 bg-yellow-950/20 border-l-4 border-l-yellow-500"
+                          : "border-blue-900/20 bg-blue-950/20 border-l-4 border-l-blue-500";
 
                       const alertBadge = isCrit
-                        ? "text-red-500 bg-red-500/10 border border-red-500/20"
+                        ? "text-red-400 bg-red-500/10 border border-red-500/20"
                         : isCaut
-                          ? "text-yellow-500 bg-yellow-500/10 border border-yellow-500/20"
-                          : "text-blue-500 bg-blue-500/10 border border-blue-500/20";
+                          ? "text-yellow-400 bg-yellow-500/10 border border-yellow-500/20"
+                          : "text-blue-400 bg-blue-500/10 border border-blue-500/20";
 
                       return (
-                        <div key={idx} className={`p-5 rounded border ${alertBorder} relative`}>
+                        <div key={idx} className={`p-5 rounded-lg border ${alertBorder} relative`}>
                           <div className="flex justify-between items-start gap-4 mb-2">
-                            <h4 className="text-sm font-black uppercase text-white tracking-wide">
+                            <h4 className="text-sm font-bold uppercase text-zinc-100 tracking-wide font-mono">
                               {w.title}
                             </h4>
-                            <span className={`text-[10px] font-black uppercase py-0.5 px-2 rounded ${alertBadge}`}>
+                            <span className={`text-[10px] font-bold uppercase py-0.5 px-2 rounded font-mono ${alertBadge}`}>
                               {w.level}
                             </span>
                           </div>
-                          <p className="text-xs text-[#A0A0A0] leading-relaxed font-mono">
+                          <p className="text-xs text-zinc-400 leading-relaxed font-sans">
                             {w.details}
                           </p>
                         </div>
@@ -223,12 +222,12 @@ export default function FlightCriticPage() {
                     })}
                   </div>
                 ) : (
-                  <div className="p-6 border border-[#00FF66]/20 bg-[#00FF66]/5 rounded text-center text-xs">
+                  <div className="p-6 border border-[#00FF66]/20 bg-[#00FF66]/5 rounded-xl text-center text-xs">
                     <ShieldCheck className="w-12 h-12 text-[#00FF66] mx-auto mb-3 opacity-80" />
-                    <span className="text-[#00FF66] font-black uppercase block mb-1">
+                    <span className="text-[#00FF66] font-bold uppercase block mb-1 tracking-widest">
                       BLUEPRINT SYSTEM CLEAR
                     </span>
-                    <span className="text-[#A0A0A0] uppercase font-mono">
+                    <span className="text-zinc-400 font-sans">
                       No structural or electrical warning flags found. Active Build matches standard safe envelopes.
                     </span>
                   </div>
@@ -237,26 +236,26 @@ export default function FlightCriticPage() {
             </>
           ) : (
             /* Locked profile placeholder when cookie/build is missing */
-            <div className="p-8 border border-red-950/20 bg-[#050810]/80 rounded-lg text-center">
+            <div className="p-12 border border-white/5 bg-zinc-950 rounded-xl text-center shadow-2xl">
               <ShieldAlert className="w-16 h-16 text-[#FF5C00] mx-auto mb-6 animate-pulse" />
-              <h3 className="text-xl font-black uppercase text-white tracking-widest mb-2">
+              <h3 className="text-xl font-bold tracking-tight text-zinc-100 mb-2">
                 Dossier Blueprint Locked
               </h3>
-              <p className="text-xs text-[#A0A0A0] uppercase mb-8">
-                NO ACTIVE BUILD DNA LOADED TO CRITIC MEMORY.
+              <p className="text-sm text-zinc-400 mb-8 font-sans">
+                No active Build DNA loaded to Critic memory. Complete an assessment or load an archive.
               </p>
               
               <div className="flex flex-col sm:flex-row justify-center gap-4 max-w-md mx-auto">
                 <a
                   href="/academy/assessment"
-                  className="bg-[#00F2FF]/10 hover:bg-[#00F2FF]/20 text-[#00F2FF] border border-[#00F2FF]/30 font-black py-3.5 px-6 rounded text-xs uppercase tracking-wider transition-all duration-200"
+                  className="bg-zinc-900 hover:bg-zinc-800 text-zinc-100 border border-white/10 font-bold py-3.5 px-6 rounded-lg text-xs uppercase tracking-wider transition-all duration-200"
                 >
                   Start Archetype Quiz
                 </a>
                 
                 <a
                   href="/archive"
-                  className="bg-[#FF5C00]/10 hover:bg-[#FF5C00]/20 text-[#FF5C00] border border-[#FF5C00]/30 font-black py-3.5 px-6 rounded text-xs uppercase tracking-wider transition-all duration-200"
+                  className="bg-[#FF5C00] hover:bg-[#FF5C00]/90 text-black border-none font-bold py-3.5 px-6 rounded-lg text-xs uppercase tracking-wider transition-all duration-200"
                 >
                   Browse reference Blueprints
                 </a>
