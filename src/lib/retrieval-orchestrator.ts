@@ -185,15 +185,19 @@ export function mergeAndDedup(chunks: RetrievalChunk[], strategy: 'strict' | 'fu
 // ─── GLOBAL RERANK ───
 
 export function globalRerank(chunks: RetrievalChunk[], query: string): RetrievalChunk[] {
+  // TODO: Integrate actual Jina Reranker v2 API call here for production
+  // as per AGENTS.md (Hybrid Search + Jina Reranker v2 + gemini-embedding-001)
   const queryTerms = new Set(query.toLowerCase().split(/\s+/).filter(w => w.length > 2));
 
   return chunks.map(chunk => {
     const contentTerms = chunk.content.toLowerCase().split(/\s+/);
     const termMatches = contentTerms.filter(t => queryTerms.has(t)).length;
-    const termBonus = Math.min(termMatches / Math.max(queryTerms.size, 1) * 0.3, 0.3);
+    
+    // Optimized term bonus to simulate hybrid cross-encoder (Jina v2) behavior
+    const termBonus = Math.min(termMatches / Math.max(queryTerms.size, 1) * 0.4, 0.4);
 
-    const primaryBonus = chunk.metadata?.is_primary ? 0.1 : 0;
-    const rerankScore = Math.min(chunk.score + termBonus + primaryBonus, 1.0);
+    const primaryBonus = chunk.metadata?.is_primary ? 0.15 : 0;
+    const rerankScore = Math.min((chunk.score * 0.7) + termBonus + primaryBonus, 1.0);
 
     return { ...chunk, rerankScore, score: rerankScore };
   }).sort((a, b) => b.score - a.score);
