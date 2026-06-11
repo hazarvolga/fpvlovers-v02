@@ -4,6 +4,7 @@ import { Navbar } from '@/features/layout/components/Navbar';
 import { SearchSection } from '@/features/layout/components/SearchSection';
 import { SiteFooter } from '@/features/layout/components/SiteFooter';
 import { Analytics } from '@vercel/analytics/react';
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
@@ -28,6 +29,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="relative z-10">{children}</main>
           <SiteFooter />
           <Analytics />
+          {process.env.NEXT_PUBLIC_GA_ID && (
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+          )}
         </SessionProvider>
       </body>
     </html>
