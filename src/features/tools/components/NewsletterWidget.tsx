@@ -16,14 +16,23 @@ export function NewsletterWidget({ className }: { className?: string }) {
 
     setStatus('loading');
 
-    // Simulate Beehiiv API integration
-    setTimeout(() => {
-      if (email.includes('@')) {
+    try {
+      const res = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, source: 'tools_hub_widget' }),
+      });
+
+      if (res.ok) {
         setStatus('success');
       } else {
         setStatus('error');
       }
-    }, 1500);
+    } catch (error) {
+      setStatus('error');
+    }
   };
 
   return (
@@ -81,7 +90,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
                   className="flex flex-col items-center justify-center p-4"
                 >
                    <Zap className="w-6 h-6 text-[#00F5FF] animate-pulse mb-2" />
-                   <span className="font-mono text-[10px] text-[#00F5FF] uppercase tracking-widest">Integrating with Beehiiv EMS...</span>
+                   <span className="font-mono text-[10px] text-[#00F5FF] uppercase tracking-widest">Integrating...</span>
                 </motion.div>
               ) : (
                 <motion.div

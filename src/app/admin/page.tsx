@@ -11,6 +11,7 @@ import SponsorDashboard from '@/features/monetization/components/SponsorDashboar
 import AnalyticsDashboard from '@/features/admin/components/AnalyticsDashboard';
 import ContentAutomationPanel from '@/components/admin/ContentAutomationPanel';
 import PublishedContentPanel from '@/components/admin/PublishedContentPanel';
+import NewsletterPanel from '@/features/admin/components/NewsletterPanel';
 import { Button } from '@/components/ui/button';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -67,7 +68,7 @@ type CrawlerInfo = {
   error?: string;
 };
 
-type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry';
+type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry' | 'newsletter';
 
 type Tab = { id: TabId; label: string; icon: React.ElementType };
 
@@ -243,6 +244,7 @@ export default function AdminDashboard() {
         { id: 'affiliates', label: 'Affiliates', icon: ShoppingCart },
         { id: 'sponsors', label: 'Sponsors', icon: BadgeDollarSign },
         { id: 'orchestrator', label: 'Orchestrator', icon: Workflow },
+        { id: 'newsletter', label: 'Newsletter', icon: Send },
       ],
     },
     {
@@ -1536,6 +1538,10 @@ export default function AdminDashboard() {
                      </div>
                   </div>
                </div>
+             )}
+
+             {activeTab === 'newsletter' && (
+               <NewsletterPanel />
              )}
 
           </div>

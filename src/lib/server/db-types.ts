@@ -82,6 +82,26 @@ export interface PublishedArticleShadowRow {
   last_indexed_at: Date;
 }
 
+export interface NewsletterSubscriberRow {
+  id: string;
+  email: string;
+  is_active: boolean;
+  subscribed_at: Date;
+  unsubscribed_at: Date | null;
+  source: string;
+}
+
+export interface NewsletterCampaignRow {
+  id: string;
+  subject: string;
+  content_html: string;
+  content_md: string | null;
+  status: string;
+  sent_at: Date | null;
+  recipient_count: number;
+  created_at: Date;
+}
+
 // ─── fpvlovers_commerce ─────────────────────────────────────────────
 
 export interface ProductRow {
