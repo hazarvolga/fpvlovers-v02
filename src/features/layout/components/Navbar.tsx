@@ -67,7 +67,7 @@ export function Navbar() {
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3 group animate-pulse" aria-label="FPVLovers home" onClick={closeNavigation}>
+        <Link href="/" className="flex items-center gap-3 group" aria-label="FPVLovers home" onClick={closeNavigation}>
           <div className="relative h-12 w-[220px]">
             <Image
               src="/logo-type.png"
@@ -75,7 +75,7 @@ export function Navbar() {
               fill
               sizes="220px"
               priority
-              className="object-contain object-left"
+              className="object-contain object-left invert opacity-90 group-hover:opacity-100 transition-opacity"
             />
           </div>
         </Link>
