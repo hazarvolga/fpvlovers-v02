@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getOptionalEnv } from '@/lib/env';
 import { findUnprocessedTrendVideos, saveYoutubeJob } from '@/lib/content-automation/youtube-discovery';
 import { generateJournalistArticle } from '@/lib/content-automation/youtube-generator';
-import { logAutomationRun } from '@/lib/master-health';
 
 const YOUTUBE_QUERIES = [
   "FPV drone review",
@@ -15,7 +14,7 @@ export async function GET(req: NextRequest) {
   try {
     // 1. Authorize CRON request
     const authHeader = req.headers.get('authorization');
-    const secret = getOptionalEnv('CRON_SECRET');
+    const secret = getOptionalEnv('CRON_SECRET', '');
     if (secret && authHeader !== `Bearer ${secret}`) {
       // In development we might allow it without token, but in prod we block
       if (process.env.NODE_ENV === 'production') {
@@ -29,7 +28,7 @@ export async function GET(req: NextRequest) {
     const unprocessed = await findUnprocessedTrendVideos(YOUTUBE_QUERIES, 7);
 
     if (unprocessed.length === 0) {
-      logAutomationRun('youtube-journalist', 'success', 'No new trend videos found in the last 7 days.');
+      console.log('[CRON YouTube] No new trend videos found in the last 7 days.');
       return NextResponse.json({ message: 'No new trend videos found', processedCount: 0 });
     }
 
@@ -57,7 +56,7 @@ export async function GET(req: NextRequest) {
         dateAdded: new Date().toISOString()
       });
 
-      logAutomationRun('youtube-journalist', 'success', `Processed video ${candidate.videoId}: ${generated.page}`);
+      console.log(`[CRON YouTube] Processed video ${candidate.videoId}: successfully generated`);
 
       return NextResponse.json({
         message: 'Processed top trend video',
@@ -75,13 +74,12 @@ export async function GET(req: NextRequest) {
         error: err.message || 'Unknown error'
       });
 
-      logAutomationRun('youtube-journalist', 'failed', `Failed processing ${candidate.videoId}: ${err.message}`);
+      console.error(`[CRON YouTube] Failed processing ${candidate.videoId}: ${err.message}`);
       return NextResponse.json({ error: 'Failed to process video', details: err.message }, { status: 500 });
     }
 
   } catch (error: any) {
-    console.error('[CRON YouTube]', error);
-    logAutomationRun('youtube-journalist', 'failed', `Cron execution error: ${error.message}`);
+    console.error(`[CRON YouTube] Cron execution error: ${error.message}`);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

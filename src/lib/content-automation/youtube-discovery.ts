@@ -56,7 +56,7 @@ export function isVideoProcessed(videoId: string): boolean {
 }
 
 export async function discoverTopVideos(query: string, daysAgo: number = 7, maxResults: number = 5): Promise<YoutubeSearchResult[]> {
-  const apiKey = getOptionalEnv('YOUTUBE_API_KEY');
+  const apiKey = getOptionalEnv('YOUTUBE_API_KEY', '');
   if (!apiKey) {
     throw new Error('YOUTUBE_API_KEY is not defined in environment variables');
   }
