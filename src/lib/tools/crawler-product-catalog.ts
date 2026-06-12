@@ -93,14 +93,33 @@ function cleanImageUrl(value: unknown): string | undefined {
   return image;
 }
 
+function mapCategoryToType(category: string | undefined): FpvProductType | undefined {
+  if (!category) return undefined;
+  const lower = category.toLowerCase();
+  if (lower.includes('motor')) return 'motor';
+  if (lower.includes('frame')) return 'frame';
+  if (lower.includes('video') || lower.includes('vtx')) return 'video';
+  if (lower.includes('receiver') || lower.includes('rx')) return 'receiver';
+  if (lower.includes('battery') || lower.includes('lipo')) return 'battery';
+  if (lower.includes('flight controller') || lower.includes('esc') || lower.includes('stack')) return 'stack';
+  if (lower.includes('transmitter') || lower.includes('radio')) return 'radio';
+  if (lower.includes('prop')) return 'prop';
+  if (lower.includes('goggle')) return 'goggles';
+  if (lower.includes('camera')) return 'camera';
+  return undefined;
+}
+
 function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
   const record = asRecord(value);
   if (!record) return undefined;
 
   const id = asString(record.id);
   const name = asString(record.name);
-  const type = asProductType(record.type);
-  const url = asString(record.url);
+  const rawType = asProductType(record.type);
+  const mappedType = mapCategoryToType(asString(record.category));
+  const type = rawType || mappedType;
+  
+  const url = asString(record.url) || asString(record.affiliateUrl);
   if (!id || !name || !type || !url) return undefined;
 
   const brand = asString(record.brand) || name.split(' ')[0] || 'FPV';
@@ -136,8 +155,8 @@ function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
 
 export function getCrawlerProductCatalog(): FpvCatalogProduct[] {
   try {
-    const raw = JSON.parse(fs.readFileSync(CATALOG_FILE, 'utf-8')) as RawCrawlerCatalog;
-    const products = Array.isArray(raw.products) ? raw.products : [];
+    const raw = JSON.parse(fs.readFileSync(CATALOG_FILE, 'utf-8')) as RawCrawlerCatalog & { components?: unknown };
+    const products = Array.isArray(raw.products) ? raw.products : (Array.isArray(raw.components) ? raw.components : []);
     return products
       .map(normalizeProduct)
       .filter((product): product is FpvCatalogProduct => Boolean(product));

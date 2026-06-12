@@ -43,7 +43,7 @@
         "telemetryPowerMw": 10,
         "inputVoltage": "5V"
       },
-      "affiliateUrl": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg"
+      "affiliateUrl": "https://www.happymodel.cn/index.php/2021/04/13/happymodel-2-4g-expresslrs-elrs-nano-series-receiver/"
     },
     {
       "id": "receiver_betafpv_nano_elrs",
@@ -83,7 +83,7 @@
         "frequency": "5.8GHz",
         "latencyMs": 22,
         "ecosystem": "Walksnail",
-        "maxBecDrawAmps": 2.0
+        "maxBecDrawAmps": 2
       },
       "affiliateUrl": "https://caddxfpv.com/products/walksnail-avatar-hd-pro-kit"
     },
@@ -99,7 +99,7 @@
         "maxPowerWatts": 960,
         "cellsConfig": "6S"
       },
-      "affiliateUrl": "https://shop.iflight-rc.com/xing2-2207-brushless-motor-pro1598"
+      "affiliateUrl": "https://shop.iflight-rc.com/catalogsearch/result/?q=xing2+2207"
     },
     {
       "id": "fc_speedybee_f405_v4",
@@ -113,21 +113,21 @@
         "uartsCount": 6,
         "hasBarometer": true
       },
-      "affiliateUrl": "https://www.speedybee.com/speedybee-f405-v4-stack"
+      "affiliateUrl": "https://www.speedybee.com/speedybee-f405-v4-bls-55a-30x30-fc-esc-stack/"
     },
     {
       "id": "esc_speedybee_50a_blheli32",
       "brand": "SpeedyBee",
       "name": "50A BLHeli_32 4-in-1 ESC",
       "category": "ESC",
-      "weightGrams": 15.0,
+      "weightGrams": 15,
       "specs": {
         "continuousCurrent": 50,
         "burstCurrent": 60,
         "firmware": "BLHeli_32",
         "voltageRange": "3-6S"
       },
-      "affiliateUrl": "https://www.speedybee.com/speedybee-50a-4-in-1-esc"
+      "affiliateUrl": "https://www.speedybee.com/search.php?search_query=50a"
     },
     {
       "id": "frame_deadcat_5",
@@ -138,9 +138,9 @@
       "specs": {
         "style": "Deadcat",
         "sizeInches": 5,
-        "armThicknessMm": 6.0
+        "armThicknessMm": 6
       },
-      "affiliateUrl": "https://shop.iflight-rc.com/nazgul-evoque-f5-deadcat-frame-kit"
+      "affiliateUrl": "https://shop.iflight-rc.com/catalogsearch/result/?q=nazgul+evoque"
     },
     {
       "id": "battery_cnhl_6s_1300mah",
