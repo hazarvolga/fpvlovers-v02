@@ -5,7 +5,13 @@ import path from 'path';
 const DATA = (file: string) => path.join(process.cwd(), 'data', file);
 
 function load<T>(file: string, fallback: T): T {
-  try { if (fs.existsSync(file)) return JSON.parse(fs.readFileSync(file, 'utf-8')); } catch {}
+  try { 
+    if (fs.existsSync(file)) {
+      return JSON.parse(fs.readFileSync(file, 'utf-8')); 
+    }
+  } catch (error) {
+    console.error(`Error loading JSON file ${file}:`, error);
+  }
   return fallback;
 }
 
@@ -523,8 +529,9 @@ export function evaluateABTest(ctaId: string): ABTestResult {
   }
 
   // Simulated metrics (in production, load from analytics tracking)
-  const variantA = { impressions: Math.floor(Math.random() * 1000) + 500, clicks: Math.floor(Math.random() * 50) + 10 };
-  const variantB = { impressions: Math.floor(Math.random() * 1000) + 500, clicks: Math.floor(Math.random() * 50) + 10 };
+  // Replaced Math.random mocks with static zero metrics to prevent false positives and erratic reporting.
+  const variantA = { impressions: 0, clicks: 0 };
+  const variantB = { impressions: 0, clicks: 0 };
 
   const ctrA = variantA.impressions > 0 ? variantA.clicks / variantA.impressions : 0;
   const ctrB = variantB.impressions > 0 ? variantB.clicks / variantB.impressions : 0;
@@ -676,19 +683,12 @@ export function getMultiNetworkPrice(productId: string): NetworkPrice[] {
     commission: product.commission,
   }];
 
-  // Simulate alternative networks
-  const altNetworks = ['amazon', 'banggood', 'getfpv'].filter(n => n !== product.network);
-  for (const net of altNetworks) {
-    const priceVariation = net === 'banggood' ? 0.9 : net === 'getfpv' ? 1.05 : 1.0;
-    const altPrice = Math.round(product.price * priceVariation * 100) / 100;
-    networks.push({
-      network: net,
-      url: `https://${net}.com/fpv/${product.name.toLowerCase().replace(/\s/g, '-')}`,
-      price: altPrice,
-      inStock: Math.random() > 0.2,
-      commission: net === 'getfpv' ? 8 : net === 'banggood' ? 6 : 5,
-    });
-  }
+  // Simulate alternative networks without generating fake 404 URLs
+  // Only provide real alternative networks if actual API/database backing is implemented.
+  // For now, we only return the primary product URL as an option to avoid generating fake 404 links.
+  
+  // NOTE: If you wish to fetch cross-platform prices, implement a real crawler pipeline.
+  // We no longer guess "amazon.com/fpv..." style mock URLs.
 
   return networks.sort((a, b) => a.price - b.price);
 }

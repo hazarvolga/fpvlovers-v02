@@ -44,7 +44,14 @@ function isBlackboxSource(value: unknown): value is BlackboxSource {
 }
 
 export function readBlackboxSourcePack(): BlackboxSourcePack {
-  const raw = JSON.parse(fs.readFileSync(PACK_FILE, 'utf-8')) as unknown;
+  let raw: unknown;
+  try {
+    raw = JSON.parse(fs.readFileSync(PACK_FILE, 'utf-8'));
+  } catch (error) {
+    console.error(`Failed to parse blackbox source pack at ${PACK_FILE}:`, error);
+    throw error;
+  }
+  
   if (!raw || typeof raw !== 'object') {
     throw new Error('Invalid Blackbox source pack shape.');
   }

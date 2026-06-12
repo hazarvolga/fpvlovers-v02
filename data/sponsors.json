@@ -13,8 +13,8 @@
     "region": "global",
     "active": true,
     "products": [
-      { "name": "F60 Pro V LV 1950KV", "url": "https://store.tmotor.com/product/f60-pro-v.html", "compatibleWith": ["5-inch-frames", "6s-batteries", "30x30-esc"] },
-      { "name": "Velox V3 2207 1750KV", "url": "https://store.tmotor.com/product/velox-v3.html", "compatibleWith": ["5-inch-frames", "6s-batteries"] }
+      { "name": "F60 Pro V LV 1950KV", "url": "https://store.tmotor.com/search?keyword=f60%20pro", "compatibleWith": ["5-inch-frames", "6s-batteries", "30x30-esc"] },
+      { "name": "Velox V3 2207 1750KV", "url": "https://store.tmotor.com/search?keyword=velox%20v3", "compatibleWith": ["5-inch-frames", "6s-batteries"] }
     ],
     "visibilityScore": 85,
     "semanticRelevance": 92,
@@ -40,8 +40,8 @@
     "region": "global",
     "active": true,
     "products": [
-      { "name": "DJI O4 Air Unit Pro", "url": "https://www.dji.com/o4-air-unit", "compatibleWith": ["dji-goggles-2", "5-inch-frames"] },
-      { "name": "DJI Goggles 3", "url": "https://www.dji.com/goggles-3", "compatibleWith": ["dji-o4", "dji-rc-3"] }
+      { "name": "DJI O4 Air Unit Pro", "url": "https://store.dji.com/search?q=o4%20air%20unit", "compatibleWith": ["dji-goggles-2", "5-inch-frames"] },
+      { "name": "DJI Goggles 3", "url": "https://store.dji.com/search?q=goggles%203", "compatibleWith": ["dji-o4", "dji-rc-3"] }
     ],
     "visibilityScore": 95,
     "semanticRelevance": 88,
