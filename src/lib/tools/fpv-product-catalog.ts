@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { getCrawlerProductCatalog } from '@/lib/tools/crawler-product-catalog';
 import type { FpvCatalogProduct, FpvProductType, ProductSpecValue } from '@/lib/tools/fpv-product-types';
+import { safeReadJson } from '@/lib/utils/json';
 
 type AffiliateProduct = {
   id: string;
@@ -186,7 +187,7 @@ function fileMtime(file: string): number {
 
 function readAffiliateCatalog(): AffiliateProduct[] {
   try {
-    const raw = JSON.parse(fs.readFileSync(AFFILIATE_CATALOG_FILE, 'utf-8')) as unknown;
+    const raw = safeReadJson<any>(AFFILIATE_CATALOG_FILE, null) as unknown;
     return Array.isArray(raw) ? raw.filter(isAffiliateProduct) : [];
   } catch {
     return [];

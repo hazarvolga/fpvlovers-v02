@@ -88,7 +88,25 @@ function buildDifyPrompt(input: HardwarePayload, guardrail: string): string {
   ].join('\n');
 }
 
+import { rateLimit } from '@/lib/server/rate-limit';
+
 export async function POST(req: NextRequest) {
+  // Enforce rate limiting: 5 requests per minute
+  const limitRes = rateLimit(req, 5, 60 * 1000, 'hardware-analyzer');
+  if (!limitRes.success) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests. Please try again in a minute.' },
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': String(limitRes.limit),
+          'X-RateLimit-Remaining': String(limitRes.remaining),
+          'X-RateLimit-Reset': String(limitRes.reset),
+        },
+      }
+    );
+  }
+
   try {
     const input = parsePayload(await req.json().catch(() => ({})));
     const localMarkdown = localHardwareMarkdown(input);

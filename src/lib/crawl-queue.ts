@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 import {
   enqueueUrlsAsync,
   getNextBatchAsync,
@@ -60,7 +61,7 @@ function calculateStats(jobs: CrawlJob[]): CrawlQueue['stats'] {
 function load(): CrawlQueue {
   try {
     if (fs.existsSync(QUEUE_FILE)) {
-      const queue = JSON.parse(fs.readFileSync(QUEUE_FILE, 'utf-8')) as CrawlQueue;
+      const queue = safeReadJson<any>(QUEUE_FILE, null) as CrawlQueue;
       return {
         ...queue,
         stats: calculateStats(queue.jobs || []),

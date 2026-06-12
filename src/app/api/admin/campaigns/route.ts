@@ -1,15 +1,12 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 
 const CAMPAIGNS_FILE = path.join(process.cwd(), 'data', 'campaigns.json');
 
 function loadCampaigns() {
-  try {
-    return JSON.parse(fs.readFileSync(CAMPAIGNS_FILE, 'utf-8'));
-  } catch {
-    return [];
-  }
+  return safeReadJson<any[]>(CAMPAIGNS_FILE, []);
 }
 
 export async function GET() {

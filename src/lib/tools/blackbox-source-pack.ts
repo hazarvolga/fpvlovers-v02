@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 
 export type BlackboxSourceStatus = 'pending' | 'queued' | 'crawled' | 'failed';
 
@@ -46,7 +47,7 @@ function isBlackboxSource(value: unknown): value is BlackboxSource {
 export function readBlackboxSourcePack(): BlackboxSourcePack {
   let raw: unknown;
   try {
-    raw = JSON.parse(fs.readFileSync(PACK_FILE, 'utf-8'));
+    raw = safeReadJson<any>(PACK_FILE, null);
   } catch (error) {
     console.error(`Failed to parse blackbox source pack at ${PACK_FILE}:`, error);
     throw error;

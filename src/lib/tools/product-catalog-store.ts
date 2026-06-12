@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import type { FpvCatalogProduct } from '@/lib/tools/fpv-product-types';
 import { getCrawlerProductCatalog } from '@/lib/tools/crawler-product-catalog';
+import { safeReadJson } from '@/lib/utils/json';
 
 type StoredCatalog = {
   generated_at: string;
@@ -13,7 +14,7 @@ const CATALOG_FILE = path.join(process.cwd(), 'data', 'fpv-products.catalog.json
 
 function readExistingCatalogMeta(): Pick<StoredCatalog, 'source'> {
   try {
-    const raw = JSON.parse(fs.readFileSync(CATALOG_FILE, 'utf-8')) as { source?: unknown };
+    const raw = safeReadJson<any>(CATALOG_FILE, null) as { source?: unknown };
     return {
       source: typeof raw.source === 'string' ? raw.source : 'crawler-normalized-product-catalog',
     };

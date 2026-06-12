@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import type { FpvCatalogProduct, FpvProductType, ProductSpecValue } from '@/lib/tools/fpv-product-types';
+import { safeReadJson } from '@/lib/utils/json';
 
 type RawCrawlerCatalog = {
   generated_at?: unknown;
@@ -155,7 +156,7 @@ function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
 
 export function getCrawlerProductCatalog(): FpvCatalogProduct[] {
   try {
-    const raw = JSON.parse(fs.readFileSync(CATALOG_FILE, 'utf-8')) as RawCrawlerCatalog & { components?: unknown };
+    const raw = safeReadJson<any>(CATALOG_FILE, null) as RawCrawlerCatalog & { components?: unknown };
     const products = Array.isArray(raw.products) ? raw.products : (Array.isArray(raw.components) ? raw.components : []);
     return products
       .map(normalizeProduct)

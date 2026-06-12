@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { getOptionalEnv } from '@/lib/env';
+import { safeReadJson } from '@/lib/utils/json';
 
 const JOBS_FILE = path.join(process.cwd(), 'data', 'youtube-jobs.json');
 
@@ -28,7 +29,7 @@ export function getYoutubeJobs(): YoutubeJob[] {
     return [];
   }
   try {
-    const data = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf-8'));
+    const data = safeReadJson<any>(JOBS_FILE, null);
     return data.jobs || [];
   } catch (err) {
     console.error('[YouTube Discovery] Error reading jobs file', err);

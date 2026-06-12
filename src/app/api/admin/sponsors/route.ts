@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
+import { safeReadJson } from '@/lib/utils/json';
 import path from 'path';
 
 const SPONSORS_FILE = path.join(process.cwd(), 'data', 'sponsors.json');
@@ -33,14 +34,12 @@ type TrustStore = {
 };
 
 function read<T>(file: string, fallback: T): T {
-  try { if (fs.existsSync(file)) return JSON.parse(fs.readFileSync(file, 'utf-8')); } catch {}
-  return fallback;
+  return safeReadJson<T>(file, fallback);
 }
 function write(file: string, data: any) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
 
 function readSponsors(): Sponsor[] {
-  try { if (fs.existsSync(SPONSORS_FILE)) return JSON.parse(fs.readFileSync(SPONSORS_FILE, 'utf-8')); } catch {}
-  return [];
+  return safeReadJson<Sponsor[]>(SPONSORS_FILE, []);
 }
 function writeSponsors(data: Sponsor[]) { fs.writeFileSync(SPONSORS_FILE, JSON.stringify(data, null, 2)); }
 

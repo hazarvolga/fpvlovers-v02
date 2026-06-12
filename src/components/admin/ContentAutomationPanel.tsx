@@ -32,7 +32,7 @@ export default function ContentAutomationPanel({ onNavigateToGeneration }: Conte
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void fetchJobs();
-  }, []);
+  }, [fetchJobs]);
 
   const queueSize = jobs.length;
   const failedCount = jobs.filter((j) => j.status === 'failed').length;

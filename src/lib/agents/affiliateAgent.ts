@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 import { registerAgent } from '@/lib/agents';
 
 const DATA = (file: string) => path.join(process.cwd(), 'data', file);
@@ -49,10 +50,7 @@ TRUST RULES:
     const contentLower = (content || '').toLowerCase();
 
     // Load catalog
-    let catalog: any[] = [];
-    try {
-      catalog = JSON.parse(fs.readFileSync(DATA('affiliates.json'), 'utf-8'));
-    } catch {}
+    let catalog: any[] = safeReadJson(DATA('affiliates.json'), []);
 
     // Match products by keyword presence in content
     const matched = catalog.filter((p: any) => {
@@ -64,7 +62,7 @@ TRUST RULES:
     });
 
     // Trust filter
-    const trustData = (() => { try { return JSON.parse(fs.readFileSync(DATA('trustScores.json'), 'utf-8')); } catch { return { globalConfig: { minTrustScoreAffiliate: 60 } }; } })();
+    const trustData = safeReadJson<any>(DATA('trustScores.json'), { globalConfig: { minTrustScoreAffiliate: 60 } });
     const minTrust = trustData.globalConfig?.minTrustScoreAffiliate || 60;
     const eligible = matched.filter((p: any) => (p.trustScore || 80) >= minTrust);
 

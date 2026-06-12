@@ -24,7 +24,7 @@ export default function PublishedContentPanel() {
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     void fetchPublished();
-  }, []);
+  }, [fetchPublished]);
 
   const selectedArticle = selected ? articles.find((a) => a.slug === selected) : null;
 

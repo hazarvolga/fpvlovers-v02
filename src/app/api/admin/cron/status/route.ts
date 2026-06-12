@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 import { authorizeCronRequest } from '@/lib/cron-auth';
 import { getQueueStatusNew } from '@/lib/crawl-queue';
 import { getRecentAutomationRuns } from '@/lib/server/automation-runs-store';
@@ -13,12 +14,8 @@ export async function GET(req: Request) {
   if (!auth.authorized) return auth.response;
 
   // File fallback status loading
-  const crawlStatus = fs.existsSync(CRAWL_RUN)
-    ? JSON.parse(fs.readFileSync(CRAWL_RUN, 'utf-8'))
-    : { generated_at: null, enqueued: 0, failed: 0 };
-  const contentStatus = fs.existsSync(CONTENT_RUN)
-    ? JSON.parse(fs.readFileSync(CONTENT_RUN, 'utf-8'))
-    : { generated_at: null, action: null };
+  const crawlStatus = safeReadJson(CRAWL_RUN, { generated_at: null, enqueued: 0, failed: 0 });
+  const contentStatus = safeReadJson(CONTENT_RUN, { generated_at: null, action: null });
 
   // Database run histories (with automatic file fallback)
   const [latestDbCrawl] = await getRecentAutomationRuns('crawl', 1);

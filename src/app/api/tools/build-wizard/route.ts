@@ -82,7 +82,25 @@ function buildDifyPrompt(input: BuildCalculatorInput, result: ReturnType<typeof 
   ].join('\n');
 }
 
+import { rateLimit } from '@/lib/server/rate-limit';
+
 export async function POST(req: NextRequest) {
+  // Enforce rate limiting: 5 requests per minute
+  const limitRes = rateLimit(req, 5, 60 * 1000, 'build-wizard');
+  if (!limitRes.success) {
+    return NextResponse.json(
+      { success: false, error: 'Too many requests. Please try again in a minute.' },
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': String(limitRes.limit),
+          'X-RateLimit-Remaining': String(limitRes.remaining),
+          'X-RateLimit-Reset': String(limitRes.reset),
+        },
+      }
+    );
+  }
+
   try {
     const input = parseBuildInput(await req.json().catch(() => ({})));
     const result = calculateBuild(input);

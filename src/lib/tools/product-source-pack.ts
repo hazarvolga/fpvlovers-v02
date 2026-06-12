@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 
 export type ProductSource = {
   name: string;
@@ -43,7 +44,7 @@ function isProductSource(value: unknown): value is ProductSource {
 }
 
 export function readProductSourcePack(): ProductSourcePack {
-  const raw = JSON.parse(fs.readFileSync(PACK_FILE, 'utf-8')) as unknown;
+  const raw = safeReadJson<any>(PACK_FILE, null) as unknown;
   if (!raw || typeof raw !== 'object') {
     throw new Error('Invalid product source pack shape.');
   }

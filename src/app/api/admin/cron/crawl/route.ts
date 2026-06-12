@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 import { authorizeCronRequest } from '@/lib/cron-auth';
 import { enqueueUrlsNew, getQueueStatusNew } from '@/lib/crawl-queue';
 import { logAutomationRun } from '@/lib/server/automation-runs-store';
@@ -32,7 +33,7 @@ export async function GET(req: Request) {
   if (!auth.authorized) return auth.response;
 
   try {
-    const backlog = JSON.parse(fs.readFileSync(BACKLOG_FILE, 'utf-8'));
+    const backlog = safeReadJson<any>(BACKLOG_FILE, { sources: [] });
     const sources: BacklogItem[] = backlog.sources || [];
     const missing = sources.filter((s) => s.status === 'missing' || s.status === 'crawl_error');
     const deferred = sources.filter((s) => s.status === 'deferred');

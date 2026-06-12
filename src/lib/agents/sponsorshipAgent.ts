@@ -2,6 +2,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 import { registerAgent } from '@/lib/agents';
 
 const DATA = (file: string) => path.join(process.cwd(), 'data', file);
@@ -54,8 +55,7 @@ RULES:
     const { sponsor_name, sponsor_category, budget = 1000, campaign_type = 'brand-awareness' } = input;
 
     // Load existing sponsors for context
-    let sponsors: any[] = [];
-    try { sponsors = JSON.parse(fs.readFileSync(DATA('sponsors.json'), 'utf-8')); } catch {}
+    let sponsors: any[] = safeReadJson(DATA('sponsors.json'), []);
 
     // Budget tier
     let tier: string, multiplier: number;

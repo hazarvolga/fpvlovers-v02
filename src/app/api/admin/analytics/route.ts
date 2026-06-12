@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 
 const METRICS = path.join(process.cwd(), 'data', 'campaignMetrics.json');
 const TRUST = path.join(process.cwd(), 'data', 'trustScores.json');
@@ -16,8 +17,7 @@ type TrustStore = {
 };
 
 function load<T>(file: string, fallback: T): T {
-  try { if (fs.existsSync(file)) return JSON.parse(fs.readFileSync(file, 'utf-8')); } catch {}
-  return fallback;
+  return safeReadJson<T>(file, fallback);
 }
 function save(file: string, data: any) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
 

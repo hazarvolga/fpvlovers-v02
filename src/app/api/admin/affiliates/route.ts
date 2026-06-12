@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,8 +14,7 @@ const INTENT = path.join(process.cwd(), 'data', 'intentProfiles.json');
 const TRUST = path.join(process.cwd(), 'data', 'trustScores.json');
 
 function read<T>(file: string, fallback: T): T {
-  try { if (fs.existsSync(file)) return JSON.parse(fs.readFileSync(file, 'utf-8')); } catch {}
-  return fallback;
+  return safeReadJson<T>(file, fallback);
 }
 function write(file: string, data: any) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
 

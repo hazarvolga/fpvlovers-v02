@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
+import { safeReadJson } from '@/lib/utils/json';
 
 export type RacingCrawlArtifact = {
   url: string;
@@ -40,7 +41,7 @@ export function writeRacingCrawlArtifact(artifact: RacingCrawlArtifact) {
 export function readRacingCrawlArtifact(url: string): RacingCrawlArtifact | undefined {
   const file = getRacingArtifactPath(url);
   if (!fs.existsSync(file)) return undefined;
-  const raw = JSON.parse(fs.readFileSync(file, 'utf-8')) as unknown;
+  const raw = safeReadJson<any>(file, null) as unknown;
   if (!raw || typeof raw !== 'object') return undefined;
   const record = raw as Record<string, unknown>;
   const markdown = typeof record.markdown === 'string' ? record.markdown : '';

@@ -4,6 +4,7 @@ import type { GeneratedContent } from './parse-generated-content';
 import type { ContentMedia } from './content-media';
 import { buildContentMedia, buildCoverImageUrl } from './content-media';
 import { matchImagesToSections } from './crawl-image-match';
+import { safeReadJson } from '@/lib/utils/json';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -140,7 +141,7 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
   try {
     const catalogPath = path.join(process.cwd(), 'data', 'fpv-products.catalog.json');
     if (fs.existsSync(catalogPath)) {
-      const catalogData = JSON.parse(fs.readFileSync(catalogPath, 'utf-8'));
+      const catalogData = safeReadJson<any>(catalogPath, null);
       catalogProducts = catalogData.products || [];
     }
   } catch (e) {

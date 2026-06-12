@@ -1,5 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+import { listPublishedContent } from '@/lib/content-automation/content-reader';
+import { loadContentJobsAsync } from '@/lib/server/content-jobs-store';
+import { getStorageMode } from '@/lib/server/storage-mode';
 
 const STATIC_PAGES = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
@@ -41,12 +42,48 @@ const STATIC_PAGES = [
 const BASE_URL = process.env.APP_URL || 'https://fpvlovers.com.tr';
 
 export async function GET() {
-  const urls = STATIC_PAGES.map(page => `
+  const mode = getStorageMode();
+  const slugsSet = new Set<string>();
+
+  // 1. Load slugs from database if configured
+  if (mode === 'postgres' || mode === 'dual') {
+    try {
+      const dbJobs = await loadContentJobsAsync();
+      const publishedJobs = dbJobs.filter((job) => job.status === 'published');
+      for (const job of publishedJobs) {
+        const slug = job.seo?.slug || job.briefSlug;
+        if (slug) slugsSet.add(slug);
+      }
+    } catch (err) {
+      console.error('[Sitemap] Failed to load published content from DB:', err);
+    }
+  }
+
+  // 2. Load slugs from filesystem as well (ensuring local files + committed guides are in sitemap)
+  try {
+    const fileArticles = listPublishedContent();
+    for (const article of fileArticles) {
+      if (article.slug) slugsSet.add(article.slug);
+    }
+  } catch (err) {
+    console.error('[Sitemap] Failed to load published content from files:', err);
+  }
+
+  const staticUrls = STATIC_PAGES.map(page => `
     <url>
       <loc>${BASE_URL}${page.url}</loc>
       <priority>${page.priority}</priority>
       <changefreq>${page.changefreq}</changefreq>
-    </url>`).join('\n');
+    </url>`);
+
+  const dynamicUrls = Array.from(slugsSet).map(slug => `
+    <url>
+      <loc>${BASE_URL}/article/${slug}</loc>
+      <priority>0.8</priority>
+      <changefreq>weekly</changefreq>
+    </url>`);
+
+  const urls = [...staticUrls, ...dynamicUrls].join('\n');
 
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}\n</urlset>`,

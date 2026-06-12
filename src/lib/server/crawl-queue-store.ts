@@ -3,6 +3,7 @@ import type { CrawlJob, CrawlQueue } from '../crawl-queue';
 import { getStorageMode } from './storage-mode';
 import * as fs from 'fs';
 import * as path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 
 const QUEUE_FILE = path.join(process.cwd(), 'data', 'crawl-queue.json');
 
@@ -20,7 +21,7 @@ function calculateFileStats(jobs: CrawlJob[]): CrawlQueue['stats'] {
 function fileLoad(): CrawlQueue {
   try {
     if (fs.existsSync(QUEUE_FILE)) {
-      const queue = JSON.parse(fs.readFileSync(QUEUE_FILE, 'utf-8')) as CrawlQueue;
+      const queue = safeReadJson<any>(QUEUE_FILE, null) as CrawlQueue;
       return {
         ...queue,
         stats: calculateFileStats(queue.jobs || []),

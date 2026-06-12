@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { safeReadJson } from '@/lib/utils/json';
 
 // ─── DATA PATHS ───
 const DATA = (file: string) => path.join(process.cwd(), 'data', file);
@@ -7,7 +8,7 @@ const DATA = (file: string) => path.join(process.cwd(), 'data', file);
 function load<T>(file: string, fallback: T): T {
   try { 
     if (fs.existsSync(file)) {
-      return JSON.parse(fs.readFileSync(file, 'utf-8')); 
+      return safeReadJson<any>(file, null); 
     }
   } catch (error) {
     console.error(`Error loading JSON file ${file}:`, error);

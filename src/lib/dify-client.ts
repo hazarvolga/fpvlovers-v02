@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
 import { getCached, setCached, hashInput } from '@/lib/llm-cache';
+import { safeReadJson } from '@/lib/utils/json';
 
 const USAGE_FILE = path.join(process.cwd(), 'data', 'embedding-usage.json');
 const BUDGET_LOG = path.join(process.cwd(), 'data', 'api-budget-log.json');
@@ -59,7 +60,7 @@ function loadBudget(): EmbeddingBudget {
   };
   try {
     if (fs.existsSync(USAGE_FILE)) {
-      const saved = JSON.parse(fs.readFileSync(USAGE_FILE, 'utf-8'));
+      const saved = safeReadJson<any>(USAGE_FILE, null);
       if (saved.reset_at?.split('T')[0] !== today) return fallback;
       return { ...fallback, ...saved, daily_limit: saved.daily_limit || DAILY_LIMIT };
     }
@@ -74,7 +75,7 @@ function saveBudget(b: EmbeddingBudget) {
 function logBudget(entry: BudgetLogEntry) {
   try {
     let logs: BudgetLogEntry[] = [];
-    if (fs.existsSync(BUDGET_LOG)) logs = JSON.parse(fs.readFileSync(BUDGET_LOG, 'utf-8'));
+    if (fs.existsSync(BUDGET_LOG)) logs = safeReadJson<any>(BUDGET_LOG, null);
     logs.unshift(entry);
     if (logs.length > 200) logs = logs.slice(0, 200);
     fs.writeFileSync(BUDGET_LOG, JSON.stringify(logs, null, 2));
@@ -395,7 +396,7 @@ export function getBudgetStatus() {
 export function getBudgetLogs(limit = 20): BudgetLogEntry[] {
   try {
     if (fs.existsSync(BUDGET_LOG)) {
-      const logs = JSON.parse(fs.readFileSync(BUDGET_LOG, 'utf-8'));
+      const logs = safeReadJson<any>(BUDGET_LOG, null);
       return logs.slice(0, limit);
     }
   } catch {}

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { createHash } from 'crypto';
 import type { RacingContentBrief, RacingExtractedEntity, RacingWorkflowRun } from '@/lib/racing-intelligence';
+import { safeReadJson } from '@/lib/utils/json';
 
 export type RacingStoreSectionKey =
   | 'events'
@@ -138,7 +139,7 @@ function normalizeStore(raw: unknown): RacingIntelligenceStore {
 
 export function readRacingIntelligenceStore(): RacingIntelligenceStore {
   try {
-    return normalizeStore(JSON.parse(fs.readFileSync(STORE_FILE, 'utf-8')) as unknown);
+    return normalizeStore(safeReadJson<any>(STORE_FILE, null) as unknown);
   } catch {
     return {
       generated_at: new Date().toISOString(),
