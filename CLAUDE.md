@@ -104,3 +104,9 @@ Enforced by commitlint + husky git hooks.
 ## n8n Removed
 
 n8n workflow orchestration has been removed from this project. All orchestration is now handled by the custom TypeScript lib modules in `src/lib/` listed above. Do not reference n8n, n8nac, or n8n-as-code in any new code or documentation.
+
+---
+
+## Canlıya Dağıtım Durumu (Kritik)
+> [!IMPORTANT]
+> 12 Haziran 2026 itibarıyla en son yapılan bug, SEO, security ve GAP denetim düzeltmeleri Git'e commit edilip pushlanmıştır ancak **canlıya (production) henüz deploy edilmemiştir**. Canlıya çıkılmadan önce test edilmesi ve ardından deploy sürecinin işletilmesi gerekmektedir.
