@@ -75,7 +75,7 @@ export function Navbar() {
               fill
               sizes="220px"
               priority
-              className="object-contain object-left invert opacity-90 group-hover:opacity-100 transition-opacity"
+              className="object-contain object-left brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity"
             />
           </div>
         </Link>

@@ -519,21 +519,14 @@ export default function RoadmapPage() {
                         return (
                           <div
                             key={mod.id}
-                            className={`p-8 border rounded-xl overflow-hidden transition-all duration-300 ${
+                            className={`p-8 border rounded-xl relative transition-all duration-300 ${
                               isCompleted
                                 ? "bg-zinc-900 border-white/5 hover:border-white/10"
                                 : isLocked
-                                ? "bg-zinc-950 border-white/5 opacity-50 select-none pointer-events-none"
+                                ? "bg-zinc-950 border-white/5 opacity-80"
                                 : "bg-zinc-900 border-[#FF5C00]/30 hover:border-[#FF5C00]/60 shadow-[0_0_30px_rgba(255,92,0,0.05)]"
                             }`}
                           >
-                            {/* Visual Padlock Overlay if locked */}
-                            {isLocked && !isCompleted && (
-                              <div className="absolute inset-0 bg-zinc-950/80 backdrop-blur-[1px] z-10 flex flex-col items-center justify-center text-center p-4">
-                                <Lock className="w-8 h-8 text-zinc-500 mb-2" />
-                                <span className="text-[10px] uppercase text-zinc-400 tracking-widest font-bold">Path Locked</span>
-                              </div>
-                            )}
 
                             <div className="flex justify-between items-start mb-4">
                               <div>
@@ -555,7 +548,7 @@ export default function RoadmapPage() {
                                     <Award className="w-3.5 h-3.5" /> CLEARED
                                   </span>
                                 ) : isLocked ? (
-                                  <span className="inline-flex items-center gap-1 text-[10px] uppercase text-red-500 bg-red-950/15 px-2 py-1 rounded border border-red-900/20 font-black">
+                                  <span className="inline-flex items-center gap-1 text-[10px] uppercase text-zinc-500 bg-zinc-900 px-2 py-1 rounded border border-white/5 font-black">
                                     <Lock className="w-3.5 h-3.5" /> LOCKED
                                   </span>
                                 ) : (
