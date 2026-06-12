@@ -417,6 +417,8 @@ Created:
   - `npx tsc --noEmit` tip kontrolü sıfır hatayla başarıyla tamamlandı.
   - Phase 1 git commit'i `feat: add fpvlovers postgres foundation` mesajıyla atıldı.
 
-### 2026-06-12 Audit Çözümleri, Hata Giderme ve Dağıtım Durumu
-- **Audit Bulgularının Çözülmesi:** GAP, Bug, SEO ve Security denetimlerindeki tüm kritik bulgular (SQL enjeksiyon riskleri, schema validations, boş UI durumları, logo boyutlandırma sorunları, crawler JSON parser hatalaları) başarıyla çözüldü, test edildi ve uzak Git reposuna commit edilip pushlandı.
-- **Canlıya Dağıtım Durumu (Kritik):** Son yapılan audit ve bug düzeltmeleri **canlıya (production) henüz deploy edilmemiştir**. Kodlar Git'te günceldir ancak canlı sunuculardaki dağıtım adımı beklemededir.
+### 2026-06-12 Audit Çözümleri, Hata Giderme, Yasal Sayfalar ve Dağıtım Durumu
+- **Audit Bulgularının Çözülmesi:** GAP, Bug, SEO ve Security denetimlerindeki tüm kritik bulgular (SQL enjeksiyon riskleri, schema validations, boş UI durumları, logo boyutlandırma sorunları, crawler JSON parser hataları) başarıyla çözüldü, test edildi ve uzak Git reposuna commit edilip pushlandı.
+- **Yasal Sayfalar Entegrasyonu (Affiliate Hazırlığı):** Affiliate ağlarının onay koşullarını karşılamak adına `/privacy` (Privacy Policy), `/terms` (Terms of Service) ve `/disclosure` (Affiliate Disclosure - Amazon Associates uyarı metni dahil) yasal sayfaları oluşturuldu, `SiteFooter.tsx` navigasyonu güncellendi.
+- **Derleme Testleri:** TypeScript tip kontrolleri (`npx tsc --noEmit`) ve production build (`npm run build`) 107 sayfa için sıfır hatayla başarıyla tamamlandı. Tüm güncellemeler commit ve push edildi.
+- **Canlıya Dağıtım Durumu (Kritik):** Yapılan audit çözümleri ve yasal sayfa entegrasyonları **canlıya (production) henüz deploy edilmemiştir**. Kodlar Git'te günceldir ancak canlı sunuculardaki dağıtım adımı beklemededir.
