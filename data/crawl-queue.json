@@ -1768,6 +1768,116 @@
       "updatedAt": "2026-06-09T08:19:28.777Z",
       "docId": "dry-a413ba57edc5",
       "tokens": 9879
+    },
+    {
+      "id": "y4ye3e7eyl",
+      "url": "https://quadifyrc.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "pv4nzs2te8",
+      "url": "https://www.speedybee.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "5yfbbh51b1r",
+      "url": "https://www.diatone.us",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "dnqxll11u6t",
+      "url": "https://www.expresslrs.org",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "fnb2fiad41a",
+      "url": "https://ardupilot.org/copter/docs/common-fpv-first-person-view.html",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "8ce0bu9292",
+      "url": "https://dronedj.com/category/fpv/",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "7amsdnmfg2b",
+      "url": "https://insidefpv.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "y2xxupohyfh",
+      "url": "https://fpvfc.org",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "0oc8byrupwz",
+      "url": "https://uavcoach.com",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
+    },
+    {
+      "id": "o0sayd9lid",
+      "url": "https://www.rcgroups.com/aircraft-electric-fpv-861/",
+      "dataset": "",
+      "status": "pending",
+      "priority": 0,
+      "retries": 0,
+      "maxRetries": 3,
+      "createdAt": "2026-06-12T14:53:04.780Z",
+      "updatedAt": "2026-06-12T14:53:04.780Z"
     }
   ],
   "config": {

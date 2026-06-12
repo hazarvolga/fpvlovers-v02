@@ -324,10 +324,16 @@ export default function AdminDashboard() {
   const handleContentGen = async () => {
     setContentLoading(true);
     try {
-      const resp = await fetch('/api/admin/content', {
+      const isYoutube = contentPage === 'youtube-journalist';
+      const endpoint = isYoutube ? '/api/admin/content/youtube' : '/api/admin/content';
+      const bodyPayload = isYoutube 
+        ? { url: contentPrompt }
+        : { page: contentPage, customPrompt: contentPrompt || undefined };
+
+      const resp = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ page: contentPage, customPrompt: contentPrompt || undefined }),
+        body: JSON.stringify(bodyPayload),
       });
       setContentResult(await resp.json());
     } catch {}
@@ -721,14 +727,15 @@ export default function AdminDashboard() {
                     <div className="flex gap-3 flex-wrap">
                       <select value={contentPage} onChange={(e) => setContentPage(e.target.value)} className="bg-black border border-[#333] text-white font-mono text-sm px-4 py-3 focus:border-[#FF5C00] focus:outline-none">
                         <option value="">Select content type...</option>
+                        <option value="youtube-journalist">YouTube Muhabiri (URL)</option>
                         <option value="roadmap">Pilot Roadmap</option><option value="glossary">FPV Glossary</option>
                         <option value="workshop">Workshop Masterclass</option><option value="tech-article">Technical Article</option>
                         <option value="product-review">Product Review</option><option value="build-guide">Build Guide</option>
                         <option value="comparison">Comparison Page</option><option value="troubleshooting">Troubleshooting</option>
                         <option value="regulation-guide">Regulation Guide</option><option value="community-roundup">Community Roundup</option>
                       </select>
-                      <input value={contentPrompt} onChange={(e) => setContentPrompt(e.target.value)} placeholder="Custom prompt (optional)" className="flex-1 bg-black border border-[#333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none" />
-                      <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={handleContentGen} disabled={contentLoading || !contentPage}>
+                      <input value={contentPrompt} onChange={(e) => setContentPrompt(e.target.value)} placeholder={contentPage === 'youtube-journalist' ? "YouTube URL (zorunlu)" : "Custom prompt (optional)"} className="flex-1 bg-black border border-[#333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none" />
+                      <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={handleContentGen} disabled={contentLoading || !contentPage || (contentPage === 'youtube-journalist' && !contentPrompt)}>
                         {contentLoading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Generating...</> : <><Sparkles className="w-4 h-4 mr-2" /> Generate</>}
                       </Button>
                     </div>
