@@ -16,6 +16,16 @@ export default auth((req) => {
       return NextResponse.next();
     }
 
+    // Bypassing Basic Auth for Cron requests carrying the correct x-cron-secret
+    const isCronRoute = nextUrl.pathname.startsWith("/api/admin/cron");
+    if (isCronRoute) {
+      const cronSecretHeader = req.headers.get("x-cron-secret");
+      const cronSecret = process.env.CRON_SECRET;
+      if (cronSecret && cronSecretHeader === cronSecret) {
+        return NextResponse.next();
+      }
+    }
+
     // Let NextAuth admin sessions bypass Basic Auth
     if (isLoggedIn && (req.auth?.user as any)?.role === "admin") {
       return NextResponse.next();
