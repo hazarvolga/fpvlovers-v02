@@ -68,7 +68,7 @@ type CrawlerInfo = {
   error?: string;
 };
 
-type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry' | 'newsletter';
+type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry' | 'newsletter' | 'analytics';
 
 type Tab = { id: TabId; label: string; icon: React.ElementType };
 
@@ -243,6 +243,7 @@ export default function AdminDashboard() {
         { id: 'catalog', label: 'Catalog Ops', icon: PackageSearch },
         { id: 'affiliates', label: 'Affiliates', icon: ShoppingCart },
         { id: 'sponsors', label: 'Sponsors', icon: BadgeDollarSign },
+        { id: 'analytics', label: 'Analytics', icon: BarChart2 },
         { id: 'orchestrator', label: 'Orchestrator', icon: Workflow },
         { id: 'newsletter', label: 'Newsletter', icon: Send },
       ],
@@ -1410,9 +1411,17 @@ export default function AdminDashboard() {
                 </div>
               )}
 
-              {/* ANALYTICS (nested in health) */}
-              {activeTab === 'health' && health && (
-                <div className="mt-6 animate-in fade-in duration-300">
+              {/* MONETIZATION ANALYTICS */}
+              {activeTab === 'analytics' && (
+                <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                  <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                     <div>
+                        <h2 className="text-2xl font-black uppercase text-white tracking-tight flex items-center gap-2">
+                          <BarChart2 className="text-[#FF5C00]" /> Analytics Dashboard
+                        </h2>
+                        <p className="text-[#A0A0A0] font-mono text-xs mt-1">Monetization, affiliate revenue, and sponsor tracking telemetry.</p>
+                     </div>
+                  </div>
                   <AnalyticsDashboard />
                 </div>
               )}
