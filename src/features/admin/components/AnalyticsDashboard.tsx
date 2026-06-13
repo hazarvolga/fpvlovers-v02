@@ -55,7 +55,7 @@ export default function AnalyticsDashboard() {
   if (loading) return <div className="text-[#A0A0A0] text-sm p-4">Loading analytics...</div>;
   if (!data) return <div className="text-[#A0A0A0] text-sm p-4">No data available</div>;
 
-  const { affiliate, sponsor, trust_config } = data;
+  const { affiliate, sponsor, trust_config, google_analytics } = data;
 
   return (
     <div className="space-y-4">
@@ -119,6 +119,75 @@ export default function AnalyticsDashboard() {
           <Card icon={TrendingUp} label="Overall CTR" value={`${sponsor.totalImpressions > 0 ? Math.round(sponsor.totalClicks / sponsor.totalImpressions * 10000) / 100 : 0}`} suffix="%" color="#F472B6" />
         </div>
       </div>
+
+      {/* Google Analytics Integration */}
+      {google_analytics && (
+        <div className="bg-[#0A0A0B] border border-[#222] p-4 space-y-4">
+          <div className="flex items-center justify-between border-b border-[#222] pb-2">
+            <h4 className="text-[10px] font-mono uppercase text-[#666] tracking-widest">Google Analytics Integration</h4>
+            <span className={`text-[10px] font-mono px-2 py-0.5 border uppercase ${
+              google_analytics.status === 'active' 
+                ? 'border-[#00FF66]/30 text-[#00FF66] bg-[#00FF66]/5' 
+                : 'border-red-500/30 text-red-500 bg-red-500/5'
+            }`}>
+              Tracking {google_analytics.status}
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="p-3 bg-[#111] border border-[#1A1A1A] text-center font-mono">
+              <div className="text-[#A0A0A0] text-[10px] uppercase">Tracking ID</div>
+              <div className="text-white text-sm mt-1">{google_analytics.ga_id || 'Not configured'}</div>
+            </div>
+            <div className="p-3 bg-[#111] border border-[#1A1A1A] text-center font-mono">
+              <div className="text-[#A0A0A0] text-[10px] uppercase">Reporting API</div>
+              <div className={`text-sm mt-1 font-bold ${google_analytics.api_configured ? 'text-[#00FF66]' : 'text-yellow-500'}`}>
+                {google_analytics.api_configured ? 'Connected' : 'Offline / Unconfigured'}
+              </div>
+            </div>
+            <div className="p-3 bg-[#111] border border-[#1A1A1A] text-center font-mono">
+              <div className="text-[#A0A0A0] text-[10px] uppercase">Property ID</div>
+              <div className="text-white text-sm mt-1">{google_analytics.property_id || 'None'}</div>
+            </div>
+          </div>
+
+          {google_analytics.api_configured && (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 border-t border-[#222]/50 pt-3">
+              <div className="p-3 bg-[#111] border border-[#1A1A1A] text-center font-mono">
+                <div className="text-[#A0A0A0] text-[10px] uppercase">Active Users (30d)</div>
+                <div className="text-[#00FF66] text-xl font-bold mt-1">
+                  {google_analytics.metrics?.active_users?.toLocaleString() || 0}
+                </div>
+              </div>
+              <div className="p-3 bg-[#111] border border-[#1A1A1A] text-center font-mono">
+                <div className="text-[#A0A0A0] text-[10px] uppercase">Page Views (30d)</div>
+                <div className="text-[#00F2FF] text-xl font-bold mt-1">
+                  {google_analytics.metrics?.page_views?.toLocaleString() || 0}
+                </div>
+              </div>
+              <div className="p-3 bg-[#111] border border-[#1A1A1A] text-center font-mono">
+                <div className="text-[#A0A0A0] text-[10px] uppercase">Sessions (30d)</div>
+                <div className="text-[#A855F7] text-xl font-bold mt-1">
+                  {google_analytics.metrics?.sessions?.toLocaleString() || 0}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {!google_analytics.api_configured && (
+            <div className="border border-dashed border-[#333] p-3 text-[10px] font-mono text-[#A0A0A0] leading-relaxed">
+              <span className="text-[#FF5C00] font-bold">INFO:</span> Real-time visitor graphs and reports require Google Analytics reporting service account credentials. 
+              To configure, add the following variables to your <code className="text-white">.env.local</code>:
+              <div className="mt-2 text-white bg-[#050505] p-2 border border-[#111] space-y-1">
+                <div>NEXT_PUBLIC_GA_ID=&quot;your-ga-measurement-id-like-G-XXXXXX&quot;</div>
+                <div>GA_PROPERTY_ID=&quot;your-ga4-property-id&quot;</div>
+                <div>GA_CLIENT_EMAIL=&quot;your-service-account-email&quot;</div>
+                <div>GA_PRIVATE_KEY=&quot;your-service-account-private-key&quot;</div>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Trust Config */}
       {trust_config && (
