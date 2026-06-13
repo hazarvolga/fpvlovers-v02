@@ -42,8 +42,8 @@ export async function POST(request: Request) {
 
     // Insert new subscriber
     await query(
-      `INSERT INTO fpvlovers_app.newsletter_subscribers (email, source, status, is_active)
-       VALUES ($1, $2, 'subscribed', true)`,
+      `INSERT INTO fpvlovers_app.newsletter_subscribers (email, source, is_active)
+       VALUES ($1, $2, true)`,
       [email, source || 'website']
     );
 
