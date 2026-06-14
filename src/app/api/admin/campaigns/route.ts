@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { safeReadJson } from '@/lib/utils/json';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const CAMPAIGNS_FILE = path.join(process.cwd(), 'data', 'campaigns.json');
 
@@ -10,6 +11,9 @@ function loadCampaigns() {
 }
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const campaigns = loadCampaigns();
     return NextResponse.json({ success: true, campaigns });
@@ -19,6 +23,9 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const body = await req.json();
     const campaigns = loadCampaigns();

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import { safeReadJson } from '@/lib/utils/json';
 import path from 'path';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const SPONSORS_FILE = path.join(process.cwd(), 'data', 'sponsors.json');
 const METRICS_FILE = path.join(process.cwd(), 'data', 'campaignMetrics.json');
@@ -44,6 +45,9 @@ function readSponsors(): Sponsor[] {
 function writeSponsors(data: Sponsor[]) { fs.writeFileSync(SPONSORS_FILE, JSON.stringify(data, null, 2)); }
 
 export async function GET(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const type = req.nextUrl.searchParams.get('type') || 'all';
   const data: any = {};
 
@@ -54,6 +58,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const body = await req.json();
   const { action } = body;
   const sponsors = readSponsors();
@@ -214,6 +221,9 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const { id } = await req.json();
   const sponsors = readSponsors().filter(s => s.id !== id);
   writeSponsors(sponsors);

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 
@@ -15,6 +16,9 @@ type LogEntry = {
 };
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const key = getRequiredEnv('DIFY_API_KEY');
     const resp = await fetch(`${BASE}/datasets?limit=50`, {

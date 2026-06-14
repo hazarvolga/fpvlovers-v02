@@ -5,6 +5,7 @@ import { safeReadJson } from '@/lib/utils/json';
 import { query } from '@/lib/server/db';
 import { getStorageMode } from '@/lib/server/storage-mode';
 import { fetchGoogleAnalyticsReport } from '@/lib/server/google-analytics';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const METRICS = path.join(process.cwd(), 'data', 'campaignMetrics.json');
 const TRUST = path.join(process.cwd(), 'data', 'trustScores.json');
@@ -25,6 +26,9 @@ function load<T>(file: string, fallback: T): T {
 function save(file: string, data: any) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
 
 export async function GET(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const action = req.nextUrl.searchParams.get('action') || 'summary';
 
   const trust = load<TrustStore>(TRUST, { affiliates: {}, sponsors: {}, globalConfig: {} });

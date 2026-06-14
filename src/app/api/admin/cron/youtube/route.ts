@@ -12,14 +12,11 @@ const YOUTUBE_QUERIES = [
 
 export async function GET(req: NextRequest) {
   try {
-    // 1. Authorize CRON request
+    // 1. Authorize CRON request — CRON_SECRET required in all environments
     const authHeader = req.headers.get('authorization');
     const secret = getOptionalEnv('CRON_SECRET', '');
-    if (secret && authHeader !== `Bearer ${secret}`) {
-      // In development we might allow it without token, but in prod we block
-      if (process.env.NODE_ENV === 'production') {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-      }
+    if (!secret || authHeader !== `Bearer ${secret}`) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const isDryRun = req.nextUrl.searchParams.get('dryRun') === 'true';

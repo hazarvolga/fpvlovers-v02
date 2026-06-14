@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { checkCrawlerHealth } from '@/lib/crawler-health';
 import { healthCheck } from '@/lib/server/db';
 import { getStorageMode } from '@/lib/server/storage-mode';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const DIFY_PAGES = [
   { name: 'Workflow API Gateway', url: process.env.DIFY_BASE_URL || 'https://dify.affexai.tr/v1', redirect: 'manual' as const },
@@ -9,6 +10,9 @@ const DIFY_PAGES = [
 ];
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const services: { name: string; status: 'up' | 'down'; latency: number; version?: string; detail?: string }[] = [];
   const startedAt = Date.now();
 

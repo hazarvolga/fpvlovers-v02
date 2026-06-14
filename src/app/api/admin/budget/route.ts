@@ -2,8 +2,12 @@ import { NextResponse } from 'next/server';
 import { getBudgetStatus, getBudgetLogs, resetDailyBudget, healthCheck } from '@/lib/dify-client';
 import { getQueueStats } from '@/lib/crawl-queue';
 import { getCacheStats } from '@/lib/llm-cache';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const budget = getBudgetStatus();
   const health = healthCheck();
   const queue = getQueueStats();
@@ -33,6 +37,9 @@ export async function GET() {
 }
 
 export async function POST() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const fresh = resetDailyBudget();
   return NextResponse.json({ reset: true, budget: fresh });
 }

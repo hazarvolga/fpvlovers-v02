@@ -3,6 +3,10 @@
 
 import { DATASETS } from '@/lib/master-routing-tables';
 
+// ─── FEATURE FLAG ───
+
+const USE_REAL_RAG = process.env.ENABLE_REAL_RAG === 'true';
+
 // ─── TYPES ───
 
 export interface RetrievalChunk {
@@ -95,7 +99,86 @@ export const DEFAULT_CONFIGS: Record<string, RetrievalConfig> = {
   },
 };
 
-// ─── SIMULATED RETRIEVAL (production: calls Dify Dataset API) ───
+// ─── REAL RETRIEVAL (Dify Dataset API) ───
+
+async function realRetrieval(query: string, config: RetrievalConfig): Promise<RetrievalChunk[]> {
+  const allDatasets = [...config.primaryDatasets, ...config.fallbackDatasets];
+  const chunks: RetrievalChunk[] = [];
+
+  const apiKey = process.env.DIFY_API_KEY?.trim();
+  if (!apiKey) {
+    console.error('[Retrieval] DIFY_API_KEY not set — cannot call Dataset API');
+    return [];
+  }
+
+  const baseUrl = process.env.DIFY_BASE_URL?.trim()
+    || process.env.APP_API_URL?.trim()
+    || 'https://dify.affexai.tr/v1';
+
+  let idCounter = 0;
+
+  for (const dsName of allDatasets) {
+    const datasetInfo = DATASETS.find(ds => ds.name === dsName);
+    const docCount = datasetInfo?.docCount ?? 0;
+    if (docCount === 0) continue;
+
+    const datasetId = datasetInfo?.uuid ?? dsName;
+    const isPrimary = config.primaryDatasets.includes(dsName);
+
+    try {
+      const response = await fetch(`${baseUrl}/datasets/${datasetId}/documents/search`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query,
+          top_k: Math.min(config.maxChunksPerDataset, 10),
+          score_threshold: config.scoreThreshold,
+          keyword_weight: config.keywordWeight,
+        }),
+        signal: AbortSignal.timeout(15000),
+      });
+
+      if (!response.ok) {
+        console.error(`[Retrieval] Dify API error for dataset ${dsName}: HTTP ${response.status}`);
+        continue;
+      }
+
+      const result = await response.json();
+      const documents: Record<string, unknown>[] = result?.data ?? [];
+
+      for (let i = 0; i < documents.length; i++) {
+        const doc = documents[i];
+        const document = (doc.document ?? {}) as Record<string, unknown>;
+        const chunk: RetrievalChunk = {
+          id: String(doc.id ?? `chunk-${dsName}-${idCounter}`),
+          content: String(doc.content ?? document.name ?? ''),
+          datasetName: dsName,
+          datasetId,
+          documentName: String(document.name ?? `doc-${dsName}`),
+          score: Number(doc.score ?? 0),
+          position: i + 1,
+          metadata: {
+            is_primary: isPrimary,
+            data_source_type: document.data_source_type,
+            data_source_info: document.data_source_info,
+          },
+        };
+        chunks.push(chunk);
+        idCounter++;
+      }
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error(`[Retrieval] Error querying dataset ${dsName}:`, message);
+    }
+  }
+
+  return chunks;
+}
+
+// ─── SIMULATED RETRIEVAL (fallback when ENABLE_REAL_RAG !== 'true') ───
 
 export function simulateRetrieval(query: string, config: RetrievalConfig): RetrievalChunk[] {
   const allDatasets = [...config.primaryDatasets, ...config.fallbackDatasets];
@@ -236,16 +319,22 @@ export function getRetrievalConfidence(chunks: RetrievalChunk[]): {
 
 // ─── MAIN ORCHESTRATOR ───
 
-export function orchestrateRetrieval(
+export async function orchestrateRetrieval(
   query: string,
   intent: string = 'default',
   customConfig?: Partial<RetrievalConfig>,
-): RetrievalResult {
+): Promise<RetrievalResult> {
   const baseConfig = DEFAULT_CONFIGS[intent] || DEFAULT_CONFIGS.default;
   const config: RetrievalConfig = { ...baseConfig, ...customConfig };
 
-  // 1. SIMULATE RETRIEVAL (production: call Dify API per dataset)
-  let chunks = simulateRetrieval(query, config);
+  let chunks: RetrievalChunk[];
+  if (USE_REAL_RAG) {
+    console.log('[Retrieval] Real RAG enabled — calling Dify Dataset API');
+    chunks = await realRetrieval(query, config);
+  } else {
+    console.warn('[Retrieval] Using simulated fallback — set ENABLE_REAL_RAG=true for real RAG');
+    chunks = simulateRetrieval(query, config);
+  }
 
   // 2. Check primary quality — trigger fallback if needed
   const primaryChunks = chunks.filter(c => c.metadata?.is_primary);

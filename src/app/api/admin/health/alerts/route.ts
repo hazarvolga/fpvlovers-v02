@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 type Alert = {
   service: string;
@@ -7,6 +8,9 @@ type Alert = {
 };
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const alerts: Alert[] = [
     {
       service: 'dify-api',

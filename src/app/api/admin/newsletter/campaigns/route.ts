@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/server/db';
 import type { NewsletterCampaignRow } from '@/lib/server/db-types';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const result = await query<NewsletterCampaignRow>(
       `SELECT * FROM fpvlovers_app.newsletter_campaigns ORDER BY created_at DESC LIMIT 50`
@@ -15,6 +19,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const body = await request.json();
     const { subject, content_html, content_md } = body;

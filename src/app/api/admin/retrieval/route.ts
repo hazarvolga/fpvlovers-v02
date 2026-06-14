@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOptionalEnv } from '@/lib/env';
 import { orchestrateRetrieval } from '@/lib/retrieval-orchestrator';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const { query, datasetId } = await req.json();
     if (!query) return NextResponse.json({ error: 'Query required' }, { status: 400 });
@@ -14,7 +18,7 @@ export async function POST(req: NextRequest) {
     // Local fallback: keep the admin smoke path useful even if Dify app auth is unavailable.
     const appKey = getOptionalEnv('DIFY_APP_KEY', '');
     if (!appKey) {
-      const fallback = orchestrateRetrieval(query, 'default');
+      const fallback = await orchestrateRetrieval(query, 'default');
       return NextResponse.json({
         query,
         answer: `Local retrieval fallback: ${fallback.stats.confidence >= 0.75 ? 'high confidence' : fallback.stats.confidence >= 0.55 ? 'medium confidence' : 'low confidence'}`,
@@ -47,7 +51,7 @@ export async function POST(req: NextRequest) {
     if (!resp.ok) {
       const errText = await resp.text().catch(() => 'Unknown error');
       if (resp.status === 401 || resp.status === 403) {
-        const fallback = orchestrateRetrieval(query, 'default');
+        const fallback = await orchestrateRetrieval(query, 'default');
         return NextResponse.json({
           query,
           answer: `Local retrieval fallback after gateway auth failure (${resp.status})`,

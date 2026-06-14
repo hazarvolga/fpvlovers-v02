@@ -4,8 +4,12 @@ import type { ContentJob, ContentJobStatus } from '@/lib/content-automation/type
 import type { GeneratedContent } from '@/lib/content-automation/parse-generated-content';
 import { buildContentMedia } from '@/lib/content-automation/content-media';
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const body = await req.json();
     const { jobId, content, dryRun } = body as {

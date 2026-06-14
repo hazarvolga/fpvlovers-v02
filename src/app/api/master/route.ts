@@ -27,14 +27,14 @@ export async function GET(req: NextRequest) {
     case 'retrieval': {
       if (!q) return NextResponse.json({ error: 'Query required (?q=...)' }, { status: 400 });
       const intent = forceIntent || 'default';
-      const result = orchestrateRetrieval(q, intent);
+      const result = await orchestrateRetrieval(q, intent);
       return NextResponse.json(result);
     }
 
     case 'compose': {
       if (!q) return NextResponse.json({ error: 'Query required' }, { status: 400 });
       const masterResult = orchestrate({ query: q, contentType, forceIntent, forceApp });
-      const retrievalResult = orchestrateRetrieval(q, masterResult.routing.intent);
+      const retrievalResult = await orchestrateRetrieval(q, masterResult.routing.intent);
       const composed = await composeResponse(masterResult, q, retrievalResult);
       return NextResponse.json(composed);
     }

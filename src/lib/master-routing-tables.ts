@@ -1,6 +1,18 @@
 // Master Routing Tables — APPENDIX III Implementation
 // Source: fpvlovers-master-orchtrate-system-promt.MD (Section III)
 
+// Dify API tokens — sourced from environment variables with hardcoded fallbacks.
+// After token rotation in Dify UI, update .env.local and remove fallbacks.
+const ENV = {
+  DIFY_APP_TOKEN_EXPERT: process.env.DIFY_APP_TOKEN_EXPERT || 'app-C7zocan03yFGIbGtJCQG0iUs',
+  DIFY_APP_TOKEN_BUILD_WIZARD: process.env.DIFY_APP_TOKEN_BUILD_WIZARD || 'app-JH8Fu38ezY8sUyhHb8ykHIWq',
+  DIFY_APP_TOKEN_PART_MATCHER: process.env.DIFY_APP_TOKEN_PART_MATCHER || 'app-fHeOtuCMfHNujevKEXaTEDJn',
+  DIFY_APP_TOKEN_BLACKBOX: process.env.DIFY_APP_TOKEN_BLACKBOX || 'app-4mCgiWoe3bYOxNYQbspqNhyh',
+  DIFY_APP_TOKEN_COMMUNITY: process.env.DIFY_APP_TOKEN_COMMUNITY || 'app-1Oil9DvSgUHj9Yf8eEtTuShF',
+  DIFY_WORKFLOW_TOKEN_SEO: process.env.DIFY_WORKFLOW_TOKEN_SEO || 'app-XJogXujRpHH3Ri8dOU9F',
+  DIFY_WORKFLOW_TOKEN_RACING: process.env.DIFY_WORKFLOW_TOKEN_RACING || process.env.DIFY_RACING_WORKFLOW_TOKEN || 'app-0UY7DiroMEswRvqqOtlZ',
+} as const;
+
 export interface IntentRoute {
   intent: string;
   signals: string[];
@@ -45,7 +57,7 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: 'd1d5e44b-4dde-445a-a686-67a1cc0d926c',
     fallbackDataset: 'fpv-pid-profiles',
     fallbackDatasetId: '3eacd19f-ccd8-49ec-8482-51120918f0e0',
-    appToken: 'app-4mCgiWoe3bYOxNYQbspqNhyh',
+    appToken: ENV.DIFY_APP_TOKEN_BLACKBOX,
     appName: 'Blackbox Tuning Advisor',
     monetizationStrategy: 'sponsor',
     maxPlacements: 1,
@@ -58,7 +70,7 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: '38bb7d60-b921-440c-b8f4-e49f9982a61f',
     fallbackDataset: 'fpv-community-knowledge',
     fallbackDatasetId: '639af5aa-d424-4d0b-9633-a7ab541afcb2',
-    appToken: 'app-fHeOtuCMfHNujevKEXaTEDJn',
+    appToken: ENV.DIFY_APP_TOKEN_PART_MATCHER,
     appName: 'Part Matcher',
     monetizationStrategy: 'affiliate',
     maxPlacements: 2,
@@ -71,7 +83,7 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: 'a733583a-5e50-4e00-8b50-759380da59db',
     fallbackDataset: 'fpv-components-specs',
     fallbackDatasetId: '38bb7d60-b921-440c-b8f4-e49f9982a61f',
-    appToken: 'app-JH8Fu38ezY8sUyhHb8ykHIWq',
+    appToken: ENV.DIFY_APP_TOKEN_BUILD_WIZARD,
     appName: 'Build Wizard',
     monetizationStrategy: 'mixed',
     maxPlacements: 2,
@@ -84,7 +96,7 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: '9b380b45-1be1-4ba6-b685-72e279e09ccc',
     fallbackDataset: 'fpv-community-knowledge',
     fallbackDatasetId: '639af5aa-d424-4d0b-9633-a7ab541afcb2',
-    appToken: 'app-C7zocan03yFGIbGtJCQG0iUs',
+    appToken: ENV.DIFY_APP_TOKEN_EXPERT,
     appName: 'FPV Expert Assistant',
     monetizationStrategy: 'none',
     maxPlacements: 0,
@@ -97,7 +109,7 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: '6a8a84c8-46ca-43f0-a3ea-3c19f32f5a17',
     fallbackDataset: 'fpv-community-knowledge',
     fallbackDatasetId: '639af5aa-d424-4d0b-9633-a7ab541afcb2',
-    appToken: 'app-C7zocan03yFGIbGtJCQG0iUs',
+    appToken: ENV.DIFY_APP_TOKEN_EXPERT,
     appName: 'FPV Expert Assistant',
     monetizationStrategy: 'sponsor',
     maxPlacements: 1,
@@ -110,7 +122,7 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: 'cd17b1ea-a852-4d31-87d7-1b4c0bd46e7f',
     fallbackDataset: 'fpv-community-knowledge',
     fallbackDatasetId: '639af5aa-d424-4d0b-9633-a7ab541afcb2',
-    appToken: 'app-C7zocan03yFGIbGtJCQG0iUs',
+    appToken: ENV.DIFY_APP_TOKEN_EXPERT,
     appName: 'FPV Expert Assistant',
     monetizationStrategy: 'sponsor',
     maxPlacements: 1,
@@ -121,9 +133,9 @@ export const INTENT_ROUTES: IntentRoute[] = [
     signals: ['law', 'legal', 'regulation', 'shgm', 'faa', 'airspace', 'license', 'easa', 'sht', 'iha'],
     primaryDataset: 'fpv-regulations',
     primaryDatasetId: '229be183-217b-4f93-ba48-9cdabbd1e37f',
-    fallbackDataset: null, // ⛔ NO FALLBACK — legal risk
+    fallbackDataset: null, // NO FALLBACK — legal risk
     fallbackDatasetId: null,
-    appToken: 'app-C7zocan03yFGIbGtJCQG0iUs',
+    appToken: ENV.DIFY_APP_TOKEN_EXPERT,
     appName: 'FPV Expert Assistant',
     monetizationStrategy: 'none',
     maxPlacements: 0,
@@ -136,7 +148,7 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: '639af5aa-d424-4d0b-9633-a7ab541afcb2',
     fallbackDataset: 'fpv-flight-tuning',
     fallbackDatasetId: 'd1d5e44b-4dde-445a-a686-67a1cc0d926c',
-    appToken: 'app-1Oil9DvSgUHj9Yf8eEtTuShF',
+    appToken: ENV.DIFY_APP_TOKEN_COMMUNITY,
     appName: 'Community Hub',
     monetizationStrategy: 'sponsor',
     maxPlacements: 1,
@@ -149,7 +161,7 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: '6a8a84c8-46ca-43f0-a3ea-3c19f32f5a17',
     fallbackDataset: 'fpv-components-specs',
     fallbackDatasetId: '38bb7d60-b921-440c-b8f4-e49f9982a61f',
-    appToken: 'app-C7zocan03yFGIbGtJCQG0iUs',
+    appToken: ENV.DIFY_APP_TOKEN_EXPERT,
     appName: 'FPV Expert Assistant',
     monetizationStrategy: 'affiliate',
     maxPlacements: 3,
@@ -162,22 +174,22 @@ export const INTENT_ROUTES: IntentRoute[] = [
     primaryDatasetId: '639af5aa-d424-4d0b-9633-a7ab541afcb2',
     fallbackDataset: 'fpv-flight-tuning',
     fallbackDatasetId: 'd1d5e44b-4dde-445a-a686-67a1cc0d926c',
-    appToken: 'app-C7zocan03yFGIbGtJCQG0iUs',
+    appToken: ENV.DIFY_APP_TOKEN_EXPERT,
     appName: 'FPV Expert Assistant',
-    monetizationStrategy: 'sponsor',
-    maxPlacements: 1,
-    minScore: 0.50,
+    monetizationStrategy: 'none',
+    maxPlacements: 0,
+    minScore: 0.55,
   },
 ];
 
 // ─── DIFY APPS ───
 
 export const DIFY_APPS: DifyAppInfo[] = [
-  { token: 'app-C7zocan03yFGIbGtJCQG0iUs', name: 'FPV Expert Assistant', scope: 'general FPV knowledge (9 datasets)', primaryDatasets: ['fpv-flight-tuning', 'fpv-news-reviews', 'fpv-troubleshooting', 'fpv-regulations'], outOfScope: [] },
-  { token: 'app-JH8Fu38ezY8sUyhHb8ykHIWq', name: 'Build Wizard', scope: 'drone builds, parts selection', primaryDatasets: ['fpv-build-guides', 'fpv-components-specs'], outOfScope: ['regulations', 'tuning', 'news'] },
-  { token: 'app-fHeOtuCMfHNujevKEXaTEDJn', name: 'Part Matcher', scope: 'component compatibility (9 part types)', primaryDatasets: ['fpv-components-specs', 'fpv-build-guides'], outOfScope: ['regulations', 'tuning', 'news'] },
-  { token: 'app-4mCgiWoe3bYOxNYQbspqNhyh', name: 'Blackbox Tuning Advisor', scope: 'PID tuning, blackbox analysis', primaryDatasets: ['fpv-flight-tuning', 'fpv-pid-profiles'], outOfScope: ['regulations', 'builds', 'news'] },
-  { token: 'app-1Oil9DvSgUHj9Yf8eEtTuShF', name: 'Community Hub', scope: 'community knowledge, general FPV', primaryDatasets: ['fpv-community-knowledge'], outOfScope: ['regulations'] },
+  { token: ENV.DIFY_APP_TOKEN_EXPERT, name: 'FPV Expert Assistant', scope: 'general FPV knowledge (9 datasets)', primaryDatasets: ['fpv-flight-tuning', 'fpv-news-reviews', 'fpv-troubleshooting', 'fpv-regulations'], outOfScope: [] },
+  { token: ENV.DIFY_APP_TOKEN_BUILD_WIZARD, name: 'Build Wizard', scope: 'drone builds, parts selection', primaryDatasets: ['fpv-build-guides', 'fpv-components-specs'], outOfScope: ['regulations', 'tuning', 'news'] },
+  { token: ENV.DIFY_APP_TOKEN_PART_MATCHER, name: 'Part Matcher', scope: 'component compatibility (9 part types)', primaryDatasets: ['fpv-components-specs', 'fpv-build-guides'], outOfScope: ['regulations', 'tuning', 'news'] },
+  { token: ENV.DIFY_APP_TOKEN_BLACKBOX, name: 'Blackbox Tuning Advisor', scope: 'PID tuning, blackbox analysis', primaryDatasets: ['fpv-flight-tuning', 'fpv-pid-profiles'], outOfScope: ['regulations', 'builds', 'news'] },
+  { token: ENV.DIFY_APP_TOKEN_COMMUNITY, name: 'Community Hub', scope: 'community knowledge, general FPV', primaryDatasets: ['fpv-community-knowledge'], outOfScope: ['regulations'] },
 ];
 
 // ─── DATASETS ───
@@ -204,8 +216,8 @@ export interface FileRoute {
 }
 
 export const FILE_ROUTES: FileRoute[] = [
-  { extensions: ['.bbl', '.bfl', '.csv', '.log'], appToken: 'app-4mCgiWoe3bYOxNYQbspqNhyh', appName: 'Blackbox Tuning Advisor', description: 'Blackbox log / tune file analysis' },
-  { extensions: ['.json'], appToken: 'app-JH8Fu38ezY8sUyhHb8ykHIWq', appName: 'Build Wizard', description: 'Config dump / build spec analysis' },
+  { extensions: ['.bbl', '.bfl', '.csv', '.log'], appToken: ENV.DIFY_APP_TOKEN_BLACKBOX, appName: 'Blackbox Tuning Advisor', description: 'Blackbox log / tune file analysis' },
+  { extensions: ['.json'], appToken: ENV.DIFY_APP_TOKEN_BUILD_WIZARD, appName: 'Build Wizard', description: 'Config dump / build spec analysis' },
 ];
 
 // ─── MULTI-DATASET QUERY RULES ───
@@ -264,6 +276,6 @@ export const WORKFLOW_IDS: Record<string, string> = {
 };
 
 export const WORKFLOW_TOKENS: Record<string, string> = {
-  seoContentGenerator: 'app-XJogXujRpHH3Ri8dOU9F',
-  racingIntelligenceOrchestrator: process.env.DIFY_RACING_WORKFLOW_TOKEN || 'app-0UY7DiroMEswRvqqOtlZ',
+  seoContentGenerator: ENV.DIFY_WORKFLOW_TOKEN_SEO,
+  racingIntelligenceOrchestrator: ENV.DIFY_WORKFLOW_TOKEN_RACING,
 };

@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateContentViaDify, normalizeContentGenerationTemplate } from '@/lib/content-automation/dify-generation';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const { topic, template, language = 'tr', tone = 'professional', title, category, brief } = await req.json();
     const normalizedTemplate = normalizeContentGenerationTemplate(template);

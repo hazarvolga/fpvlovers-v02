@@ -109,7 +109,7 @@ export async function getLiveRAGInsights(term: string): Promise<{
     }
 
     // Call our retrieval-orchestrator to fetch matching documentation from 9 Dify datasets
-    const retrievalResult = orchestrateRetrieval(term, intent, { topK: 3 });
+    const retrievalResult = await orchestrateRetrieval(term, intent, { topK: 3 });
 
     const insights: RAGInsight[] = retrievalResult.chunks.map(chunk => ({
       content: chunk.content,

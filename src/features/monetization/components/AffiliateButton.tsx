@@ -9,9 +9,25 @@ interface AffiliateButtonProps {
   label?: string;
   provider?: 'Amazon' | 'Banggood' | 'Direct';
   className?: string;
+  productId?: string;
+  network?: string;
 }
 
-export function AffiliateButton({ url, price, label = "Check Price", provider = "Amazon", className }: AffiliateButtonProps) {
+function trackClick(productId: string, network: string) {
+  fetch('/api/admin/affiliates', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'track-click', productId, network }),
+  }).catch(() => {});
+}
+
+export function AffiliateButton({ url, price, label = "Check Price", provider = "Amazon", className, productId, network }: AffiliateButtonProps) {
+  const handleClick = () => {
+    if (productId && network) {
+      trackClick(productId, network);
+    }
+  };
+
   return (
     <Button
       variant="amber"
@@ -19,7 +35,13 @@ export function AffiliateButton({ url, price, label = "Check Price", provider = 
       className={cn("w-full sm:w-auto relative group overflow-hidden shine-effect", className)}
       asChild
     >
-      <a href={url} target="_blank" rel="noopener noreferrer nofollow" className="flex items-center gap-2">
+      <a
+        href={url}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        className="flex items-center gap-2"
+        onClick={handleClick}
+      >
         <ShoppingCart className="w-5 h-5 group-hover:-rotate-12 transition-transform" />
         <span className="flex flex-col items-start leading-none">
           <span className="text-[10px] font-bold tracking-widest uppercase opacity-80">{provider}</span>

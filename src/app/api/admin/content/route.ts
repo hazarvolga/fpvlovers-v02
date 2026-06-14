@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { generateContentViaDify, normalizeContentGenerationTemplate } from '@/lib/content-automation/dify-generation';
 import { buildContentMedia } from '@/lib/content-automation/content-media';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const PAGES: Record<string, { name: string; fields: string[]; prompt: string; template?: string }> = {
   roadmap: {
@@ -68,6 +69,9 @@ const PAGES: Record<string, { name: string; fields: string[]; prompt: string; te
 };
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const { page, customPrompt } = await req.json();
     const config = PAGES[page];

@@ -1,10 +1,10 @@
 {
-  "daily_limit": 100000,
+  "daily_limit": 500,
   "used_today": 0,
-  "reset_at": "2026-06-06T23:59:59Z",
-  "last_call_ts": 1780734801026,
-  "calls_today": 4,
-  "errors_today": 4,
+  "reset_at": "2026-06-14T23:59:59Z",
+  "last_call_ts": 0,
+  "calls_today": 0,
+  "errors_today": 0,
   "groq_calls_today": 0,
   "history": [
     {

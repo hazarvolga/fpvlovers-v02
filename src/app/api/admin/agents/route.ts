@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { listAgents, dispatchAgent } from '@/lib/agents';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 // Import all agent implementations to register them
 import '@/lib/agents/seoAgent';
@@ -11,6 +12,9 @@ import '@/lib/agents/recommendationAgent';
 import '@/lib/agents/ecosystemAgent';
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   return NextResponse.json({
     agents: listAgents(),
     total: listAgents().length,
@@ -18,6 +22,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const body = await req.json();
   const { agent, input, context } = body;
 

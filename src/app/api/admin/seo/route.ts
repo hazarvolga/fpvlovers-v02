@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import { generateSeoMetadata, generateSitemapEntries } from '@/lib/seo/seo-pipeline';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET(req: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const url = new URL(req.url);
     const type = url.searchParams.get('type') || 'metadata';

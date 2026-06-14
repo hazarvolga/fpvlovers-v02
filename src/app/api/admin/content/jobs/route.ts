@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { loadContentJobsNew, enqueueContentJobNew } from '@/lib/content-automation/queue';
 import type { ContentJobStatus } from '@/lib/content-automation/types';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const url = new URL(req.url);
     const status = url.searchParams.get('status') as ContentJobStatus | null;
@@ -25,6 +29,9 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const body = await req.json();
     const { id, title, category, topic, template } = body;

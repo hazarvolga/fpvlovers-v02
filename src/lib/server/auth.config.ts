@@ -12,7 +12,7 @@ const getFallbackSecret = () => {
     const signature = [
       process.env.ADMIN_PASS || "",
       process.env.FPV_DATABASE_URL || "",
-      process.env.NEXT_PUBLIC_GEMINI_API_KEY || "fpvlovers-edge-fallback-2026"
+      process.env.GEMINI_API_KEY || "fpvlovers-edge-fallback-2026"
     ].join("::");
     
     return signature;

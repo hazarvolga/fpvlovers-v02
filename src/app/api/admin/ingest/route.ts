@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const CRAWLERS = [
-  process.env.CRAWL4AI_PRIMARY_CRAWL_URL || 'http://crawler-proxy:3002/crawl',
-  process.env.CRAWL4AI_BACKUP_CRAWL_URL || 'http://141.148.206.187/c4ai/crawl',
+  getOptionalEnv('CRAWL4AI_PRIMARY_CRAWL_URL', 'http://crawler-proxy:3002/crawl'),
+  getOptionalEnv('CRAWL4AI_BACKUP_CRAWL_URL', 'http://crawler-backup:3002/crawl'),
 ];
 const DIFY_BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 
@@ -38,6 +39,31 @@ const DATASET_IDS: Record<string, string> = {
   'fpv-regulations': '229be183-217b-4f93-ba48-9cdabbd1e37f',
 };
 
+const ALLOWED_DOMAINS = [
+  'oscarliang.com',
+  'getfpv.com',
+  'rotorbuilds.com',
+  'betafpv.com',
+  'iflight-rc.com',
+  'team-blacksheep.com',
+  'runcam.com',
+  'radiomasterrc.com',
+  'happymodel.cn',
+  'fpv-community.de',
+  'fpvlovers.com.tr',
+];
+
+function isValidUrl(url: string): boolean {
+  try {
+    const parsed = new URL(url);
+    if (!['http:', 'https:'].includes(parsed.protocol)) return false;
+    if (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1') return false;
+    return ALLOWED_DOMAINS.some(d => parsed.hostname === d || parsed.hostname.endsWith('.' + d));
+  } catch {
+    return false;
+  }
+}
+
 function routeUrl(url: string): string {
   try {
     const parsed = new URL(url);
@@ -55,6 +81,9 @@ function routeUrl(url: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const body = await req.json();
     const urls: string[] = body.urls || [];
@@ -67,6 +96,11 @@ export async function POST(req: NextRequest) {
     const headers = { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' as const };
 
     for (const url of urls.slice(0, 10)) {
+      if (!isValidUrl(url)) {
+        results.push({ url, status: 'invalid_url', dataset: '', error: 'URL not in allowlist' });
+        continue;
+      }
+
       try {
         // Crawl
         let crawlData: any = null;

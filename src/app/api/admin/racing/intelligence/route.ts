@@ -5,6 +5,7 @@ import {
   type RacingWorkflowInput,
   type RacingWorkflowMode,
 } from '@/lib/racing-intelligence';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const MODES: RacingWorkflowMode[] = [
   'monitor_extract',
@@ -29,10 +30,16 @@ function asMode(value: unknown): RacingWorkflowMode {
 }
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   return NextResponse.json(getRacingWorkflowStatus());
 }
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const body = asRecord(await req.json().catch(() => ({}))) || {};
   const input: RacingWorkflowInput = {
     mode: asMode(body.mode),

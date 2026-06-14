@@ -3,8 +3,12 @@ import { generateJournalistArticle } from '@/lib/content-automation/youtube-gene
 import { parseGeneratedContent } from '@/lib/content-automation/parse-generated-content';
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
 import { getYoutubeJobs } from '@/lib/content-automation/youtube-discovery';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const jobs = getYoutubeJobs();
     return NextResponse.json({ success: true, jobs });
@@ -14,6 +18,9 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const body = await req.json();
     const { url } = body;

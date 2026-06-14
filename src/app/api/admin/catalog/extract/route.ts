@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { extractProductsFromMarkdown } from '@/lib/tools/product-catalog-extractor';
 import { upsertCrawlerProductCatalog } from '@/lib/tools/product-catalog-store';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 function asRecord(value: unknown): Record<string, unknown> | undefined {
   return value && typeof value === 'object' && !Array.isArray(value)
@@ -19,6 +20,9 @@ function asStringArray(value: unknown): string[] {
 }
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const body = asRecord(await req.json().catch(() => ({}))) || {};
   const url = asString(body.url);
   const markdown = asString(body.markdown) || asString(body.raw_markdown) || asString(body.text);

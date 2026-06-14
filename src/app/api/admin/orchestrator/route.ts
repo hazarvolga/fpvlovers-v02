@@ -10,8 +10,12 @@ import {
   getCrossSellRecommendations,
   getMultiNetworkPrice,
 } from '@/lib/monetizationOrchestrator';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const query = req.nextUrl.searchParams.get('q') || '';
   const contentType = req.nextUrl.searchParams.get('contentType') || undefined;
   const action = req.nextUrl.searchParams.get('action') || 'orchestrate';

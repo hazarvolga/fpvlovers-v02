@@ -49,7 +49,7 @@ Cevabını doğrudan AŞAĞIDAKİ JSON FORMATINDA ver. Herhangi bir ekstra metin
 }`;
 
   // We use the Expert App token
-  const expertToken = getOptionalEnv('DIFY_EXPERT_APP_TOKEN', 'app-C7zocan03yFGIbGtJCQG0iUs');
+  const expertToken = process.env.DIFY_APP_TOKEN_EXPERT || getOptionalEnv('DIFY_EXPERT_APP_TOKEN', 'app-C7zocan03yFGIbGtJCQG0iUs');
 
   const response = await difyRequest('/chat-messages', {
     method: 'POST',

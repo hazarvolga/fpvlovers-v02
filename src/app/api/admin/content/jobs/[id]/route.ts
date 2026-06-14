@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
 import type { ContentJobStatus } from '@/lib/content-automation/types';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 type TransitionMap = Record<ContentJobStatus, ContentJobStatus[]>;
 
@@ -19,6 +20,9 @@ export async function GET(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const { id } = await params;
     const jobs = await loadContentJobsNew();
@@ -38,6 +42,9 @@ export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const { id } = await params;
     const body = await req.json();

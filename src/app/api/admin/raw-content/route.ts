@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const domain = req.nextUrl.searchParams.get('domain');
   const dataset = req.nextUrl.searchParams.get('dataset');
   const limit = req.nextUrl.searchParams.get('limit') || '20';

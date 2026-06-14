@@ -62,7 +62,7 @@ function loadBudget(): EmbeddingBudget {
     if (fs.existsSync(USAGE_FILE)) {
       const saved = safeReadJson<any>(USAGE_FILE, null);
       if (saved.reset_at?.split('T')[0] !== today) return fallback;
-      return { ...fallback, ...saved, daily_limit: saved.daily_limit || DAILY_LIMIT };
+      return { ...fallback, ...saved, daily_limit: DAILY_LIMIT };
     }
   } catch {}
   return fallback;

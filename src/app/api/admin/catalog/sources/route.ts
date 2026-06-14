@@ -7,8 +7,12 @@ import {
   groupProductSourcesByDataset,
   readProductSourcePack,
 } from '@/lib/tools/product-source-pack';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET() {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const queue = getQueueStatus();
   const pack = applyQueueStatusToProductSourcePack(readProductSourcePack(), queue.jobs);
   const pending = pack.sources.filter((source) => source.status === 'pending');
@@ -24,6 +28,9 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const body = await req.json().catch(() => ({})) as Record<string, unknown>;
   const action = typeof body.action === 'string' ? body.action : 'enqueue';
   if (action !== 'enqueue') {

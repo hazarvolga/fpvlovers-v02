@@ -1,11 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { runWorkflow } from '@/lib/dify-client';
 import { WORKFLOW_IDS, WORKFLOW_TOKENS } from '@/lib/master-routing-tables';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ name: string }> },
 ) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const { name } = await params;
     const workflowId = WORKFLOW_IDS[name];

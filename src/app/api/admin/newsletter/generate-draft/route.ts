@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server';
 import { NewsletterOrchestrator } from '@/lib/server/newsletter-orchestrator';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function POST(request: Request) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   try {
     const campaignId = await NewsletterOrchestrator.generateDraftCampaign();
     return NextResponse.json({ success: true, campaignId });

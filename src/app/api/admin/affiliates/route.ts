@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import { safeReadJson } from '@/lib/utils/json';
+import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,6 +61,9 @@ type IntentProfile = {
 
 // GET all monetization data
 export async function GET(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const type = req.nextUrl.searchParams.get('type') || 'all';
   const data: any = {};
 
@@ -97,6 +101,9 @@ export async function GET(req: NextRequest) {
 
 // POST: manage campaigns, CTAs, affiliates, metrics, intent profiles, trust
 export async function POST(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const body = await req.json();
   const { action, ...rest } = body;
 
@@ -328,6 +335,9 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE(req: NextRequest) {
+  const denied = await requireAdmin();
+  if (denied) return denied;
+
   const { id, type, campaignId } = await req.json();
 
   if (type === 'campaign') {
