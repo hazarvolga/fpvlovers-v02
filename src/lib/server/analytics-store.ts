@@ -108,3 +108,29 @@ export async function upsertTrustScore(score: TrustScoreInput): Promise<void> {
     console.error('[DB Analytics] Failed to upsert trust score:', err);
   }
 }
+
+export async function getArticleViewCounts(): Promise<Record<string, number>> {
+  const mode = getStorageMode();
+  if (mode === 'files') return {};
+
+  try {
+    const res = await query<{ content_slug: string; count: string }>(`
+      SELECT content_slug, COUNT(*) as count 
+      FROM fpvlovers_analytics.events 
+      WHERE event_type = 'page_view' AND content_slug IS NOT NULL
+      GROUP BY content_slug
+    `);
+    
+    const counts: Record<string, number> = {};
+    for (const row of res.rows) {
+      if (row.content_slug) {
+        counts[row.content_slug] = parseInt(row.count, 10) || 0;
+      }
+    }
+    return counts;
+  } catch (err) {
+    console.error('[DB Analytics] Failed to get article view counts:', err);
+    return {};
+  }
+}
+

@@ -3,54 +3,54 @@ import path from 'path';
 import type { FpvCatalogProduct, FpvProductType, ProductSpecValue } from '../src/lib/tools/fpv-product-types';
 
 // Let's first define our premium high-fidelity FPV component images.
-// Instead of generic placeholder.com, we use high-quality, relevant visual assets
-// from Unsplash, direct vendor content, and curated high-resolution resources.
+// Instead of generic placeholders, we use high-quality, relevant real-world visual assets
+// from FPV vendor domains, manufacturer shops, and official product listings.
 const FPV_IMAGES = {
   // Frames
-  frame_freestyle: 'https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=800&auto=format&fit=crop&q=60', // drone frame carbon
-  frame_whoop: 'https://images.unsplash.com/photo-1527977966376-1c8408f9f108?w=800&auto=format&fit=crop&q=60', // tiny whoop style
-  frame_lr: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=60', // long range mountain glider
+  frame_freestyle: 'https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg', // iFlight carbon freestyle drone
+  frame_whoop: 'https://betafpv.com/cdn/shop/products/1_3bf69b59-4bb4-4cf1-a4fb-51ab163be64a_800x.jpg', // tiny whoop frame style
+  frame_lr: 'https://cdn.shopify.com/s/files/1/0270/2281/9406/products/Explorer_LR4_V2_Frame_Kit_1.jpg', // Flywoo Explorer long range
   
   // Motors
-  motor_2207: 'https://images.unsplash.com/photo-1618944913480-b67ee16d7b77?w=800&auto=format&fit=crop&q=60', // brushless motor copper coils
-  motor_1404: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=800&auto=format&fit=crop&q=60', // small micro motor
-  motor_whoop: 'https://images.unsplash.com/photo-1597481499750-3e6b22637e12?w=800&auto=format&fit=crop&q=60', // tiny motor
+  motor_2207: 'https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg', // iFlight XING2 brushless motor
+  motor_1404: 'https://cdn.shopify.com/s/files/1/0270/2281/9406/products/NIN_1404_V2_Motor_1.jpg', // Flywoo micro motor
+  motor_whoop: 'https://www.happymodel.cn/wp-content/uploads/2018/10/SE0802-1.jpg', // Happymodel whoop motor
   
   // Stacks / Flight Controllers
-  stack_30x30: 'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&auto=format&fit=crop&q=60', // motherboard electronics
-  stack_20x20: 'https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=800&auto=format&fit=crop&q=60', // circuit board close-up
-  stack_aio: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=800&auto=format&fit=crop&q=60', // micro integrated board
+  stack_30x30: 'https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_V3_Stack_1.jpg', // SpeedyBee F405 stack
+  stack_20x20: 'https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_Mini_Stack_1.jpg', // SpeedyBee Mini Stack
+  stack_aio: 'https://cdn.shopify.com/s/files/1/1025/1577/products/F4_1S_5A_AIO_Brushless_Flight_Controller.jpg', // BetaFPV AIO Board
   
   // Props
-  prop_5inch: 'https://images.unsplash.com/photo-1551244072-5d12893278ab?w=800&auto=format&fit=crop&q=60', // propeller fan blades
-  prop_3inch: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=800&auto=format&fit=crop&q=60', // colourful prop blades
-  prop_whoop: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=800&auto=format&fit=crop&q=60', // tiny props
+  prop_5inch: 'https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg', // Gemfan 5" propeller
+  prop_3inch: 'https://www.gemfanfpv.com/uploads/allimg/180620/1-1P620150931.jpg', // Gemfan 3" propeller
+  prop_whoop: 'https://www.gemfanfpv.com/uploads/allimg/200407/1-20040G60249.jpg', // Gemfan whoop propeller
   
   // Batteries
-  battery_6s: 'https://images.unsplash.com/photo-1620288627223-53302f4e8c74?w=800&auto=format&fit=crop&q=60', // high voltage battery pack
-  battery_4s: 'https://images.unsplash.com/photo-1584006682522-834c31213dcc?w=800&auto=format&fit=crop&q=60', // mid-size lipo pack
-  battery_1s: 'https://images.unsplash.com/photo-1548345680-f5475ea5df84?w=800&auto=format&fit=crop&q=60', // tiny single cell battery
+  battery_6s: 'https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg', // Tattu 6S LiPo
+  battery_4s: 'https://www.gaoneng.co/uploads/allimg/190807/1-1Z80G51206.jpg', // GNB 4S LiPo
+  battery_1s: 'https://cdn.shopify.com/s/files/1/1025/1577/products/BT2.0_450mAh_1S_Battery.jpg', // BetaFPV 1S LiPo
   
   // Cameras
-  camera_micro: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&auto=format&fit=crop&q=60', // camera lens sensor
-  camera_nano: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=800&auto=format&fit=crop&q=60', // mini lens sensor
+  camera_micro: 'https://www.caddxfpv.com/cdn/shop/products/Ratel2_1_1024x1024.jpg', // Caddx Ratel micro camera
+  camera_nano: 'https://www.runcam.com/images/phoenix2nano/phoenix2nano_1.jpg', // RunCam Phoenix nano camera
   
   // Video Systems
-  video_dji: 'https://images.unsplash.com/photo-1506824982174-a292850b9def?w=800&auto=format&fit=crop&q=60', // digital air unit/lens
-  video_analog: 'https://images.unsplash.com/photo-1534224039826-c7a0eda0e6b3?w=800&auto=format&fit=crop&q=60', // analog transmitter antenna
+  video_dji: 'https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg', // DJI O3 Air Unit VTX
+  video_analog: 'https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg', // Rush Tank analog VTX
   
   // Radios & Receivers
-  radio_boxer: 'https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?w=800&auto=format&fit=crop&q=60', // premium radio transmitter remote control
-  radio_gamepad: 'https://images.unsplash.com/photo-1600861195091-690c92f1d2cc?w=800&auto=format&fit=crop&q=60', // gamepad controller
-  receiver_elrs: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=800&auto=format&fit=crop&q=60', // micro antenna receiver chip
+  radio_boxer: 'https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917', // RadioMaster Boxer transmitter
+  radio_gamepad: 'https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439', // RadioMaster Zorro transmitter
+  receiver_elrs: 'https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg', // Happymodel ExpressLRS receiver
   
   // Goggles
-  goggles_digital: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=800&auto=format&fit=crop&q=60', // virtual reality goggles/FPV headset
-  goggles_analog: 'https://images.unsplash.com/photo-1626379953822-baec19c3bbcd?w=800&auto=format&fit=crop&q=60', // slim box goggles
+  goggles_digital: 'https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg', // DJI Goggles 2 FPV headset
+  goggles_analog: 'https://www.eachine.com/images/goods/Eachine-EV800D-5_8G-40CH-Diverse-FPV-Goggles-1.jpg', // Eachine EV800D analog goggles
   
   // Kits
-  kit_nazgul: 'https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=800&auto=format&fit=crop&q=60', // prebuilt carbon freestyle drone
-  kit_whoop: 'https://images.unsplash.com/photo-1522009638647-768799a9ae88?w=800&auto=format&fit=crop&q=60', // small ready to fly whoop
+  kit_nazgul: 'https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg', // iFlight RTF freestyle kit
+  kit_whoop: 'https://cdn.shopify.com/s/files/1/1025/1577/products/Cetus_Pro_FPV_Kit.jpg', // BetaFPV whoop kit
 };
 
 // Curated list of 72 extremely high-signal, real-world FPV products.
@@ -1123,7 +1123,7 @@ function updateAffiliatesPlaceholder() {
   const updated = affiliates.map((product) => {
     // Map placeholders to real images
     let newImage = product.image;
-    if (product.image.includes('placeholder.com')) {
+    if (product.image.includes('placeholder.com') || product.image.includes('unsplash.com')) {
       const type = product.type;
       if (type === 'goggles') newImage = FPV_IMAGES.goggles_digital;
       else if (type === 'frame') newImage = FPV_IMAGES.frame_freestyle;

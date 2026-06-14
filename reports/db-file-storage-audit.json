@@ -1,39 +1,53 @@
 {
-  "timestamp": "2026-06-01T12:21:36.780Z",
+  "timestamp": "2026-06-13T09:46:52.170Z",
   "contentJobs": {
-    "total": 31,
+    "total": 91,
     "byStatus": {
-      "published": 29,
+      "published": 41,
+      "generating": 39,
+      "queued": 9,
       "failed": 2
     },
     "invalidRecords": 0
   },
   "crawlQueue": {
-    "total": 44,
+    "total": 159,
     "byStatus": {
-      "pending": 20,
-      "completed": 17,
-      "failed": 7
+      "failed": 25,
+      "pending": 81,
+      "completed": 53
     },
     "invalidRecords": 0
   },
   "publishedContent": {
-    "totalJson": 41,
-    "totalMd": 41,
-    "matchingPairs": 41,
+    "totalJson": 102,
+    "totalMd": 102,
+    "matchingPairs": 102,
     "orphanedJson": [],
     "orphanedMd": [],
     "duplicateSlugs": []
   },
   "productCatalog": {
-    "totalItems": 4,
+    "totalItems": 11,
+    "componentCount": 11,
+    "productCount": 0,
     "inferredType": "components",
     "keysFound": [
       "$schema",
       "title",
       "description",
       "components"
-    ]
+    ],
+    "categories": {
+      "Transmitter": 2,
+      "Receiver": 2,
+      "Video System": 2,
+      "Motor": 1,
+      "Flight Controller": 1,
+      "ESC": 1,
+      "Frame": 1,
+      "Battery": 1
+    }
   },
   "monetization": {
     "affiliatesCount": 15,

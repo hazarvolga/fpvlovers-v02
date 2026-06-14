@@ -52,12 +52,12 @@ export default function FreestylePage() {
 
           {/* Header Billboard */}
           <div className="relative h-64 md:h-80 w-full overflow-hidden border border-white/5 bg-[#18181b] rounded-sm">
-             <Image
-                src="https://images.unsplash.com/photo-1524522173746-f628baad3644?w=1200&auto=format&fit=crop&q=70"
-                alt="Freestyle FPV Drone"
-                fill
-                className="object-cover opacity-20 mix-blend-luminosity"
-             />
+             {/* Cyber Grid & Telemetry Tech Background (Zero Stock Images) */}
+             <div className="absolute inset-0 bg-[#0c0c0e]" />
+             <div className="absolute inset-0 bg-[linear-gradient(to_right,#FF5C0009_1px,transparent_1px),linear-gradient(to_bottom,#FF5C0009_1px,transparent_1px)] bg-[size:32px_32px]" />
+             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-[#FF5C00]/10" />
+             <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-[#FF5C00]/10" />
+             <div className="absolute top-4 right-4 text-[9px] text-[#00FF66]/50 font-mono tracking-widest uppercase">SYS.LOC: ACRO_YARD // RSSI: 99dBm // MODE: ACRO</div>
              <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/80 to-transparent z-10" />
              <div className="absolute inset-0 scanline-anim bg-gradient-to-b from-transparent via-[#00F2FF]/5 to-transparent z-10 pointer-events-none" />
              <div className="absolute bottom-8 left-8 z-20">

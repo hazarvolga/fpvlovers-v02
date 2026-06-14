@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { ComponentType } from 'react';
-import { ArrowRight, BookOpen, Calculator, Cpu, RadioTower, Wrench, Zap } from 'lucide-react';
+import { ArrowRight, BookOpen, Calculator, Cpu, RadioTower, Wrench, Zap, Eye } from 'lucide-react';
 import { resolveHomepageContent, type HomepageSectionCard } from '@/lib/homepage/homepage-content';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -30,7 +30,16 @@ function ArticleCard({ card, accent = 'cyan' }: { card: HomepageSectionCard; acc
       <CardHeader>
         <div className="mb-3 flex items-center justify-between gap-3">
           <Badge variant={accent === 'orange' ? 'amber' : 'default'}>{card.category}</Badge>
-          <span className="font-mono text-xs text-[#77736d]">{card.readingTime}</span>
+          <span className="font-mono text-xs text-[#77736d] flex items-center gap-1.5">
+            <span>{card.readingTime}</span>
+            {card.views && card.views > 0 ? (
+              <>
+                <span className="text-zinc-700">•</span>
+                <Eye className="h-3.5 w-3.5 text-[#77736d] opacity-80" />
+                <span className="text-[11px] text-[#77736d]">{card.views}</span>
+              </>
+            ) : null}
+          </span>
         </div>
         <Link href={card.href}>
           <CardTitle className={`line-clamp-2 text-lg transition-colors ${accentClass}`}>{card.title}</CardTitle>
@@ -65,7 +74,7 @@ function SectionHeading({ title, href, icon: Icon }: { title: string; href?: str
 }
 
 export default async function HomePage() {
-  const content = resolveHomepageContent();
+  const content = await resolveHomepageContent();
   const heroCard = content.featuredGuides[0] || content.recentPosts[0];
   const secondaryHeroCards = content.featuredGuides.slice(1, 3);
   const bypassHeroOptimization = Boolean(heroCard?.coverImage?.startsWith('/api/content/media/cover/') || heroCard?.coverImage?.includes('images.pexels.com'));
@@ -164,6 +173,16 @@ export default async function HomePage() {
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/80 to-transparent p-6">
                     <h2 className="mt-3 max-w-xl text-xl font-bold leading-tight text-zinc-100 uppercase tracking-wide group-hover:text-[#00F2FF] transition-colors">{heroCard.title}</h2>
                     <p className="mt-2 line-clamp-2 text-xs font-mono text-zinc-400">{heroCard.excerpt}</p>
+                    <div className="mt-3 flex items-center gap-1.5 font-mono text-[10px] text-zinc-500">
+                      <span>{heroCard.readingTime}</span>
+                      {heroCard.views && heroCard.views > 0 ? (
+                        <>
+                          <span className="text-zinc-700">•</span>
+                          <Eye className="h-3.5 w-3.5 text-zinc-500 opacity-80" />
+                          <span>{heroCard.views}</span>
+                        </>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </Link>

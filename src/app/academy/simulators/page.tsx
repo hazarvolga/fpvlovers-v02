@@ -32,7 +32,7 @@ function getSimulatorData() {
         hardware: "Low-End PC / Mac Compatible",
         pros: ["Unmatched flight dynamics", "Huge competitive multiplayer scene", "Runs well on older laptops"],
         cons: ["Visuals lack modern polish", "UI can be confusing for beginners", "Maps feel sterile"],
-        imageUrl: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1024",
+        imageUrl: "https://www.velocidrone.com/assets/images/velocidrone-featured.jpg",
       },
       { 
         name: "Liftoff: FPV Drone Racing", 
@@ -45,7 +45,7 @@ function getSimulatorData() {
         hardware: "Mid-Range PC Required",
         pros: ["Massive Steam Workshop community", "Licensed real-world drone parts", "Great tutorial for absolute beginners"],
         cons: ["Physics can feel slightly gravity-defying", "High system requirements for max settings"],
-        imageUrl: "https://images.unsplash.com/photo-1517420704952-d8f3992e98fa?auto=format&fit=crop&q=80&w=1024",
+        imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/396750/header.jpg",
       },
       { 
         name: "Uncrashed : FPV Drone Simulator", 
@@ -58,7 +58,7 @@ function getSimulatorData() {
         hardware: "High-End PC Required",
         pros: ["Breathtaking graphics and lighting", "Dynamic moving targets (cars, trains)", "Great for cinematic practice"],
         cons: ["Demands a powerful GPU", "Physics aren't as tight as VelociDrone"],
-        imageUrl: "https://images.unsplash.com/photo-1629904853716-f0bc54eea481?auto=format&fit=crop&q=80&w=1024",
+        imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1682970/header.jpg",
       },
       { 
         name: "Tryp FPV", 
@@ -71,7 +71,7 @@ function getSimulatorData() {
         hardware: "High-End PC Required",
         pros: ["Incredibly huge open-world maps", "Unique chasing scenarios (wingsuits)", "Beautiful environmental design"],
         cons: ["Extremely heavy on PC resources", "Can stutter on mid-range hardware"],
-        imageUrl: "https://images.unsplash.com/photo-1579803815615-1207af150d1d?auto=format&fit=crop&q=80&w=1024",
+        imageUrl: "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1881200/header.jpg",
       }
     ],
     gear: [

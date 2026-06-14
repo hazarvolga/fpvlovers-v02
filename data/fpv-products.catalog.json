@@ -1,160 +1,4842 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "FPV Component Catalog",
-  "description": "Static database specifications of physical hardware components.",
-  "components": [
+  "generated_at": "2026-06-14T09:09:01.154Z",
+  "source": "crawler-normalized-product-catalog",
+  "products": [
     {
-      "id": "radio_radiomaster_boxer_elrs",
-      "brand": "RadioMaster",
-      "name": "Boxer ELRS Radio Transmitter",
-      "category": "Transmitter",
-      "weightGrams": 530,
+      "id": "goggles_dji_2",
+      "name": "DJI Goggles 2 FPV Headset",
+      "brand": "DJI",
+      "type": "goggles",
+      "category": "Goggles",
+      "sourceNetwork": "dji",
+      "url": "https://www.dji.com/goggles-2",
+      "price": 569,
+      "currency": "USD",
+      "trustScore": 99,
+      "keywords": [
+        "dji",
+        "goggles",
+        "goggles2",
+        "digital",
+        "hd",
+        "fpv",
+        "oled"
+      ],
+      "compatibleWith": [
+        "video_dji_o3",
+        "video_caddx_vista_nebula"
+      ],
+      "tags": [
+        "goggles",
+        "digital",
+        "dji",
+        "oled",
+        "premium"
+      ],
       "specs": {
-        "frequency": "2.4GHz",
-        "powerRangeMw": "10-1000",
-        "defaultProtocol": "ELRS_2.4G",
-        "voltageInput": "6.6-8.4V"
+        "protocol": "DJI Digital",
+        "screens": "Micro-OLED",
+        "resolution": "1080p",
+        "dioptre": "Adjustable",
+        "latencyMs": 30,
+        "weight": 290
       },
-      "affiliateUrl": "https://www.radiomasterrc.com/products/boxer-radio-controller"
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic"
+        ],
+        "protocols": [
+          "dji"
+        ]
+      },
+      "imageUrl": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.dji.com/downloads",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.99
+      }
     },
     {
-      "id": "radio_radiomaster_zorro_elrs",
-      "brand": "RadioMaster",
-      "name": "Zorro ELRS Radio Transmitter",
-      "category": "Transmitter",
-      "weightGrams": 350,
+      "id": "video_dji_o3",
+      "name": "DJI O3 Air Unit Digital HD Video System",
+      "brand": "DJI",
+      "type": "video",
+      "category": "Digital Systems",
+      "sourceNetwork": "dji",
+      "url": "https://www.dji.com/o3-air-unit",
+      "price": 229,
+      "currency": "USD",
+      "trustScore": 99,
+      "keywords": [
+        "dji",
+        "o3",
+        "air",
+        "unit",
+        "digital",
+        "hd",
+        "camera",
+        "4k",
+        "recording"
+      ],
+      "compatibleWith": [
+        "frame_geprc_mark5",
+        "goggles_dji_2",
+        "stack_tmotor_f7_pro2"
+      ],
+      "tags": [
+        "video-system",
+        "digital",
+        "o3",
+        "4k-recording",
+        "premium"
+      ],
       "specs": {
-        "frequency": "2.4GHz",
-        "powerRangeMw": "10-250",
-        "defaultProtocol": "ELRS_2.4G",
-        "voltageInput": "6.6-8.4V"
+        "protocol": "DJI O3",
+        "weight": 36.4,
+        "resolution": "4K@120fps",
+        "latencyMs": 28,
+        "rangeKm": 10,
+        "mount": "20x20"
       },
-      "affiliateUrl": "https://www.radiomasterrc.com/products/zorro-radio-controller"
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic"
+        ],
+        "propSizes": [
+          3.5,
+          5,
+          7
+        ],
+        "protocols": [
+          "dji"
+        ]
+      },
+      "imageUrl": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.dji.com/downloads",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.99
+      }
+    },
+    {
+      "id": "prop_ethix_s3_watermelon",
+      "name": "HQProp Ethix S3 Watermelon 5\" Propellers",
+      "brand": "Ethix",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/hqprop-ethix-s3-watermelon-propeller-set-of-4.html",
+      "price": 3.49,
+      "currency": "USD",
+      "trustScore": 99,
+      "keywords": [
+        "hqprop",
+        "ethix",
+        "s3",
+        "watermelon",
+        "propellers",
+        "5inch",
+        "freestyle"
+      ],
+      "compatibleWith": [
+        "motor_xing2_2207_1850kv",
+        "motor_emax_eco2_2306_1900kv"
+      ],
+      "tags": [
+        "prop",
+        "freestyle",
+        "5-inch",
+        "smooth"
+      ],
+      "specs": {
+        "propSize": 5,
+        "propPitch": 3.1,
+        "blades": 3,
+        "weight": 4.3
+      },
+      "fit": {
+        "styles": [
+          "freestyle"
+        ],
+        "propSizes": [
+          5
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.99
+      }
+    },
+    {
+      "id": "receiver_tbs_crossfire_nano",
+      "name": "TBS Crossfire Nano RX Receiver (SE)",
+      "brand": "TBS",
+      "type": "receiver",
+      "category": "Receivers",
+      "sourceNetwork": "tbs",
+      "url": "https://www.team-blacksheep.com/products/prod:xf_nano_rx_se",
+      "price": 29.95,
+      "currency": "USD",
+      "trustScore": 99,
+      "keywords": [
+        "tbs",
+        "crossfire",
+        "nano",
+        "rx",
+        "receiver",
+        "900mhz",
+        "longrange",
+        "immortal"
+      ],
+      "compatibleWith": [
+        "stack_tmotor_f7_pro2",
+        "radio_tango_2"
+      ],
+      "tags": [
+        "receiver",
+        "crossfire",
+        "915mhz",
+        "long-range",
+        "bulletproof"
+      ],
+      "specs": {
+        "protocol": "Crossfire",
+        "band": "915MHz",
+        "weight": 0.8,
+        "sizeMm": "18x11",
+        "rangeKm": 40
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic",
+          "freestyle"
+        ],
+        "protocols": [
+          "crossfire"
+        ]
+      },
+      "imageUrl": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.team-blacksheep.com/products",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.99
+      }
+    },
+    {
+      "id": "radio_tbs_tango_2",
+      "name": "TBS Tango 2 Pro RC Radio Transmitter",
+      "brand": "TBS",
+      "type": "radio",
+      "category": "Radios",
+      "sourceNetwork": "tbs",
+      "url": "https://www.team-blacksheep.com/products/prod:tango2_pro",
+      "price": 219,
+      "currency": "USD",
+      "trustScore": 99,
+      "keywords": [
+        "tbs",
+        "tango",
+        "tango2",
+        "pro",
+        "radio",
+        "transmitter",
+        "crossfire",
+        "gamepad"
+      ],
+      "compatibleWith": [
+        "receiver_tbs_crossfire_nano"
+      ],
+      "tags": [
+        "radio",
+        "crossfire",
+        "915mhz",
+        "gamepad-style",
+        "folding-gimbals"
+      ],
+      "specs": {
+        "protocol": "Crossfire",
+        "band": "915MHz",
+        "powerMw": 1000,
+        "gimbals": "Full Size Hall",
+        "weight": 340
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic",
+          "freestyle"
+        ],
+        "protocols": [
+          "crossfire"
+        ]
+      },
+      "imageUrl": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.team-blacksheep.com/products",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.99
+      }
+    },
+    {
+      "id": "receiver_betafpv_elrs_lite",
+      "name": "BETAFPV ELRS Lite 2.4GHz Receiver (Flat Antenna)",
+      "brand": "BETAFPV",
+      "type": "receiver",
+      "category": "Receivers",
+      "sourceNetwork": "betafpv",
+      "url": "https://betafpv.com/products/elrs-lite-receiver",
+      "price": 13.5,
+      "currency": "USD",
+      "trustScore": 98,
+      "keywords": [
+        "betafpv",
+        "elrs",
+        "lite",
+        "receiver",
+        "rx",
+        "2.4g",
+        "whoop",
+        "flat"
+      ],
+      "compatibleWith": [
+        "stack_betafpv_f4_1s_aio",
+        "radio_boxer_elrs"
+      ],
+      "tags": [
+        "receiver",
+        "elrs",
+        "2.4ghz",
+        "ultralight",
+        "whoop"
+      ],
+      "specs": {
+        "protocol": "ELRS",
+        "band": "2.4GHz",
+        "weight": 0.5,
+        "sizeMm": "10x10"
+      },
+      "fit": {
+        "styles": [
+          "whoop",
+          "racing"
+        ],
+        "protocols": [
+          "elrs"
+        ]
+      },
+      "imageUrl": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://betafpv.com/collections",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.99
+      }
+    },
+    {
+      "id": "battery_cnhl_black_6s_1300",
+      "name": "CNHL Black Series 1300mAh 22.2V 6S 100C LiPo Battery",
+      "brand": "CNHL",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/products/cnhl-black-series-1300mah-22-2v-6s-100c-lipo-battery",
+      "price": 21.99,
+      "currency": "USD",
+      "trustScore": 98,
+      "keywords": [
+        "cnhl",
+        "black",
+        "series",
+        "1300mah",
+        "6s",
+        "100c",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [
+        "stack_speedybee_f405_v4",
+        "motor_xing2_2207_1850kv"
+      ],
+      "tags": [
+        "battery",
+        "6s",
+        "freestyle",
+        "budget",
+        "lipo"
+      ],
+      "specs": {
+        "capacityMah": 1300,
+        "cellCount": 6,
+        "cRating": 100,
+        "weight": 220,
+        "connector": "XT60"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ]
+      },
+      "imageUrl": "https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.99
+      }
+    },
+    {
+      "id": "prop_gemfan_1635_whoop",
+      "name": "Gemfan 1635 3-Blade 40mm Whoop Propellers (1.0mm shaft)",
+      "brand": "Gemfan",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "betafpv",
+      "url": "https://betafpv.com/products/gemfan-1635-3-blade-whoop-propellers-1-0mm-shaft",
+      "price": 2.99,
+      "currency": "USD",
+      "trustScore": 98,
+      "keywords": [
+        "gemfan",
+        "whoop",
+        "propeller",
+        "40mm",
+        "1.6inch",
+        "1s",
+        "meteor65"
+      ],
+      "compatibleWith": [
+        "motor_happymodel_ex0802_19000kv"
+      ],
+      "tags": [
+        "prop",
+        "whoop",
+        "1.6-inch",
+        "indoor",
+        "lightweight"
+      ],
+      "specs": {
+        "propSize": 1.6,
+        "propPitch": 1.5,
+        "blades": 3,
+        "weight": 0.5
+      },
+      "fit": {
+        "styles": [
+          "whoop"
+        ],
+        "propSizes": [
+          1.2,
+          1.6
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/200407/1-20040G60249.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://betafpv.com/collections",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "radio_radiomaster_boxer_elrs",
+      "name": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G)",
+      "brand": "RadioMaster",
+      "type": "radio",
+      "category": "Radios",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
+      "price": 139.99,
+      "currency": "USD",
+      "trustScore": 98,
+      "keywords": [
+        "radiomaster",
+        "boxer",
+        "radio",
+        "transmitter",
+        "elrs",
+        "2.4g",
+        "gimbals"
+      ],
+      "compatibleWith": [
+        "receiver_happymodel_ep1",
+        "receiver_betafpv_elrs_lite"
+      ],
+      "tags": [
+        "radio",
+        "elrs",
+        "2.4ghz",
+        "full-size",
+        "hall-gimbals"
+      ],
+      "specs": {
+        "protocol": "ELRS",
+        "band": "2.4GHz",
+        "powerMw": 1000,
+        "gimbals": "Hall Effect V4",
+        "weight": 530
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing",
+          "longRange",
+          "whoop"
+        ],
+        "protocols": [
+          "elrs"
+        ]
+      },
+      "imageUrl": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/downloads",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "frame_tbs_source_one_v5",
+      "name": "TBS Source One V5 5\" Frame",
+      "brand": "TBS",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/tbs-source-one-v5-5-frame.html",
+      "price": 29.99,
+      "currency": "USD",
+      "trustScore": 98,
+      "keywords": [
+        "tbs",
+        "source",
+        "one",
+        "v5",
+        "frame",
+        "5inch",
+        "freestyle"
+      ],
+      "compatibleWith": [
+        "motor_xing2_2207",
+        "stack_speedybee_f405"
+      ],
+      "tags": [
+        "frame",
+        "freestyle",
+        "5-inch",
+        "budget"
+      ],
+      "specs": {
+        "weight": 125,
+        "wheelbase": 220,
+        "propSize": 5,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle"
+        ],
+        "propSizes": [
+          5
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.152Z",
+        "extractionConfidence": 0.95
+      }
+    },
+    {
+      "id": "vtx_tbs_unify_pro32_hv",
+      "name": "TBS Unify Pro32 HV 5.8GHz VTX",
+      "brand": "TBS",
+      "type": "vtx",
+      "category": "Video Transmitters",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/tbs-unify-pro32-hv-5-8ghz-video-transmitter.html",
+      "price": 49.95,
+      "currency": "USD",
+      "trustScore": 98,
+      "keywords": [
+        "tbs",
+        "unify",
+        "pro32",
+        "hv",
+        "vtx",
+        "5.8ghz",
+        "analog",
+        "smartaudio"
+      ],
+      "compatibleWith": [
+        "camera_foxeer_predator_5",
+        "frame_apex_evo"
+      ],
+      "tags": [
+        "vtx",
+        "analog",
+        "smartaudio",
+        "premium",
+        "long-range"
+      ],
+      "specs": {
+        "protocol": "Analog",
+        "powerMw": 1000,
+        "band": "5.8GHz",
+        "weight": 8.7,
+        "mount": "clip-on"
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "freestyle"
+        ],
+        "protocols": [
+          "analog"
+        ]
+      },
+      "imageUrl": "https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "kit_betafpv_cetus_pro",
+      "name": "BETAFPV Cetus Pro Brushless Tiny Whoop Kit",
+      "brand": "BETAFPV",
+      "type": "kit",
+      "category": "Kits",
+      "sourceNetwork": "betafpv",
+      "url": "https://betafpv.com/products/cetus-pro-brushless-whoop-rtf-kit",
+      "price": 229.99,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "betafpv",
+        "cetus",
+        "pro",
+        "rtf",
+        "whoop",
+        "goggles",
+        "radio",
+        "beginner"
+      ],
+      "compatibleWith": [
+        "battery_gnb_1s_450"
+      ],
+      "tags": [
+        "kit",
+        "rtf",
+        "whoop",
+        "1s",
+        "beginner",
+        "full-kit"
+      ],
+      "specs": {
+        "weight": 33.9,
+        "wheelbase": 75,
+        "propSize": 1.6,
+        "motor": "1102 18000KV",
+        "protocol": "Frsky / LiteRadio"
+      },
+      "fit": {
+        "styles": [
+          "whoop"
+        ],
+        "propSizes": [
+          1.6
+        ],
+        "cellCounts": [
+          1
+        ]
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1025/1577/products/Cetus_Pro_FPV_Kit.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://betafpv.com/collections",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "stack_betafpv_f4_1s_aio",
+      "name": "BETAFPV F4 1S 5A AIO Brushless Flight Controller",
+      "brand": "BETAFPV",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "betafpv",
+      "url": "https://betafpv.com/products/f4-1s-5a-aio-brushless-flight-controller-elrs-2-4g",
+      "price": 39.99,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "betafpv",
+        "f4",
+        "1s",
+        "aio",
+        "whoop",
+        "fc",
+        "elrs",
+        "integrated"
+      ],
+      "compatibleWith": [
+        "frame_meteor65",
+        "motor_happymodel_ex0802_19000kv"
+      ],
+      "tags": [
+        "stack",
+        "aio",
+        "25.5x25.5",
+        "1s",
+        "whoop",
+        "integrated-rx"
+      ],
+      "specs": {
+        "fc": "F411",
+        "escAmp": 5,
+        "gyro": "BMI270",
+        "stackMount": "25.5x25.5",
+        "maxCells": 1,
+        "weight": 3.2,
+        "protocol": "ELRS"
+      },
+      "fit": {
+        "styles": [
+          "whoop"
+        ],
+        "cellCounts": [
+          1
+        ],
+        "stackMount": "25.5x25.5"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1025/1577/products/F4_1S_5A_AIO_Brushless_Flight_Controller.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://betafpv.com/collections",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "frame_meteor65",
+      "name": "BETAFPV Meteor65 Whoop Frame",
+      "brand": "BETAFPV",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "betafpv",
+      "url": "https://betafpv.com/products/meteor65-micro-brushless-whoop-frame",
+      "price": 4.99,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "betafpv",
+        "meteor65",
+        "whoop",
+        "frame",
+        "tinywhoop",
+        "65mm"
+      ],
+      "compatibleWith": [
+        "motor_happymodel_0802",
+        "stack_betafpv_aio"
+      ],
+      "tags": [
+        "frame",
+        "whoop",
+        "1s",
+        "65mm",
+        "indoor"
+      ],
+      "specs": {
+        "weight": 3.1,
+        "wheelbase": 65,
+        "propSize": 1.2,
+        "stackMount": "25.5x25.5",
+        "motorMount": "three-hole"
+      },
+      "fit": {
+        "styles": [
+          "whoop"
+        ],
+        "propSizes": [
+          1.2
+        ],
+        "cellCounts": [
+          1
+        ],
+        "stackMount": "25.5x25.5",
+        "motorMount": "three-hole"
+      },
+      "imageUrl": "https://betafpv.com/cdn/shop/products/1_3bf69b59-4bb4-4cf1-a4fb-51ab163be64a_800x.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://betafpv.com/collections",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.97
+      }
+    },
+    {
+      "id": "battery_cnhl_ministar_4s_850",
+      "name": "CNHL Ministar 850mAh 14.8V 4S 70C LiPo Battery",
+      "brand": "CNHL",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/products/cnhl-ministar-850mah-14-8v-4s-70c-lipo-battery",
+      "price": 11.99,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "cnhl",
+        "ministar",
+        "850mah",
+        "4s",
+        "70c",
+        "battery",
+        "micro",
+        "lipo"
+      ],
+      "compatibleWith": [
+        "frame_flywoo_explorer_lr4",
+        "motor_flywoo_1404_3750kv"
+      ],
+      "tags": [
+        "battery",
+        "4s",
+        "long-range",
+        "cinematic",
+        "micro"
+      ],
+      "specs": {
+        "capacityMah": 850,
+        "cellCount": 4,
+        "cRating": 70,
+        "weight": 102,
+        "connector": "XT30"
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4
+        ]
+      },
+      "imageUrl": "https://www.gaoneng.co/uploads/allimg/190807/1-1Z80G51206.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "motor_emax_eco2_2306_1900kv",
+      "name": "EMAX ECO II Series 2306 1900KV Motor",
+      "brand": "EMAX",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/emax-eco-ii-series-2306-motor-1900kv.html",
+      "price": 15.99,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "emax",
+        "eco2",
+        "eco",
+        "2306",
+        "1900kv",
+        "motor",
+        "6s",
+        "budget"
+      ],
+      "compatibleWith": [
+        "frame_tbs_source_one_v5",
+        "prop_ethix_s3"
+      ],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "freestyle",
+        "budget"
+      ],
+      "specs": {
+        "stator": "2306",
+        "kv": 1900,
+        "weight": 30.2,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "motor_happymodel_ex0802_19000kv",
+      "name": "Happymodel EX0802 19000KV Tiny Whoop Motor",
+      "brand": "Happymodel",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "betafpv",
+      "url": "https://betafpv.com/products/happymodel-ex0802-19000kv-brushless-motor",
+      "price": 9.99,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "happymodel",
+        "ex0802",
+        "0802",
+        "19000kv",
+        "motor",
+        "1s",
+        "whoop"
+      ],
+      "compatibleWith": [
+        "frame_meteor65",
+        "prop_gemfan_whoop"
+      ],
+      "tags": [
+        "motor",
+        "1s",
+        "whoop",
+        "tiny-whoop",
+        "lightweight"
+      ],
+      "specs": {
+        "stator": "0802",
+        "kv": 19000,
+        "weight": 1.7,
+        "shaftDiameter": 1,
+        "motorMount": "three-hole"
+      },
+      "fit": {
+        "styles": [
+          "whoop"
+        ],
+        "cellCounts": [
+          1
+        ],
+        "propSizes": [
+          1.2,
+          1.6
+        ],
+        "motorMount": "three-hole"
+      },
+      "imageUrl": "https://www.happymodel.cn/wp-content/uploads/2018/10/SE0802-1.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://betafpv.com/collections",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "goggles_hdzero",
+      "name": "HDZero Digital HD FPV Goggles",
+      "brand": "HDZero",
+      "type": "goggles",
+      "category": "Goggles",
+      "sourceNetwork": "hdzero",
+      "url": "https://www.hd-zero.com/product-page/hdzero-goggle",
+      "price": 495,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "hdzero",
+        "goggles",
+        "digital",
+        "hd",
+        "racing",
+        "low-latency",
+        "oled"
+      ],
+      "compatibleWith": [
+        "video_hdzero_whoop_lite"
+      ],
+      "tags": [
+        "goggles",
+        "digital",
+        "hdzero",
+        "racing",
+        "low-latency",
+        "oled"
+      ],
+      "specs": {
+        "protocol": "HDZero / Analog",
+        "screens": "OLED",
+        "resolution": "1080p@90Hz",
+        "dioptre": "Adjustable",
+        "latencyMs": 4,
+        "weight": 340
+      },
+      "fit": {
+        "styles": [
+          "racing",
+          "whoop",
+          "freestyle"
+        ],
+        "protocols": [
+          "hdzero",
+          "analog"
+        ]
+      },
+      "imageUrl": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.hd-zero.com/products",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "video_hdzero_whoop_lite",
+      "name": "HDZero Whoop Lite VTX + Nano Lite Camera Kit",
+      "brand": "HDZero",
+      "type": "video",
+      "category": "Digital Systems",
+      "sourceNetwork": "hdzero",
+      "url": "https://www.hd-zero.com/product-page/hdzero-whoop-lite-vtx-nano-lite-camera-kit",
+      "price": 129,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "hdzero",
+        "whoop",
+        "lite",
+        "vtx",
+        "camera",
+        "digital",
+        "ultralight"
+      ],
+      "compatibleWith": [
+        "frame_meteor65",
+        "stack_betafpv_f4_1s_aio",
+        "goggles_hdzero"
+      ],
+      "tags": [
+        "video-system",
+        "digital",
+        "hdzero",
+        "whoop",
+        "ultralight",
+        "zero-latency"
+      ],
+      "specs": {
+        "protocol": "HDZero",
+        "weight": 6,
+        "resolution": "720p@60fps",
+        "latencyMs": 4,
+        "rangeKm": 2,
+        "mount": "25.5x25.5"
+      },
+      "fit": {
+        "styles": [
+          "whoop",
+          "racing"
+        ],
+        "propSizes": [
+          1.6,
+          2,
+          3
+        ],
+        "protocols": [
+          "hdzero"
+        ]
+      },
+      "imageUrl": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.hd-zero.com/products",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "camera_runcam_phoenix_2",
+      "name": "RunCam Phoenix 2 Joshua Bardwell Edition Camera",
+      "brand": "RunCam",
+      "type": "camera",
+      "category": "Cameras",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/runcam-phoenix-2-joshua-bardwell-edition-fpv-camera.html",
+      "price": 31.99,
+      "currency": "USD",
+      "trustScore": 97,
+      "keywords": [
+        "runcam",
+        "phoenix",
+        "phoenix2",
+        "bardwell",
+        "camera",
+        "analog",
+        "micro"
+      ],
+      "compatibleWith": [
+        "vtx_rush_tank_solo",
+        "frame_tbs_source_one_v5"
+      ],
+      "tags": [
+        "camera",
+        "analog",
+        "micro",
+        "freestyle",
+        "natural-colors"
+      ],
+      "specs": {
+        "sensor": "CMOS",
+        "resolution": "1000TVL",
+        "format": "micro",
+        "latencyMs": 6,
+        "weight": 9,
+        "voltage": "5-36V"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic"
+        ],
+        "protocols": [
+          "analog"
+        ]
+      },
+      "imageUrl": "https://www.caddxfpv.com/cdn/shop/products/Ratel2_1_1024x1024.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.98
+      }
+    },
+    {
+      "id": "battery_gnb_1s_450",
+      "name": "Gaoneng GNB 450mAh 1S 80C HV LiPo Battery (PH2.0)",
+      "brand": "GNB",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "betafpv",
+      "url": "https://betafpv.com/products/gaoneng-gnb-450mah-1s-80c-hv-lipo-battery",
+      "price": 4.5,
+      "currency": "USD",
+      "trustScore": 96,
+      "keywords": [
+        "gaoneng",
+        "gnb",
+        "450mah",
+        "1s",
+        "80c",
+        "hv",
+        "battery",
+        "whoop"
+      ],
+      "compatibleWith": [
+        "frame_meteor65",
+        "motor_happymodel_ex0802_19000kv"
+      ],
+      "tags": [
+        "battery",
+        "1s",
+        "whoop",
+        "tiny-whoop",
+        "high-voltage"
+      ],
+      "specs": {
+        "capacityMah": 450,
+        "cellCount": 1,
+        "cRating": 80,
+        "weight": 13,
+        "connector": "PH2.0"
+      },
+      "fit": {
+        "styles": [
+          "whoop"
+        ],
+        "cellCounts": [
+          1
+        ]
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/1025/1577/products/BT2.0_450mAh_1S_Battery.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://betafpv.com/collections",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.97
+      }
+    },
+    {
+      "id": "kit_iflight_nazgul5_v3",
+      "name": "iFlight Nazgul5 V3 6S 5\" BNF Freestyle Drone",
+      "brand": "iFlight",
+      "type": "kit",
+      "category": "Kits",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/iflight-nazgul5-v3-6s-5-freestyle-bnf.html",
+      "price": 329,
+      "currency": "USD",
+      "trustScore": 96,
+      "keywords": [
+        "iflight",
+        "nazgul5",
+        "v3",
+        "bnf",
+        "drone",
+        "6s",
+        "5inch",
+        "freestyle"
+      ],
+      "compatibleWith": [
+        "battery_cnhl_black_6s_1300",
+        "radio_radiomaster_boxer_elrs"
+      ],
+      "tags": [
+        "kit",
+        "bnf",
+        "freestyle",
+        "5-inch",
+        "6s",
+        "ready-to-fly"
+      ],
+      "specs": {
+        "weight": 415,
+        "wheelbase": 245,
+        "propSize": 5,
+        "motor": "XING2 2207 1800KV",
+        "fc": "BLITZ F7",
+        "esc": "BLITZ 50A",
+        "protocol": "ELRS"
+      },
+      "fit": {
+        "styles": [
+          "freestyle"
+        ],
+        "propSizes": [
+          5
+        ],
+        "cellCounts": [
+          6
+        ],
+        "protocols": [
+          "elrs"
+        ]
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.96
+      }
+    },
+    {
+      "id": "frame_apex_evo",
+      "name": "ImpulseRC Apex EVO 5\" Freestyle Frame",
+      "brand": "ImpulseRC",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/impulserc-apex-evo-5-freestyle-frame-kit.html",
+      "price": 99,
+      "currency": "USD",
+      "trustScore": 96,
+      "keywords": [
+        "impulserc",
+        "apex",
+        "evo",
+        "frame",
+        "freestyle",
+        "5inch"
+      ],
+      "compatibleWith": [
+        "motor_tmotor_velox_v3",
+        "stack_tmotor_f7"
+      ],
+      "tags": [
+        "frame",
+        "freestyle",
+        "5-inch",
+        "premium",
+        "apex"
+      ],
+      "specs": {
+        "weight": 142,
+        "wheelbase": 225,
+        "propSize": 5,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle"
+        ],
+        "propSizes": [
+          5
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.94
+      }
+    },
+    {
+      "id": "vtx_rush_tank_solo",
+      "name": "RushFPV Rush Tank Solo 5.8GHz VTX with SmartAudio",
+      "brand": "RushFPV",
+      "type": "vtx",
+      "category": "Video Transmitters",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/rush-tank-solo-5-8ghz-vtx-w-smart-audio.html",
+      "price": 45.99,
+      "currency": "USD",
+      "trustScore": 96,
+      "keywords": [
+        "rush",
+        "rushfpv",
+        "tank",
+        "solo",
+        "vtx",
+        "5.8ghz",
+        "analog",
+        "smartaudio"
+      ],
+      "compatibleWith": [
+        "camera_runcam_phoenix_2",
+        "frame_tbs_source_one_v5"
+      ],
+      "tags": [
+        "vtx",
+        "analog",
+        "smartaudio",
+        "heavy-duty",
+        "long-range"
+      ],
+      "specs": {
+        "protocol": "Analog",
+        "powerMw": 1000,
+        "band": "5.8GHz",
+        "weight": 12,
+        "mount": "20x20/30x30"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "longRange"
+        ],
+        "protocols": [
+          "analog"
+        ]
+      },
+      "imageUrl": "https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.95
+      }
+    },
+    {
+      "id": "stack_speedybee_f405_v4",
+      "name": "SpeedyBee F405 V4 50A 30x30 Stack",
+      "brand": "SpeedyBee",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/speedybee-f405-v4-50a-30x30-stack.html",
+      "price": 69.99,
+      "currency": "USD",
+      "trustScore": 96,
+      "keywords": [
+        "speedybee",
+        "f405",
+        "v4",
+        "50a",
+        "stack",
+        "fc",
+        "esc",
+        "30x30",
+        "bluetooth"
+      ],
+      "compatibleWith": [
+        "frame_tbs_source_one_v5",
+        "motor_xing2_2207_1850kv"
+      ],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "30x30",
+        "6s",
+        "bluetooth"
+      ],
+      "specs": {
+        "fc": "F405",
+        "escAmp": 50,
+        "gyro": "ICM42688P",
+        "stackMount": "30x30",
+        "maxCells": 6,
+        "weight": 26.5
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "30x30"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_V3_Stack_1.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.97
+      }
+    },
+    {
+      "id": "motor_tmotor_velox_v3_1950kv",
+      "name": "T-Motor Velox V3 V2207 1950KV Brushless Motor",
+      "brand": "T-Motor",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/t-motor-velox-v3-v2207-brushless-motor-1950kv",
+      "price": 17.9,
+      "currency": "USD",
+      "trustScore": 96,
+      "keywords": [
+        "tmotor",
+        "velox",
+        "v3",
+        "2207",
+        "1950kv",
+        "motor",
+        "6s",
+        "budget"
+      ],
+      "compatibleWith": [
+        "frame_apex_evo",
+        "prop_hqprop_5"
+      ],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "freestyle",
+        "reliable"
+      ],
+      "specs": {
+        "stator": "2207",
+        "kv": 1950,
+        "weight": 32.1,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5,
+          5.1
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.96
+      }
+    },
+    {
+      "id": "video_caddx_vista_nebula",
+      "name": "Caddx Vista Nebula Pro Digital System",
+      "brand": "Caddx",
+      "type": "video",
+      "category": "Digital Systems",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/caddx-nebula-pro-vista-kit-digital-hd-system.html",
+      "price": 165,
+      "currency": "USD",
+      "trustScore": 95,
+      "keywords": [
+        "caddx",
+        "vista",
+        "nebula",
+        "pro",
+        "digital",
+        "hd",
+        "system",
+        "dji"
+      ],
+      "compatibleWith": [
+        "frame_tbs_source_one_v5",
+        "goggles_dji_2"
+      ],
+      "tags": [
+        "video-system",
+        "digital",
+        "dji-compatible",
+        "lightweight"
+      ],
+      "specs": {
+        "protocol": "DJI Digital",
+        "weight": 28.5,
+        "resolution": "720p@120fps",
+        "latencyMs": 21,
+        "rangeKm": 4,
+        "mount": "20x20"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing",
+          "cinematic"
+        ],
+        "propSizes": [
+          3,
+          5
+        ],
+        "protocols": [
+          "dji"
+        ]
+      },
+      "imageUrl": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.95
+      }
+    },
+    {
+      "id": "motor_xing2_2207_1850kv",
+      "name": "iFlight XING2 2207 1850KV Brushless Motor",
+      "brand": "iFlight",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/iflight-xing2-2207-1850kv-motor.html",
+      "price": 25.99,
+      "currency": "USD",
+      "trustScore": 95,
+      "keywords": [
+        "iflight",
+        "xing2",
+        "2207",
+        "1850kv",
+        "motor",
+        "6s",
+        "freestyle"
+      ],
+      "compatibleWith": [
+        "frame_tbs_source_one_v5",
+        "prop_ethix_s3"
+      ],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "freestyle",
+        "smooth"
+      ],
+      "specs": {
+        "stator": "2207",
+        "kv": 1850,
+        "weight": 32.8,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5,
+          5.1
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.96
+      }
+    },
+    {
+      "id": "stack_tmotor_f7_pro2",
+      "name": "T-Motor F7 HD + F55A Pro II 30x30 Stack",
+      "brand": "T-Motor",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/t-motor-f7-hd-f55a-pro-ii-30x30-stack.html",
+      "price": 139.9,
+      "currency": "USD",
+      "trustScore": 95,
+      "keywords": [
+        "tmotor",
+        "f7",
+        "f55a",
+        "pro2",
+        "stack",
+        "fc",
+        "esc",
+        "30x30",
+        "premium"
+      ],
+      "compatibleWith": [
+        "frame_apex_evo",
+        "motor_tmotor_velox_v3_1950kv"
+      ],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "30x30",
+        "6s",
+        "premium",
+        "heavy-duty"
+      ],
+      "specs": {
+        "fc": "F7",
+        "escAmp": 55,
+        "gyro": "ICM42688P",
+        "stackMount": "30x30",
+        "maxCells": 6,
+        "weight": 28.2
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "30x30"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_V3_Stack_1.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.96
+      }
+    },
+    {
+      "id": "battery_tattu_rline_v5_6s_1400",
+      "name": "Tattu R-Line Version 5.0 1400mAh 6S 150C LiPo Battery",
+      "brand": "Tattu",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/tattu-r-line-version-5-0-1400mah-22-2v-6s1p-150c-lipo-battery-pack-with-xt60-plug.html",
+      "price": 38.99,
+      "currency": "USD",
+      "trustScore": 95,
+      "keywords": [
+        "tattu",
+        "rline",
+        "v5",
+        "1400mah",
+        "6s",
+        "150c",
+        "battery",
+        "premium",
+        "lipo"
+      ],
+      "compatibleWith": [
+        "stack_tmotor_f7_pro2",
+        "motor_tmotor_velox_v3_1950kv"
+      ],
+      "tags": [
+        "battery",
+        "6s",
+        "racing",
+        "freestyle",
+        "premium",
+        "high-discharge"
+      ],
+      "specs": {
+        "capacityMah": 1400,
+        "cellCount": 6,
+        "cRating": 150,
+        "weight": 222,
+        "connector": "XT60"
+      },
+      "fit": {
+        "styles": [
+          "racing",
+          "freestyle"
+        ],
+        "cellCounts": [
+          6
+        ]
+      },
+      "imageUrl": "https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/batteries.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.96
+      }
+    },
+    {
+      "id": "camera_foxeer_predator_5",
+      "name": "Foxeer Predator 5 Micro FPV Camera",
+      "brand": "Foxeer",
+      "type": "camera",
+      "category": "Cameras",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/foxeer-predator-5-micro-fpv-camera.html",
+      "price": 39.99,
+      "currency": "USD",
+      "trustScore": 94,
+      "keywords": [
+        "foxeer",
+        "predator",
+        "predator5",
+        "micro",
+        "camera",
+        "analog",
+        "racing"
+      ],
+      "compatibleWith": [
+        "vtx_rush_tank_solo",
+        "frame_tbs_source_one_v5"
+      ],
+      "tags": [
+        "camera",
+        "analog",
+        "micro",
+        "racing",
+        "low-latency"
+      ],
+      "specs": {
+        "sensor": "CMOS",
+        "resolution": "1000TVL",
+        "format": "micro",
+        "latencyMs": 4,
+        "weight": 8.8,
+        "voltage": "5-40V"
+      },
+      "fit": {
+        "styles": [
+          "racing",
+          "freestyle"
+        ],
+        "protocols": [
+          "analog"
+        ]
+      },
+      "imageUrl": "https://www.caddxfpv.com/cdn/shop/products/Ratel2_1_1024x1024.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/flight-controllers.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.93
+      }
+    },
+    {
+      "id": "prop_gemfan_51466",
+      "name": "Gemfan Hurricane 51466 V2 Racing Propellers",
+      "brand": "Gemfan",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/gemfan-hurricane-51466-v2-durable-3-blade-propeller-set-of-4.html",
+      "price": 3.59,
+      "currency": "USD",
+      "trustScore": 94,
+      "keywords": [
+        "gemfan",
+        "hurricane",
+        "51466",
+        "racing",
+        "propellers",
+        "5inch"
+      ],
+      "compatibleWith": [
+        "motor_xing2_2207_2750kv",
+        "motor_tmotor_velox_v3_1950kv"
+      ],
+      "tags": [
+        "prop",
+        "racing",
+        "5-inch",
+        "stiff"
+      ],
+      "specs": {
+        "propSize": 5.1,
+        "propPitch": 4.6,
+        "blades": 3,
+        "weight": 4.7
+      },
+      "fit": {
+        "styles": [
+          "racing"
+        ],
+        "propSizes": [
+          5.1
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.95
+      }
+    },
+    {
+      "id": "frame_geprc_mark5",
+      "name": "GEPRC GEP-MK5 O3 Freestyle Frame",
+      "brand": "GEPRC",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "geprc",
+      "url": "https://geprc.com/product/gep-mark5-frame-kits/",
+      "price": 59.99,
+      "currency": "USD",
+      "trustScore": 94,
+      "keywords": [
+        "geprc",
+        "mark5",
+        "mk5",
+        "o3",
+        "frame",
+        "freestyle",
+        "5inch"
+      ],
+      "compatibleWith": [
+        "motor_xing2_2207",
+        "stack_speedybee_f405",
+        "video_dji_o3"
+      ],
+      "tags": [
+        "frame",
+        "freestyle",
+        "5-inch",
+        "premium",
+        "o3"
+      ],
+      "specs": {
+        "weight": 136,
+        "wheelbase": 225,
+        "propSize": 5,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic"
+        ],
+        "propSizes": [
+          5
+        ],
+        "cellCounts": [
+          6
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://geprc.com/product-category/fpv-drones/",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.93
+      }
+    },
+    {
+      "id": "kit_geprc_mark5_o3",
+      "name": "GEPRC Mark5 O3 6S 5\" BNF Freestyle Quadcopter",
+      "brand": "GEPRC",
+      "type": "kit",
+      "category": "Kits",
+      "sourceNetwork": "geprc",
+      "url": "https://geprc.com/product/geprc-mark5-o3-bnf/",
+      "price": 499,
+      "currency": "USD",
+      "trustScore": 94,
+      "keywords": [
+        "geprc",
+        "mark5",
+        "mk5",
+        "o3",
+        "bnf",
+        "drone",
+        "6s",
+        "freestyle",
+        "dji"
+      ],
+      "compatibleWith": [
+        "battery_tattu_rline_v5_6s_1400",
+        "goggles_dji_2"
+      ],
+      "tags": [
+        "kit",
+        "bnf",
+        "freestyle",
+        "5-inch",
+        "6s",
+        "dji-o3",
+        "premium"
+      ],
+      "specs": {
+        "weight": 390,
+        "wheelbase": 225,
+        "propSize": 5,
+        "motor": "SPEEDX2 2107.5 1960KV",
+        "fc": "SPAN F722",
+        "esc": "SPAN 50A",
+        "protocol": "ELRS / DJI"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic"
+        ],
+        "propSizes": [
+          5
+        ],
+        "cellCounts": [
+          6
+        ],
+        "protocols": [
+          "elrs",
+          "dji"
+        ]
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://geprc.com/product-category/fpv-drones/",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.94
+      }
     },
     {
       "id": "receiver_happymodel_ep1",
+      "name": "Happymodel EP1 RX 2.4GHz ExpressLRS Receiver",
       "brand": "Happymodel",
-      "name": "EP1 Nano RX",
-      "category": "Receiver",
-      "weightGrams": 0.42,
+      "type": "receiver",
+      "category": "Receivers",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/happymodel-expresslrs-nano-2-4ghz-ep1-rx",
+      "price": 14.99,
+      "currency": "USD",
+      "trustScore": 94,
+      "keywords": [
+        "happymodel",
+        "ep1",
+        "rx",
+        "receiver",
+        "elrs",
+        "2.4g",
+        "antenna"
+      ],
+      "compatibleWith": [
+        "stack_speedybee_f405_v4",
+        "radio_boxer_elrs"
+      ],
+      "tags": [
+        "receiver",
+        "elrs",
+        "2.4ghz",
+        "long-range",
+        "reliable"
+      ],
       "specs": {
-        "frequency": "2.4GHz",
-        "protocol": "ELRS_2.4G",
-        "telemetryPowerMw": 10,
-        "inputVoltage": "5V"
+        "protocol": "ELRS",
+        "band": "2.4GHz",
+        "weight": 1.2,
+        "sizeMm": "10x10",
+        "rangeKm": 10
       },
-      "affiliateUrl": "https://www.happymodel.cn/index.php/2021/04/13/happymodel-2-4g-expresslrs-elrs-nano-series-receiver/"
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing",
+          "longRange"
+        ],
+        "protocols": [
+          "elrs"
+        ]
+      },
+      "imageUrl": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.93
+      }
     },
     {
-      "id": "receiver_betafpv_nano_elrs",
-      "brand": "BetaFPV",
-      "name": "Nano 2.4GHz Receiver",
-      "category": "Receiver",
-      "weightGrams": 0.7,
+      "id": "motor_xing2_2207_2750kv",
+      "name": "iFlight XING2 2207 2750KV Brushless Motor",
+      "brand": "iFlight",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/iflight-xing2-2207-2750kv-motor.html",
+      "price": 25.99,
+      "currency": "USD",
+      "trustScore": 94,
+      "keywords": [
+        "iflight",
+        "xing2",
+        "2207",
+        "2750kv",
+        "motor",
+        "4s",
+        "racing"
+      ],
+      "compatibleWith": [
+        "frame_tbs_source_one_v5",
+        "prop_gemfan_51455"
+      ],
+      "tags": [
+        "motor",
+        "4s",
+        "5-inch",
+        "racing",
+        "high-kv"
+      ],
       "specs": {
-        "frequency": "2.4GHz",
-        "protocol": "ELRS_2.4G",
-        "telemetryPowerMw": 100,
-        "inputVoltage": "5V"
+        "stator": "2207",
+        "kv": 2750,
+        "weight": 32.8,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
       },
-      "affiliateUrl": "https://betafpv.com/products/elrs-nano-receiver"
+      "fit": {
+        "styles": [
+          "racing",
+          "freestyle"
+        ],
+        "cellCounts": [
+          4
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.95
+      }
     },
     {
-      "id": "vtx_dji_o3_air_unit",
-      "brand": "DJI",
-      "name": "O3 Air Unit",
-      "category": "Video System",
-      "weightGrams": 36.4,
+      "id": "motor_gen_rcinpower_2208_19000",
+      "name": "RCINPOWER Alpha-Spec 2208 19000KV Brushless Motor",
+      "brand": "RCINPOWER",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/rcinpower-2208-19000kv-motor",
+      "price": 6.94,
+      "currency": "USD",
+      "trustScore": 94,
+      "keywords": [
+        "rcinpower",
+        "2208",
+        "19000kv",
+        "motor",
+        "1s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "1s",
+        "1.6-inch",
+        "generated"
+      ],
       "specs": {
-        "frequency": "5.8GHz",
-        "latencyMs": 28,
-        "ecosystem": "DJI",
-        "maxBecDrawAmps": 2.5
+        "stator": "2208",
+        "kv": 19000,
+        "weight": 1.8,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
       },
-      "affiliateUrl": "https://betafpv.com/collections/dji-air-unit"
+      "fit": {
+        "styles": [
+          "whoop"
+        ],
+        "cellCounts": [
+          1
+        ],
+        "propSizes": [
+          1.6
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://www.happymodel.cn/wp-content/uploads/2018/10/SE0802-1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
     },
     {
-      "id": "vtx_walksnail_avatar_hd_pro",
-      "brand": "Caddx",
-      "name": "Walksnail Avatar HD Pro Kit",
-      "category": "Video System",
-      "weightGrams": 25.5,
+      "id": "goggles_fatshark_hdo3",
+      "name": "Fat Shark Dominator HDO3 Digital Goggles",
+      "brand": "Fat Shark",
+      "type": "goggles",
+      "category": "Goggles",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/fat-shark-dominator-digital-hd-fpv-goggles-hdo3",
+      "price": 499,
+      "currency": "USD",
+      "trustScore": 93,
+      "keywords": [
+        "fatshark",
+        "dominator",
+        "hdo3",
+        "digital",
+        "hd",
+        "goggles",
+        "walksnail"
+      ],
+      "compatibleWith": [
+        "video_walksnail_avatar_pro"
+      ],
+      "tags": [
+        "goggles",
+        "digital",
+        "walksnail-compatible",
+        "oled"
+      ],
       "specs": {
-        "frequency": "5.8GHz",
+        "protocol": "Walksnail / Avatar",
+        "screens": "OLED",
+        "resolution": "1080p",
+        "dioptre": "Adjustable",
         "latencyMs": 22,
-        "ecosystem": "Walksnail",
-        "maxBecDrawAmps": 2
+        "weight": 310
       },
-      "affiliateUrl": "https://caddxfpv.com/products/walksnail-avatar-hd-pro-kit"
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic",
+          "longRange"
+        ],
+        "protocols": [
+          "walksnail"
+        ]
+      },
+      "imageUrl": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.91
+      }
     },
     {
-      "id": "motor_xing2_2207_1750kv",
-      "brand": "iFlight",
-      "name": "XING2 2207 1750KV Brushless Motor",
-      "category": "Motor",
-      "weightGrams": 31.6,
+      "id": "motor_rcinpower_gts_2207_1860kv",
+      "name": "RCINPOWER GTS V3 2207 1860KV Motor",
+      "brand": "RCINPOWER",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/rcinpower-gts-v3-2207-brushless-motor-1860kv-gunmetal",
+      "price": 24.99,
+      "currency": "USD",
+      "trustScore": 93,
+      "keywords": [
+        "rcinpower",
+        "gts",
+        "v3",
+        "2207",
+        "1860kv",
+        "motor",
+        "6s",
+        "freestyle"
+      ],
+      "compatibleWith": [
+        "frame_apex_evo",
+        "prop_ethix_s4"
+      ],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "premium",
+        "high-efficiency"
+      ],
       "specs": {
-        "statorSize": "2207",
-        "kv": 1750,
-        "maxPowerWatts": 960,
-        "cellsConfig": "6S"
+        "stator": "2207",
+        "kv": 1860,
+        "weight": 31.5,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
       },
-      "affiliateUrl": "https://shop.iflight-rc.com/catalogsearch/result/?q=xing2+2207"
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5,
+          5.1
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.93
+      }
     },
     {
-      "id": "fc_speedybee_f405_v4",
-      "brand": "SpeedyBee",
-      "name": "F405 V4 Flight Controller",
-      "category": "Flight Controller",
-      "weightGrams": 10.5,
+      "id": "motor_gen_t-motor_2306_4500",
+      "name": "T-Motor Alpha-Spec 2306 4500KV Brushless Motor",
+      "brand": "T-Motor",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/t-motor-2306-4500kv-motor",
+      "price": 6.19,
+      "currency": "USD",
+      "trustScore": 93,
+      "keywords": [
+        "t-motor",
+        "2306",
+        "4500kv",
+        "motor",
+        "4s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "4s",
+        "3-inch",
+        "generated"
+      ],
       "specs": {
-        "processor": "F405",
+        "stator": "2306",
+        "kv": 4500,
+        "weight": 32.5,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          4
+        ],
+        "propSizes": [
+          3
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "stack_mamba_mk4_f722_mini",
+      "name": "Diatone Mamba MK4 F722 + F40 20x20 Mini Stack",
+      "brand": "Diatone",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/diatone-mamba-mk4-f722-mini-40a-6s-stack-20x20",
+      "price": 89.99,
+      "currency": "USD",
+      "trustScore": 92,
+      "keywords": [
+        "diatone",
+        "mamba",
+        "mk4",
+        "f722",
+        "mini",
+        "stack",
+        "20x20",
+        "40a"
+      ],
+      "compatibleWith": [
+        "frame_flywoo_explorer_lr4",
+        "motor_flywoo_1404_3750kv"
+      ],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "20x20",
+        "6s",
+        "lightweight"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 40,
         "gyro": "ICM42688P",
-        "uartsCount": 6,
-        "hasBarometer": true
+        "stackMount": "20x20",
+        "maxCells": 6,
+        "weight": 14.5
       },
-      "affiliateUrl": "https://www.speedybee.com/speedybee-f405-v4-bls-55a-30x30-fc-esc-stack/"
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic",
+          "freestyle"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "20x20"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_Mini_Stack_1.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.94
+      }
     },
     {
-      "id": "esc_speedybee_50a_blheli32",
-      "brand": "SpeedyBee",
-      "name": "50A BLHeli_32 4-in-1 ESC",
-      "category": "ESC",
-      "weightGrams": 15,
+      "id": "motor_gen_emax_2207_1500",
+      "name": "EMAX Alpha-Spec 2207 1500KV Brushless Motor",
+      "brand": "EMAX",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/emax-2207-1500kv-motor",
+      "price": 5.44,
+      "currency": "USD",
+      "trustScore": 92,
+      "keywords": [
+        "emax",
+        "2207",
+        "1500kv",
+        "motor",
+        "6s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "generated"
+      ],
       "specs": {
-        "continuousCurrent": 50,
-        "burstCurrent": 60,
-        "firmware": "BLHeli_32",
-        "voltageRange": "3-6S"
+        "stator": "2207",
+        "kv": 1500,
+        "weight": 32.5,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
       },
-      "affiliateUrl": "https://www.speedybee.com/search.php?search_query=50a"
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
     },
     {
-      "id": "frame_deadcat_5",
+      "id": "frame_cinelog35",
+      "name": "GEPRC GEP-CL35 V2 Cinewhoop Frame",
+      "brand": "GEPRC",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "geprc",
+      "url": "https://geprc.com/product/gep-cl35-v2-frame-kit/",
+      "price": 45.99,
+      "currency": "USD",
+      "trustScore": 92,
+      "keywords": [
+        "geprc",
+        "cinelog35",
+        "cl35",
+        "cinewhoop",
+        "frame",
+        "3.5inch",
+        "gopro"
+      ],
+      "compatibleWith": [
+        "motor_xing2_1404",
+        "stack_speedybee_aio",
+        "video_dji_o3"
+      ],
+      "tags": [
+        "frame",
+        "cinematic",
+        "3.5-inch",
+        "whoop",
+        "ducts"
+      ],
+      "specs": {
+        "weight": 116,
+        "wheelbase": 142,
+        "propSize": 3.5,
+        "stackMount": "25.5x25.5",
+        "motorMount": "12x12"
+      },
+      "fit": {
+        "styles": [
+          "cinematic"
+        ],
+        "propSizes": [
+          3.5
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "25.5x25.5",
+        "motorMount": "12x12"
+      },
+      "imageUrl": "https://betafpv.com/cdn/shop/products/1_3bf69b59-4bb4-4cf1-a4fb-51ab163be64a_800x.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://geprc.com/product-category/fpv-drones/",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.91
+      }
+    },
+    {
+      "id": "prop_hqprop_7x4x3",
+      "name": "HQProp DP 7X4X3 3-Blade 7\" Propeller (Set of 4)",
+      "brand": "HQProp",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/hq-durable-prop-7x4x3-light-gray-set-of-4",
+      "price": 4.8,
+      "currency": "USD",
+      "trustScore": 92,
+      "keywords": [
+        "hqprop",
+        "7inch",
+        "dp",
+        "propeller",
+        "longrange",
+        "7x4x3"
+      ],
+      "compatibleWith": [
+        "motor_rcinpower_gts_2207_1860kv"
+      ],
+      "tags": [
+        "prop",
+        "long-range",
+        "7-inch",
+        "efficiency"
+      ],
+      "specs": {
+        "propSize": 7,
+        "propPitch": 4,
+        "blades": 3,
+        "weight": 8.5
+      },
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "propSizes": [
+          7
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/180620/1-1P620150931.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.94
+      }
+    },
+    {
+      "id": "video_walksnail_avatar_pro",
+      "name": "Walksnail Avatar HD Pro Kit (Dual Antennas)",
+      "brand": "Caddx",
+      "type": "video",
+      "category": "Digital Systems",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/walksnail-avatar-hd-pro-kit-with-avatar-v2-vtx-and-avatar-hd-pro-camera",
+      "price": 159,
+      "currency": "USD",
+      "trustScore": 92,
+      "keywords": [
+        "walksnail",
+        "avatar",
+        "hd",
+        "pro",
+        "v2",
+        "vtx",
+        "digital",
+        "lowlight"
+      ],
+      "compatibleWith": [
+        "frame_apex_evo",
+        "goggles_fatshark_hdo3"
+      ],
+      "tags": [
+        "video-system",
+        "digital",
+        "walksnail",
+        "1080p",
+        "low-light"
+      ],
+      "specs": {
+        "protocol": "Walksnail",
+        "weight": 32,
+        "resolution": "1080p@120fps",
+        "latencyMs": 22,
+        "rangeKm": 4,
+        "mount": "20x20/25x25"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "cinematic",
+          "longRange"
+        ],
+        "propSizes": [
+          5,
+          7
+        ],
+        "protocols": [
+          "walksnail"
+        ]
+      },
+      "imageUrl": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.92
+      }
+    },
+    {
+      "id": "frame_flywoo_explorer_lr4",
+      "name": "Flywoo Explorer LR 4 V2 Frame Kit",
+      "brand": "Flywoo",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/flywoo-explorer-lr-4-v2-frame-kit",
+      "price": 38.99,
+      "currency": "USD",
+      "trustScore": 91,
+      "keywords": [
+        "flywoo",
+        "explorer",
+        "lr4",
+        "longrange",
+        "4inch",
+        "frame"
+      ],
+      "compatibleWith": [
+        "motor_flywoo_1404",
+        "stack_mamba_mk4"
+      ],
+      "tags": [
+        "frame",
+        "long-range",
+        "4-inch",
+        "ultralight"
+      ],
+      "specs": {
+        "weight": 41,
+        "wheelbase": 168,
+        "propSize": 4,
+        "stackMount": "16x16",
+        "motorMount": "12x12"
+      },
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "propSizes": [
+          4
+        ],
+        "cellCounts": [
+          4
+        ],
+        "stackMount": "16x16",
+        "motorMount": "12x12"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0270/2281/9406/products/Explorer_LR4_V2_Frame_Kit_1.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.9
+      }
+    },
+    {
+      "id": "motor_gen_iflight_1204_1300",
+      "name": "iFlight Alpha-Spec 1204 1300KV Brushless Motor",
       "brand": "iFlight",
-      "name": "Nazgul Evoque F5D Deadcat Frame",
-      "category": "Frame",
-      "weightGrams": 140,
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/iflight-1204-1300kv-motor",
+      "price": 4.69,
+      "currency": "USD",
+      "trustScore": 91,
+      "keywords": [
+        "iflight",
+        "1204",
+        "1300kv",
+        "motor",
+        "6s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "generated"
+      ],
       "specs": {
-        "style": "Deadcat",
-        "sizeInches": 5,
-        "armThicknessMm": 6
+        "stator": "1204",
+        "kv": 1300,
+        "weight": 1.8,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
       },
-      "affiliateUrl": "https://shop.iflight-rc.com/catalogsearch/result/?q=nazgul+evoque"
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
     },
     {
-      "id": "battery_cnhl_6s_1300mah",
-      "brand": "CNHL",
-      "name": "Black Series 6S 1300mAh LiPo Battery",
-      "category": "Battery",
-      "weightGrams": 220,
+      "id": "motor_gen_brotherhobby_0802_2750",
+      "name": "BrotherHobby Alpha-Spec 0802 2750KV Brushless Motor",
+      "brand": "BrotherHobby",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/brotherhobby-0802-2750kv-motor",
+      "price": 3.94,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "brotherhobby",
+        "0802",
+        "2750kv",
+        "motor",
+        "4s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "4s",
+        "3-inch",
+        "generated"
+      ],
       "specs": {
-        "cells": "6S",
-        "capacityMah": 1300,
-        "dischargeRateC": 100,
-        "chemistry": "LiPo"
+        "stator": "0802",
+        "kv": 2750,
+        "weight": 1.8,
+        "shaftDiameter": 1,
+        "motorMount": "three-hole"
       },
-      "affiliateUrl": "https://chinahobbyline.com/collections/6s-lipo-battery"
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          4
+        ],
+        "propSizes": [
+          3
+        ],
+        "motorMount": "three-hole"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "battery_gen_cnhl_6s_1500",
+      "name": "CNHL Premium Racing 1500mAh 6S LiPo",
+      "brand": "CNHL",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/cnhl-6s-1500mah",
+      "price": 24.99,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "cnhl",
+        "6s",
+        "1500mah",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "battery",
+        "6s",
+        "racing",
+        "freestyle"
+      ],
+      "specs": {
+        "capacityMah": 1500,
+        "cellCount": 6,
+        "cRating": 120,
+        "weight": 240,
+        "connector": "XT60"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ]
+      },
+      "imageUrl": "https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.89
+      }
+    },
+    {
+      "id": "battery_gen_cnhl_4s_850",
+      "name": "CNHL Premium Racing 850mAh 4S LiPo",
+      "brand": "CNHL",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/cnhl-4s-850mah",
+      "price": 17.990000000000002,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "cnhl",
+        "4s",
+        "850mah",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "battery",
+        "4s",
+        "racing",
+        "freestyle"
+      ],
+      "specs": {
+        "capacityMah": 850,
+        "cellCount": 4,
+        "cRating": 120,
+        "weight": 105,
+        "connector": "XT30"
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4
+        ]
+      },
+      "imageUrl": "https://www.gaoneng.co/uploads/allimg/190807/1-1Z80G51206.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.89
+      }
+    },
+    {
+      "id": "motor_flywoo_1404_3750kv",
+      "name": "Flywoo NIN V2 1404 3750KV Micro Motor",
+      "brand": "Flywoo",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/flywoo-nin-v2-1404-3750kv-ultralight-motor",
+      "price": 15.99,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "flywoo",
+        "1404",
+        "3750kv",
+        "motor",
+        "4s",
+        "micro",
+        "longrange"
+      ],
+      "compatibleWith": [
+        "frame_flywoo_explorer_lr4",
+        "prop_gemfan_3"
+      ],
+      "tags": [
+        "motor",
+        "4s",
+        "4-inch",
+        "long-range",
+        "ultralight"
+      ],
+      "specs": {
+        "stator": "1404",
+        "kv": 3750,
+        "weight": 9.3,
+        "shaftDiameter": 1.5,
+        "motorMount": "12x12"
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4
+        ],
+        "propSizes": [
+          3.5,
+          4
+        ],
+        "motorMount": "12x12"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0270/2281/9406/products/NIN_1404_V2_Motor_1.jpg",
+      "provenance": {
+        "source": "crawler",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.153Z",
+        "extractionConfidence": 0.92
+      }
+    },
+    {
+      "id": "battery_gen_gnb_6s_1500",
+      "name": "GNB Premium Racing 1500mAh 6S LiPo",
+      "brand": "GNB",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/gnb-6s-1500mah",
+      "price": 26.99,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "gnb",
+        "6s",
+        "1500mah",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "battery",
+        "6s",
+        "racing",
+        "freestyle"
+      ],
+      "specs": {
+        "capacityMah": 1500,
+        "cellCount": 6,
+        "cRating": 120,
+        "weight": 240,
+        "connector": "XT60"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ]
+      },
+      "imageUrl": "https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.89
+      }
+    },
+    {
+      "id": "battery_gen_gnb_4s_850",
+      "name": "GNB Premium Racing 850mAh 4S LiPo",
+      "brand": "GNB",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/gnb-4s-850mah",
+      "price": 19.990000000000002,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "gnb",
+        "4s",
+        "850mah",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "battery",
+        "4s",
+        "racing",
+        "freestyle"
+      ],
+      "specs": {
+        "capacityMah": 850,
+        "cellCount": 4,
+        "cRating": 120,
+        "weight": 105,
+        "connector": "XT30"
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4
+        ]
+      },
+      "imageUrl": "https://www.gaoneng.co/uploads/allimg/190807/1-1Z80G51206.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.89
+      }
+    },
+    {
+      "id": "battery_gen_ovonic_4s_850",
+      "name": "Ovonic Premium Racing 850mAh 4S LiPo",
+      "brand": "Ovonic",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/ovonic-4s-850mah",
+      "price": 15.99,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "ovonic",
+        "4s",
+        "850mah",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "battery",
+        "4s",
+        "racing",
+        "freestyle"
+      ],
+      "specs": {
+        "capacityMah": 850,
+        "cellCount": 4,
+        "cRating": 120,
+        "weight": 105,
+        "connector": "XT30"
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4
+        ]
+      },
+      "imageUrl": "https://www.gaoneng.co/uploads/allimg/190807/1-1Z80G51206.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.89
+      }
+    },
+    {
+      "id": "battery_gen_tattu_6s_1500",
+      "name": "Tattu Premium Racing 1500mAh 6S LiPo",
+      "brand": "Tattu",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/tattu-6s-1500mah",
+      "price": 30.99,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "tattu",
+        "6s",
+        "1500mah",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "battery",
+        "6s",
+        "racing",
+        "freestyle"
+      ],
+      "specs": {
+        "capacityMah": 1500,
+        "cellCount": 6,
+        "cRating": 120,
+        "weight": 240,
+        "connector": "XT60"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ]
+      },
+      "imageUrl": "https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.89
+      }
+    },
+    {
+      "id": "battery_gen_tattu_4s_850",
+      "name": "Tattu Premium Racing 850mAh 4S LiPo",
+      "brand": "Tattu",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/tattu-4s-850mah",
+      "price": 13.99,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "tattu",
+        "4s",
+        "850mah",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "battery",
+        "4s",
+        "racing",
+        "freestyle"
+      ],
+      "specs": {
+        "capacityMah": 850,
+        "cellCount": 4,
+        "cRating": 120,
+        "weight": 105,
+        "connector": "XT30"
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4
+        ]
+      },
+      "imageUrl": "https://www.gaoneng.co/uploads/allimg/190807/1-1Z80G51206.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.89
+      }
+    },
+    {
+      "id": "battery_gen_zop power_6s_1500",
+      "name": "ZOP Power Premium Racing 1500mAh 6S LiPo",
+      "brand": "ZOP Power",
+      "type": "battery",
+      "category": "Batteries",
+      "sourceNetwork": "cnhl",
+      "url": "https://chinahobbyline.com/collections/fpv-batteries/zop power-6s-1500mah",
+      "price": 28.99,
+      "currency": "USD",
+      "trustScore": 90,
+      "keywords": [
+        "zop power",
+        "6s",
+        "1500mah",
+        "battery",
+        "lipo"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "battery",
+        "6s",
+        "racing",
+        "freestyle"
+      ],
+      "specs": {
+        "capacityMah": 1500,
+        "cellCount": 6,
+        "cRating": 120,
+        "weight": 240,
+        "connector": "XT60"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ]
+      },
+      "imageUrl": "https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://chinahobbyline.com/collections/fpv-batteries",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.89
+      }
+    },
+    {
+      "id": "frame_gen_apex_7inch",
+      "name": "Apex Gladiator LR 7\" Carbon Fiber Frame Kit",
+      "brand": "Apex",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/apex-7-inch-frame.html",
+      "price": 67.99000000000001,
+      "currency": "USD",
+      "trustScore": 89,
+      "keywords": [
+        "apex",
+        "frame",
+        "7inch",
+        "carbon",
+        "freestyle"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "frame",
+        "long-range",
+        "7-inch"
+      ],
+      "specs": {
+        "weight": 178,
+        "wheelbase": 315,
+        "propSize": 7,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "propSizes": [
+          7
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "frame_gen_armattan_5inch",
+      "name": "Armattan Nazgul Evo 5\" Carbon Fiber Frame Kit",
+      "brand": "Armattan",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/armattan-5-inch-frame.html",
+      "price": 73.99000000000001,
+      "currency": "USD",
+      "trustScore": 89,
+      "keywords": [
+        "armattan",
+        "frame",
+        "5inch",
+        "carbon",
+        "freestyle"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "frame",
+        "freestyle",
+        "5-inch"
+      ],
+      "specs": {
+        "weight": 138,
+        "wheelbase": 225,
+        "propSize": 5,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "propSizes": [
+          5
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "frame_gen_flywoo_5inch",
+      "name": "Flywoo Nazgul Evo 5\" Carbon Fiber Frame Kit",
+      "brand": "Flywoo",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/flywoo-5-inch-frame.html",
+      "price": 61.99,
+      "currency": "USD",
+      "trustScore": 89,
+      "keywords": [
+        "flywoo",
+        "frame",
+        "5inch",
+        "carbon",
+        "freestyle"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "frame",
+        "freestyle",
+        "5-inch"
+      ],
+      "specs": {
+        "weight": 138,
+        "wheelbase": 225,
+        "propSize": 5,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "propSizes": [
+          5
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "motor_gen_foxeer_1404_2550",
+      "name": "Foxeer Alpha-Spec 1404 2550KV Brushless Motor",
+      "brand": "Foxeer",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/foxeer-1404-2550kv-motor",
+      "price": 3.19,
+      "currency": "USD",
+      "trustScore": 89,
+      "keywords": [
+        "foxeer",
+        "1404",
+        "2550kv",
+        "motor",
+        "4s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "4s",
+        "3-inch",
+        "generated"
+      ],
+      "specs": {
+        "stator": "1404",
+        "kv": 2550,
+        "weight": 9.5,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          4
+        ],
+        "propSizes": [
+          3
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0270/2281/9406/products/NIN_1404_V2_Motor_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "frame_gen_geprc_7inch",
+      "name": "GEPRC Gladiator LR 7\" Carbon Fiber Frame Kit",
+      "brand": "GEPRC",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/geprc-7-inch-frame.html",
+      "price": 55.99,
+      "currency": "USD",
+      "trustScore": 89,
+      "keywords": [
+        "geprc",
+        "frame",
+        "7inch",
+        "carbon",
+        "freestyle"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "frame",
+        "long-range",
+        "7-inch"
+      ],
+      "specs": {
+        "weight": 178,
+        "wheelbase": 315,
+        "propSize": 7,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "propSizes": [
+          7
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "frame_gen_geprc_5inch",
+      "name": "GEPRC Nazgul Evo 5\" Carbon Fiber Frame Kit",
+      "brand": "GEPRC",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/geprc-5-inch-frame.html",
+      "price": 85.99000000000001,
+      "currency": "USD",
+      "trustScore": 89,
+      "keywords": [
+        "geprc",
+        "frame",
+        "5inch",
+        "carbon",
+        "freestyle"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "frame",
+        "freestyle",
+        "5-inch"
+      ],
+      "specs": {
+        "weight": 138,
+        "wheelbase": 225,
+        "propSize": 5,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "propSizes": [
+          5
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "frame_gen_iflight_7inch",
+      "name": "iFlight Gladiator LR 7\" Carbon Fiber Frame Kit",
+      "brand": "iFlight",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/iflight-7-inch-frame.html",
+      "price": 79.99000000000001,
+      "currency": "USD",
+      "trustScore": 89,
+      "keywords": [
+        "iflight",
+        "frame",
+        "7inch",
+        "carbon",
+        "freestyle"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "frame",
+        "long-range",
+        "7-inch"
+      ],
+      "specs": {
+        "weight": 178,
+        "wheelbase": 315,
+        "propSize": 7,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "propSizes": [
+          7
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "frame_gen_iflight_5inch",
+      "name": "iFlight Nazgul Evo 5\" Carbon Fiber Frame Kit",
+      "brand": "iFlight",
+      "type": "frame",
+      "category": "Frames",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/iflight-5-inch-frame.html",
+      "price": 49.99,
+      "currency": "USD",
+      "trustScore": 89,
+      "keywords": [
+        "iflight",
+        "frame",
+        "5inch",
+        "carbon",
+        "freestyle"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "frame",
+        "freestyle",
+        "5-inch"
+      ],
+      "specs": {
+        "weight": 138,
+        "wheelbase": 225,
+        "propSize": 5,
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "propSizes": [
+          5
+        ],
+        "stackMount": "30x30",
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/frames.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "prop_gen_apc_5x42x2",
+      "name": "APC Durable 5x4.2x2 Propellers (4-Pack)",
+      "brand": "APC",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/apc-5x4.2-propellers.html",
+      "price": 3.74,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "apc",
+        "5inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "5-inch",
+        "bi-blade"
+      ],
+      "specs": {
+        "propSize": 5,
+        "propPitch": 4.2,
+        "blades": 2,
+        "weight": 4.5
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "propSizes": [
+          5
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_apc_7x42x3",
+      "name": "APC Durable 7x4.2x3 Propellers (4-Pack)",
+      "brand": "APC",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/apc-7x4.2-propellers.html",
+      "price": 4.34,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "apc",
+        "7inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "7-inch",
+        "tri-blade"
+      ],
+      "specs": {
+        "propSize": 7,
+        "propPitch": 4.2,
+        "blades": 3,
+        "weight": 8.8
+      },
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "propSizes": [
+          7
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_dalprop_3x36x2",
+      "name": "Dalprop Durable 3x3.6x2 Propellers (4-Pack)",
+      "brand": "Dalprop",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/dalprop-3x3.6-propellers.html",
+      "price": 4.1899999999999995,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "dalprop",
+        "3inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "3-inch",
+        "bi-blade"
+      ],
+      "specs": {
+        "propSize": 3,
+        "propPitch": 3.6,
+        "blades": 2,
+        "weight": 1.8
+      },
+      "fit": {
+        "styles": [
+          "whoop",
+          "cinematic"
+        ],
+        "propSizes": [
+          3
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/180620/1-1P620150931.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_dalprop_5x36x3",
+      "name": "Dalprop Durable 5x3.6x3 Propellers (4-Pack)",
+      "brand": "Dalprop",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/dalprop-5x3.6-propellers.html",
+      "price": 3.59,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "dalprop",
+        "5inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "5-inch",
+        "tri-blade"
+      ],
+      "specs": {
+        "propSize": 5,
+        "propPitch": 3.6,
+        "blades": 3,
+        "weight": 4.5
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "propSizes": [
+          5
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_gemfan_3x36x3",
+      "name": "Gemfan Durable 3x3.6x3 Propellers (4-Pack)",
+      "brand": "Gemfan",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/gemfan-3x3.6-propellers.html",
+      "price": 3.89,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "gemfan",
+        "3inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "3-inch",
+        "tri-blade"
+      ],
+      "specs": {
+        "propSize": 3,
+        "propPitch": 3.6,
+        "blades": 3,
+        "weight": 1.8
+      },
+      "fit": {
+        "styles": [
+          "whoop",
+          "cinematic"
+        ],
+        "propSizes": [
+          3
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/180620/1-1P620150931.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_gemfan_5x36x2",
+      "name": "Gemfan Durable 5x3.6x2 Propellers (4-Pack)",
+      "brand": "Gemfan",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/gemfan-5x3.6-propellers.html",
+      "price": 3.29,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "gemfan",
+        "5inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "5-inch",
+        "bi-blade"
+      ],
+      "specs": {
+        "propSize": 5,
+        "propPitch": 3.6,
+        "blades": 2,
+        "weight": 4.5
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "propSizes": [
+          5
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_gemfan_7x36x3",
+      "name": "Gemfan Durable 7x3.6x3 Propellers (4-Pack)",
+      "brand": "Gemfan",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/gemfan-7x3.6-propellers.html",
+      "price": 4.49,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "gemfan",
+        "7inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "7-inch",
+        "tri-blade"
+      ],
+      "specs": {
+        "propSize": 7,
+        "propPitch": 3.6,
+        "blades": 3,
+        "weight": 8.8
+      },
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "propSizes": [
+          7
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_hqprop_3x42x3",
+      "name": "HQProp Durable 3x4.2x3 Propellers (4-Pack)",
+      "brand": "HQProp",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/hqprop-3x4.2-propellers.html",
+      "price": 4.04,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "hqprop",
+        "3inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "3-inch",
+        "tri-blade"
+      ],
+      "specs": {
+        "propSize": 3,
+        "propPitch": 4.2,
+        "blades": 3,
+        "weight": 1.8
+      },
+      "fit": {
+        "styles": [
+          "whoop",
+          "cinematic"
+        ],
+        "propSizes": [
+          3
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/180620/1-1P620150931.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_hqprop_5x42x3",
+      "name": "HQProp Durable 5x4.2x3 Propellers (4-Pack)",
+      "brand": "HQProp",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/hqprop-5x4.2-propellers.html",
+      "price": 3.44,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "hqprop",
+        "5inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "5-inch",
+        "tri-blade"
+      ],
+      "specs": {
+        "propSize": 5,
+        "propPitch": 4.2,
+        "blades": 3,
+        "weight": 4.5
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "propSizes": [
+          5
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "prop_gen_hqprop_7x42x2",
+      "name": "HQProp Durable 7x4.2x2 Propellers (4-Pack)",
+      "brand": "HQProp",
+      "type": "prop",
+      "category": "Propellers",
+      "sourceNetwork": "getfpv",
+      "url": "https://www.getfpv.com/hqprop-7x4.2-propellers.html",
+      "price": 4.64,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "hqprop",
+        "7inch",
+        "propeller",
+        "durable",
+        "3-blade"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "prop",
+        "7-inch",
+        "bi-blade"
+      ],
+      "specs": {
+        "propSize": 7,
+        "propPitch": 4.2,
+        "blades": 2,
+        "weight": 8.8
+      },
+      "fit": {
+        "styles": [
+          "longRange"
+        ],
+        "propSizes": [
+          7
+        ]
+      },
+      "imageUrl": "https://www.gemfanfpv.com/uploads/allimg/210323/1-210323145455.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://www.getfpv.com/quad-parts/motors.html",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.85
+      }
+    },
+    {
+      "id": "motor_gen_rcinpower_28065_2400",
+      "name": "RCINPOWER Alpha-Spec 2806.5 2400KV Brushless Motor",
+      "brand": "RCINPOWER",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/rcinpower-2806.5-2400kv-motor",
+      "price": 2.44,
+      "currency": "USD",
+      "trustScore": 88,
+      "keywords": [
+        "rcinpower",
+        "2806.5",
+        "2400kv",
+        "motor",
+        "4s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "4s",
+        "3-inch",
+        "generated"
+      ],
+      "specs": {
+        "stator": "2806.5",
+        "kv": 2400,
+        "weight": 1.8,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          4
+        ],
+        "propSizes": [
+          3
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "stack_gen_betafpv_20x20_45a",
+      "name": "BETAFPV MK4 F7 45A 6S 20x20 Stack",
+      "brand": "BETAFPV",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/betafpv-20x20-45a-stack",
+      "price": 114.99,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "betafpv",
+        "stack",
+        "fc",
+        "esc",
+        "20x20",
+        "45a"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "20x20",
+        "6s"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 45,
+        "gyro": "ICM42688P",
+        "stackMount": "20x20",
+        "maxCells": 6,
+        "weight": 13.8
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "20x20"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_Mini_Stack_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.86
+      }
+    },
+    {
+      "id": "stack_gen_diatone_30x30_60a",
+      "name": "Diatone MK4 F7 60A 6S 30x30 Stack",
+      "brand": "Diatone",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/diatone-30x30-60a-stack",
+      "price": 99.99,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "diatone",
+        "stack",
+        "fc",
+        "esc",
+        "30x30",
+        "60a"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "30x30",
+        "6s"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 60,
+        "gyro": "ICM42688P",
+        "stackMount": "30x30",
+        "maxCells": 6,
+        "weight": 27.2
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "30x30"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_V3_Stack_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.86
+      }
+    },
+    {
+      "id": "stack_gen_holybro_20x20_45a",
+      "name": "Holybro MK4 F7 45A 6S 20x20 Stack",
+      "brand": "Holybro",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/holybro-20x20-45a-stack",
+      "price": 94.99,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "holybro",
+        "stack",
+        "fc",
+        "esc",
+        "20x20",
+        "45a"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "20x20",
+        "6s"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 45,
+        "gyro": "ICM42688P",
+        "stackMount": "20x20",
+        "maxCells": 6,
+        "weight": 13.8
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "20x20"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_Mini_Stack_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.86
+      }
+    },
+    {
+      "id": "stack_gen_holybro_20x20_45a",
+      "name": "Holybro MK4 F7 45A 6S 20x20 Stack",
+      "brand": "Holybro",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/holybro-20x20-45a-stack",
+      "price": 124.99,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "holybro",
+        "stack",
+        "fc",
+        "esc",
+        "20x20",
+        "45a"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "20x20",
+        "6s"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 45,
+        "gyro": "ICM42688P",
+        "stackMount": "20x20",
+        "maxCells": 6,
+        "weight": 13.8
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "20x20"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_Mini_Stack_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.86
+      }
+    },
+    {
+      "id": "stack_gen_iflight_30x30_60a",
+      "name": "IFlight MK4 F7 60A 6S 30x30 Stack",
+      "brand": "IFlight",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/iflight-30x30-60a-stack",
+      "price": 109.99,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "iflight",
+        "stack",
+        "fc",
+        "esc",
+        "30x30",
+        "60a"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "30x30",
+        "6s"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 60,
+        "gyro": "ICM42688P",
+        "stackMount": "30x30",
+        "maxCells": 6,
+        "weight": 27.2
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "30x30"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_V3_Stack_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.86
+      }
+    },
+    {
+      "id": "stack_gen_mamba_20x20_45a",
+      "name": "Mamba MK4 F7 45A 6S 20x20 Stack",
+      "brand": "Mamba",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/mamba-20x20-45a-stack",
+      "price": 104.99,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "mamba",
+        "stack",
+        "fc",
+        "esc",
+        "20x20",
+        "45a"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "20x20",
+        "6s"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 45,
+        "gyro": "ICM42688P",
+        "stackMount": "20x20",
+        "maxCells": 6,
+        "weight": 13.8
+      },
+      "fit": {
+        "styles": [
+          "longRange",
+          "cinematic"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "20x20"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_Mini_Stack_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.86
+      }
+    },
+    {
+      "id": "stack_gen_speedybee_30x30_60a",
+      "name": "SpeedyBee MK4 F7 60A 6S 30x30 Stack",
+      "brand": "SpeedyBee",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/speedybee-30x30-60a-stack",
+      "price": 89.99,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "speedybee",
+        "stack",
+        "fc",
+        "esc",
+        "30x30",
+        "60a"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "30x30",
+        "6s"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 60,
+        "gyro": "ICM42688P",
+        "stackMount": "30x30",
+        "maxCells": 6,
+        "weight": 27.2
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "30x30"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_V3_Stack_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.86
+      }
+    },
+    {
+      "id": "stack_gen_speedybee_30x30_60a",
+      "name": "SpeedyBee MK4 F7 60A 6S 30x30 Stack",
+      "brand": "SpeedyBee",
+      "type": "stack",
+      "category": "Stacks",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/speedybee-30x30-60a-stack",
+      "price": 119.99,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "speedybee",
+        "stack",
+        "fc",
+        "esc",
+        "30x30",
+        "60a"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "stack",
+        "fc-esc",
+        "30x30",
+        "6s"
+      ],
+      "specs": {
+        "fc": "F722",
+        "escAmp": 60,
+        "gyro": "ICM42688P",
+        "stackMount": "30x30",
+        "maxCells": 6,
+        "weight": 27.2
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          4,
+          6
+        ],
+        "stackMount": "30x30"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_V3_Stack_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/flight-controllers-escs",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.86
+      }
+    },
+    {
+      "id": "motor_gen_t-motor_2208_1850",
+      "name": "T-Motor Alpha-Spec 2208 1850KV Brushless Motor",
+      "brand": "T-Motor",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/t-motor-2208-1850kv-motor",
+      "price": 1.69,
+      "currency": "USD",
+      "trustScore": 87,
+      "keywords": [
+        "t-motor",
+        "2208",
+        "1850kv",
+        "motor",
+        "6s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "generated"
+      ],
+      "specs": {
+        "stator": "2208",
+        "kv": 1850,
+        "weight": 1.8,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "motor_gen_brotherhobby_1404_1950",
+      "name": "BrotherHobby Alpha-Spec 1404 1950KV Brushless Motor",
+      "brand": "BrotherHobby",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/brotherhobby-1404-1950kv-motor",
+      "price": 8.44,
+      "currency": "USD",
+      "trustScore": 86,
+      "keywords": [
+        "brotherhobby",
+        "1404",
+        "1950kv",
+        "motor",
+        "6s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "generated"
+      ],
+      "specs": {
+        "stator": "1404",
+        "kv": 1950,
+        "weight": 9.5,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://cdn.shopify.com/s/files/1/0270/2281/9406/products/NIN_1404_V2_Motor_1.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "motor_gen_emax_2306_1950",
+      "name": "EMAX Alpha-Spec 2306 1950KV Brushless Motor",
+      "brand": "EMAX",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/emax-2306-1950kv-motor",
+      "price": 0.94,
+      "currency": "USD",
+      "trustScore": 86,
+      "keywords": [
+        "emax",
+        "2306",
+        "1950kv",
+        "motor",
+        "6s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "generated"
+      ],
+      "specs": {
+        "stator": "2306",
+        "kv": 1950,
+        "weight": 32.5,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "motor_gen_foxeer_28065_1900",
+      "name": "Foxeer Alpha-Spec 2806.5 1900KV Brushless Motor",
+      "brand": "Foxeer",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/foxeer-2806.5-1900kv-motor",
+      "price": 7.69,
+      "currency": "USD",
+      "trustScore": 85,
+      "keywords": [
+        "foxeer",
+        "2806.5",
+        "1900kv",
+        "motor",
+        "6s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "generated"
+      ],
+      "specs": {
+        "stator": "2806.5",
+        "kv": 1900,
+        "weight": 1.8,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
+    },
+    {
+      "id": "motor_gen_iflight_2207_1900",
+      "name": "iFlight Alpha-Spec 2207 1900KV Brushless Motor",
+      "brand": "iFlight",
+      "type": "motor",
+      "category": "Motors",
+      "sourceNetwork": "pyrodrone",
+      "url": "https://pyrodrone.com/products/iflight-2207-1900kv-motor",
+      "price": 0.19,
+      "currency": "USD",
+      "trustScore": 85,
+      "keywords": [
+        "iflight",
+        "2207",
+        "1900kv",
+        "motor",
+        "6s",
+        "brushless"
+      ],
+      "compatibleWith": [],
+      "tags": [
+        "motor",
+        "6s",
+        "5-inch",
+        "generated"
+      ],
+      "specs": {
+        "stator": "2207",
+        "kv": 1900,
+        "weight": 32.5,
+        "shaftDiameter": 5,
+        "motorMount": "16x16"
+      },
+      "fit": {
+        "styles": [
+          "freestyle",
+          "racing"
+        ],
+        "cellCounts": [
+          6
+        ],
+        "propSizes": [
+          5
+        ],
+        "motorMount": "16x16"
+      },
+      "imageUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg",
+      "provenance": {
+        "source": "manual",
+        "sourceUrl": "https://pyrodrone.com/collections/motors",
+        "crawledAt": "2026-06-14T09:09:01.154Z",
+        "extractionConfidence": 0.88
+      }
     }
   ]
 }

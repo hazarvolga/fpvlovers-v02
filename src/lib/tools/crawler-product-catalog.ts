@@ -90,7 +90,7 @@ function asFit(value: unknown): FpvCatalogProduct['fit'] {
 
 function cleanImageUrl(value: unknown): string | undefined {
   const image = asString(value);
-  if (!image || image.includes('placeholder.com')) return undefined;
+  if (!image || image.includes('placeholder.com') || image.includes('unsplash.com')) return undefined;
   return image;
 }
 

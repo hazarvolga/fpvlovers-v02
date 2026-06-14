@@ -53,13 +53,13 @@ export default function WhoopsPage() {
           
           {/* Header Billboard */}
           <div className="relative h-64 md:h-80 w-full overflow-hidden hex-panel border border-[#00F2FF]/30 shadow-[0_0_50px_rgba(0,242,255,0.1)] rounded-lg">
-            <Image
-              src="https://images.unsplash.com/photo-1595152772835-219674b2a8a6?w=1200&auto=format&fit=crop&q=70"
-              alt="Whoops & Micro FPV Drone"
-              fill
-              className="object-cover opacity-30 mix-blend-screen grayscale"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-transparent to-[#00F2FF]/5 z-10" />
+             {/* Cyber Grid & Telemetry Tech Background (Zero Stock Images) */}
+             <div className="absolute inset-0 bg-[#070709]" />
+             <div className="absolute inset-0 bg-[linear-gradient(to_right,#00F2FF0c_1px,transparent_1px),linear-gradient(to_bottom,#00F2FF0c_1px,transparent_1px)] bg-[size:32px_32px]" />
+             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-[#00F2FF]/15" />
+             <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-[#00F2FF]/15" />
+             <div className="absolute top-4 right-4 text-[9px] text-[#00F2FF]/40 font-mono tracking-widest uppercase">SYS.LOC: MICRO_WHOOP // RSSI: 89dBm // CELL: 1S_4.35V</div>
+             <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-transparent to-[#00F2FF]/5 z-10" />
             <div className="absolute inset-0 scanline-anim bg-gradient-to-b from-transparent via-[#00F2FF]/5 to-transparent z-10 pointer-events-none" />
             <div className="absolute bottom-8 left-8 z-20">
               <div className="flex items-center gap-2 mb-2">

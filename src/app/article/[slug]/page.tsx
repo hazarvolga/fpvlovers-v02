@@ -209,6 +209,21 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
 
+  // Log non-blocking page view if database is active and we are not in build phase
+  if (process.env.NEXT_PHASE !== 'phase-production-build') {
+    import('@/lib/server/analytics-store')
+      .then(({ logAnalyticsEvent }) => {
+        logAnalyticsEvent({
+          eventType: 'page_view',
+          contentSlug: resolvedParams.slug,
+          source: 'frontend',
+        });
+      })
+      .catch((err) => {
+        console.warn('[ArticlePage] Failed to log page view:', err);
+      });
+  }
+
   const published = getPublishedContentBySlug(resolvedParams.slug);
   if (published) {
     return <PublishedArticle article={published} />;

@@ -52,12 +52,12 @@ export default function LongRangePage() {
 
           {/* Header Billboard */}
           <div className="relative h-64 md:h-80 w-full overflow-hidden hex-panel border border-[#FF5C00]/30 shadow-[0_0_50px_rgba(255,92,0,0.1)] rounded-lg">
-             <Image
-                src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&auto=format&fit=crop&q=70"
-                alt="Long-Range FPV Drone"
-                fill
-                className="object-cover opacity-30 mix-blend-hard-light grayscale"
-             />
+             {/* Cyber Grid & Telemetry Tech Background (Zero Stock Images) */}
+             <div className="absolute inset-0 bg-[#070709]" />
+             <div className="absolute inset-0 bg-[linear-gradient(to_right,#FF5C000c_1px,transparent_1px),linear-gradient(to_bottom,#FF5C000c_1px,transparent_1px)] bg-[size:32px_32px]" />
+             <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-[#FF5C00]/15" />
+             <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 w-px bg-[#FF5C00]/15" />
+             <div className="absolute top-4 right-4 text-[9px] text-[#FF5C00]/40 font-mono tracking-widest uppercase">SYS.LOC: ALPINE_GLIDE // GPS: 14_SATS // RSSI: 95dBm</div>
              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-[#FF5C00]/10 z-10" />
              <div className="absolute inset-0 scanline-anim bg-gradient-to-b from-transparent via-[#FF5C00]/10 to-transparent z-10 pointer-events-none" />
              <div className="absolute bottom-8 left-8 z-20">

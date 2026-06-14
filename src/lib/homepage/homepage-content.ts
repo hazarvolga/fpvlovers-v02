@@ -14,6 +14,7 @@ export type HomepageSectionCard = {
   coverImage?: string;
   coverImageAlt?: string;
   tier?: 'pillar' | 'support';
+  views?: number;
 };
 
 export type HomepageContentModel = {
@@ -108,18 +109,33 @@ function sortByDate(cards: HomepageSectionCard[]): HomepageSectionCard[] {
   });
 }
 
-export function resolveHomepageContent(): HomepageContentModel {
+export async function resolveHomepageContent(): Promise<HomepageContentModel> {
   const published = listPublishedContent();
   const fallbackCards = buildFallbackHomepageCards();
 
+  let viewCounts: Record<string, number> = {};
+  try {
+    const { getArticleViewCounts } = await import('@/lib/server/analytics-store');
+    viewCounts = await getArticleViewCounts();
+  } catch (err) {
+    console.warn('[resolveHomepageContent] Failed to fetch article view counts:', err);
+  }
+
   const publishedCards = published.map((item) => {
     const tier = tierFromRegistry(item.slug);
-    return toHomepageCard(item, tier);
+    const card = toHomepageCard(item, tier);
+    card.views = viewCounts[item.slug] || 0;
+    return card;
   });
 
   const uniqueBySlug = new Map<string, HomepageSectionCard>();
-  for (const card of fallbackCards) uniqueBySlug.set(card.slug, card);
-  for (const card of publishedCards) uniqueBySlug.set(card.slug, card);
+  for (const card of fallbackCards) {
+    card.views = viewCounts[card.slug] || 0;
+    uniqueBySlug.set(card.slug, card);
+  }
+  for (const card of publishedCards) {
+    uniqueBySlug.set(card.slug, card);
+  }
 
   const merged = sortByDate([...uniqueBySlug.values()]);
 

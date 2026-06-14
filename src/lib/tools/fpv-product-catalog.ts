@@ -173,7 +173,7 @@ function inferBrand(name: string): string {
 }
 
 function cleanImageUrl(image: string): string | undefined {
-  if (!image || image.includes('placeholder.com')) return undefined;
+  if (!image || image.includes('placeholder.com') || image.includes('unsplash.com')) return undefined;
   return image;
 }
 
