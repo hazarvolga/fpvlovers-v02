@@ -31,10 +31,10 @@ Last updated: 2026-06-14
 
 ## Manuel Yapılacak (Coolify)
 
-1. Yeni medya/persistence commit'ini GitHub'a push et ve Coolify'da manuel deploy et
-2. Production DB env'li repo checkout'ında `npm run db:backfill:published` ile mevcut 109 artefaktı shadow tabloya yaz
-3. `/api/admin/health`, homepage, bir crawl görselli makale ve view counter'ı doğrula
-4. Crawl/generate cron'ları zaten aktif (5dk/20dk), izlemeye devam et
+1. ✅ `be392db` production deploy tamamlandı; container healthy ve restart sayısı 0
+2. ✅ Published artifact backfill tamamlandı: 109 benzersiz slug, 0 eksik metadata
+3. ✅ `/api/health`, homepage ve crawl/üretici görselli makale doğrulandı
+4. Crawl/generate cron'ları aktif (5dk/20dk); yeni üretimlerin shadow tabloya otomatik yazıldığını izlemeye devam et
 
 ## Ertelenen (Düşük Öncelik)
 

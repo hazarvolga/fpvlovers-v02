@@ -477,3 +477,5 @@ Created:
 - **Queue Dayanıklılığı:** `dual` modda content job dosyası ve DB kayıtları `id` bazında birleştirilir; en güncel `updatedAt` kazanır.
 - **Test İzolasyonu:** `content:smoke` artık geçici dizinde çalışır ve gerçek `data/content-jobs.json` kuyruğunu temizlemez.
 - **Production Snapshot:** Canlıda üretilmiş 7 eksik makale ve güncel job snapshot'ı Git çalışma ağacına senkronize edildi. Toplam 109 yayın artefaktı auditten geçti.
+- **Production Deploy ve Backfill:** `be392db` production image'ı olarak deploy edildi ve container `healthy`, restart sayısı `0` olarak doğrulandı. `published_articles_shadow` tablosu 41 kayıttan 109 benzersiz slug'a idempotent olarak tamamlandı; eksik metadata sayısı `0`.
+- **Canlı Görsel Doğrulaması:** Homepage ve güncel bir Racing makalesi tarandı. Crawl/üretici kaynaklı görseller ile yerel kapaklar birlikte render edildi; Unsplash, Pexels veya Picsum runtime görseli bulunmadı.
