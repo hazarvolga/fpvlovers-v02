@@ -6,14 +6,7 @@ import { safeReadJson } from '@/lib/utils/json';
 const DATA = (file: string) => path.join(process.cwd(), 'data', file);
 
 function load<T>(file: string, fallback: T): T {
-  try { 
-    if (fs.existsSync(file)) {
-      return safeReadJson<any>(file, null); 
-    }
-  } catch (error) {
-    console.error(`Error loading JSON file ${file}:`, error);
-  }
-  return fallback;
+  return safeReadJson<T>(file, fallback);
 }
 
 function write(file: string, data: any) {
