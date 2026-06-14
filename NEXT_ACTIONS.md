@@ -12,7 +12,12 @@ Last updated: 2026-06-14
 - Token budget mismatch düzeltildi (dosyada 100000, her zaman 500)
 - Retrieval orchestrator gerçek Dify Dataset API'ye bağlandı (ENABLE_REAL_RAG=true)
 - 5 boş dataset için 10 seed URL eklendi
-- 427 external image referansı 89 makaleden temizlendi
+- 89 eski makaledeki genel stok/placeholder referansları temizlendi
+- Crawl kaynak görsellerini koruyan medya politikası netleştirildi
+- Unsplash/Pexels/Picsum için runtime denylist ve `media:audit` eklendi
+- Published artifact filesystem + PostgreSQL dayanıklılığı eklendi
+- Content smoke testi gerçek kuyruktan izole edildi
+- Canlıda üretilen 7 eksik makale Git çalışma ağacına senkronize edildi
 - YouTube transcript otomatik altyazı desteği eklendi
 - deploy-clean branch'inden eksik 3 özellik main'e alındı
 - Kullanılmayan paketler kaldırıldı (@hookform/resolvers, react-hook-form, react-is)
@@ -26,9 +31,10 @@ Last updated: 2026-06-14
 
 ## Manuel Yapılacak (Coolify)
 
-1. **Deploy:** `e6d24b2` commit'ini manuel deploy et (coolify.fpvlovers.com.tr)
-2. Deploy sonrası view counter'ların göründüğünü kontrol et
-3. Crawl/generate cron'ları zaten aktif (5dk/20dk), izlemeye devam et
+1. Yeni medya/persistence commit'ini GitHub'a push et ve Coolify'da manuel deploy et
+2. Production DB env'li repo checkout'ında `npm run db:backfill:published` ile mevcut 109 artefaktı shadow tabloya yaz
+3. `/api/admin/health`, homepage, bir crawl görselli makale ve view counter'ı doğrula
+4. Crawl/generate cron'ları zaten aktif (5dk/20dk), izlemeye devam et
 
 ## Ertelenen (Düşük Öncelik)
 
@@ -36,7 +42,6 @@ Last updated: 2026-06-14
 - 43 boş catch bloğuna console.error ekle (GAP-TECH-004)
 - 7 Dify workflow DSL import (Dify UI manuel işlem)
 - Racing intelligence store → pending-review girişleri doğrula
-- generate-engineering-flagships.ts script'indeki unsplash referansları temizle
 - İçerik pipeline'ına monetizasyon enjeksiyonu (derin entegrasyon)
 - Husky deprecation uyarılarını düzelt (.husky/pre-commit, .husky/commit-msg)
 

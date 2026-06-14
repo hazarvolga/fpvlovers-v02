@@ -88,10 +88,11 @@ try {
   FAIL('slug check error', e.message);
 }
 
+async function runHomepageAudit(): Promise<void> {
 // ── 4. Homepage sections not empty ──
 phase('4. Homepage sections not empty');
 
-const content = resolveHomepageContent();
+const content = await resolveHomepageContent();
 const sections: [string, unknown[]][] = [
   ['featuredGuides', content.featuredGuides],
   ['recentPosts', content.recentPosts],
@@ -176,3 +177,9 @@ try {
 // ── Result ──
 console.log(process.exitCode ? '\n✗ AUDIT FAILED\n' : '\n✓ AUDIT PASSED\n');
 process.exit(process.exitCode ?? 0);
+}
+
+runHomepageAudit().catch((error: unknown) => {
+  console.error(error);
+  process.exit(1);
+});

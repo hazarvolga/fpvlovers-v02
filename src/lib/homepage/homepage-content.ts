@@ -1,4 +1,4 @@
-import { listPublishedContent, type PublishedArtifact } from '@/lib/content-automation/content-reader';
+import { listPublishedContentAsync, type PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { buildFallbackHomepageCards } from './homepage-defaults';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { buildCoverImageUrl } from '@/lib/content-automation/content-media';
@@ -110,7 +110,7 @@ function sortByDate(cards: HomepageSectionCard[]): HomepageSectionCard[] {
 }
 
 export async function resolveHomepageContent(): Promise<HomepageContentModel> {
-  const published = listPublishedContent();
+  const published = await listPublishedContentAsync();
   const fallbackCards = buildFallbackHomepageCards();
 
   let viewCounts: Record<string, number> = {};

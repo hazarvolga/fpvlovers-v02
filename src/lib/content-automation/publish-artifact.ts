@@ -5,7 +5,11 @@ import { buildContentMedia } from './content-media';
 import type { ContentJob } from './types';
 import { matchImagesToSections, pickBestRelevantImage } from './crawl-image-match';
 import { harvestImagesFromDatabase } from './crawl-image-harvest';
-import { classifyImageLicenses } from './crawl-image-license';
+import {
+  classifyImageLicenses,
+  isGenericStockImage,
+  type LicensedImage,
+} from './crawl-image-license';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -25,15 +29,16 @@ export async function publishGeneratedContentArtifact(
   const mdPath = path.join(PUBLISHED_DIR, `${slug}.md`);
 
   // 1. Asynchronously harvest crawled images from the database using sourceHints
-  let crawledLicensed: any[] = [];
+  let crawledLicensed: LicensedImage[] = [];
   if (job.sourceHints && job.sourceHints.length > 0) {
     const crawledImages = await harvestImagesFromDatabase(job.sourceHints);
     if (crawledImages && crawledImages.length > 0) {
-      crawledLicensed = classifyImageLicenses(crawledImages);
+      crawledLicensed = classifyImageLicenses(crawledImages)
+        .filter((image) => !isGenericStockImage(image));
     }
   }
 
-  // 2. Resolve default stock media fallback
+  // 2. Resolve the local generated fallback. Crawled source media may replace it below.
   const media = content.media || buildContentMedia({
     slug,
     title: content.title,
@@ -41,7 +46,7 @@ export async function publishGeneratedContentArtifact(
     excerpt: content.excerpt,
   });
 
-  // 3. Prioritize crawled images over stock photos
+  // 3. Prioritize relevant crawled FPV source images over the local fallback.
   if (crawledLicensed.length > 0) {
     const crawledAssets = crawledLicensed.map((img) => ({
       src: img.src,
@@ -78,7 +83,7 @@ export async function publishGeneratedContentArtifact(
       src: asset.src,
       alt: asset.alt,
       sourceUrl: asset.sourceUrl || '',
-      hostname: asset.source || 'stock',
+      hostname: asset.source || 'local-fallback',
       context: `${asset.caption || ''} ${asset.alt || ''}`,
       license: (asset.license as any) || 'open',
       canSelfHost: true,
@@ -149,6 +154,9 @@ export async function publishGeneratedContentArtifact(
   ].join('\n');
 
   fs.writeFileSync(mdPath, markdown + '\n', 'utf-8');
+
+  const { upsertPublishedArtifact } = await import('@/lib/server/published-content-store');
+  await upsertPublishedArtifact(artifact);
 
   return `content/published/${slug}.json`;
 }

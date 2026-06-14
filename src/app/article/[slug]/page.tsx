@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchEditorialInsights } from '@/lib/dify';
-import { getPublishedContentBySlug, type PublishedArtifact } from '@/lib/content-automation/content-reader';
+import { getPublishedContentBySlugAsync, type PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { Badge } from '@/components/ui/badge';
 import { AffiliateButton } from '@/features/monetization/components/AffiliateButton';
@@ -16,7 +16,7 @@ import { ActiveSortieWidget } from '@/features/academy/components/ActiveSortieWi
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const published = getPublishedContentBySlug(resolvedParams.slug);
+  const published = await getPublishedContentBySlugAsync(resolvedParams.slug);
   if (published) {
     return {
       title: `${published.title} | FPVLovers`,
@@ -224,7 +224,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       });
   }
 
-  const published = getPublishedContentBySlug(resolvedParams.slug);
+  const published = await getPublishedContentBySlugAsync(resolvedParams.slug);
   if (published) {
     return <PublishedArticle article={published} />;
   }

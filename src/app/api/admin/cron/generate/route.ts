@@ -8,7 +8,7 @@ import { generateContentViaDify } from '@/lib/content-automation/dify-generation
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { authorizeCronRequest } from '@/lib/cron-auth';
-import { getPublishedSlugs } from '@/lib/content-automation/content-reader';
+import { getPublishedSlugsAsync } from '@/lib/content-automation/content-reader';
 import type { ContentJob } from '@/lib/content-automation/types';
 import { logAutomationRun } from '@/lib/server/automation-runs-store';
 import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
@@ -48,13 +48,13 @@ function isDryRun(req: Request): boolean {
   return url.searchParams.get('dry_run') === 'true' || url.searchParams.get('dryRun') === 'true';
 }
 
-function buildExistingSlugSet(jobs: ContentJob[]): Set<string> {
+async function buildExistingSlugSet(jobs: ContentJob[]): Promise<Set<string>> {
   const existing = new Set<string>();
   for (const job of jobs) {
     existing.add(job.briefSlug);
     if (job.seo.slug) existing.add(job.seo.slug);
   }
-  for (const slug of getPublishedSlugs()) {
+  for (const slug of await getPublishedSlugsAsync()) {
     existing.add(slug);
   }
   return existing;
@@ -68,7 +68,7 @@ export async function GET(req: Request) {
     const dryRun = isDryRun(req);
     const batchCount = getBatchCount(req);
     const jobs = await loadContentJobsNew();
-    const existingSlugs = buildExistingSlugSet(jobs);
+    const existingSlugs = await buildExistingSlugSet(jobs);
 
     // Process multiple queued jobs in batch
     const readyJobs = jobs.filter((j) => j.status === 'queued');

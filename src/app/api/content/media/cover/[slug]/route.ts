@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import sharp from 'sharp';
-import { getPublishedContentBySlug } from '@/lib/content-automation/content-reader';
+import { getPublishedContentBySlugAsync } from '@/lib/content-automation/content-reader';
 import { buildCoverImageSvg } from '@/lib/content-automation/content-media';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 
@@ -23,7 +23,7 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const published = getPublishedContentBySlug(slug);
+  const published = await getPublishedContentBySlugAsync(slug);
   const registry = registryBySlug.get(slug);
 
   const title = published?.title || registry?.title || humanizeSlug(slug);

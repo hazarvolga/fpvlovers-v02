@@ -14,11 +14,11 @@ const flagships = [
     excerpt: "An advanced research paper detailing flight data extraction, gyro noise identification, spectral notch filter validation, and propwash oscillation analysis using Betaflight Blackbox logs.",
     category: "Flight Control",
     cover: {
-      src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/pid-tuning-architecture",
       alt: "Data visualization on a screen",
       caption: "Advanced flight data visualization and telemetry spectral analysis.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/a-computer-screen-with-a-graph-on-it-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by Luke Chesser on Unsplash"
     },
     content: `## 1. The Anatomy of Flight Telemetry
@@ -69,11 +69,11 @@ During rapid descents through dirty air, the propeller encounters its own vortex
     excerpt: "An engineering deep dive into the mathematical mechanics of multirotor PID control loops, Feed Forward dynamics, and high-frequency dynamic idle algorithms.",
     category: "Flight Control",
     cover: {
-      src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/flight-controller-filters",
       alt: "Abstract mathematical control waves",
       caption: "Control loop mathematical dynamics and frequency response curves.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/abstract-waves-lines-art-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by Milad Fakurian on Unsplash"
     },
     content: `## 1. Multirotor Control Loop Dynamics
@@ -118,11 +118,11 @@ A heavy, low-frequency wobble ($5-15\\text{ Hz}$) indicates excessive $K_p$ gain
     excerpt: "A research-grade analysis of multirotor noise filtering strategies, detailing the dynamic notch filter, bi-directional DShot RPM filtering, and phase delay latency tradeoffs.",
     category: "Flight Control",
     cover: {
-      src: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/fpv-motor-winding",
       alt: "Signal waves and filters",
       caption: "High-frequency signal processing and filter attenuation visualizer.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/white-and-blue-abstract-painting-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by Samuel Scrimshaw on Unsplash"
     },
     content: `## 1. Multirotor Noise Spectrum
@@ -164,11 +164,11 @@ Every filter introduced into the signal chain adds delay. A phase delay in the g
     excerpt: "An engineering paper analyzing brushless motor efficiency, stator volume calculations, KV selection constraints, and copper losses under high-current flight loads.",
     category: "Propulsion",
     cover: {
-      src: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/esc-current-analysis",
       alt: "Copper windings of a motor",
       caption: "High-density copper motor stator windings and magnetic bell assemblies.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/copper-wire-lot-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by Science in HD on Unsplash"
     },
     content: `## 1. Stator Physics & Electromagnetic Torque
@@ -204,11 +204,11 @@ Excessive current draw leads to thermal loading. If stators exceed $150^\\circ\\
     excerpt: "A deep technical investigation into FPV ESC hardware topologies, DShot signaling protocols, and high-frequency gate drive switching dynamics.",
     category: "Propulsion",
     cover: {
-      src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/flight-controller-circuits",
       alt: "Microchip on circuit board",
       caption: "Close-up of high-speed FPV ESC driver circuitry and MOSFET gates.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/computer-chip-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by Alexandre Debiève on Unsplash"
     },
     content: `## 1. ESC Hardware Architecture
@@ -251,11 +251,11 @@ Higher PWM switching frequencies (e.g. 48kHz or 96kHz) smooth out motor operatio
     excerpt: "An advanced aerodynamic study of FPV propellers, detailing thrust-to-power calculations, pitch angles, disc loading constraints, and propwash interaction physics.",
     category: "Propulsion",
     cover: {
-      src: "https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/propeller-aerodynamics",
       alt: "Abstract blades or geometry",
       caption: "Aerodynamic propeller profile geometry and drag distribution curves.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/abstract-geometric-blades-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by Jason Leung on Unsplash"
     },
     content: `## 1. Propeller Aerodynamics
@@ -291,11 +291,11 @@ High disc loading occurs when a heavy multirotor uses small propellers (e.g. 3-i
     excerpt: "A scientific research paper exploring Lithium Polymer battery dynamics, examining internal resistance curves, high-current discharge sag, and thermal degradation risks.",
     category: "Propulsion",
     cover: {
-      src: "https://images.unsplash.com/photo-1620283085439-39620a1e21c4?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/fpv-battery-cells",
       alt: "Energy cells close up",
       caption: "High-density Lithium Polymer FPV battery cells under mechanical stress.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/abstract-light-cells-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by FlyD on Unsplash"
     },
     content: `## 1. The Chemistry of LiPo Discharge
@@ -332,11 +332,11 @@ Drawing current raises cell temperature. If the internal temperature exceeds $60
     excerpt: "A technical study of high-speed FPV control links, analyzing ExpressLRS packet rates, signal-to-noise ratio boundaries, and Link Quality indicators.",
     category: "Communication",
     cover: {
-      src: "https://images.unsplash.com/photo-1544256718-3bcf237f3974?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/radio-link-analysis",
       alt: "Telemetry signal towers or waves",
       caption: "High-frequency radio wave propagation and antenna polarization paths.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/radio-waves-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by Hector Achautla on Unsplash"
     },
     content: `## 1. ExpressLRS Architecture & Packet Rates
@@ -378,11 +378,11 @@ Radio waves reflect off concrete structures, arriving at the receiver at slightl
     excerpt: "An advanced technical report analyzing FPV video transmission latencies, detailing encoding pipelines, signal penetration, and digital vs analog glass-to-glass delay metrics.",
     category: "Communication",
     cover: {
-      src: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/video-transmission-glass",
       alt: "Abstract digital transmission noise",
       caption: "Real-time digital video encoding pipelines and high-speed data streams.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/glass-transmission-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by John Barker on Unsplash"
     },
     content: `## 1. The FPV Video Pipeline
@@ -418,11 +418,11 @@ Digital systems rely on error correction coding to survive signal reflections. I
     excerpt: "A deep physical study on carbon fiber structural resonance, analyzing vibration transfer paths, frame stiffness parameters, and gyro noise prevention.",
     category: "Systems",
     cover: {
-      src: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/carbon-fiber-structure",
       alt: "Carbon fiber pattern close up",
       caption: "Premium FPV drone carbon fiber weave layers and structural brace arms.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/carbon-fiber-weave-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by NASA on Unsplash"
     },
     content: `## 1. Structural Resonance of Carbon Fiber
@@ -458,11 +458,11 @@ Soft-mounting the FC using silicone gummies isolates the board, acting as a low-
     excerpt: "A critical technical safety report on Betaflight GPS Rescue systems, examining satellite lock geometry, home point calculations, and failsafe recovery loops.",
     category: "Systems",
     cover: {
-      src: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/gps-navigation",
       alt: "Satellite views from orbit",
       caption: "Global satellite navigation networks and coordinate tracking pathways.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/orbital-space-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by NASA on Unsplash"
     },
     content: `## 1. Home Point Calculations & Satellite Lock
@@ -499,11 +499,11 @@ A faulty barometer can report false altitude spikes, forcing the FC to descend p
     excerpt: "A comprehensive systems engineering study on the FPV aircraft as an integrated electrical and signal processing system.",
     category: "Systems",
     cover: {
-      src: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80",
+      src: "/api/content/media/cover/integrated-flight-electronics",
       alt: "Motherboard circuitry lines",
       caption: "Integrated electrical paths and flight controller signal networks.",
       source: "Unsplash",
-      sourceUrl: "https://unsplash.com/photos/integrated-circuits-625624792",
+      sourceUrl: "/engineering/hardware",
       credit: "Photo by Alexandre Debiève on Unsplash"
     },
     content: `## 1. The FPV Aircraft as an Integrated System

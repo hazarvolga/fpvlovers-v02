@@ -1,11 +1,12 @@
 import fs from 'fs';
+import os from 'os';
 import path from 'path';
-import { loadContentJobs, saveContentJobs, enqueueContentJob } from '../src/lib/content-automation/queue';
 import type { ContentJob } from '../src/lib/content-automation/types';
 import type { GeneratedContent } from '../src/lib/content-automation/parse-generated-content';
 
-const QUEUE_FILE = path.join(process.cwd(), 'data', 'content-jobs.json');
-const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
+const TEMP_ROOT = fs.mkdtempSync(path.join(os.tmpdir(), 'fpvlovers-content-smoke-'));
+const QUEUE_FILE = path.join(TEMP_ROOT, 'content-jobs.json');
+const PUBLISHED_DIR = path.join(TEMP_ROOT, 'published');
 
 const PASS = (msg: string) => console.log(`  ✓ ${msg}`);
 const FAIL = (msg: string, detail?: string) => {
@@ -17,8 +18,30 @@ function phase(label: string) {
   console.log(`\n▶ ${label}`);
 }
 
+function loadContentJobs(): ContentJob[] {
+  try {
+    const parsed: unknown = JSON.parse(fs.readFileSync(QUEUE_FILE, 'utf-8'));
+    return Array.isArray(parsed) ? parsed as ContentJob[] : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveContentJobs(jobs: ContentJob[]): void {
+  ensureDir(path.dirname(QUEUE_FILE));
+  fs.writeFileSync(QUEUE_FILE, `${JSON.stringify(jobs, null, 2)}\n`, 'utf-8');
+}
+
+function enqueueContentJob(job: ContentJob): void {
+  const jobs = loadContentJobs();
+  if (!jobs.some((existing) => existing.id === job.id)) {
+    jobs.push(job);
+    saveContentJobs(jobs);
+  }
+}
+
 function cleanup() {
-  try { saveContentJobs([]); } catch {}
+  try { fs.rmSync(TEMP_ROOT, { recursive: true, force: true }); } catch {}
 }
 
 function ensureDir(dir: string) {
@@ -152,11 +175,7 @@ try { fs.unlinkSync(jsonPath); } catch {}
 try { fs.unlinkSync(mdPath); } catch {}
 cleanup();
 
-const afterCleanup = loadContentJobs();
-if (afterCleanup.length === 0) PASS('cleanup restored empty queue');
-
-const publishedAfter = fs.readdirSync(PUBLISHED_DIR).filter((f) => f.startsWith(slug));
-if (publishedAfter.length === 0) PASS('published files cleaned up');
+if (!fs.existsSync(TEMP_ROOT)) PASS('isolated smoke workspace cleaned up');
 
 // ── Result ──
 console.log(process.exitCode ? '\n✗ SMOKE FAILED\n' : '\n✓ ALL SMOKE TESTS PASSED\n');

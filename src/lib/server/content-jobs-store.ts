@@ -124,6 +124,22 @@ export async function loadContentJobsAsync(): Promise<ContentJob[]> {
   if (mode === 'postgres') {
     return dbLoadContentJobs();
   }
+  if (mode === 'dual') {
+    const fileJobs = fileLoadContentJobs();
+    const dbJobs = await dbLoadContentJobs();
+    const merged = new Map<string, ContentJob>();
+
+    for (const job of [...fileJobs, ...dbJobs]) {
+      const existing = merged.get(job.id);
+      if (!existing || new Date(job.updatedAt).getTime() >= new Date(existing.updatedAt).getTime()) {
+        merged.set(job.id, job);
+      }
+    }
+
+    return [...merged.values()].sort(
+      (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    );
+  }
   return fileLoadContentJobs();
 }
 

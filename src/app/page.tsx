@@ -11,8 +11,6 @@ import { PilotPulseWidget } from '@/features/tools/components/PilotPulseWidget';
 
 function ArticleCard({ card, accent = 'cyan' }: { card: HomepageSectionCard; accent?: 'cyan' | 'orange' | 'neutral' }) {
   const accentClass = accent === 'orange' ? 'group-hover:text-[#ff9b71]' : accent === 'cyan' ? 'group-hover:text-[#9eeef2]' : 'group-hover:text-white';
-  const bypassOptimization = Boolean(card.coverImage?.startsWith('/api/content/media/cover/') || card.coverImage?.includes('images.pexels.com'));
-
   return (
     <Card className="group overflow-hidden bg-[#101112]/72">
       {card.coverImage && (
@@ -77,7 +75,6 @@ export default async function HomePage() {
   const content = await resolveHomepageContent();
   const heroCard = content.featuredGuides[0] || content.recentPosts[0];
   const secondaryHeroCards = content.featuredGuides.slice(1, 3);
-  const bypassHeroOptimization = Boolean(heroCard?.coverImage?.startsWith('/api/content/media/cover/') || heroCard?.coverImage?.includes('images.pexels.com'));
   const spotlightSlugs = new Set([
     heroCard?.slug,
     ...secondaryHeroCards.map((card) => card.slug),

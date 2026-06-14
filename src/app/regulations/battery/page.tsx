@@ -51,7 +51,7 @@ export default function BatteryPage() {
                    description="Powerful AC/DC charger with intelligent balancing and cell internal resistance check."
                    price="$249.00"
                    url="#"
-                   image="https://picsum.photos/seed/battery1/800/600"
+                   image="/api/content/media/cover/isdt-k4-smart-charger"
                    tag="SMART CHARGER"
                 />
                 <AffiliateCard
@@ -59,7 +59,7 @@ export default function BatteryPage() {
                    description="Fire-retardant fiberglass bag designed to contain LiPo fires during charging or transit."
                    price="$24.99"
                    url="#"
-                   image="https://picsum.photos/seed/battery2/800/600"
+                   image="/api/content/media/cover/torvol-lipo-safe-bag"
                    tag="REQUIRED SAFETY"
                 />
              </div>

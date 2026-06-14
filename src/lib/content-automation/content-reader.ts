@@ -20,7 +20,7 @@ export type PublishedArtifact = GeneratedContent & {
   coverImage?: string;
 };
 
-function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtifact | null {
+export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtifact | null {
   if (!parsed || typeof parsed.slug !== 'string') return null;
   const title = typeof parsed.title === 'string' && parsed.title ? parsed.title : parsed.slug;
   const category = typeof parsed.category === 'string' && parsed.category ? parsed.category : 'FPV Reference';
@@ -221,7 +221,7 @@ function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtif
       src: asset.src,
       alt: asset.alt,
       sourceUrl: asset.sourceUrl || '',
-      hostname: asset.source || 'stock',
+      hostname: asset.source || 'local-fallback',
       context: `${asset.caption || ''} ${asset.alt || ''}`,
       license: (asset.license as any) || 'open',
       canSelfHost: true,
@@ -315,4 +315,49 @@ export function getPublishedContentBySlug(slug: string): PublishedArtifact | nul
 
 export function getPublishedSlugs(): string[] {
   return listPublishedContent().map((a) => a.slug);
+}
+
+export async function listPublishedContentAsync(): Promise<PublishedArtifact[]> {
+  const files = listPublishedContent();
+
+  try {
+    const { loadPublishedArtifacts } = await import('@/lib/server/published-content-store');
+    const database = await loadPublishedArtifacts();
+    const merged = new Map<string, PublishedArtifact>();
+
+    for (const artifact of [...files, ...database]) {
+      const normalized = ensureMediaArtifact(artifact);
+      if (!normalized) continue;
+      const existing = merged.get(normalized.slug);
+      const existingTime = new Date(existing?.publishedAt || 0).getTime();
+      const candidateTime = new Date(normalized.publishedAt || 0).getTime();
+      if (!existing || candidateTime >= existingTime) {
+        merged.set(normalized.slug, normalized);
+      }
+    }
+
+    return [...merged.values()].sort(
+      (a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime(),
+    );
+  } catch (error) {
+    console.warn('[Published Content] Database read failed, using committed files:', error);
+    return files;
+  }
+}
+
+export async function getPublishedContentBySlugAsync(slug: string): Promise<PublishedArtifact | null> {
+  try {
+    const { getPublishedArtifact } = await import('@/lib/server/published-content-store');
+    const database = await getPublishedArtifact(slug);
+    const normalized = database ? ensureMediaArtifact(database) : null;
+    if (normalized) return normalized;
+  } catch (error) {
+    console.warn(`[Published Content] Database lookup failed for ${slug}, using committed file:`, error);
+  }
+
+  return getPublishedContentBySlug(slug);
+}
+
+export async function getPublishedSlugsAsync(): Promise<string[]> {
+  return (await listPublishedContentAsync()).map((artifact) => artifact.slug);
 }

@@ -24,7 +24,7 @@ export default function MicroWhoopPage() {
 
           <div className="relative h-64 md:h-80 w-full overflow-hidden hex-panel border border-[#333333]">
              <Image
-                src="https://picsum.photos/seed/micro/1200/800"
+                src="/api/content/media/cover/micro-whoop-drones"
                 alt="Micro Drone"
                 fill
                 className="object-cover opacity-40 mix-blend-screen"

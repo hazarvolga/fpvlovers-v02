@@ -40,6 +40,8 @@
     "routes:audit": "node scripts/route-tree-drift-audit.mjs",
     "db:migrate": "node --import tsx scripts/db-migrate.ts",
     "db:backfill": "node --import tsx scripts/db-backfill-raw-content.ts",
+    "db:backfill:published": "node --import tsx scripts/db-backfill-published-content.ts",
+    "media:audit": "node --import tsx scripts/media-policy-audit.ts",
     "db:inject-images": "node --import tsx scripts/db-inject-images-to-published.ts",
     "racing:workflow:smoke": "node --import tsx scripts/racing-workflow-smoke.ts"
   },

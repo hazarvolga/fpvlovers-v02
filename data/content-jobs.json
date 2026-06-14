@@ -1,5 +1,248 @@
 [
   {
+    "id": "racing-street-league-spec-pilot-resources",
+    "briefSlug": "street-league-spec-pilot-resources",
+    "title": "Street League Spec Offers Comprehensive Resources for Pilots",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.streetleague.io/races",
+      "resources"
+    ],
+    "seo": {
+      "slug": "street-league-spec-pilot-resources",
+      "metaDescription": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "resources"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T15:21:34.234Z",
+    "publishedPath": "content/published/street-league-spec-offers-comprehensive-resources-for-pilots.json"
+  },
+  {
+    "id": "racing-street-league-spec-upcoming-races-empty",
+    "briefSlug": "street-league-spec-upcoming-races-empty",
+    "title": "Street League Spec: Upcoming Races Section Currently Empty",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.streetleague.io/races",
+      "calendar"
+    ],
+    "seo": {
+      "slug": "street-league-spec-upcoming-races-empty",
+      "metaDescription": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "calendar"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T15:01:29.732Z",
+    "publishedPath": "content/published/street-league-spec-upcoming-races-section-currently-empty.json"
+  },
+  {
+    "id": "racing-street-league-season-v-2026-races-announced",
+    "briefSlug": "street-league-season-v-2026-races-announced",
+    "title": "Street League Announces Season V and Upcoming 2026 Races",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
+    "language": "en",
+    "template": "community-roundup",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://www.streetleague.io/",
+      "calendar"
+    ],
+    "seo": {
+      "slug": "street-league-season-v-2026-races-announced",
+      "metaDescription": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "calendar"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T14:41:26.810Z",
+    "publishedPath": "content/published/street-league-announces-season-v-and-upcoming-2026-races.json"
+  },
+  {
+    "id": "racing-dcl-2025-season-review-2026-outlook",
+    "briefSlug": "dcl-2025-season-review-2026-outlook",
+    "title": "DCL 2025 Season Review and Anticipation for 2026",
+    "category": "Racing",
+    "status": "failed",
+    "topic": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "league-news"
+    ],
+    "seo": {
+      "slug": "dcl-2025-season-review-2026-outlook",
+      "metaDescription": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "league-news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T14:20:14.887Z",
+    "feedback": "Workflow returned no publishable content."
+  },
+  {
+    "id": "racing-thebob-dcl-2025-rookie-of-the-year",
+    "briefSlug": "thebob-dcl-2025-rookie-of-the-year",
+    "title": "TheBoB: Wild Card Team's 2025 DCL Rookie of the Year",
+    "category": "Racing",
+    "status": "failed",
+    "topic": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "pilot-spotlight"
+    ],
+    "seo": {
+      "slug": "thebob-dcl-2025-rookie-of-the-year",
+      "metaDescription": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "pilot-spotlight"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T14:02:33.648Z",
+    "feedback": "Workflow returned no publishable content."
+  },
+  {
+    "id": "racing-salie1-dcl-2025-pilot-of-the-year",
+    "briefSlug": "salie1-dcl-2025-pilot-of-the-year",
+    "title": "Salie1: Spain Drone Team's 2025 DCL Pilot of the Year",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "pilot-spotlight"
+    ],
+    "seo": {
+      "slug": "salie1-dcl-2025-pilot-of-the-year",
+      "metaDescription": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "pilot-spotlight"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T13:41:23.994Z",
+    "publishedPath": "content/published/salie1-spain-drone-team-s-2025-dcl-pilot-of-the-year.json"
+  },
+  {
+    "id": "racing-raiden-racing-dcl-2025-champions-konigssee",
+    "briefSlug": "raiden-racing-dcl-2025-champions-konigssee",
+    "title": "Raiden Racing Conquers Königssee to Claim 2025 DCL Championship",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "latest-news"
+    ],
+    "seo": {
+      "slug": "raiden-racing-dcl-2025-champions-konigssee",
+      "metaDescription": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "latest-news"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T13:21:36.039Z",
+    "publishedPath": "content/published/raiden-racing-conquers-k-nigssee-to-claim-2025-dcl-championship.json"
+  },
+  {
+    "id": "racing-team-profile-wildcard-team",
+    "briefSlug": "team-profile-wildcard-team",
+    "title": "Team Profile: Wildcard Team - Liechtenstein's DCL Contenders",
+    "category": "Racing",
+    "status": "published",
+    "topic": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-wildcard-team",
+      "metaDescription": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T13:01:57.829Z",
+    "publishedPath": "content/published/team-profile-wildcard-team-liechtenstein-s-dcl-contenders.json"
+  },
+  {
+    "id": "racing-team-profile-vexcel-spain-drone-team",
+    "briefSlug": "team-profile-vexcel-spain-drone-team",
+    "title": "Team Profile: Vexcel Spain Drone Team - Spain's DCL Veterans",
+    "category": "Racing",
+    "status": "published",
+    "topic": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
+    "language": "en",
+    "template": "tech-article",
+    "promptVersion": "v2",
+    "sourceHints": [
+      "https://dronechampionsleague.com/teams/",
+      "teams"
+    ],
+    "seo": {
+      "slug": "team-profile-vexcel-spain-drone-team",
+      "metaDescription": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
+      "keywords": [
+        "fpv racing",
+        "drone racing",
+        "teams"
+      ]
+    },
+    "createdAt": "2026-06-06T16:20:19Z",
+    "updatedAt": "2026-06-14T12:41:38.617Z",
+    "publishedPath": "content/published/team-profile-vexcel-spain-drone-team-spain-s-dcl-veterans.json"
+  },
+  {
     "id": "racing-team-profile-squadron78",
     "briefSlug": "team-profile-squadron78",
     "title": "Team Profile: Squadron78 - Argentina's DCL Entry",
@@ -1322,240 +1565,6 @@
     },
     "createdAt": "2026-06-06T16:20:19Z",
     "updatedAt": "2026-06-06T16:29:19.073Z"
-  },
-  {
-    "id": "racing-team-profile-vexcel-spain-drone-team",
-    "briefSlug": "team-profile-vexcel-spain-drone-team",
-    "title": "Team Profile: Vexcel Spain Drone Team - Spain's DCL Veterans",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-vexcel-spain-drone-team",
-      "metaDescription": "Learn about Vexcel Spain Drone Team, the Spanish DCL team, their managers, DCL entry year, and diverse pilot lineup.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-team-profile-wildcard-team",
-    "briefSlug": "team-profile-wildcard-team",
-    "title": "Team Profile: Wildcard Team - Liechtenstein's DCL Contenders",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/teams/",
-      "teams"
-    ],
-    "seo": {
-      "slug": "team-profile-wildcard-team",
-      "metaDescription": "A profile of the Wildcard Team from Liechtenstein, a DCL team managed by Matthew Bamford, detailing their DCL entry and pilot roster.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "teams"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-raiden-racing-dcl-2025-champions-konigssee",
-    "briefSlug": "raiden-racing-dcl-2025-champions-konigssee",
-    "title": "Raiden Racing Conquers Königssee to Claim 2025 DCL Championship",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-      "latest-news"
-    ],
-    "seo": {
-      "slug": "raiden-racing-dcl-2025-champions-konigssee",
-      "metaDescription": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "latest-news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-salie1-dcl-2025-pilot-of-the-year",
-    "briefSlug": "salie1-dcl-2025-pilot-of-the-year",
-    "title": "Salie1: Spain Drone Team's 2025 DCL Pilot of the Year",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-      "pilot-spotlight"
-    ],
-    "seo": {
-      "slug": "salie1-dcl-2025-pilot-of-the-year",
-      "metaDescription": "Detail Salie1's consistent performance throughout the 2025 DCL season, leading to the Pilot of the Year award.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "pilot-spotlight"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-thebob-dcl-2025-rookie-of-the-year",
-    "briefSlug": "thebob-dcl-2025-rookie-of-the-year",
-    "title": "TheBoB: Wild Card Team's 2025 DCL Rookie of the Year",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-      "pilot-spotlight"
-    ],
-    "seo": {
-      "slug": "thebob-dcl-2025-rookie-of-the-year",
-      "metaDescription": "Showcase TheBoB's breakthrough performance in the 2025 DCL season, earning the Rookie of the Year title.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "pilot-spotlight"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-dcl-2025-season-review-2026-outlook",
-    "briefSlug": "dcl-2025-season-review-2026-outlook",
-    "title": "DCL 2025 Season Review and Anticipation for 2026",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
-      "league-news"
-    ],
-    "seo": {
-      "slug": "dcl-2025-season-review-2026-outlook",
-      "metaDescription": "Summarize the key highlights of the 2025 DCL season, including the three Cups and real-life events, and tease future plans for 2026.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "league-news"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-street-league-season-v-2026-races-announced",
-    "briefSlug": "street-league-season-v-2026-races-announced",
-    "title": "Street League Announces Season V and Upcoming 2026 Races",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.streetleague.io/",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "street-league-season-v-2026-races-announced",
-      "metaDescription": "Highlight the announcement of Season V and the specific dates for the first confirmed races in 2026, along with current series updates.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-street-league-spec-upcoming-races-empty",
-    "briefSlug": "street-league-spec-upcoming-races-empty",
-    "title": "Street League Spec: Upcoming Races Section Currently Empty",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.streetleague.io/races",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "street-league-spec-upcoming-races-empty",
-      "metaDescription": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
-  },
-  {
-    "id": "racing-street-league-spec-pilot-resources",
-    "briefSlug": "street-league-spec-pilot-resources",
-    "title": "Street League Spec Offers Comprehensive Resources for Pilots",
-    "category": "Racing",
-    "status": "queued",
-    "topic": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
-    "language": "en",
-    "template": "tech-article",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.streetleague.io/races",
-      "resources"
-    ],
-    "seo": {
-      "slug": "street-league-spec-pilot-resources",
-      "metaDescription": "Highlighting the availability of official rules, build guides, and how-to videos for Street League Spec participants.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "resources"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-06T16:20:19Z"
   },
   {
     "id": "brief-fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security-mpv65d2i",

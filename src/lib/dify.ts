@@ -23,7 +23,7 @@ const mockData: DifyResponse[] = [
     },
     affiliateLink: 'https://amazon.com/fpv-frame',
     price: '$79.99',
-    imageUrl: 'https://picsum.photos/seed/droneframe/800/600',
+    imageUrl: '/api/content/media/cover/drone-frame-reference',
   },
   {
     id: 'ai-2',
@@ -37,7 +37,7 @@ const mockData: DifyResponse[] = [
     },
     affiliateLink: 'https://github.com/neuroflight',
     price: '$15/mo',
-    imageUrl: 'https://picsum.photos/seed/aisoftware/800/600',
+    imageUrl: '/api/content/media/cover/ai-pid-autotuner',
   },
   {
     id: 'guide-3',
@@ -51,7 +51,7 @@ const mockData: DifyResponse[] = [
     },
     affiliateLink: 'https://udemy.com/fpv-masterclass',
     price: 'Free',
-    imageUrl: 'https://picsum.photos/seed/fpvflip/800/600',
+    imageUrl: '/api/content/media/cover/matty-flip-guide',
   },
   {
     id: 'fpv-4',
@@ -65,7 +65,7 @@ const mockData: DifyResponse[] = [
     },
     affiliateLink: 'https://amazon.com/dji-o3',
     price: '$229.00',
-    imageUrl: 'https://picsum.photos/seed/djio3/800/600',
+    imageUrl: '/api/content/media/cover/dji-o3-air-unit',
   }
 ];
 

@@ -467,3 +467,13 @@ Created:
 - **Yasal Sayfalar Entegrasyonu (Affiliate Hazırlığı):** Affiliate ağlarının onay koşullarını karşılamak adına `/privacy` (Privacy Policy), `/terms` (Terms of Service) ve `/disclosure` (Affiliate Disclosure - Amazon Associates uyarı metni dahil) yasal sayfaları oluşturuldu, `SiteFooter.tsx` navigasyonu güncellendi.
 - **Derleme Testleri:** TypeScript tip kontrolleri (`npx tsc --noEmit`) ve production build (`npm run build`) 107 sayfa için sıfır hatayla başarıyla tamamlandı. Tüm güncellemeler commit ve push edildi.
 - **Canlıya Dağıtım Durumu (Kritik):** Yapılan audit çözümleri ve yasal sayfa entegrasyonları **canlıya (production) henüz deploy edilmemiştir**. Kodlar Git'te günceldir ancak canlı sunuculardaki dağıtım adımı beklemededir.
+
+### 2026-06-14 Crawl Görsel Politikası ve Kalıcı Yayın Deposu
+
+- **Net Medya Politikası:** External görseller topluca yasak değildir. Crawl edilen özgün FPV kaynak görselleri; `sourceUrl`, hostname, attribution ve lisans sınıflandırması korunarak kullanılmaya devam eder.
+- **Yasaklı Genel Stok Kaynakları:** Yalnızca Unsplash, Pexels ve Picsum yayın havuzundan çıkarılır. İlgili denylist `crawl-image-license.ts` içindedir ve `npm run media:audit` ile runtime kaynakları denetlenir.
+- **Fallback:** Uygun crawl görseli bulunamazsa üçüncü taraf stok yerine `/api/content/media/cover/[slug]` üzerinden yerel ve deterministik FPVLovers kapağı kullanılır.
+- **Published Artifact Dayanıklılığı:** Yeni yayınlar filesystem yanında `fpvlovers_app.published_articles_shadow` tablosuna da upsert edilir. Async okuyucular dosya ve PostgreSQL artefaktlarını birleştirir; production container yenilendiğinde cron ile üretilen içerik kaybolmaz.
+- **Queue Dayanıklılığı:** `dual` modda content job dosyası ve DB kayıtları `id` bazında birleştirilir; en güncel `updatedAt` kazanır.
+- **Test İzolasyonu:** `content:smoke` artık geçici dizinde çalışır ve gerçek `data/content-jobs.json` kuyruğunu temizlemez.
+- **Production Snapshot:** Canlıda üretilmiş 7 eksik makale ve güncel job snapshot'ı Git çalışma ağacına senkronize edildi. Toplam 109 yayın artefaktı auditten geçti.

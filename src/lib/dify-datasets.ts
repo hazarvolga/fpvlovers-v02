@@ -76,7 +76,7 @@ export async function getHardwareData(): Promise<{ summary: string; hardware: Ha
       description: cleanSegment(segment) || `${doc.tokens || 0} tokens from ${sourceUrl}`,
       price: "Free",
       url: sourceUrl || "#",
-      image: "https://picsum.photos/seed/" + doc.id + "/800/600",
+      image: `/api/content/media/cover/${encodeURIComponent(doc.id)}`,
       tag: meta.tag || "Reference",
       tokens: doc.tokens || 0,
     });
@@ -85,7 +85,7 @@ export async function getHardwareData(): Promise<{ summary: string; hardware: Ha
   if (items.length === 0) {
     return {
       summary: `FPV hardware reference active. fpv-components-specs: ${docs.length} docs (${completed.length} ready).`,
-      hardware: [{ title: "FPV Reference Library", description: `${docs.length} documents loaded.`, price: "Free", url: "#", image: "https://picsum.photos/seed/fpv-parts/800/600", tag: "DATASET" }],
+      hardware: [{ title: "FPV Reference Library", description: `${docs.length} documents loaded.`, price: "Free", url: "#", image: "/api/content/media/cover/fpv-reference-library", tag: "DATASET" }],
     };
   }
 

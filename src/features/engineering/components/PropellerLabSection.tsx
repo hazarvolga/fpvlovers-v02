@@ -18,7 +18,7 @@ export function PropellerLabSection() {
       <div className="border border-[#5b4137] bg-[#0e0e0e] p-1 relative overflow-hidden group">
         <div className="relative aspect-[21/9] w-full overflow-hidden">
           <Image
-            src="https://picsum.photos/seed/propeller-lab/1200/520"
+            src="/api/content/media/cover/propeller-lab"
             alt="Propeller cross-section and thrust vector illustration"
             fill
             className="object-cover opacity-60 grayscale contrast-125 mix-blend-screen group-hover:opacity-70 group-hover:grayscale-0 transition-all duration-700"

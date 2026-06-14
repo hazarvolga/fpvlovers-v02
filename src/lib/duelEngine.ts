@@ -65,7 +65,7 @@ export async function getDuelComparison(productAId: string, productBId: string) 
       id: "motor-tmotor-f60",
       name: "F60 Pro IV KV1750",
       brand: "T-Motor",
-      imageUrl: "https://picsum.photos/seed/tmotor/400/400",
+      imageUrl: "/api/content/media/cover/t-motor-f60-pro-iv",
       price: "$29.99",
       fomoAlert: "Only 4 left at Banggood!",
       specs: {
@@ -85,7 +85,7 @@ export async function getDuelComparison(productAId: string, productBId: string) 
       id: "motor-xnova-2207",
       name: "Freestyle 2207 KV1800",
       brand: "XNOVA",
-      imageUrl: "https://picsum.photos/seed/xnova/400/400",
+      imageUrl: "/api/content/media/cover/xnova-freestyle-2207",
       price: "$28.50",
       fomoAlert: "Flash Sale ending in 2h!",
       specs: {
@@ -110,7 +110,7 @@ export async function getDuelComparison(productAId: string, productBId: string) 
       upsell: {
         name: "RCINPOWER Wasp Major 22.6-6.5",
         reason: "If you want true bando-bashing durability with the smoothness of XNOVA, the Wasp Major is 15% more expensive but practically indestructible.",
-        imageUrl: "https://picsum.photos/seed/rcinpower/300/300",
+        imageUrl: "/api/content/media/cover/rcinpower-wasp-major",
         url: "#"
       }
    };

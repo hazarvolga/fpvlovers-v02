@@ -34,11 +34,19 @@ const OPEN_HOSTS = [
   'upload.wikimedia.org',
   'creativecommons.org',
   'openverse.org',
+];
+
+const STOCK_HOSTS = [
   'images.pexels.com',
   'pexels.com',
   'unsplash.com',
   'images.unsplash.com',
+  'picsum.photos',
 ];
+
+export function isGenericStockImage(image: Pick<HarvestedImage, 'hostname'>): boolean {
+  return hostMatches(image.hostname, STOCK_HOSTS);
+}
 
 /**
  * Path fragments that signal an image lives in an official press / media kit,
@@ -61,6 +69,10 @@ function hostMatches(hostname: string, candidates: string[]): boolean {
 export function classifyImageLicense(image: HarvestedImage): LicensedImage {
   const src = image.src.toLowerCase();
   const sourceUrl = image.sourceUrl.toLowerCase();
+
+  if (isGenericStockImage(image)) {
+    return decorate(image, 'attribution-only', `Generic stock source rejected (${image.hostname})`);
+  }
 
   if (hostMatches(image.hostname, OPEN_HOSTS)) {
     return decorate(image, 'open', `Open-licensed host (${image.hostname})`);

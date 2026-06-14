@@ -1,4 +1,4 @@
-import { listPublishedContent } from '@/lib/content-automation/content-reader';
+import { listPublishedContentAsync } from '@/lib/content-automation/content-reader';
 import { loadContentJobsAsync } from '@/lib/server/content-jobs-store';
 import { getStorageMode } from '@/lib/server/storage-mode';
 
@@ -61,7 +61,7 @@ export async function GET() {
 
   // 2. Load slugs from filesystem as well (ensuring local files + committed guides are in sitemap)
   try {
-    const fileArticles = listPublishedContent();
+    const fileArticles = await listPublishedContentAsync();
     for (const article of fileArticles) {
       if (article.slug) slugsSet.add(article.slug);
     }
