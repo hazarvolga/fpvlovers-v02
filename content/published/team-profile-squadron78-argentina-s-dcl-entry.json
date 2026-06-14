@@ -53,16 +53,8 @@
       "Drone in open airspace with sky and terrain context",
       "FPV racing gates and high-visibility track flags outdoors"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "https://unsplash.com/s/photos/drone-racing",
-      "https://unsplash.com/s/photos/racing-flags"
-    ],
-    "attribution": [
-      "Photo by UMUT on Pexels",
-      "Photo on Unsplash",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:53:56.912Z",

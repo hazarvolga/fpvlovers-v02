@@ -53,16 +53,8 @@
       "Electronic circuit board detail used for diagnostics and repair",
       "Close-up photo of an FPV racing drone with an action camera"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/a-person-using-a-soldering-iron-on-a-printed-circuit-board-9241777/",
-      "https://unsplash.com/s/photos/electronics-repair",
-      "https://www.pexels.com/photo/close-up-shot-of-a-drone-12888404/"
-    ],
-    "attribution": [
-      "Photo by Mikhail Nilov on Pexels",
-      "Photo on Unsplash",
-      "Photo by FLYANDI FPV on Pexels"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:45:41.440Z",

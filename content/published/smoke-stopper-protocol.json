@@ -53,16 +53,8 @@
       "FPV engineers collaborating and constructing a custom drone frame",
       "FPV drone and controller prepared before a flight"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/close-up-shot-of-a-drone-12888404/",
-      "https://unsplash.com/s/photos/team-engineering",
-      "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/"
-    ],
-    "attribution": [
-      "Photo by FLYANDI FPV on Pexels",
-      "Photo on Unsplash",
-      "Photo on Pexels"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:15:27.180Z",

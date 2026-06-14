@@ -54,14 +54,10 @@
       "FPV drone and controller prepared before a flight"
     ],
     "imageSources": [
-      "Local PNG illustration generated from the published content metadata",
-      "https://unsplash.com/s/photos/fpv-drone",
-      "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/"
+      "Local PNG illustration generated from the published content metadata"
     ],
     "attribution": [
-      "Copyright-safe raster media generated locally by FPVLovers",
-      "Photo on Unsplash",
-      "Photo on Pexels"
+      "Copyright-safe raster media generated locally by FPVLovers"
     ]
   },
   "jobStatus": "published",

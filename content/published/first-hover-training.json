@@ -53,16 +53,8 @@
       "FPV-style drone photographed outdoors before flight",
       "Stunning aerial view of mountains and rivers from an FPV flight"
     ],
-    "imageSources": [
-      "https://unsplash.com/s/photos/fpv-drone",
-      "https://unsplash.com/s/photos/fpv-drone",
-      "https://unsplash.com/photos/aerial-view-of-green-forest-and-river-1c8408f9f108"
-    ],
-    "attribution": [
-      "Photo on Unsplash",
-      "Photo on Unsplash",
-      "Photo by Matt Seymour on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:11:11.610Z",

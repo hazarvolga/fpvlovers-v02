@@ -53,16 +53,8 @@
       "Stunning aerial view of mountains and rivers from an FPV flight",
       "FPV pilot wearing high-tech video goggles preparing to launch"
     ],
-    "imageSources": [
-      "https://unsplash.com/s/photos/drone-forest",
-      "https://unsplash.com/photos/aerial-view-of-green-forest-and-river-1c8408f9f108",
-      "https://unsplash.com/s/photos/fpv-pilot"
-    ],
-    "attribution": [
-      "Photo on Unsplash",
-      "Photo by Matt Seymour on Unsplash",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T16:38:43.595Z",

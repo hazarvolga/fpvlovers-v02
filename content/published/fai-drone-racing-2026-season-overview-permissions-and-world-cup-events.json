@@ -53,16 +53,8 @@
       "Long-exposure light trails from FPV racing drones on a night track",
       "Action photography of sports gear outdoor on a race track"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "https://unsplash.com/s/photos/light-trails",
-      "https://unsplash.com/s/photos/race-track-action"
-    ],
-    "attribution": [
-      "Photo by UMUT on Pexels",
-      "Photo on Unsplash",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:07:02.545Z",

@@ -61,12 +61,8 @@
       }
     ],
     "figureCaptions": [],
-    "imageSources": [
-      "https://unsplash.com/photos/white-and-blue-abstract-painting-625624792"
-    ],
-    "attribution": [
-      "Photo by Samuel Scrimshaw on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.015Z",

@@ -50,13 +50,8 @@
       }
     ],
     "figureCaptions": [],
-    "imageSources": [
-      "https://www.pexels.com/photo/a-person-using-a-soldering-iron-on-a-printed-circuit-board-9241777/"
-    ],
-    "attribution": [
-      "Photo by Mikhail Nilov on Pexels",
-      "Pexels License"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:22:06.756Z",

@@ -61,12 +61,8 @@
       }
     ],
     "figureCaptions": [],
-    "imageSources": [
-      "https://unsplash.com/photos/glass-transmission-625624792"
-    ],
-    "attribution": [
-      "Photo by John Barker on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.021Z",

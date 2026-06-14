@@ -53,16 +53,8 @@
       "FPV racing gates and high-visibility track flags outdoors",
       "Long-exposure light trails from FPV racing drones on a night track"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "https://unsplash.com/s/photos/racing-flags",
-      "https://unsplash.com/s/photos/light-trails"
-    ],
-    "attribution": [
-      "Photo by UMUT on Pexels",
-      "Photo on Unsplash",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:23:54.270Z",

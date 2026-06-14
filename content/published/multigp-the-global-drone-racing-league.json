@@ -53,16 +53,8 @@
       "Close-up of a racing pilot looking through goggles with absolute focus",
       "Drone in open airspace with sky and terrain context"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "https://unsplash.com/s/photos/focus-pilot",
-      "https://unsplash.com/s/photos/drone-racing"
-    ],
-    "attribution": [
-      "Photo by UMUT on Pexels",
-      "Photo on Unsplash",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:27:03.234Z",

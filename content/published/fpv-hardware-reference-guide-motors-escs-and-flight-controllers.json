@@ -53,16 +53,8 @@
       "Close-up photo of an FPV racing drone with an action camera",
       "Modern FPV video goggles and VR hardware on a tech desk"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/a-drone-controller-9182733/",
-      "https://www.pexels.com/photo/close-up-shot-of-a-drone-12888404/",
-      "https://unsplash.com/s/photos/vr-goggles"
-    ],
-    "attribution": [
-      "Photo by Erik Mclean on Pexels",
-      "Photo by FLYANDI FPV on Pexels",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T16:40:32.641Z",

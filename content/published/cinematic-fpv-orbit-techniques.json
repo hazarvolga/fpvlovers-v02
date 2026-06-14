@@ -53,16 +53,8 @@
       "FPV pilot wearing high-tech video goggles preparing to launch",
       "Drone flying outdoors over an open landscape"
     ],
-    "imageSources": [
-      "https://unsplash.com/s/photos/drone-forest",
-      "https://unsplash.com/s/photos/fpv-pilot",
-      "https://unsplash.com/s/photos/fpv-drone"
-    ],
-    "attribution": [
-      "Photo on Unsplash",
-      "Photo on Unsplash",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:22:43.678Z",

@@ -53,16 +53,8 @@
       "FPV pilot wearing high-tech video goggles preparing to launch",
       "Creative perspective of a drone flying through a dense forest canopy"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/a-man-wearing-goggles-and-controlling-a-drone-17841003/",
-      "https://unsplash.com/s/photos/fpv-pilot",
-      "https://unsplash.com/s/photos/drone-forest"
-    ],
-    "attribution": [
-      "Photo by UMUT on Pexels",
-      "Photo on Unsplash",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:13:30.982Z",

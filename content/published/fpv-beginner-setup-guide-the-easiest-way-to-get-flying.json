@@ -53,16 +53,8 @@
       "FPV-style drone photographed outdoors before flight",
       "FPV pilot wearing goggles and holding a drone controller outdoors"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/a-drone-and-a-drone-controller-14828474/",
-      "https://unsplash.com/s/photos/fpv-drone",
-      "https://www.pexels.com/photo/a-man-wearing-goggles-and-controlling-a-drone-17841003/"
-    ],
-    "attribution": [
-      "Photo on Pexels",
-      "Photo on Unsplash",
-      "Photo by UMUT on Pexels"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:48:54.436Z",

@@ -53,16 +53,8 @@
       "Drone in open airspace with sky and terrain context",
       "Drone flying outdoors over an open landscape"
     ],
-    "imageSources": [
-      "https://www.pexels.com/photo/fpv-drone-with-action-camera-on-road-30382834/",
-      "https://unsplash.com/s/photos/drone-racing",
-      "https://unsplash.com/s/photos/fpv-drone"
-    ],
-    "attribution": [
-      "Photo by UMUT on Pexels",
-      "Photo on Unsplash",
-      "Photo on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:47:25.701Z",

@@ -61,12 +61,8 @@
       }
     ],
     "figureCaptions": [],
-    "imageSources": [
-      "https://unsplash.com/photos/a-computer-screen-with-a-graph-on-it-625624792"
-    ],
-    "attribution": [
-      "Photo by Luke Chesser on Unsplash"
-    ]
+    "imageSources": [],
+    "attribution": []
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.009Z",
