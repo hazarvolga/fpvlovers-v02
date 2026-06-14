@@ -12,6 +12,22 @@ export function extractYoutubeId(url: string): string | null {
   return (match && match[7].length === 11) ? match[7] : null;
 }
 
+async function tryFetchTranscript(videoId: string): Promise<Awaited<ReturnType<typeof YoutubeTranscript.fetchTranscript>>> {
+  try {
+    return await YoutubeTranscript.fetchTranscript(videoId);
+  } catch {
+    const autoGenLangs = ['en', 'en-US', 'en-GB', 'tr', 'de', 'fr', 'es'];
+    for (const lang of autoGenLangs) {
+      try {
+        return await YoutubeTranscript.fetchTranscript(videoId, { lang });
+      } catch {
+        continue;
+      }
+    }
+    throw new Error(`No transcript available for ${videoId} in any language`);
+  }
+}
+
 export async function fetchYoutubeTranscript(url: string): Promise<YoutubeTranscriptResult> {
   const videoId = extractYoutubeId(url);
   if (!videoId) {
@@ -19,12 +35,10 @@ export async function fetchYoutubeTranscript(url: string): Promise<YoutubeTransc
   }
 
   try {
-    const transcriptList = await YoutubeTranscript.fetchTranscript(videoId);
-    
-    // Concatenate all text segments
+    const transcriptList = await tryFetchTranscript(videoId);
+
     const transcript = transcriptList.map(item => item.text).join(' ');
-    
-    // Calculate approximate duration from the last segment
+
     const lastSegment = transcriptList[transcriptList.length - 1];
     const durationMs = lastSegment ? lastSegment.offset + lastSegment.duration : 0;
 
@@ -33,7 +47,8 @@ export async function fetchYoutubeTranscript(url: string): Promise<YoutubeTransc
       transcript,
       durationMs
     };
-  } catch (error: any) {
-    throw new Error(`Failed to fetch transcript: ${error.message}`);
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error);
+    throw new Error(`Failed to fetch transcript: ${msg}`);
   }
 }
