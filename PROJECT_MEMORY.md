@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-06-02
+Last updated: 2026-06-14
 
 ## Current Product Direction
 
@@ -306,6 +306,51 @@ Affiliate links should use `rel="nofollow sponsored"` where applicable.
 - Do not expose internal prompts, admin tokens, embeddings, or Dify keys to the browser.
 - Keep crawler/Dify calls server-side unless a value is intentionally public.
 - For multi-agent work, update `PROJECT_MEMORY.md` for completed work, `NEXT_ACTIONS.md` for the remaining work, and the collaboration protocol for role boundaries and handoff rules.
+
+
+
+### 2026-06-14 GAP Raporu & Kapsamlı Güvenlik/RAG/Monetizasyon Düzeltmeleri
+
+- **GAP Raporu:** `GAP-RAPORU-2026-06-14.md` — 375 satır, 25 bulgu (5 CRITICAL, 8 HIGH, 12 MEDIUM), 4 paralel audit.
+- **Güvenlik Stabilizasyonu (Faz 1):**
+  - 11 Dify token'ı hardcoded → env var (`DIFY_APP_TOKEN_*`, `DIFY_WORKFLOW_TOKEN_*`) — `master-routing-tables.ts`
+  - `NEXT_PUBLIC_GEMINI_API_KEY` → `GEMINI_API_KEY` rename — `auth.config.ts`
+  - 31 admin route'a inline `requireAdmin()` auth guard — `src/lib/server/admin-auth-guard.ts`
+  - Sunucu IP'leri env'e taşındı — `ingest/route.ts`
+  - Token budget mismatch düzeltildi (dosyada 100000, kodda 500 → her zaman 500)
+  - CRON_SECRET bypass kaldırıldı (dev ortamda da zorunlu)
+- **RAG Pipeline Gerçekleştirme (Faz 2):**
+  - `retrieval-orchestrator.ts` — gerçek Dify Dataset API entegrasyonu, `ENABLE_REAL_RAG=true` feature flag
+  - 5 boş dataset için 10 seed URL eklendi — `data/fpv-rag-seeds.manifest.json`
+  - Embedding budget stale data temizlendi
+- **External Image Temizliği:**
+  - `content-media.ts` — tüm Unsplash/Pexels referansları kaldırıldı, sadece `buildCoverImageSvg()` local SVG
+  - `next.config.ts` — picsum/unsplash/pexels domain'leri remotePatterns'ten çıkarıldı
+  - 89 published JSON'dan 427 external referans temizlendi → `/api/content/media/cover/{slug}`
+  - 10+ source dosyadan picsum/unsplash referansları temizlendi
+  - `react-dropzone` eklendi (FlightCriticWidget için)
+  - Kullanılmayan paketler kaldırıldı: `@hookform/resolvers`, `react-hook-form`, `react-is`
+- **Monetizasyon & Validasyon (Faz 3):**
+  - `AffiliateButton.tsx` — tıklama takibi (fire-and-forget POST)
+  - `NativeAds.tsx` — dinamik props tabanlı, hardcoded ürünler kaldırıldı
+  - `ingest/route.ts` — URL allowlist + SSRF koruması
+  - `crawl-queue/route.ts` — input validasyonu
+- **YouTube Transcript Fix:** `youtube-parser.ts` — otomatik altyazı desteği (7 dil fallback: default → en → en-US → en-GB → tr → de → fr → es)
+- **Deploy-Clean Branch Merge:** `src/app/api/analyze-flight/route.ts`, `src/app/category/software/page.tsx`, `src/features/tools/components/FlightCriticWidget.tsx` main'e alındı
+- **View Counter Fix:** `page.tsx` — counter artık `0` değerini de gösteriyor (önceki: sadece >0)
+- **Production Durumu:**
+  - Coolify auto-deploy YOK, manuel deploy gerekiyor
+  - CRAWL_DRY_RUN=false ✅ — crawl embedding yazıyor
+  - ENABLE_REAL_RAG=true ✅ — gerçek Dify Dataset API aktif
+  - Tüm 7 DIFY_APP_TOKEN_* env var'ları Coolify'da tanımlı
+  - DIFY_APP_KEY tanımlandı ✅ — generate çalışıyor
+  - Generate: `lastAction: published` — içerik üretimi aktif, Racing kategorisinde 5+ makale yayınlandı
+  - Crawl: 159 job kuyrukta, 5 dakikada bir çalışıyor
+  - page_view tracking çalışıyor (DB'ye yazıyor)
+  - **Hulyaekiz (161.118.171.201)** — ana sunucu, Coolify + fpvlovers + Crawl4AI
+  - **Aluplan-one (80.225.231.62)** — Dify, affexai app
+- **Restore Points:** `backup/pre-gap-plan-2026-06-14` branch (`ac8ec9f`), `sprint/gap-fixes-round2-2026-06-14` branch
+- **Son Commit:** `e6d24b2` — view counter fix (main'de, manuel deploy bekliyor)
 
 ## Where To Resume
 
