@@ -32,11 +32,11 @@ function ArticleCard({ card, accent = 'cyan' }: { card: HomepageSectionCard; acc
           <Badge variant={accent === 'orange' ? 'amber' : 'default'}>{card.category}</Badge>
           <span className="font-mono text-xs text-[#77736d] flex items-center gap-1.5">
             <span>{card.readingTime}</span>
-            {card.views && card.views > 0 ? (
+            {(card.views !== undefined && card.views !== null) ? (
               <>
-                <span className="text-zinc-700">•</span>
+                <span className="text-zinc-700">&bull;</span>
                 <Eye className="h-3.5 w-3.5 text-[#77736d] opacity-80" />
-                <span className="text-[11px] text-[#77736d]">{card.views}</span>
+                <span className="text-[11px] text-[#77736d]">{card.views ?? 0}</span>
               </>
             ) : null}
           </span>
@@ -175,11 +175,11 @@ export default async function HomePage() {
                     <p className="mt-2 line-clamp-2 text-xs font-mono text-zinc-400">{heroCard.excerpt}</p>
                     <div className="mt-3 flex items-center gap-1.5 font-mono text-[10px] text-zinc-500">
                       <span>{heroCard.readingTime}</span>
-                      {heroCard.views && heroCard.views > 0 ? (
+                      {(heroCard.views !== undefined && heroCard.views !== null) ? (
                         <>
-                          <span className="text-zinc-700">•</span>
+                          <span className="text-zinc-700">&bull;</span>
                           <Eye className="h-3.5 w-3.5 text-zinc-500 opacity-80" />
-                          <span>{heroCard.views}</span>
+                          <span>{heroCard.views ?? 0}</span>
                         </>
                       ) : null}
                     </div>
