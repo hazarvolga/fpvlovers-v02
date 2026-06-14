@@ -5,12 +5,14 @@ import {
   Database, Users, Activity, BarChart2, Download, RefreshCw,
   Settings, Server, Cpu, Command, AlertTriangle, Workflow, ChevronRight, Zap,
   Plus, Globe, Send, Loader2, CheckCircle2, XCircle, Search, Clock, FileText,
-  Pen, Sparkles, ShoppingCart, DollarSign, Trash2, HeartPulse, BadgeDollarSign, LayoutDashboard, PackageSearch
+  Pen, Sparkles, ShoppingCart, DollarSign, Trash2, HeartPulse, BadgeDollarSign, LayoutDashboard, PackageSearch,
+  Youtube
 } from 'lucide-react';
 import SponsorDashboard from '@/features/monetization/components/SponsorDashboard';
 import AnalyticsDashboard from '@/features/admin/components/AnalyticsDashboard';
 import ContentAutomationPanel from '@/components/admin/ContentAutomationPanel';
 import PublishedContentPanel from '@/components/admin/PublishedContentPanel';
+import YoutubeJournalistPanel from '@/components/admin/YoutubeJournalistPanel';
 import NewsletterPanel from '@/features/admin/components/NewsletterPanel';
 import { Button } from '@/components/ui/button';
 import {
@@ -68,7 +70,7 @@ type CrawlerInfo = {
   error?: string;
 };
 
-type TabId = 'hub' | 'ingest' | 'content' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry' | 'newsletter' | 'analytics';
+type TabId = 'hub' | 'ingest' | 'content' | 'youtube' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry' | 'newsletter' | 'analytics';
 
 type Tab = { id: TabId; label: string; icon: React.ElementType };
 
@@ -229,6 +231,7 @@ export default function AdminDashboard() {
         { id: 'hub', label: 'RAG Hub', icon: Database },
         { id: 'ingest', label: 'URL Ingestion', icon: Globe },
         { id: 'content', label: 'Content Gen', icon: Pen },
+        { id: 'youtube', label: 'YouTube Journalist', icon: Youtube },
         { id: 'jobs', label: 'Content Jobs', icon: Workflow },
         { id: 'published', label: 'Published', icon: FileText },
         { id: 'logs', label: 'Crawl Logs', icon: Clock },
@@ -782,6 +785,9 @@ export default function AdminDashboard() {
                   )}
                 </div>
               )}
+
+              {/* YOUTUBE JOURNALIST */}
+              {activeTab === 'youtube' && <YoutubeJournalistPanel />}
 
               {/* CONTENT JOBS */}
               {activeTab === 'jobs' && (

@@ -2,6 +2,16 @@ import { NextResponse } from 'next/server';
 import { generateJournalistArticle } from '@/lib/content-automation/youtube-generator';
 import { parseGeneratedContent } from '@/lib/content-automation/parse-generated-content';
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
+import { getYoutubeJobs } from '@/lib/content-automation/youtube-discovery';
+
+export async function GET() {
+  try {
+    const jobs = getYoutubeJobs();
+    return NextResponse.json({ success: true, jobs });
+  } catch (error: any) {
+    return NextResponse.json({ success: false, error: error.message }, { status: 500 });
+  }
+}
 
 export async function POST(req: Request) {
   try {
