@@ -41,6 +41,7 @@ export const authConfig = {
   },
   session: {
     strategy: "jwt", // Highly optimized Stateless JWT sessions for Edge compatibility
+    maxAge: 3600, // 1 hour token expiration
   },
   trustHost: true, // Necessary for Coolify reverse-proxy domain routing
   callbacks: {

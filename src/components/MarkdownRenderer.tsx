@@ -102,17 +102,54 @@ export function MarkdownRenderer({ content, gallery = [], injectImageAtSections 
               {children}
             </blockquote>
           ),
-          // Anchor
-          a: ({ href, children }) => (
-            <a
-              href={href}
-              target={href?.startsWith('http') ? '_blank' : undefined}
-              rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="text-[#FF5C00] hover:text-[#FF4500] border-b border-[#FF5C00]/30 hover:border-[#FF5C00] transition-colors"
-            >
-              {children}
-            </a>
-          ),
+          // Anchor and Component Interception (Phase 3 Fix)
+          a: ({ href, children }) => {
+            // Safe Component Injection: Intercept special internal links starting with #render:
+            if (href?.startsWith('#render:')) {
+              const componentType = href.split(':')[1];
+              
+              if (componentType === 'telemetry-graph') {
+                return (
+                  <div className="my-8 p-6 rounded-xl border border-[#00F2FF]/30 bg-zinc-950 shadow-[0_0_15px_rgba(0,242,255,0.1)] flex flex-col items-center justify-center not-prose">
+                    <span className="text-[#00F2FF] font-mono text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-[#00F2FF] animate-pulse" />
+                      Live Telemetry Stream
+                    </span>
+                    <div className="w-full h-32 bg-black/50 rounded-lg border border-white/5 relative overflow-hidden">
+                      {/* Placeholder for actual telemetry charts */}
+                      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(0,242,255,0.05)_50%,transparent_100%)] animate-[shimmer_2s_infinite]" />
+                      <div className="absolute bottom-0 w-full h-[1px] bg-[#00F2FF]/30" />
+                      <div className="absolute bottom-0 left-1/4 w-1/2 h-16 border-t border-[#00F2FF] rounded-t-full opacity-50" />
+                    </div>
+                    <p className="mt-4 text-xs text-zinc-500 font-sans text-center">{children}</p>
+                  </div>
+                );
+              }
+              
+              if (componentType === 'callout') {
+                return (
+                  <div className="my-6 p-5 border-l-4 border-[#FFB800] bg-[#FFB800]/10 rounded-r-xl not-prose">
+                    <strong className="block text-[#FFB800] font-bold uppercase tracking-wider text-xs mb-1">
+                      Pilot Briefing
+                    </strong>
+                    <span className="text-zinc-200 text-sm leading-relaxed">{children}</span>
+                  </div>
+                );
+              }
+            }
+
+            // Standard Link
+            return (
+              <a
+                href={href}
+                target={href?.startsWith('http') ? '_blank' : undefined}
+                rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="text-[#FF5C00] hover:text-[#FF4500] border-b border-[#FF5C00]/30 hover:border-[#FF5C00] transition-colors"
+              >
+                {children}
+              </a>
+            );
+          },
           // Collapsible Knowledge Blocks (details / summary)
           details: ({ children }) => (
             <details className="group border border-white/10 bg-zinc-900/50 rounded-lg my-8 overflow-hidden not-prose">

@@ -49,35 +49,65 @@ export async function POST(req: Request) {
     const quizScores = body.quiz_scores || {};
     const specialization = body.current_specialization || "Beginner";
 
-    // Format inputs safely for JSONB mapping
     const stepsJson = JSON.stringify(completedSteps);
     const quizJson = JSON.stringify(quizScores);
 
-    // Bulletproof atomic SQL merge query resolving any concurrent race conditions
-    const upsertQuery = `
-      INSERT INTO fpvlovers_app.pilot_progress (user_id, completed_steps, quiz_scores, current_specialization)
-      VALUES ($1, $2::jsonb, $3::jsonb, $4)
-      ON CONFLICT (user_id) DO UPDATE SET
-        completed_steps = (
-          SELECT COALESCE(jsonb_agg(DISTINCT x), '[]'::jsonb)
-          FROM (
-            SELECT jsonb_array_elements(pilot_progress.completed_steps) x
-            UNION
-            SELECT jsonb_array_elements(EXCLUDED.completed_steps) x
-          ) t
-        ),
-        quiz_scores = pilot_progress.quiz_scores || EXCLUDED.quiz_scores,
-        current_specialization = COALESCE(NULLIF(EXCLUDED.current_specialization, 'Beginner'), pilot_progress.current_specialization),
-        updated_at = NOW()
-      RETURNING completed_steps, quiz_scores, current_specialization;
-    `;
+    // Phase 2 Fix: Use explicit transaction with FOR UPDATE row-level lock 
+    // to prevent JSONB merge race conditions and connection pool exhaustion.
+    const { getClient } = await import("@/lib/server/db");
+    const client = await getClient();
+    
+    try {
+      await client.query("BEGIN");
 
-    const res = await query(upsertQuery, [userId, stepsJson, quizJson, specialization]);
+      // Lock the row for this specific user
+      const existingRes = await client.query(
+        "SELECT completed_steps, quiz_scores, current_specialization FROM fpvlovers_app.pilot_progress WHERE user_id = $1 FOR UPDATE",
+        [userId]
+      );
 
-    return NextResponse.json({
-      success: true,
-      data: res.rows[0],
-    });
+      if (existingRes.rows.length === 0) {
+        // Insert new record
+        const insertRes = await client.query(
+          `INSERT INTO fpvlovers_app.pilot_progress (user_id, completed_steps, quiz_scores, current_specialization)
+           VALUES ($1, $2::jsonb, $3::jsonb, $4)
+           RETURNING completed_steps, quiz_scores, current_specialization;`,
+          [userId, stepsJson, quizJson, specialization]
+        );
+        await client.query("COMMIT");
+        return NextResponse.json({ success: true, data: insertRes.rows[0] });
+      }
+
+      // Deep merge in TypeScript
+      const existing = existingRes.rows[0];
+      const mergedSteps = Array.from(new Set([...(existing.completed_steps || []), ...completedSteps]));
+      const mergedScores = { ...(existing.quiz_scores || {}), ...quizScores };
+      const newSpecialization = specialization !== "Beginner" ? specialization : existing.current_specialization;
+
+      // Update the locked row
+      const updateRes = await client.query(
+        `UPDATE fpvlovers_app.pilot_progress 
+         SET completed_steps = $2::jsonb, 
+             quiz_scores = $3::jsonb, 
+             current_specialization = $4, 
+             updated_at = NOW()
+         WHERE user_id = $1
+         RETURNING completed_steps, quiz_scores, current_specialization;`,
+        [userId, JSON.stringify(mergedSteps), JSON.stringify(mergedScores), newSpecialization]
+      );
+
+      await client.query("COMMIT");
+
+      return NextResponse.json({
+        success: true,
+        data: updateRes.rows[0],
+      });
+    } catch (error) {
+      await client.query("ROLLBACK");
+      throw error;
+    } finally {
+      client.release();
+    }
   } catch (error) {
     console.error("Failed to upsert/merge pilot progress", error);
     return NextResponse.json(

@@ -145,7 +145,7 @@ Generate only valid JSON with:
 - publish_notes
 
 Rules:
-- Language: ${titleLanguage(input.language)}
+- Language: English (STRICTLY ENGLISH, NEVER TURKISH)
 - Technical terms stay in English
 - ${config.safety ? 'Include relevant safety warnings where appropriate.' : 'No safety warning section required.'}
 - ${config.affiliate !== 'zero' ? `Affiliate density: ${config.affiliate}. Include product CTAs naturally.` : 'Do not include affiliate links in this content type.'}
@@ -234,7 +234,8 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
   const keyword = input.brief?.primaryKeyword || input.topic;
   const contentType = WORKFLOW_CONTENT_TYPES[template];
   const wordCount = Number.isFinite(input.wordCount) && (input.wordCount as number) > 0 ? Math.round(input.wordCount as number) : 1500;
-  const workflowKeyword = input.customPrompt ? `${keyword} | ${input.customPrompt}` : keyword;
+  const baseKeyword = input.customPrompt ? `${keyword} | ${input.customPrompt}` : keyword;
+  const workflowKeyword = `${baseKeyword} | CRITICAL: The entire article MUST be written in strictly English. DO NOT USE TURKISH.`;
 
   const appKey = getRequiredEnv('DIFY_APP_KEY');
   const resp = await fetch(`${BASE}/workflows/run`, {

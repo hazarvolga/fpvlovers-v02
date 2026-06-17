@@ -207,7 +207,7 @@ export default async function HomePage() {
       </section>
 
       <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Featured Guides" href="/#guides" icon={BookOpen} />
+        <SectionHeading title="Featured Guides" href="/category/flight-guides" icon={BookOpen} />
         {featuredGuideCards.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {featuredGuideCards.map((card) => (

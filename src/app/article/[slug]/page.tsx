@@ -62,10 +62,11 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-        <article className="lg:col-span-8 col-span-1 border border-white/5 bg-zinc-950 rounded-xl overflow-hidden shadow-2xl">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <article className="relative hex-panel glass-panel overflow-hidden lg:col-span-8 col-span-1 border-[#00F2FF]/20 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] bg-[#050810]/70 rounded-lg">
+          <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
           {a.media?.coverImage?.src && (
-            <div className="relative w-full h-[360px] md:h-[420px] border-b border-white/10">
+            <div className="relative w-full h-[360px] md:h-[420px] border-b border-[#00F2FF]/20">
               <Image
                 src={a.media.coverImage.src}
                 alt={a.media.coverImage.alt || a.title}
@@ -73,10 +74,11 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
                 sizes="(min-width: 1024px) 66vw, 100vw"
                 unoptimized={true}
                 className="object-cover"
+                referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-[#050810]/40 to-transparent" />
               <div className="absolute top-6 left-6 z-10">
-                <span className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-zinc-900/80 backdrop-blur-md border border-white/10 text-zinc-300 rounded">
+                <span className="text-[10px] uppercase font-black tracking-widest px-3 py-1 bg-black/80 backdrop-blur-md border border-[#00F2FF]/50 text-[#00F2FF] rounded">
                   {a.category || 'Article'}
                 </span>
               </div>
@@ -92,82 +94,88 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
               )}
             </div>
           )}
-          <div className="p-8 md:p-12 lg:p-16 pt-12 relative z-10">
+          <div className={`p-8 md:p-12 lg:p-16 ${!a.media?.coverImage?.src ? 'pt-12' : 'relative z-10 -mt-20'} relative z-10`}>
             <div className="flex items-center gap-2 mb-6">
-              <span className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-zinc-900 border border-white/10 text-zinc-300 rounded">
+              <span className="text-[10px] uppercase font-black tracking-widest px-3 py-1 bg-black/80 border border-[#00F2FF]/30 text-[#00F2FF] rounded">
                 {a.category || 'Article'}
               </span>
-              <span className="text-[10px] uppercase font-bold tracking-widest px-3 py-1 bg-[#00FF66]/10 border border-[#00FF66]/20 text-[#00FF66] rounded">
-                Published
+              <span className="text-[10px] uppercase font-black tracking-widest px-3 py-1 bg-[#00FF66]/10 border border-[#00FF66]/20 text-[#00FF66] rounded flex items-center gap-1.5">
+                <Shield className="w-3 h-3" /> PUBLISHED
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-zinc-100 mb-6 leading-[1.1]">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white mb-6 leading-tight">
               {a.title}
             </h1>
 
             {a.excerpt && (
-              <p className="text-xl md:text-2xl text-zinc-400 mb-10 pb-8 border-b border-white/10 font-sans leading-relaxed">
+              <p className="text-xl md:text-2xl font-bold tracking-tight text-white/90 mb-10 pb-8 border-b border-[#00F2FF]/20">
                 {a.excerpt}
               </p>
             )}
 
-            <div className="flex items-center gap-4 text-xs font-mono uppercase tracking-widest text-zinc-500 mb-12">
-              <span className="flex items-center gap-2"><FileText className="w-4 h-4 text-[#FF5C00]" /> Editorial</span>
+            <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-12 pb-6 border-b border-[#00F2FF]/20">
+              <span className="flex items-center gap-1.5"><Cpu className="w-3 h-3" /> FPVLOVERS DATASTREAM</span>
               {a.publishedAt && (
                 <span>{new Date(a.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               )}
             </div>
 
             {/* Loop through sections and render inline */}
-            {(a.bodySections || []).map((section, idx) => (
-              <div key={section.id || `sec-${idx}`} className="mb-14">
-                <h2 className="text-3xl font-bold text-zinc-100 mt-12 mb-6 tracking-tight">
-                  {section.title}
-                </h2>
-                
-                <MarkdownRenderer content={section.content} />
+            <div className="prose prose-invert max-w-none text-white/70 antialiased leading-relaxed mb-12 prose-headings:text-white prose-a:text-[#00F5FF]">
+              {(a.bodySections || []).map((section, idx) => (
+                <div key={section.id || `sec-${idx}`} className="mb-14">
+                  <h2 className="text-3xl font-black uppercase tracking-tight text-white mt-12 mb-6">
+                    {section.title}
+                  </h2>
+                  
+                  <MarkdownRenderer content={section.content} />
 
-                {section.imageMatch?.src && (
-                  <figure className="my-10 overflow-hidden rounded-xl border border-white/5 bg-zinc-900 not-prose p-1">
-                    <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg">
-                        <Image
-                          src={section.imageMatch.src}
-                          alt={section.imageMatch.alt || section.title}
-                          fill
-                          sizes="(min-width: 1024px) 66vw, 100vw"
-                          unoptimized={true}
-                          className="object-cover"
-                        />
-                      </div>
-                      {(section.imageMatch.caption || section.imageMatch.credit) && (
-                        <figcaption className="p-4 text-[11px] text-zinc-500 font-mono flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-t border-white/5 mt-1">
-                          <span>{section.imageMatch.caption || section.imageMatch.alt}</span>
-                          {section.imageMatch.credit && (
-                            <div className="flex items-center gap-3 flex-wrap">
-                              <span>{section.imageMatch.credit}</span>
-                              {section.imageMatch.sourceUrl && (
-                                <a
-                                  href={section.imageMatch.sourceUrl}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="text-[#FF5C00] hover:text-[#FF4500] transition-colors uppercase tracking-widest font-bold"
-                                >
-                                  [ View Source ]
-                                </a>
-                              )}
-                            </div>
-                          )}
-                        </figcaption>
-                      )}
-                    </figure>
-                )}
-              </div>
-            ))}
+                  {section.imageMatch?.src && (
+                    <figure className="my-10 overflow-hidden rounded-xl border border-[#00F2FF]/20 bg-[#050810] not-prose p-1 shadow-[0_0_30px_rgba(0,242,255,0.1)] relative">
+                      <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />
+                      <div className="relative w-full aspect-[16/9] overflow-hidden rounded-lg">
+                          <Image
+                            src={section.imageMatch.src}
+                            alt={section.imageMatch.alt || section.title}
+                            fill
+                            sizes="(min-width: 1024px) 66vw, 100vw"
+                            unoptimized={true}
+                            className="object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                        {(section.imageMatch.caption || section.imageMatch.credit) && (
+                          <figcaption className="p-4 text-[10px] text-[#A0A0A0] font-mono flex flex-col md:flex-row md:items-center md:justify-between gap-2 border-t border-[#00F2FF]/20 mt-1 relative z-10 bg-black/40">
+                            <span className="uppercase tracking-widest">{section.imageMatch.caption || section.imageMatch.alt}</span>
+                            {section.imageMatch.credit && (
+                              <div className="flex items-center gap-3 flex-wrap">
+                                <span>{section.imageMatch.credit}</span>
+                                {section.imageMatch.sourceUrl && (
+                                  <a
+                                    href={section.imageMatch.sourceUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[#00F2FF] hover:text-[#00FF66] transition-colors uppercase tracking-widest font-black"
+                                  >
+                                    [ View Source ]
+                                  </a>
+                                )}
+                              </div>
+                            )}
+                          </figcaption>
+                        )}
+                      </figure>
+                  )}
+                </div>
+              ))}
+            </div>
 
             {a.internalLinks?.length > 0 && (
-              <div className="border-t border-white/10 pt-8 mt-12">
-                <h3 className="text-xs uppercase font-bold tracking-widest text-zinc-500 mb-6">Related Content</h3>
+              <div className="border-t border-[#00F2FF]/20 pt-8 mt-12">
+                <h3 className="text-[10px] uppercase font-black tracking-widest text-[#00F2FF] mb-6 flex items-center gap-2">
+                  <Zap className="w-4 h-4" /> RELATED DATABANKS
+                </h3>
                 <div className="flex flex-wrap gap-3">
                   {a.internalLinks.map((link: string, i: number) => {
                     const slug = link.split('/').pop() || link;
@@ -177,7 +185,7 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
                       .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
                       .join(' ');
                     return (
-                      <Link key={i} href={link.startsWith('/') ? link : `/${link}`} className="text-xs font-mono text-zinc-400 hover:text-zinc-100 transition-colors px-4 py-2 border border-white/10 hover:border-white/30 rounded-lg bg-zinc-900 uppercase tracking-widest">
+                      <Link key={i} href={link.startsWith('/') ? link : `/${link}`} className="text-[10px] font-black text-white/70 hover:text-[#00F2FF] transition-colors px-4 py-2 border border-white/10 hover:border-[#00F2FF]/50 rounded bg-black/40 uppercase tracking-widest shadow-[0_0_15px_rgba(0,242,255,0)] hover:shadow-[0_0_15px_rgba(0,242,255,0.2)]">
                         {label}
                       </Link>
                     );
