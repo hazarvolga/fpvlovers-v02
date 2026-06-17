@@ -126,7 +126,7 @@ async function realRetrieval(query: string, config: RetrievalConfig): Promise<Re
     const isPrimary = config.primaryDatasets.includes(dsName);
 
     try {
-      const response = await fetch(`${baseUrl}/datasets/${datasetId}/documents/search`, {
+      const response = await fetch(`${baseUrl}/datasets/${datasetId}/document/search`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,

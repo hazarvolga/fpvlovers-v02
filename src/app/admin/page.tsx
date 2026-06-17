@@ -160,7 +160,9 @@ export default function AdminDashboard() {
   const [budget, setBudget] = useState<any>(null);
 
   const fetchBudget = useCallback(async () => {
-    try { const r = await fetch('/api/admin/budget'); setBudget(await r.json()); } catch {}
+    try { const r = await fetch('/api/admin/budget'); setBudget(await r.json()); } catch (err: unknown) {
+      console.error('[AdminPage] Error fetching budget:', err instanceof Error ? err.message : String(err));
+    }
   }, []);
   const [affiliates, setAffiliates] = useState<any[]>([]);
   const [affProduct, setAffProduct] = useState('');
@@ -269,7 +271,9 @@ export default function AdminDashboard() {
       const resp = await fetch('/api/admin/logs');
       const data = await resp.json();
       setLogs(data.logs || []);
-    } catch {}
+    } catch (err: unknown) {
+      console.error('[AdminPage] Error fetching logs:', err instanceof Error ? err.message : String(err));
+    }
     setLogsLoading(false);
   }, []);
 
@@ -303,7 +307,9 @@ export default function AdminDashboard() {
         body: JSON.stringify({ query: retrievalQuery }),
       });
       setRetrievalResult(await resp.json());
-    } catch {}
+    } catch (err: unknown) {
+      console.error('[AdminPage] Error in retrieval test:', err instanceof Error ? err.message : String(err));
+    }
     setRetrievalLoading(false);
   };
 

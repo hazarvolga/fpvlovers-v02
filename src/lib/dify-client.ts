@@ -60,16 +60,16 @@ function loadBudget(): EmbeddingBudget {
   };
   try {
     if (fs.existsSync(USAGE_FILE)) {
-      const saved = safeReadJson<any>(USAGE_FILE, null);
-      if (saved.reset_at?.split('T')[0] !== today) return fallback;
-      return { ...fallback, ...saved, daily_limit: DAILY_LIMIT };
+      return JSON.parse(fs.readFileSync(USAGE_FILE, 'utf-8'));
     }
-  } catch {}
+  } catch (err: unknown) {
+    console.error('[DifyClient] Unexpected error:', err instanceof Error ? err.message : String(err));
+  }
   return fallback;
 }
 
 function saveBudget(b: EmbeddingBudget) {
-  try { fs.writeFileSync(USAGE_FILE, JSON.stringify(b, null, 2)); } catch {}
+  try { fs.writeFileSync(USAGE_FILE, JSON.stringify(b, null, 2)); } catch (err: unknown) { console.error('[DifyClient] Unexpected error:', err instanceof Error ? err.message : String(err)); }
 }
 
 function logBudget(entry: BudgetLogEntry) {
@@ -79,7 +79,9 @@ function logBudget(entry: BudgetLogEntry) {
     logs.unshift(entry);
     if (logs.length > 200) logs = logs.slice(0, 200);
     fs.writeFileSync(BUDGET_LOG, JSON.stringify(logs, null, 2));
-  } catch {}
+  } catch (err: unknown) {
+    console.error('[DifyClient] Unexpected error:', err instanceof Error ? err.message : String(err));
+  }
 }
 
 function estimateTokens(body: any): number {
@@ -337,7 +339,7 @@ export async function difyRequest(
 
     if (resp.ok) {
       let data: any = { ok: true };
-      try { data = await resp.json(); } catch {}
+      try { data = await resp.json(); } catch (err: unknown) { console.error('[DifyClient] Unexpected error:', err instanceof Error ? err.message : String(err)); }
       logBudget({ ts: new Date().toISOString(), endpoint, method, status: 'success', duration_ms: duration, tokens: estTokens });
 
       const budget = loadBudget();
@@ -399,7 +401,9 @@ export function getBudgetLogs(limit = 20): BudgetLogEntry[] {
       const logs = safeReadJson<any>(BUDGET_LOG, null);
       return logs.slice(0, limit);
     }
-  } catch {}
+  } catch (err: unknown) {
+    console.error('[DifyClient] Unexpected error:', err instanceof Error ? err.message : String(err));
+  }
   return [];
 }
 

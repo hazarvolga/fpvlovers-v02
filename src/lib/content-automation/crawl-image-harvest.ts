@@ -218,12 +218,13 @@ export async function harvestImagesFromDatabase(hints: string[]): Promise<Harves
   if (urls.length === 0 && domains.length === 0) return [];
 
   // Support SSH tunnel redirect: local dev connects via 127.0.0.1:5435
+  const primaryDbHost = process.env.SERVER_POSTGRES ? process.env.SERVER_POSTGRES.split(':')[0] : '80.225.231.62';
   const host =
-    process.env.DB_HOST === '80.225.231.62' && process.env.NODE_ENV !== 'production'
+    process.env.DB_HOST === primaryDbHost && process.env.NODE_ENV !== 'production'
       ? '127.0.0.1'
       : process.env.DB_HOST;
   const port =
-    process.env.DB_HOST === '80.225.231.62' && process.env.NODE_ENV !== 'production'
+    process.env.DB_HOST === primaryDbHost && process.env.NODE_ENV !== 'production'
       ? 5435
       : parseInt(process.env.DB_PORT || '5432', 10);
 

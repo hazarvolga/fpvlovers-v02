@@ -57,9 +57,23 @@ function isValidUrl(url: string): boolean {
   try {
     const parsed = new URL(url);
     if (!['http:', 'https:'].includes(parsed.protocol)) return false;
-    if (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1') return false;
-    return ALLOWED_DOMAINS.some(d => parsed.hostname === d || parsed.hostname.endsWith('.' + d));
-  } catch {
+    const h = parsed.hostname;
+    // Block IPv4 loopback & link-local
+    if (h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0') return false;
+    // Block IPv6 loopback and mapped IPv4 loopback
+    if (h === '::1' || h === '[::1]' || h.startsWith('::ffff:127.')) return false;
+    // Block RFC-1918 private ranges (10.x, 172.16–31.x, 192.168.x)
+    const ipv4Match = h.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.\d{1,3}$/);
+    if (ipv4Match) {
+      const [, a, b] = ipv4Match.map(Number);
+      if (a === 10) return false;
+      if (a === 172 && b >= 16 && b <= 31) return false;
+      if (a === 192 && b === 168) return false;
+      if (a === 169 && b === 254) return false; // link-local
+    }
+    return ALLOWED_DOMAINS.some(d => h === d || h.endsWith('.' + d));
+  } catch (err: unknown) {
+    console.error('[Ingest] URL routing error:', err instanceof Error ? err.message : String(err));
     return false;
   }
 }
@@ -76,7 +90,9 @@ function routeUrl(url: string): string {
     for (const [key, val] of Object.entries(DOMAIN_MAP)) {
       if (domain.includes(key)) return val;
     }
-  } catch {}
+  } catch (err: unknown) {
+    console.error('[Ingest] URL routing error:', err instanceof Error ? err.message : String(err));
+  }
   return 'fpv-community-knowledge';
 }
 
@@ -112,7 +128,9 @@ export async function POST(req: NextRequest) {
               signal: AbortSignal.timeout(40000),
             });
             if (cr.ok) { crawlData = await cr.json(); break; }
-          } catch {}
+          } catch (err: unknown) {
+            console.error('[Ingest] Crawler request error:', err instanceof Error ? err.message : String(err));
+          }
         }
 
         if (!crawlData?.success || !crawlData.results?.length) {

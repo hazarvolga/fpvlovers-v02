@@ -67,7 +67,9 @@ function load(): CrawlQueue {
         stats: calculateStats(queue.jobs || []),
       };
     }
-  } catch {}
+  } catch (err: unknown) {
+    console.error('[CrawlQueue] Error loading queue:', err instanceof Error ? err.message : String(err));
+  }
   return {
     jobs: [], config: {
       batchSize: 3, batchDelayMs: 60000,
@@ -79,7 +81,9 @@ function load(): CrawlQueue {
 
 function save(q: CrawlQueue) {
   q.stats = calculateStats(q.jobs);
-  try { fs.writeFileSync(QUEUE_FILE, `${JSON.stringify(q, null, 2)}\n`); } catch {}
+  try { fs.writeFileSync(QUEUE_FILE, `${JSON.stringify(q, null, 2)}\n`); } catch (err: unknown) {
+    console.error('[CrawlQueue] Error saving queue:', err instanceof Error ? err.message : String(err));
+  }
 }
 
 export function enqueueUrls(urls: string[], dataset?: string): CrawlJob[] {

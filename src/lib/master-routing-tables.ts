@@ -1,16 +1,19 @@
 // Master Routing Tables — APPENDIX III Implementation
 // Source: fpvlovers-master-orchtrate-system-promt.MD (Section III)
 
-// Dify API tokens — sourced from environment variables with hardcoded fallbacks.
-// After token rotation in Dify UI, update .env.local and remove fallbacks.
+// Dify API tokens — loaded exclusively from environment variables.
+// Set these in .env.local (dev) and Coolify env vars (production).
+// REQUIRED: DIFY_APP_TOKEN_EXPERT, DIFY_APP_TOKEN_BUILD_WIZARD, DIFY_APP_TOKEN_PART_MATCHER,
+//           DIFY_APP_TOKEN_BLACKBOX, DIFY_APP_TOKEN_COMMUNITY,
+//           DIFY_WORKFLOW_TOKEN_SEO, DIFY_WORKFLOW_TOKEN_RACING
 const ENV = {
-  DIFY_APP_TOKEN_EXPERT: process.env.DIFY_APP_TOKEN_EXPERT || 'app-C7zocan03yFGIbGtJCQG0iUs',
-  DIFY_APP_TOKEN_BUILD_WIZARD: process.env.DIFY_APP_TOKEN_BUILD_WIZARD || 'app-JH8Fu38ezY8sUyhHb8ykHIWq',
-  DIFY_APP_TOKEN_PART_MATCHER: process.env.DIFY_APP_TOKEN_PART_MATCHER || 'app-fHeOtuCMfHNujevKEXaTEDJn',
-  DIFY_APP_TOKEN_BLACKBOX: process.env.DIFY_APP_TOKEN_BLACKBOX || 'app-4mCgiWoe3bYOxNYQbspqNhyh',
-  DIFY_APP_TOKEN_COMMUNITY: process.env.DIFY_APP_TOKEN_COMMUNITY || 'app-1Oil9DvSgUHj9Yf8eEtTuShF',
-  DIFY_WORKFLOW_TOKEN_SEO: process.env.DIFY_WORKFLOW_TOKEN_SEO || 'app-XJogXujRpHH3Ri8dOU9F',
-  DIFY_WORKFLOW_TOKEN_RACING: process.env.DIFY_WORKFLOW_TOKEN_RACING || process.env.DIFY_RACING_WORKFLOW_TOKEN || 'app-0UY7DiroMEswRvqqOtlZ',
+  DIFY_APP_TOKEN_EXPERT: process.env.DIFY_APP_TOKEN_EXPERT || '',
+  DIFY_APP_TOKEN_BUILD_WIZARD: process.env.DIFY_APP_TOKEN_BUILD_WIZARD || '',
+  DIFY_APP_TOKEN_PART_MATCHER: process.env.DIFY_APP_TOKEN_PART_MATCHER || '',
+  DIFY_APP_TOKEN_BLACKBOX: process.env.DIFY_APP_TOKEN_BLACKBOX || '',
+  DIFY_APP_TOKEN_COMMUNITY: process.env.DIFY_APP_TOKEN_COMMUNITY || '',
+  DIFY_WORKFLOW_TOKEN_SEO: process.env.DIFY_WORKFLOW_TOKEN_SEO || '',
+  DIFY_WORKFLOW_TOKEN_RACING: process.env.DIFY_WORKFLOW_TOKEN_RACING || process.env.DIFY_RACING_WORKFLOW_TOKEN || '',
 } as const;
 
 export interface IntentRoute {

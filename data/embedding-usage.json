@@ -1,7 +1,7 @@
 {
   "daily_limit": 500,
   "used_today": 0,
-  "reset_at": "2026-06-14T23:59:59Z",
+  "reset_at": "2026-06-17T23:59:59Z",
   "last_call_ts": 0,
   "calls_today": 0,
   "errors_today": 0,
