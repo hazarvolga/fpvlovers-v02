@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function FreestylePage() {
   const breadcrumbs = [
-    { label: 'Drone Archive', href: '/archive' },
+    { label: 'Fly', href: '/archive' },
     { label: 'Freestyle Tactician', isCurrentPage: true }
   ];
 

@@ -14,7 +14,7 @@ export default async function PartsDuelPage() {
   const { productA, productB, result } = await getDuelComparison("motor-tmotor-f60", "motor-xnova-2207");
 
   const breadcrumbs = [
-    { label: 'Pilot Tools', href: '/tools' },
+    { label: 'Tools', href: '/tools' },
     { label: 'Component Duel', isCurrentPage: true }
   ];
 

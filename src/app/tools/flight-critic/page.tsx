@@ -69,7 +69,7 @@ export default function FlightCriticPage() {
   };
 
   const breadcrumbs = [
-    { label: "Pilot Tools", href: "/tools" },
+    { label: "Tools", href: "/tools" },
     { label: "Flight Critic", isCurrentPage: true }
   ];
 

@@ -5,7 +5,7 @@ import {
 
 export const navigationData = [
   {
-    title: "Pilot Academy",
+    title: "Learn",
     label: "Get Started",
     icon: Rocket,
     href: "/academy",
@@ -31,7 +31,7 @@ export const navigationData = [
     ]
   },
   {
-    title: "Engineering Lab",
+    title: "Build",
     label: "Research & Systems",
     icon: Wrench,
     href: "/engineering",
@@ -63,14 +63,14 @@ export const navigationData = [
     ]
   },
   {
-    title: "Racing",
+    title: "Race",
     label: "Competition Grid",
     icon: Trophy,
     href: "/racing",
     items: []
   },
   {
-    title: "Drone Archive",
+    title: "Fly",
     label: "Types & Classes",
     icon: Layers,
     href: "/archive",
@@ -108,7 +108,7 @@ export const navigationData = [
     ]
   },
   {
-    title: "Pilot Tools",
+    title: "Tools",
     label: "The Powerhouses",
     icon: Cpu,
     href: "/tools",
@@ -132,12 +132,6 @@ export const navigationData = [
         icon: Target
       },
       {
-        title: "Pilot Pulse",
-        href: "/pilot-pulse",
-        description: "Live news radar for leaks, launches, and stock.",
-        icon: Radio
-      },
-      {
         title: "Hardware Analyzer",
         href: "/tools/hardware-analyzer",
         description: "AI diagnostic engine for compatibility checks.",
@@ -156,6 +150,13 @@ export const navigationData = [
         icon: Video
       }
     ]
+  },
+  {
+    title: "News",
+    label: "Live Radar",
+    icon: Radio,
+    href: "/pilot-pulse",
+    items: []
   },
   {
     title: "Regulations",

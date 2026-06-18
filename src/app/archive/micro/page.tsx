@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function MicroWhoopPage() {
   const breadcrumbs = [
-    { label: 'Drone Archive', href: '/archive' },
+    { label: 'Fly', href: '/archive' },
     { label: 'Micro / Whoops', isCurrentPage: true }
   ];
 

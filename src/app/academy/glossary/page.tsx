@@ -6,7 +6,7 @@ import { DroneAnatomyMap } from '@/features/academy/components/DroneAnatomyMap';
 import { 
   Search, BookOpen, Layers, Compass, Wrench, FileText, 
   HelpCircle, Sparkles, X, Radio, Battery, 
-  Settings, Award, RefreshCw, Cpu, Video, CheckCircle2, ChevronRight
+  Settings, Award, RefreshCw, Cpu, Video, CheckCircle2, ChevronRight, RadioTower
 } from 'lucide-react';
 import { GlossaryTerm } from '@/lib/server/glossary';
 
@@ -32,8 +32,8 @@ export default function GlossaryPage() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const breadcrumbs = [
-    { label: 'Pilot Academy', href: '/academy' },
-    { label: 'FPV Glossary', isCurrentPage: true }
+    { label: 'Learn', href: '/academy' },
+    { label: 'Glossary', isCurrentPage: true }
   ];
 
   // Search shortcuts
@@ -876,13 +876,13 @@ export default function GlossaryPage() {
                   </h3>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Academy Modules */}
+                    {/* Learning Modules */}
                     {selectedTerm.relatedAcademyModules && selectedTerm.relatedAcademyModules.length > 0 && (
-                      <div className="border border-[#1A1A1E] p-3 rounded bg-black/40 flex flex-col gap-1.5">
-                        <span className="text-[9px] text-[#555] uppercase flex items-center gap-1">
-                          <Layers className="w-3.5 h-3.5 text-[#00F2FF]" />
-                          Linked Academy Modules
-                        </span>
+                      <div className="flex-1 min-w-[200px]">
+                        <h5 className="text-xs font-semibold uppercase tracking-wider text-white/50 mb-3 flex items-center gap-2">
+                          <RadioTower className="w-4 h-4 text-[#FF5C00]" />
+                          Linked Learning Modules
+                        </h5>
                         <div className="flex flex-wrap gap-1">
                           {selectedTerm.relatedAcademyModules.map((mod) => (
                             <span key={mod} className="text-[10px] bg-black text-[#A0A0A0] border border-[#222] px-2 py-0.5 rounded uppercase">

@@ -6,7 +6,7 @@ import { Cpu, Radio, Wrench, Target, Activity, ChevronRight, Binary, Waves, Zap,
 import { generateSeoMetadata } from '@/lib/seo/metadata';
 
 export const metadata = generateSeoMetadata({
-  title: 'Engineering Lab | FPV Research Division',
+  title: 'Build | FPV Research Division',
   description: 'Advanced technical FPV drone research. Blackbox logs spectral analysis, PID loop control theory, RF link budget metrics, LiPo chemical thermal modeling, and structural airframe resonance.',
   path: '/engineering',
 });
@@ -112,7 +112,7 @@ function ResearchCategoryCard({
 
 export default function EngineeringHomepage() {
   const breadcrumbs = [
-    { label: 'Engineering Lab', isCurrentPage: true },
+    { label: 'Build', isCurrentPage: true },
   ];
 
   return (
@@ -137,7 +137,7 @@ export default function EngineeringHomepage() {
                   <div>
                     <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#FF5C00]">FPV RESEARCH DIVISION // V2</span>
                     <h1 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-zinc-100 mt-1">
-                      ENGINEERING <span className="text-[#FF5C00]">LAB</span>
+                      BUILD
                     </h1>
                   </div>
                 </div>
@@ -244,7 +244,7 @@ export default function EngineeringHomepage() {
               <div className="flex gap-3 items-center">
                 <ShieldCheck className="w-5 h-5 text-[#00FF66] shrink-0" />
                 <p className="font-sans">
-                  Completed the baseline theoretical studies? Head to the **Pilot Academy** to chart your custom flight roadmap.
+                  Completed the baseline theoretical studies? Head to the **Learn** section to chart your custom flight roadmap.
                 </p>
               </div>
               <Link href="/academy" className="px-4 py-2 border border-white/20 hover:border-white/40 text-white rounded uppercase tracking-wider text-[10px] shrink-0 hover:bg-white/5 transition-all">

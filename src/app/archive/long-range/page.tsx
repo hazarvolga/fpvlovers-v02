@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function LongRangePage() {
   const breadcrumbs = [
-    { label: 'Drone Archive', href: '/archive' },
+    { label: 'Fly', href: '/archive' },
     { label: 'Long-Range Cruising', isCurrentPage: true }
   ];
 

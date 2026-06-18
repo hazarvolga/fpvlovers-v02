@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function CinematicPage() {
   const breadcrumbs = [
-    { label: 'Drone Archive', href: '/archive' },
+    { label: 'Fly', href: '/archive' },
     { label: 'Cinematic Operator', isCurrentPage: true }
   ];
 

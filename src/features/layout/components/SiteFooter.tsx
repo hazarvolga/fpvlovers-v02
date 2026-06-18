@@ -3,7 +3,7 @@ import { ArrowUpRight, Battery, Mail, Radio, ShieldCheck, Zap } from 'lucide-rea
 import { navigationData } from '@/lib/navigationData';
 
 const footerGroups = navigationData.map((group) => ({
-  title: group.title.replace('Pilot Tools', 'Tools'),
+  title: group.title,
   href: group.href,
   items: group.items.slice(0, 4).map((item) => ({
     title: item.title,
@@ -15,7 +15,7 @@ const featuredLinks = [
   { title: 'Build Calculator', href: '/tools/calculator', icon: Zap },
   { title: 'Part Matcher', href: '/tools/part-matcher', icon: Radio },
   { title: 'Battery Safety', href: '/regulations/battery', icon: Battery },
-  { title: 'Pilot Pulse', href: '/pilot-pulse', icon: ArrowUpRight },
+  { title: 'News', href: '/pilot-pulse', icon: ArrowUpRight },
 ];
 
 export function SiteFooter() {

@@ -5,13 +5,13 @@ import { Calculator as CalcIcon } from 'lucide-react';
 import { BuildCalculatorWidget } from '@/features/tools/components/BuildCalculatorWidget';
 
 export const metadata = {
-  title: 'Build Calculator | Pilot Tools',
+  title: 'Build Calculator | Tools',
   description: 'Weight, Thrust, and Efficiency estimations for custom FPV drone builds.',
 };
 
 export default function CalculatorPage() {
   const breadcrumbs = [
-    { label: 'Pilot Tools', href: '/tools' },
+    { label: 'Tools', href: '/tools' },
     { label: 'Build Calculator', isCurrentPage: true }
   ];
 

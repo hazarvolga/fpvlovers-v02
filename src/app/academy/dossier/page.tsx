@@ -27,7 +27,7 @@ export default function PilotDossierPage() {
   }, []);
 
   const breadcrumbs = [
-    { label: "Pilot Academy", href: "/academy" },
+    { label: "Learn", href: "/academy" },
     { label: "Pilot Dossier", isCurrentPage: true }
   ];
 

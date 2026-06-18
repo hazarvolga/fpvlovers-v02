@@ -12,7 +12,7 @@ import { Database, Cpu, Video, Compass, Info, Zap, Flag, Target } from "lucide-r
 
 export default function ArchiveIndexPage() {
   const breadcrumbs = [
-    { label: "Drone Archive", href: "/archive", isCurrentPage: true }
+    { label: "Fly", href: "/archive", isCurrentPage: true }
   ];
 
   const archiveCategories = [
@@ -108,7 +108,7 @@ export default function ArchiveIndexPage() {
               <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#00F2FF]">Archive Initialization</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold uppercase text-zinc-100 tracking-tight mb-2">
-              Drone <span className="text-[#FF5C00]">Archive</span> V2
+              Fly <span className="text-[#FF5C00]">V2</span>
             </h1>
             <p className="text-[11px] uppercase text-zinc-500 font-mono tracking-widest max-w-2xl leading-relaxed">
               {"// THE FPV SPECIES EVOLUTION DATABASE — FROM MISSION TO AIRCRAFT DESIGN"}

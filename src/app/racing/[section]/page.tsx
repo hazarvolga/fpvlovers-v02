@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: PageProps) {
   }
 
   return generateSeoMetadata({
-    title: `${section.title} | FPV Racing Division`,
+    title: `${section.title} | FPV Race Division`,
     description: section.description,
     path: section.href,
     type: 'website',

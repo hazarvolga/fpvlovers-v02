@@ -6,14 +6,14 @@ import { PartMatcherWidget } from '@/features/tools/components/PartMatcherWidget
 import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
 
 export const metadata = {
-  title: 'Part Matcher | Pilot Tools',
+  title: 'Part Matcher | Tools',
   description: 'Catalog-backed component compatibility analysis for FPV drones.',
 };
 
 export default function PartMatcherPage() {
   const products = getFpvProductCatalog();
   const breadcrumbs = [
-    { label: 'Pilot Tools', href: '/tools' },
+    { label: 'Tools', href: '/tools' },
     { label: 'Part Matcher', isCurrentPage: true }
   ];
 

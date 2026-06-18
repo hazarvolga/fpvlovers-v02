@@ -13,7 +13,7 @@ import { loadDossierFromBrowser } from '@/lib/state/dossier-serializer';
 import { PilotDossier } from '@/types/pilot-dossier';
 
 const navLinks = navigationData.map((item) => ({
-  title: item.title.replace('Pilot Tools', 'Tools'),
+  title: item.title,
   href: item.href,
   icon: item.icon,
   label: item.label,

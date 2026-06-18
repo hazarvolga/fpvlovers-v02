@@ -106,8 +106,8 @@ function getSimulatorData() {
 export default function SimulatorsPage() {
   const data = getSimulatorData();
   const breadcrumbs = [
-    { label: 'Pilot Academy', href: '/academy' },
-    { label: 'Simulator Training', isCurrentPage: true }
+    { label: 'Learn', href: '/academy' },
+    { label: 'Simulators', isCurrentPage: true },
   ];
 
   return (

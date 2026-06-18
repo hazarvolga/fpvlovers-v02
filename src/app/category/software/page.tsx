@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function FlightLabPage() {
   const breadcrumbs = [
-    { label: 'Pilot Tools', href: '/tools' },
+    { label: 'Tools', href: '/tools' },
     { label: 'Flight Critic', isCurrentPage: true }
   ];
 

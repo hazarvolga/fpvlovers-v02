@@ -299,8 +299,8 @@ export default function StarterKitsPage() {
   const rec = calculateRecommendation();
 
   const breadcrumbs = [
-    { label: 'Pilot Academy', href: '/academy' },
-    { label: 'Starter Kits', isCurrentPage: true }
+    { label: 'Learn', href: '/academy' },
+    { label: 'Starter Kits', isCurrentPage: true },
   ];
 
   return (

@@ -111,7 +111,7 @@ export default function MissionDetailsPage() {
   }
 
   const breadcrumbs = [
-    { label: "Drone Archive", href: "/archive" },
+    { label: "Fly", href: "/archive" },
     { label: mission.name, isCurrentPage: true }
   ];
 

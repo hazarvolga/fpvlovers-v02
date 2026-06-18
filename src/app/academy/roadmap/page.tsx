@@ -196,7 +196,7 @@ export default function RoadmapPage() {
   }, [status, triggerSync]);
 
   const breadcrumbs = [
-    { label: "Pilot Academy", href: "/academy" },
+    { label: "Learn", href: "/academy" },
     { label: "Pilot Roadmap", isCurrentPage: true }
   ];
 

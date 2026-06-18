@@ -30,7 +30,7 @@ import {
 import LiveTimingFeed from '@/features/racing/components/LiveTimingFeed';
 
 export const metadata = generateSeoMetadata({
-  title: 'FPV Racing Division | Global Drone Racing Ecosystem',
+  title: 'FPV Race Division | Global Drone Race Ecosystem',
   description:
     'A dedicated FPV racing platform for global events, drone racing leagues, pilots, teams, tracks, rankings, race technology, results, media, and FPV racing history.',
   path: '/racing',
@@ -84,7 +84,7 @@ export default function RacingDivisionPage() {
                     Competitive command center
                   </div>
                   <h1 className="max-w-3xl text-4xl font-black uppercase tracking-tight text-white sm:text-6xl">
-                    FPV Racing <span className="text-[#ff5a1f]">Division</span>
+                    FPV Race <span className="text-[#ff5a1f]">Division</span>
                   </h1>
                   <p className="mt-4 max-w-2xl text-sm leading-7 text-[#d8d5cf]">
                     {racingMission.statement}
@@ -184,7 +184,7 @@ export default function RacingDivisionPage() {
             </section>
 
             <section className="mt-4 grid gap-4 xl:grid-cols-[1fr_1fr_0.9fr_0.9fr]">
-              <Panel title="Racing academy" label="Training path" href="/racing/academy">
+              <Panel title="Race academy" label="Training path" href="/racing/academy">
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-2">
                   {academySkills.map((skill) => (
                     <div key={skill} className="rounded-sm border border-white/8 bg-black/28 p-3 text-center text-xs font-semibold text-[#d8d5cf]">

@@ -5,7 +5,7 @@ import { Cpu } from 'lucide-react';
 import { HardwareAnalyzerWidget } from '@/features/tools/components/HardwareAnalyzer';
 
 export const metadata = {
-  title: 'Hardware Analyzer | Pilot Tools',
+  title: 'Hardware Analyzer | Tools',
   description: 'AI-Powered FPV Drone Hardware Compatibility Check and Risk Assessment.',
 };
 

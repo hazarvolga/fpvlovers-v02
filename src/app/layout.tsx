@@ -13,9 +13,9 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
-  title: 'FPV LOVERS | Editorial Hub, Academy, Engineering Lab, and Pilot Tools',
+  title: 'FPV LOVERS | Learn, Build, Race, Fly, Tools, News',
   description: 'English-first FPV guides, engineering references, and practical pilot tools for building, tuning, and learning faster.',
-  keywords: ['FPV', 'Editorial', 'Academy', 'Engineering Lab', 'Pilot Tools', 'Build Guides', 'Troubleshooting'],
+  keywords: ['FPV', 'Learn', 'Build', 'Race', 'Fly', 'Tools', 'News', 'Build Guides', 'Troubleshooting'],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

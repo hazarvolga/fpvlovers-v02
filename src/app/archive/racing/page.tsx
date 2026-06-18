@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function RacingPage() {
   const breadcrumbs = [
-    { label: 'Drone Archive', href: '/archive' },
+    { label: 'Fly', href: '/archive' },
     { label: 'Track Racing Spec', isCurrentPage: true }
   ];
 

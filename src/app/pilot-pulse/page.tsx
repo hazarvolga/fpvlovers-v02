@@ -211,7 +211,7 @@ export default function PilotPulsePage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pt-28">
-      <CyberBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'Pilot Pulse', isCurrentPage: true }]} className="mb-8" />
+      <CyberBreadcrumb items={[{ label: 'Home', href: '/' }, { label: 'News', isCurrentPage: true }]} className="mb-8" />
 
       {/* Cockpit HUD Radar Header */}
       <div className="relative mb-8 flex flex-col items-center justify-center p-8 bg-[#050810] border border-[#00F2FF]/20 hex-panel overflow-hidden shadow-[inset_0_0_80px_rgba(0,242,255,0.05)]">

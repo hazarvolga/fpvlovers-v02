@@ -223,7 +223,7 @@ export default async function HomePage() {
 
       <section className="mx-auto mt-20 grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
         <div>
-          <SectionHeading title="Pilot Academy" href="/academy" icon={RadioTower} />
+          <SectionHeading title="Learn" href="/academy" icon={RadioTower} />
           <div className="grid gap-3 sm:grid-cols-2">
             {content.academyCards.map((card) => (
               <Link key={card.href} href={card.href} className="rounded-lg border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#28d7df]/35 hover:bg-[#28d7df]/6">
@@ -236,7 +236,7 @@ export default async function HomePage() {
         </div>
 
         <div>
-          <SectionHeading title="Engineering Lab" href="/engineering" icon={Wrench} />
+          <SectionHeading title="Build" href="/engineering" icon={Wrench} />
           <div className="grid gap-3 sm:grid-cols-2">
             {content.engineeringCards.map((card) => (
               <Link key={card.href} href={card.href} className="rounded-lg border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#ff5a1f]/35 hover:bg-[#ff5a1f]/6">

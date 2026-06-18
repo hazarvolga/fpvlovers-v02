@@ -144,7 +144,7 @@ export default function BuildDetailsPage() {
   }
 
   const breadcrumbs = [
-    { label: "Drone Archive", href: "/archive" },
+    { label: "Fly", href: "/archive" },
     { label: build.name, isCurrentPage: true }
   ];
 
