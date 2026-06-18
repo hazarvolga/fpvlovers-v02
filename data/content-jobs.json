@@ -26,33 +26,7 @@
     "updatedAt": "2026-06-14T15:21:34.234Z",
     "publishedPath": "content/published/street-league-spec-offers-comprehensive-resources-for-pilots.json"
   },
-  {
-    "id": "racing-street-league-spec-upcoming-races-empty",
-    "briefSlug": "street-league-spec-upcoming-races-empty",
-    "title": "Street League Spec: Upcoming Races Section Currently Empty",
-    "category": "Racing",
-    "status": "published",
-    "topic": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
-    "language": "en",
-    "template": "community-roundup",
-    "promptVersion": "v2",
-    "sourceHints": [
-      "https://www.streetleague.io/races",
-      "calendar"
-    ],
-    "seo": {
-      "slug": "street-league-spec-upcoming-races-empty",
-      "metaDescription": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
-      "keywords": [
-        "fpv racing",
-        "drone racing",
-        "calendar"
-      ]
-    },
-    "createdAt": "2026-06-06T16:20:19Z",
-    "updatedAt": "2026-06-14T15:01:29.732Z",
-    "publishedPath": "content/published/street-league-spec-upcoming-races-section-currently-empty.json"
-  },
+
   {
     "id": "racing-street-league-season-v-2026-races-announced",
     "briefSlug": "street-league-season-v-2026-races-announced",

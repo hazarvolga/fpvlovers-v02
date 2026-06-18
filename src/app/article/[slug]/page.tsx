@@ -66,18 +66,27 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
         <article className="relative hex-panel glass-panel overflow-hidden lg:col-span-8 col-span-1 border-[#00F2FF]/20 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] bg-[#050810]/70 rounded-lg">
           <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
           {a.media?.coverImage?.src && (
-            <div className="relative w-full h-[360px] md:h-[420px] border-b border-[#00F2FF]/20">
+            <div className="relative w-full h-[360px] md:h-[420px] border-b border-[#00F2FF]/20 overflow-hidden bg-black/80 flex items-center justify-center">
+              {/* Blurred background layer to elegantly fill space for non-16:9 images */}
+              <Image
+                src={a.media.coverImage.src}
+                alt=""
+                fill
+                className="object-cover opacity-20 blur-2xl scale-125 pointer-events-none"
+                unoptimized={true}
+              />
+              {/* Main cover image, contained so it never stretches or crops awkwardly */}
               <Image
                 src={a.media.coverImage.src}
                 alt={a.media.coverImage.alt || a.title}
                 fill
                 sizes="(min-width: 1024px) 66vw, 100vw"
                 unoptimized={true}
-                className="object-cover"
+                className="object-contain relative z-10 p-4"
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-[#050810]/40 to-transparent" />
-              <div className="absolute top-6 left-6 z-10">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-[#050810]/20 to-transparent z-20 pointer-events-none" />
+              <div className="absolute top-6 left-6 z-30">
                 <span className="text-[10px] uppercase font-black tracking-widest px-3 py-1 bg-black/80 backdrop-blur-md border border-[#00F2FF]/50 text-[#00F2FF] rounded">
                   {a.category || 'Article'}
                 </span>
