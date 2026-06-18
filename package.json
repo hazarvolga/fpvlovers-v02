@@ -16,6 +16,7 @@
     "seeds:backlog-pack": "python3 scripts/import-fpv-rag-seeds.py --mode backlog-pack --pack-limit 3",
     "seeds:deferred-pack": "python3 scripts/import-fpv-rag-seeds.py --mode deferred-pack --pack-limit 3",
     "handoff": "node scripts/generate-handoff.mjs",
+    "handoff:test": "node scripts/handoff-regression-test.mjs",
     "opencode:brief": "node scripts/opencode-brief.mjs",
     "security:audit": "node scripts/repository-security-audit.mjs",
     "metadata:audit": "node --import tsx scripts/audit-content-metadata.ts",

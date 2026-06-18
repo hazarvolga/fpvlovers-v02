@@ -8,6 +8,13 @@ Last updated: 2026-06-18
 2. After rotation, plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
 3. Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.
 
+## Deployment Tasks
+
+1. Run the complete local release gate for the post-analysis commits.
+2. Compare the live production image/commit with local HEAD in read-only mode and smoke the health, homepage, reviews, comparisons, and buyer-guides routes.
+3. Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.
+4. Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.
+
 ## Completed (2026-06-18 Post-Analysis Phase 1)
 
 - Removed tracked operational credential values from current documentation.
@@ -29,6 +36,13 @@ Last updated: 2026-06-18
 - Removed all 82 trailing-whitespace and extra-EOF-newline violations in the same range.
 - Added `pnpm quality:recent`, with an overridable `QUALITY_BASE_REF`, to prevent regressions.
 - Fresh recent-quality, TypeScript, and full-repository ESLint gates pass locally.
+
+## Completed (2026-06-18 Post-Analysis Phase 4)
+
+- Reconciled project memory and next actions with commits `e3813ae`, `55b8f6c`, and `a16bdcb`.
+- Replaced the obsolete May Task 2 handoff generator with a Git-aware release-verification handoff.
+- Updated the Opencode brief to preserve local, pushed, deployed, and live-verified boundaries.
+- Added `pnpm handoff:test`; generated handoff and stale-state regression checks pass locally.
 
 ## ✅ Completed (2026-06-14 GAP Closure Sprint)
 

@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -11,177 +12,134 @@ const planPath = path.join(
   'docs',
   'superpowers',
   'plans',
-  '2026-05-18-dify-content-automation.md',
-);
-const protocolPath = path.join(
-  repoRoot,
-  'docs',
-  'superpowers',
-  'plans',
-  '2026-05-18-opencode-codex-collaboration-protocol.md',
+  '2026-06-18-post-analysis-gap-closure.md',
 );
 const outputDir = path.join(repoRoot, 'docs', 'handoff');
 const outputPath = path.join(outputDir, 'latest.md');
 const statusPath = path.join(outputDir, 'latest.json');
 
-const readText = async (filePath) => {
+async function readText(filePath) {
   try {
     return await fs.readFile(filePath, 'utf8');
-  } catch (error) {
+  } catch {
     return '';
   }
-};
+}
 
-const extractSection = (text, heading) => {
+function extractSection(text, heading) {
   const lines = text.split('\n');
   const target = `## ${heading}`;
   let inSection = false;
   const collected = [];
+
   for (const rawLine of lines) {
     const line = rawLine.replace(/\r$/, '');
     if (line.trim() === target) {
       inSection = true;
       continue;
     }
-    if (inSection && line.startsWith('## ')) {
-      break;
-    }
-    if (inSection) {
-      collected.push(line);
-    }
+    if (inSection && line.startsWith('## ')) break;
+    if (inSection) collected.push(line);
   }
+
   return collected.join('\n').trim();
-};
+}
 
-const bulletLines = (text, limit = 8) =>
-  text
+function actionLines(text, limit) {
+  return text
     .split('\n')
     .map((line) => line.trim())
-    .filter((line) => line.startsWith('- ') || line.startsWith('1.') || line.startsWith('2.') || line.startsWith('3.'))
-    .slice(0, limit);
+    .filter((line) => /^(- |\d+\. )/.test(line))
+    .slice(0, limit)
+    .map((line) => line.replace(/^\d+\.\s*/, '- '));
+}
 
-const pickLines = (text, predicates, limit = 8) =>
-  text
-    .split('\n')
-    .map((line) => line.trim())
-    .filter((line) => predicates.some((predicate) => predicate(line)))
-    .slice(0, limit);
-
-const formatBlock = (title, lines) => {
-  if (!lines.length) {
-    return `## ${title}\n\n- (no entries found)\n`;
+function gitText(args) {
+  try {
+    return execFileSync('git', args, { cwd: repoRoot, encoding: 'utf8' }).trim();
+  } catch {
+    return '';
   }
-  return `## ${title}\n\n${lines.map((line) => line.replace(/^\d+\.\s*/, '- ')).join('\n')}\n`;
-};
+}
 
 const memoryText = await readText(memoryPath);
 const actionsText = await readText(actionsPath);
 const planText = await readText(planPath);
-const protocolText = await readText(protocolPath);
+const currentState = actionLines(extractSection(memoryText, 'Current Known State'), 12);
+const securityActions = actionLines(extractSection(actionsText, 'Immediate Security Actions'), 6);
+const deploymentTasks = actionLines(extractSection(actionsText, 'Deployment Tasks'), 6);
+const planSummary = planText
+  .split('\n')
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith('**Goal:**') || line.startsWith('### Task '))
+  .slice(0, 8);
 
-const currentState = extractSection(memoryText, 'Current Known State');
-const architecture = extractSection(memoryText, 'Current Architecture Decisions');
-const immediate = extractSection(actionsText, 'Immediate Priority');
-const architectureFollowUp = extractSection(actionsText, 'Architecture Follow-Up');
-const planHighlights = pickLines(planText, [
-  (line) => line.startsWith('**Goal:**'),
-  (line) => line.startsWith('**Architecture:**'),
-  (line) => line.startsWith('**Tech Stack:**'),
-  (line) => line.startsWith('### Task '),
-  (line) => line.startsWith('- [ ]'),
-], 18);
-const protocolCurrentState = extractSection(protocolText, 'Current State');
-
-const memoryLines = bulletLines(currentState, 8);
-const architectureLines = bulletLines(architecture, 6);
-const immediateLines = bulletLines(immediate, 6);
-const followUpLines = bulletLines(architectureFollowUp, 6);
-const task1Done = /Task 1 DONE/i.test(actionsText) || /Task 1 completed/i.test(memoryText);
-const resolvedDify =
-  /workflow blockers resolved/i.test(memoryText) ||
-  /workflow blockers resolved/i.test(protocolText) ||
-  /workflow blockers resolved/i.test(actionsText);
-const nextTaskLine = planHighlights.find((line) => line.includes('### Task 2')) || '### Task 2: Turn the existing Dify generation routes into a single structured content generator';
-const currentBlockerLine =
-  task1Done && resolvedDify
-    ? 'No current blocker. Start Task 2.'
-    : immediateLines.find((line) => !/Task 1 DONE/i.test(line)) || 'Review the latest Dify state.';
-
-const protocolExcerpt = protocolText
-  ? protocolText
-      .split('\n')
-      .filter((line) => line.startsWith('## ') || line.startsWith('- ') || line.startsWith('1.') || line.startsWith('2.') || line.startsWith('3.'))
-      .slice(0, 14)
-      .map((line) => line.replace(/^\d+\.\s*/, '- '))
-  : [];
-
+const head = gitText(['rev-parse', '--short=12', 'HEAD']);
+const branch = gitText(['branch', '--show-current']);
+const aheadBehind = gitText(['rev-list', '--left-right', '--count', 'origin/main...HEAD'])
+  .split(/\s+/)
+  .map(Number);
+const behind = Number.isFinite(aheadBehind[0]) ? aheadBehind[0] : null;
+const ahead = Number.isFinite(aheadBehind[1]) ? aheadBehind[1] : null;
 const generatedAt = new Date().toISOString();
+const currentBlockers = [...securityActions, ...deploymentTasks];
+const nextTask = 'Run the complete release gate, then verify the production commit and public routes read-only.';
+
 const handoff = `# FPVLovers Handoff Packet
 
 Generated at: ${generatedAt}
 
-## What happened
+## Git State
 
-${memoryLines.length ? memoryLines.join('\n') : '- No recent memory entries found.'}
+- Branch: \`${branch || 'unknown'}\`
+- HEAD: \`${head || 'unknown'}\`
+- Against \`origin/main\`: behind ${behind ?? 'unknown'}, ahead ${ahead ?? 'unknown'}
 
-## Current blockers
+## What Happened
 
-${immediateLines.length ? immediateLines.join('\n') : '- No immediate priorities found.'}
+${currentState.length ? currentState.join('\n') : '- No current-state entries found.'}
 
-## Relevant follow-ups
+## Current Blockers
 
-${followUpLines.length ? followUpLines.join('\n') : '- No follow-up items found.'}
+${currentBlockers.length ? currentBlockers.join('\n') : '- No blockers recorded.'}
 
-## Working agreement
+## Active Plan
 
-${architectureLines.length ? architectureLines.join('\n') : '- No architecture notes found.'}
+${planSummary.length ? planSummary.join('\n') : '- No active plan summary found.'}
 
-## Dify / content automation context
+## Next Move
 
-${planHighlights.length ? planHighlights.join('\n') : '- No plan summary found.'}
+- ${nextTask}
+- Do not claim the release is live until the production image or commit matches the deployed revision.
+- Do not deploy env-only credential changes until exposed credentials have been rotated in their owning systems.
 
-## Collaboration protocol excerpt
+## Source Of Truth
 
-${protocolCurrentState ? protocolCurrentState.split('\n').slice(0, 12).join('\n') : '- No protocol current state found.'}
+- \`${memoryPath}\`
+- \`${actionsPath}\`
+- \`${planPath}\`
 
-${protocolExcerpt.length ? protocolExcerpt.join('\n') : '- No protocol excerpt found.'}
-
-## Copy-paste prompt for Opencode
+## Copy-Paste Continuation Prompt
 
 \`\`\`text
-Continue the FPVLovers work from the latest handoff packet.
+Continue FPVLovers from the latest handoff packet.
 
-Read first:
-- /Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md
-- /Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md
-- /Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-dify-content-automation.md
-- /Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-opencode-codex-collaboration-protocol.md
-
-Current blocking issue:
-- The Dify workflow still shows a validation warning on the RAG Retrieval node: retrieval_mode needs to be resaved or the node recreated.
-
-Your next move:
-- Fix the RAG Retrieval node config.
-- Republish the Dify workflow.
-- Run a smoke test against the live Dify app.
-- Update PROJECT_MEMORY.md and NEXT_ACTIONS.md after the change.
+Read PROJECT_MEMORY.md, NEXT_ACTIONS.md, and docs/handoff/latest.md first.
+Run the complete local release gate. Then inspect production read-only and compare its deployed commit/image with local HEAD. Keep credential rotation, Git-history cleanup, push, and deploy boundaries explicit. Update project memory after obtaining fresh evidence.
 \`\`\`
 `;
 
 const status = {
   generatedAt,
   project: 'fpvlovers-frontend-websitesi',
-  state: task1Done ? 'ready-for-task-2' : 'in-progress',
-  task1Done,
-  resolvedDify,
-  currentBlocker: currentBlockerLine,
-  nextTask: nextTaskLine.replace(/^###\s*/, ''),
-  filesOfTruth: [
-    memoryPath,
-    actionsPath,
-    planPath,
-    protocolPath,
-  ],
+  state: 'release-verification-pending',
+  branch,
+  head,
+  behind,
+  ahead,
+  currentBlockers: currentBlockers.map((line) => line.replace(/^-\s*/, '')),
+  nextTask,
+  filesOfTruth: [memoryPath, actionsPath, planPath],
   handoffPath: outputPath,
 };
 

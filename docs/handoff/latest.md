@@ -1,9 +1,19 @@
 # FPVLovers Handoff Packet
 
-Generated at: 2026-06-01T11:32:17.075Z
+Generated at: 2026-06-18T14:20:39.845Z
 
-## What happened
+## Git State
 
+- Branch: `main`
+- HEAD: `a16bdcba2b25`
+- Against `origin/main`: behind 0, ahead 3
+
+## What Happened
+
+- Post-analysis GAP closure Phase 4 completed locally on 2026-06-18: `PROJECT_MEMORY.md` and `NEXT_ACTIONS.md` now record security, metadata, taxonomy, type-quality, rotation, history-rewrite, and deployment boundaries. `scripts/generate-handoff.mjs` and `scripts/opencode-brief.mjs` now use the active 2026-06-18 plan plus real Git branch/HEAD/ahead state instead of the obsolete May Task 2/retrieval warning. `pnpm handoff:test` prevents that stale state from returning. The generated packet is based on verified code HEAD `a16bdcb` and lists commits `e3813ae`, `55b8f6c`, and `a16bdcb`.
+- Post-analysis GAP closure Phase 3 completed locally in commit `a16bdcb` on 2026-06-18: all 13 semantic `any` annotations introduced after `06e2c58` were replaced with existing domain types or `Record<string, unknown>`, and 82 trailing-whitespace/EOF violations in the same change range were removed. `pnpm quality:recent` now guards that range and supports `QUALITY_BASE_REF` for CI or rewritten history. Fresh verification passed with `pnpm quality:recent`, `pnpm exec tsc --noEmit`, and full `pnpm lint`.
+- Post-analysis GAP closure Phase 2 completed locally in commit `55b8f6c` on 2026-06-18: the metadata migration now preserves existing commercial metadata and deterministically fills missing discovery fields across all published artifacts. All 117 artifacts have valid metadata with zero missing `difficulty`, `contentType`, `topics`, `audience`, `discipline`, or `components`; buyer-guide taxonomy is canonicalized to `Buyer Guides`. The migration is idempotent (`0 artifact(s)` on the second run). Fresh verification passed with `pnpm metadata:test`, `pnpm metadata:audit`, `pnpm content:audit`, and `pnpm exec tsc --noEmit`.
+- Post-analysis GAP closure Phase 1 completed locally in commit `e3813ae` on 2026-06-18: tracked operational credential values were removed from current files, YouTube and retrieval scripts now require environment-managed Dify credentials, retrieval testing routes through `src/lib/dify-client.ts`, and metadata audit output is portable at `reports/unified-metadata-report.md`. Fresh verification passed with `pnpm security:audit`, `pnpm metadata:audit`, `pnpm exec tsc --noEmit`, and `git diff --check`. External Dify/cron credential rotation and coordinated Git-history cleanup remain operational requirements; current-file cleanup alone does not revoke exposed values.
 - GAP closure execution was reset into a phase-by-phase Codex plan on 2026-05-21 at `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md`.
 - OpenCode commit `2fb816a` is documentation-only; the automation implementation is `34369ec`.
 - Local verification before the new phase plan: `npx tsc --noEmit`, `npm run content:audit`, and `npm run content:smoke` passed.
@@ -13,82 +23,42 @@ Generated at: 2026-06-01T11:32:17.075Z
 - Phase 3 completed by Codex on 2026-05-21: duplicate `app/` and `src/app/` route trees were synced and guarded with `npm run routes:audit` via `scripts/route-tree-drift-audit.mjs`. The repo keeps dual route trees for this deploy to avoid runtime precedence surprises, but full drift detection is now part of the gate. Verification passed: `npm run routes:audit` (77 files synced), `npx tsc --noEmit`, `npm run content:audit`, and `npm run build`.
 - Phase 4 completed by Codex on 2026-05-21: final deploy hygiene added runtime/tool ignores, removed tracked `tsconfig.tsbuildinfo`, preserved published media artifacts, and refreshed handoff for Coolify cron setup. Final gate passed locally: `npx tsc --noEmit`, `npm run routes:audit`, `npm run content:audit`, `npm run content:smoke`, and `npm run build`.
 
-## Current blockers
+## Current Blockers
 
-1. DONE Walkthrough remediation (2026-05-29): route audit is single-tree aware, content audit/smoke scripts run from local `tsx`, and admin Dify workflows route through `src/lib/dify-client.ts`.
-2. DONE Phase 1 (2026-05-21): cron endpoints require a shared secret, `cron/crawl` uses `src/lib/crawl-queue.ts`, and dual cron routes are synced.
-3. DONE Phase 2 (2026-05-21): `cron/generate` now enqueues real jobs, blocks safely without `DIFY_APP_KEY`, and publishes Dify output when production credentials are present.
+- Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.
+- After rotation, plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
+- Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.
+- Run the complete local release gate for the post-analysis commits.
+- Compare the live production image/commit with local HEAD in read-only mode and smoke the health, homepage, reviews, comparisons, and buyer-guides routes.
+- Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.
+- Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.
 
-## Relevant follow-ups
+## Active Plan
 
-- Normalize all dataset/app routing to the 9-dataset model.
-- Correct any stale `fpv-regulations` dataset ID references.
-- Add env-based crawler provider config for primary/backup.
-- Decide whether crawl queue state should stay file-based or move to a persistent store once the Excel seed batches are fully processed; current file-based queue is still empty while workbook batches are going straight through ingest.
-- Decide whether `too_short` URLs should be excluded up front or kept as explicit retries for a different crawl strategy.
-- Consider whether `t-motor` should remain in the seed workbook at all, since both the path and origin failed crawl retries.
+**Goal:** Close the security, metadata, taxonomy, type-quality, documentation, and release-verification gaps found after commits `d690953..845afc5` without mutating production data.
+### Task 1: Security and portable audits
+### Task 2: Metadata and taxonomy completion
+### Task 3: Type and formatting quality
+### Task 4: Memory and handoff reconciliation
+### Task 5: Release and production verification
 
-## Working agreement
+## Next Move
 
-- Use Dify v1.14 as the LLMOps/RAG backend.
-- Use crawler providers directly from Next.js server-side API routes.
-- Keep n8n out of the active launch path.
-- Use 9 RAG datasets, including `fpv-regulations`.
-- Treat `FPV_RAG_Web_List_CLEAN.xlsx` as the canonical seed workbook for crawl batches.
-- Treat published content artifacts plus their generated media metadata as the source of truth for public surfaces.
+- Run the complete release gate, then verify the production commit and public routes read-only.
+- Do not claim the release is live until the production image or commit matches the deployed revision.
+- Do not deploy env-only credential changes until exposed credentials have been rotated in their owning systems.
 
-## Dify / content automation context
+## Source Of Truth
 
-**Goal:** Build a self-feeding FPV content system where content briefs are queued automatically, Dify generates structured English drafts, the app stores and previews them, and approved content can be published without manual rewriting.
-**Architecture:** Treat content production as a pipeline with explicit states: brief -> queued -> generated -> reviewed -> approved -> published. Keep the workflow contract in shared TypeScript types, keep Dify prompts and response parsing in one place, and keep the admin UI focused on queue health, draft quality, and publish actions. The existing `src/app/api/admin/content/*` routes become the main integration points, while shared content helpers stay in `src/lib/content-automation/*` so the duplicated `app/` tree can stay thin.
-**Tech Stack:** Next.js 15, React 19, TypeScript, local filesystem JSON/MD artifacts for queue state, existing Dify API integration, shadcn/ui, Playwright browser smoke, ESLint, `npx tsc`.
-### Task 1: Define the content automation contract and queue model
-### Task 2: Turn the existing Dify generation routes into a single structured content generator
-### Task 3: Add content queue creation, review, and publish endpoints
-### Task 4: Build the admin workflow UI for self-feeding content
-### Task 5: Wire the self-feeding loop from source intelligence to content generation
-- [ ] **Step 2: Create a loop that can generate the next best brief automatically**
-### Task 6: Add smoke tests and a release checklist for the content engine
-
-## Collaboration protocol excerpt
-
-- Gemini provider was added and the workflow was published.
-- Dify workflow blockers were resolved: `retrieval_mode=multiple`, `multiple_retrieval_config`, and `google_api_key` all fixed.
-- Content automation Task 1 was completed: contract + queue model + docs.
-- Current next fix: start Task 2 (shared prompt construction, JSON parsing, admin endpoint wiring).
-
-## Roles
-- **Codex**
-- **Opencode**
-## Source of Truth
 - `/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md`
 - `/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md`
-- `/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-dify-content-automation.md`
-## Update Order
-- Write what changed to `PROJECT_MEMORY.md`.
-- Write remaining work or blockers to `NEXT_ACTIONS.md`.
-- If the work affects Dify/content automation, update the plan doc too.
-## Handoff Rules
-- Start from the latest memory note, not from old chat context.
-- Do not duplicate work that is already finished in memory.
+- `/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-06-18-post-analysis-gap-closure.md`
 
-## Copy-paste prompt for Opencode
+## Copy-Paste Continuation Prompt
 
 ```text
-Continue the FPVLovers work from the latest handoff packet.
+Continue FPVLovers from the latest handoff packet.
 
-Read first:
-- /Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md
-- /Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md
-- /Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-dify-content-automation.md
-- /Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-05-18-opencode-codex-collaboration-protocol.md
-
-Current blocking issue:
-- The Dify workflow still shows a validation warning on the RAG Retrieval node: retrieval_mode needs to be resaved or the node recreated.
-
-Your next move:
-- Fix the RAG Retrieval node config.
-- Republish the Dify workflow.
-- Run a smoke test against the live Dify app.
-- Update PROJECT_MEMORY.md and NEXT_ACTIONS.md after the change.
+Read PROJECT_MEMORY.md, NEXT_ACTIONS.md, and docs/handoff/latest.md first.
+Run the complete local release gate. Then inspect production read-only and compare its deployed commit/image with local HEAD. Keep credential rotation, Git-history cleanup, push, and deploy boundaries explicit. Update project memory after obtaining fresh evidence.
 ```
