@@ -1,0 +1,83 @@
+{
+  "slug": "dji-o3-air-unit-review",
+  "title": "DJI O3 Air Unit Review: The Cinematic HD Gold Standard",
+  "jobId": "brief-dji-o3-air-unit-review",
+  "category": "Reviews",
+  "template": "tech-article",
+  "seo": {
+    "slug": "dji-o3-air-unit-review",
+    "metaDescription": "Is the DJI O3 Air Unit still the premium option for cinematic FPV pilots? A deep-dive review exploring 4K recording, latency, stability, and specs.",
+    "keywords": [
+      "dji",
+      "o3 air unit",
+      "fpv review",
+      "dji o3 air unit review"
+    ]
+  },
+  "excerpt": "Is the DJI O3 Air Unit still the premium option for cinematic FPV pilots? A deep-dive review exploring 4K recording, latency, stability, and specs.",
+  "bodySections": [
+    {
+      "id": "overview",
+      "title": "4K Recording and RockSteady Stabilization",
+      "content": "\nBy integrating DJI's proven RockSteady and HorizonSteady algorithms, the O3 camera eliminates the need for a secondary action camera on most 5-inch builds. The camera captures clean 4K/60fps video directly to its 20GB onboard storage.\n\n## RF Performance and Penetration\n\nRunning DJI's O3+ transmission system, the link delivers up to 50Mbps bandwidth and a low latency of 28ms. Signal penetration in concrete structures and thick foliage is unmatched, providing pilots with absolute peace of mind during long-range excursions.\n"
+    }
+  ],
+  "internalLinks": [],
+  "publishNotes": [],
+  "media": {
+    "coverImage": {
+      "src": "https://www.dji.com/cdn-design/images/o3-air-unit/features/camera-module.jpg",
+      "alt": "DJI O3 Air Unit Review: The Cinematic HD Gold Standard",
+      "caption": "O3 Air Unit",
+      "source": "DJI",
+      "sourceUrl": "https://www.dji.com/cdn-design/images/o3-air-unit/features/camera-module.jpg",
+      "credit": "DJI Catalog",
+      "license": "attribution"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [],
+    "attribution": []
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-18T10:10:00.000Z",
+  "promptVersion": "v2",
+  "coverImage": "https://www.dji.com/cdn-design/images/o3-air-unit/features/camera-module.jpg",
+  "metadata": {
+    "difficulty": "intermediate",
+    "contentType": "review",
+    "topics": [
+      "video",
+      "digital-video"
+    ],
+    "audience": [
+      "buyer",
+      "pilot"
+    ],
+    "discipline": [
+      "general",
+      "freestyle"
+    ],
+    "components": [
+      "vtx",
+      "camera"
+    ],
+    "review": {
+      "productBrand": "DJI",
+      "productModel": "O3 Air Unit",
+      "releaseYear": 2023,
+      "productCategory": "Digital VTX & Cameras",
+      "reviewScore": 94,
+      "pros": [
+        "High-quality onboard 4K/60fps recording with RockSteady",
+        "Excellent visual quality and signal penetration",
+        "Seamless integration with DJI Goggles 2 and Integra"
+      ],
+      "cons": [
+        "Heavier than analog and HDZero alternatives",
+        "Runs hot on the bench without airflow"
+      ],
+      "bestFor": "Cinematic pilots and freestylers wanting onboard 4K recording without carrying a GoPro."
+    }
+  }
+}

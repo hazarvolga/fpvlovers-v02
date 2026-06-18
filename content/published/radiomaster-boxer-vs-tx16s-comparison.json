@@ -1,0 +1,71 @@
+{
+  "slug": "radiomaster-boxer-vs-tx16s-comparison",
+  "title": "RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose?",
+  "jobId": "brief-radiomaster-boxer-vs-tx16s-comparison",
+  "category": "Comparisons",
+  "template": "tech-article",
+  "seo": {
+    "slug": "radiomaster-boxer-vs-tx16s-comparison",
+    "metaDescription": "A detailed head-to-head comparison between the RadioMaster Boxer and the TX16S MKII. Form factor, gimbals, switch layouts, and portability compared.",
+    "keywords": [
+      "radiomaster boxer",
+      "radiomaster tx16s mkii",
+      "fpv comparison",
+      "radiomaster boxer vs tx16s comparison"
+    ]
+  },
+  "excerpt": "A detailed head-to-head comparison between the RadioMaster Boxer and the TX16S MKII. Form factor, gimbals, switch layouts, and portability compared.",
+  "bodySections": [
+    {
+      "id": "overview",
+      "title": "Size, Portability, and Form Factor",
+      "content": "\nThe TX16S MKII is a full-sized radio featuring a large color touchscreen and a massive layout of switches and sliders. It is the gold standard for fixed-wing and complex models, but it is heavy and bulky. The Boxer is a compact mid-sized radio that ditches the color screen for a smaller monochrome display, but retains full-sized gimbals and a highly portable format.\n\n## RF Output and Battery Efficiency\n\nThe Boxer ELRS version comes with an internal 1W transmitter module with active fan cooling. The TX16S MKII ELRS version maxes out at 250mW internal output, meaning you need an external module for ultra-high power. For 99% of FPV pilots who want a compact, powerful, and easy-to-carry radio, the Boxer is the clear choice.\n"
+    }
+  ],
+  "internalLinks": [],
+  "publishNotes": [],
+  "media": {
+    "coverImage": {
+      "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+      "alt": "RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose?",
+      "caption": "RadioMaster Boxer vs RadioMaster TX16S MKII",
+      "source": "FPVLovers",
+      "sourceUrl": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+      "credit": "FPV Catalog",
+      "license": "attribution"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [],
+    "attribution": []
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-18T10:30:00.000Z",
+  "promptVersion": "v2",
+  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+  "metadata": {
+    "difficulty": "intermediate",
+    "contentType": "comparison",
+    "topics": [
+      "radio",
+      "elrs"
+    ],
+    "audience": [
+      "buyer",
+      "pilot"
+    ],
+    "discipline": [
+      "general",
+      "freestyle"
+    ],
+    "components": [
+      "radio"
+    ],
+    "comparison": {
+      "productA": "RadioMaster Boxer",
+      "productB": "RadioMaster TX16S MKII",
+      "comparisonCategory": "FPV Radios",
+      "winner": "RadioMaster Boxer"
+    }
+  }
+}

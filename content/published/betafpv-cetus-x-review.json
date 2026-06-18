@@ -1,0 +1,84 @@
+{
+  "slug": "betafpv-cetus-x-review",
+  "title": "BETAFPV Cetus X RTF Kit Review: Ultimate Beginner Starter Bundle",
+  "jobId": "brief-betafpv-cetus-x-review",
+  "category": "Reviews",
+  "template": "tech-article",
+  "seo": {
+    "slug": "betafpv-cetus-x-review",
+    "metaDescription": "Our review of the BETAFPV Cetus X brushless micro-drone kit. Explored ease of use, Betaflight compatibility, transmitter range, and value.",
+    "keywords": [
+      "betafpv",
+      "cetus x",
+      "fpv review",
+      "betafpv cetus x review"
+    ]
+  },
+  "excerpt": "Our review of the BETAFPV Cetus X brushless micro-drone kit. Explored ease of use, Betaflight compatibility, transmitter range, and value.",
+  "bodySections": [
+    {
+      "id": "overview",
+      "title": "Brushless Power & Flight Durability",
+      "content": "\nUnlike brushed micro-drones, the Cetus X features 1103 brushless motors that give it enough power to fly outdoors even in light wind. The plastic frame is extremely flexible and absorbs major impacts, protecting the components during crash-heavy beginner sessions.\n\n## Betaflight configurator & Growth Path\n\nA major advantage of the Cetus X over the original Cetus is the use of a standard Betaflight flight controller. This allows pilots to connect the drone to a computer, adjust PID profiles, change rates, and learn the software that runs 99% of FPV quadcopters.\n"
+    }
+  ],
+  "internalLinks": [],
+  "publishNotes": [],
+  "media": {
+    "coverImage": {
+      "src": "https://betafpv.com/cdn/shop/products/CetusXRTF_1000x.jpg",
+      "alt": "BETAFPV Cetus X RTF Kit Review: Ultimate Beginner Starter Bundle",
+      "caption": "Cetus X",
+      "source": "BETAFPV",
+      "sourceUrl": "https://betafpv.com/cdn/shop/products/CetusXRTF_1000x.jpg",
+      "credit": "BETAFPV Catalog",
+      "license": "attribution"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [],
+    "attribution": []
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-18T10:15:00.000Z",
+  "promptVersion": "v2",
+  "coverImage": "https://betafpv.com/cdn/shop/products/CetusXRTF_1000x.jpg",
+  "metadata": {
+    "difficulty": "intermediate",
+    "contentType": "review",
+    "topics": [
+      "quad",
+      "beginner"
+    ],
+    "audience": [
+      "buyer",
+      "pilot"
+    ],
+    "discipline": [
+      "general",
+      "freestyle"
+    ],
+    "components": [
+      "quad",
+      "radio",
+      "goggles"
+    ],
+    "review": {
+      "productBrand": "BETAFPV",
+      "productModel": "Cetus X",
+      "releaseYear": 2023,
+      "productCategory": "Micro Drones & RTF Kits",
+      "reviewScore": 90,
+      "pros": [
+        "Highly durable plastic frame that handles crashes",
+        "Full Betaflight configurator access for customizing settings",
+        "Includes decent LiteRadio 3 transmitter and VR03 goggles"
+      ],
+      "cons": [
+        "Analog video link can have static in larger homes",
+        "Battery chargers are slow"
+      ],
+      "bestFor": "Complete beginners looking for an all-in-one bundle to learn acro mode flying safely indoors and outdoors."
+    }
+  }
+}

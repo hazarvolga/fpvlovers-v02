@@ -1,0 +1,55 @@
+{
+  "slug": "dji-goggles-2-vs-integra-comparison",
+  "title": "DJI Goggles 2 vs DJI Goggles Integra: Head-to-Head Comparison",
+  "jobId": "brief-dji-goggles-comparison",
+  "category": "Comparisons",
+  "template": "tech-article",
+  "seo": {
+    "slug": "dji-goggles-2-vs-integra-comparison",
+    "metaDescription": "Detailed side-by-side comparison of DJI Goggles 2 and Goggles Integra. Weighing the options for image quality, battery styles, and price.",
+    "keywords": ["dji goggles 2", "dji goggles integra", "dji goggles comparison", "digital fpv goggles"]
+  },
+  "excerpt": "Which DJI digital goggle reigns supreme? We compare the premium Goggles 2 head-to-head with the value-focused Goggles Integra to see which fits your budget.",
+  "bodySections": [
+    {
+      "id": "comparison-overview",
+      "title": "Display and Power Differences",
+      "content": "DJI has offered two strong digital options in their O3-compatible goggle line. The DJI Goggles 2 features high-fidelity 1080p OLED screens, adjustable diopters, and a touch panel, requiring an external battery. The DJI Goggles Integra, on the other hand, integrates the battery directly into the headband, uses LCOS displays, removes the touch panel for physical buttons, and uses fixed diopter slots (lenses included in the box).\n\nIf you require precise diopter adjustments and slightly richer contrast, the Goggles 2 is superior. However, for sheer convenience and lower price, the Integra is a massive winner."
+    }
+  ],
+  "internalLinks": [],
+  "publishNotes": [],
+  "media": {
+    "coverImage": {
+      "src": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
+      "alt": "DJI Goggles 2 vs DJI Goggles Integra",
+      "caption": "DJI Goggles Comparison",
+      "source": "DJI",
+      "sourceUrl": "https://store.dji.com/",
+      "credit": "DJI Catalog",
+      "license": "attribution"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [],
+    "attribution": []
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-18T11:00:00.000Z",
+  "promptVersion": "v2",
+  "coverImage": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
+  "metadata": {
+    "difficulty": "intermediate",
+    "contentType": "comparison",
+    "topics": ["goggles", "digital-video"],
+    "audience": ["buyer", "pilot"],
+    "discipline": ["cinematic", "freestyle"],
+    "components": ["goggles"],
+    "comparison": {
+      "productA": "DJI Goggles 2",
+      "productB": "DJI Goggles Integra",
+      "comparisonCategory": "FPV Goggles",
+      "winner": "DJI Goggles Integra"
+    }
+  }
+}

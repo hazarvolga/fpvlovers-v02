@@ -2,7 +2,7 @@
   "slug": "the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog",
   "title": "The Ultimate FPV Video Ecosystem Guide in 2026: DJI vs Walksnail vs HDZero vs Analog",
   "jobId": "brief-ultimate-vtx-video-ecosystem",
-  "category": "News and Reviews",
+  "category": "Buyers Guides",
   "template": "tech-article",
   "seo": {
     "slug": "the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog",
@@ -73,6 +73,15 @@
       "general"
     ],
     "difficulty": "intermediate",
-    "contentType": "tutorial"
-  }
+    "contentType": "product-roundup",
+    "category": "Buyers Guides",
+    "buyerGuide": {
+      "products": [
+        "DJI O3 Air Unit",
+        "Walksnail Avatar HD Pro",
+        "HDZero Whoop Lite VTX"
+      ]
+    }
+  },
+  "contentType": "product-roundup"
 }

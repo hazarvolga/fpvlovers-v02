@@ -1,0 +1,85 @@
+{
+  "slug": "iflight-nazgul-evoque-f5-review",
+  "title": "iFlight Nazgul Evoque F5 V2 Review: Ready-To-Fly Freestyle Champion",
+  "jobId": "brief-iflight-nazgul-evoque-f5-review",
+  "category": "Reviews",
+  "template": "tech-article",
+  "seo": {
+    "slug": "iflight-nazgul-evoque-f5-review",
+    "metaDescription": "Is the iFlight Nazgul Evoque F5 V2 still the best pre-built 5-inch drone? Bench tests, flight dynamics, and build quality analysis.",
+    "keywords": [
+      "iflight",
+      "nazgul evoque f5 v2",
+      "fpv review",
+      "iflight nazgul evoque f5 review"
+    ]
+  },
+  "excerpt": "Is the iFlight Nazgul Evoque F5 V2 still the best pre-built 5-inch drone? Bench tests, flight dynamics, and build quality analysis.",
+  "bodySections": [
+    {
+      "id": "overview",
+      "title": "Frame Protection and Aesthetics",
+      "content": "\nThe Evoque features side panels with integrated LED lighting, shielding the flight controller and ESC stack from grass, dirt, and water splashes. The frame feels exceptionally rigid, minimizing vibrations and resonance.\n\n## Out-Of-The-Box Betaflight Tuning\n\nEquipped with XING2 2207 motors, the Evoque flies like it is on rails. iFlight's custom factory tune matches filter parameters to the frame dynamics, meaning you do not have to spend hours adjusting PIDs to eliminate mid-throttle oscillations.\n"
+    }
+  ],
+  "internalLinks": [],
+  "publishNotes": [],
+  "media": {
+    "coverImage": {
+      "src": "https://shop.iflight-rc.com/image/cache/catalog/product/Nazgul-Evoque-F5D-V2-1000x1000.jpg",
+      "alt": "iFlight Nazgul Evoque F5 V2 Review: Ready-To-Fly Freestyle Champion",
+      "caption": "Nazgul Evoque F5 V2",
+      "source": "iFlight",
+      "sourceUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/Nazgul-Evoque-F5D-V2-1000x1000.jpg",
+      "credit": "iFlight Catalog",
+      "license": "attribution"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [],
+    "attribution": []
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-18T10:20:00.000Z",
+  "promptVersion": "v2",
+  "coverImage": "https://shop.iflight-rc.com/image/cache/catalog/product/Nazgul-Evoque-F5D-V2-1000x1000.jpg",
+  "metadata": {
+    "difficulty": "intermediate",
+    "contentType": "review",
+    "topics": [
+      "quad",
+      "freestyle"
+    ],
+    "audience": [
+      "buyer",
+      "pilot"
+    ],
+    "discipline": [
+      "general",
+      "freestyle"
+    ],
+    "components": [
+      "quad",
+      "motors",
+      "fc",
+      "vtx"
+    ],
+    "review": {
+      "productBrand": "iFlight",
+      "productModel": "Nazgul Evoque F5 V2",
+      "releaseYear": 2024,
+      "productCategory": "Pre-built Freestyle Drones",
+      "reviewScore": 93,
+      "pros": [
+        "Outstanding structural design with side panels to protect electronics",
+        "Butter-smooth tune out of the box with XING2 motors",
+        "Clean soldering and durable cable routing"
+      ],
+      "cons": [
+        "Heavier than custom custom-built carbon frames",
+        "Premium price point"
+      ],
+      "bestFor": "Pilots wanting a professional-grade 5-inch freestyle drone without soldering it themselves."
+    }
+  }
+}

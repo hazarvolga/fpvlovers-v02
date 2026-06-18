@@ -2,7 +2,7 @@
   "slug": "how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training",
   "title": "How to Choose Your First Tiny Whoop: Indoor Fun & Safe Training",
   "jobId": "brief-choose-first-tiny-whoop",
-  "category": "News and Reviews",
+  "category": "Buyers Guides",
   "template": "tech-article",
   "seo": {
     "slug": "how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training",
@@ -63,5 +63,17 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:43:58.600Z",
   "promptVersion": "v2",
-  "coverImage": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_1000x1000.progressive.jpg?v=1637194872"
+  "coverImage": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_1000x1000.progressive.jpg?v=1637194872",
+  "contentType": "buyer-guide",
+  "metadata": {
+    "contentType": "buyer-guide",
+    "category": "Buyers Guides",
+    "buyerGuide": {
+      "products": [
+        "BETAFPV Meteor75 Pro",
+        "Happymodel Mobula7 ELRS",
+        "Emax Tinyhawk III Plus"
+      ]
+    }
+  }
 }

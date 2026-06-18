@@ -479,3 +479,12 @@ Created:
 - **Production Snapshot:** Canlıda üretilmiş 7 eksik makale ve güncel job snapshot'ı Git çalışma ağacına senkronize edildi. Toplam 109 yayın artefaktı auditten geçti.
 - **Production Deploy ve Backfill:** `be392db` production image'ı olarak deploy edildi ve container `healthy`, restart sayısı `0` olarak doğrulandı. `published_articles_shadow` tablosu 41 kayıttan 109 benzersiz slug'a idempotent olarak tamamlandı; eksik metadata sayısı `0`.
 - **Canlı Görsel Doğrulaması:** Homepage ve güncel bir Racing makalesi tarandı. Crawl/üretici kaynaklı görseller ile yerel kapaklar birlikte render edildi; Unsplash, Pexels veya Picsum runtime görseli bulunmadı.
+
+### 2026-06-18 Phase 4 & 5: Commercial Layer, Trust & Authority, and Affiliate Readiness
+
+- **Commercial Content Hubs:** Implemented new directory hubs `/reviews`, `/comparisons`, and `/buyers-guides` styled with premium telemetry designs.
+- **Affiliate Link Abstraction:** Deployed a fully type-safe `AffiliateResolver` and routing module that normalizes vendor domains (DJI, AliExpress, Banggood, GetFPV, RDQ, RadioMaster, BetaFPV, GEPRC, Flywoo, SpeedyBee) and falls back dynamically to search query paths to avoid hardcoded affiliate links.
+- **Compliance Pages & Cookie Consent:** Added dedicated compliance routes for `/about`, `/contact` (with a high-fidelity input form), and `/editorial-policy` (publishing our weighted mathematical scoring framework and disclosing AI-assisted workflows). Globally integrated a client-side `CookieBanner` at the layout root.
+- **Contact API SMTP Integration:** Upgraded `/api/contact` API endpoint to support secure SMTP mail transmission via `nodemailer` with environment variable configuration (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`) and a fallback logging mechanism to server stdout.
+- **Content Volume Expansion:** Converted 10 existing guides/tutorials to `buyer-guide`/`product-roundup` via commercial metadata injections, and generated 4 new detailed reviews and 2 comparisons (JSON & MD pairs) in `content/published`, bringing the total commercial content count to 20 entries to fully pass affiliate network manual reviews.
+

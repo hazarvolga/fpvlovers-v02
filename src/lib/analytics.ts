@@ -82,3 +82,40 @@ export function trackSearchResultClick(query: string, targetSlug: string) {
     }
   });
 }
+
+export function trackReviewClick(reviewSlug: string, metadata?: Record<string, unknown>) {
+  trackEvent({
+    eventType: 'review_click',
+    contentSlug: reviewSlug,
+    metadata
+  });
+}
+
+export function trackComparisonClick(comparisonSlug: string, metadata?: Record<string, unknown>) {
+  trackEvent({
+    eventType: 'comparison_click',
+    contentSlug: comparisonSlug,
+    metadata
+  });
+}
+
+export function trackBuyerGuideClick(guideSlug: string, metadata?: Record<string, unknown>) {
+  trackEvent({
+    eventType: 'buyer_guide_click',
+    contentSlug: guideSlug,
+    metadata
+  });
+}
+
+export function trackAffiliateClick(slug: string, provider: string, url: string, metadata?: Record<string, unknown>) {
+  trackEvent({
+    eventType: 'affiliate_click',
+    contentSlug: slug,
+    metadata: {
+      ...metadata,
+      provider,
+      url
+    }
+  });
+}
+

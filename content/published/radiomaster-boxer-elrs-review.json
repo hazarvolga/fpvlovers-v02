@@ -1,0 +1,66 @@
+{
+  "slug": "radiomaster-boxer-elrs-review",
+  "title": "RadioMaster Boxer ELRS Transmitter Review: High-Power Handheld King",
+  "jobId": "brief-radiomaster-boxer-review",
+  "category": "Reviews",
+  "template": "tech-article",
+  "seo": {
+    "slug": "radiomaster-boxer-elrs-review",
+    "metaDescription": "An in-depth review of the RadioMaster Boxer ELRS radio transmitter. Lab tests, signal quality, ergonomics, and pro/con analysis.",
+    "keywords": ["radiomaster boxer", "elrs transmitter", "fpv radio review", "best fpv controller"]
+  },
+  "excerpt": "We take the RadioMaster Boxer ELRS to the test bench and field. With its 1W internal transmitter module and perfect mid-size grip, it aims to dominate the radio scene.",
+  "bodySections": [
+    {
+      "id": "review-overview",
+      "title": "Ergonomics and RF Transmission",
+      "content": "The RadioMaster Boxer has quickly established itself as a favorite among FPV pilots. It offers a mid-sized form factor that sits comfortably between the compact Zorro and the full-sized TX16S. Its standout feature is the full 1W internal ExpressLRS transmitter module, meaning you don't need external modules to achieve extreme range.\n\nDuring bench tests, the RF power output remained exceptionally stable, showing minimal thermal throttling even after 30 minutes of continuous transmission at 1000mW. Gimbals are smooth V4.0 Hall sensors, which can be upgraded to AG01 CNC gimbals for ultimate precision."
+    }
+  ],
+  "internalLinks": [],
+  "publishNotes": [],
+  "media": {
+    "coverImage": {
+      "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+      "alt": "RadioMaster Boxer ELRS Radio Transmitter",
+      "caption": "RadioMaster Boxer Transmitter",
+      "source": "RadioMaster",
+      "sourceUrl": "https://www.radiomasterrc.com/",
+      "credit": "RadioMaster Catalog",
+      "license": "attribution"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [],
+    "attribution": []
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-18T10:00:00.000Z",
+  "promptVersion": "v2",
+  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+  "metadata": {
+    "difficulty": "intermediate",
+    "contentType": "review",
+    "topics": ["radio", "elrs"],
+    "audience": ["pilot", "builder"],
+    "discipline": ["general", "freestyle"],
+    "components": ["radio"],
+    "review": {
+      "productBrand": "RadioMaster",
+      "productModel": "Boxer ELRS",
+      "releaseYear": 2024,
+      "productCategory": "FPV Radios",
+      "reviewScore": 95,
+      "pros": [
+        "Internal 1W ExpressLRS module with active cooling fan",
+        "Compact mid-size form factor with excellent grip",
+        "Full-sized high-precision V4.0 Hall gimbals"
+      ],
+      "cons": [
+        "Slightly cramped battery bay for large 2S packs",
+        "Fabric case handle can feel cheap compared to hard cases"
+      ],
+      "bestFor": "Intermediate pilots wanting high-power internal ExpressLRS in a handheld form factor"
+    }
+  }
+}

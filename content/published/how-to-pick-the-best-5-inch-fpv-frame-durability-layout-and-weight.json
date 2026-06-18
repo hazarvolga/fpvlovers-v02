@@ -2,7 +2,7 @@
   "slug": "how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight",
   "title": "How to Pick the Best 5-Inch FPV Frame: Durability, Layout, and Weight",
   "jobId": "brief-best-5-inch-fpv-frame",
-  "category": "Components",
+  "category": "Buyers Guides",
   "template": "tech-article",
   "seo": {
     "slug": "how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight",
@@ -71,6 +71,15 @@
       "general"
     ],
     "difficulty": "intermediate",
-    "contentType": "tutorial"
-  }
+    "contentType": "buyer-guide",
+    "category": "Buyers Guides",
+    "buyerGuide": {
+      "products": [
+        "iFlight Nazgul Evoque F5",
+        "Apex FPV Frame",
+        "TBS Source One V5"
+      ]
+    }
+  },
+  "contentType": "buyer-guide"
 }

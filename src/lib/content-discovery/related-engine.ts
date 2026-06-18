@@ -45,6 +45,16 @@ export async function getRelatedContent(sourceSlug: string, maxResults = 8): Pro
           score += 1;
         }
 
+        // Commercial content boost (+10 pts) if it matches on topics or components
+        const isCommercial = ['review', 'comparison', 'buyer-guide', 'product-roundup'].includes(targetMeta.contentType || '');
+        if (isCommercial) {
+          const hasCommonTopic = sourceMeta.topics && targetMeta.topics && sourceMeta.topics.some(t => targetMeta.topics!.includes(t));
+          const hasCommonComponent = sourceMeta.components && targetMeta.components && sourceMeta.components.some(c => targetMeta.components!.includes(c));
+          if (hasCommonTopic || hasCommonComponent) {
+            score += 10;
+          }
+        }
+
         return { article: a, score };
       })
       .filter((sc: { article: PublishedArtifact; score: number }) => sc.score > 0)

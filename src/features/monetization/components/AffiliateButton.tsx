@@ -2,15 +2,17 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, ShoppingCart } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { trackAffiliateClick } from '@/lib/analytics';
 
 interface AffiliateButtonProps {
   url: string;
   price?: string;
   label?: string;
-  provider?: 'Amazon' | 'Banggood' | 'Direct';
+  provider?: string;
   className?: string;
   productId?: string;
   network?: string;
+  articleSlug?: string;
 }
 
 function trackClick(productId: string, network: string) {
@@ -21,12 +23,19 @@ function trackClick(productId: string, network: string) {
   }).catch(() => {});
 }
 
-export function AffiliateButton({ url, price, label = "Check Price", provider = "Amazon", className, productId, network }: AffiliateButtonProps) {
+export function AffiliateButton({ url, price, label = "Check Price", provider = "Amazon", className, productId, network, articleSlug }: AffiliateButtonProps) {
   const handleClick = () => {
     if (productId && network) {
       trackClick(productId, network);
     }
+    trackAffiliateClick(articleSlug || 'direct', provider, url, {
+      price,
+      label,
+      productId,
+      network
+    });
   };
+
 
   return (
     <Button

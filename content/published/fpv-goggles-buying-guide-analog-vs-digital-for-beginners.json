@@ -2,7 +2,7 @@
   "slug": "fpv-goggles-buying-guide-analog-vs-digital-for-beginners",
   "title": "FPV Goggles Buying Guide: Analog vs Digital for Beginners",
   "jobId": "brief-fpv-goggles-buying-guide",
-  "category": "News and Reviews",
+  "category": "Buyers Guides",
   "template": "tech-article",
   "seo": {
     "slug": "fpv-goggles-buying-guide-analog-vs-digital-for-beginners",
@@ -72,6 +72,15 @@
       "general"
     ],
     "difficulty": "beginner",
-    "contentType": "tutorial"
-  }
+    "contentType": "buyer-guide",
+    "category": "Buyers Guides",
+    "buyerGuide": {
+      "products": [
+        "DJI Goggles Integra",
+        "Walksnail Avatar VRX",
+        "Skyzone Cobra X V2"
+      ]
+    }
+  },
+  "contentType": "buyer-guide"
 }

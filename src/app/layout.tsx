@@ -8,6 +8,7 @@ import { Navbar } from '@/features/layout/components/Navbar';
 import { SearchSection } from '@/features/layout/components/SearchSection';
 import { SiteFooter } from '@/features/layout/components/SiteFooter';
 import { MobileUtilityBar } from '@/features/layout/components/MobileUtilityBar';
+import { CookieBanner } from '@/features/layout/components/CookieBanner';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { SessionProvider } from 'next-auth/react';
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SearchSection />
           <main className="relative z-10 pb-16 lg:pb-0">{children}</main>
           <MobileUtilityBar />
+          <CookieBanner />
           <SiteFooter />
           <Analytics />
           {process.env.NEXT_PUBLIC_GA_ID && (

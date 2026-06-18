@@ -1,0 +1,82 @@
+{
+  "slug": "jumper-t-pro-elrs-review",
+  "title": "Jumper T-Pro ELRS Transmitter Review: Compact Gamepad King",
+  "jobId": "brief-jumper-t-pro-elrs-review",
+  "category": "Reviews",
+  "template": "tech-article",
+  "seo": {
+    "slug": "jumper-t-pro-elrs-review",
+    "metaDescription": "An in-depth review of Jumper T-Pro ExpressLRS radio controller. Compact gamepad ergonomics, internal 1000mW output, and field flight tests.",
+    "keywords": [
+      "jumper",
+      "t-pro elrs",
+      "fpv review",
+      "jumper t pro elrs review"
+    ]
+  },
+  "excerpt": "An in-depth review of Jumper T-Pro ExpressLRS radio controller. Compact gamepad ergonomics, internal 1000mW output, and field flight tests.",
+  "bodySections": [
+    {
+      "id": "overview",
+      "title": "Gamepad Form Factor & Portability",
+      "content": "\nThe Jumper T-Pro adopts a design heavily inspired by modern console gamepads. For thumbers and pilots transitioning from console simulators, the ergonomics feel instantly familiar. It fits neatly in smaller bags, making it a great travel radio.\n\n## Internal ExpressLRS Performance\n\nThe standout technical achievement is the built-in ExpressLRS transmitter capable of up to 1000mW output power. We monitored the thermal telemetry on our bench tests, noting that the fan successfully prevents thermal throttling at 500mW, although 1000mW runs hot. The gimbals are Hall sensor units that offer decent precision, although they lack the premium feel of full-sized RadioMaster radios.\n"
+    }
+  ],
+  "internalLinks": [],
+  "publishNotes": [],
+  "media": {
+    "coverImage": {
+      "src": "https://www.jumper-rc.com/wp-content/uploads/2022/04/T-Pro-Main.jpg",
+      "alt": "Jumper T-Pro ELRS Transmitter Review: Compact Gamepad King",
+      "caption": "T-Pro ELRS",
+      "source": "Jumper",
+      "sourceUrl": "https://www.jumper-rc.com/wp-content/uploads/2022/04/T-Pro-Main.jpg",
+      "credit": "Jumper Catalog",
+      "license": "attribution"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [],
+    "attribution": []
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-06-18T10:05:00.000Z",
+  "promptVersion": "v2",
+  "coverImage": "https://www.jumper-rc.com/wp-content/uploads/2022/04/T-Pro-Main.jpg",
+  "metadata": {
+    "difficulty": "intermediate",
+    "contentType": "review",
+    "topics": [
+      "radio",
+      "elrs"
+    ],
+    "audience": [
+      "buyer",
+      "pilot"
+    ],
+    "discipline": [
+      "general",
+      "freestyle"
+    ],
+    "components": [
+      "radio"
+    ],
+    "review": {
+      "productBrand": "Jumper",
+      "productModel": "T-Pro ELRS",
+      "releaseYear": 2023,
+      "productCategory": "FPV Radios",
+      "reviewScore": 88,
+      "pros": [
+        "Compact gamepad style comfort for thumbers",
+        "Built-in 1000mW high-power ELRS module",
+        "USB-C charging and excellent battery life"
+      ],
+      "cons": [
+        "Physical buttons and switches feel slightly plastic",
+        "Small monocolor OLED screen"
+      ],
+      "bestFor": "Pilots who prefer a gamepad controller format with internal high-power ELRS link."
+    }
+  }
+}

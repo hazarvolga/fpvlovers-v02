@@ -2,7 +2,7 @@
   "slug": "how-to-choose-your-first-fpv-radio-without-buying-twice",
   "title": "How to Choose Your First FPV Radio Without Buying Twice",
   "jobId": "brief-how-to-choose-your-first-fpv-radio",
-  "category": "Components",
+  "category": "Buyers Guides",
   "template": "tech-article",
   "seo": {
     "slug": "how-to-choose-your-first-fpv-radio-without-buying-twice",
@@ -71,6 +71,15 @@
       "general"
     ],
     "difficulty": "intermediate",
-    "contentType": "tutorial"
-  }
+    "contentType": "buyer-guide",
+    "category": "Buyers Guides",
+    "buyerGuide": {
+      "products": [
+        "RadioMaster Boxer",
+        "RadioMaster Pocket",
+        "Jumper T-Pro"
+      ]
+    }
+  },
+  "contentType": "buyer-guide"
 }
