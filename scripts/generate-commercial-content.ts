@@ -2,66 +2,67 @@ import fs from 'fs';
 import path from 'path';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
+const BUYER_GUIDES_CATEGORY = 'Buyer Guides';
 
 const CONVERSIONS = [
   {
     file: 'best-fpv-starter-kits-2026-rtf-bundles-for-beginners.json',
     contentType: 'buyer-guide',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['BETAFPV Cetus X RTF', 'RadioMaster Pocket ELRS', 'Emax Tinyhawk III Plus'] }
   },
   {
     file: 'fpv-goggles-buyers-guide.json',
     contentType: 'buyer-guide',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['DJI Goggles 2', 'Walksnail Avatar Goggles X', 'HDZero Goggles', 'Eachine EV800D'] }
   },
   {
     file: 'fpv-goggles-buying-guide-analog-vs-digital-for-beginners.json',
     contentType: 'buyer-guide',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['DJI Goggles Integra', 'Walksnail Avatar VRX', 'Skyzone Cobra X V2'] }
   },
   {
     file: 'the-best-fpv-simulators-in-2026-save-cash-and-log-hours-virtually.json',
     contentType: 'product-roundup',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['Liftoff FPV Drone Simulator', 'Velocidrone', 'Uncrashed FPV Simulator', 'Tryp FPV'] }
   },
   {
     file: 'how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight.json',
     contentType: 'buyer-guide',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['iFlight Nazgul Evoque F5', 'Apex FPV Frame', 'TBS Source One V5'] }
   },
   {
     file: 'how-to-choose-fpv-motors-understanding-kv-stator-size-and-propeller-matching.json',
     contentType: 'buyer-guide',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['T-Motor Velox V3', 'Emax ECO II', 'XING2 2207'] }
   },
   {
     file: 'how-to-choose-your-first-fpv-radio-without-buying-twice.json',
     contentType: 'buyer-guide',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['RadioMaster Boxer', 'RadioMaster Pocket', 'Jumper T-Pro'] }
   },
   {
     file: 'how-to-choose-your-first-fpv-radio.json',
     contentType: 'buyer-guide',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['RadioMaster TX16S MKII', 'RadioMaster Zorro', 'TBS Tango 2 Pro'] }
   },
   {
     file: 'how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training.json',
     contentType: 'buyer-guide',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['BETAFPV Meteor75 Pro', 'Happymodel Mobula7 ELRS', 'Emax Tinyhawk III Plus'] }
   },
   {
     file: 'the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog.json',
     contentType: 'product-roundup',
-    category: 'Buyers Guides',
+    category: BUYER_GUIDES_CATEGORY,
     buyerGuide: { products: ['DJI O3 Air Unit', 'Walksnail Avatar HD Pro', 'HDZero Whoop Lite VTX'] }
   }
 ];

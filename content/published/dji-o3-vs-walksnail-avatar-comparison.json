@@ -44,11 +44,13 @@
   "promptVersion": "v2",
   "coverImage": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
   "metadata": {
-    "difficulty": "intermediate",
-    "contentType": "comparison",
     "topics": [
       "video",
       "digital-video"
+    ],
+    "components": [
+      "vtx",
+      "camera"
     ],
     "audience": [
       "buyer",
@@ -58,10 +60,8 @@
       "general",
       "freestyle"
     ],
-    "components": [
-      "vtx",
-      "camera"
-    ],
+    "difficulty": "intermediate",
+    "contentType": "comparison",
     "comparison": {
       "productA": "DJI O3 Air Unit",
       "productB": "Walksnail Avatar HD Pro",

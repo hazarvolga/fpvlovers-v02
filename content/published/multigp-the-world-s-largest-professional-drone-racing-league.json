@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:15:14.984Z",
   "promptVersion": "v2",
-  "coverImage": "https://spaindroneteam.com/wp-content/uploads/2025/03/SECCION-SPONSORS.png"
+  "coverImage": "https://spaindroneteam.com/wp-content/uploads/2025/03/SECCION-SPONSORS.png",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "racer"
+    ],
+    "discipline": [
+      "racing"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

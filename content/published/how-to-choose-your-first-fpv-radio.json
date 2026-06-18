@@ -2,7 +2,7 @@
   "slug": "how-to-choose-your-first-fpv-radio",
   "title": "How to Choose Your First FPV Radio: Stop Buying Twice",
   "jobId": "brief-how-to-choose-your-first-fpv-radio",
-  "category": "Buyers Guides",
+  "category": "Buyer Guides",
   "template": "tech-article",
   "seo": {
     "slug": "how-to-choose-your-first-fpv-radio",
@@ -159,8 +159,21 @@
   "coverImage": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
   "contentType": "buyer-guide",
   "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "radio"
+    ],
+    "audience": [
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
     "contentType": "buyer-guide",
-    "category": "Buyers Guides",
+    "category": "Buyer Guides",
     "buyerGuide": {
       "products": [
         "RadioMaster TX16S MKII",

@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:05:43.386Z",
   "promptVersion": "v2",
-  "coverImage": "https://f9u.it/wp-content/uploads/2026/03/cropped-immagine_2026-03-10_105411990.png"
+  "coverImage": "https://f9u.it/wp-content/uploads/2026/03/cropped-immagine_2026-03-10_105411990.png",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

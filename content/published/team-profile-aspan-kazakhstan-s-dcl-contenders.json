@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:48:56.390Z",
   "promptVersion": "v2",
-  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Pilot-of-the-Year-1x1-3.jpg"
+  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Pilot-of-the-Year-1x1-3.jpg",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

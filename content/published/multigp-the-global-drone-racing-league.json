@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:27:03.234Z",
   "promptVersion": "v2",
-  "coverImage": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_3_100x.png?v=1637194873"
+  "coverImage": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_3_100x.png?v=1637194873",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "racer"
+    ],
+    "discipline": [
+      "racing"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

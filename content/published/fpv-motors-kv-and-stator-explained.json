@@ -56,5 +56,21 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:26:58.349Z",
   "promptVersion": "v2",
-  "coverImage": "https://pyrodrone.com/cdn/shop/products/569A1013_faaf1e94-b29b-4b5b-be2f-03d05bb89219_512x512.jpg?v=1602876520"
+  "coverImage": "https://pyrodrone.com/cdn/shop/products/569A1013_faaf1e94-b29b-4b5b-be2f-03d05bb89219_512x512.jpg?v=1602876520",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "motor"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

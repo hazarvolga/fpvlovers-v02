@@ -38,5 +38,19 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-14T12:41:38.618Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

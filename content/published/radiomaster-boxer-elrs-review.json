@@ -7,7 +7,12 @@
   "seo": {
     "slug": "radiomaster-boxer-elrs-review",
     "metaDescription": "An in-depth review of the RadioMaster Boxer ELRS radio transmitter. Lab tests, signal quality, ergonomics, and pro/con analysis.",
-    "keywords": ["radiomaster boxer", "elrs transmitter", "fpv radio review", "best fpv controller"]
+    "keywords": [
+      "radiomaster boxer",
+      "elrs transmitter",
+      "fpv radio review",
+      "best fpv controller"
+    ]
   },
   "excerpt": "We take the RadioMaster Boxer ELRS to the test bench and field. With its 1W internal transmitter module and perfect mid-size grip, it aims to dominate the radio scene.",
   "bodySections": [
@@ -39,12 +44,23 @@
   "promptVersion": "v2",
   "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
   "metadata": {
+    "topics": [
+      "radio",
+      "elrs"
+    ],
+    "components": [
+      "radio"
+    ],
+    "audience": [
+      "pilot",
+      "builder"
+    ],
+    "discipline": [
+      "general",
+      "freestyle"
+    ],
     "difficulty": "intermediate",
     "contentType": "review",
-    "topics": ["radio", "elrs"],
-    "audience": ["pilot", "builder"],
-    "discipline": ["general", "freestyle"],
-    "components": ["radio"],
     "review": {
       "productBrand": "RadioMaster",
       "productModel": "Boxer ELRS",

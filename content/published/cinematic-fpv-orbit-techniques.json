@@ -59,5 +59,19 @@
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:22:43.678Z",
   "promptVersion": "v2",
-  "coverImage": "https://en.tmotor.com/uploadfile/2026/0129/20260129015053688.jpg"
+  "coverImage": "https://en.tmotor.com/uploadfile/2026/0129/20260129015053688.jpg",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "cinematographer"
+    ],
+    "discipline": [
+      "cinematic"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

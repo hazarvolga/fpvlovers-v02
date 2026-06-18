@@ -44,11 +44,15 @@
   "promptVersion": "v2",
   "coverImage": "https://shop.iflight-rc.com/image/cache/catalog/product/Nazgul-Evoque-F5D-V2-1000x1000.jpg",
   "metadata": {
-    "difficulty": "intermediate",
-    "contentType": "review",
     "topics": [
       "quad",
       "freestyle"
+    ],
+    "components": [
+      "quad",
+      "motors",
+      "fc",
+      "vtx"
     ],
     "audience": [
       "buyer",
@@ -58,12 +62,8 @@
       "general",
       "freestyle"
     ],
-    "components": [
-      "quad",
-      "motors",
-      "fc",
-      "vtx"
-    ],
+    "difficulty": "intermediate",
+    "contentType": "review",
     "review": {
       "productBrand": "iFlight",
       "productModel": "Nazgul Evoque F5 V2",

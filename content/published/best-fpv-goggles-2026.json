@@ -7,7 +7,12 @@
   "seo": {
     "slug": "best-fpv-goggles-2026",
     "metaDescription": "A complete round-up and buying guide for FPV goggles in 2026. Reviews, specs, latency benchmarks, and budget options.",
-    "keywords": ["best fpv goggles", "fpv goggles 2026", "analog vs digital goggles", "hd digital goggles"]
+    "keywords": [
+      "best fpv goggles",
+      "fpv goggles 2026",
+      "analog vs digital goggles",
+      "hd digital goggles"
+    ]
   },
   "excerpt": "Looking for your next pair of FPV goggles? We break down the top analog and digital goggles across budget, mid-range, and premium tiers to help you buy once.",
   "bodySections": [
@@ -39,14 +44,31 @@
   "promptVersion": "v2",
   "coverImage": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
   "metadata": {
+    "topics": [
+      "goggles",
+      "analog-video",
+      "digital-video"
+    ],
+    "components": [
+      "goggles"
+    ],
+    "audience": [
+      "buyer",
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
     "difficulty": "beginner",
     "contentType": "buyer-guide",
-    "topics": ["goggles", "analog-video", "digital-video"],
-    "audience": ["buyer", "new-pilot"],
-    "discipline": ["general"],
-    "components": ["goggles"],
     "buyerGuide": {
-      "products": ["DJI Goggles Integra", "Walksnail Avatar Goggles X", "Eachine EV800D", "Fat Shark Dominator HDO3"]
-    }
+      "products": [
+        "DJI Goggles Integra",
+        "Walksnail Avatar Goggles X",
+        "Eachine EV800D",
+        "Fat Shark Dominator HDO3"
+      ]
+    },
+    "category": "Buyer Guides"
   }
 }

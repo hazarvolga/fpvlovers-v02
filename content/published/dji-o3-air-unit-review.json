@@ -44,11 +44,13 @@
   "promptVersion": "v2",
   "coverImage": "https://www.dji.com/cdn-design/images/o3-air-unit/features/camera-module.jpg",
   "metadata": {
-    "difficulty": "intermediate",
-    "contentType": "review",
     "topics": [
       "video",
       "digital-video"
+    ],
+    "components": [
+      "vtx",
+      "camera"
     ],
     "audience": [
       "buyer",
@@ -58,10 +60,8 @@
       "general",
       "freestyle"
     ],
-    "components": [
-      "vtx",
-      "camera"
-    ],
+    "difficulty": "intermediate",
+    "contentType": "review",
     "review": {
       "productBrand": "DJI",
       "productModel": "O3 Air Unit",

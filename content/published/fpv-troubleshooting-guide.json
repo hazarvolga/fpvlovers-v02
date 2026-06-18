@@ -153,5 +153,19 @@
       "Copyright-safe media generated locally by FPVLovers"
     ]
   },
-  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/04/1.webp"
+  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/04/1.webp",
+  "metadata": {
+    "topics": [
+      "troubleshooting"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

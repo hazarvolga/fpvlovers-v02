@@ -56,5 +56,23 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:19:10.725Z",
   "promptVersion": "v2",
-  "coverImage": "https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg"
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2019/04/betaflight-rpm-filter-setup-guide-feature-cover.jpg",
+  "metadata": {
+    "topics": [
+      "betaflight",
+      "setup"
+    ],
+    "components": [
+      "esc",
+      "gps"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "long-range"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

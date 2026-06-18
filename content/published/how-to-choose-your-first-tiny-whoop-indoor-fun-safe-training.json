@@ -2,7 +2,7 @@
   "slug": "how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training",
   "title": "How to Choose Your First Tiny Whoop: Indoor Fun & Safe Training",
   "jobId": "brief-choose-first-tiny-whoop",
-  "category": "Buyers Guides",
+  "category": "Buyer Guides",
   "template": "tech-article",
   "seo": {
     "slug": "how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training",
@@ -66,8 +66,19 @@
   "coverImage": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_1000x1000.progressive.jpg?v=1637194872",
   "contentType": "buyer-guide",
   "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "whoop"
+    ],
+    "difficulty": "intermediate",
     "contentType": "buyer-guide",
-    "category": "Buyers Guides",
+    "category": "Buyer Guides",
     "buyerGuide": {
       "products": [
         "BETAFPV Meteor75 Pro",

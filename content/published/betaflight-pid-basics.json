@@ -56,5 +56,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:52:55.563Z",
   "promptVersion": "v2",
-  "coverImage": "https://cdn.shopify.com/s/files/1/0123/4406/6148/files/drone.png"
+  "coverImage": "https://cdn.shopify.com/s/files/1/0123/4406/6148/files/drone.png",
+  "metadata": {
+    "topics": [
+      "betaflight"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "guide"
+  }
 }

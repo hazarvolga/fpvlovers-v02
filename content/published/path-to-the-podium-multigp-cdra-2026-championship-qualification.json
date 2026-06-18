@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:23:54.270Z",
   "promptVersion": "v2",
-  "coverImage": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-author-images/Daniel_Ulises_Campos-Delgado.png"
+  "coverImage": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-author-images/Daniel_Ulises_Campos-Delgado.png",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "racer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

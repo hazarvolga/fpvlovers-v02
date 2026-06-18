@@ -44,11 +44,12 @@
   "promptVersion": "v2",
   "coverImage": "https://www.jumper-rc.com/wp-content/uploads/2022/04/T-Pro-Main.jpg",
   "metadata": {
-    "difficulty": "intermediate",
-    "contentType": "review",
     "topics": [
       "radio",
       "elrs"
+    ],
+    "components": [
+      "radio"
     ],
     "audience": [
       "buyer",
@@ -58,9 +59,8 @@
       "general",
       "freestyle"
     ],
-    "components": [
-      "radio"
-    ],
+    "difficulty": "intermediate",
+    "contentType": "review",
     "review": {
       "productBrand": "Jumper",
       "productModel": "T-Pro ELRS",

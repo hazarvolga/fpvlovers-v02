@@ -1,6 +1,10 @@
 import fs from 'fs';
 import path from 'path';
-import { type ContentMetadata } from '../src/lib/content-metadata';
+import {
+  contentTypes,
+  type ContentMetadata,
+  type ContentType,
+} from '../src/lib/content-metadata';
 
 const CONTENT_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -8,72 +12,36 @@ interface PublishedJson {
   title: string;
   slug: string;
   category?: string;
+  contentType?: string;
+  template?: string;
   tags?: string[];
-  metadata?: ContentMetadata;
+  metadata?: ContentMetadata & { category?: string };
   [key: string]: unknown;
 }
 
-const TARGET_EVERGREEN_SLUGS = [
-  // 1. Beginner & Roadmap
-  'fpv-beginner-setup-guide-the-easiest-way-to-get-flying',
-  'fpv-pilot-roadmap-from-simulator-to-first-flight',
-  'first-hover-training',
-  'acro-mode-mental-model-for-fpv-beginners',
-  'best-fpv-starter-kits-2026-rtf-bundles-for-beginners',
-  'fpv-glossary-complete-terms-and-acronyms-guide',
+const allowedContentTypes = new Set<string>(contentTypes);
 
-  // 2. Betaflight & Tuning
-  'betaflight-firmware-tuning-complete-setup-guide',
-  'betaflight-pid-basics-for-beginners-start-with-the-right-mental-model',
-  'blackbox-analysis-masterclass',
-  'pid-tuning-beyond-presets',
-  'modern-betaflight-filter-architecture',
-  'props-in-vs-props-out-betaflight-motor-direction-explained',
+function normalizeCategory(category?: string): string | undefined {
+  return category === 'Buyers Guides' ? 'Buyer Guides' : category;
+}
 
-  // 3. Radio & ELRS
-  'expresslrs-beginner-guide',
-  'expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight',
-  'how-to-choose-your-first-fpv-radio-without-buying-twice',
-  'rf-link-engineering',
+function inferContentType(json: PublishedJson, textToSearch: string): ContentType {
+  const existing = json.metadata?.contentType;
+  if (existing) return existing;
+  if (json.contentType && allowedContentTypes.has(json.contentType)) {
+    return json.contentType as ContentType;
+  }
 
-  // 4. Build, Soldering & Wiring
-  'fpv-components-wiring-guide',
-  'fpv-soldering-masterclass',
-  'smoke-stopper-protocol',
-  'drone-anatomy-complete-guide',
-  'how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight',
-
-  // 5. Simulators
-  'the-best-fpv-simulators-in-2026-save-cash-and-log-hours-virtually',
-
-  // 6. Video Systems & Troubleshooting
-  'the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog',
-  'vtx-and-camera-setup-guide-clean-video-from-the-start',
-  'no-video-troubleshooting-guide',
-  'video-latency-engineering',
-  'fpv-goggles-buying-guide-analog-vs-digital-for-beginners',
-
-  // 7. Batteries & Power
-  'fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer',
-  'lihv-vs-lipo-batteries-what-beginners-need-to-know',
-  'lipo-performance-engineering',
-
-  // 8. Components & Physics
-  'how-to-choose-fpv-motors-understanding-kv-stator-size-and-propeller-matching',
-  'fpv-propeller-engineering',
-  'motor-efficiency-engineering',
-  'frame-resonance-vibration-analysis',
-
-  // 9. Flight Discipline & Safety
-  'failsafe-settings-safe-flight-practices-what-happens-when-you-lose-signal',
-  'gps-rescue-setup-guide',
-  'gps-rescue-reliability',
-  'long-range-fpv-basics-how-to-fly-beyond-the-trees-safely',
-  'fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security',
-
-  // 10. Regulations
-  'fpv-regulations-for-beginners-in-the-united-states'
-];
+  const category = normalizeCategory(json.category)?.toLowerCase();
+  if (category === 'reviews' || textToSearch.includes(' review')) return 'review';
+  if (category === 'comparisons') return 'comparison';
+  if (category === 'buyer guides') return 'buyer-guide';
+  if (textToSearch.includes('reference') || textToSearch.includes('glossary')) return 'reference';
+  if (textToSearch.includes('tutorial') || textToSearch.includes('how to') || textToSearch.includes('guide') || textToSearch.includes('masterclass')) return 'tutorial';
+  if (category === 'racing' || json.template === 'community-roundup') return 'news';
+  if (textToSearch.includes('news') || textToSearch.includes('update') || textToSearch.includes('report')) return 'news';
+  return 'guide';
+}
 
 // Simple heuristic mapper
 function inferMetadata(json: PublishedJson): ContentMetadata {
@@ -95,11 +63,7 @@ function inferMetadata(json: PublishedJson): ContentMetadata {
     meta.difficulty = 'intermediate';
   }
 
-  // ContentType
-  if (textToSearch.includes('review')) meta.contentType = 'review';
-  else if (textToSearch.includes('news') || json.category?.toLowerCase() === 'news') meta.contentType = 'news';
-  else if (textToSearch.includes('tutorial') || textToSearch.includes('how to') || textToSearch.includes('guide') || textToSearch.includes('masterclass')) meta.contentType = 'tutorial';
-  else meta.contentType = 'guide';
+  meta.contentType = inferContentType(json, textToSearch);
 
   // Audience
   if (meta.difficulty === 'beginner') meta.audience!.push('new-pilot');
@@ -137,41 +101,45 @@ function inferMetadata(json: PublishedJson): ContentMetadata {
   // deduplicate
   meta.components = Array.from(new Set(meta.components));
 
-  return meta;
+  const existing = json.metadata;
+  return {
+    ...meta,
+    ...existing,
+    difficulty: existing?.difficulty ?? meta.difficulty,
+    contentType: existing?.contentType ?? meta.contentType,
+    topics: existing?.topics?.length ? existing.topics : meta.topics,
+    audience: existing?.audience?.length ? existing.audience : meta.audience,
+    discipline: existing?.discipline?.length ? existing.discipline : meta.discipline,
+    components: existing?.components ?? meta.components,
+  };
 }
 
 async function runMetadataExpansion() {
   const files = fs.readdirSync(CONTENT_DIR).filter(f => f.endsWith('.json'));
-  let addedCount = 0;
-  let clearedCount = 0;
+  let updatedCount = 0;
 
   for (const file of files) {
     const filePath = path.join(CONTENT_DIR, file);
     const content = fs.readFileSync(filePath, 'utf-8');
     const json = JSON.parse(content) as PublishedJson;
     const slug = json.slug || file.replace('.json', '');
+    const before = JSON.stringify(json);
+    const category = normalizeCategory(json.category);
 
-    if (TARGET_EVERGREEN_SLUGS.includes(slug)) {
-      // Should have metadata
-      json.metadata = inferMetadata(json);
+    json.category = category;
+    const metadata: ContentMetadata & { category?: string } = inferMetadata(json);
+    if (category === 'Buyer Guides') metadata.category = category;
+    else delete metadata.category;
+    json.metadata = metadata;
+
+    if (JSON.stringify(json) !== before) {
       fs.writeFileSync(filePath, JSON.stringify(json, null, 2));
-      addedCount++;
-      console.log(`[+] Added/refined metadata to target: ${slug}`);
-    } else {
-      // Should NOT have metadata (clean it up if it exists)
-      if (json.metadata) {
-        delete json.metadata;
-        fs.writeFileSync(filePath, JSON.stringify(json, null, 2));
-        clearedCount++;
-        console.log(`[-] Cleared metadata from non-target: ${slug}`);
-      }
+      updatedCount++;
+      console.log(`[+] Completed metadata: ${slug}`);
     }
   }
 
-  console.log(`\nMetadata footprint adjusted:`);
-  console.log(`- Refined metadata on ${addedCount} evergreen targets.`);
-  console.log(`- Cleared metadata on ${clearedCount} non-evergreen articles.`);
-  console.log(`- Total target evergreen files in list: ${TARGET_EVERGREEN_SLUGS.length}`);
+  console.log(`\nMetadata migration completed for ${updatedCount} artifact(s).`);
 }
 
 runMetadataExpansion().catch(console.error);

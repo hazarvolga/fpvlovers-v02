@@ -44,11 +44,12 @@
   "promptVersion": "v2",
   "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
   "metadata": {
-    "difficulty": "intermediate",
-    "contentType": "comparison",
     "topics": [
       "radio",
       "elrs"
+    ],
+    "components": [
+      "radio"
     ],
     "audience": [
       "buyer",
@@ -58,9 +59,8 @@
       "general",
       "freestyle"
     ],
-    "components": [
-      "radio"
-    ],
+    "difficulty": "intermediate",
+    "contentType": "comparison",
     "comparison": {
       "productA": "RadioMaster Boxer",
       "productB": "RadioMaster TX16S MKII",

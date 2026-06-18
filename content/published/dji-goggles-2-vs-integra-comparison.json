@@ -7,7 +7,12 @@
   "seo": {
     "slug": "dji-goggles-2-vs-integra-comparison",
     "metaDescription": "Detailed side-by-side comparison of DJI Goggles 2 and Goggles Integra. Weighing the options for image quality, battery styles, and price.",
-    "keywords": ["dji goggles 2", "dji goggles integra", "dji goggles comparison", "digital fpv goggles"]
+    "keywords": [
+      "dji goggles 2",
+      "dji goggles integra",
+      "dji goggles comparison",
+      "digital fpv goggles"
+    ]
   },
   "excerpt": "Which DJI digital goggle reigns supreme? We compare the premium Goggles 2 head-to-head with the value-focused Goggles Integra to see which fits your budget.",
   "bodySections": [
@@ -39,12 +44,23 @@
   "promptVersion": "v2",
   "coverImage": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
   "metadata": {
+    "topics": [
+      "goggles",
+      "digital-video"
+    ],
+    "components": [
+      "goggles"
+    ],
+    "audience": [
+      "buyer",
+      "pilot"
+    ],
+    "discipline": [
+      "cinematic",
+      "freestyle"
+    ],
     "difficulty": "intermediate",
     "contentType": "comparison",
-    "topics": ["goggles", "digital-video"],
-    "audience": ["buyer", "pilot"],
-    "discipline": ["cinematic", "freestyle"],
-    "components": ["goggles"],
     "comparison": {
       "productA": "DJI Goggles 2",
       "productB": "DJI Goggles Integra",

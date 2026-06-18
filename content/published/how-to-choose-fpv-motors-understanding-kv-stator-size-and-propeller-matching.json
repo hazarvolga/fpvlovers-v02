@@ -2,7 +2,7 @@
   "slug": "how-to-choose-fpv-motors-understanding-kv-stator-size-and-propeller-matching",
   "title": "How to Choose FPV Motors: Understanding KV, Stator Size, and Propeller Matching",
   "jobId": "brief-how-to-choose-fpv-motors",
-  "category": "Buyers Guides",
+  "category": "Buyer Guides",
   "template": "tech-article",
   "seo": {
     "slug": "how-to-choose-fpv-motors-understanding-kv-stator-size-and-propeller-matching",
@@ -72,7 +72,7 @@
     ],
     "difficulty": "intermediate",
     "contentType": "buyer-guide",
-    "category": "Buyers Guides",
+    "category": "Buyer Guides",
     "buyerGuide": {
       "products": [
         "T-Motor Velox V3",

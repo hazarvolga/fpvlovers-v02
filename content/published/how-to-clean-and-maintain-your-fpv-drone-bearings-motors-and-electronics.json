@@ -60,5 +60,21 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:13:12.246Z",
   "promptVersion": "v2",
-  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Bildschirmfoto-2025-12-11-um-13.48.21-scaled.jpg"
+  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Bildschirmfoto-2025-12-11-um-13.48.21-scaled.jpg",
+  "metadata": {
+    "topics": [
+      "electronics"
+    ],
+    "components": [
+      "motor"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

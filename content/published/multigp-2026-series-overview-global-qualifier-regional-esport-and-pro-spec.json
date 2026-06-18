@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:00:41.469Z",
   "promptVersion": "v2",
-  "coverImage": "https://chinahobbyline.com/cdn/shop/files/1_883e2525-41c0-4434-b870-328ee3fb73c9_512x512.jpg?v=1728638515"
+  "coverImage": "https://chinahobbyline.com/cdn/shop/files/1_883e2525-41c0-4434-b870-328ee3fb73c9_512x512.jpg?v=1728638515",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "racer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "advanced",
+    "contentType": "news"
+  }
 }

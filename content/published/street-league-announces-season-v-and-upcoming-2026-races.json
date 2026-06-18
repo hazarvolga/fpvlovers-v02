@@ -38,5 +38,19 @@
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-14T14:41:26.810Z",
-  "promptVersion": "v2"
+  "promptVersion": "v2",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "racer"
+    ],
+    "discipline": [
+      "racing"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

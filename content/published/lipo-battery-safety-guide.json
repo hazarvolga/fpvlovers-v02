@@ -56,5 +56,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:28:46.159Z",
   "promptVersion": "v2",
-  "coverImage": "https://chinahobbyline.com/cdn/shop/files/520906EC5_22c37d9d-9d73-4d14-b1aa-fbf5b238784b_512x512.jpg?v=1760336026"
+  "coverImage": "https://chinahobbyline.com/cdn/shop/files/520906EC5_22c37d9d-9d73-4d14-b1aa-fbf5b238784b_512x512.jpg?v=1760336026",
+  "metadata": {
+    "topics": [
+      "batteries"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

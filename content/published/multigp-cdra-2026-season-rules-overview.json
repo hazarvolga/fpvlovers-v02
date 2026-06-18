@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:02:27.774Z",
   "promptVersion": "v2",
-  "coverImage": "https://pub.mdpi-res.com/announcement/13468.jpg?1780917841?v=1762403233"
+  "coverImage": "https://pub.mdpi-res.com/announcement/13468.jpg?1780917841?v=1762403233",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "racer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

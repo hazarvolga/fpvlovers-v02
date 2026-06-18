@@ -44,11 +44,14 @@
   "promptVersion": "v2",
   "coverImage": "https://betafpv.com/cdn/shop/products/CetusXRTF_1000x.jpg",
   "metadata": {
-    "difficulty": "intermediate",
-    "contentType": "review",
     "topics": [
       "quad",
       "beginner"
+    ],
+    "components": [
+      "quad",
+      "radio",
+      "goggles"
     ],
     "audience": [
       "buyer",
@@ -58,11 +61,8 @@
       "general",
       "freestyle"
     ],
-    "components": [
-      "quad",
-      "radio",
-      "goggles"
-    ],
+    "difficulty": "intermediate",
+    "contentType": "review",
     "review": {
       "productBrand": "BETAFPV",
       "productModel": "Cetus X",

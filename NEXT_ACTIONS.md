@@ -16,6 +16,13 @@ Last updated: 2026-06-18
 - Moved the unified metadata report to `reports/unified-metadata-report.md` and added `pnpm metadata:audit`.
 - Added `pnpm security:audit`; fresh security audit, metadata audit, TypeScript, and whitespace checks pass locally.
 
+## Completed (2026-06-18 Post-Analysis Phase 2)
+
+- Completed discovery metadata for all 117 published artifacts; all six audited metadata fields now report zero missing values.
+- Canonicalized `Buyers Guides` to `Buyer Guides` in existing artifacts and the commercial content generator.
+- Replaced the destructive target-only migration with an idempotent merge migration that preserves review, comparison, and buyer-guide metadata.
+- Added `pnpm metadata:test` and `pnpm metadata:migrate`; regression, metadata, content-integrity, and TypeScript gates pass locally.
+
 ## ✅ Completed (2026-06-14 GAP Closure Sprint)
 
 - GAP raporu yazıldı (25 bulgu, 17'si çözüldü)

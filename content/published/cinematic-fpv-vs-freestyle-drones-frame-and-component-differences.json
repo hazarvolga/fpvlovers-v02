@@ -56,5 +56,21 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:07:20.638Z",
   "promptVersion": "v2",
-  "coverImage": "https://droneracing.fai.org/images/olymp1.png"
+  "coverImage": "https://droneracing.fai.org/images/olymp1.png",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "frame"
+    ],
+    "audience": [
+      "cinematographer"
+    ],
+    "discipline": [
+      "cinematic"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

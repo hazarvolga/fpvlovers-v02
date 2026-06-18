@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:35:58.821Z",
   "promptVersion": "v2",
-  "coverImage": "https://www.multigp.com/wp-content/uploads/2026/01/Race-Sync-Project1-710x1024.webp"
+  "coverImage": "https://www.multigp.com/wp-content/uploads/2026/01/Race-Sync-Project1-710x1024.webp",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "racer"
+    ],
+    "discipline": [
+      "racing"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "news"
+  }
 }

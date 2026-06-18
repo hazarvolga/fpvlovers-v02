@@ -59,5 +59,20 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-06T16:58:37.492Z",
   "promptVersion": "v2",
-  "coverImage": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_100x.jpg?v=1637194872"
+  "coverImage": "https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_100x.jpg?v=1637194872",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot",
+      "racer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "tutorial"
+  }
 }

@@ -67,5 +67,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.024Z",
   "promptVersion": "v2",
-  "coverImage": "https://en.tmotor.com/uploadfile/2023/0215/20230215060238395.jpg"
+  "coverImage": "https://en.tmotor.com/uploadfile/2023/0215/20230215060238395.jpg",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }
