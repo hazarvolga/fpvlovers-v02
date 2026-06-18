@@ -1,6 +1,20 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-06-14
+Last updated: 2026-06-18
+
+## Immediate Security Actions
+
+1. Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.
+2. After rotation, plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
+3. Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.
+
+## Completed (2026-06-18 Post-Analysis Phase 1)
+
+- Removed tracked operational credential values from current documentation.
+- Removed hardcoded Dify token fallbacks from YouTube generation and retrieval testing.
+- Routed retrieval quality tests through `src/lib/dify-client.ts`.
+- Moved the unified metadata report to `reports/unified-metadata-report.md` and added `pnpm metadata:audit`.
+- Added `pnpm security:audit`; fresh security audit, metadata audit, TypeScript, and whitespace checks pass locally.
 
 ## ✅ Completed (2026-06-14 GAP Closure Sprint)
 
@@ -50,10 +64,10 @@ Last updated: 2026-06-14
 - **Hulyaekiz (161.118.171.201):** fpvlovers Coolify + Crawl4AI primary
 - **Aluplan-one (80.225.231.62):** Dify + PostgreSQL + Redis + Qdrant
 - **Orko (141.148.206.187):** Crawl4AI backup
-- **Dify console:** hazarvolga@gmail.com / Admin1234! @ https://dify.affexai.tr
+- **Dify console URL:** https://dify.affexai.tr (credentials are managed outside Git)
 - **Coolify:** https://coolify.fpvlovers.com.tr (hulyaekiz üzerinde)
 - **Cron:** 5dk crawl, 20dk generate (hulyaekiz crontab)
-- **CRON_SECRET:** fpvlovers-cron-860a25b8e8a339a49c92c02a4a01972c
+- **Cron authentication:** `CRON_SECRET` is managed in Coolify and the server crontab; never record its value in Git
 
 ## Restore Points
 

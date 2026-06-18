@@ -3,7 +3,7 @@ import path from 'path';
 import { validateContentMetadata } from '../src/lib/content-metadata';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
-const REPORT_PATH = path.join(process.cwd(), '..', '..', '.gemini', 'antigravity', 'brain', '1dc93145-50f8-4e30-a826-9bef87a9058e', 'unified_metadata_report.md');
+const REPORT_PATH = path.join(process.cwd(), 'reports', 'unified-metadata-report.md');
 
 async function auditContent() {
   if (!fs.existsSync(PUBLISHED_DIR)) {
@@ -88,7 +88,7 @@ ${detailedErrors.length === 0 ? 'No validation errors found.' : detailedErrors.m
 - **Validation Strictness**: Once all content is enriched, the \`metadata\` field should be made required in \`PublishedArtifact\`.
 `;
 
-  // Write report to absolute artifacts path
+  // Keep audit artifacts portable and available to every contributor.
   fs.mkdirSync(path.dirname(REPORT_PATH), { recursive: true });
   fs.writeFileSync(REPORT_PATH, report, 'utf-8');
   console.log(`Audit complete. Report generated at: ${REPORT_PATH}`);

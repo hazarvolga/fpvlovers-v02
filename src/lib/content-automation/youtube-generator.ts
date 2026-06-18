@@ -1,5 +1,5 @@
 import { difyRequest } from '@/lib/dify-client';
-import { getOptionalEnv } from '@/lib/env';
+import { getRequiredEnv } from '@/lib/env';
 import { fetchYoutubeTranscript } from '../youtube-parser';
 
 export async function generateJournalistArticle(youtubeUrl: string): Promise<string> {
@@ -48,8 +48,7 @@ Cevabını doğrudan AŞAĞIDAKİ JSON FORMATINDA ver. Herhangi bir ekstra metin
   "publishNotes": ["YouTube videosundan üretildi"]
 }`;
 
-  // We use the Expert App token
-  const expertToken = process.env.DIFY_APP_TOKEN_EXPERT || getOptionalEnv('DIFY_EXPERT_APP_TOKEN', 'app-C7zocan03yFGIbGtJCQG0iUs');
+  const expertToken = getRequiredEnv('DIFY_APP_TOKEN_EXPERT');
 
   const response = await difyRequest('/chat-messages', {
     method: 'POST',

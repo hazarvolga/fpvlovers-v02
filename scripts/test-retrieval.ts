@@ -1,8 +1,28 @@
 import { DATASETS } from '../src/lib/master-routing-tables';
+import { difyRequest } from '../src/lib/dify-client';
 import fs from 'fs';
 
-const DIFY_BASE_URL = process.env.DIFY_BASE_URL || 'https://dify.affexai.tr/v1';
-const DIFY_API_KEY = process.env.DIFY_API_KEY || 'dataset-57xGhkCvaQKR2YoSljA94NVu';
+interface RetrievalRecord {
+  score?: number;
+}
+
+interface RetrievalQueryResult {
+  count?: number;
+  topScore?: number;
+  error?: string;
+  status?: string;
+}
+
+type RetrievalResults = Record<string, { queries: Record<string, RetrievalQueryResult> }>;
+
+function readRecords(value: unknown): RetrievalRecord[] {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return [];
+  const records = (value as Record<string, unknown>).records;
+  if (!Array.isArray(records)) return [];
+  return records.filter((record): record is RetrievalRecord => (
+    Boolean(record) && typeof record === 'object' && !Array.isArray(record)
+  ));
+}
 
 const TEST_QUERIES: Record<string, string[]> = {
   'fpv-flight-tuning': ['pid tuning best practices', 'propwash fix', 'blackbox analysis guide'],
@@ -19,7 +39,7 @@ const TEST_QUERIES: Record<string, string[]> = {
 async function testRetrieval() {
   console.log('--- STARTING RETRIEVAL QUALITY TEST ---');
   
-  const results: any = {};
+  const results: RetrievalResults = {};
   
   for (const ds of DATASETS) {
     console.log(`\nTesting Dataset: ${ds.name} (${ds.id})`);
@@ -30,24 +50,20 @@ async function testRetrieval() {
     for (const query of queries) {
       console.log(`  Query: "${query}"`);
       try {
-        const response = await fetch(`${DIFY_BASE_URL}/datasets/${ds.uuid}/retrieve`, {
+        const response = await difyRequest(`/datasets/${ds.uuid}/retrieve`, {
           method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${DIFY_API_KEY}`,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ query })
+          body: { query },
+          taskType: 'rag_query',
         });
         
         if (!response.ok) {
-          const err = await response.text();
-          console.log(`    Error: ${response.status} - ${err}`);
-          results[ds.name].queries[query] = { error: err, status: response.status };
+          const error = response.error || 'Unknown Dify retrieval error';
+          console.log(`    Error: ${response.status} - ${error}`);
+          results[ds.name].queries[query] = { error, status: response.status };
           continue;
         }
         
-        const data = await response.json();
-        const records = data.records || [];
+        const records = readRecords(response.data);
         
         console.log(`    Results: ${records.length} records retrieved.`);
         
@@ -60,8 +76,8 @@ async function testRetrieval() {
           count: records.length,
           topScore: records.length > 0 ? records[0].score : 0,
         };
-      } catch (e: any) {
-        console.log(`    Exception: ${e.message}`);
+      } catch (error: unknown) {
+        console.log(`    Exception: ${error instanceof Error ? error.message : String(error)}`);
       }
       
       // Delay to respect rate limit (1.5s interval)

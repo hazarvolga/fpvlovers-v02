@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-06-14
+Last updated: 2026-06-18
 
 ## Current Product Direction
 
@@ -28,6 +28,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 
 ## Current Known State
 
+- Post-analysis GAP closure Phase 1 completed locally on 2026-06-18: tracked operational credential values were removed from current files, YouTube and retrieval scripts now require environment-managed Dify credentials, retrieval testing routes through `src/lib/dify-client.ts`, and metadata audit output is portable at `reports/unified-metadata-report.md`. Fresh verification passed with `pnpm security:audit`, `pnpm metadata:audit`, `pnpm exec tsc --noEmit`, and `git diff --check`. External Dify/cron credential rotation and coordinated Git-history cleanup remain operational requirements; current-file cleanup alone does not revoke exposed values.
 - GAP closure execution was reset into a phase-by-phase Codex plan on 2026-05-21 at `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md`.
 - OpenCode commit `2fb816a` is documentation-only; the automation implementation is `34369ec`.
 - Local verification before the new phase plan: `npx tsc --noEmit`, `npm run content:audit`, and `npm run content:smoke` passed.
@@ -138,7 +139,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
   - Gemini credential: old credential had wrong key name (`openai_api_key` instead of `google_api_key`); deleted and recreated via `ModelProviderService.create_provider_credential()` with correct `{"google_api_key": "..."}` JSON format, validated successfully via plugin daemon
   - Full 8-node pipeline smoke test: `status: succeeded`, 9 steps, 25,013 tokens, 89.79s, all outputs (article, metadata, outline, schema, affiliate_data, seo_research) produced correctly
   - Local YAML (`dify_workflows/seo-content-generator.dify.yml`) synced with live DB graph
-  - Dify login credentials: `hazarvolga@gmail.com` / `Admin1234!` (console at `https://dify.affexai.tr`)
+  - Dify console is at `https://dify.affexai.tr`; credentials are managed outside Git and must be rotated after any exposure.
 - Dify gateway timeout (504) RESOLVED (2026-05-18):
   - Root cause: Traefik v3 on Server A (`coolify-proxy`) had default 60s `readTimeout`, but SEO workflow takes ~90-100s
   - Fix: created `/data/coolify/proxy/dynamic/long-timeout.yaml` with `serversTransports.forwardingTimeouts.responseHeaderTimeout: 300` and `idleConnTimeout: 300`
@@ -376,7 +377,7 @@ If work is interrupted, resume from `NEXT_ACTIONS.md`, then check:
 
 Smoke test: `status: succeeded`, 9 steps, 25,013 tokens, 89.79s. Full article produced.
 
-Credentials for Dify console: `hazarvolga@gmail.com` / `Admin1234!` — login uses RSA-encrypted password, cannot login via curl directly.
+Dify console credentials are managed outside Git and are not stored in project memory.
 
 **2. Content Automation Task 1**
 
@@ -487,4 +488,3 @@ Created:
 - **Compliance Pages & Cookie Consent:** Added dedicated compliance routes for `/about`, `/contact` (with a high-fidelity input form), and `/editorial-policy` (publishing our weighted mathematical scoring framework and disclosing AI-assisted workflows). Globally integrated a client-side `CookieBanner` at the layout root.
 - **Contact API SMTP Integration:** Upgraded `/api/contact` API endpoint to support secure SMTP mail transmission via `nodemailer` with environment variable configuration (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`) and a fallback logging mechanism to server stdout.
 - **Content Volume Expansion:** Converted 10 existing guides/tutorials to `buyer-guide`/`product-roundup` via commercial metadata injections, and generated 4 new detailed reviews and 2 comparisons (JSON & MD pairs) in `content/published`, bringing the total commercial content count to 20 entries to fully pass affiliate network manual reviews.
-
