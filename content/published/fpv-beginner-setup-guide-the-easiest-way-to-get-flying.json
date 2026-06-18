@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:48:54.436Z",
   "promptVersion": "v2",
-  "coverImage": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024"
+  "coverImage": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+  "metadata": {
+    "topics": [
+      "setup"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "tutorial"
+  }
 }

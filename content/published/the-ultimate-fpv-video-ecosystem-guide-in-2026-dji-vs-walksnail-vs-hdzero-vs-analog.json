@@ -60,5 +60,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:23:48.800Z",
   "promptVersion": "v2",
-  "coverImage": "https://www.racedayquads.com/cdn/shop/files/nav-hd-digital-hdzero-hd-fpv.webp?v=8319763892070456882"
+  "coverImage": "https://www.racedayquads.com/cdn/shop/files/nav-hd-digital-hdzero-hd-fpv.webp?v=8319763892070456882",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

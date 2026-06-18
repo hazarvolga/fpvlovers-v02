@@ -67,5 +67,22 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.023Z",
   "promptVersion": "v2",
-  "coverImage": "https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg"
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "esc",
+      "gps"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "long-range"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

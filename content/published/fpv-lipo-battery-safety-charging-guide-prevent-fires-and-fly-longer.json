@@ -56,5 +56,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:28:46.159Z",
   "promptVersion": "v2",
-  "coverImage": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg"
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
+  "metadata": {
+    "topics": [
+      "batteries"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

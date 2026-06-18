@@ -67,5 +67,21 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.016Z",
   "promptVersion": "v2",
-  "coverImage": "https://pyrodrone.com/cdn/shop/files/aos-supernova-2207-1980kv-brushless-motor-rcinpower_512x512.png?v=1706083918"
+  "coverImage": "https://pyrodrone.com/cdn/shop/files/aos-supernova-2207-1980kv-brushless-motor-rcinpower_512x512.png?v=1706083918",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "motor"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "advanced",
+    "contentType": "guide"
+  }
 }

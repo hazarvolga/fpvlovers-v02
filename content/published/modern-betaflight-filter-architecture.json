@@ -67,5 +67,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.015Z",
   "promptVersion": "v2",
-  "coverImage": "https://rotorriot.com/cdn/shop/products/hqprop_juicy_j37_4.9x3.7x3_propeller_1.jpg?v=1642525451&width=1000"
+  "coverImage": "https://rotorriot.com/cdn/shop/products/hqprop_juicy_j37_4.9x3.7x3_propeller_1.jpg?v=1642525451&width=1000",
+  "metadata": {
+    "topics": [
+      "betaflight"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

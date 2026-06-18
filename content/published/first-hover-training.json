@@ -59,5 +59,19 @@
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:11:11.610Z",
   "promptVersion": "v2",
-  "coverImage": "https://judgeme.imgix.net/chinahobbyline/1779589215__img_0373__original.jpeg?auto=format&w=240"
+  "coverImage": "https://judgeme.imgix.net/chinahobbyline/1779589215__img_0373__original.jpeg?auto=format&w=240",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

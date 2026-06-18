@@ -56,5 +56,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:55:42.825Z",
   "promptVersion": "v2",
-  "coverImage": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-article-images/fa_drone_security.jpg"
+  "coverImage": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-article-images/fa_drone_security.jpg",
+  "metadata": {
+    "topics": [
+      "regulations"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "guide"
+  }
 }

@@ -59,5 +59,19 @@
   "jobStatus": "queued",
   "publishedAt": "2026-06-01T11:15:27.180Z",
   "promptVersion": "v2",
-  "coverImage": "https://static2.manualslib.com/public/img/cnet.png"
+  "coverImage": "https://static2.manualslib.com/public/img/cnet.png",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "builder"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

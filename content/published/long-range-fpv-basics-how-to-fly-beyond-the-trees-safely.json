@@ -60,5 +60,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:05:31.355Z",
   "promptVersion": "v2",
-  "coverImage": "https://rotorriot.com/cdn/shop/files/RR2388.jpg?v=1764778400&width=1200"
+  "coverImage": "https://rotorriot.com/cdn/shop/files/RR2388.jpg?v=1764778400&width=1200",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "long-range"
+    ],
+    "difficulty": "beginner",
+    "contentType": "tutorial"
+  }
 }

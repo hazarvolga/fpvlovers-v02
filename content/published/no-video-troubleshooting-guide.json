@@ -59,5 +59,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:45:41.440Z",
   "promptVersion": "v2",
-  "coverImage": "https://chinahobbyline.com/cdn/shop/files/2020082415-00_512x512.jpg?v=1688536594"
+  "coverImage": "https://chinahobbyline.com/cdn/shop/files/2020082415-00_512x512.jpg?v=1688536594",
+  "metadata": {
+    "topics": [
+      "troubleshooting"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "tutorial"
+  }
 }

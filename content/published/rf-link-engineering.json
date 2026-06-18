@@ -67,5 +67,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.020Z",
   "promptVersion": "v2",
-  "coverImage": "https://rotorriot.com/cdn/shop/files/bundle-rev3.jpg?v=1765559971&width=800"
+  "coverImage": "https://rotorriot.com/cdn/shop/files/bundle-rev3.jpg?v=1765559971&width=800",
+  "metadata": {
+    "topics": [
+      "elrs"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "advanced",
+    "contentType": "guide"
+  }
 }

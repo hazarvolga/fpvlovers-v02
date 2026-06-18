@@ -56,5 +56,23 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:19:10.725Z",
   "promptVersion": "v2",
-  "coverImage": "https://judgeme.imgix.net/chinahobbyline/1779470244__1000007908__original.jpg?auto=format&w=240"
+  "coverImage": "https://judgeme.imgix.net/chinahobbyline/1779470244__1000007908__original.jpg?auto=format&w=240",
+  "metadata": {
+    "topics": [
+      "betaflight",
+      "setup"
+    ],
+    "components": [
+      "esc",
+      "gps"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "long-range"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

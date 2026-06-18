@@ -14,8 +14,11 @@ export type ContentCategory = (typeof contentCategories)[number]['label'];
 export type ContentCategorySlug = (typeof contentCategories)[number]['slug'];
 export type ContentTier = (typeof contentTiers)[number];
 
+import { ContentMetadata } from './content-metadata';
+
 export interface ContentBrief {
   slug: string;
+  metadata?: ContentMetadata;
   title: string;
   category: ContentCategory;
   tier: ContentTier;

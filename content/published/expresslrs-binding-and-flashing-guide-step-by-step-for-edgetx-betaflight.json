@@ -60,5 +60,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:25:25.560Z",
   "promptVersion": "v2",
-  "coverImage": "https://droneracing.fai.org/images/games.png"
+  "coverImage": "https://droneracing.fai.org/images/games.png",
+  "metadata": {
+    "topics": [
+      "betaflight"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

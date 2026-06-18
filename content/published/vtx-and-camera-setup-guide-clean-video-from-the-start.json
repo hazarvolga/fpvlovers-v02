@@ -56,5 +56,23 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:49:33.637Z",
   "promptVersion": "v2",
-  "coverImage": "https://judgeme.imgix.net/rotor-riot/1779983389__1779983385708-1000009536__original.jpg?auto=format&w=1024"
+  "coverImage": "https://judgeme.imgix.net/rotor-riot/1779983389__1779983385708-1000009536__original.jpg?auto=format&w=1024",
+  "metadata": {
+    "topics": [
+      "setup"
+    ],
+    "components": [
+      "vtx",
+      "camera"
+    ],
+    "audience": [
+      "new-pilot",
+      "cinematographer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "tutorial"
+  }
 }

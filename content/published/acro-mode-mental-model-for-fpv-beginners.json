@@ -157,5 +157,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-01T14:05:00.000Z",
   "promptVersion": "v2",
-  "coverImage": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg"
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "guide"
+  }
 }

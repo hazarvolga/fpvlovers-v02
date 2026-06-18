@@ -156,5 +156,19 @@
       "Copyright-safe media generated locally by FPVLovers"
     ]
   },
-  "coverImage": "https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024"
+  "coverImage": "https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "cinematographer"
+    ],
+    "discipline": [
+      "long-range"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

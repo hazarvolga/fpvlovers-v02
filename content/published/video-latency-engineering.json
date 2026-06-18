@@ -67,5 +67,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.021Z",
   "promptVersion": "v2",
-  "coverImage": "https://www.racedayquads.com/cdn/shop/files/flywoo-flywoo-firefly-dc16-nano-baby-v2-0-1-6-analog-micro-frame-kit-frame-30756239999089.jpg?v=1737236219&width=533"
+  "coverImage": "https://www.racedayquads.com/cdn/shop/files/flywoo-flywoo-firefly-dc16-nano-baby-v2-0-1-6-analog-micro-frame-kit-frame-30756239999089.jpg?v=1737236219&width=533",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "advanced",
+    "contentType": "guide"
+  }
 }

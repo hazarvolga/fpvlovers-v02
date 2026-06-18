@@ -56,5 +56,22 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:47:54.196Z",
   "promptVersion": "v2",
-  "coverImage": "https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg"
+  "coverImage": "https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "goggles"
+    ],
+    "audience": [
+      "new-pilot",
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "tutorial"
+  }
 }

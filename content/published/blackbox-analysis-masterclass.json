@@ -67,5 +67,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.009Z",
   "promptVersion": "v2",
-  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Rookie-of-the-Year-1x1-1.jpg"
+  "coverImage": "https://dronechampionsleague.com/wp-content/uploads/2025/12/Rookie-of-the-Year-1x1-1.jpg",
+  "metadata": {
+    "topics": [
+      "tuning"
+    ],
+    "components": [],
+    "audience": [
+      "racer"
+    ],
+    "discipline": [
+      "racing"
+    ],
+    "difficulty": "advanced",
+    "contentType": "tutorial"
+  }
 }

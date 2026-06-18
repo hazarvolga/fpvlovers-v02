@@ -56,5 +56,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:22:06.756Z",
   "promptVersion": "v2",
-  "coverImage": "https://judgeme.imgix.net/rotor-riot/1771716600__1000015086__original.jpg?auto=format&w=1024"
+  "coverImage": "https://judgeme.imgix.net/rotor-riot/1771716600__1000015086__original.jpg?auto=format&w=1024",
+  "metadata": {
+    "topics": [
+      "soldering"
+    ],
+    "components": [],
+    "audience": [
+      "builder"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "advanced",
+    "contentType": "tutorial"
+  }
 }

@@ -8,6 +8,8 @@ import { safeReadJson } from '@/lib/utils/json';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
+import type { ContentMetadata } from '../content-metadata';
+
 export type PublishedArtifact = GeneratedContent & {
   slug: string;
   jobId: string;
@@ -18,6 +20,7 @@ export type PublishedArtifact = GeneratedContent & {
   jobStatus: string;
   media?: ContentMedia;
   coverImage?: string;
+  metadata?: ContentMetadata;
 };
 
 export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtifact | null {

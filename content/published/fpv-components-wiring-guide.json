@@ -153,5 +153,19 @@
       "Copyright-safe media generated locally by FPVLovers"
     ]
   },
-  "coverImage": "https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800"
+  "coverImage": "https://rotorriot.com/cdn/shop/files/col-controller.jpg?v=1763394496&width=1800",
+  "metadata": {
+    "topics": [
+      "wiring"
+    ],
+    "components": [],
+    "audience": [
+      "builder"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

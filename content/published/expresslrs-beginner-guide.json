@@ -156,5 +156,19 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-01T14:07:10.000Z",
   "promptVersion": "v2",
-  "coverImage": "https://en.tmotor.com/uploadfile/2024/1209/20241209091439607.jpg"
+  "coverImage": "https://en.tmotor.com/uploadfile/2024/1209/20241209091439607.jpg",
+  "metadata": {
+    "topics": [
+      "setup"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "tutorial"
+  }
 }

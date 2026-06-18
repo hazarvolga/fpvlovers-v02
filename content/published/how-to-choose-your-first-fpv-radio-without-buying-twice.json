@@ -56,5 +56,21 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T17:46:11.554Z",
   "promptVersion": "v2",
-  "coverImage": "https://rotorriot.com/cdn/shop/files/Cinemini-4s-2.5-B_T-DJI-04_25Nov2025-3.jpg?v=1764106993&width=1493"
+  "coverImage": "https://rotorriot.com/cdn/shop/files/Cinemini-4s-2.5-B_T-DJI-04_25Nov2025-3.jpg?v=1764106993&width=1493",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "radio"
+    ],
+    "audience": [
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

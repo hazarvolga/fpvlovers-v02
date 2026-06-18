@@ -60,5 +60,21 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:17:35.762Z",
   "promptVersion": "v2",
-  "coverImage": "https://static2.manualslib.com/public/img/lifehaker.png"
+  "coverImage": "https://static2.manualslib.com/public/img/lifehaker.png",
+  "metadata": {
+    "topics": [
+      "simulators"
+    ],
+    "components": [
+      "simulator"
+    ],
+    "audience": [
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

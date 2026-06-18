@@ -56,5 +56,21 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:20:44.278Z",
   "promptVersion": "v2",
-  "coverImage": "https://rotorriot.com/cdn/shop/files/Bubito-Starter-ECHO.png?v=1708626445&width=1000"
+  "coverImage": "https://rotorriot.com/cdn/shop/files/Bubito-Starter-ECHO.png?v=1708626445&width=1000",
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "frame"
+    ],
+    "audience": [
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

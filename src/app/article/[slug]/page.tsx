@@ -4,15 +4,18 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchEditorialInsights } from '@/lib/dify';
 import { getPublishedContentBySlugAsync, type PublishedArtifact } from '@/lib/content-automation/content-reader';
+import { getRelatedContent } from '@/lib/content-discovery/related-engine';
+import { getRecommendedNextSteps } from '@/lib/content-discovery/progression-engine';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { Badge } from '@/components/ui/badge';
 import { AffiliateButton } from '@/features/monetization/components/AffiliateButton';
 import { AdZone } from '@/features/monetization/components/AdZone';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
-import { Cpu, Shield, Zap, FileText, BookOpen } from 'lucide-react';
+import { Cpu, Shield, Zap, FileText, BookOpen, ArrowRight } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { ActiveSortieWidget } from '@/features/academy/components/ActiveSortieWidget';
+import { DiscoveryLink } from '@/components/DiscoveryLink';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -50,7 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-function PublishedArticle({ article }: { article: PublishedArtifact }) {
+function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { article: PublishedArtifact, relatedContent?: PublishedArtifact[], nextSteps?: PublishedArtifact[] }) {
   const a = article;
   const breadcrumbs = [
     { label: 'Content', href: '/#latest' },
@@ -213,6 +216,70 @@ function PublishedArticle({ article }: { article: PublishedArtifact }) {
           </div>
         </article>
 
+        {/* Discovery Layer */}
+        <div className="lg:col-span-8 col-span-1 flex flex-col gap-8">
+          {nextSteps.length > 0 && (
+            <div className="hex-panel glass-panel p-6 border-[#00FF66]/30 bg-[#050810]/70 rounded-lg">
+              <h3 className="text-sm font-black uppercase tracking-widest text-[#00FF66] mb-4 flex items-center gap-2">
+                <ArrowRight className="w-4 h-4" /> Recommended Next Steps
+              </h3>
+              <div className="flex flex-col gap-3">
+                {nextSteps.map(step => (
+                  <DiscoveryLink 
+                    key={step.slug} 
+                    href={`/article/${step.slug}`} 
+                    sourceSlug={a.slug}
+                    targetSlug={step.slug}
+                    linkType="next_step"
+                    className="block p-4 border border-white/5 hover:border-[#00FF66]/50 rounded bg-black/40 transition-all group"
+                  >
+                    <div className="text-[10px] font-mono text-[#A0A0A0] uppercase mb-1">
+                      {step.metadata?.difficulty} &bull; {step.category}
+                    </div>
+                    <div className="font-bold text-white group-hover:text-[#00FF66] transition-colors">
+                      {step.title}
+                    </div>
+                  </DiscoveryLink>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {relatedContent.length > 0 && (
+            <div className="hex-panel glass-panel p-6 border-[#00F2FF]/20 bg-[#050810]/70 rounded-lg">
+              <h3 className="text-sm font-black uppercase tracking-widest text-[#00F2FF] mb-4 flex items-center gap-2">
+                <BookOpen className="w-4 h-4" /> Related Articles
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {relatedContent.map(rel => (
+                  <DiscoveryLink 
+                    key={rel.slug} 
+                    href={`/article/${rel.slug}`} 
+                    sourceSlug={a.slug}
+                    targetSlug={rel.slug}
+                    linkType="related"
+                    className="block p-4 border border-white/5 hover:border-[#00F2FF]/50 rounded bg-black/40 transition-all group relative overflow-hidden"
+                  >
+                    {rel.media?.coverImage?.src && (
+                      <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity">
+                        <Image src={rel.media.coverImage.src} alt="" fill className="object-cover" unoptimized />
+                      </div>
+                    )}
+                    <div className="relative z-10">
+                      <div className="text-[10px] font-mono text-[#00F2FF] uppercase mb-1">
+                        {rel.metadata?.topics?.[0] || 'ARTICLE'}
+                      </div>
+                      <div className="font-bold text-sm text-white group-hover:text-[#00F2FF] transition-colors line-clamp-2">
+                        {rel.title}
+                      </div>
+                    </div>
+                  </DiscoveryLink>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+
         <aside className="lg:col-span-4 col-span-1 hidden lg:flex flex-col gap-6 w-full h-full">
           <AdStickySidebar />
         </aside>
@@ -243,7 +310,9 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   const published = await getPublishedContentBySlugAsync(resolvedParams.slug);
   if (published) {
-    return <PublishedArticle article={published} />;
+    const relatedContent = await getRelatedContent(resolvedParams.slug);
+    const nextSteps = await getRecommendedNextSteps(resolvedParams.slug);
+    return <PublishedArticle article={published} relatedContent={relatedContent} nextSteps={nextSteps} />;
   }
 
   const seed = firstWaveContentPlan.find((e) => e.slug === resolvedParams.slug);

@@ -60,5 +60,21 @@
   "jobStatus": "published",
   "publishedAt": "2026-05-31T18:14:35.556Z",
   "promptVersion": "v2",
-  "coverImage": "https://judgeme.imgix.net/rotor-riot/1779742367__17453__original.jpg?auto=format&w=1024"
+  "coverImage": "https://judgeme.imgix.net/rotor-riot/1779742367__17453__original.jpg?auto=format&w=1024",
+  "metadata": {
+    "topics": [
+      "betaflight"
+    ],
+    "components": [
+      "motor"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }
