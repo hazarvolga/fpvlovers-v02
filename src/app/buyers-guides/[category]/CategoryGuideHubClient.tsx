@@ -3,16 +3,16 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  BookOpen, Star, GitCompare, Award, ArrowRight, 
-  ThumbsUp, ThumbsDown, HelpCircle 
+import {
+  BookOpen, Star, GitCompare, Award, ArrowRight,
+  ThumbsUp, ThumbsDown, HelpCircle
 } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
-import { 
-  trackBuyerGuideClick, 
-  trackReviewClick, 
-  trackComparisonClick 
+import {
+  trackBuyerGuideClick,
+  trackReviewClick,
+  trackComparisonClick
 } from '@/lib/analytics';
 
 interface CategoryGuideHubClientProps {
@@ -38,22 +38,22 @@ export function CategoryGuideHubClient({
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pt-28">
-      <CyberBreadcrumb 
+      <CyberBreadcrumb
         items={[
-          { label: 'Home', href: '/' }, 
+          { label: 'Home', href: '/' },
           { label: 'Buyer Guides', href: '/buyers-guides' },
           { label: categoryTitle, isCurrentPage: true }
-        ]} 
-        className="mb-8" 
+        ]}
+        className="mb-8"
       />
 
       {/* Cockpit HUD Header */}
-      <div 
+      <div
         className="relative mb-12 flex flex-col items-center justify-center p-8 bg-[#050810] border hex-panel overflow-hidden shadow-[inset_0_0_80px_rgba(0,242,255,0.05)]"
         style={{ borderColor: `${categoryColor}30` }}
       >
         <div className="absolute inset-0 bg-[linear-gradient(rgba(0,242,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,242,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-60 pointer-events-none" />
-        <div 
+        <div
           className="absolute right-6 top-1/2 -translate-y-1/2 w-32 h-32 rounded-full border opacity-10 blur-sm pointer-events-none hidden md:block"
           style={{ borderColor: categoryColor }}
         />

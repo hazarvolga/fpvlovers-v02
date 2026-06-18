@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
-import { 
-  Info, Target, GraduationCap, Wrench, 
-  Compass, Radio, Users, Cpu, FileText 
+import {
+  Info, Target, GraduationCap, Wrench,
+  Compass, Radio, Users, Cpu, FileText
 } from 'lucide-react';
 import { Metadata } from 'next';
 
@@ -86,7 +86,7 @@ export default function AboutPage() {
             <Target className="w-5 h-5 text-[#FF5C00]" /> Why We Exist
           </h2>
           <p className="text-sm leading-relaxed text-zinc-400 mb-4">
-            The FPV drone ecosystem moves at breakneck speeds. Firmware releases, hardware protocol changes (analog vs. digital, ELRS packet rates, gyro filters), and battery safety guidelines are scattered across dozens of forums, chat rooms, and YouTube channels. 
+            The FPV drone ecosystem moves at breakneck speeds. Firmware releases, hardware protocol changes (analog vs. digital, ELRS packet rates, gyro filters), and battery safety guidelines are scattered across dozens of forums, chat rooms, and YouTube channels.
           </p>
           <p className="text-sm leading-relaxed text-zinc-400">
             For beginners, this leads to information overload and costly component blowouts. For veterans, it makes comparative analysis tedious. We exist to centralize, structure, and validate FPV knowledge using modern software engineering practices.
@@ -102,7 +102,7 @@ export default function AboutPage() {
             {focusAreas.map((area, idx) => (
               <div key={idx} className="p-6 border border-white/5 bg-zinc-950/40 rounded-lg group hover:border-[#00F2FF]/40 transition-all duration-300">
                 <div className="flex items-center gap-3 mb-4">
-                  <div 
+                  <div
                     className="p-2 border rounded-md bg-black/40"
                     style={{ borderColor: `${area.color}20`, color: area.color }}
                   >

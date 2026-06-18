@@ -67,7 +67,7 @@ export async function getRelatedContent(sourceSlug: string, maxResults = 8): Pro
   if (results.length < maxResults) {
     const familyContent = allContent
       .filter((a: PublishedArtifact) => a.slug !== sourceSlug && !results.some((r: PublishedArtifact) => r.slug === a.slug) && a.category === source.category);
-    
+
     for (const item of familyContent) {
       if (results.length >= maxResults) break;
       results.push(item);

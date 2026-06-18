@@ -23,7 +23,7 @@ const PROVIDER_CONFIGS: Record<AffiliateProvider, ProviderConfig> = {
     envKey: 'AFFILIATE_AMAZON_TAG',
     defaultTag: 'fpvlovers-20',
     trackingParams: ['tag'],
-    searchUrlTemplate: (query, tag) => query 
+    searchUrlTemplate: (query, tag) => query
       ? `https://www.amazon.com/s?k=${encodeURIComponent(query)}&tag=${encodeURIComponent(tag)}`
       : `https://www.amazon.com/?tag=${encodeURIComponent(tag)}`,
   },
@@ -160,7 +160,7 @@ function safeParseUrl(urlStr: string): URL | null {
   } else if (!/^https?:\/\//i.test(formatted)) {
     formatted = 'https://' + formatted;
   }
-  
+
   try {
     return new URL(formatted);
   } catch {
@@ -200,7 +200,7 @@ export function resolveAffiliateUrl(
     if (urlObj) {
       // Clean up double slashes in pathname (e.g. `//dp/B0B8...` -> `/dp/B0B8...`)
       urlObj.pathname = urlObj.pathname.replace(/\/+/g, '/');
-      
+
       // Merge/overwrite tracking parameters
       for (const param of config.trackingParams) {
         urlObj.searchParams.set(param, tag);

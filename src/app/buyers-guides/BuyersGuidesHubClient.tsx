@@ -3,12 +3,13 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { 
-  BookOpen, Eye, Radio, Battery, Video, HelpCircle, 
-  Compass, ArrowRight, Gauge, Layers 
+import {
+  BookOpen, Eye, Radio, Battery, Video, HelpCircle,
+  Compass, ArrowRight, Gauge, Layers
 } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
+import type { ContentMetadata } from '@/lib/content-metadata';
 import { trackBuyerGuideClick } from '@/lib/analytics';
 
 // Category Definitions
@@ -19,7 +20,7 @@ export const BUYERS_GUIDE_CATEGORIES = [
     description: 'Compare the best analog, digital, HD, and budget FPV goggles for your cockpit visual experience.',
     icon: Eye,
     color: '#00F2FF',
-    matcher: (meta: any) => 
+    matcher: (meta: ContentMetadata) =>
       meta.review?.productCategory?.toLowerCase().includes('goggle') ||
       meta.comparison?.comparisonCategory?.toLowerCase().includes('goggle') ||
       meta.components?.some((c: string) => c.toLowerCase().includes('goggle')) ||
@@ -31,7 +32,7 @@ export const BUYERS_GUIDE_CATEGORIES = [
     description: 'Browse top-tier radio controllers, ELRS modules, and gimbals for precise flight maneuvering.',
     icon: Radio,
     color: '#FF5C00',
-    matcher: (meta: any) => 
+    matcher: (meta: ContentMetadata) =>
       meta.review?.productCategory?.toLowerCase().includes('radio') ||
       meta.review?.productCategory?.toLowerCase().includes('transmitter') ||
       meta.comparison?.comparisonCategory?.toLowerCase().includes('radio') ||
@@ -45,7 +46,7 @@ export const BUYERS_GUIDE_CATEGORIES = [
     description: 'In-depth directories of analog and HD video transmitters, air units, and onboard cameras.',
     icon: Video,
     color: '#00FF66',
-    matcher: (meta: any) => 
+    matcher: (meta: ContentMetadata) =>
       meta.review?.productCategory?.toLowerCase().includes('camera') ||
       meta.review?.productCategory?.toLowerCase().includes('vtx') ||
       meta.comparison?.comparisonCategory?.toLowerCase().includes('camera') ||
@@ -59,7 +60,7 @@ export const BUYERS_GUIDE_CATEGORIES = [
     description: 'High discharge rate LiPo and LiHV flight packs, chargers, and safety equipment guides.',
     icon: Battery,
     color: '#EAB308',
-    matcher: (meta: any) => 
+    matcher: (meta: ContentMetadata) =>
       meta.review?.productCategory?.toLowerCase().includes('battery') ||
       meta.review?.productCategory?.toLowerCase().includes('lipo') ||
       meta.comparison?.comparisonCategory?.toLowerCase().includes('battery') ||
@@ -73,7 +74,7 @@ export const BUYERS_GUIDE_CATEGORIES = [
     description: 'Guides on duct-protected indoor micro drones and stable filming camera rigs.',
     icon: Layers,
     color: '#A855F7',
-    matcher: (meta: any) => 
+    matcher: (meta: ContentMetadata) =>
       meta.review?.productCategory?.toLowerCase().includes('whoop') ||
       meta.review?.productCategory?.toLowerCase().includes('cinewhoop') ||
       meta.comparison?.comparisonCategory?.toLowerCase().includes('whoop') ||
@@ -88,7 +89,7 @@ export const BUYERS_GUIDE_CATEGORIES = [
     description: 'GPS modules, high-gain antennas, and robust frames for flying far and safe.',
     icon: Compass,
     color: '#3B82F6',
-    matcher: (meta: any) => 
+    matcher: (meta: ContentMetadata) =>
       meta.review?.productCategory?.toLowerCase().includes('long-range') ||
       meta.review?.productCategory?.toLowerCase().includes('gps') ||
       meta.comparison?.comparisonCategory?.toLowerCase().includes('long-range') ||
@@ -102,7 +103,7 @@ export const BUYERS_GUIDE_CATEGORIES = [
     description: 'Ready-to-fly kits, radio transmitters, simulators, and start guides for new pilots.',
     icon: HelpCircle,
     color: '#EC4899',
-    matcher: (meta: any) => 
+    matcher: (meta: ContentMetadata) =>
       meta.difficulty === 'beginner' ||
       meta.audience?.some((a: string) => a === 'new-pilot') ||
       meta.review?.productCategory?.toLowerCase().includes('rtf') ||
@@ -123,12 +124,12 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pt-28">
-      <CyberBreadcrumb 
+      <CyberBreadcrumb
         items={[
-          { label: 'Home', href: '/' }, 
+          { label: 'Home', href: '/' },
           { label: 'Buyer Guides', isCurrentPage: true }
-        ]} 
-        className="mb-8" 
+        ]}
+        className="mb-8"
       />
 
       {/* Cockpit HUD Header */}
@@ -162,7 +163,7 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <div 
+                  <div
                     className="p-3 border rounded-lg bg-black/40"
                     style={{ borderColor: `${cat.color}20`, color: cat.color }}
                   >

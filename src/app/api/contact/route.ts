@@ -86,9 +86,9 @@ export async function POST(request: Request) {
       console.log('[ContactFormSubmit] SMTP parameters missing, skipped email transmission.');
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      message: 'Transmission received. Our operations team will respond shortly.' 
+    return NextResponse.json({
+      success: true,
+      message: 'Transmission received. Our operations team will respond shortly.'
     });
 
   } catch (err: unknown) {

@@ -23,6 +23,13 @@ Last updated: 2026-06-18
 - Replaced the destructive target-only migration with an idempotent merge migration that preserves review, comparison, and buyer-guide metadata.
 - Added `pnpm metadata:test` and `pnpm metadata:migrate`; regression, metadata, content-integrity, and TypeScript gates pass locally.
 
+## Completed (2026-06-18 Post-Analysis Phase 3)
+
+- Removed all 13 semantic `any` annotations introduced in the 18 June change range.
+- Removed all 82 trailing-whitespace and extra-EOF-newline violations in the same range.
+- Added `pnpm quality:recent`, with an overridable `QUALITY_BASE_REF`, to prevent regressions.
+- Fresh recent-quality, TypeScript, and full-repository ESLint gates pass locally.
+
 ## ✅ Completed (2026-06-14 GAP Closure Sprint)
 
 - GAP raporu yazıldı (25 bulgu, 17'si çözüldü)

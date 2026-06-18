@@ -28,6 +28,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 
 ## Current Known State
 
+- Post-analysis GAP closure Phase 3 completed locally on 2026-06-18: all 13 semantic `any` annotations introduced after `06e2c58` were replaced with existing domain types or `Record<string, unknown>`, and 82 trailing-whitespace/EOF violations in the same change range were removed. `pnpm quality:recent` now guards that range and supports `QUALITY_BASE_REF` for CI or rewritten history. Fresh verification passed with `pnpm quality:recent`, `pnpm exec tsc --noEmit`, and full `pnpm lint`.
 - Post-analysis GAP closure Phase 2 completed locally on 2026-06-18: the metadata migration now preserves existing commercial metadata and deterministically fills missing discovery fields across all published artifacts. All 117 artifacts have valid metadata with zero missing `difficulty`, `contentType`, `topics`, `audience`, `discipline`, or `components`; buyer-guide taxonomy is canonicalized to `Buyer Guides`. The migration is idempotent (`0 artifact(s)` on the second run). Fresh verification passed with `pnpm metadata:test`, `pnpm metadata:audit`, `pnpm content:audit`, and `pnpm exec tsc --noEmit`.
 - Post-analysis GAP closure Phase 1 completed locally on 2026-06-18: tracked operational credential values were removed from current files, YouTube and retrieval scripts now require environment-managed Dify credentials, retrieval testing routes through `src/lib/dify-client.ts`, and metadata audit output is portable at `reports/unified-metadata-report.md`. Fresh verification passed with `pnpm security:audit`, `pnpm metadata:audit`, `pnpm exec tsc --noEmit`, and `git diff --check`. External Dify/cron credential rotation and coordinated Git-history cleanup remain operational requirements; current-file cleanup alone does not revoke exposed values.
 - GAP closure execution was reset into a phase-by-phase Codex plan on 2026-05-21 at `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md`.
@@ -454,7 +455,7 @@ Created:
 ### 2026-06-01 PostgreSQL Migration Phase 0 & Phase 1
 - **Phase 0 (Read-Only Audit) Başarıyla Tamamlandı:** `scripts/db-audit-file-storage.ts` oluşturuldu ve çalıştırıldı. Sonuçlar `/reports/db-file-storage-audit.json` altında raporlandı. Content jobs (30), crawl queue (44), published content (40 JSON/MD pairs), catalog specs, monetization affiliates/sponsors/campaigns verileri başarıyla sayıldı. Parity drifts ve iki "Orphaned JSON" dosyası (`fpv-components-wiring-guide` ve `fpv-troubleshooting-guide`) tespit edildi.
 - **Orphaned Dosyalar Düzeltildi:** `fpv-components-wiring-guide.md` ve `fpv-troubleshooting-guide.md` dosyaları sıfırdan oluşturularak matching-pairs sayısı 40'a çıkarıldı ve audit uyumsuzlukları tamamen giderildi.
-- **Phase 1 (PostgreSQL Foundation) Başarıyla Tamamlandı:** 
+- **Phase 1 (PostgreSQL Foundation) Başarıyla Tamamlandı:**
   - Ortam değişkenleri `.env.example` ve `.env.local` dosyalarına eklendi.
   - `src/lib/server/db.ts` (lazy singleton Pool, query helper, health check, resilient `.env.local` programatik parser) ve `db-types.ts` oluşturuldu.
   - `src/lib/server/migrations.ts` (transactional migration runner, dry-run resilience) oluşturuldu.

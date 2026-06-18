@@ -21,6 +21,7 @@
     "metadata:audit": "node --import tsx scripts/audit-content-metadata.ts",
     "metadata:test": "node --import tsx scripts/content-metadata-regression-test.ts",
     "metadata:migrate": "node --import tsx scripts/phase3-metadata-expansion.ts",
+    "quality:recent": "node scripts/recent-code-quality-audit.mjs",
     "content:smoke": "node --import tsx scripts/content-automation-smoke.ts",
     "content:audit": "node --import tsx scripts/content-integrity-audit.ts",
     "content:repair": "node --import tsx scripts/repair-queue-status.ts",

@@ -10,8 +10,8 @@ export const metadata = {
 export default async function BuyersGuidesPage() {
   const allContent = await listPublishedContentAsync();
   const guides = allContent.filter(
-    a => 
-      a.metadata?.contentType === 'buyer-guide' || 
+    a =>
+      a.metadata?.contentType === 'buyer-guide' ||
       a.metadata?.contentType === 'product-roundup'
   );
 

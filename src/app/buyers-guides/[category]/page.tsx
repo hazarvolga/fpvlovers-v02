@@ -15,7 +15,7 @@ function findCategoryConfig(slug: string) {
 export async function generateMetadata({ params }: PageProps) {
   const resolvedParams = await params;
   const config = findCategoryConfig(resolvedParams.category);
-  
+
   if (!config) {
     return {
       title: 'Not Found | FPVLovers',
@@ -37,7 +37,7 @@ export default async function CategoryGuidePage({ params }: PageProps) {
   }
 
   const allContent = await listPublishedContentAsync();
-  
+
   // Filter content matching this category
   const matchingContent = allContent.filter(
     a => a.metadata && config.matcher(a.metadata)
@@ -45,8 +45,8 @@ export default async function CategoryGuidePage({ params }: PageProps) {
 
   // Split into content types
   const guides = matchingContent.filter(
-    a => 
-      a.metadata?.contentType === 'buyer-guide' || 
+    a =>
+      a.metadata?.contentType === 'buyer-guide' ||
       a.metadata?.contentType === 'product-roundup'
   );
 

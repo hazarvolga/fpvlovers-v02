@@ -56,9 +56,9 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
 
       // Metadata filters
       if (topicFilter && !a.metadata?.topics?.includes(topicFilter)) return false;
-      if (disciplineFilter && !a.metadata?.discipline?.includes(disciplineFilter as any)) return false;
+      if (disciplineFilter && !a.metadata?.discipline?.some((discipline) => discipline === disciplineFilter)) return false;
       if (difficultyFilter && a.metadata?.difficulty !== difficultyFilter) return false;
-      if (audienceFilter && !a.metadata?.audience?.includes(audienceFilter as any)) return false;
+      if (audienceFilter && !a.metadata?.audience?.some((audience) => audience === audienceFilter)) return false;
       if (contentTypeFilter && a.metadata?.contentType !== contentTypeFilter) return false;
 
       return true;
@@ -148,9 +148,9 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
         ) : (
           filteredContent.map(a => {
             return (
-              <DiscoveryLink 
-                key={a.slug} 
-                href={`/article/${a.slug}`} 
+              <DiscoveryLink
+                key={a.slug}
+                href={`/article/${a.slug}`}
                 targetSlug={a.slug}
                 linkType="search_result"
                 searchQuery={query}

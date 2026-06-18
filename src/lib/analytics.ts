@@ -3,7 +3,7 @@
 interface TrackEventPayload {
   eventType: string;
   contentSlug?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 export async function trackEvent(payload: TrackEventPayload) {
@@ -21,7 +21,7 @@ export async function trackEvent(payload: TrackEventPayload) {
         source: 'frontend',
       }),
       // keepalive helps ensure the request finishes even if the user navigates away
-      keepalive: true 
+      keepalive: true
     });
   } catch (error) {
     console.error('Failed to send analytics event:', error);
@@ -52,7 +52,7 @@ export function trackNextStepClick(sourceSlug: string, targetSlug: string) {
   });
 }
 
-export function trackSearchEvent(query: string, resultCount: number, filtersApplied: any) {
+export function trackSearchEvent(query: string, resultCount: number, filtersApplied: Record<string, string>) {
   trackEvent({
     eventType: 'search_performed',
     metadata: {
@@ -118,4 +118,3 @@ export function trackAffiliateClick(slug: string, provider: string, url: string,
     }
   });
 }
-

@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { listPublishedContentAsync, type PublishedArtifact } from '@/lib/content-automation/content-reader';
@@ -8,13 +9,13 @@ import { HubTracker } from '@/components/HubTracker';
 export async function generateMetadata({ params }: { params: Promise<{ component: string }> }) {
   const resolvedParams = await params;
   const component = resolvedParams.component;
-  
+
   const allContent = await listPublishedContentAsync();
   const componentContent = allContent.filter((a: PublishedArtifact) => a.metadata?.components?.includes(component));
-  
+
   const displayComponent = component.replace(/-/g, ' ').toUpperCase();
 
-  const metadata: any = {
+  const metadata: Metadata = {
     title: `${displayComponent} Component Hub | FPVLovers`,
     description: `Everything you need to know about ${displayComponent.toLowerCase()}s in FPV drones. Guides, troubleshooting, and setups.`,
   };
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ component
 export default async function ComponentHubPage({ params }: { params: Promise<{ component: string }> }) {
   const resolvedParams = await params;
   const component = resolvedParams.component;
-  
+
   const allContent = await listPublishedContentAsync();
   const componentContent = allContent.filter((a: PublishedArtifact) => a.metadata?.components?.includes(component));
 

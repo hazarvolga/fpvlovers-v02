@@ -99,9 +99,9 @@ export function ContactForm() {
         <p className="text-sm text-zinc-400">
           Your inquiry has been stored securely in our system log. We will reply to your registered email address shortly.
         </p>
-        <Button 
-          variant="amber" 
-          onClick={handleReset} 
+        <Button
+          variant="amber"
+          onClick={handleReset}
           className="w-full sm:w-auto flex items-center justify-center gap-2"
         >
           <RefreshCw className="w-4 h-4" /> Send Another Message

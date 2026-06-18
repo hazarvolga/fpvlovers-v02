@@ -234,7 +234,7 @@ async function main() {
       const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
       data.contentType = conv.contentType;
       data.category = conv.category;
-      
+
       if (!data.metadata) data.metadata = {};
       data.metadata.contentType = conv.contentType;
       data.metadata.category = conv.category;

@@ -42,7 +42,7 @@ async function auditContent() {
       }
 
       const validation = validateContentMetadata(content.metadata);
-      
+
       if (!validation.isValid) {
         invalidMetadata++;
         detailedErrors.push({ file, errors: validation.errors });

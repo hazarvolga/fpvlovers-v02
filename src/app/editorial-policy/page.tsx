@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
-import { 
-  FileText, ShieldCheck, Cpu, Star, 
-  HelpCircle, Users, Scale, Sparkles 
+import {
+  FileText, ShieldCheck, Cpu, Star,
+  HelpCircle, Users, Scale, Sparkles
 } from 'lucide-react';
 import { Metadata } from 'next';
 
@@ -92,7 +92,7 @@ export default function EditorialPolicyPage() {
           <p className="text-sm text-zinc-400">
             To keep pace with the rapidly evolving FPV ecosystem, FPVLovers uses a hybrid human-AI content generation pipeline:
           </p>
-          
+
           <div className="p-4 bg-zinc-950/80 border border-white/5 rounded-lg space-y-3">
             <div className="flex items-center gap-2 text-xs font-mono text-[#00F2FF] uppercase font-black">
               <Sparkles className="w-4 h-4" /> The Harvester Pipeline:

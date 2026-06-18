@@ -67,7 +67,7 @@ export default function ContactPage() {
             <h3 className="text-sm font-mono font-black uppercase text-zinc-100 tracking-widest flex items-center gap-1.5">
               <ShieldCheck className="w-4 h-4 text-[#00FF66]" /> Transmission Guidelines
             </h3>
-            
+
             <p className="text-xs leading-relaxed text-zinc-400">
               Please choose the correct inquiry department on the form. This routes the message directly to the appropriate pilot or system engineer.
             </p>

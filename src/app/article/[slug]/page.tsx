@@ -140,7 +140,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
                   <h2 className="text-3xl font-black uppercase tracking-tight text-white mt-12 mb-6">
                     {section.title}
                   </h2>
-                  
+
                   <MarkdownRenderer content={section.content} />
 
                   {section.imageMatch?.src && (
@@ -225,9 +225,9 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
               </h3>
               <div className="flex flex-col gap-3">
                 {nextSteps.map(step => (
-                  <DiscoveryLink 
-                    key={step.slug} 
-                    href={`/article/${step.slug}`} 
+                  <DiscoveryLink
+                    key={step.slug}
+                    href={`/article/${step.slug}`}
                     sourceSlug={a.slug}
                     targetSlug={step.slug}
                     linkType="next_step"
@@ -252,9 +252,9 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {relatedContent.map(rel => (
-                  <DiscoveryLink 
-                    key={rel.slug} 
-                    href={`/article/${rel.slug}`} 
+                  <DiscoveryLink
+                    key={rel.slug}
+                    href={`/article/${rel.slug}`}
                     sourceSlug={a.slug}
                     targetSlug={rel.slug}
                     linkType="related"

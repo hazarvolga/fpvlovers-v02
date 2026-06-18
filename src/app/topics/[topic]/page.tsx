@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { listPublishedContentAsync, type PublishedArtifact } from '@/lib/content-automation/content-reader';
@@ -8,13 +9,13 @@ import { HubTracker } from '@/components/HubTracker';
 export async function generateMetadata({ params }: { params: Promise<{ topic: string }> }) {
   const resolvedParams = await params;
   const topic = resolvedParams.topic;
-  
+
   const allContent = await listPublishedContentAsync();
   const topicContent = allContent.filter((a: PublishedArtifact) => a.metadata?.topics?.includes(topic));
-  
+
   const displayTopic = topic.replace(/-/g, ' ').toUpperCase();
 
-  const metadata: any = {
+  const metadata: Metadata = {
     title: `${displayTopic} Hub | FPVLovers`,
     description: `Everything you need to know about ${displayTopic.toLowerCase()} in FPV. Guides, news, tutorials and more.`,
   };
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ topic: st
 export default async function TopicHubPage({ params }: { params: Promise<{ topic: string }> }) {
   const resolvedParams = await params;
   const topic = resolvedParams.topic;
-  
+
   const allContent = await listPublishedContentAsync();
   const topicContent = allContent.filter((a: PublishedArtifact) => a.metadata?.topics?.includes(topic));
 

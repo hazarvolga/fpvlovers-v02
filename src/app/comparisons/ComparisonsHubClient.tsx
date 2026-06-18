@@ -40,12 +40,12 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pt-28">
-      <CyberBreadcrumb 
+      <CyberBreadcrumb
         items={[
-          { label: 'Home', href: '/' }, 
+          { label: 'Home', href: '/' },
           { label: 'Comparisons', isCurrentPage: true }
-        ]} 
-        className="mb-8" 
+        ]}
+        className="mb-8"
       />
 
       {/* Cockpit HUD Header */}

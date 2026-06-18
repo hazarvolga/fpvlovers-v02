@@ -24,7 +24,7 @@ export async function getRecommendedNextSteps(sourceSlug: string): Promise<Publi
 
   const allContent = await listPublishedContentAsync();
   const sourceTopics = source.metadata.topics || [];
-  
+
   // Find progression topics based on current article's topics
   const targetTopics = new Set<string>();
   for (const topic of sourceTopics) {
