@@ -190,4 +190,3 @@ Masters may be retained as PNG source files outside the public runtime path if n
 - Repeated generic imagery is limited to metadata that cannot be classified.
 - Homepage and article pages use the same deterministic resolution behavior.
 - The change adds no new route, service, runtime generation, or architectural subsystem.
-

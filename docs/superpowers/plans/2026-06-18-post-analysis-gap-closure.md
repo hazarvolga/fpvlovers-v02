@@ -19,21 +19,21 @@
 - Modify: `PROJECT_MEMORY.md`
 - Test: `scripts/repository-security-audit.mjs`
 
-- [ ] **Step 1: Add a failing repository security audit**
+- [x] **Step 1: Add a failing repository security audit**
 
 Create a script that scans Git-tracked text files, rejects known operational credential values, rejects hardcoded Dify token fallbacks, and confirms metadata reports resolve below `reports/`.
 
-- [ ] **Step 2: Run the audit and confirm RED**
+- [x] **Step 2: Run the audit and confirm RED**
 
 Run: `node scripts/repository-security-audit.mjs`
 
 Expected: non-zero exit identifying tracked operational credential references and the non-portable metadata report path without printing secret values.
 
-- [ ] **Step 3: Apply the minimum remediation**
+- [x] **Step 3: Apply the minimum remediation**
 
 Replace operational values in tracked documentation with environment-variable instructions. Change the metadata report target to `reports/unified-metadata-report.md`, add a package script, and require env-only Dify credentials wherever a fallback exists.
 
-- [ ] **Step 4: Verify GREEN and baseline types**
+- [x] **Step 4: Verify GREEN and baseline types**
 
 Run: `node scripts/repository-security-audit.mjs`
 
@@ -43,7 +43,7 @@ Run: `pnpm exec tsc --noEmit`
 
 Expected: all commands exit zero and the report is generated inside the repository.
 
-- [ ] **Step 5: Commit Phase 1**
+- [x] **Step 5: Commit Phase 1**
 
 Run: `git commit -m "fix(security): remove tracked operational secrets"`
 
@@ -56,21 +56,21 @@ Run: `git commit -m "fix(security): remove tracked operational secrets"`
 - Modify: `content/published/*.json`
 - Test: `scripts/content-metadata-regression-test.ts`
 
-- [ ] **Step 1: Add a failing metadata regression test**
+- [x] **Step 1: Add a failing metadata regression test**
 
 Assert that every published JSON artifact has a valid `metadata.contentType`, that commercial metadata contracts match their content type, and that `Buyers Guides` never appears as a category.
 
-- [ ] **Step 2: Run the test and confirm RED**
+- [x] **Step 2: Run the test and confirm RED**
 
 Run: `node --import tsx scripts/content-metadata-regression-test.ts`
 
 Expected: non-zero exit reporting 65 missing content types and the plural taxonomy drift.
 
-- [ ] **Step 3: Normalize metadata deterministically**
+- [x] **Step 3: Normalize metadata deterministically**
 
 Extend the existing migration to infer the allowed `ContentType` from existing template, category, title, and metadata fields. Normalize both top-level and metadata categories to `Buyer Guides` and update the commercial generator constant so drift cannot recur.
 
-- [ ] **Step 4: Verify GREEN and content integrity**
+- [x] **Step 4: Verify GREEN and content integrity**
 
 Run: `node --import tsx scripts/content-metadata-regression-test.ts`
 
@@ -80,7 +80,7 @@ Run: `pnpm content:audit`
 
 Expected: 117 artifacts covered, zero missing content types, one canonical buyer-guide category, and zero integrity failures.
 
-- [ ] **Step 5: Commit Phase 2**
+- [x] **Step 5: Commit Phase 2**
 
 Run: `git commit -m "fix(content): complete metadata taxonomy migration"`
 
@@ -91,21 +91,21 @@ Run: `git commit -m "fix(content): complete metadata taxonomy migration"`
 - Modify: `.editorconfig` or repository lint configuration only if an equivalent guard is absent
 - Test: `scripts/recent-code-quality-audit.mjs`
 
-- [ ] **Step 1: Add a failing recent-code quality audit**
+- [x] **Step 1: Add a failing recent-code quality audit**
 
 Scan the target commit range for semantic `any` annotations and `git diff --check` failures while excluding prose occurrences of the English word "any".
 
-- [ ] **Step 2: Run the audit and confirm RED**
+- [x] **Step 2: Run the audit and confirm RED**
 
 Run: `node scripts/recent-code-quality-audit.mjs`
 
 Expected: non-zero exit listing file/line locations without dumping source contents.
 
-- [ ] **Step 3: Replace unsafe types and clean touched whitespace**
+- [x] **Step 3: Replace unsafe types and clean touched whitespace**
 
 Use existing artifact, racing, metadata, React component, and analytics types where available; otherwise use `unknown` plus narrowing. Remove only whitespace in the affected files.
 
-- [ ] **Step 4: Verify GREEN**
+- [x] **Step 4: Verify GREEN**
 
 Run: `node scripts/recent-code-quality-audit.mjs`
 
@@ -115,7 +115,7 @@ Run: `pnpm lint`
 
 Expected: zero semantic `any` findings in the target range, zero diff-check errors, zero TypeScript errors, and no new ESLint errors.
 
-- [ ] **Step 5: Commit Phase 3**
+- [x] **Step 5: Commit Phase 3**
 
 Run: `git commit -m "refactor(types): harden recent discovery code"`
 
@@ -127,21 +127,21 @@ Run: `git commit -m "refactor(types): harden recent discovery code"`
 - Regenerate: `docs/handoff/latest.md`
 - Regenerate: `docs/handoff/latest.json`
 
-- [ ] **Step 1: Reconcile source-of-truth state**
+- [x] **Step 1: Reconcile source-of-truth state**
 
 Record the security/admin, discovery, commercial, metadata, and quality outcomes with commit IDs. Keep external secret rotation, Git-history rewrite, and production deployment explicitly open until verified.
 
-- [ ] **Step 2: Regenerate handoff artifacts**
+- [x] **Step 2: Regenerate handoff artifacts**
 
 Run: `pnpm handoff`
 
 Run: `pnpm opencode:brief`
 
-- [ ] **Step 3: Verify documentation freshness**
+- [x] **Step 3: Verify documentation freshness**
 
 Confirm the generated handoff references the current date and HEAD and no tracked credential values reappear.
 
-- [ ] **Step 4: Commit Phase 4**
+- [x] **Step 4: Commit Phase 4**
 
 Run: `git commit -m "docs: refresh fpvlovers release handoff"`
 
@@ -151,7 +151,7 @@ Run: `git commit -m "docs: refresh fpvlovers release handoff"`
 - No production-data mutations
 - Update documentation only if live evidence changes the recorded state
 
-- [ ] **Step 1: Run the complete local release gate**
+- [x] **Step 1: Run the complete local release gate**
 
 Run: `pnpm exec tsc --noEmit`
 
@@ -165,10 +165,10 @@ Run: `pnpm media:audit`
 
 Run: `pnpm build`
 
-- [ ] **Step 2: Inspect production read-only**
+- [x] **Step 2: Inspect production read-only**
 
 Compare the live application/container commit or image metadata with local HEAD, then smoke `/api/health`, `/`, `/reviews`, `/comparisons`, and `/buyers-guides` without changing deployment state.
 
-- [ ] **Step 3: Record the exact boundary**
+- [x] **Step 3: Record the exact boundary**
 
 If production is behind, leave the result as deploy-pending and list the required Coolify deployment and post-deploy smoke commands. Do not claim the release is live without matching commit/image evidence.
