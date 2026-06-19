@@ -23,47 +23,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9.15.4
-
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20.20.2'
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Verify contracts
         run: |
-          pnpm content:topic-cover-test
-          pnpm content:cover-test
-          pnpm editorial:governance-test
-          pnpm social:contracts-test
-          pnpm crawl:worker-test
+          npm run content:topic-cover-test
+          npm run content:cover-test
+          npm run editorial:governance-test
+          npm run social:contracts-test
+          npm run crawl:worker-test
 
       - name: Verify repository
         run: |
-          pnpm security:audit
-          pnpm quality:recent
-          pnpm routes:audit
-          pnpm content:audit
-          pnpm content:smoke
-          pnpm metadata:test
-          pnpm media:audit
-          pnpm handoff:test
+          npm run security:audit
+          npm run quality:recent
+          npm run routes:audit
+          npm run content:audit
+          npm run content:smoke
+          npm run metadata:test
+          npm run media:audit
+          npm run handoff:test
 
       - name: Type check
-        run: pnpm exec tsc --noEmit
+        run: npx tsc --noEmit
 
       - name: Lint
-        run: pnpm lint
+        run: npm run lint
 
       - name: Build
-        run: pnpm build
+        run: npm run build
 
       # Production deploys from main through the existing Coolify application.
