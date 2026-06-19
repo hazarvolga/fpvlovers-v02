@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-06-19T16:41:55.644Z",
+  "generatedAt": "2026-06-19T16:50:26.802Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "release-verification-pending",
   "branch": "main",
-  "head": "11fab2addc75",
+  "head": "599b6440ead2",
   "behind": 0,
   "ahead": 0,
   "currentBlockers": [
     "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
     "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
-    "Deploy and verify the crawl-store hotfix that removes the nonexistent `max_retries` read, writes JSONB metadata atomically, surfaces DB update failures, and accounts only for the 8,000 uploaded characters.",
+    "Deploy and verify the final crawl hotfix: DB state persistence, atomic JSONB metadata, visible update failures, 1,500-character/500-token upload cap, preflight daily-budget rejection, and UTC budget reset.",
     "Repair and validate the backup Crawl4AI route, which returned `502` during the production proof.",
     "Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy."
   ],

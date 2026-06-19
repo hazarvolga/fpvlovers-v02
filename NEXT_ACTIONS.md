@@ -61,7 +61,7 @@ Canonical documents:
 6. ✅ Authenticated dry-run previewed exactly one pending Postgres job without changing queue counts.
 7. ✅ Completed one real primary-Crawl4AI job and independently verified its Dify document as indexed; corrected the queue row after discovering the DB store update defect.
 8. ✅ Reduced crawl cadence from every 5 minutes to every 6 hours; generation remains every 20 minutes only while it stays `noop`/low-cost.
-9. Deploy and verify the crawl-store hotfix that removes the nonexistent `max_retries` read, writes JSONB metadata atomically, surfaces DB update failures, and accounts only for the 8,000 uploaded characters.
+9. Deploy and verify the final crawl hotfix: DB state persistence, atomic JSONB metadata, visible update failures, 1,500-character/500-token upload cap, preflight daily-budget rejection, and UTC budget reset.
 10. Repair and validate the backup Crawl4AI route, which returned `502` during the production proof.
 11. Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy.
 

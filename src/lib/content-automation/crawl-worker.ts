@@ -49,6 +49,8 @@ const DEFAULT_DEPENDENCIES: CrawlWorkerDependencies = {
   uploadToDify: (endpoint, options) => difyRequest(endpoint, options),
 };
 
+const MAX_DIFY_UPLOAD_CHARACTERS = 1_500;
+
 function asRecord(value: unknown): Record<string, unknown> | undefined {
   return value && typeof value === 'object' && !Array.isArray(value)
     ? value as Record<string, unknown>
@@ -176,7 +178,7 @@ export async function processCrawlQueueBatch(options: {
 
       await dependencies.updateJob(job.id, { status: 'processing' });
       const crawled = await crawlUrl(job.url, dependencies);
-      const uploadText = crawled.markdown.slice(0, 8_000);
+      const uploadText = crawled.markdown.slice(0, MAX_DIFY_UPLOAD_CHARACTERS);
       const uploadTokens = Math.ceil(uploadText.length / 3);
       const urlHash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(job.url));
       const hashHex = Array.from(new Uint8Array(urlHash))

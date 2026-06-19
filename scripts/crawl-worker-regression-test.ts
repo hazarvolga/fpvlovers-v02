@@ -70,7 +70,7 @@ const success = await processCrawlQueueBatch({
 assert.equal(success.items[0]?.action, 'completed');
 assert.equal(success.items[0]?.crawler, 'backup');
 assert.match(uploadEndpoint, /3eacd19f-ccd8-49ec-8482-51120918f0e0/);
-assert.equal(uploadTextLength, 8_000);
+assert.equal(uploadTextLength, 1_500);
 assert.equal(uploadTokens, Math.ceil(uploadTextLength / 3));
 assert.equal(updates.at(-1)?.tokens, uploadTokens);
 assert.deepEqual(updates.map((update) => update.status), ['processing', 'completed']);

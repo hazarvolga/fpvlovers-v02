@@ -60,7 +60,9 @@ function loadBudget(): EmbeddingBudget {
   };
   try {
     if (fs.existsSync(USAGE_FILE)) {
-      return JSON.parse(fs.readFileSync(USAGE_FILE, 'utf-8'));
+      const stored = JSON.parse(fs.readFileSync(USAGE_FILE, 'utf-8')) as EmbeddingBudget;
+      const resetAt = Date.parse(stored.reset_at);
+      if (Number.isFinite(resetAt) && resetAt > Date.now()) return stored;
     }
   } catch (err: unknown) {
     console.error('[DifyClient] Unexpected error:', err instanceof Error ? err.message : String(err));
@@ -92,12 +94,15 @@ function estimateTokens(body: any): number {
 
 // ─── THROTTLE ───
 
-async function throttle(endpoint: string): Promise<{ allowed: boolean; reason?: string; waitMs?: number }> {
+async function throttle(endpoint: string, requestedTokens: number): Promise<{ allowed: boolean; reason?: string; waitMs?: number }> {
   const budget = loadBudget();
 
   // Check daily budget
-  if (budget.used_today >= budget.daily_limit) {
-    return { allowed: false, reason: `Daily embedding budget exhausted (${budget.used_today}/${budget.daily_limit})` };
+  if (budget.used_today + requestedTokens > budget.daily_limit) {
+    return {
+      allowed: false,
+      reason: `Daily embedding budget exceeded (${budget.used_today}+${requestedTokens}/${budget.daily_limit})`,
+    };
   }
 
   // Check rate limit (per minute)
@@ -288,10 +293,10 @@ export async function difyRequest(
   const url = `${BASE}${endpoint}`;
 
   const startTime = Date.now();
+  const estTokens = knownTokens ?? estimateTokens(body);
 
   // Dry-run mode: simulate success without API call
   if (DRY_RUN && method !== 'GET') {
-    const estTokens = knownTokens || estimateTokens(body);
     logBudget({ ts: new Date().toISOString(), endpoint, method, status: 'dry_run', duration_ms: 0, tokens: estTokens });
     return {
       ok: true, status: 'dry_run',
@@ -301,7 +306,7 @@ export async function difyRequest(
   }
 
   // Throttle check
-  const throttleResult = await throttle(endpoint);
+  const throttleResult = await throttle(endpoint, estTokens);
   if (!throttleResult.allowed) {
     logBudget({ ts: new Date().toISOString(), endpoint, method, status: 'throttled', duration_ms: Date.now() - startTime });
     return { ok: false, status: throttleResult.reason?.includes('budget') ? 'budget_exceeded' : 'throttled', error: throttleResult.reason };
@@ -335,8 +340,6 @@ export async function difyRequest(
     });
 
     const duration = Date.now() - startTime;
-    const estTokens = knownTokens || estimateTokens(body);
-
     if (resp.ok) {
       let data: any = { ok: true };
       try { data = await resp.json(); } catch (err: unknown) { console.error('[DifyClient] Unexpected error:', err instanceof Error ? err.message : String(err)); }
