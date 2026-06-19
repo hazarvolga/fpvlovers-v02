@@ -6,3 +6,11 @@ export function getStorageMode(): StorageMode {
   if (mode === 'dual') return 'dual';
   return 'files'; // Default fallback
 }
+
+export function getCrawlQueueStorageMode(): StorageMode {
+  const mode = process.env.FPV_CRAWL_QUEUE_STORAGE_MODE;
+  if (mode === 'postgres') return 'postgres';
+  if (mode === 'dual') return 'dual';
+  if (mode === 'files') return 'files';
+  return getStorageMode();
+}

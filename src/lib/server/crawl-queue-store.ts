@@ -1,6 +1,6 @@
 import { query, getClient } from './db';
 import type { CrawlJob, CrawlQueue } from '../crawl-queue';
-import { getStorageMode } from './storage-mode';
+import { getCrawlQueueStorageMode } from './storage-mode';
 import * as fs from 'fs';
 import * as path from 'path';
 import { safeReadJson } from '@/lib/utils/json';
@@ -288,7 +288,7 @@ async function dbClearQueue(): Promise<void> {
 // --- ORCHESTRATED STORE API ---
 
 export async function enqueueUrlsAsync(urls: string[], dataset?: string): Promise<CrawlJob[]> {
-  const mode = getStorageMode();
+  const mode = getCrawlQueueStorageMode();
   
   if (mode === 'postgres') {
     return dbEnqueueUrls(urls, dataset);
@@ -360,7 +360,7 @@ export async function enqueueUrlsAsync(urls: string[], dataset?: string): Promis
 }
 
 export async function getNextBatchAsync(): Promise<CrawlJob[]> {
-  const mode = getStorageMode();
+  const mode = getCrawlQueueStorageMode();
   const q = fileLoad();
 
   if (mode === 'postgres') {
@@ -377,7 +377,7 @@ export async function getNextBatchAsync(): Promise<CrawlJob[]> {
 }
 
 export async function updateJobAsync(id: string, update: Partial<CrawlJob>): Promise<void> {
-  const mode = getStorageMode();
+  const mode = getCrawlQueueStorageMode();
   const q = fileLoad();
 
   // Log crawl events to database in background
@@ -444,7 +444,7 @@ export async function updateJobAsync(id: string, update: Partial<CrawlJob>): Pro
 }
 
 export async function getQueueStatusAsync(): Promise<CrawlQueue> {
-  const mode = getStorageMode();
+  const mode = getCrawlQueueStorageMode();
   const q = fileLoad();
   
   if (mode === 'postgres') {
@@ -454,7 +454,7 @@ export async function getQueueStatusAsync(): Promise<CrawlQueue> {
 }
 
 export async function clearQueueAsync(): Promise<void> {
-  const mode = getStorageMode();
+  const mode = getCrawlQueueStorageMode();
   const q = fileLoad();
 
   if (mode === 'postgres') {

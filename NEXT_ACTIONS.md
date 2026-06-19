@@ -57,7 +57,7 @@ Canonical documents:
 2. ✅ Complete local release gate passed after the affiliate/social reconciliation commits.
 3. ✅ Replaced the broken Cloudflare Pages action with repository-root CI validation; Coolify remains the only production deploy path.
 4. Push the local commit stack and verify the repository-root GitHub CI plus Coolify deployment.
-5. Keep `ENABLE_CRAWL_WORKER=false`, switch production from `FPV_STORAGE_MODE=dual` to `postgres`, and restart the app.
+5. Keep global `FPV_STORAGE_MODE=dual`, set `FPV_CRAWL_QUEUE_STORAGE_MODE=postgres` and `ENABLE_CRAWL_WORKER=false`, then restart the app.
 6. Call `/api/admin/cron/crawl?dry_run=true` with cron auth; confirm it previews exactly one pending Postgres job without changing queue counts.
 7. Enable `ENABLE_CRAWL_WORKER=true` only after dry-run evidence, process one real job, then verify the Dify document and queue transition before allowing scheduled processing.
 8. Reduce crawl enqueue frequency from every 5 minutes to the documented six-hour cadence after the worker proof; keep generation at 20 minutes only while it remains `noop`/low-cost.

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import type { CrawlJob } from '../src/lib/crawl-queue';
 import { processCrawlQueueBatch } from '../src/lib/content-automation/crawl-worker';
+import { getCrawlQueueStorageMode } from '../src/lib/server/storage-mode';
 
 const job: CrawlJob = {
   id: 'crawl-test-1',
@@ -15,6 +16,16 @@ const job: CrawlJob = {
 };
 
 async function main(): Promise<void> {
+  const originalGlobalMode = process.env.FPV_STORAGE_MODE;
+  const originalQueueMode = process.env.FPV_CRAWL_QUEUE_STORAGE_MODE;
+  process.env.FPV_STORAGE_MODE = 'dual';
+  process.env.FPV_CRAWL_QUEUE_STORAGE_MODE = 'postgres';
+  assert.equal(getCrawlQueueStorageMode(), 'postgres');
+  if (originalGlobalMode === undefined) delete process.env.FPV_STORAGE_MODE;
+  else process.env.FPV_STORAGE_MODE = originalGlobalMode;
+  if (originalQueueMode === undefined) delete process.env.FPV_CRAWL_QUEUE_STORAGE_MODE;
+  else process.env.FPV_CRAWL_QUEUE_STORAGE_MODE = originalQueueMode;
+
 const dryRunUpdates: Array<Partial<CrawlJob>> = [];
 const dryRun = await processCrawlQueueBatch({
   enabled: true,
