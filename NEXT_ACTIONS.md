@@ -1,6 +1,6 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-06-18
+Last updated: 2026-06-19
 
 ## Immediate Security Actions
 
@@ -10,10 +10,18 @@ Last updated: 2026-06-18
 
 ## Deployment Tasks
 
-1. Run the complete local release gate for the post-analysis commits.
+1. Confirm the production deployment has the real environment-managed `DIFY_API_KEY`; the full local build passes with the required import guard satisfied.
 2. Compare the live production image/commit with local HEAD in read-only mode and smoke the health, homepage, reviews, comparisons, and buyer-guides routes.
 3. Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.
 4. Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.
+
+## Completed (2026-06-19 Topic-Aware Fallback Covers)
+
+- Added 12 approved topic-family covers plus one generic final fallback, optimized as `1536x960` WebP assets (2.4 MB total).
+- Added deterministic metadata routing and the browser error chain `original -> topic -> generic` for homepage cards and article covers.
+- Preserved explicit article covers instead of promoting unrelated body-section or gallery images over them.
+- Passed topic-cover regression, TypeScript, ESLint, content integrity, full production build, desktop Browser QA, and `390x844` mobile Browser QA with clean console output.
+- Kept the work local-only; no commit, push, or deployment was performed in this session.
 
 ## Completed (2026-06-18 Post-Analysis Phase 1)
 

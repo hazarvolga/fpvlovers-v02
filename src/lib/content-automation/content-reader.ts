@@ -249,10 +249,11 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
     });
   }
 
-  // Ensure unique cover images by prioritizing the highly-relevant, locally-matched hardware image or gallery image
+  // Preserve explicit article covers; promote section or gallery media only when none was provided.
   let finalCoverImage = coverImage;
   const firstMatchedSection = bodySections.find(s => s.imageMatch);
-  if (firstMatchedSection?.imageMatch) {
+  const hasExplicitCover = Boolean(parsed.media?.coverImage?.src || parsed.coverImage);
+  if (!hasExplicitCover && firstMatchedSection?.imageMatch) {
     finalCoverImage = {
       src: firstMatchedSection.imageMatch.src,
       alt: firstMatchedSection.imageMatch.alt || parsed.title || parsed.slug,
@@ -260,7 +261,7 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
       credit: firstMatchedSection.imageMatch.source || 'FPVLovers hardware catalog',
       sourceUrl: firstMatchedSection.imageMatch.sourceUrl || '',
     };
-  } else if (media.gallery && media.gallery.length > 0) {
+  } else if (!hasExplicitCover && media.gallery && media.gallery.length > 0) {
     const firstGalleryImage = media.gallery[0];
     finalCoverImage = {
       src: firstGalleryImage.src,

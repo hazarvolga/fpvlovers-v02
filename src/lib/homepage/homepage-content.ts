@@ -2,6 +2,7 @@ import { listPublishedContentAsync, type PublishedArtifact } from '@/lib/content
 import { buildFallbackHomepageCards } from './homepage-defaults';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { buildCoverImageUrl } from '@/lib/content-automation/content-media';
+import { resolveFallbackCover } from '@/lib/content-automation/fallback-cover';
 
 export type HomepageSectionCard = {
   slug: string;
@@ -13,6 +14,7 @@ export type HomepageSectionCard = {
   href: string;
   coverImage?: string;
   coverImageAlt?: string;
+  fallbackCoverImage?: string;
   tier?: 'pillar' | 'support';
   views?: number;
 };
@@ -94,6 +96,10 @@ function toHomepageCard(item: PublishedArtifact, tier?: 'pillar' | 'support'): H
     href: `/article/${item.slug}`,
     coverImage,
     coverImageAlt: item.media?.coverImage?.alt || `${item.title} cover illustration`,
+    fallbackCoverImage: resolveFallbackCover({
+      category: item.category,
+      metadata: item.metadata,
+    }),
     tier,
   };
 }
@@ -111,7 +117,10 @@ function sortByDate(cards: HomepageSectionCard[]): HomepageSectionCard[] {
 
 export async function resolveHomepageContent(): Promise<HomepageContentModel> {
   const published = await listPublishedContentAsync();
-  const fallbackCards = buildFallbackHomepageCards();
+  const fallbackCards = buildFallbackHomepageCards().map((card) => ({
+    ...card,
+    fallbackCoverImage: resolveFallbackCover({ category: card.category }),
+  }));
 
   let viewCounts: Record<string, number> = {};
   try {

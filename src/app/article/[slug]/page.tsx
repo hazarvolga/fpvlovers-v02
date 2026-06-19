@@ -16,6 +16,8 @@ import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { ActiveSortieWidget } from '@/features/academy/components/ActiveSortieWidget';
 import { DiscoveryLink } from '@/components/DiscoveryLink';
+import { ResilientCoverImage } from '@/components/ResilientCoverImage';
+import { resolveFallbackCover } from '@/lib/content-automation/fallback-cover';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -55,6 +57,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { article: PublishedArtifact, relatedContent?: PublishedArtifact[], nextSteps?: PublishedArtifact[] }) {
   const a = article;
+  const fallbackCover = resolveFallbackCover({ category: a.category, metadata: a.metadata });
   const breadcrumbs = [
     { label: 'Content', href: '/#latest' },
     { label: a.category || 'Article', href: `/category/${(a.category || 'article').toLowerCase().replace(/\s+/g, '-')}` },
@@ -71,16 +74,18 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
           {a.media?.coverImage?.src && (
             <div className="relative w-full h-[360px] md:h-[420px] border-b border-[#00F2FF]/20 overflow-hidden bg-black/80 flex items-center justify-center">
               {/* Blurred background layer to elegantly fill space for non-16:9 images */}
-              <Image
+              <ResilientCoverImage
                 src={a.media.coverImage.src}
+                fallbackSrc={fallbackCover}
                 alt=""
                 fill
                 className="object-cover opacity-20 blur-2xl scale-125 pointer-events-none"
                 unoptimized={true}
               />
               {/* Main cover image, contained so it never stretches or crops awkwardly */}
-              <Image
+              <ResilientCoverImage
                 src={a.media.coverImage.src}
+                fallbackSrc={fallbackCover}
                 alt={a.media.coverImage.alt || a.title}
                 fill
                 sizes="(min-width: 1024px) 66vw, 100vw"

@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import type { ComponentType } from 'react';
 import { ArrowRight, BookOpen, Calculator, Cpu, RadioTower, Wrench, Zap, Eye } from 'lucide-react';
@@ -8,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { NewsletterWidget } from '@/features/tools/components/NewsletterWidget';
 import { PilotPulseWidget } from '@/features/tools/components/PilotPulseWidget';
+import { ResilientCoverImage } from '@/components/ResilientCoverImage';
 
 function ArticleCard({ card, accent = 'cyan' }: { card: HomepageSectionCard; accent?: 'cyan' | 'orange' | 'neutral' }) {
   const accentClass = accent === 'orange' ? 'group-hover:text-[#ff9b71]' : accent === 'cyan' ? 'group-hover:text-[#9eeef2]' : 'group-hover:text-white';
@@ -15,8 +15,9 @@ function ArticleCard({ card, accent = 'cyan' }: { card: HomepageSectionCard; acc
     <Card className="group overflow-hidden bg-[#101112]/72">
       {card.coverImage && (
         <Link href={card.href} className="relative block aspect-[16/10] overflow-hidden border-b border-white/8">
-          <Image
+          <ResilientCoverImage
             src={card.coverImage}
+            fallbackSrc={card.fallbackCoverImage}
             alt={card.coverImageAlt || card.title}
             fill
             sizes="(min-width: 768px) 33vw, 100vw"
@@ -157,8 +158,9 @@ export default async function HomePage() {
                 </div>
                 <div className="relative aspect-[16/10] overflow-hidden">
                   {heroCard.coverImage && (
-                    <Image
+                    <ResilientCoverImage
                       src={heroCard.coverImage}
+                      fallbackSrc={heroCard.fallbackCoverImage}
                       alt={heroCard.coverImageAlt || heroCard.title}
                       fill
                       priority

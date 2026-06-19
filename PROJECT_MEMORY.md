@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-06-18
+Last updated: 2026-06-19
 
 ## Current Product Direction
 
@@ -28,6 +28,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 
 ## Current Known State
 
+- Topic-aware fallback covers completed locally on branch `feat/topic-aware-fallback-covers` on 2026-06-19: 12 topic families plus one generic safety-net asset were approved, normalized to `1536x960`, and optimized as WebP under `public/images/fallbacks/` (2.4 MB total). Homepage and article covers now transition `original -> topic -> generic` without mutating persisted artifacts, and explicit article covers are no longer overwritten by matched section/gallery images. Verification passed with `pnpm content:topic-cover-test`, `pnpm exec tsc --noEmit`, `pnpm lint`, `pnpm content:audit`, a full `pnpm build` using a non-secret local placeholder for the required Dify import guard, and Browser QA at desktop plus `390x844`. This work remains local-only until the feature commit is pushed and the resulting production deployment is verified.
 - Post-analysis GAP closure Phase 4 completed locally on 2026-06-18: `PROJECT_MEMORY.md` and `NEXT_ACTIONS.md` now record security, metadata, taxonomy, type-quality, rotation, history-rewrite, and deployment boundaries. `scripts/generate-handoff.mjs` and `scripts/opencode-brief.mjs` now use the active 2026-06-18 plan plus real Git branch/HEAD/ahead state instead of the obsolete May Task 2/retrieval warning. `pnpm handoff:test` prevents that stale state from returning. The generated packet is based on verified code HEAD `a16bdcb` and lists commits `e3813ae`, `55b8f6c`, and `a16bdcb`.
 - Post-analysis GAP closure Phase 3 completed locally in commit `a16bdcb` on 2026-06-18: all 13 semantic `any` annotations introduced after `06e2c58` were replaced with existing domain types or `Record<string, unknown>`, and 82 trailing-whitespace/EOF violations in the same change range were removed. `pnpm quality:recent` now guards that range and supports `QUALITY_BASE_REF` for CI or rewritten history. Fresh verification passed with `pnpm quality:recent`, `pnpm exec tsc --noEmit`, and full `pnpm lint`.
 - Post-analysis GAP closure Phase 2 completed locally in commit `55b8f6c` on 2026-06-18: the metadata migration now preserves existing commercial metadata and deterministically fills missing discovery fields across all published artifacts. All 117 artifacts have valid metadata with zero missing `difficulty`, `contentType`, `topics`, `audience`, `discipline`, or `components`; buyer-guide taxonomy is canonicalized to `Buyer Guides`. The migration is idempotent (`0 artifact(s)` on the second run). Fresh verification passed with `pnpm metadata:test`, `pnpm metadata:audit`, `pnpm content:audit`, and `pnpm exec tsc --noEmit`.
