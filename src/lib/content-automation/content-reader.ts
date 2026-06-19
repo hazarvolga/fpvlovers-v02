@@ -5,6 +5,7 @@ import type { ContentMedia } from './content-media';
 import { buildContentMedia, buildCoverImageUrl } from './content-media';
 import { matchImagesToSections } from './crawl-image-match';
 import { safeReadJson } from '@/lib/utils/json';
+import { resolveDisplayCover, resolveFallbackCover } from './fallback-cover';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -293,6 +294,18 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
       caption: firstGalleryImage.caption || parsed.excerpt || '',
       credit: firstGalleryImage.credit || 'FPVLovers gallery',
       sourceUrl: firstGalleryImage.sourceUrl || '',
+    };
+  }
+
+  const fallbackCover = resolveFallbackCover({ category, metadata: parsed.metadata });
+  const displayCoverSrc = resolveDisplayCover(finalCoverImage.src, fallbackCover);
+  if (displayCoverSrc !== finalCoverImage.src) {
+    finalCoverImage = {
+      ...finalCoverImage,
+      src: displayCoverSrc,
+      alt: `${title} topic cover`,
+      credit: 'FPVLovers generated fallback',
+      sourceUrl: undefined,
     };
   }
 

@@ -31,6 +31,13 @@ export const FALLBACK_COVER_PATHS: Record<FallbackCoverFamily, string> = {
   generic: '/images/fallbacks/fpv-generic.webp',
 };
 
+const GENERATED_COVER_PREFIX = '/api/content/media/cover/';
+
+export function resolveDisplayCover(source: string | undefined, fallback: string): string {
+  if (!source || source.startsWith(GENERATED_COVER_PREFIX)) return fallback;
+  return source;
+}
+
 interface FallbackCoverInput {
   category?: string;
   metadata?: ContentMetadata;

@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { ensureMediaArtifact } from '@/lib/content-automation/content-reader';
 import {
   FALLBACK_COVER_PATHS,
+  resolveDisplayCover,
   resolveFallbackCover,
 } from '@/lib/content-automation/fallback-cover';
 
@@ -129,6 +130,18 @@ assert.equal(
 assert.equal(resolveFallbackCover(undefined), FALLBACK_COVER_PATHS.generic);
 assert.equal(resolveFallbackCover({}), FALLBACK_COVER_PATHS.generic);
 
+assert.equal(
+  resolveDisplayCover(
+    '/api/content/media/cover/street-league-spec-upcoming-races-section-currently-empty',
+    FALLBACK_COVER_PATHS.racing,
+  ),
+  FALLBACK_COVER_PATHS.racing,
+);
+assert.equal(
+  resolveDisplayCover('https://example.com/real-race-cover.jpg', FALLBACK_COVER_PATHS.racing),
+  'https://example.com/real-race-cover.jpg',
+);
+
 const explicitCover = 'https://example.com/racing-cover.jpg';
 const artifact = ensureMediaArtifact({
   slug: 'street-league-spec-upcoming-races-section-currently-empty',
@@ -147,6 +160,16 @@ const artifact = ensureMediaArtifact({
 assert.ok(artifact);
 assert.equal(artifact.media?.coverImage.src, explicitCover);
 assert.notEqual(artifact.media?.coverImage.alt, 'BETAFPV ELRS Lite 2.4GHz Receiver');
+
+const placeholderArtifact = ensureMediaArtifact({
+  slug: 'street-league-placeholder-cover',
+  title: 'Street League Placeholder Cover',
+  category: 'Racing',
+  coverImage: '/api/content/media/cover/street-league-placeholder-cover',
+  bodySections: [],
+});
+assert.ok(placeholderArtifact);
+assert.equal(placeholderArtifact.media?.coverImage.src, FALLBACK_COVER_PATHS.racing);
 
 for (const coverPath of Object.values(FALLBACK_COVER_PATHS)) {
   assert.ok(fs.existsSync(`public${coverPath}`), `Missing fallback cover asset: ${coverPath}`);
