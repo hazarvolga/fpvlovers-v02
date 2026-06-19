@@ -47,8 +47,8 @@ Canonical documents:
 
 ## Immediate Security Actions
 
-1. Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.
-2. After rotation, plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
+1. ✅ Rotated `CRON_SECRET`, the Dify dataset token, and seven unique active Dify app/workflow token groups; verified replacements and revoked old tokens.
+2. Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
 3. Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.
 
 ## Deployment Tasks
@@ -56,9 +56,12 @@ Canonical documents:
 1. ✅ Production read-only verification completed on 2026-06-19: the healthy Coolify container and `origin/main` both run `061f0f705a415046b7ba5e07df77ece3f41c56e8`.
 2. ✅ Complete local release gate passed after the affiliate/social reconciliation commits.
 3. ✅ Replaced the broken Cloudflare Pages action with repository-root CI validation; Coolify remains the only production deploy path.
-4. Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.
-5. Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.
-6. After deploy, browser-verify the iFlight review cover fallback because local port binding was blocked during this session.
+4. Push the local commit stack and verify the repository-root GitHub CI plus Coolify deployment.
+5. Keep `ENABLE_CRAWL_WORKER=false`, switch production from `FPV_STORAGE_MODE=dual` to `postgres`, and restart the app.
+6. Call `/api/admin/cron/crawl?dry_run=true` with cron auth; confirm it previews exactly one pending Postgres job without changing queue counts.
+7. Enable `ENABLE_CRAWL_WORKER=true` only after dry-run evidence, process one real job, then verify the Dify document and queue transition before allowing scheduled processing.
+8. Reduce crawl enqueue frequency from every 5 minutes to the documented six-hour cadence after the worker proof; keep generation at 20 minutes only while it remains `noop`/low-cost.
+9. After deploy, browser-verify `/advertise`, trust/legal pages, commercial hubs, article trust panels, and the iFlight cover fallback.
 
 ## Completed (2026-06-19 Topic-Aware Fallback Covers)
 
