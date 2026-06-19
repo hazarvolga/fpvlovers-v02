@@ -1,21 +1,20 @@
 {
-  "generatedAt": "2026-06-18T14:20:39.845Z",
+  "generatedAt": "2026-06-19T15:00:36.941Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "release-verification-pending",
   "branch": "main",
-  "head": "a16bdcba2b25",
+  "head": "6e8e2578a231",
   "behind": 0,
   "ahead": 3,
   "currentBlockers": [
     "Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.",
     "After rotation, plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
     "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
-    "Run the complete local release gate for the post-analysis commits.",
-    "Compare the live production image/commit with local HEAD in read-only mode and smoke the health, homepage, reviews, comparisons, and buyer-guides routes.",
     "Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.",
-    "Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence."
+    "Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.",
+    "After deploy, browser-verify the iFlight review cover fallback because local port binding was blocked during this session."
   ],
-  "nextTask": "Run the complete release gate, then verify the production commit and public routes read-only.",
+  "nextTask": "Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.",
   "filesOfTruth": [
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md",

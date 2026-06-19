@@ -54,6 +54,12 @@ function actionLines(text, limit) {
     .map((line) => line.replace(/^\d+\.\s*/, '- '));
 }
 
+function incompleteActionLines(text, limit) {
+  return actionLines(text, Number.MAX_SAFE_INTEGER)
+    .filter((line) => !line.includes('✅'))
+    .slice(0, limit);
+}
+
 function gitText(args) {
   try {
     return execFileSync('git', args, { cwd: repoRoot, encoding: 'utf8' }).trim();
@@ -66,8 +72,8 @@ const memoryText = await readText(memoryPath);
 const actionsText = await readText(actionsPath);
 const planText = await readText(planPath);
 const currentState = actionLines(extractSection(memoryText, 'Current Known State'), 12);
-const securityActions = actionLines(extractSection(actionsText, 'Immediate Security Actions'), 6);
-const deploymentTasks = actionLines(extractSection(actionsText, 'Deployment Tasks'), 6);
+const securityActions = incompleteActionLines(extractSection(actionsText, 'Immediate Security Actions'), 6);
+const deploymentTasks = incompleteActionLines(extractSection(actionsText, 'Deployment Tasks'), 6);
 const planSummary = planText
   .split('\n')
   .map((line) => line.trim())
@@ -83,7 +89,7 @@ const behind = Number.isFinite(aheadBehind[0]) ? aheadBehind[0] : null;
 const ahead = Number.isFinite(aheadBehind[1]) ? aheadBehind[1] : null;
 const generatedAt = new Date().toISOString();
 const currentBlockers = [...securityActions, ...deploymentTasks];
-const nextTask = 'Run the complete release gate, then verify the production commit and public routes read-only.';
+const nextTask = currentBlockers[0]?.replace(/^\-\s*/, '') || 'Keep production and project memory synchronized.';
 
 const handoff = `# FPVLovers Handoff Packet
 
@@ -125,7 +131,7 @@ ${planSummary.length ? planSummary.join('\n') : '- No active plan summary found.
 Continue FPVLovers from the latest handoff packet.
 
 Read PROJECT_MEMORY.md, NEXT_ACTIONS.md, and docs/handoff/latest.md first.
-Run the complete local release gate. Then inspect production read-only and compare its deployed commit/image with local HEAD. Keep credential rotation, Git-history cleanup, push, and deploy boundaries explicit. Update project memory after obtaining fresh evidence.
+Start with the recorded Next Move. Inspect current Git state before acting, keep credential rotation, Git-history cleanup, push, deploy, and live-verification boundaries explicit, and update project memory after obtaining fresh evidence.
 \`\`\`
 `;
 

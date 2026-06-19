@@ -1,37 +1,36 @@
 # FPVLovers Handoff Packet
 
-Generated at: 2026-06-18T14:20:39.845Z
+Generated at: 2026-06-19T15:00:36.941Z
 
 ## Git State
 
 - Branch: `main`
-- HEAD: `a16bdcba2b25`
+- HEAD: `6e8e2578a231`
 - Against `origin/main`: behind 0, ahead 3
 
 ## What Happened
 
-- Post-analysis GAP closure Phase 4 completed locally on 2026-06-18: `PROJECT_MEMORY.md` and `NEXT_ACTIONS.md` now record security, metadata, taxonomy, type-quality, rotation, history-rewrite, and deployment boundaries. `scripts/generate-handoff.mjs` and `scripts/opencode-brief.mjs` now use the active 2026-06-18 plan plus real Git branch/HEAD/ahead state instead of the obsolete May Task 2/retrieval warning. `pnpm handoff:test` prevents that stale state from returning. The generated packet is based on verified code HEAD `a16bdcb` and lists commits `e3813ae`, `55b8f6c`, and `a16bdcb`.
-- Post-analysis GAP closure Phase 3 completed locally in commit `a16bdcb` on 2026-06-18: all 13 semantic `any` annotations introduced after `06e2c58` were replaced with existing domain types or `Record<string, unknown>`, and 82 trailing-whitespace/EOF violations in the same change range were removed. `pnpm quality:recent` now guards that range and supports `QUALITY_BASE_REF` for CI or rewritten history. Fresh verification passed with `pnpm quality:recent`, `pnpm exec tsc --noEmit`, and full `pnpm lint`.
-- Post-analysis GAP closure Phase 2 completed locally in commit `55b8f6c` on 2026-06-18: the metadata migration now preserves existing commercial metadata and deterministically fills missing discovery fields across all published artifacts. All 117 artifacts have valid metadata with zero missing `difficulty`, `contentType`, `topics`, `audience`, `discipline`, or `components`; buyer-guide taxonomy is canonicalized to `Buyer Guides`. The migration is idempotent (`0 artifact(s)` on the second run). Fresh verification passed with `pnpm metadata:test`, `pnpm metadata:audit`, `pnpm content:audit`, and `pnpm exec tsc --noEmit`.
-- Post-analysis GAP closure Phase 1 completed locally in commit `e3813ae` on 2026-06-18: tracked operational credential values were removed from current files, YouTube and retrieval scripts now require environment-managed Dify credentials, retrieval testing routes through `src/lib/dify-client.ts`, and metadata audit output is portable at `reports/unified-metadata-report.md`. Fresh verification passed with `pnpm security:audit`, `pnpm metadata:audit`, `pnpm exec tsc --noEmit`, and `git diff --check`. External Dify/cron credential rotation and coordinated Git-history cleanup remain operational requirements; current-file cleanup alone does not revoke exposed values.
-- GAP closure execution was reset into a phase-by-phase Codex plan on 2026-05-21 at `docs/superpowers/plans/2026-05-21-gap-closure-execution-plan.md`.
-- OpenCode commit `2fb816a` is documentation-only; the automation implementation is `34369ec`.
-- Local verification before the new phase plan: `npx tsc --noEmit`, `npm run content:audit`, and `npm run content:smoke` passed.
-- Remaining launch blockers are operational rather than editorial: cron auth, crawl queue compliance, real content generation loop, duplicate route strategy, and final deploy gate.
-- Phase 1 completed by Codex on 2026-05-21: cron endpoints now require `CRON_SECRET`/`CRON_AUTH_TOKEN`, `cron/crawl` enqueues through `src/lib/crawl-queue.ts` instead of calling Crawl4AI directly, and `app/` plus `src/app/` cron route copies are synced. Verification passed: `npx tsc --noEmit`, route smoke (`401` without secret, `200` with secret), `npm run content:audit`, and `npm run content:smoke`.
-- Phase 2 completed by Codex on 2026-05-21: `cron/generate` now actually enqueues missing editorial briefs, blocks safely when `DIFY_APP_KEY` is absent, and can generate via Dify plus publish successful artifacts through the shared `publishGeneratedContentArtifact()` helper. Verification passed: `npx tsc --noEmit`, dry-run route smoke, enqueue/blocker route smoke, `npm run content:audit`, and `npm run content:smoke`. Live Dify generation still needs production env verification.
-- Phase 3 completed by Codex on 2026-05-21: duplicate `app/` and `src/app/` route trees were synced and guarded with `npm run routes:audit` via `scripts/route-tree-drift-audit.mjs`. The repo keeps dual route trees for this deploy to avoid runtime precedence surprises, but full drift detection is now part of the gate. Verification passed: `npm run routes:audit` (77 files synced), `npx tsc --noEmit`, `npm run content:audit`, and `npm run build`.
-- Phase 4 completed by Codex on 2026-05-21: final deploy hygiene added runtime/tool ignores, removed tracked `tsconfig.tsbuildinfo`, preserved published media artifacts, and refreshed handoff for Coolify cron setup. Final gate passed locally: `npx tsc --noEmit`, `npm run routes:audit`, `npm run content:audit`, `npm run content:smoke`, and `npm run build`.
+- Production, `origin/main`, and local `main` were aligned to `061f0f705a415046b7ba5e07df77ece3f41c56e8` on 2026-06-19. The Coolify container was inspected over read-only SSH and was healthy. Topic-aware fallback covers are therefore live, not local-only.
+- Topic-aware fallback covers provide 12 topic families plus one generic safety-net asset under `public/images/fallbacks/`. Homepage and article covers transition `original -> topic -> generic` without mutating persisted artifacts, and explicit article covers are not overwritten by section/gallery images.
+- Affiliate and social/video implementation was reconciled onto current `main` and committed as `2b025b1` on 2026-06-19. Product reviews require evidence, testing method, product relationship, timestamp, and Hazar Volga Ekiz approval; cron stores them as drafts instead of publishing. Non-review content remains autonomous but source/claim/duplicate/metadata/link/disclosure gates can hold it in `generated` state.
+- Public trust and SEO remediation completed locally: unsupported affiliate/manual-testing claims were removed, `/advertise#product-evaluation` defines supplied/loaned-product terms, article trust/disclosure UI is present, legacy unapproved scores are hidden, nine 67-121 word commercial artifacts are excluded from commercial hubs/sitemap/indexing, and primary article metadata now includes canonical, robots, Open Graph, Twitter, and Article JSON-LD.
+- Current source-level affiliate readiness score is **81/100**, up from the audited **52/100** baseline. This is conditionally ready, not permission for broad applications. Production/mobile QA, commercial source backfill, CTA destination validation, and at least one genuine editor-approved review remain application gates.
+- Social/video system is committed locally: deterministic fact packs, seven platform-specific variants (Facebook, Instagram, YouTube Shorts, TikTok, X, Reddit, LinkedIn), idempotent social job storage, protected admin dry-run API, Dify video-director adapter through `src/lib/dify-client.ts`, strict manifest validation, and private-by-default YouTube resumable upload adapter guarded by `ENABLE_YOUTUBE_UPLOAD=true`.
+- A 45-second English DJI O3 versus Walksnail Short MVP was rendered and visually verified at 1080x1920/30fps with TTS narration. Generated MP4, frame PNGs, and redundant AIFF remain recoverable in rescue commit `592912a`; `main` keeps the manifest, HTML composition, narration WAV/text, social copy, and deterministic render scripts so the output is reproducible without committing render caches.
+- Fresh release gates passed after reconciliation: security audit (768 tracked files), recent-code quality, both cover regressions, editorial governance, social/video contracts, TypeScript, full lint, route audit (115 route files), content audit (117 artifacts), dry-run content smoke, metadata regression/audit, media policy, `git diff --check`, and a 120-page production build. Build-time PostgreSQL DNS was unavailable outside Coolify and correctly fell back to committed content.
+- Affiliate and social/video growth program approved on 2026-06-19. Execution order is fixed: first affiliate/editorial readiness, then social distribution and Dify-directed video production. The canonical designs are `docs/superpowers/specs/2026-06-19-affiliate-editorial-governance-design.md` and `docs/superpowers/specs/2026-06-19-social-video-automation-design.md`; implementation plans live beside them under `docs/superpowers/plans/`.
+- Editorial governance decision: only content presented as a product review requires mandatory human approval. The named Product Review Editor is **Hazar Volga Ekiz**. Reviews may publish only after testing method, product relationship, evidence/sources, review timestamp, and editor approval are recorded. Existing review-like artifacts must not be retroactively described as hands-on or editor-approved.
+- All non-review content remains autonomous. It must pass deterministic quality, source, duplicate-content, commercial-language, disclosure, and unsupported-claim checks before publication. Autonomous does not mean unverified: legal/regulatory claims, prices, availability, specifications, and superlatives require current sources or conservative wording.
+- Product evaluation policy: FPVLovers may accept supplied or loaned products for independent evaluation, but receipt never guarantees coverage, timing, a positive verdict, backlinks, or publication. The supplied/loaned/purchased relationship must be disclosed near the review and in structured metadata.
 
 ## Current Blockers
 
 - Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.
 - After rotation, plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
 - Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.
-- Run the complete local release gate for the post-analysis commits.
-- Compare the live production image/commit with local HEAD in read-only mode and smoke the health, homepage, reviews, comparisons, and buyer-guides routes.
 - Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.
 - Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.
+- After deploy, browser-verify the iFlight review cover fallback because local port binding was blocked during this session.
 
 ## Active Plan
 
@@ -44,7 +43,7 @@ Generated at: 2026-06-18T14:20:39.845Z
 
 ## Next Move
 
-- Run the complete release gate, then verify the production commit and public routes read-only.
+- Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.
 - Do not claim the release is live until the production image or commit matches the deployed revision.
 - Do not deploy env-only credential changes until exposed credentials have been rotated in their owning systems.
 
@@ -60,5 +59,5 @@ Generated at: 2026-06-18T14:20:39.845Z
 Continue FPVLovers from the latest handoff packet.
 
 Read PROJECT_MEMORY.md, NEXT_ACTIONS.md, and docs/handoff/latest.md first.
-Run the complete local release gate. Then inspect production read-only and compare its deployed commit/image with local HEAD. Keep credential rotation, Git-history cleanup, push, and deploy boundaries explicit. Update project memory after obtaining fresh evidence.
+Start with the recorded Next Move. Inspect current Git state before acting, keep credential rotation, Git-history cleanup, push, deploy, and live-verification boundaries explicit, and update project memory after obtaining fresh evidence.
 ```
