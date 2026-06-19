@@ -54,6 +54,42 @@ assert.equal(
   resolveFallbackCover({ metadata: { topics: ['safety'] } }),
   FALLBACK_COVER_PATHS['safety-regulations'],
 );
+assert.equal(
+  resolveFallbackCover({
+    category: 'Racing',
+    metadata: { components: ['battery'] },
+  }),
+  FALLBACK_COVER_PATHS['power-battery-esc'],
+);
+assert.equal(
+  resolveFallbackCover({
+    category: 'Racing',
+    metadata: { topics: ['betaflight'] },
+  }),
+  FALLBACK_COVER_PATHS['tuning-betaflight'],
+);
+assert.equal(
+  resolveFallbackCover({
+    category: 'Build Guides',
+    metadata: { discipline: ['long-range'] },
+  }),
+  FALLBACK_COVER_PATHS['cinematic-long-range'],
+);
+assert.equal(
+  resolveFallbackCover({
+    category: 'Racing',
+    metadata: { contentType: 'review', components: ['battery'] },
+  }),
+  FALLBACK_COVER_PATHS.commercial,
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { difficulty: 'beginner' } }),
+  FALLBACK_COVER_PATHS.generic,
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { audience: ['new-pilot'] } }),
+  FALLBACK_COVER_PATHS.generic,
+);
 assert.equal(resolveFallbackCover(undefined), FALLBACK_COVER_PATHS.generic);
 assert.equal(resolveFallbackCover({}), FALLBACK_COVER_PATHS.generic);
 

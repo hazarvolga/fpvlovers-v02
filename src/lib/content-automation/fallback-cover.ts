@@ -102,6 +102,18 @@ function isWrappedInput(input: ContentMetadata | FallbackCoverInput): input is F
   return 'category' in input || 'metadata' in input;
 }
 
+function resolveSignalTier(values: Array<string | undefined>): FallbackCoverFamily | undefined {
+  const signals = new Set(values.filter((value): value is string => Boolean(value)).map(normalize));
+
+  for (const rule of FAMILY_SIGNALS) {
+    if ([...rule.values].some((value) => signals.has(value))) {
+      return rule.family;
+    }
+  }
+
+  return undefined;
+}
+
 export function resolveFallbackCover(
   input?: ContentMetadata | FallbackCoverInput,
 ): string {
@@ -119,22 +131,16 @@ export function resolveFallbackCover(
     return FALLBACK_COVER_PATHS.commercial;
   }
 
-  const signals = new Set<string>();
-  const addSignal = (value: string | undefined): void => {
-    if (value) signals.add(normalize(value));
-  };
+  const family =
+    resolveSignalTier(metadata?.components ?? [])
+    ?? resolveSignalTier([
+      ...(metadata?.topics ?? []),
+      ...(metadata?.discipline ?? []),
+    ])
+    ?? resolveSignalTier([wrappedInput?.category]);
 
-  addSignal(wrappedInput?.category);
-  addSignal(metadata?.difficulty);
-  metadata?.topics?.forEach(addSignal);
-  metadata?.audience?.forEach(addSignal);
-  metadata?.discipline?.forEach(addSignal);
-  metadata?.components?.forEach(addSignal);
-
-  for (const rule of FAMILY_SIGNALS) {
-    if ([...rule.values].some((value) => signals.has(value))) {
-      return FALLBACK_COVER_PATHS[rule.family];
-    }
+  if (family) {
+    return FALLBACK_COVER_PATHS[family];
   }
 
   return FALLBACK_COVER_PATHS.generic;
