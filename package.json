@@ -31,6 +31,7 @@
     "content:cover-test": "node scripts/article-cover-fallback-regression-test.mjs",
     "content:audit": "node --import tsx scripts/content-integrity-audit.ts",
     "content:topic-cover-test": "node --import tsx scripts/topic-fallback-cover-regression-test.ts",
+    "crawl:worker-test": "node --import tsx scripts/crawl-worker-regression-test.ts",
     "content:repair": "node --import tsx scripts/repair-queue-status.ts",
     "tools:audit": "node --import tsx scripts/tool-truth-audit.ts",
     "tools:blackbox:test": "node --import tsx scripts/blackbox-regression-test.ts",

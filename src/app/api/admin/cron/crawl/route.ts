@@ -5,6 +5,7 @@ import { safeReadJson } from '@/lib/utils/json';
 import { authorizeCronRequest } from '@/lib/cron-auth';
 import { enqueueUrlsNew, getQueueStatusNew } from '@/lib/crawl-queue';
 import { logAutomationRun } from '@/lib/server/automation-runs-store';
+import { processCrawlQueueBatch } from '@/lib/content-automation/crawl-worker';
 
 const BACKLOG_FILE = path.join(process.cwd(), 'data', 'fpv-rag-source-backlog.json');
 const LAST_RUN_FILE = path.join(process.cwd(), 'data', 'crawl-last-auto-run.json');
@@ -33,12 +34,19 @@ export async function GET(req: Request) {
   if (!auth.authorized) return auth.response;
 
   try {
+    const requestUrl = new URL(req.url);
+    const workerDryRun = requestUrl.searchParams.get('dry_run') === 'true';
     const backlog = safeReadJson<any>(BACKLOG_FILE, { sources: [] });
     const sources: BacklogItem[] = backlog.sources || [];
     const missing = sources.filter((s) => s.status === 'missing' || s.status === 'crawl_error');
     const deferred = sources.filter((s) => s.status === 'deferred');
 
     if (missing.length === 0 && deferred.length === 0) {
+      const worker = await processCrawlQueueBatch({
+        enabled: workerDryRun ? true : undefined,
+        dryRun: workerDryRun,
+        maxJobs: 1,
+      });
       const summary = {
         total: sources.length,
         present: sources.filter((s) => s.status === 'present').length,
@@ -64,6 +72,7 @@ export async function GET(req: Request) {
         action: 'noop',
         message: 'No pending crawl jobs. Backlog is up to date.',
         stats: summary,
+        worker,
       });
     }
 
@@ -87,6 +96,11 @@ export async function GET(req: Request) {
     const enqueuedCount = results.filter((r) => r.status === 'enqueued').length;
     const alreadyPendingCount = results.filter((r) => r.status === 'already_pending').length;
     const queueStats = (await getQueueStatusNew()).stats;
+    const worker = await processCrawlQueueBatch({
+      enabled: workerDryRun ? true : undefined,
+      dryRun: workerDryRun,
+      maxJobs: 1,
+    });
 
     fs.writeFileSync(
       LAST_RUN_FILE,
@@ -129,6 +143,7 @@ export async function GET(req: Request) {
       remaining: missing.length - batch.length,
       results,
       queue: queueStats,
+      worker,
     });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown cron crawl error';

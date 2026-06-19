@@ -44,6 +44,7 @@ jobs:
           pnpm content:cover-test
           pnpm editorial:governance-test
           pnpm social:contracts-test
+          pnpm crawl:worker-test
 
       - name: Verify repository
         run: |
