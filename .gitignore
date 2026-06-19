@@ -30,6 +30,7 @@ output/
 .turbo/
 .gitnexus/
 .kiro/
+.worktrees/
 tsc_errors.txt
 tsconfig.check-old.json
 data/content-last-auto-run.json
