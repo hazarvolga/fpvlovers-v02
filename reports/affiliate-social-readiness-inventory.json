@@ -1,0 +1,1902 @@
+{
+  "generatedAt": "2026-06-19T14:33:15.804Z",
+  "root": "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi",
+  "caveat": "Static inventory only. Confirm material findings in source and verify live behavior separately.",
+  "summary": {
+    "routeCount": 59,
+    "canonicalPublishedContentCount": 118,
+    "rawPublishedFileCount": 235,
+    "commercialCounts": {
+      "review": 5,
+      "comparison": 8,
+      "buyer-guide": 6
+    },
+    "commercialCountCaveat": "Counts are filename signals, not an editorial quality assessment.",
+    "commercialPagesWithoutInternalLinkSignals": [
+      "best-fpv-goggles-2026",
+      "best-fpv-starter-kits-2026-rtf-bundles-for-beginners",
+      "betafpv-cetus-x-review",
+      "cinematic-fpv-vs-freestyle-drones-frame-and-component-differences",
+      "dji-goggles-2-vs-integra-comparison",
+      "dji-o3-air-unit-review",
+      "dji-o3-vs-walksnail-avatar-comparison",
+      "fpv-goggles-buyers-guide",
+      "fpv-goggles-buying-guide-analog-vs-digital-for-beginners",
+      "how-to-choose-your-first-fpv-radio-without-buying-twice",
+      "how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight",
+      "iflight-nazgul-evoque-f5-review",
+      "jumper-t-pro-elrs-review",
+      "lihv-vs-lipo-batteries-what-beginners-need-to-know",
+      "props-in-vs-props-out-betaflight-motor-direction-explained",
+      "radiomaster-boxer-elrs-review",
+      "radiomaster-boxer-vs-tx16s-comparison",
+      "the-best-fpv-simulators-in-2026-save-cash-and-log-hours-virtually",
+      "the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog"
+    ],
+    "routeMetadataCoverage": "41/59"
+  },
+  "trustRoutes": {
+    "about": {
+      "present": true,
+      "matches": [
+        "/about"
+      ]
+    },
+    "contact": {
+      "present": true,
+      "matches": [
+        "/contact"
+      ]
+    },
+    "privacy": {
+      "present": true,
+      "matches": [
+        "/privacy"
+      ]
+    },
+    "terms": {
+      "present": true,
+      "matches": [
+        "/terms"
+      ]
+    },
+    "editorialPolicy": {
+      "present": true,
+      "matches": [
+        "/editorial-policy"
+      ]
+    },
+    "affiliateDisclosure": {
+      "present": true,
+      "matches": [
+        "/disclosure"
+      ]
+    },
+    "advertisingPolicy": {
+      "present": true,
+      "matches": [
+        "/advertise"
+      ]
+    }
+  },
+  "filePresence": {
+    "src/app/layout.tsx": true,
+    "src/app/robots.ts": true,
+    "src/app/sitemap.ts": false,
+    "src/app/sitemap.xml/route.ts": true,
+    "data/affiliates.json": true,
+    "data/ctas.json": true,
+    "data/sponsors.json": true
+  },
+  "routes": [
+    {
+      "route": "/about",
+      "file": "src/app/about/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": false,
+      "chars": 8965
+    },
+    {
+      "route": "/academy/assessment",
+      "file": "src/app/academy/assessment/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 17011
+    },
+    {
+      "route": "/academy/dossier",
+      "file": "src/app/academy/dossier/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 14557
+    },
+    {
+      "route": "/academy/glossary",
+      "file": "src/app/academy/glossary/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 48057
+    },
+    {
+      "route": "/academy",
+      "file": "src/app/academy/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 119
+    },
+    {
+      "route": "/academy/roadmap",
+      "file": "src/app/academy/roadmap/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 41433
+    },
+    {
+      "route": "/academy/simulators",
+      "file": "src/app/academy/simulators/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": false,
+      "chars": 17141
+    },
+    {
+      "route": "/academy/starter-kits",
+      "file": "src/app/academy/starter-kits/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 42809
+    },
+    {
+      "route": "/admin",
+      "file": "src/app/admin/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": false,
+      "chars": 104889
+    },
+    {
+      "route": "/advertise",
+      "file": "src/app/advertise/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": true,
+      "chars": 5401
+    },
+    {
+      "route": "/archive/build/%5Bid%5D",
+      "file": "src/app/archive/build/%5Bid%5D/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": false,
+      "chars": 13671
+    },
+    {
+      "route": "/archive/cinematic",
+      "file": "src/app/archive/cinematic/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 19948
+    },
+    {
+      "route": "/archive/freestyle",
+      "file": "src/app/archive/freestyle/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 22059
+    },
+    {
+      "route": "/archive/long-range",
+      "file": "src/app/archive/long-range/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 20277
+    },
+    {
+      "route": "/archive/micro",
+      "file": "src/app/archive/micro/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 3924
+    },
+    {
+      "route": "/archive/mission/%5Bid%5D",
+      "file": "src/app/archive/mission/%5Bid%5D/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 10097
+    },
+    {
+      "route": "/archive",
+      "file": "src/app/archive/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 11304
+    },
+    {
+      "route": "/archive/performance",
+      "file": "src/app/archive/performance/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 2687
+    },
+    {
+      "route": "/archive/racing",
+      "file": "src/app/archive/racing/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 20990
+    },
+    {
+      "route": "/archive/whoops",
+      "file": "src/app/archive/whoops/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 19701
+    },
+    {
+      "route": "/article/[slug]",
+      "file": "src/app/article/[slug]/page.tsx",
+      "metadata": true,
+      "canonical": true,
+      "openGraph": true,
+      "twitter": true,
+      "jsonLd": true,
+      "affiliateLanguage": true,
+      "contactLanguage": false,
+      "chars": 25501
+    },
+    {
+      "route": "/auth/signin",
+      "file": "src/app/auth/signin/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 9023
+    },
+    {
+      "route": "/buyers-guides/[category]",
+      "file": "src/app/buyers-guides/[category]/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 2014
+    },
+    {
+      "route": "/buyers-guides",
+      "file": "src/app/buyers-guides/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 823
+    },
+    {
+      "route": "/category",
+      "file": "src/app/category/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 119
+    },
+    {
+      "route": "/category/parts",
+      "file": "src/app/category/parts/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 1191
+    },
+    {
+      "route": "/category/software",
+      "file": "src/app/category/software/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 2963
+    },
+    {
+      "route": "/comparisons",
+      "file": "src/app/comparisons/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 759
+    },
+    {
+      "route": "/components/[component]",
+      "file": "src/app/components/[component]/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 5149
+    },
+    {
+      "route": "/contact",
+      "file": "src/app/contact/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": true,
+      "chars": 4322
+    },
+    {
+      "route": "/disclosure",
+      "file": "src/app/disclosure/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": false,
+      "chars": 4823
+    },
+    {
+      "route": "/editorial-policy",
+      "file": "src/app/editorial-policy/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": false,
+      "chars": 11004
+    },
+    {
+      "route": "/engineering/communication",
+      "file": "src/app/engineering/communication/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 7350
+    },
+    {
+      "route": "/engineering/firmware",
+      "file": "src/app/engineering/firmware/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 131
+    },
+    {
+      "route": "/engineering/flight-control",
+      "file": "src/app/engineering/flight-control/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 7610
+    },
+    {
+      "route": "/engineering/hardware",
+      "file": "src/app/engineering/hardware/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 127
+    },
+    {
+      "route": "/engineering",
+      "file": "src/app/engineering/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 13382
+    },
+    {
+      "route": "/engineering/propulsion",
+      "file": "src/app/engineering/propulsion/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 8416
+    },
+    {
+      "route": "/engineering/systems",
+      "file": "src/app/engineering/systems/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 7332
+    },
+    {
+      "route": "/engineering/workshop",
+      "file": "src/app/engineering/workshop/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 124
+    },
+    {
+      "route": "/",
+      "file": "src/app/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 15976
+    },
+    {
+      "route": "/pilot-pulse",
+      "file": "src/app/pilot-pulse/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 23079
+    },
+    {
+      "route": "/privacy",
+      "file": "src/app/privacy/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": true,
+      "chars": 5191
+    },
+    {
+      "route": "/racing/[section]",
+      "file": "src/app/racing/[section]/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 24681
+    },
+    {
+      "route": "/racing",
+      "file": "src/app/racing/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 18691
+    },
+    {
+      "route": "/regulations/airspace",
+      "file": "src/app/regulations/airspace/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 3539
+    },
+    {
+      "route": "/regulations/battery",
+      "file": "src/app/regulations/battery/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": true,
+      "contactLanguage": false,
+      "chars": 3646
+    },
+    {
+      "route": "/regulations",
+      "file": "src/app/regulations/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 3297
+    },
+    {
+      "route": "/reviews",
+      "file": "src/app/reviews/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 747
+    },
+    {
+      "route": "/search",
+      "file": "src/app/search/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 1411
+    },
+    {
+      "route": "/terms",
+      "file": "src/app/terms/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 5529
+    },
+    {
+      "route": "/tools/blackbox-tuning",
+      "file": "src/app/tools/blackbox-tuning/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 1941
+    },
+    {
+      "route": "/tools/calculator",
+      "file": "src/app/tools/calculator/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 1860
+    },
+    {
+      "route": "/tools/component-duel",
+      "file": "src/app/tools/component-duel/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 1874
+    },
+    {
+      "route": "/tools/flight-critic",
+      "file": "src/app/tools/flight-critic/page.tsx",
+      "metadata": false,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 12472
+    },
+    {
+      "route": "/tools/hardware-analyzer",
+      "file": "src/app/tools/hardware-analyzer/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 1805
+    },
+    {
+      "route": "/tools",
+      "file": "src/app/tools/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 4367
+    },
+    {
+      "route": "/tools/part-matcher",
+      "file": "src/app/tools/part-matcher/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 4125
+    },
+    {
+      "route": "/topics/[topic]",
+      "file": "src/app/topics/[topic]/page.tsx",
+      "metadata": true,
+      "canonical": false,
+      "openGraph": false,
+      "twitter": false,
+      "jsonLd": false,
+      "affiliateLanguage": false,
+      "contactLanguage": false,
+      "chars": 7687
+    }
+  ],
+  "content": [
+    {
+      "slug": "2025-drone-champions-league-standings-update",
+      "files": [
+        "content/published/2025-drone-champions-league-standings-update.json",
+        "content/published/2025-drone-champions-league-standings-update.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "acro-mode-mental-model-for-fpv-beginners",
+      "files": [
+        "content/published/acro-mode-mental-model-for-fpv-beginners.json",
+        "content/published/acro-mode-mental-model-for-fpv-beginners.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 2
+    },
+    {
+      "slug": "antenna-polarization-explained-lhcp-rhcp-and-linear-antennas",
+      "files": [
+        "content/published/antenna-polarization-explained-lhcp-rhcp-and-linear-antennas.json",
+        "content/published/antenna-polarization-explained-lhcp-rhcp-and-linear-antennas.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "best-fpv-goggles-2026",
+      "files": [
+        "content/published/best-fpv-goggles-2026.json",
+        "content/published/best-fpv-goggles-2026.md"
+      ],
+      "commercialTypes": [
+        "buyer-guide"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "best-fpv-starter-kits-2026-rtf-bundles-for-beginners",
+      "files": [
+        "content/published/best-fpv-starter-kits-2026-rtf-bundles-for-beginners.json",
+        "content/published/best-fpv-starter-kits-2026-rtf-bundles-for-beginners.md"
+      ],
+      "commercialTypes": [
+        "buyer-guide"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "betaflight-firmware-tuning-complete-setup-guide",
+      "files": [
+        "content/published/betaflight-firmware-tuning-complete-setup-guide.json",
+        "content/published/betaflight-firmware-tuning-complete-setup-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "betaflight-pid-basics-for-beginners-start-with-the-right-mental-model",
+      "files": [
+        "content/published/betaflight-pid-basics-for-beginners-start-with-the-right-mental-model.json",
+        "content/published/betaflight-pid-basics-for-beginners-start-with-the-right-mental-model.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "betaflight-pid-basics",
+      "files": [
+        "content/published/betaflight-pid-basics.json",
+        "content/published/betaflight-pid-basics.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "betafpv-cetus-x-review",
+      "files": [
+        "content/published/betafpv-cetus-x-review.json",
+        "content/published/betafpv-cetus-x-review.md"
+      ],
+      "commercialTypes": [
+        "review"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "blackbox-analysis-masterclass",
+      "files": [
+        "content/published/blackbox-analysis-masterclass.json",
+        "content/published/blackbox-analysis-masterclass.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "cdrc-2026-report-released-by-multigp",
+      "files": [
+        "content/published/cdrc-2026-report-released-by-multigp.json",
+        "content/published/cdrc-2026-report-released-by-multigp.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "cinematic-fpv-orbit-techniques",
+      "files": [
+        "content/published/cinematic-fpv-orbit-techniques.json",
+        "content/published/cinematic-fpv-orbit-techniques.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "cinematic-fpv-vs-freestyle-drones-frame-and-component-differences",
+      "files": [
+        "content/published/cinematic-fpv-vs-freestyle-drones-frame-and-component-differences.json",
+        "content/published/cinematic-fpv-vs-freestyle-drones-frame-and-component-differences.md"
+      ],
+      "commercialTypes": [
+        "comparison"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "dcl-2026-season-begins-with-new-pilot-draft-selection",
+      "files": [
+        "content/published/dcl-2026-season-begins-with-new-pilot-draft-selection.json",
+        "content/published/dcl-2026-season-begins-with-new-pilot-draft-selection.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "dcl-current-standings-spain-drone-team-leads-after-falcon-eagle-and-hawk-cups",
+      "files": [
+        "content/published/dcl-current-standings-spain-drone-team-leads-after-falcon-eagle-and-hawk-cups.json",
+        "content/published/dcl-current-standings-spain-drone-team-leads-after-falcon-eagle-and-hawk-cups.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "dcl-the-game-experience-drone-racing-on-30-tracks",
+      "files": [
+        "content/published/dcl-the-game-experience-drone-racing-on-30-tracks.json",
+        "content/published/dcl-the-game-experience-drone-racing-on-30-tracks.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "dji-goggles-2-vs-integra-comparison",
+      "files": [
+        "content/published/dji-goggles-2-vs-integra-comparison.json",
+        "content/published/dji-goggles-2-vs-integra-comparison.md"
+      ],
+      "commercialTypes": [
+        "comparison"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "dji-o3-air-unit-review",
+      "files": [
+        "content/published/dji-o3-air-unit-review.json",
+        "content/published/dji-o3-air-unit-review.md"
+      ],
+      "commercialTypes": [
+        "review"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "dji-o3-vs-walksnail-avatar-comparison",
+      "files": [
+        "content/published/dji-o3-vs-walksnail-avatar-comparison.json",
+        "content/published/dji-o3-vs-walksnail-avatar-comparison.md"
+      ],
+      "commercialTypes": [
+        "comparison"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "drone-anatomy-complete-guide",
+      "files": [
+        "content/published/drone-anatomy-complete-guide.json",
+        "content/published/drone-anatomy-complete-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "drone-champions-league-meet-the-teams-and-pilots",
+      "files": [
+        "content/published/drone-champions-league-meet-the-teams-and-pilots.json",
+        "content/published/drone-champions-league-meet-the-teams-and-pilots.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "drone-champions-league-pioneering-mixed-reality-drone-racing",
+      "files": [
+        "content/published/drone-champions-league-pioneering-mixed-reality-drone-racing.json",
+        "content/published/drone-champions-league-pioneering-mixed-reality-drone-racing.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "drone-specifications-for-multigp-cdra-2026-championship",
+      "files": [
+        "content/published/drone-specifications-for-multigp-cdra-2026-championship.json",
+        "content/published/drone-specifications-for-multigp-cdra-2026-championship.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "esc-protocol-deep-dive",
+      "files": [
+        "content/published/esc-protocol-deep-dive.json",
+        "content/published/esc-protocol-deep-dive.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "expresslrs-beginner-guide",
+      "files": [
+        "content/published/expresslrs-beginner-guide.json",
+        "content/published/expresslrs-beginner-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 2
+    },
+    {
+      "slug": "expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight",
+      "files": [
+        "content/published/expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight.json",
+        "content/published/expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fai-confirms-15-drone-racing-world-cup-events-for-2026-season",
+      "files": [
+        "content/published/fai-confirms-15-drone-racing-world-cup-events-for-2026-season.json",
+        "content/published/fai-confirms-15-drone-racing-world-cup-events-for-2026-season.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fai-drone-racing-2026-season-overview-permissions-and-world-cup-events",
+      "files": [
+        "content/published/fai-drone-racing-2026-season-overview-permissions-and-world-cup-events.json",
+        "content/published/fai-drone-racing-2026-season-overview-permissions-and-world-cup-events.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fai-drone-racing-calendar-update-2024-wdrc-recap-and-2025-world-games-dates",
+      "files": [
+        "content/published/fai-drone-racing-calendar-update-2024-wdrc-recap-and-2025-world-games-dates.json",
+        "content/published/fai-drone-racing-calendar-update-2024-wdrc-recap-and-2025-world-games-dates.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fai-outlines-2026-drone-racing-permission-and-licensing-requirements",
+      "files": [
+        "content/published/fai-outlines-2026-drone-racing-permission-and-licensing-requirements.json",
+        "content/published/fai-outlines-2026-drone-racing-permission-and-licensing-requirements.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "failsafe-settings-safe-flight-practices-what-happens-when-you-lose-signal",
+      "files": [
+        "content/published/failsafe-settings-safe-flight-practices-what-happens-when-you-lose-signal.json",
+        "content/published/failsafe-settings-safe-flight-practices-what-happens-when-you-lose-signal.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "first-hover-training",
+      "files": [
+        "content/published/first-hover-training.json",
+        "content/published/first-hover-training.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-beginner-setup-guide-the-easiest-way-to-get-flying",
+      "files": [
+        "content/published/fpv-beginner-setup-guide-the-easiest-way-to-get-flying.json",
+        "content/published/fpv-beginner-setup-guide-the-easiest-way-to-get-flying.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-components-wiring-guide",
+      "files": [
+        "content/published/fpv-components-wiring-guide.json",
+        "content/published/fpv-components-wiring-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 2
+    },
+    {
+      "slug": "fpv-glossary-complete-terms-and-acronyms-guide",
+      "files": [
+        "content/published/fpv-glossary-complete-terms-and-acronyms-guide.json",
+        "content/published/fpv-glossary-complete-terms-and-acronyms-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-goggles-buyers-guide",
+      "files": [
+        "content/published/fpv-goggles-buyers-guide.json",
+        "content/published/fpv-goggles-buyers-guide.md"
+      ],
+      "commercialTypes": [
+        "buyer-guide"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-goggles-buying-guide-analog-vs-digital-for-beginners",
+      "files": [
+        "content/published/fpv-goggles-buying-guide-analog-vs-digital-for-beginners.json",
+        "content/published/fpv-goggles-buying-guide-analog-vs-digital-for-beginners.md"
+      ],
+      "commercialTypes": [
+        "comparison"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-hardware-reference-guide-motors-escs-and-flight-controllers",
+      "files": [
+        "content/published/fpv-hardware-reference-guide-motors-escs-and-flight-controllers.json",
+        "content/published/fpv-hardware-reference-guide-motors-escs-and-flight-controllers.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer",
+      "files": [
+        "content/published/fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer.json",
+        "content/published/fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-motors-kv-and-stator-explained",
+      "files": [
+        "content/published/fpv-motors-kv-and-stator-explained.json",
+        "content/published/fpv-motors-kv-and-stator-explained.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
+      "files": [
+        "content/published/fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security.json",
+        "content/published/fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 2
+    },
+    {
+      "slug": "fpv-pilot-roadmap-from-simulator-to-first-flight",
+      "files": [
+        "content/published/fpv-pilot-roadmap-from-simulator-to-first-flight.json",
+        "content/published/fpv-pilot-roadmap-from-simulator-to-first-flight.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-propeller-engineering",
+      "files": [
+        "content/published/fpv-propeller-engineering.json",
+        "content/published/fpv-propeller-engineering.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "fpv-racing-for-beginners-what-to-practice-first",
+      "files": [
+        "content/published/fpv-racing-for-beginners-what-to-practice-first.json",
+        "content/published/fpv-racing-for-beginners-what-to-practice-first.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-regulations-for-beginners-in-the-united-states",
+      "files": [
+        "content/published/fpv-regulations-for-beginners-in-the-united-states.json",
+        "content/published/fpv-regulations-for-beginners-in-the-united-states.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-soldering-masterclass",
+      "files": [
+        "content/published/fpv-soldering-masterclass.json",
+        "content/published/fpv-soldering-masterclass.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "fpv-troubleshooting-guide",
+      "files": [
+        "content/published/fpv-troubleshooting-guide.json",
+        "content/published/fpv-troubleshooting-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 2
+    },
+    {
+      "slug": "frame-resonance-vibration-analysis",
+      "files": [
+        "content/published/frame-resonance-vibration-analysis.json",
+        "content/published/frame-resonance-vibration-analysis.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "gps-rescue-mode-setup-in-betaflight-never-lose-a-drone-to-a-failsafe",
+      "files": [
+        "content/published/gps-rescue-mode-setup-in-betaflight-never-lose-a-drone-to-a-failsafe.json",
+        "content/published/gps-rescue-mode-setup-in-betaflight-never-lose-a-drone-to-a-failsafe.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "gps-rescue-reliability",
+      "files": [
+        "content/published/gps-rescue-reliability.json",
+        "content/published/gps-rescue-reliability.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "gps-rescue-setup-guide",
+      "files": [
+        "content/published/gps-rescue-setup-guide.json",
+        "content/published/gps-rescue-setup-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "history-made-first-multigp-european-championship-in-aichtal",
+      "files": [
+        "content/published/history-made-first-multigp-european-championship-in-aichtal.json",
+        "content/published/history-made-first-multigp-european-championship-in-aichtal.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "history-made-in-aichtal-first-multigp-european-championship",
+      "files": [
+        "content/published/history-made-in-aichtal-first-multigp-european-championship.json",
+        "content/published/history-made-in-aichtal-first-multigp-european-championship.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "how-fpv-systems-work-together",
+      "files": [
+        "content/published/how-fpv-systems-work-together.json",
+        "content/published/how-fpv-systems-work-together.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "how-to-choose-fpv-motors-understanding-kv-stator-size-and-propeller-matching",
+      "files": [
+        "content/published/how-to-choose-fpv-motors-understanding-kv-stator-size-and-propeller-matching.json",
+        "content/published/how-to-choose-fpv-motors-understanding-kv-stator-size-and-propeller-matching.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "how-to-choose-your-first-fpv-radio-without-buying-twice",
+      "files": [
+        "content/published/how-to-choose-your-first-fpv-radio-without-buying-twice.json",
+        "content/published/how-to-choose-your-first-fpv-radio-without-buying-twice.md"
+      ],
+      "commercialTypes": [
+        "buyer-guide"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "how-to-choose-your-first-fpv-radio",
+      "files": [
+        "content/published/how-to-choose-your-first-fpv-radio.json",
+        "content/published/how-to-choose-your-first-fpv-radio.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 2
+    },
+    {
+      "slug": "how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training",
+      "files": [
+        "content/published/how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training.json",
+        "content/published/how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "how-to-clean-and-maintain-your-fpv-drone-bearings-motors-and-electronics",
+      "files": [
+        "content/published/how-to-clean-and-maintain-your-fpv-drone-bearings-motors-and-electronics.json",
+        "content/published/how-to-clean-and-maintain-your-fpv-drone-bearings-motors-and-electronics.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight",
+      "files": [
+        "content/published/how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight.json",
+        "content/published/how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight.md"
+      ],
+      "commercialTypes": [
+        "buyer-guide"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "iflight-nazgul-evoque-f5-review",
+      "files": [
+        "content/published/iflight-nazgul-evoque-f5-review.json",
+        "content/published/iflight-nazgul-evoque-f5-review.md"
+      ],
+      "commercialTypes": [
+        "review"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "international-open-2026-muncie-gears-up-for-multigp-s-next-main-event",
+      "files": [
+        "content/published/international-open-2026-muncie-gears-up-for-multigp-s-next-main-event.json",
+        "content/published/international-open-2026-muncie-gears-up-for-multigp-s-next-main-event.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "international-open-2026-set-for-muncie-on-june-10th",
+      "files": [
+        "content/published/international-open-2026-set-for-muncie-on-june-10th.json",
+        "content/published/international-open-2026-set-for-muncie-on-june-10th.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "jumper-t-pro-elrs-review",
+      "files": [
+        "content/published/jumper-t-pro-elrs-review.json",
+        "content/published/jumper-t-pro-elrs-review.md"
+      ],
+      "commercialTypes": [
+        "review"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "key-dates-for-multigp-cdra-2026-season",
+      "files": [
+        "content/published/key-dates-for-multigp-cdra-2026-season.json",
+        "content/published/key-dates-for-multigp-cdra-2026-season.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "kings-of-tulsa-multigp-champs-2025-recap",
+      "files": [
+        "content/published/kings-of-tulsa-multigp-champs-2025-recap.json",
+        "content/published/kings-of-tulsa-multigp-champs-2025-recap.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "lihv-vs-lipo-batteries-what-beginners-need-to-know",
+      "files": [
+        "content/published/lihv-vs-lipo-batteries-what-beginners-need-to-know.json",
+        "content/published/lihv-vs-lipo-batteries-what-beginners-need-to-know.md"
+      ],
+      "commercialTypes": [
+        "comparison"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "lipo-battery-safety-guide",
+      "files": [
+        "content/published/lipo-battery-safety-guide.json",
+        "content/published/lipo-battery-safety-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "lipo-performance-engineering",
+      "files": [
+        "content/published/lipo-performance-engineering.json",
+        "content/published/lipo-performance-engineering.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "long-range-fpv-basics-how-to-fly-beyond-the-trees-safely",
+      "files": [
+        "content/published/long-range-fpv-basics-how-to-fly-beyond-the-trees-safely.json",
+        "content/published/long-range-fpv-basics-how-to-fly-beyond-the-trees-safely.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "minjae-kim-champion-of-the-fai-drone-racing-world-cup-2024",
+      "files": [
+        "content/published/minjae-kim-champion-of-the-fai-drone-racing-world-cup-2024.json",
+        "content/published/minjae-kim-champion-of-the-fai-drone-racing-world-cup-2024.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "modern-betaflight-filter-architecture",
+      "files": [
+        "content/published/modern-betaflight-filter-architecture.json",
+        "content/published/modern-betaflight-filter-architecture.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "motor-efficiency-engineering",
+      "files": [
+        "content/published/motor-efficiency-engineering.json",
+        "content/published/motor-efficiency-engineering.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "multigp-2026-global-qualifier-schedule-announced",
+      "files": [
+        "content/published/multigp-2026-global-qualifier-schedule-announced.json",
+        "content/published/multigp-2026-global-qualifier-schedule-announced.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-2026-season-kicks-off-with-global-qualifier-registration-and-new-series",
+      "files": [
+        "content/published/multigp-2026-season-kicks-off-with-global-qualifier-registration-and-new-series.json",
+        "content/published/multigp-2026-season-kicks-off-with-global-qualifier-registration-and-new-series.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-2026-season-preview-international-open-and-key-series-dates",
+      "files": [
+        "content/published/multigp-2026-season-preview-international-open-and-key-series-dates.json",
+        "content/published/multigp-2026-season-preview-international-open-and-key-series-dates.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-2026-series-overview-global-qualifier-regional-esport-and-pro-spec",
+      "files": [
+        "content/published/multigp-2026-series-overview-global-qualifier-regional-esport-and-pro-spec.json",
+        "content/published/multigp-2026-series-overview-global-qualifier-regional-esport-and-pro-spec.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-cdra-2026-season-rules-overview",
+      "files": [
+        "content/published/multigp-cdra-2026-season-rules-overview.json",
+        "content/published/multigp-cdra-2026-season-rules-overview.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-champs-2025-kings-of-tulsa-recap",
+      "files": [
+        "content/published/multigp-champs-2025-kings-of-tulsa-recap.json",
+        "content/published/multigp-champs-2025-kings-of-tulsa-recap.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-chapters-benefits-and-how-to-start-one",
+      "files": [
+        "content/published/multigp-chapters-benefits-and-how-to-start-one.json",
+        "content/published/multigp-chapters-benefits-and-how-to-start-one.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-esport-series-2026-kicks-off",
+      "files": [
+        "content/published/multigp-esport-series-2026-kicks-off.json",
+        "content/published/multigp-esport-series-2026-kicks-off.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-pro-spec-2026-series-information-and-leaderboard",
+      "files": [
+        "content/published/multigp-pro-spec-2026-series-information-and-leaderboard.json",
+        "content/published/multigp-pro-spec-2026-series-information-and-leaderboard.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-race-classes-a-guide-to-open-pro-spec-whoop-and-more",
+      "files": [
+        "content/published/multigp-race-classes-a-guide-to-open-pro-spec-whoop-and-more.json",
+        "content/published/multigp-race-classes-a-guide-to-open-pro-spec-whoop-and-more.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-regional-series-2026-details-released",
+      "files": [
+        "content/published/multigp-regional-series-2026-details-released.json",
+        "content/published/multigp-regional-series-2026-details-released.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-the-global-drone-racing-league",
+      "files": [
+        "content/published/multigp-the-global-drone-racing-league.json",
+        "content/published/multigp-the-global-drone-racing-league.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-the-world-s-largest-professional-drone-racing-league",
+      "files": [
+        "content/published/multigp-the-world-s-largest-professional-drone-racing-league.json",
+        "content/published/multigp-the-world-s-largest-professional-drone-racing-league.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-unveils-2026-global-qualifier-regional-esport-and-pro-spec-series",
+      "files": [
+        "content/published/multigp-unveils-2026-global-qualifier-regional-esport-and-pro-spec-series.json",
+        "content/published/multigp-unveils-2026-global-qualifier-regional-esport-and-pro-spec-series.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "multigp-unveils-extensive-2026-racing-calendar-including-global-qualifiers-and-new-series",
+      "files": [
+        "content/published/multigp-unveils-extensive-2026-racing-calendar-including-global-qualifiers-and-new-series.json",
+        "content/published/multigp-unveils-extensive-2026-racing-calendar-including-global-qualifiers-and-new-series.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "no-video-in-fpv-a-beginner-troubleshooting-checklist",
+      "files": [
+        "content/published/no-video-in-fpv-a-beginner-troubleshooting-checklist.json",
+        "content/published/no-video-in-fpv-a-beginner-troubleshooting-checklist.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "no-video-troubleshooting-guide",
+      "files": [
+        "content/published/no-video-troubleshooting-guide.json",
+        "content/published/no-video-troubleshooting-guide.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "path-to-glory-how-to-qualify-for-the-multigp-cdrc-2026-championship",
+      "files": [
+        "content/published/path-to-glory-how-to-qualify-for-the-multigp-cdrc-2026-championship.json",
+        "content/published/path-to-glory-how-to-qualify-for-the-multigp-cdrc-2026-championship.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "path-to-the-podium-multigp-cdra-2026-championship-qualification",
+      "files": [
+        "content/published/path-to-the-podium-multigp-cdra-2026-championship-qualification.json",
+        "content/published/path-to-the-podium-multigp-cdra-2026-championship-qualification.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "pid-tuning-beyond-presets",
+      "files": [
+        "content/published/pid-tuning-beyond-presets.json",
+        "content/published/pid-tuning-beyond-presets.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "props-in-vs-props-out-betaflight-motor-direction-explained",
+      "files": [
+        "content/published/props-in-vs-props-out-betaflight-motor-direction-explained.json",
+        "content/published/props-in-vs-props-out-betaflight-motor-direction-explained.md"
+      ],
+      "commercialTypes": [
+        "comparison"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "racesync-ios-app-updated-to-v1-8-2",
+      "files": [
+        "content/published/racesync-ios-app-updated-to-v1-8-2.json",
+        "content/published/racesync-ios-app-updated-to-v1-8-2.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "racesync-ios-update-v-1-8-2-released",
+      "files": [
+        "content/published/racesync-ios-update-v-1-8-2-released.json",
+        "content/published/racesync-ios-update-v-1-8-2-released.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "radiomaster-boxer-elrs-review",
+      "files": [
+        "content/published/radiomaster-boxer-elrs-review.json",
+        "content/published/radiomaster-boxer-elrs-review.md"
+      ],
+      "commercialTypes": [
+        "review"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "radiomaster-boxer-vs-tx16s-comparison",
+      "files": [
+        "content/published/radiomaster-boxer-vs-tx16s-comparison.json",
+        "content/published/radiomaster-boxer-vs-tx16s-comparison.md"
+      ],
+      "commercialTypes": [
+        "comparison"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "raiden-racing-conquers-k-nigssee-to-claim-2025-dcl-championship",
+      "files": [
+        "content/published/raiden-racing-conquers-k-nigssee-to-claim-2025-dcl-championship.json",
+        "content/published/raiden-racing-conquers-k-nigssee-to-claim-2025-dcl-championship.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "rf-link-engineering",
+      "files": [
+        "content/published/rf-link-engineering.json",
+        "content/published/rf-link-engineering.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "salie1-spain-drone-team-s-2025-dcl-pilot-of-the-year",
+      "files": [
+        "content/published/salie1-spain-drone-team-s-2025-dcl-pilot-of-the-year.json",
+        "content/published/salie1-spain-drone-team-s-2025-dcl-pilot-of-the-year.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "saudi-drone-champions-league-first-national-competition-in-saudi-arabia",
+      "files": [
+        "content/published/saudi-drone-champions-league-first-national-competition-in-saudi-arabia.json",
+        "content/published/saudi-drone-champions-league-first-national-competition-in-saudi-arabia.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "smoke-stopper-protocol",
+      "files": [
+        "content/published/smoke-stopper-protocol.json",
+        "content/published/smoke-stopper-protocol.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "soldering-guide-for-fpv-drone-builders-solder-pads-temperature-and-tools",
+      "files": [
+        "content/published/soldering-guide-for-fpv-drone-builders-solder-pads-temperature-and-tools.json",
+        "content/published/soldering-guide-for-fpv-drone-builders-solder-pads-temperature-and-tools.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "street-league-announces-season-v-and-upcoming-2026-races",
+      "files": [
+        "content/published/street-league-announces-season-v-and-upcoming-2026-races.json",
+        "content/published/street-league-announces-season-v-and-upcoming-2026-races.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "street-league-spec-offers-comprehensive-resources-for-pilots",
+      "files": [
+        "content/published/street-league-spec-offers-comprehensive-resources-for-pilots.json",
+        "content/published/street-league-spec-offers-comprehensive-resources-for-pilots.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "street-league-spec-upcoming-races-section-currently-empty",
+      "files": [
+        "content/published/street-league-spec-upcoming-races-section-currently-empty.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "team-profile-aspan-kazakhstan-s-dcl-contenders",
+      "files": [
+        "content/published/team-profile-aspan-kazakhstan-s-dcl-contenders.json",
+        "content/published/team-profile-aspan-kazakhstan-s-dcl-contenders.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "team-profile-cyclone-drone-racing-usa-s-dcl-champions",
+      "files": [
+        "content/published/team-profile-cyclone-drone-racing-usa-s-dcl-champions.json",
+        "content/published/team-profile-cyclone-drone-racing-usa-s-dcl-champions.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "team-profile-raiden-racing-japan-s-multi-title-winners",
+      "files": [
+        "content/published/team-profile-raiden-racing-japan-s-multi-title-winners.json",
+        "content/published/team-profile-raiden-racing-japan-s-multi-title-winners.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "team-profile-squadron78-argentina-s-dcl-entry",
+      "files": [
+        "content/published/team-profile-squadron78-argentina-s-dcl-entry.json",
+        "content/published/team-profile-squadron78-argentina-s-dcl-entry.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "team-profile-vexcel-spain-drone-team-spain-s-dcl-veterans",
+      "files": [
+        "content/published/team-profile-vexcel-spain-drone-team-spain-s-dcl-veterans.json",
+        "content/published/team-profile-vexcel-spain-drone-team-spain-s-dcl-veterans.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "team-profile-wildcard-team-liechtenstein-s-dcl-contenders",
+      "files": [
+        "content/published/team-profile-wildcard-team-liechtenstein-s-dcl-contenders.json",
+        "content/published/team-profile-wildcard-team-liechtenstein-s-dcl-contenders.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "the-best-fpv-simulators-in-2026-save-cash-and-log-hours-virtually",
+      "files": [
+        "content/published/the-best-fpv-simulators-in-2026-save-cash-and-log-hours-virtually.json",
+        "content/published/the-best-fpv-simulators-in-2026-save-cash-and-log-hours-virtually.md"
+      ],
+      "commercialTypes": [
+        "buyer-guide"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog",
+      "files": [
+        "content/published/the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog.json",
+        "content/published/the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog.md"
+      ],
+      "commercialTypes": [
+        "comparison"
+      ],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "upcoming-fai-drone-sports-events-wdrc-the-world-games-and-drone-soccer-championships",
+      "files": [
+        "content/published/upcoming-fai-drone-sports-events-wdrc-the-world-games-and-drone-soccer-championships.json",
+        "content/published/upcoming-fai-drone-sports-events-wdrc-the-world-games-and-drone-soccer-championships.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    },
+    {
+      "slug": "video-latency-engineering",
+      "files": [
+        "content/published/video-latency-engineering.json",
+        "content/published/video-latency-engineering.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 3
+    },
+    {
+      "slug": "vtx-and-camera-setup-guide-clean-video-from-the-start",
+      "files": [
+        "content/published/vtx-and-camera-setup-guide-clean-video-from-the-start.json",
+        "content/published/vtx-and-camera-setup-guide-clean-video-from-the-start.md"
+      ],
+      "commercialTypes": [],
+      "internalLinkSignals": 0
+    }
+  ]
+}

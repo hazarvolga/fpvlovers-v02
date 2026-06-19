@@ -1,0 +1,4 @@
+interface:
+  display_name: "Affiliate & Social Readiness"
+  short_description: "Audit affiliate, sponsor, SEO, and social readiness"
+  default_prompt: "Use $affiliate-social-readiness to audit FPVLovers and create the affiliate and social marketing readiness deliverables."
