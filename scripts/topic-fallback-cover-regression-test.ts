@@ -14,6 +14,46 @@ assert.equal(
   resolveFallbackCover({ contentType: 'review', components: ['radio'] }),
   FALLBACK_COVER_PATHS.commercial,
 );
+assert.equal(
+  resolveFallbackCover({ metadata: { discipline: ['freestyle'] } }),
+  FALLBACK_COVER_PATHS.freestyle,
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { discipline: ['long-range'] } }),
+  FALLBACK_COVER_PATHS['cinematic-long-range'],
+);
+assert.equal(
+  resolveFallbackCover({ category: 'beginner' }),
+  FALLBACK_COVER_PATHS['academy-beginner'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { topics: ['soldering'] } }),
+  FALLBACK_COVER_PATHS['build-workshop'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { topics: ['blackbox'] } }),
+  FALLBACK_COVER_PATHS['tuning-betaflight'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { components: ['propeller'] } }),
+  FALLBACK_COVER_PATHS['motors-propulsion'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { components: ['battery'] } }),
+  FALLBACK_COVER_PATHS['power-battery-esc'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { components: ['digital-video'] } }),
+  FALLBACK_COVER_PATHS['video-goggles-vtx'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { components: ['elrs'] } }),
+  FALLBACK_COVER_PATHS['radio-elrs-gps'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { topics: ['safety'] } }),
+  FALLBACK_COVER_PATHS['safety-regulations'],
+);
 assert.equal(resolveFallbackCover(undefined), FALLBACK_COVER_PATHS.generic);
 assert.equal(resolveFallbackCover({}), FALLBACK_COVER_PATHS.generic);
 
