@@ -1,11 +1,11 @@
 # FPVLovers Handoff Packet
 
-Generated at: 2026-06-19T16:50:26.802Z
+Generated at: 2026-06-19T17:00:17.778Z
 
 ## Git State
 
 - Branch: `main`
-- HEAD: `599b6440ead2`
+- HEAD: `75edc90f18a1`
 - Against `origin/main`: behind 0, ahead 0
 
 ## What Happened
@@ -13,7 +13,7 @@ Generated at: 2026-06-19T16:50:26.802Z
 - Production credential rotation completed on 2026-06-19 without downtime. `CRON_SECRET`, the dataset API token, and seven unique active Dify app/workflow token groups were replaced in Coolify; the healthy application container was recreated, the host crontab was updated, new credentials were verified, old cron auth returns `401`, and old Dify tokens were revoked after cache invalidation. Secret values were not added to Git or project memory.
 - Production automation audit on 2026-06-19 proved the host cron was firing, but no usable new crawl had reached the knowledge pipeline since 2026-06-09. The file queue reported 162 jobs (84 pending, 25 failed, 53 completed) while the Postgres queue held 49 jobs (32 pending, 17 completed), exposing `dual` storage drift. The crawl cron was subsequently reduced from every 5 minutes to every 6 hours; generation remains every 20 minutes while it stays low-cost/`noop`.
 - Guarded production crawl worker consumes the Postgres-isolated queue, uses primary-to-backup Crawl4AI failover, uploads only through `src/lib/dify-client.ts`, blocks private targets, and processes at most one job by default. Authenticated `?dry_run=true` previews one pending job without crawl/embedding use. Dify uploads are capped at 1,500 characters (500 estimated tokens); the client rejects calls that would exceed the daily 500-token budget and resets the ledger after its UTC reset boundary. Global `FPV_STORAGE_MODE` remains `dual` because the Postgres publication shadow has 109 records versus 117 committed artifacts.
-- Production crawl recovery reached an end-to-end proof on 2026-06-19. Coolify runs global `FPV_STORAGE_MODE=dual`, queue-only `FPV_CRAWL_QUEUE_STORAGE_MODE=postgres`, and `ENABLE_CRAWL_WORKER=true`. Authenticated dry-run selected exactly one Postgres job without changing counts. A real Oscar Liang tuning source was crawled through the primary Crawl4AI service and indexed by Dify as document `292713d8-940d-45cd-b176-34e3a27b6d4b`; the document API reported `indexing_status=completed`. A GetFPV category URL blocked by Cloudflare was classified failed without consuming Dify budget. The backup Crawl4AI route still returns `502` and remains a resilience follow-up.
+- Production crawl recovery reached an end-to-end proof on 2026-06-19. Coolify runs global `FPV_STORAGE_MODE=dual`, queue-only `FPV_CRAWL_QUEUE_STORAGE_MODE=postgres`, and `ENABLE_CRAWL_WORKER=true`. Authenticated dry-run selected exactly one Postgres job without changing counts. A real Oscar Liang tuning source was crawled through primary Crawl4AI and indexed by Dify as document `292713d8-940d-45cd-b176-34e3a27b6d4b`; the document API reported `indexing_status=completed`. A GetFPV URL blocked by Cloudflare was classified failed without Dify use. Orko backup routing was repaired from the incorrect container port `80` to `crawl4ai-backup:11235`; `/c4ai/health` returns `200` from Hulya and `403` outside the IP allowlist.
 - Topic-aware fallback covers provide 12 topic families plus one generic safety-net asset under `public/images/fallbacks/`. Homepage and article covers transition `original -> topic -> generic` without mutating persisted artifacts, and explicit article covers are not overwritten by section/gallery images.
 - The stale Cloudflare Pages GitHub workflow was converted to a root-level Node 20/pnpm validation workflow on 2026-06-19. It now runs contract, security, quality, route, content, metadata, media, handoff, type, lint, and build gates; production deployment remains owned exclusively by the existing Coolify application.
 - Affiliate and social/video implementation was reconciled onto current `main` and committed as `2b025b1` on 2026-06-19. Product reviews require evidence, testing method, product relationship, timestamp, and Hazar Volga Ekiz approval; cron stores them as drafts instead of publishing. Non-review content remains autonomous but source/claim/duplicate/metadata/link/disclosure gates can hold it in `generated` state.
@@ -27,8 +27,6 @@ Generated at: 2026-06-19T16:50:26.802Z
 
 - Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
 - Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.
-- Deploy and verify the final crawl hotfix: DB state persistence, atomic JSONB metadata, visible update failures, 1,500-character/500-token upload cap, preflight daily-budget rejection, and UTC budget reset.
-- Repair and validate the backup Crawl4AI route, which returned `502` during the production proof.
 - Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy.
 
 ## Active Plan
