@@ -90,6 +90,26 @@ assert.equal(
   resolveFallbackCover({ metadata: { audience: ['new-pilot'] } }),
   FALLBACK_COVER_PATHS.generic,
 );
+assert.equal(
+  resolveFallbackCover({ metadata: { components: ['racing'] } }),
+  FALLBACK_COVER_PATHS.generic,
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { discipline: ['battery' as never] } }),
+  FALLBACK_COVER_PATHS.generic,
+);
+assert.equal(
+  resolveFallbackCover({ category: 'elrs' }),
+  FALLBACK_COVER_PATHS.generic,
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { topics: ['cinematic'] } }),
+  FALLBACK_COVER_PATHS.generic,
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { components: ['beginner'] } }),
+  FALLBACK_COVER_PATHS.generic,
+);
 assert.equal(resolveFallbackCover(undefined), FALLBACK_COVER_PATHS.generic);
 assert.equal(resolveFallbackCover({}), FALLBACK_COVER_PATHS.generic);
 

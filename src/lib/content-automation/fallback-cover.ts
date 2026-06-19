@@ -43,56 +43,69 @@ const COMMERCIAL_CONTENT_TYPES = new Set([
   'product-roundup',
 ]);
 
-const FAMILY_SIGNALS: ReadonlyArray<{
-  family: Exclude<FallbackCoverFamily, 'commercial' | 'generic'>;
-  values: ReadonlySet<string>;
-}> = [
-  { family: 'racing', values: new Set(['racing']) },
-  { family: 'freestyle', values: new Set(['freestyle']) },
-  {
-    family: 'cinematic-long-range',
-    values: new Set(['cinematic', 'long-range']),
-  },
-  {
-    family: 'academy-beginner',
-    values: new Set(['academy', 'beginner', 'simulators']),
-  },
-  {
-    family: 'build-workshop',
-    values: new Set(['build-guides', 'soldering', 'wiring', 'workshop']),
-  },
-  {
-    family: 'tuning-betaflight',
-    values: new Set(['flight-control', 'betaflight', 'tuning', 'blackbox']),
-  },
-  {
-    family: 'motors-propulsion',
-    values: new Set(['motor', 'motors', 'propulsion', 'propeller']),
-  },
-  {
-    family: 'power-battery-esc',
-    values: new Set(['esc', 'battery', 'batteries', 'power']),
-  },
-  {
-    family: 'video-goggles-vtx',
-    values: new Set([
-      'goggles',
-      'vtx',
-      'camera',
-      'video',
-      'digital-video',
-      'analog-video',
-    ]),
-  },
-  {
-    family: 'radio-elrs-gps',
-    values: new Set(['radio', 'gps', 'elrs', 'communication']),
-  },
-  {
-    family: 'safety-regulations',
-    values: new Set(['troubleshooting', 'regulations', 'safety']),
-  },
+type RoutedFallbackCoverFamily = Exclude<FallbackCoverFamily, 'commercial' | 'generic'>;
+type FieldRules = Partial<Record<RoutedFallbackCoverFamily, ReadonlySet<string>>>;
+
+const FAMILY_ORDER: readonly RoutedFallbackCoverFamily[] = [
+  'racing',
+  'freestyle',
+  'cinematic-long-range',
+  'academy-beginner',
+  'build-workshop',
+  'tuning-betaflight',
+  'motors-propulsion',
+  'power-battery-esc',
+  'video-goggles-vtx',
+  'radio-elrs-gps',
+  'safety-regulations',
 ];
+
+const COMPONENT_RULES: FieldRules = {
+  'motors-propulsion': new Set(['motor', 'motors', 'propulsion', 'propeller']),
+  'power-battery-esc': new Set(['esc', 'battery', 'batteries', 'power']),
+  'video-goggles-vtx': new Set([
+    'goggles',
+    'vtx',
+    'camera',
+    'video',
+    'digital-video',
+    'analog-video',
+  ]),
+  'radio-elrs-gps': new Set(['radio', 'gps', 'elrs', 'communication']),
+};
+
+const TOPIC_RULES: FieldRules = {
+  freestyle: new Set(['freestyle']),
+  'academy-beginner': new Set(['academy', 'beginner', 'simulators']),
+  'build-workshop': new Set(['soldering', 'wiring', 'workshop']),
+  'tuning-betaflight': new Set(['betaflight', 'tuning', 'blackbox']),
+  'power-battery-esc': new Set(['battery', 'batteries', 'power']),
+  'video-goggles-vtx': new Set([
+    'goggles',
+    'vtx',
+    'camera',
+    'video',
+    'digital-video',
+    'analog-video',
+  ]),
+  'radio-elrs-gps': new Set(['radio', 'gps', 'elrs', 'communication']),
+  'safety-regulations': new Set(['troubleshooting', 'regulations', 'safety']),
+};
+
+const DISCIPLINE_RULES: FieldRules = {
+  racing: new Set(['racing']),
+  freestyle: new Set(['freestyle']),
+  'cinematic-long-range': new Set(['cinematic', 'long-range']),
+};
+
+const CATEGORY_RULES: FieldRules = {
+  racing: new Set(['racing']),
+  'academy-beginner': new Set(['academy', 'beginner', 'simulators']),
+  'build-workshop': new Set(['build-guides', 'soldering', 'wiring', 'workshop']),
+  'tuning-betaflight': new Set(['flight-control', 'betaflight', 'tuning', 'blackbox']),
+  'motors-propulsion': new Set(['motor', 'motors', 'propulsion', 'propeller']),
+  'safety-regulations': new Set(['troubleshooting', 'regulations', 'safety']),
+};
 
 function normalize(value: string): string {
   return value.trim().toLowerCase().replace(/[\s_]+/g, '-');
@@ -102,12 +115,18 @@ function isWrappedInput(input: ContentMetadata | FallbackCoverInput): input is F
   return 'category' in input || 'metadata' in input;
 }
 
-function resolveSignalTier(values: Array<string | undefined>): FallbackCoverFamily | undefined {
-  const signals = new Set(values.filter((value): value is string => Boolean(value)).map(normalize));
+function resolveSignalTier(
+  fields: ReadonlyArray<{ values: readonly string[]; rules: FieldRules }>,
+): RoutedFallbackCoverFamily | undefined {
+  const normalizedFields = fields.map(({ values, rules }) => ({
+    rules,
+    signals: new Set(values.map(normalize)),
+  }));
 
-  for (const rule of FAMILY_SIGNALS) {
-    if ([...rule.values].some((value) => signals.has(value))) {
-      return rule.family;
+  for (const family of FAMILY_ORDER) {
+    if (normalizedFields.some(({ rules, signals }) =>
+      [...(rules[family] ?? [])].some((value) => signals.has(value)))) {
+      return family;
     }
   }
 
@@ -132,12 +151,16 @@ export function resolveFallbackCover(
   }
 
   const family =
-    resolveSignalTier(metadata?.components ?? [])
-    ?? resolveSignalTier([
-      ...(metadata?.topics ?? []),
-      ...(metadata?.discipline ?? []),
+    resolveSignalTier([
+      { values: metadata?.components ?? [], rules: COMPONENT_RULES },
     ])
-    ?? resolveSignalTier([wrappedInput?.category]);
+    ?? resolveSignalTier([
+      { values: metadata?.topics ?? [], rules: TOPIC_RULES },
+      { values: metadata?.discipline ?? [], rules: DISCIPLINE_RULES },
+    ])
+    ?? resolveSignalTier([
+      { values: wrappedInput?.category ? [wrappedInput.category] : [], rules: CATEGORY_RULES },
+    ]);
 
   if (family) {
     return FALLBACK_COVER_PATHS[family];
