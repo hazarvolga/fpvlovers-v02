@@ -25,6 +25,7 @@
     "quality:recent": "node scripts/recent-code-quality-audit.mjs",
     "content:smoke": "node --import tsx scripts/content-automation-smoke.ts",
     "content:audit": "node --import tsx scripts/content-integrity-audit.ts",
+    "content:topic-cover-test": "node --import tsx scripts/topic-fallback-cover-regression-test.ts",
     "content:repair": "node --import tsx scripts/repair-queue-status.ts",
     "tools:audit": "node --import tsx scripts/tool-truth-audit.ts",
     "tools:blackbox:test": "node --import tsx scripts/blackbox-regression-test.ts",
