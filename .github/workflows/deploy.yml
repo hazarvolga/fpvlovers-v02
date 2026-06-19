@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Pages
+name: Validate FPVLovers
 
 on:
   push:
@@ -6,45 +6,63 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: fpvlovers-ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  deploy:
+  quality:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    env:
+      CRAWL_DRY_RUN: 'true'
+      DIFY_API_KEY: build-placeholder-not-a-real-secret
+      DIFY_BASE_URL: https://dify.invalid/v1
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: fpvlovers-ai/package-lock.json
+          node-version: '20.20.2'
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify contracts
         run: |
-          cd fpvlovers-ai && npm ci
+          pnpm content:topic-cover-test
+          pnpm content:cover-test
+          pnpm editorial:governance-test
+          pnpm social:contracts-test
+
+      - name: Verify repository
+        run: |
+          pnpm security:audit
+          pnpm quality:recent
+          pnpm routes:audit
+          pnpm content:audit
+          pnpm content:smoke
+          pnpm metadata:test
+          pnpm media:audit
+          pnpm handoff:test
 
       - name: Type check
-        run: |
-          cd fpvlovers-ai && npx tsc --noEmit
+        run: pnpm exec tsc --noEmit
+
+      - name: Lint
+        run: pnpm lint
 
       - name: Build
-        run: |
-          cd fpvlovers-ai && npm run build
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DIFY_API_KEY: ${{ secrets.DIFY_API_KEY }}
-          DIFY_BASE_URL: ${{ secrets.DIFY_BASE_URL }}
-          CRAWL_DRY_RUN: 'true'
+        run: pnpm build
 
-      - name: Deploy to Cloudflare Pages
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: cloudflare/pages-action@v1
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: fpvlovers
-          directory: fpvlovers-ai/.next/standalone
-          wranglerVersion: '3'
+      # Production deploys from main through the existing Coolify application.

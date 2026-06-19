@@ -55,9 +55,10 @@ Canonical documents:
 
 1. ✅ Production read-only verification completed on 2026-06-19: the healthy Coolify container and `origin/main` both run `061f0f705a415046b7ba5e07df77ece3f41c56e8`.
 2. ✅ Complete local release gate passed after the affiliate/social reconciliation commits.
-3. Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.
-4. Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.
-5. After deploy, browser-verify the iFlight review cover fallback because local port binding was blocked during this session.
+3. ✅ Replaced the broken Cloudflare Pages action with repository-root CI validation; Coolify remains the only production deploy path.
+4. Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.
+5. Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.
+6. After deploy, browser-verify the iFlight review cover fallback because local port binding was blocked during this session.
 
 ## Completed (2026-06-19 Topic-Aware Fallback Covers)
 

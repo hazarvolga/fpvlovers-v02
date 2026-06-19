@@ -1,17 +1,18 @@
 # FPVLovers Handoff Packet
 
-Generated at: 2026-06-19T15:00:36.941Z
+Generated at: 2026-06-19T15:05:19.314Z
 
 ## Git State
 
 - Branch: `main`
-- HEAD: `6e8e2578a231`
-- Against `origin/main`: behind 0, ahead 3
+- HEAD: `dd58eb340027`
+- Against `origin/main`: behind 0, ahead 4
 
 ## What Happened
 
 - Production, `origin/main`, and local `main` were aligned to `061f0f705a415046b7ba5e07df77ece3f41c56e8` on 2026-06-19. The Coolify container was inspected over read-only SSH and was healthy. Topic-aware fallback covers are therefore live, not local-only.
 - Topic-aware fallback covers provide 12 topic families plus one generic safety-net asset under `public/images/fallbacks/`. Homepage and article covers transition `original -> topic -> generic` without mutating persisted artifacts, and explicit article covers are not overwritten by section/gallery images.
+- The stale Cloudflare Pages GitHub workflow was converted to a root-level Node 20/pnpm validation workflow on 2026-06-19. It now runs contract, security, quality, route, content, metadata, media, handoff, type, lint, and build gates; production deployment remains owned exclusively by the existing Coolify application.
 - Affiliate and social/video implementation was reconciled onto current `main` and committed as `2b025b1` on 2026-06-19. Product reviews require evidence, testing method, product relationship, timestamp, and Hazar Volga Ekiz approval; cron stores them as drafts instead of publishing. Non-review content remains autonomous but source/claim/duplicate/metadata/link/disclosure gates can hold it in `generated` state.
 - Public trust and SEO remediation completed locally: unsupported affiliate/manual-testing claims were removed, `/advertise#product-evaluation` defines supplied/loaned-product terms, article trust/disclosure UI is present, legacy unapproved scores are hidden, nine 67-121 word commercial artifacts are excluded from commercial hubs/sitemap/indexing, and primary article metadata now includes canonical, robots, Open Graph, Twitter, and Article JSON-LD.
 - Current source-level affiliate readiness score is **81/100**, up from the audited **52/100** baseline. This is conditionally ready, not permission for broad applications. Production/mobile QA, commercial source backfill, CTA destination validation, and at least one genuine editor-approved review remain application gates.
@@ -21,7 +22,6 @@ Generated at: 2026-06-19T15:00:36.941Z
 - Affiliate and social/video growth program approved on 2026-06-19. Execution order is fixed: first affiliate/editorial readiness, then social distribution and Dify-directed video production. The canonical designs are `docs/superpowers/specs/2026-06-19-affiliate-editorial-governance-design.md` and `docs/superpowers/specs/2026-06-19-social-video-automation-design.md`; implementation plans live beside them under `docs/superpowers/plans/`.
 - Editorial governance decision: only content presented as a product review requires mandatory human approval. The named Product Review Editor is **Hazar Volga Ekiz**. Reviews may publish only after testing method, product relationship, evidence/sources, review timestamp, and editor approval are recorded. Existing review-like artifacts must not be retroactively described as hands-on or editor-approved.
 - All non-review content remains autonomous. It must pass deterministic quality, source, duplicate-content, commercial-language, disclosure, and unsupported-claim checks before publication. Autonomous does not mean unverified: legal/regulatory claims, prices, availability, specifications, and superlatives require current sources or conservative wording.
-- Product evaluation policy: FPVLovers may accept supplied or loaned products for independent evaluation, but receipt never guarantees coverage, timing, a positive verdict, backlinks, or publication. The supplied/loaned/purchased relationship must be disclosed near the review and in structured metadata.
 
 ## Current Blockers
 
