@@ -1,20 +1,22 @@
 {
-  "generatedAt": "2026-06-19T15:05:19.314Z",
+  "generatedAt": "2026-06-19T16:10:36.701Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "release-verification-pending",
   "branch": "main",
-  "head": "dd58eb340027",
+  "head": "4798d48a352a",
   "behind": 0,
-  "ahead": 4,
+  "ahead": 7,
   "currentBlockers": [
-    "Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.",
-    "After rotation, plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
+    "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
     "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
-    "Rotate the exposed Dify and cron credentials before deploying a build that depends on the new env-only credential paths.",
-    "Deploy through Coolify only after rotation and remote Git synchronization; record the live commit and post-deploy smoke evidence.",
-    "After deploy, browser-verify the iFlight review cover fallback because local port binding was blocked during this session."
+    "Push the local commit stack and verify the repository-root GitHub CI plus Coolify deployment.",
+    "Keep `ENABLE_CRAWL_WORKER=false`, switch production from `FPV_STORAGE_MODE=dual` to `postgres`, and restart the app.",
+    "Call `/api/admin/cron/crawl?dry_run=true` with cron auth; confirm it previews exactly one pending Postgres job without changing queue counts.",
+    "Enable `ENABLE_CRAWL_WORKER=true` only after dry-run evidence, process one real job, then verify the Dify document and queue transition before allowing scheduled processing.",
+    "Reduce crawl enqueue frequency from every 5 minutes to the documented six-hour cadence after the worker proof; keep generation at 20 minutes only while it remains `noop`/low-cost.",
+    "After deploy, browser-verify `/advertise`, trust/legal pages, commercial hubs, article trust panels, and the iFlight cover fallback."
   ],
-  "nextTask": "Rotate the Dify console credential and `CRON_SECRET` in their owning systems; current Git files no longer contain the exposed values, but removal does not revoke them.",
+  "nextTask": "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
   "filesOfTruth": [
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
     "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md",
