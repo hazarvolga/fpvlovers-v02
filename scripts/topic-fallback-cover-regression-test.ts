@@ -110,6 +110,22 @@ assert.equal(
   resolveFallbackCover({ metadata: { components: ['beginner'] } }),
   FALLBACK_COVER_PATHS.generic,
 );
+assert.equal(
+  resolveFallbackCover({ metadata: { topics: ['Build Guides'] } }),
+  FALLBACK_COVER_PATHS['build-workshop'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { topics: ['build-guides'] } }),
+  FALLBACK_COVER_PATHS['build-workshop'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { topics: ['Flight Control'] } }),
+  FALLBACK_COVER_PATHS['tuning-betaflight'],
+);
+assert.equal(
+  resolveFallbackCover({ metadata: { topics: ['flight-control'] } }),
+  FALLBACK_COVER_PATHS['tuning-betaflight'],
+);
 assert.equal(resolveFallbackCover(undefined), FALLBACK_COVER_PATHS.generic);
 assert.equal(resolveFallbackCover({}), FALLBACK_COVER_PATHS.generic);
 

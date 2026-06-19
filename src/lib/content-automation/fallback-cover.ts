@@ -77,8 +77,8 @@ const COMPONENT_RULES: FieldRules = {
 const TOPIC_RULES: FieldRules = {
   freestyle: new Set(['freestyle']),
   'academy-beginner': new Set(['academy', 'beginner', 'simulators']),
-  'build-workshop': new Set(['soldering', 'wiring', 'workshop']),
-  'tuning-betaflight': new Set(['betaflight', 'tuning', 'blackbox']),
+  'build-workshop': new Set(['build-guides', 'soldering', 'wiring', 'workshop']),
+  'tuning-betaflight': new Set(['flight-control', 'betaflight', 'tuning', 'blackbox']),
   'power-battery-esc': new Set(['battery', 'batteries', 'power']),
   'video-goggles-vtx': new Set([
     'goggles',
