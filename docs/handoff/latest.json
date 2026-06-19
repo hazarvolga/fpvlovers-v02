@@ -1,20 +1,17 @@
 {
-  "generatedAt": "2026-06-19T16:10:36.701Z",
+  "generatedAt": "2026-06-19T16:41:55.644Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "release-verification-pending",
   "branch": "main",
-  "head": "4798d48a352a",
+  "head": "11fab2addc75",
   "behind": 0,
-  "ahead": 7,
+  "ahead": 0,
   "currentBlockers": [
     "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
     "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
-    "Push the local commit stack and verify the repository-root GitHub CI plus Coolify deployment.",
-    "Keep `ENABLE_CRAWL_WORKER=false`, switch production from `FPV_STORAGE_MODE=dual` to `postgres`, and restart the app.",
-    "Call `/api/admin/cron/crawl?dry_run=true` with cron auth; confirm it previews exactly one pending Postgres job without changing queue counts.",
-    "Enable `ENABLE_CRAWL_WORKER=true` only after dry-run evidence, process one real job, then verify the Dify document and queue transition before allowing scheduled processing.",
-    "Reduce crawl enqueue frequency from every 5 minutes to the documented six-hour cadence after the worker proof; keep generation at 20 minutes only while it remains `noop`/low-cost.",
-    "After deploy, browser-verify `/advertise`, trust/legal pages, commercial hubs, article trust panels, and the iFlight cover fallback."
+    "Deploy and verify the crawl-store hotfix that removes the nonexistent `max_retries` read, writes JSONB metadata atomically, surfaces DB update failures, and accounts only for the 8,000 uploaded characters.",
+    "Repair and validate the backup Crawl4AI route, which returned `502` during the production proof.",
+    "Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy."
   ],
   "nextTask": "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
   "filesOfTruth": [

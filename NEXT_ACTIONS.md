@@ -56,12 +56,14 @@ Canonical documents:
 1. ✅ Production read-only verification completed on 2026-06-19: the healthy Coolify container and `origin/main` both run `061f0f705a415046b7ba5e07df77ece3f41c56e8`.
 2. ✅ Complete local release gate passed after the affiliate/social reconciliation commits.
 3. ✅ Replaced the broken Cloudflare Pages action with repository-root CI validation; Coolify remains the only production deploy path.
-4. Push the local commit stack and verify the repository-root GitHub CI plus Coolify deployment.
-5. Keep global `FPV_STORAGE_MODE=dual`, set `FPV_CRAWL_QUEUE_STORAGE_MODE=postgres` and `ENABLE_CRAWL_WORKER=false`, then restart the app.
-6. Call `/api/admin/cron/crawl?dry_run=true` with cron auth; confirm it previews exactly one pending Postgres job without changing queue counts.
-7. Enable `ENABLE_CRAWL_WORKER=true` only after dry-run evidence, process one real job, then verify the Dify document and queue transition before allowing scheduled processing.
-8. Reduce crawl enqueue frequency from every 5 minutes to the documented six-hour cadence after the worker proof; keep generation at 20 minutes only while it remains `noop`/low-cost.
-9. After deploy, browser-verify `/advertise`, trust/legal pages, commercial hubs, article trust panels, and the iFlight cover fallback.
+4. ✅ Pushed the reconciled stack, passed repository-root GitHub CI, and deployed the healthy production container through a manually queued Coolify deployment.
+5. ✅ Kept global `FPV_STORAGE_MODE=dual`, isolated the crawl queue with `FPV_CRAWL_QUEUE_STORAGE_MODE=postgres`, and enabled the guarded worker after dry-run proof.
+6. ✅ Authenticated dry-run previewed exactly one pending Postgres job without changing queue counts.
+7. ✅ Completed one real primary-Crawl4AI job and independently verified its Dify document as indexed; corrected the queue row after discovering the DB store update defect.
+8. ✅ Reduced crawl cadence from every 5 minutes to every 6 hours; generation remains every 20 minutes only while it stays `noop`/low-cost.
+9. Deploy and verify the crawl-store hotfix that removes the nonexistent `max_retries` read, writes JSONB metadata atomically, surfaces DB update failures, and accounts only for the 8,000 uploaded characters.
+10. Repair and validate the backup Crawl4AI route, which returned `502` during the production proof.
+11. Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy.
 
 ## Completed (2026-06-19 Topic-Aware Fallback Covers)
 

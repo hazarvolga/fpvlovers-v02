@@ -163,7 +163,7 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
 
     // Fetch existing job state for auto-retry logic
     const currentRes = await client.query(
-      'SELECT retry_count, max_retries FROM fpvlovers_app.crawl_jobs WHERE id = $1 FOR UPDATE',
+      'SELECT retry_count FROM fpvlovers_app.crawl_jobs WHERE id = $1 FOR UPDATE',
       [id]
     );
 
@@ -198,13 +198,20 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
       fieldsToUpdate.push(`error_message = $${paramIndex++}`);
       params.push(update.error);
     }
+    let metadataExpression = `COALESCE(metadata, '{}'::jsonb)`;
+    let metadataChanged = false;
     if (update.tokens !== undefined) {
-      fieldsToUpdate.push(`metadata = jsonb_set(COALESCE(metadata, '{}'::jsonb), '{tokens}', $${paramIndex++})`);
+      metadataExpression = `jsonb_set(${metadataExpression}, '{tokens}', to_jsonb($${paramIndex++}::integer), true)`;
       params.push(update.tokens);
+      metadataChanged = true;
     }
     if (update.docId) {
-      fieldsToUpdate.push(`metadata = jsonb_set(COALESCE(metadata, '{}'::jsonb), '{docId}', $${paramIndex++})`);
+      metadataExpression = `jsonb_set(${metadataExpression}, '{docId}', to_jsonb($${paramIndex++}::text), true)`;
       params.push(update.docId);
+      metadataChanged = true;
+    }
+    if (metadataChanged) {
+      fieldsToUpdate.push(`metadata = ${metadataExpression}`);
     }
 
     if (update.status === 'throttled') {
@@ -217,6 +224,7 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
     } else if (update.status === 'completed') {
       fieldsToUpdate.push(`completed_at = $${paramIndex++}`);
       params.push(now);
+      fieldsToUpdate.push('next_attempt_at = NULL', 'error_message = NULL');
     }
 
     await client.query(`
@@ -229,6 +237,7 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
   } catch (err) {
     await client.query('ROLLBACK');
     console.error(`[DB Store] Failed to update crawl job ${id}:`, err);
+    throw err;
   } finally {
     client.release();
   }

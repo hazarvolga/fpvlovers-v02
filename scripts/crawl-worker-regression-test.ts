@@ -43,6 +43,8 @@ assert.equal(dryRunUpdates.length, 0);
 const updates: Array<Partial<CrawlJob>> = [];
 let crawlerCalls = 0;
 let uploadEndpoint = '';
+let uploadTokens = 0;
+let uploadTextLength = 0;
 const success = await processCrawlQueueBatch({
   enabled: true,
   dryRun: false,
@@ -54,11 +56,13 @@ const success = await processCrawlQueueBatch({
       if (crawlerCalls === 1) return new Response(null, { status: 503 });
       return Response.json({
         success: true,
-        results: [{ markdown: { raw_markdown: '# PID tuning\n'.repeat(30) } }],
+        results: [{ markdown: { raw_markdown: '# PID tuning\n'.repeat(1_000) } }],
       });
     },
-    uploadToDify: async (endpoint) => {
+    uploadToDify: async (endpoint, options) => {
       uploadEndpoint = endpoint;
+      uploadTokens = options.tokens;
+      uploadTextLength = String(options.body.text).length;
       return { ok: true, status: 'success', data: { document: { id: 'doc-test-1' } } };
     },
   },
@@ -66,6 +70,9 @@ const success = await processCrawlQueueBatch({
 assert.equal(success.items[0]?.action, 'completed');
 assert.equal(success.items[0]?.crawler, 'backup');
 assert.match(uploadEndpoint, /3eacd19f-ccd8-49ec-8482-51120918f0e0/);
+assert.equal(uploadTextLength, 8_000);
+assert.equal(uploadTokens, Math.ceil(uploadTextLength / 3));
+assert.equal(updates.at(-1)?.tokens, uploadTokens);
 assert.deepEqual(updates.map((update) => update.status), ['processing', 'completed']);
 
 let privateFetchCalled = false;

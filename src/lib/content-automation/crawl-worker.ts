@@ -176,6 +176,8 @@ export async function processCrawlQueueBatch(options: {
 
       await dependencies.updateJob(job.id, { status: 'processing' });
       const crawled = await crawlUrl(job.url, dependencies);
+      const uploadText = crawled.markdown.slice(0, 8_000);
+      const uploadTokens = Math.ceil(uploadText.length / 3);
       const urlHash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(job.url));
       const hashHex = Array.from(new Uint8Array(urlHash))
         .map((byte) => byte.toString(16).padStart(2, '0'))
@@ -186,10 +188,10 @@ export async function processCrawlQueueBatch(options: {
         {
           method: 'POST',
           timeout: 30_000,
-          tokens: Math.ceil(crawled.markdown.length / 3),
+          tokens: uploadTokens,
           body: {
             name: hashHex.slice(0, 32),
-            text: crawled.markdown.slice(0, 8_000),
+            text: uploadText,
             doc_metadata: { source_url: job.url, url_hash: hashHex },
             indexing_technique: 'high_quality',
             process_rule: { mode: 'automatic' },
@@ -208,7 +210,7 @@ export async function processCrawlQueueBatch(options: {
       await dependencies.updateJob(job.id, {
         status: 'completed',
         docId: documentId,
-        tokens: Math.ceil(crawled.markdown.length / 3),
+        tokens: uploadTokens,
         error: undefined,
       });
       items.push({
