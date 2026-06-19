@@ -1,6 +1,7 @@
-import { listPublishedContentAsync } from '@/lib/content-automation/content-reader';
-import { loadContentJobsAsync } from '@/lib/server/content-jobs-store';
-import { getStorageMode } from '@/lib/server/storage-mode';
+import {
+  isIndexablePublishedArtifact,
+  listPublishedContentAsync,
+} from '@/lib/content-automation/content-reader';
 
 const STATIC_PAGES = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
@@ -42,28 +43,12 @@ const STATIC_PAGES = [
 const BASE_URL = process.env.APP_URL || 'https://fpvlovers.com.tr';
 
 export async function GET() {
-  const mode = getStorageMode();
   const slugsSet = new Set<string>();
 
-  // 1. Load slugs from database if configured
-  if (mode === 'postgres' || mode === 'dual') {
-    try {
-      const dbJobs = await loadContentJobsAsync();
-      const publishedJobs = dbJobs.filter((job) => job.status === 'published');
-      for (const job of publishedJobs) {
-        const slug = job.seo?.slug || job.briefSlug;
-        if (slug) slugsSet.add(slug);
-      }
-    } catch (err) {
-      console.error('[Sitemap] Failed to load published content from DB:', err);
-    }
-  }
-
-  // 2. Load slugs from filesystem as well (ensuring local files + committed guides are in sitemap)
   try {
-    const fileArticles = await listPublishedContentAsync();
-    for (const article of fileArticles) {
-      if (article.slug) slugsSet.add(article.slug);
+    const articles = await listPublishedContentAsync();
+    for (const article of articles) {
+      if (article.slug && isIndexablePublishedArtifact(article)) slugsSet.add(article.slug);
     }
   } catch (err) {
     console.error('[Sitemap] Failed to load published content from files:', err);

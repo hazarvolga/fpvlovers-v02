@@ -10,7 +10,7 @@ const BUDGET_LOG = path.join(process.cwd(), 'data', 'api-budget-log.json');
 
 // ─── TYPES ───
 
-export type TaskType = 'embed' | 'classify' | 'metadata' | 'rag_query' | 'content_gen';
+export type TaskType = 'embed' | 'classify' | 'metadata' | 'rag_query' | 'content_gen' | 'video_script';
 
 interface EmbeddingBudget {
   daily_limit: number;
@@ -430,7 +430,8 @@ export function healthCheck(): { dryRun: boolean; budget: ReturnType<typeof getB
 export async function runWorkflow(
   workflowId: string,
   inputs: Record<string, unknown>,
-  appToken: string
+  appToken: string,
+  taskType: TaskType = 'content_gen',
 ): Promise<DifyWorkflowResponse> {
   const response = await difyRequest('/workflows/run', {
     method: 'POST',
@@ -440,7 +441,7 @@ export async function runWorkflow(
       user: `fpvlovers-system-${workflowId}`,
     },
     apiKey: appToken,
-    taskType: 'content_gen',
+    taskType,
   });
 
   return normalizeWorkflowResponse(response);

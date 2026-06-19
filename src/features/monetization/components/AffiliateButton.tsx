@@ -47,7 +47,7 @@ export function AffiliateButton({ url, price, label = "Check Price", provider = 
       <a
         href={url}
         target="_blank"
-        rel="noopener noreferrer nofollow"
+        rel="noopener noreferrer nofollow sponsored"
         className="flex items-center gap-2"
         onClick={handleClick}
       >

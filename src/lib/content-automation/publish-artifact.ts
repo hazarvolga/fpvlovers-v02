@@ -10,6 +10,10 @@ import {
   isGenericStockImage,
   type LicensedImage,
 } from './crawl-image-license';
+import {
+  classifyEditorialContent,
+  evaluatePublicationReadiness,
+} from './editorial-governance';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -24,6 +28,22 @@ export async function publishGeneratedContentArtifact(
   job: ContentJob,
   content: GeneratedContent,
 ): Promise<string> {
+  const classification = classifyEditorialContent({
+    category: job.category,
+    template: job.template,
+  });
+  if (classification.contentClass === 'product-review') {
+    const decision = evaluatePublicationReadiness({
+      classification,
+      review: job.editorial?.contentClass === 'product-review'
+        ? job.editorial
+        : undefined,
+    });
+    if (!decision.canPublish) {
+      throw new Error(`Product review publication blocked: ${decision.blockers.join(' ')}`);
+    }
+  }
+
   ensureDir(PUBLISHED_DIR);
   const jsonPath = path.join(PUBLISHED_DIR, `${slug}.json`);
   const mdPath = path.join(PUBLISHED_DIR, `${slug}.md`);
@@ -128,6 +148,7 @@ export async function publishGeneratedContentArtifact(
     publishNotes: filteredNotes,
     media,
     jobStatus: job.status,
+    editorial: job.editorial,
     publishedAt: new Date().toISOString(),
     promptVersion: job.promptVersion,
   };

@@ -3,7 +3,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchEditorialInsights } from '@/lib/dify';
-import { getPublishedContentBySlugAsync, type PublishedArtifact } from '@/lib/content-automation/content-reader';
+import {
+  getPublishedContentBySlugAsync,
+  isIndexablePublishedArtifact,
+  type PublishedArtifact,
+} from '@/lib/content-automation/content-reader';
 import { getRelatedContent } from '@/lib/content-discovery/related-engine';
 import { getRecommendedNextSteps } from '@/lib/content-discovery/progression-engine';
 import { firstWaveContentPlan } from '@/lib/content-plan';
@@ -16,17 +20,38 @@ import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { ActiveSortieWidget } from '@/features/academy/components/ActiveSortieWidget';
 import { DiscoveryLink } from '@/components/DiscoveryLink';
-import { ResilientCoverImage } from '@/components/ResilientCoverImage';
+import { ResilientArticleCover } from '@/features/content/components/ResilientArticleCover';
+import { EditorialTrustPanel } from '@/features/content/components/EditorialTrustPanel';
 import { resolveFallbackCover } from '@/lib/content-automation/fallback-cover';
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const published = await getPublishedContentBySlugAsync(resolvedParams.slug);
   if (published) {
+    const canonical = `/article/${published.slug}`;
+    const image = published.media?.coverImage?.src;
     return {
       title: `${published.title} | FPVLovers`,
       description: published.excerpt || published.seo.metaDescription,
       keywords: published.seo.keywords,
+      alternates: { canonical },
+      robots: isIndexablePublishedArtifact(published)
+        ? { index: true, follow: true }
+        : { index: false, follow: true },
+      openGraph: {
+        type: 'article' as const,
+        url: canonical,
+        title: published.title,
+        description: published.excerpt || published.seo.metaDescription,
+        publishedTime: published.publishedAt,
+        images: image ? [{ url: image, alt: published.media?.coverImage?.alt || published.title }] : [],
+      },
+      twitter: {
+        card: 'summary_large_image' as const,
+        title: published.title,
+        description: published.excerpt || published.seo.metaDescription,
+        images: image ? [image] : [],
+      },
     };
   }
 
@@ -58,6 +83,19 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { article: PublishedArtifact, relatedContent?: PublishedArtifact[], nextSteps?: PublishedArtifact[] }) {
   const a = article;
   const fallbackCover = resolveFallbackCover({ category: a.category, metadata: a.metadata });
+  const baseUrl = process.env.APP_URL || 'https://fpvlovers.com.tr';
+  const articleUrl = `${baseUrl}/article/${a.slug}`;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: a.title,
+    description: a.excerpt || a.seo.metaDescription,
+    datePublished: a.publishedAt,
+    mainEntityOfPage: articleUrl,
+    image: a.media?.coverImage?.src ? [a.media.coverImage.src] : undefined,
+    publisher: { '@type': 'Organization', name: 'FPVLovers', url: baseUrl },
+  };
+  const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
   const breadcrumbs = [
     { label: 'Content', href: '/#latest' },
     { label: a.category || 'Article', href: `/category/${(a.category || 'article').toLowerCase().replace(/\s+/g, '-')}` },
@@ -66,50 +104,19 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd }} />
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <article className="relative hex-panel glass-panel overflow-hidden lg:col-span-8 col-span-1 border-[#00F2FF]/20 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] bg-[#050810]/70 rounded-lg">
           <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
           {a.media?.coverImage?.src && (
-            <div className="relative w-full h-[360px] md:h-[420px] border-b border-[#00F2FF]/20 overflow-hidden bg-black/80 flex items-center justify-center">
-              {/* Blurred background layer to elegantly fill space for non-16:9 images */}
-              <ResilientCoverImage
-                src={a.media.coverImage.src}
-                fallbackSrc={fallbackCover}
-                alt=""
-                fill
-                className="object-cover opacity-20 blur-2xl scale-125 pointer-events-none"
-                unoptimized={true}
-              />
-              {/* Main cover image, contained so it never stretches or crops awkwardly */}
-              <ResilientCoverImage
-                src={a.media.coverImage.src}
-                fallbackSrc={fallbackCover}
-                alt={a.media.coverImage.alt || a.title}
-                fill
-                sizes="(min-width: 1024px) 66vw, 100vw"
-                unoptimized={true}
-                className="object-contain relative z-10 p-4"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-[#050810]/20 to-transparent z-20 pointer-events-none" />
-              <div className="absolute top-6 left-6 z-30">
-                <span className="text-[10px] uppercase font-black tracking-widest px-3 py-1 bg-black/80 backdrop-blur-md border border-[#00F2FF]/50 text-[#00F2FF] rounded">
-                  {a.category || 'Article'}
-                </span>
-              </div>
-            </div>
-          )}
-          {a.media?.coverImage?.credit && (
-            <div className="px-8 pt-4 text-[10px] text-white/30 font-mono italic flex items-center justify-between">
-              <span>{a.media.coverImage.credit}</span>
-              {a.media.coverImage.sourceUrl && (
-                <a href={a.media.coverImage.sourceUrl} target="_blank" rel="noopener noreferrer" className="text-[#00F2FF] hover:text-[#00FF66] transition-colors uppercase tracking-widest text-[9px] font-black z-10 relative">
-                  [ Cover Source ]
-                </a>
-              )}
-            </div>
+            <ResilientArticleCover
+              asset={a.media.coverImage}
+              category={a.category || 'Article'}
+              fallbackSrc={fallbackCover}
+              title={a.title}
+            />
           )}
           <div className={`p-8 md:p-12 lg:p-16 ${!a.media?.coverImage?.src ? 'pt-12' : 'relative z-10 -mt-20'} relative z-10`}>
             <div className="flex items-center gap-2 mb-6">
@@ -130,6 +137,8 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
                 {a.excerpt}
               </p>
             )}
+
+            <EditorialTrustPanel article={a} />
 
             <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-12 pb-6 border-b border-[#00F2FF]/20">
               <span className="flex items-center gap-1.5"><Cpu className="w-3 h-3" /> FPVLOVERS DATASTREAM</span>

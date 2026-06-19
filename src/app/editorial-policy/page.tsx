@@ -9,7 +9,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Editorial Policy & Scoring Methodology | FPVLovers',
-  description: 'Learn how FPVLovers creates unbiased reviews, comparison benchmarks, and buyer guides using empirical weighted scoring and human pilot audit verification.',
+  description: 'Learn how FPVLovers prepares reviews, comparisons, and buyer guides with transparent sourcing, scoring, corrections, and commercial safeguards.',
 };
 
 export default function EditorialPolicyPage() {
@@ -25,7 +25,7 @@ export default function EditorialPolicyPage() {
     },
     {
       title: 'Review Content',
-      desc: 'Bench testing and field logs evaluating durability, signal reliability, and flight feel. Every score is derived using our weighted evaluation formula.',
+      desc: 'Evaluates documented specifications, compatibility, usability, value, and available field evidence. Each review states when hands-on testing has or has not occurred.',
     },
     {
       title: 'Comparison Content',
@@ -63,7 +63,7 @@ export default function EditorialPolicyPage() {
             {"// PROTOCOL ID: SYS.EDITORIAL_GUIDELINES_v1.0"}
           </p>
           <p className="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-widest">
-            Last Updated: June 18, 2026
+            Last Updated: June 19, 2026
           </p>
         </div>
       </div>
@@ -100,7 +100,7 @@ export default function EditorialPolicyPage() {
             <p className="text-xs text-zinc-400">
               1. **Crawling**: Crawl4AI scrapers extract hardware specs directly from retail stores and vendor directories.
               <br />
-              2. **RAG Vectoring**: Specs are verified for consistency, chunked, and embedded in Qdrant collections.
+              2. **RAG Vectoring**: Specs are normalized for consistency, chunked, and embedded in Qdrant collections.
               <br />
               3. **Drafting**: Dify workflows compile drafts matching structured specifications.
             </p>
@@ -108,7 +108,7 @@ export default function EditorialPolicyPage() {
 
           <div className="p-4 bg-[#FF5C00]/10 border border-[#FF5C00]/30 rounded-lg text-xs text-zinc-200">
             <strong className="block uppercase mb-1 text-white">The Human Guardrail:</strong>
-            **No article is ever published directly by automated scripts.** Every draft must be manually reviewed, edited, fact-checked on the bench, and approved by a licensed pilot editor. This ensures our manuals contain practical context that crawling scrapers cannot gather.
+            Non-review educational and commercial content may publish through the autonomous workflow after deterministic quality checks. Product reviews are the exception: they require recorded approval by Product Review Editor Hazar Volga Ekiz, a testing method, evidence, product-relationship disclosure, and a review timestamp. Automation never creates evidence of hands-on testing.
           </div>
         </section>
 
@@ -133,7 +133,7 @@ export default function EditorialPolicyPage() {
             <Star className="w-5 h-5 text-[#EAB308]" /> 4. Repeatable Review & Scoring Framework
           </h2>
           <p className="text-sm text-zinc-400">
-            To eliminate arbitrary ratings and blogger bias, all reviews published on FPVLovers follow a strict weighted evaluation matrix:
+            To reduce arbitrary ratings, scored reviews use a consistent evaluation matrix. Criteria without verified evidence must be marked not tested rather than estimated:
           </p>
 
           <div className="overflow-x-auto border border-white/5 rounded-lg bg-zinc-950/50">
@@ -176,7 +176,7 @@ export default function EditorialPolicyPage() {
             <HelpCircle className="w-5 h-5 text-[#00F2FF]" /> 5. Affiliate Disclosure Principles
           </h2>
           <p className="text-sm text-zinc-400">
-            We link to retail partners using affiliate cookies. These links never add any cost to the purchaser. All commissions are allocated directly to system operations, helping support our free diagnostics software. You can read our full statement on the <Link href="/disclosure" className="text-[#00F2FF] hover:underline font-bold">Affiliate Disclosure</Link> page.
+            Some retailer links may become affiliate links. Commercial links and sponsored placements must be labeled without changing the editorial verdict. Read the full <Link href="/disclosure" className="text-[#00F2FF] hover:underline font-bold">Affiliate Disclosure</Link> and <Link href="/advertise" className="text-[#00F2FF] hover:underline font-bold">Advertising Policy</Link>.
           </p>
         </section>
       </div>

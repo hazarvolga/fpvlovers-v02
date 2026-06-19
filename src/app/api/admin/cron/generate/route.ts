@@ -12,6 +12,7 @@ import { getPublishedSlugsAsync } from '@/lib/content-automation/content-reader'
 import type { ContentJob } from '@/lib/content-automation/types';
 import { logAutomationRun } from '@/lib/server/automation-runs-store';
 import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
+import { prepareGeneratedPublication } from '@/lib/content-automation/generated-publication';
 
 const LAST_RUN_FILE = path.join(process.cwd(), 'data', 'content-last-auto-run.json');
 const MAX_AUTO_GENERATE_PER_RUN = 1;
@@ -33,6 +34,19 @@ type LastRunPayload = {
     publishedPath?: string;
   };
   briefs?: Array<{ id: string; title: string }>;
+  error?: string;
+};
+
+type GenerationBatchResult = {
+  job: {
+    id: string;
+    title: string;
+    publishedPath?: string;
+  };
+  action: 'would_generate' | 'failed' | 'published' | 'await_product_editor' | 'held_for_quality';
+  workflowRunId?: string | null;
+  totalTokens?: number | null;
+  blockers?: string[];
   error?: string;
 };
 
@@ -73,7 +87,7 @@ export async function GET(req: Request) {
     // Process multiple queued jobs in batch
     const readyJobs = jobs.filter((j) => j.status === 'queued');
     const batch = readyJobs.slice(0, batchCount);
-    const results: any[] = [];
+    const results: GenerationBatchResult[] = [];
     let batchError: string | null = null;
 
     for (const job of batch) {
@@ -120,12 +134,41 @@ export async function GET(req: Request) {
           continue;
         }
 
-        latestJob.status = 'published';
-        latestJob.updatedAt = new Date().toISOString();
-        latestJob.publishedPath = await publishGeneratedContentArtifact(
-          result.content.seo.slug || latestJob.seo.slug || latestJob.briefSlug,
+        const now = new Date().toISOString();
+        const prepared = prepareGeneratedPublication(
           latestJob,
           result.content,
+          now,
+          result.sources,
+        );
+        latestJob.updatedAt = now;
+        latestJob.editorial = prepared.editorial;
+
+        if (prepared.action !== 'publish') {
+          latestJob.status = 'generated';
+          latestJob.draft = JSON.parse(
+            JSON.stringify(prepared.content),
+          ) as Record<string, unknown>;
+          latestJob.feedback = prepared.decision.blockers.join(' ');
+          latestJobs[index] = latestJob;
+          await saveContentJobsNew(latestJobs);
+          results.push({
+            job: { id: latestJob.id, title: latestJob.title },
+            action: prepared.action === 'await-product-editor'
+              ? 'await_product_editor'
+              : 'held_for_quality',
+            blockers: prepared.decision.blockers,
+            workflowRunId: result.workflowRunId,
+            totalTokens: result.totalTokens,
+          });
+          continue;
+        }
+
+        latestJob.status = 'published';
+        latestJob.publishedPath = await publishGeneratedContentArtifact(
+          prepared.content.seo.slug || latestJob.seo.slug || latestJob.briefSlug,
+          latestJob,
+          prepared.content,
         );
         latestJobs[index] = latestJob;
         await saveContentJobsNew(latestJobs);
@@ -135,12 +178,13 @@ export async function GET(req: Request) {
           workflowRunId: result.workflowRunId,
           totalTokens: result.totalTokens,
         });
-      } catch (e: any) {
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Unknown generation error';
         job.status = 'failed';
-        job.feedback = e.message;
+        job.feedback = message;
         job.updatedAt = new Date().toISOString();
         await saveContentJobsNew(jobs);
-        results.push({ job: { id: job.id, title: job.title }, action: 'failed', error: e.message });
+        results.push({ job: { id: job.id, title: job.title }, action: 'failed', error: message });
       }
     }
 
@@ -154,7 +198,13 @@ export async function GET(req: Request) {
       return NextResponse.json({
         success: batchError ? false : true,
         action: batch.length > 1 ? 'batch_complete' : results[0]?.action,
-        batch: { total: batch.length, published: results.filter((r) => r.action === 'published').length, failed: results.filter((r) => r.action === 'failed').length },
+        batch: {
+          total: batch.length,
+          published: results.filter((r) => r.action === 'published').length,
+          awaitingProductEditor: results.filter((r) => r.action === 'await_product_editor').length,
+          heldForQuality: results.filter((r) => r.action === 'held_for_quality').length,
+          failed: results.filter((r) => r.action === 'failed').length,
+        },
         results,
         queueRemaining: readyJobs.length - batch.length,
       });

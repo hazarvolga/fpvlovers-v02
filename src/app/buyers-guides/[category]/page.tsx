@@ -1,6 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
-import { listPublishedContentAsync } from '@/lib/content-automation/content-reader';
+import { isIndexablePublishedArtifact, listPublishedContentAsync } from '@/lib/content-automation/content-reader';
 import { CategoryGuideHubClient } from './CategoryGuideHubClient';
 import { BUYERS_GUIDE_CATEGORIES } from '../BuyersGuidesHubClient';
 
@@ -40,7 +40,7 @@ export default async function CategoryGuidePage({ params }: PageProps) {
 
   // Filter content matching this category
   const matchingContent = allContent.filter(
-    a => a.metadata && config.matcher(a.metadata)
+    a => a.metadata && config.matcher(a.metadata) && isIndexablePublishedArtifact(a)
   );
 
   // Split into content types

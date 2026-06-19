@@ -8,11 +8,13 @@ import { FALLBACK_COVER_PATHS } from '@/lib/content-automation/fallback-cover';
 type ResilientCoverImageProps = Omit<ImageProps, 'src' | 'onError'> & {
   src?: string;
   fallbackSrc?: string;
+  onFallbackChange?: (usesFallback: boolean) => void;
 };
 
 export function ResilientCoverImage({
   src,
   fallbackSrc = FALLBACK_COVER_PATHS.generic,
+  onFallbackChange,
   alt,
   ...imageProps
 }: ResilientCoverImageProps) {
@@ -30,7 +32,10 @@ export function ResilientCoverImage({
       {...imageProps}
       src={currentSrc}
       alt={alt}
-      onError={() => setCandidateIndex((index) => index + 1)}
+      onError={() => setCandidateIndex((index) => {
+        onFallbackChange?.(true);
+        return index + 1;
+      })}
     />
   );
 }

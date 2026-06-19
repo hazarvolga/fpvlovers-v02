@@ -28,7 +28,7 @@ export default function AboutPage() {
     {
       icon: Wrench,
       title: 'Building (Engineering Lab)',
-      description: 'Empirical component comparisons, ESC protocols, soldering tutorials, and wiring schematics verified on the test bench.',
+      description: 'Evidence-aware component comparisons, ESC protocols, soldering tutorials, and wiring references with testing status stated explicitly.',
       color: '#FF5C00',
     },
     {
@@ -63,7 +63,7 @@ export default function AboutPage() {
             {"// DOCUMENT ID: FPV.MISSION_OBJECTIVES_v1.0"}
           </p>
           <p className="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-widest">
-            Last Updated: June 18, 2026
+            Last Updated: June 19, 2026
           </p>
         </div>
       </div>
@@ -126,10 +126,10 @@ export default function AboutPage() {
             <Users className="w-5 h-5 text-[#00FF66]" /> Founder & Platform Story
           </h2>
           <p className="text-sm leading-relaxed text-zinc-400 mb-4">
-            FPVLovers was founded by a passionate community of FPV engineers and pilots who grew tired of buying components twice due to poor documentation and fragmented compatibility charts. What started as a simple spreadsheet of ESC failure rates quickly evolved into a fully automated knowledge engine.
+            FPVLovers was created to reduce costly FPV purchasing and setup mistakes caused by fragmented documentation, changing firmware, and unclear compatibility guidance.
           </p>
           <p className="text-sm leading-relaxed text-zinc-400">
-            Our goal is to remain 100% independent and open, funded transparently through structured affiliate links. Every commission earned is directly reinvested into expanding our public RAG datasets and keeping our calculators free for pilots globally.
+            Our goal is to build an independent, openly explained knowledge system. Affiliate links and sponsorships may support operations in the future, but commercial relationships will be disclosed and will not purchase a favorable verdict.
           </p>
         </div>
 
@@ -153,7 +153,7 @@ export default function AboutPage() {
           </ul>
           <div className="p-4 bg-black/60 border border-white/10 rounded-lg text-xs leading-relaxed text-zinc-300">
             <strong className="text-white block uppercase mb-1">⚠️ Critical Editorial Guard:</strong>
-            While we use AI to help extract specifications and draft comparison summaries, **no content is published autonomously**. Every guide, review, and comparison is manually audited, fact-checked, and approved by a real FPV pilot. If our benchmarks show a component is unsafe or unreliable, we flag it—no exceptions.
+            Non-review content can be researched and published autonomously after quality safeguards. Product reviews cannot: they require evidence, a stated testing method, product-relationship disclosure, and approval by Product Review Editor Hazar Volga Ekiz. Automation never substitutes for first-hand testing.
           </div>
         </div>
       </div>

@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
-import type { ContentJobStatus } from '@/lib/content-automation/types';
+import { parseGeneratedContent } from '@/lib/content-automation/parse-generated-content';
+import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
+import {
+  PRODUCT_REVIEW_EDITOR,
+  classifyEditorialContent,
+  evaluatePublicationReadiness,
+} from '@/lib/content-automation/editorial-governance';
+import type {
+  ContentJobStatus,
+  EditorialReviewRecord,
+  ProductRelationship,
+  ReviewTestingMethod,
+} from '@/lib/content-automation/types';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 type TransitionMap = Record<ContentJobStatus, ContentJobStatus[]>;
@@ -15,6 +27,65 @@ const VALID_TRANSITIONS: TransitionMap = {
   published: [],
   failed: [],
 };
+
+const CONTENT_JOB_STATUSES = new Set<ContentJobStatus>([
+  'brief',
+  'queued',
+  'generating',
+  'generated',
+  'reviewed',
+  'approved',
+  'published',
+  'failed',
+]);
+const REVIEW_METHODS = new Set<ReviewTestingMethod>(['hands-on', 'spec-analysis']);
+const PRODUCT_RELATIONSHIPS = new Set<ProductRelationship>(['purchased', 'supplied', 'loaned', 'none']);
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : null;
+}
+
+function asStringArray(value: unknown): string[] {
+  return Array.isArray(value)
+    ? value.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+    : [];
+}
+
+function buildReviewRecord(
+  value: unknown,
+  now: string,
+): { record: EditorialReviewRecord | null; error?: string } {
+  const input = asRecord(value);
+  if (!input) return { record: null, error: 'editorial review data is required' };
+  if (input.editorName !== PRODUCT_REVIEW_EDITOR) {
+    return { record: null, error: `editorName must be ${PRODUCT_REVIEW_EDITOR}` };
+  }
+  const testingMethod = input.testingMethod;
+  if (typeof testingMethod !== 'string' || !REVIEW_METHODS.has(testingMethod as ReviewTestingMethod)) {
+    return { record: null, error: 'testingMethod must be hands-on or spec-analysis' };
+  }
+  const productRelationship = input.productRelationship;
+  if (typeof productRelationship !== 'string'
+    || !PRODUCT_RELATIONSHIPS.has(productRelationship as ProductRelationship)) {
+    return { record: null, error: 'productRelationship must be purchased, supplied, loaned, or none' };
+  }
+
+  return {
+    record: {
+      contentClass: 'product-review',
+      approvalStatus: 'pending',
+      editorName: PRODUCT_REVIEW_EDITOR,
+      reviewedAt: now,
+      testingMethod: testingMethod as ReviewTestingMethod,
+      productRelationship: productRelationship as ProductRelationship,
+      compensationReceived: input.compensationReceived === true,
+      evidenceSources: asStringArray(input.evidenceSources),
+      disclosure: typeof input.disclosure === 'string' ? input.disclosure.trim() : undefined,
+    },
+  };
+}
 
 export async function GET(
   _req: NextRequest,
@@ -33,8 +104,9 @@ export async function GET(
     }
 
     return NextResponse.json({ success: true, job });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown content job error';
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }
 
@@ -47,9 +119,12 @@ export async function PATCH(
 
   try {
     const { id } = await params;
-    const body = await req.json();
-    const target: ContentJobStatus | undefined = body.status;
-    const feedback: string | undefined = body.feedback;
+    const body = asRecord(await req.json());
+    const targetValue = body?.status;
+    const target = typeof targetValue === 'string' && CONTENT_JOB_STATUSES.has(targetValue as ContentJobStatus)
+      ? targetValue as ContentJobStatus
+      : undefined;
+    const feedback = typeof body?.feedback === 'string' ? body.feedback : undefined;
 
     if (!target) {
       return NextResponse.json(
@@ -86,18 +161,95 @@ export async function PATCH(
     }
 
     const now = new Date().toISOString();
-    job.status = target;
+
+    const classification = classifyEditorialContent({
+      category: job.category,
+      template: job.template,
+    });
+    if (['reviewed', 'approved', 'published'].includes(target)
+      && classification.contentClass !== 'product-review') {
+      return NextResponse.json(
+        { success: false, error: 'Only product reviews use the human editorial transition chain.' },
+        { status: 409 },
+      );
+    }
+
+    if (target === 'reviewed') {
+      const parsed = buildReviewRecord(body?.editorial, now);
+      if (!parsed.record) {
+        return NextResponse.json({ success: false, error: parsed.error }, { status: 400 });
+      }
+      job.editorial = parsed.record;
+    }
+
+    if (target === 'approved') {
+      if (job.editorial?.contentClass !== 'product-review') {
+        return NextResponse.json(
+          { success: false, error: 'Product review editorial record is missing.' },
+          { status: 409 },
+        );
+      }
+      const approvedRecord: EditorialReviewRecord = {
+        ...job.editorial,
+        approvalStatus: 'approved',
+      };
+      const decision = evaluatePublicationReadiness({
+        classification,
+        review: approvedRecord,
+      });
+      if (!decision.canPublish) {
+        return NextResponse.json(
+          { success: false, error: 'Product review is not publication-ready.', blockers: decision.blockers },
+          { status: 409 },
+        );
+      }
+      job.editorial = approvedRecord;
+    }
+
+    if (target === 'published') {
+      if (job.editorial?.contentClass !== 'product-review') {
+        return NextResponse.json(
+          { success: false, error: 'Approved product review record is missing.' },
+          { status: 409 },
+        );
+      }
+      const decision = evaluatePublicationReadiness({ classification, review: job.editorial });
+      if (!decision.canPublish) {
+        return NextResponse.json(
+          { success: false, error: 'Product review is not publication-ready.', blockers: decision.blockers },
+          { status: 409 },
+        );
+      }
+      const draft = job.draft
+        ? parseGeneratedContent(JSON.stringify(job.draft))
+        : null;
+      if (!draft) {
+        return NextResponse.json(
+          { success: false, error: 'Product review draft is missing or invalid.' },
+          { status: 409 },
+        );
+      }
+      job.status = 'published';
+      job.publishedPath = await publishGeneratedContentArtifact(
+        draft.seo.slug || job.seo.slug || job.briefSlug,
+        job,
+        draft,
+      );
+    } else {
+      job.status = target;
+    }
     job.updatedAt = now;
 
     if (feedback) {
-      (job as any).feedback = feedback;
+      job.feedback = feedback;
     }
 
     jobs[index] = job;
     await saveContentJobsNew(jobs);
 
     return NextResponse.json({ success: true, job });
-  } catch (err: any) {
-    return NextResponse.json({ success: false, error: err.message }, { status: 500 });
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown content job update error';
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

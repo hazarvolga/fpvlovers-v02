@@ -10,6 +10,7 @@ export type ContentJobStatus =
 
 export type ContentTemplate =
   | 'tech-article'
+  | 'product-review'
   | 'build-guide'
   | 'comparison'
   | 'troubleshooting'
@@ -40,6 +41,37 @@ export type ContentMedia = {
   attribution: string[];
 };
 
+export type ReviewTestingMethod = 'hands-on' | 'spec-analysis';
+
+export type ProductRelationship = 'purchased' | 'supplied' | 'loaned' | 'none';
+
+export type EditorialApprovalStatus = 'pending' | 'approved' | 'rejected';
+
+export type EditorialReviewRecord = {
+  contentClass: 'product-review';
+  approvalStatus: EditorialApprovalStatus;
+  editorName?: string;
+  reviewedAt?: string;
+  testingMethod?: ReviewTestingMethod;
+  productRelationship?: ProductRelationship;
+  compensationReceived: boolean;
+  evidenceSources: string[];
+  disclosure?: string;
+};
+
+export type AutonomousEditorialRecord = {
+  contentClass: 'autonomous';
+  checkedAt?: string;
+  sourceCount?: number;
+  unsupportedClaimCount?: number;
+  duplicateScore?: number;
+  metadataComplete?: boolean;
+  linksValid?: boolean;
+  disclosurePresent?: boolean;
+};
+
+export type EditorialRecord = EditorialReviewRecord | AutonomousEditorialRecord;
+
 export type ContentJob = {
   id: string;
   briefSlug: string;
@@ -53,6 +85,7 @@ export type ContentJob = {
   sourceHints: string[];
   seo: ContentJobSEO;
   media?: ContentMedia;
+  editorial?: EditorialRecord;
   draftPath?: string;
   publishedPath?: string;
   feedback?: string;

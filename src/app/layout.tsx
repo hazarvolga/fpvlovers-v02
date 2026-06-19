@@ -14,9 +14,21 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { SessionProvider } from 'next-auth/react';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.APP_URL || 'https://fpvlovers.com.tr'),
   title: 'FPV LOVERS | Learn, Build, Race, Fly, Tools, News',
   description: 'English-first FPV guides, engineering references, and practical pilot tools for building, tuning, and learning faster.',
   keywords: ['FPV', 'Learn', 'Build', 'Race', 'Fly', 'Tools', 'News', 'Build Guides', 'Troubleshooting'],
+  openGraph: {
+    type: 'website',
+    siteName: 'FPVLovers',
+    title: 'FPVLovers | Learn, Build, Race, Fly',
+    description: 'English-first FPV guides, engineering references, and practical pilot tools.',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FPVLovers | Learn, Build, Race, Fly',
+    description: 'English-first FPV guides, engineering references, and practical pilot tools.',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

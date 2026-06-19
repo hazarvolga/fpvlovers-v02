@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
+import { isApprovedHandsOnReview } from '@/lib/content-automation/editorial-governance';
 import {
   trackBuyerGuideClick,
   trackReviewClick,
@@ -135,12 +136,13 @@ export function CategoryGuideHubClient({
           {reviews.length > 0 && (
             <div>
               <h2 className="text-xl font-mono font-black uppercase text-white tracking-widest mb-6 flex items-center gap-2">
-                <Star className="w-5 h-5 text-[#EAB308]" /> Bench Reviews
+                <Star className="w-5 h-5 text-[#EAB308]" /> Product Assessments
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {reviews.map((rev) => {
                   const meta = rev.metadata!.review!;
                   const coverImage = rev.media?.coverImage?.src || rev.coverImage;
+                  const showScore = isApprovedHandsOnReview(rev.editorial);
                   return (
                     <div
                       key={rev.slug}
@@ -149,8 +151,8 @@ export function CategoryGuideHubClient({
                       {/* Score Badge */}
                       <div className="absolute top-4 right-4 z-20 flex items-center justify-center w-12 h-12 rounded-full border border-[#00F2FF]/40 bg-black/90 font-mono text-center">
                         <div className="flex flex-col items-center">
-                          <span className="text-sm font-black text-white leading-none">{meta.reviewScore}</span>
-                          <span className="text-[6px] text-[#00F2FF] font-bold uppercase tracking-tighter">SCORE</span>
+                          <span className="text-sm font-black text-white leading-none">{showScore ? meta.reviewScore : 'SPEC'}</span>
+                          <span className="text-[6px] text-[#00F2FF] font-bold uppercase tracking-tighter">{showScore ? 'SCORE' : 'ANALYSIS'}</span>
                         </div>
                       </div>
 

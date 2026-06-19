@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "sourceSlug": "dji-o3-vs-walksnail-avatar-comparison",
+  "contentClass": "comparison",
+  "requiresHumanApproval": false,
+  "language": "en",
+  "aspectRatio": "9:16",
+  "targetDurationSeconds": 45,
+  "facts": [
+    {
+      "id": "fact-0e1e818c1491",
+      "text": "DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle",
+      "sourceSectionId": "title"
+    },
+    {
+      "id": "fact-2250018882af",
+      "text": "We compare the DJI O3 Air Unit head-to-head with the Walksnail Avatar HD Pro. Contrasting video quality, night flying, receiver setups, and price.",
+      "sourceSectionId": "excerpt"
+    },
+    {
+      "id": "fact-9c49340a4acd",
+      "text": "The DJI O3 dominates when it comes to raw daytime image quality and onboard stabilization.",
+      "sourceSectionId": "overview-sub-1"
+    },
+    {
+      "id": "fact-ef1b607701c7",
+      "text": "The camera records pristine 4K/60fps video directly to its internal memory.",
+      "sourceSectionId": "overview-sub-1"
+    },
+    {
+      "id": "fact-95c4da5f8875",
+      "text": "The Walksnail Avatar HD Pro, however, is equipped with a Starlight sensor that outperforms the DJI O3 in low-light and night flights, capturing rich detail in dark environments.",
+      "sourceSectionId": "overview-sub-1"
+    },
+    {
+      "id": "fact-5b0887458e8a",
+      "text": "The DJI O3 is heavier and larger, requiring a spacious frame layout.",
+      "sourceSectionId": "overview-sub-2"
+    },
+    {
+      "id": "fact-a405ec57555d",
+      "text": "The Walksnail system offers micro and nano camera formats and VTX designs with standard mounting holes (20x20mm), making it easier to fit into small builds and whoops.",
+      "sourceSectionId": "overview-sub-2"
+    },
+    {
+      "id": "fact-d7e58cd6004f",
+      "text": "If onboard 4K is your priority, choose DJI.",
+      "sourceSectionId": "overview-sub-2"
+    },
+    {
+      "id": "fact-78f22f3bd09b",
+      "text": "If low-light performance and weight are key, Walksnail is the winner.",
+      "sourceSectionId": "overview-sub-2"
+    }
+  ],
+  "scenes": [
+    {
+      "id": "hook",
+      "startSeconds": 0,
+      "endSeconds": 8,
+      "narration": "DJI O3 versus Walksnail is not a one-spec decision. You are choosing a complete video ecosystem.",
+      "onScreenText": "DJI O3 vs Walksnail",
+      "factIds": [
+        "fact-0e1e818c1491"
+      ],
+      "assetRefs": [
+        "brand://split-signal"
+      ]
+    },
+    {
+      "id": "priorities",
+      "startSeconds": 8,
+      "endSeconds": 22,
+      "narration": "Start with the mission. Compare daytime image priorities, low-light needs, onboard recording, aircraft size, and weight.",
+      "onScreenText": "Mission first: image / low light / recording / weight",
+      "factIds": [
+        "fact-2250018882af",
+        "fact-9c49340a4acd"
+      ],
+      "assetRefs": [
+        "brand://decision-grid"
+      ]
+    },
+    {
+      "id": "system",
+      "startSeconds": 22,
+      "endSeconds": 36,
+      "narration": "Then check goggles, camera and transmitter formats, mounting space, and the upgrade path. Compatibility can matter more than a headline specification.",
+      "onScreenText": "Check the whole system",
+      "factIds": [
+        "fact-9c49340a4acd",
+        "fact-ef1b607701c7"
+      ],
+      "assetRefs": [
+        "brand://ecosystem-map"
+      ]
+    },
+    {
+      "id": "cta",
+      "startSeconds": 36,
+      "endSeconds": 45,
+      "narration": "This is a specification-based comparison, not a hands-on test. Read the full context on FPVLovers.",
+      "onScreenText": "Specification analysis. Full guide: FPVLovers",
+      "factIds": [
+        "fact-0e1e818c1491"
+      ],
+      "assetRefs": [
+        "brand://end-card"
+      ]
+    }
+  ],
+  "cta": "Read the full comparison on FPVLovers.",
+  "disclosures": [
+    "Specification-based comparison; not presented as hands-on testing."
+  ],
+  "containsSyntheticMedia": true,
+  "paidProductPlacement": false,
+  "uploadVisibility": "private"
+}

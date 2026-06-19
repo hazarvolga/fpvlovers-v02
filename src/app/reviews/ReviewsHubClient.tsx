@@ -7,6 +7,7 @@ import { Shield, ThumbsUp, ThumbsDown, Award, Star, ArrowRight } from 'lucide-re
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { trackReviewClick } from '@/lib/analytics';
+import { isApprovedHandsOnReview } from '@/lib/content-automation/editorial-governance';
 
 interface ReviewsHubClientProps {
   initialReviews: PublishedArtifact[];
@@ -56,7 +57,7 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
           Hardware <span className="text-[#00F2FF]">Reviews</span>
         </h1>
         <p className="text-xs font-mono text-[#00F2FF] max-w-2xl leading-relaxed uppercase tracking-widest text-center relative z-10">
-          {"// DEEP LAB BENCH TESTS. UNBIASED TELEMETRY, SPEC SHEET DISSECTIONS AND PERFORMANCE METRICS."}
+          {"// PRODUCT ASSESSMENTS WITH TESTING STATUS, SOURCES, TRADEOFFS AND EDITORIAL DISCLOSURE."}
         </p>
       </div>
 
@@ -103,6 +104,7 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
           {filteredReviews.map((rev) => {
             const meta = rev.metadata!.review!;
             const coverImage = rev.media?.coverImage?.src || rev.coverImage;
+            const showScore = isApprovedHandsOnReview(rev.editorial);
 
             return (
               <div
@@ -110,10 +112,10 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
                 className="hex-panel glass-panel border border-white/10 bg-[#050810]/70 hover:border-[#FF5C00]/50 transition-all duration-500 rounded-lg overflow-hidden flex flex-col group relative"
               >
                 {/* Score telemetry badge */}
-                <div className="absolute top-4 right-4 z-20 flex items-center justify-center w-14 h-14 rounded-full border-2 border-[#00F2FF] bg-black/80 shadow-[0_0_15px_rgba(0,242,255,0.2)] font-mono text-center">
+                <div className="absolute top-4 right-4 z-20 flex items-center justify-center min-w-14 h-14 rounded-full border-2 border-[#00F2FF] bg-black/80 px-2 shadow-[0_0_15px_rgba(0,242,255,0.2)] font-mono text-center">
                   <div className="flex flex-col items-center">
-                    <span className="text-xs font-black text-white leading-none">{meta.reviewScore}</span>
-                    <span className="text-[7px] text-[#00F2FF] font-bold uppercase tracking-tighter">SCORE</span>
+                    <span className="text-xs font-black text-white leading-none">{showScore ? meta.reviewScore : 'SPEC'}</span>
+                    <span className="text-[7px] text-[#00F2FF] font-bold uppercase tracking-tighter">{showScore ? 'SCORE' : 'ANALYSIS'}</span>
                   </div>
                 </div>
 
@@ -203,7 +205,7 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
                       className="inline-flex items-center gap-2 text-xs font-mono font-black uppercase tracking-widest text-white/80 hover:text-[#FF5C00] transition-colors group/link"
                       onClick={() => handleReviewClick(rev.slug, meta.productBrand, meta.productModel)}
                     >
-                      Read Full Review
+                      {showScore ? 'Read Full Review' : 'Read Assessment'}
                       <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1.5 transition-all text-[#FF5C00]" />
                     </Link>
                   </div>

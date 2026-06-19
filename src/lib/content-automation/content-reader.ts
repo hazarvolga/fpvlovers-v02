@@ -9,6 +9,7 @@ import { safeReadJson } from '@/lib/utils/json';
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
 import type { ContentMetadata } from '../content-metadata';
+import type { EditorialRecord } from './types';
 
 export type PublishedArtifact = GeneratedContent & {
   slug: string;
@@ -21,7 +22,30 @@ export type PublishedArtifact = GeneratedContent & {
   media?: ContentMedia;
   coverImage?: string;
   metadata?: ContentMetadata;
+  editorial?: EditorialRecord;
 };
+
+export function getArtifactWordCount(article: PublishedArtifact): number {
+  return (article.bodySections || [])
+    .flatMap((section) => section.content.split(/\s+/))
+    .filter(Boolean)
+    .length;
+}
+
+export function isCommercialArtifact(article: PublishedArtifact): boolean {
+  return ['review', 'comparison', 'buyer-guide', 'product-roundup']
+    .includes(article.metadata?.contentType || '');
+}
+
+export function isIndexablePublishedArtifact(article: PublishedArtifact): boolean {
+  if (!isCommercialArtifact(article)) return true;
+  if (article.metadata?.contentType === 'review') {
+    return article.editorial?.contentClass === 'product-review'
+      && article.editorial.approvalStatus === 'approved'
+      && article.editorial.evidenceSources.length > 0;
+  }
+  return getArtifactWordCount(article) >= 600;
+}
 
 export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtifact | null {
   if (!parsed || typeof parsed.slug !== 'string') return null;

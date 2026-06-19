@@ -36,3 +36,11 @@ tsconfig.check-old.json
 data/content-last-auto-run.json
 data/crawl-last-auto-run.json
 data/api-budget-log.json
+
+# Generated social-video render outputs (source manifests and narration stay tracked)
+video/**/*.aiff
+video/**/*.mp4
+video/**/hook.png
+video/**/priorities.png
+video/**/system.png
+video/**/cta.png

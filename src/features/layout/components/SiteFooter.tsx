@@ -109,7 +109,10 @@ export function SiteFooter() {
             <Link href="/academy/glossary" className="transition-colors hover:text-zinc-400">Glossary</Link>
             <Link href="/privacy" className="transition-colors hover:text-zinc-400">Privacy Policy</Link>
             <Link href="/terms" className="transition-colors hover:text-zinc-400">Terms of Service</Link>
+            <Link href="/editorial-policy" className="transition-colors hover:text-zinc-400">Editorial Policy</Link>
             <Link href="/disclosure" className="transition-colors hover:text-zinc-400">Affiliate Disclosure</Link>
+            <Link href="/advertise" className="transition-colors hover:text-zinc-400">Advertise</Link>
+            <Link href="/contact" className="transition-colors hover:text-zinc-400">Contact</Link>
             <Link href="/sitemap.xml" className="transition-colors hover:text-zinc-400">Sitemap</Link>
           </div>
         </div>

@@ -56,7 +56,7 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
           Product <span className="text-[#00F2FF]">Comparisons</span>
         </h1>
         <p className="text-xs font-mono text-[#00F2FF] max-w-2xl leading-relaxed uppercase tracking-widest text-center relative z-10">
-          {"// HEAD-TO-HEAD SPEC BENCHMARKS. ACCLAIMED HARDWARE VS POPULAR ALTERNATIVES ANALYZED."}
+          {"// SOURCE-AWARE SPECIFICATIONS, COMPATIBILITY, USE CASES AND PRACTICAL TRADEOFFS."}
         </p>
       </div>
 
