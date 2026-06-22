@@ -6,13 +6,14 @@ import {
   Settings, Server, Cpu, Command, AlertTriangle, Workflow, ChevronRight, Zap,
   Plus, Globe, Send, Loader2, CheckCircle2, XCircle, Search, Clock, FileText,
   Pen, Sparkles, ShoppingCart, DollarSign, Trash2, HeartPulse, BadgeDollarSign, LayoutDashboard, PackageSearch,
-  Youtube
+  Youtube, Lightbulb
 } from 'lucide-react';
 import SponsorDashboard from '@/features/monetization/components/SponsorDashboard';
 import AnalyticsDashboard from '@/features/admin/components/AnalyticsDashboard';
 import ContentAutomationPanel from '@/components/admin/ContentAutomationPanel';
 import PublishedContentPanel from '@/components/admin/PublishedContentPanel';
 import YoutubeJournalistPanel from '@/components/admin/YoutubeJournalistPanel';
+import IdeationPanel from '@/components/admin/IdeationPanel';
 import NewsletterPanel from '@/features/admin/components/NewsletterPanel';
 import { Button } from '@/components/ui/button';
 import {
@@ -70,7 +71,7 @@ type CrawlerInfo = {
   error?: string;
 };
 
-type TabId = 'hub' | 'ingest' | 'content' | 'youtube' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry' | 'newsletter' | 'analytics';
+type TabId = 'hub' | 'ingest' | 'content' | 'youtube' | 'jobs' | 'published' | 'logs' | 'retrieval' | 'raw-browser' | 'catalog' | 'affiliates' | 'sponsors' | 'orchestrator' | 'health' | 'registry' | 'telemetry' | 'newsletter' | 'analytics' | 'ideation';
 
 type Tab = { id: TabId; label: string; icon: React.ElementType };
 
@@ -233,6 +234,7 @@ export default function AdminDashboard() {
         { id: 'hub', label: 'RAG Hub', icon: Database },
         { id: 'ingest', label: 'URL Ingestion', icon: Globe },
         { id: 'content', label: 'Content Gen', icon: Pen },
+        { id: 'ideation', label: 'Content Ideas', icon: Lightbulb },
         { id: 'youtube', label: 'YouTube Journalist', icon: Youtube },
         { id: 'jobs', label: 'Content Jobs', icon: Workflow },
         { id: 'published', label: 'Published', icon: FileText },
@@ -799,6 +801,9 @@ export default function AdminDashboard() {
               {activeTab === 'jobs' && (
                 <ContentAutomationPanel onNavigateToGeneration={() => setActiveTab('content')} />
               )}
+
+              {/* CONTENT IDEAS (IDEATION) */}
+              {activeTab === 'ideation' && <IdeationPanel />}
 
               {/* PUBLISHED CONTENT */}
               {activeTab === 'published' && <PublishedContentPanel />}

@@ -15,6 +15,7 @@ type ContentJobTableProps = {
 };
 
 const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  'pending-approval': { bg: 'bg-[#1A110A]', text: 'text-[#FF8800]', border: 'border-[#FF8800]/30' },
   brief:       { bg: 'bg-[#111]',        text: 'text-[#A0A0A0]', border: 'border-[#333]' },
   queued:      { bg: 'bg-[#0A1A2A]',     text: 'text-[#00F2FF]', border: 'border-[#00F2FF]/30' },
   generating:  { bg: 'bg-[#1A1A0A]',     text: 'text-[#FFD700]', border: 'border-[#FFD700]/30' },
@@ -26,6 +27,7 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }
 };
 
 const ACTIONS_BY_STATUS: Record<string, { label: string; action: string; icon: React.ElementType }[]> = {
+  'pending-approval': [{ label: 'Approve', action: 'queue', icon: CheckCircle2 }],
   brief:      [{ label: 'Queue',  action: 'queue',   icon: ChevronRight }],
   queued:     [{ label: 'Generate', action: 'generate', icon: Sparkles }],
   generating: [],

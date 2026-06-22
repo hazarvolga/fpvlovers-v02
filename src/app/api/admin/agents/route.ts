@@ -10,6 +10,7 @@ import '@/lib/agents/retrievalAgent';
 import '@/lib/agents/metadataAgent';
 import '@/lib/agents/recommendationAgent';
 import '@/lib/agents/ecosystemAgent';
+import '@/lib/agents/ideationAgent';
 
 export async function GET() {
   const denied = await requireAdmin();

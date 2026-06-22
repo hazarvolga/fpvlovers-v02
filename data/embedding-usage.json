@@ -1,77 +1,10 @@
 {
   "daily_limit": 500,
   "used_today": 0,
-  "reset_at": "2026-06-17T23:59:59Z",
+  "reset_at": "2026-06-22T23:59:59Z",
   "last_call_ts": 0,
-  "calls_today": 0,
-  "errors_today": 0,
+  "calls_today": 1,
+  "errors_today": 1,
   "groq_calls_today": 0,
-  "history": [
-    {
-      "ts": "2026-06-06T08:18:42.616Z",
-      "tokens": 5205,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:19:32.242Z",
-      "tokens": 5205,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:19:52.531Z",
-      "tokens": 934,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:26:32.210Z",
-      "tokens": 934,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:27:04.037Z",
-      "tokens": 5550,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:28:04.891Z",
-      "tokens": 2996,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:29:36.327Z",
-      "tokens": 3661,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:31:30.044Z",
-      "tokens": 594,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:31:59.007Z",
-      "tokens": 644,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:32:28.228Z",
-      "tokens": 633,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    },
-    {
-      "ts": "2026-06-06T08:33:21.026Z",
-      "tokens": 565,
-      "endpoint": "/workflows/run",
-      "status": "success"
-    }
-  ]
+  "history": []
 }

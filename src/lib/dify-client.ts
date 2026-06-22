@@ -10,7 +10,7 @@ const BUDGET_LOG = path.join(process.cwd(), 'data', 'api-budget-log.json');
 
 // ─── TYPES ───
 
-export type TaskType = 'embed' | 'classify' | 'metadata' | 'rag_query' | 'content_gen' | 'video_script';
+export type TaskType = 'embed' | 'classify' | 'metadata' | 'rag_query' | 'content_gen' | 'video_script' | 'ideation';
 
 interface EmbeddingBudget {
   daily_limit: number;
@@ -94,14 +94,15 @@ function estimateTokens(body: any): number {
 
 // ─── THROTTLE ───
 
-async function throttle(endpoint: string, requestedTokens: number): Promise<{ allowed: boolean; reason?: string; waitMs?: number }> {
+async function throttle(endpoint: string, requestedTokens: number, taskType?: TaskType): Promise<{ allowed: boolean; reason?: string; waitMs?: number }> {
   const budget = loadBudget();
+  const limit = taskType === 'ideation' ? 100000 : budget.daily_limit;
 
   // Check daily budget
-  if (budget.used_today + requestedTokens > budget.daily_limit) {
+  if (budget.used_today + requestedTokens > limit) {
     return {
       allowed: false,
-      reason: `Daily embedding budget exceeded (${budget.used_today}+${requestedTokens}/${budget.daily_limit})`,
+      reason: `Daily embedding budget exceeded (${budget.used_today}+${requestedTokens}/${limit})`,
     };
   }
 
@@ -280,8 +281,8 @@ export async function difyRequest(
   // ─── MODEL ROUTING: Groq for classify/metadata ───
   if (taskType && shouldRouteToGroq(taskType)) {
     const prompt = typeof body?.query === 'string' ? body.query
-      : body?.text ? body.text.slice(0, 2000)
-      : JSON.stringify(body || {}).slice(0, 2000);
+      : body?.text ? body.text.slice(0, 15000)
+      : JSON.stringify(body || {}).slice(0, 15000);
     return callGroq(prompt, taskType);
   }
 
@@ -306,7 +307,7 @@ export async function difyRequest(
   }
 
   // Throttle check
-  const throttleResult = await throttle(endpoint, estTokens);
+  const throttleResult = await throttle(endpoint, estTokens, taskType);
   if (!throttleResult.allowed) {
     logBudget({ ts: new Date().toISOString(), endpoint, method, status: 'throttled', duration_ms: Date.now() - startTime });
     return { ok: false, status: throttleResult.reason?.includes('budget') ? 'budget_exceeded' : 'throttled', error: throttleResult.reason };
@@ -346,7 +347,9 @@ export async function difyRequest(
       logBudget({ ts: new Date().toISOString(), endpoint, method, status: 'success', duration_ms: duration, tokens: estTokens });
 
       const budget = loadBudget();
-      budget.used_today += estTokens;
+      if (taskType !== 'ideation') {
+        budget.used_today += estTokens;
+      }
       budget.calls_today++;
       budget.last_call_ts = Date.now();
       budget.history.push({ ts: new Date().toISOString(), tokens: estTokens, endpoint, status: 'success' });

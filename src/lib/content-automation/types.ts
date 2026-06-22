@@ -1,4 +1,5 @@
 export type ContentJobStatus =
+  | 'pending-approval'
   | 'brief'
   | 'queued'
   | 'generating'

@@ -1,6 +1,6 @@
 // Agent System — Shared Types & Dispatch
 
-export type AgentId = 'seo' | 'affiliate' | 'sponsorship' | 'retrieval' | 'metadata' | 'recommendation' | 'ecosystem';
+export type AgentId = 'seo' | 'affiliate' | 'sponsorship' | 'retrieval' | 'metadata' | 'recommendation' | 'ecosystem' | 'ideation';
 
 export interface AgentRequest {
   agent: AgentId;

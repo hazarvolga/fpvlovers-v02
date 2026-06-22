@@ -18,6 +18,7 @@ import { requireAdmin } from '@/lib/server/admin-auth-guard';
 type TransitionMap = Record<ContentJobStatus, ContentJobStatus[]>;
 
 const VALID_TRANSITIONS: TransitionMap = {
+  'pending-approval': ['queued', 'failed'],
   brief: ['queued', 'failed'],
   queued: ['generating', 'failed'],
   generating: ['generated', 'failed'],
@@ -29,6 +30,7 @@ const VALID_TRANSITIONS: TransitionMap = {
 };
 
 const CONTENT_JOB_STATUSES = new Set<ContentJobStatus>([
+  'pending-approval',
   'brief',
   'queued',
   'generating',
