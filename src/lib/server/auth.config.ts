@@ -54,7 +54,7 @@ export const authConfig = {
       if (isAdminRoute) {
         if (isLoggedIn) {
           const userRole = (auth.user as any).role;
-          return userRole === "admin";
+          return userRole === "admin" || userRole === "super_admin";
         }
         return false;
       }

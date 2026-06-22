@@ -26,8 +26,9 @@ export default auth((req) => {
       }
     }
 
-    // Let NextAuth admin sessions bypass Basic Auth
-    if (isLoggedIn && (req.auth?.user as any)?.role === "admin") {
+    // Let NextAuth admin/super_admin sessions bypass Basic Auth
+    const role = (req.auth?.user as any)?.role;
+    if (isLoggedIn && (role === "admin" || role === "super_admin")) {
       return NextResponse.next();
     }
 
