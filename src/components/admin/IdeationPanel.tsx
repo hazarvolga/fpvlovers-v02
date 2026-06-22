@@ -88,7 +88,7 @@ export default function IdeationPanel() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={fetchIdeas} disabled={loading}>
+          <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={() => void fetchIdeas()} disabled={loading}>
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} /> Refresh
           </Button>
           <Button variant="cyber" size="sm" className="border-[#FF8800] text-[#FF8800] hover:bg-[#FF8800] hover:text-black" onClick={handleSuggest} disabled={suggesting}>
