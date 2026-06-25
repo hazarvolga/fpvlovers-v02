@@ -11,7 +11,6 @@ import {
 import { getRelatedContent } from '@/lib/content-discovery/related-engine';
 import { getRecommendedNextSteps } from '@/lib/content-discovery/progression-engine';
 import { firstWaveContentPlan } from '@/lib/content-plan';
-import { Badge } from '@/components/ui/badge';
 import { AffiliateButton } from '@/features/monetization/components/AffiliateButton';
 import { AdZone } from '@/features/monetization/components/AdZone';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
@@ -128,6 +127,9 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
     { label: a.category || 'Article', href: categoryHref(a.category) },
     { label: a.title, isCurrentPage: true }
   ];
+  const sectionCount = a.bodySections?.length || 0;
+  const contentType = a.metadata?.contentType || a.template || 'article';
+  const isCommercial = ['review', 'comparison', 'buyer-guide', 'product-roundup'].includes(contentType);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
@@ -135,7 +137,8 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <article className="relative hex-panel glass-panel overflow-hidden lg:col-span-8 col-span-1 border-[#00F2FF]/20 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] bg-[#050810]/70 rounded-lg">
+        <div className="lg:col-span-8 col-span-1 flex flex-col gap-8 min-w-0">
+        <article className="relative hex-panel glass-panel overflow-hidden border-[#00F2FF]/20 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] bg-[#050810]/70 rounded-lg">
           <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
           {a.media?.coverImage?.src && (
             <ResilientArticleCover
@@ -167,11 +170,15 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
 
             <EditorialTrustPanel article={a} />
 
-            <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-12 pb-6 border-b border-[#00F2FF]/20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-12 pb-6 border-b border-[#00F2FF]/20">
               <span className="flex items-center gap-1.5"><Cpu className="w-3 h-3" /> FPVLOVERS EDITORIAL</span>
               {a.publishedAt && (
                 <span>{new Date(a.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               )}
+              <span>{sectionCount} field notes</span>
+              <span className={isCommercial ? 'text-[#FFB800]' : 'text-[#00FF66]'}>
+                {isCommercial ? 'Disclosure active' : contentType}
+              </span>
             </div>
 
             {/* Loop through sections and render inline */}
@@ -258,7 +265,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
         </article>
 
         {/* Discovery Layer */}
-        <div className="lg:col-span-8 col-span-1 flex flex-col gap-8">
+        <div className="flex flex-col gap-8">
           {nextSteps.length > 0 && (
             <div className="hex-panel glass-panel p-6 border-[#00FF66]/30 bg-[#050810]/70 rounded-lg">
               <h3 className="text-sm font-black uppercase tracking-widest text-[#00FF66] mb-4 flex items-center gap-2">
@@ -319,6 +326,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
               </div>
             </div>
           )}
+        </div>
         </div>
 
         <aside className="lg:col-span-4 col-span-1 hidden lg:flex flex-col gap-6 w-full h-full">

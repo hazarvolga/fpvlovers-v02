@@ -19,6 +19,9 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
   const reviewRecord = article.editorial?.contentClass === 'product-review'
     ? article.editorial
     : undefined;
+  const specReviewApproved = isReview
+    && reviewRecord?.approvalStatus === 'approved'
+    && reviewRecord.testingMethod === 'spec-analysis';
   const commercial = ['review', 'comparison', 'buyer-guide', 'product-roundup']
     .includes(article.metadata?.contentType || '');
 
@@ -35,9 +38,18 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
           <p>Product relationship: {relationshipLabel(reviewRecord?.productRelationship)}.</p>
           {reviewRecord?.reviewedAt && <p>Reviewed: {new Date(reviewRecord.reviewedAt).toLocaleDateString('en-US')}.</p>}
         </div>
+      ) : specReviewApproved ? (
+        <div className="mt-3 space-y-2 leading-5">
+          <p><strong className="text-white">Editor-approved specification analysis.</strong> Reviewed by {reviewRecord?.editorName || PRODUCT_REVIEW_EDITOR}; no hands-on product test is claimed.</p>
+          <p>Product relationship: {relationshipLabel(reviewRecord?.productRelationship)}.</p>
+          {reviewRecord?.reviewedAt && <p>Reviewed: {new Date(reviewRecord.reviewedAt).toLocaleDateString('en-US')}.</p>}
+          {reviewRecord?.evidenceSources.length ? (
+            <p>Evidence sources recorded: {reviewRecord.evidenceSources.length}.</p>
+          ) : null}
+        </div>
       ) : isReview ? (
         <div className="mt-3 space-y-2 leading-5">
-          <p className="flex gap-2"><ShieldAlert className="mt-0.5 h-4 w-4 shrink-0 text-[#FF5C00]" /> This legacy assessment does not have a recorded hands-on test and editor approval. Treat it as specification-based analysis; its numeric score is withheld.</p>
+          <p className="flex gap-2"><ShieldAlert className="mt-0.5 h-4 w-4 shrink-0 text-[#FF5C00]" /> This review does not have a complete hands-on test and editor approval record. Treat it as specification-based analysis; any numeric score should be withheld.</p>
         </div>
       ) : (
         <p className="mt-3 leading-5">
@@ -47,7 +59,7 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
 
       {commercial && (
         <p className="mt-3 border-t border-white/10 pt-3 leading-5 text-zinc-400">
-          Commercial disclosure: links may become affiliate links and may earn FPVLovers a commission at no additional cost to the reader. <Link href="/disclosure" className="text-[#00F2FF] hover:underline">Read the disclosure.</Link>
+          Commercial disclosure: links may become affiliate links and may earn FPVLovers a commission at no additional cost to the reader. <Link href="/disclosure" className="text-[#00F2FF] hover:underline">Read the disclosure</Link> or <Link href="/editorial-policy" className="text-[#00F2FF] hover:underline">editorial policy</Link>.
         </p>
       )}
     </aside>
