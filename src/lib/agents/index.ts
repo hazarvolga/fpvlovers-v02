@@ -2,16 +2,19 @@
 
 export type AgentId = 'seo' | 'affiliate' | 'sponsorship' | 'retrieval' | 'metadata' | 'recommendation' | 'ecosystem' | 'ideation';
 
+export type AgentInput = Record<string, unknown>;
+export type AgentOutput = unknown;
+
 export interface AgentRequest {
   agent: AgentId;
-  input: Record<string, any>;
-  context?: Record<string, any>;
+  input: AgentInput;
+  context?: AgentInput;
 }
 
 export interface AgentResponse {
   agent: AgentId;
   status: 'success' | 'error';
-  output: Record<string, any>;
+  output: AgentOutput;
   systemPrompt: string;
   tokensEstimate?: number;
   error?: string;
@@ -23,7 +26,7 @@ export interface AgentDefinition {
   description: string;
   systemPrompt: string;
   inputSchema: Record<string, { type: string; required: boolean; description: string }>;
-  handler: (input: Record<string, any>, context?: Record<string, any>) => Promise<Record<string, any>>;
+  handler: (input: AgentInput, context?: AgentInput) => Promise<AgentOutput>;
 }
 
 // Registry
@@ -50,7 +53,8 @@ export async function dispatchAgent(req: AgentRequest): Promise<AgentResponse> {
   try {
     const output = await agent.handler(req.input, req.context);
     return { agent: req.agent, status: 'success', output, systemPrompt: agent.systemPrompt };
-  } catch (e: any) {
-    return { agent: req.agent, status: 'error', output: {}, systemPrompt: agent.systemPrompt, error: e.message };
+  } catch (e: unknown) {
+    const error = e instanceof Error ? e.message : 'Unknown agent error';
+    return { agent: req.agent, status: 'error', output: {}, systemPrompt: agent.systemPrompt, error };
   }
 }

@@ -1,3 +1,4 @@
+import './load-local-env';
 import type { DatasetInfo, DifyAppInfo } from '../src/lib/master-routing-tables';
 import type { FpvCatalogProduct } from '../src/lib/tools/fpv-product-types';
 import fs from 'fs';

@@ -57,7 +57,7 @@ export default function IdeationPanel() {
     try {
       const status = action === 'approve' ? 'queued' : 'failed';
       const feedback = action === 'reject' ? 'Rejected by admin' : 'Approved by admin';
-      
+
       const resp = await fetch(`/api/admin/content/jobs/${job.id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },

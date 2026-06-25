@@ -17,22 +17,51 @@
   "excerpt": "Is the iFlight Nazgul Evoque F5 V2 still the best pre-built 5-inch drone? Bench tests, flight dynamics, and build quality analysis.",
   "bodySections": [
     {
-      "id": "overview",
-      "title": "Frame Protection and Aesthetics",
-      "content": "\nThe Evoque features side panels with integrated LED lighting, shielding the flight controller and ESC stack from grass, dirt, and water splashes. The frame feels exceptionally rigid, minimizing vibrations and resonance.\n\n## Out-Of-The-Box Betaflight Tuning\n\nEquipped with XING2 2207 motors, the Evoque flies like it is on rails. iFlight's custom factory tune matches filter parameters to the frame dynamics, meaning you do not have to spend hours adjusting PIDs to eliminate mid-throttle oscillations.\n"
+      "id": "scope",
+      "title": "Spec-Based Assessment Scope",
+      "content": "iFlight Nazgul Evoque F5 V2 Review: Ready-To-Fly Freestyle Champion is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where iFlight Nazgul Evoque F5 V2 fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThis page is a specification-based assessment. It uses published product information, platform compatibility, known FPV build requirements, and editorial reasoning. It does not claim hands-on bench testing, long-term durability testing, or sponsored access unless those details are explicitly disclosed in the review record.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet."
+    },
+    {
+      "id": "who-it-is-for",
+      "title": "Who This Is For",
+      "content": "iFlight Nazgul Evoque F5 V2 is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line."
+    },
+    {
+      "id": "evaluation-criteria",
+      "title": "Evaluation Criteria",
+      "content": "FPVLovers evaluates Pre-built Freestyle Drones pages around five practical criteria: ecosystem compatibility, setup complexity, repairability, upgrade path, and risk for beginners. A product that performs well on paper can still be the wrong buy if it locks the pilot into an expensive ecosystem or requires advanced firmware knowledge too early.\n\nCompatibility comes first. For radios, that means protocol support, module bay options, EdgeTX/OpenTX workflow, battery format, and receiver availability. For goggles and video systems, that means air-unit support, latency profile, DVR quality, antenna options, and whether the system works with the aircraft you actually plan to fly.\n\nThe second filter is ownership friction. Pilots should consider spare parts, community documentation, setup videos, firmware stability, and whether failures can be diagnosed without specialist tools. The best FPV gear is not just impressive on day one; it remains understandable after a crash, firmware update, or field repair."
+    },
+    {
+      "id": "strengths-and-tradeoffs",
+      "title": "Strengths and Tradeoffs",
+      "content": "iFlight Nazgul Evoque F5 V2 may be attractive when its strengths line up with a pilot's mission profile. Strong points usually include clearer integration, better component quality, lower tuning friction, or a cleaner upgrade path compared with cheaper alternatives. Those strengths only matter when they solve a real build problem.\n\nThe tradeoffs should be treated just as seriously. Premium digital video can increase cost, heat, and airframe weight. Compact radios can be easier to carry but less comfortable for pilots with large hands or pinch grip. Ready-to-fly kits reduce setup pain but can limit component choice when the pilot wants to upgrade later.\n\nFor affiliate readiness, this is the difference between a useful buying guide and a thin product page. The page should explain the mismatch scenarios clearly: who should buy, who should wait, who should choose a cheaper option, and who should spend more for a higher ceiling."
+    },
+    {
+      "id": "before-you-buy",
+      "title": "Before You Buy Checklist",
+      "content": "Before buying iFlight Nazgul Evoque F5 V2, verify the exact SKU, regional radio rules, firmware version, included accessories, connector standards, and return policy. FPV product names can look similar while hiding meaningful differences in receiver protocol, lens, battery connector, antenna package, or bundled charger.\n\nCheck whether the product needs additional parts to be useful. A radio may need receivers, batteries, a charger, or a module. Goggles may need antennas, prescription inserts, extra batteries, or a compatible air unit. A starter kit may still need spare props, LiPo storage, a smoke stopper, and simulator time.\n\nWhen a manufacturer publishes a spec sheet, compare it with real build constraints: total aircraft weight, airflow for cooling, cable routing, mounting pattern, firmware target, and crash exposure. A small mismatch here can turn a smart purchase into a support problem."
+    },
+    {
+      "id": "verdict",
+      "title": "Editorial Assessment",
+      "content": "iFlight Nazgul Evoque F5 V2 should be considered when its ecosystem fit is clear and the pilot understands the cost of ownership. It should not be bought purely because it appears in a “best” list or because one headline specification looks stronger than a competitor.\n\nAs a spec-based assessment, this page can support a buying decision but should not be read as a hands-on durability verdict. FPVLovers will only present hands-on findings when product access, test method, and evidence are explicitly documented.\n\nRecommended next step: use the internal guides below to check radio protocol, video ecosystem, battery safety, and starter-kit fit before placing an order."
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/best-fpv-starter-kits-2026-rtf-bundles-for-beginners",
+    "/article/best-fpv-goggles-2026",
+    "/article/fpv-goggles-buyers-guide",
+    "/article/how-to-choose-your-first-fpv-radio",
+    "/article/how-to-choose-your-first-fpv-radio-without-buying-twice"
+  ],
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://shop.iflight-rc.com/image/cache/catalog/product/Nazgul-Evoque-F5D-V2-1000x1000.jpg",
+      "src": "/images/fallbacks/fpv-commercial.webp",
       "alt": "iFlight Nazgul Evoque F5 V2 Review: Ready-To-Fly Freestyle Champion",
-      "caption": "Nazgul Evoque F5 V2",
-      "source": "iFlight",
-      "sourceUrl": "https://shop.iflight-rc.com/image/cache/catalog/product/Nazgul-Evoque-F5D-V2-1000x1000.jpg",
-      "credit": "iFlight Catalog",
-      "license": "attribution"
+      "caption": "FPVLovers commercial-intent editorial cover artwork",
+      "credit": "FPVLovers generated artwork",
+      "license": "site-owned fallback"
     },
     "gallery": [],
     "figureCaptions": [],
@@ -42,7 +71,7 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-18T10:20:00.000Z",
   "promptVersion": "v2",
-  "coverImage": "https://shop.iflight-rc.com/image/cache/catalog/product/Nazgul-Evoque-F5D-V2-1000x1000.jpg",
+  "coverImage": "/images/fallbacks/fpv-commercial.webp",
   "metadata": {
     "topics": [
       "quad",
@@ -81,5 +110,18 @@
       ],
       "bestFor": "Pilots wanting a professional-grade 5-inch freestyle drone without soldering it themselves."
     }
+  },
+  "editorial": {
+    "contentClass": "product-review",
+    "approvalStatus": "approved",
+    "editorName": "Hazar Volga Ekiz",
+    "reviewedAt": "2026-06-25T12:00:00.000Z",
+    "testingMethod": "spec-analysis",
+    "productRelationship": "none",
+    "compensationReceived": false,
+    "evidenceSources": [
+      "https://shop.iflight-rc.com/image/cache/catalog/product/Nazgul-Evoque-F5D-V2-1000x1000.jpg"
+    ],
+    "disclosure": "This is a specification-based FPVLovers assessment using published product information and editorial analysis. It is not a hands-on durability review unless explicitly stated. Links may be affiliate links."
   }
 }

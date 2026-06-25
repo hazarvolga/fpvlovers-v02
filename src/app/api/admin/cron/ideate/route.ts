@@ -5,7 +5,76 @@ import { authorizeCronRequest } from '@/lib/cron-auth';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
 import { dispatchAgent } from '@/lib/agents';
 import { logAutomationRun } from '@/lib/server/automation-runs-store';
+import type { ContentJob, ContentTemplate } from '@/lib/content-automation/types';
 import '@/lib/agents/ideationAgent'; // Ensure registered
+
+type IdeationBrief = {
+  briefSlug: string;
+  title: string;
+  category: string;
+  template: ContentTemplate;
+  topic: string;
+  sourceHints: string[];
+  seo: {
+    slug: string;
+    metaDescription: string;
+    keywords: string[];
+  };
+};
+
+const CONTENT_TEMPLATES = new Set<ContentTemplate>([
+  'tech-article',
+  'product-review',
+  'build-guide',
+  'comparison',
+  'troubleshooting',
+  'regulation-guide',
+  'community-roundup',
+]);
+
+function stringValue(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined;
+}
+
+function stringArrayValue(value: unknown): string[] {
+  return Array.isArray(value)
+    ? value.map(stringValue).filter((item): item is string => Boolean(item))
+    : [];
+}
+
+function objectValue(value: unknown): Record<string, unknown> {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : {};
+}
+
+function normalizeIdeationBrief(value: unknown): IdeationBrief | null {
+  const source = objectValue(value);
+  const seo = objectValue(source.seo);
+  const briefSlug = stringValue(source.briefSlug) || stringValue(seo.slug);
+  const title = stringValue(source.title);
+  const topic = stringValue(source.topic);
+  if (!briefSlug || !title || !topic) return null;
+
+  const templateCandidate = stringValue(source.template);
+  const template = templateCandidate && CONTENT_TEMPLATES.has(templateCandidate as ContentTemplate)
+    ? templateCandidate as ContentTemplate
+    : 'tech-article';
+
+  return {
+    briefSlug,
+    title,
+    category: stringValue(source.category) || 'Flight Guides',
+    template,
+    topic,
+    sourceHints: stringArrayValue(source.sourceHints),
+    seo: {
+      slug: stringValue(seo.slug) || briefSlug,
+      metaDescription: stringValue(seo.metaDescription) || topic,
+      keywords: stringArrayValue(seo.keywords),
+    },
+  };
+}
 
 export async function GET(req: Request) {
   const auth = authorizeCronRequest(req);
@@ -42,7 +111,13 @@ export async function GET(req: Request) {
       throw new Error(dispatchResult.error || 'Ideation Agent failed without error message');
     }
 
-    const briefs = (dispatchResult.output as { briefs?: any[] })?.briefs || [];
+    const output = objectValue(dispatchResult.output);
+    const rawBriefs = Array.isArray(output.briefs)
+      ? output.briefs
+      : [];
+    const briefs = rawBriefs
+      .map(normalizeIdeationBrief)
+      .filter((brief): brief is IdeationBrief => Boolean(brief));
     if (!Array.isArray(briefs) || briefs.length === 0) {
       return NextResponse.json({
         success: true,
@@ -63,23 +138,23 @@ export async function GET(req: Request) {
 
     // 3. Map briefs to ContentJobs with 'pending-approval' status
     const nowStr = new Date().toISOString();
-    const newJobs = briefs
-      .filter((b: any) => b && b.briefSlug && !existingSlugs.has(b.briefSlug))
-      .map((b: any) => ({
+    const newJobs: ContentJob[] = briefs
+      .filter((b) => !existingSlugs.has(b.briefSlug))
+      .map((b) => ({
         id: crypto.randomUUID(),
         briefSlug: b.briefSlug,
         title: b.title,
-        category: b.category || 'Flight Guides',
+        category: b.category,
         status: 'pending-approval' as const,
         topic: b.topic,
         language: 'en' as const,
-        template: b.template || 'tech-article',
+        template: b.template,
         promptVersion: 'v2',
-        sourceHints: Array.isArray(b.sourceHints) ? b.sourceHints : [],
+        sourceHints: b.sourceHints,
         seo: {
-          slug: b.seo?.slug || b.briefSlug,
-          metaDescription: b.seo?.metaDescription || b.topic || '',
-          keywords: Array.isArray(b.seo?.keywords) ? b.seo.keywords : []
+          slug: b.seo.slug,
+          metaDescription: b.seo.metaDescription,
+          keywords: b.seo.keywords,
         },
         createdAt: nowStr,
         updatedAt: nowStr
@@ -115,9 +190,9 @@ export async function GET(req: Request) {
       message: `${newJobs.length} new content ideas generated and enqueued with 'pending-approval' status.`
     });
 
-  } catch (err: any) {
+  } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown ideation cron error';
-    
+
     // Log error in background
     Promise.resolve().then(async () => {
       try {

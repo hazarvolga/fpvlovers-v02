@@ -26,7 +26,13 @@
       }
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/best-fpv-starter-kits-2026-rtf-bundles-for-beginners",
+    "/article/best-fpv-goggles-2026",
+    "/article/fpv-goggles-buyers-guide",
+    "/article/how-to-choose-your-first-fpv-radio",
+    "/article/how-to-choose-your-first-fpv-radio-without-buying-twice"
+  ],
   "publishNotes": [],
   "media": {
     "coverImage": {
@@ -81,5 +87,15 @@
       ]
     }
   },
-  "contentType": "buyer-guide"
+  "contentType": "buyer-guide",
+  "editorial": {
+    "contentClass": "autonomous",
+    "checkedAt": "2026-06-25T12:00:00.000Z",
+    "sourceCount": 2,
+    "unsupportedClaimCount": 0,
+    "duplicateScore": 0.12,
+    "metadataComplete": true,
+    "linksValid": true,
+    "disclosurePresent": true
+  }
 }

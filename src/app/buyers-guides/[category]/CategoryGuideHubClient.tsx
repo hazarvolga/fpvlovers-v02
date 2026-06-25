@@ -187,7 +187,7 @@ export function CategoryGuideHubClient({
                           className="inline-flex items-center gap-1 text-xs font-mono font-black uppercase text-[#FF5C00] hover:text-white transition-colors group/link"
                           onClick={() => trackReviewClick(rev.slug, { brand: meta.productBrand, model: meta.productModel, category: categorySlug, component: 'category_guide_hub' })}
                         >
-                          Read Review
+                          {showScore ? 'Read Review' : 'Read Assessment'}
                           <ArrowRight className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform" />
                         </Link>
                       </div>

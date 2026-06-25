@@ -2,6 +2,7 @@
 
 import { registerAgent } from '@/lib/agents';
 import { getRecommendations, analyzeIntent, decideInjections } from '@/lib/monetizationOrchestrator';
+import { inputString } from '@/lib/agents/input-normalizers';
 
 registerAgent({
   id: 'recommendation',
@@ -48,7 +49,8 @@ RECOMMENDATION TYPES:
   },
 
   handler: async (input) => {
-    const { query, content_type } = input;
+    const query = inputString(input, 'query');
+    const content_type = inputString(input, 'content_type');
 
     // Use the existing orchestrator for recommendations
     const intent = analyzeIntent(query, content_type);

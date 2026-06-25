@@ -1,6 +1,7 @@
 // SEO Agent — Creates SEO structures, keyword optimization, metadata generation
 
 import { registerAgent } from '@/lib/agents';
+import { inputString } from '@/lib/agents/input-normalizers';
 
 registerAgent({
   id: 'seo',
@@ -40,7 +41,9 @@ RULES:
   },
 
   handler: async (input) => {
-    const { keyword, content_type, outline } = input;
+    const keyword = inputString(input, 'keyword');
+    const content_type = inputString(input, 'content_type');
+    const outline = inputString(input, 'outline');
 
     const slug = keyword.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
     const titleTemplates: Record<string, string> = {
@@ -88,7 +91,10 @@ RULES:
 
     let h2Structure: string[] = [];
     if (outline) {
-      try { h2Structure = JSON.parse(outline).sections?.map((s: any) => s.title) || []; } catch {}
+      try {
+        const parsed = JSON.parse(outline) as { sections?: Array<{ title?: unknown }> };
+        h2Structure = parsed.sections?.map((s) => typeof s.title === 'string' ? s.title : '').filter(Boolean) || [];
+      } catch {}
     }
 
     return {

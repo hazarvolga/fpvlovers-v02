@@ -4,6 +4,12 @@ import { NextResponse } from "next/server";
 
 const { auth } = NextAuth(authConfig);
 
+function getSessionRole(user: unknown): string | undefined {
+  if (!user || typeof user !== "object" || !("role" in user)) return undefined;
+  const role = (user as { role?: unknown }).role;
+  return typeof role === "string" ? role : undefined;
+}
+
 export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
@@ -27,7 +33,7 @@ export default auth((req) => {
     }
 
     // Let NextAuth admin/super_admin sessions bypass Basic Auth
-    const role = (req.auth?.user as any)?.role;
+    const role = getSessionRole(req.auth?.user);
     if (isLoggedIn && (role === "admin" || role === "super_admin")) {
       return NextResponse.next();
     }
@@ -85,4 +91,3 @@ export const config = {
     "/api/pilot/progress",
   ],
 };
-

@@ -35,7 +35,12 @@ You must output a raw JSON array of content briefs and nothing else. No explanat
   },
 
   handler: async (input) => {
-    const { existingSlugs = [], count = 10 } = input;
+    const existingSlugs = Array.isArray(input.existingSlugs)
+      ? input.existingSlugs.filter((slug): slug is string => typeof slug === 'string')
+      : [];
+    const count = typeof input.count === 'number' && Number.isFinite(input.count)
+      ? Math.max(1, Math.min(25, Math.floor(input.count)))
+      : 10;
 
     // 1. Gather FPV community context from RAG datasets
     let contextChunks: string[] = [];
@@ -45,7 +50,7 @@ You must output a raw JSON array of content briefs and nothing else. No explanat
         'common fpv drone troubleshooting binding arming video problems',
         'fpv drone build guide component compatibility motors flight controller esc'
       ];
-      
+
       for (const q of queries) {
         const res = await orchestrateRetrieval(q, 'default');
         if (res?.chunks) {
@@ -56,8 +61,8 @@ You must output a raw JSON array of content briefs and nothing else. No explanat
       console.warn('[IdeationAgent] Failed to fetch RAG context:', err);
     }
 
-    const contextText = contextChunks.length > 0 
-      ? contextChunks.join('\n\n') 
+    const contextText = contextChunks.length > 0
+      ? contextChunks.join('\n\n')
       : 'No real-time RAG context available. Fall back to emerging 2026 FPV drone technology (DJI O4, ELRS Gemini, 10-inch long-range, Walksnail Moonlight, etc.)';
 
     // 2. Prepare Prompt
@@ -67,7 +72,7 @@ These ideas will feed into an automated content generator, so they must be techn
 
 CRITICAL CRITERIA:
 1. Do NOT suggest anything similar to these already-existing slugs:
-${existingSlugs.map((s: string) => `- ${s}`).join('\n')}
+${existingSlugs.map((s) => `- ${s}`).join('\n')}
 
 2. Categories we support:
 - Flight Guides

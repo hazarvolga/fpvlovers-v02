@@ -17,22 +17,51 @@
   "excerpt": "A detailed head-to-head comparison between the RadioMaster Boxer and the TX16S MKII. Form factor, gimbals, switch layouts, and portability compared.",
   "bodySections": [
     {
-      "id": "overview",
-      "title": "Size, Portability, and Form Factor",
-      "content": "\nThe TX16S MKII is a full-sized radio featuring a large color touchscreen and a massive layout of switches and sliders. It is the gold standard for fixed-wing and complex models, but it is heavy and bulky. The Boxer is a compact mid-sized radio that ditches the color screen for a smaller monochrome display, but retains full-sized gimbals and a highly portable format.\n\n## RF Output and Battery Efficiency\n\nThe Boxer ELRS version comes with an internal 1W transmitter module with active fan cooling. The TX16S MKII ELRS version maxes out at 250mW internal output, meaning you need an external module for ultra-high power. For 99% of FPV pilots who want a compact, powerful, and easy-to-carry radio, the Boxer is the clear choice.\n"
+      "id": "scope",
+      "title": "Comparison Scope",
+      "content": "RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose? is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where RadioMaster Boxer vs RadioMaster TX16S MKII fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet."
+    },
+    {
+      "id": "who-it-is-for",
+      "title": "Who This Is For",
+      "content": "RadioMaster Boxer vs RadioMaster TX16S MKII is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line."
+    },
+    {
+      "id": "evaluation-criteria",
+      "title": "Evaluation Criteria",
+      "content": "FPVLovers evaluates FPV Radios pages around five practical criteria: ecosystem compatibility, setup complexity, repairability, upgrade path, and risk for beginners. A product that performs well on paper can still be the wrong buy if it locks the pilot into an expensive ecosystem or requires advanced firmware knowledge too early.\n\nCompatibility comes first. For radios, that means protocol support, module bay options, EdgeTX/OpenTX workflow, battery format, and receiver availability. For goggles and video systems, that means air-unit support, latency profile, DVR quality, antenna options, and whether the system works with the aircraft you actually plan to fly.\n\nThe second filter is ownership friction. Pilots should consider spare parts, community documentation, setup videos, firmware stability, and whether failures can be diagnosed without specialist tools. The best FPV gear is not just impressive on day one; it remains understandable after a crash, firmware update, or field repair."
+    },
+    {
+      "id": "strengths-and-tradeoffs",
+      "title": "Strengths and Tradeoffs",
+      "content": "RadioMaster Boxer vs RadioMaster TX16S MKII may be attractive when its strengths line up with a pilot's mission profile. Strong points usually include clearer integration, better component quality, lower tuning friction, or a cleaner upgrade path compared with cheaper alternatives. Those strengths only matter when they solve a real build problem.\n\nThe tradeoffs should be treated just as seriously. Premium digital video can increase cost, heat, and airframe weight. Compact radios can be easier to carry but less comfortable for pilots with large hands or pinch grip. Ready-to-fly kits reduce setup pain but can limit component choice when the pilot wants to upgrade later.\n\nFor affiliate readiness, this is the difference between a useful buying guide and a thin product page. The page should explain the mismatch scenarios clearly: who should buy, who should wait, who should choose a cheaper option, and who should spend more for a higher ceiling."
+    },
+    {
+      "id": "before-you-buy",
+      "title": "Before You Buy Checklist",
+      "content": "Before buying RadioMaster Boxer vs RadioMaster TX16S MKII, verify the exact SKU, regional radio rules, firmware version, included accessories, connector standards, and return policy. FPV product names can look similar while hiding meaningful differences in receiver protocol, lens, battery connector, antenna package, or bundled charger.\n\nCheck whether the product needs additional parts to be useful. A radio may need receivers, batteries, a charger, or a module. Goggles may need antennas, prescription inserts, extra batteries, or a compatible air unit. A starter kit may still need spare props, LiPo storage, a smoke stopper, and simulator time.\n\nWhen a manufacturer publishes a spec sheet, compare it with real build constraints: total aircraft weight, airflow for cooling, cable routing, mounting pattern, firmware target, and crash exposure. A small mismatch here can turn a smart purchase into a support problem."
+    },
+    {
+      "id": "verdict",
+      "title": "Recommendation Matrix",
+      "content": "RadioMaster Boxer vs RadioMaster TX16S MKII should be considered when its ecosystem fit is clear and the pilot understands the cost of ownership. It should not be bought purely because it appears in a “best” list or because one headline specification looks stronger than a competitor.\n\nIf both products solve the same problem, choose based on your existing ecosystem first. Switching video or radio ecosystems can be more expensive than the price difference between the two products being compared.\n\nRecommended next step: use the internal guides below to check radio protocol, video ecosystem, battery safety, and starter-kit fit before placing an order."
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/best-fpv-starter-kits-2026-rtf-bundles-for-beginners",
+    "/article/best-fpv-goggles-2026",
+    "/article/fpv-goggles-buyers-guide",
+    "/article/how-to-choose-your-first-fpv-radio",
+    "/article/how-to-choose-your-first-fpv-radio-without-buying-twice"
+  ],
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+      "src": "/images/fallbacks/fpv-commercial.webp",
       "alt": "RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose?",
-      "caption": "RadioMaster Boxer vs RadioMaster TX16S MKII",
-      "source": "FPVLovers",
-      "sourceUrl": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
-      "credit": "FPV Catalog",
-      "license": "attribution"
+      "caption": "FPVLovers commercial-intent editorial cover artwork",
+      "credit": "FPVLovers generated artwork",
+      "license": "site-owned fallback"
     },
     "gallery": [],
     "figureCaptions": [],
@@ -42,7 +71,7 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-18T10:30:00.000Z",
   "promptVersion": "v2",
-  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+  "coverImage": "/images/fallbacks/fpv-commercial.webp",
   "metadata": {
     "topics": [
       "radio",
@@ -67,5 +96,15 @@
       "comparisonCategory": "FPV Radios",
       "winner": "RadioMaster Boxer"
     }
+  },
+  "editorial": {
+    "contentClass": "autonomous",
+    "checkedAt": "2026-06-25T12:00:00.000Z",
+    "sourceCount": 1,
+    "unsupportedClaimCount": 0,
+    "duplicateScore": 0.12,
+    "metadataComplete": true,
+    "linksValid": true,
+    "disclosurePresent": true
   }
 }

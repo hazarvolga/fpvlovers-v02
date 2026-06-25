@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { safeReadJson } from '@/lib/utils/json';
 import { registerAgent } from '@/lib/agents';
+import { inputString } from '@/lib/agents/input-normalizers';
 
 const DATA = (file: string) => path.join(process.cwd(), 'data', file);
 
@@ -46,7 +47,8 @@ TRUST RULES:
   },
 
   handler: async (input) => {
-    const { content, content_type } = input;
+    const content = inputString(input, 'content');
+    const content_type = inputString(input, 'content_type');
     const contentLower = (content || '').toLowerCase();
 
     // Load catalog

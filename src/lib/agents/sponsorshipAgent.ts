@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { safeReadJson } from '@/lib/utils/json';
 import { registerAgent } from '@/lib/agents';
+import { inputMode, inputNumber, inputString } from '@/lib/agents/input-normalizers';
 
 const DATA = (file: string) => path.join(process.cwd(), 'data', file);
 
@@ -52,7 +53,10 @@ RULES:
   },
 
   handler: async (input) => {
-    const { sponsor_name, sponsor_category, budget = 1000, campaign_type = 'brand-awareness' } = input;
+    const sponsor_name = inputString(input, 'sponsor_name');
+    const sponsor_category = inputString(input, 'sponsor_category');
+    const budget = inputNumber(input, 'budget', 1000);
+    const campaign_type = inputMode(input, 'campaign_type', 'brand-awareness');
 
     // Load existing sponsors for context
     let sponsors: any[] = safeReadJson(DATA('sponsors.json'), []);

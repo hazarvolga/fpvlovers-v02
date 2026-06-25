@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-06-19T17:00:17.778Z",
+  "generatedAt": "2026-06-25T14:35:23.426Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "release-verification-pending",
   "branch": "main",
-  "head": "75edc90f18a1",
+  "head": "d2c4b22b7723",
   "behind": 0,
   "ahead": 0,
   "currentBlockers": [

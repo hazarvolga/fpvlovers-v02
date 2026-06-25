@@ -1,6 +1,7 @@
 // Metadata Agent — Handles content enrichment and tagging
 
 import { registerAgent } from '@/lib/agents';
+import { inputString } from '@/lib/agents/input-normalizers';
 
 registerAgent({
   id: 'metadata',
@@ -46,7 +47,8 @@ CONTENT CATEGORIES:
   },
 
   handler: async (input) => {
-    const { content, source_url } = input;
+    const content = inputString(input, 'content');
+    const source_url = inputString(input, 'source_url');
     const contentLower = (content || '').toLowerCase();
 
     // Brand detection

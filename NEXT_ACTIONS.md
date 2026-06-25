@@ -1,6 +1,31 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-06-19
+Last updated: 2026-06-25
+
+## Current Priority After 2026-06-25 GAP Closure
+
+1. **Deploy current release candidate:** commit/push the affiliate/social readiness closure, queue Coolify deploy, then run live smoke for `/`, `/buyers-guides`, `/reviews`, one spec-analysis article, `/api/health`, and `/api/ready`.
+2. **Production readiness check:** `/api/ready` must return `ready` or an explainable `degraded` state in production. Local smoke correctly returned `503 not_ready` because the local DB DNS and crawler provider were unavailable.
+3. **Tool corpus phase:** keep Build Wizard, Part Matcher, Component Duel, Hardware Analyzer, and Blackbox Tuning marketed as partial/guardrailed until `fpv-build-guides`, `fpv-components-specs`, `fpv-pid-profiles`, and `fpv-troubleshooting` receive source-backed docs.
+4. **Racing workflow phase:** Dify racing workflow currently falls back locally when Dify returns unsuccessful structured output. Fix Dify workflow output shape/token status before claiming full autonomous racing intelligence.
+5. **First real hands-on review:** obtain or purchase one product, record test method/evidence/images, and publish a true hands-on review approved by Hazar Volga Ekiz. Existing review pages are spec-analysis, not hands-on testing.
+6. **Live mobile QA:** verify homepage, buyer guide hub, reviews hub, one article trust panel, footer trust links, and mobile menu at 360x800 and 390x844 after deploy.
+
+## Completed (2026-06-25 Affiliate/Social Readiness Closure)
+
+- ✅ Created and updated two brutal GAP reports:
+  - `docs/gap-reports/2026-06-25-project-operations-gap-report.md`
+  - `docs/gap-reports/2026-06-25-design-ux-gap-report.md`
+- ✅ Fixed release blockers: missing `react-is`, recent-quality explicit `any` violations, middleware role typing, ideation output normalization, and lint performance.
+- ✅ Closed Dify workflow bypass in content generation by routing workflow calls through `src/lib/dify-client.ts`.
+- ✅ Added `/api/ready` for env, Dify budget, DB, and crawler readiness.
+- ✅ Expanded commercial content and internal links: commercial scan now reports `commercial=20`, `thin=0`, `noLinks=0`.
+- ✅ Converted existing product review pages into honest editor-approved `spec-analysis` records; no hands-on claims were added.
+- ✅ Repositioned homepage and article copy toward editorial FPV media/buyer intelligence while preserving the dark tactical FPVLovers identity.
+- ✅ Added racing workflow local fallback that produces review-required briefs when Dify returns unsuccessful structured output.
+- ✅ Standardized package manager state by removing tracked `pnpm-lock.yaml`; npm lock remains authoritative.
+- ✅ Final local verification passed: `quality:recent`, `tsc`, `lint:ci`, `content:audit`, `metadata:audit`, `media:audit`, `editorial:governance-test`, `social:contracts-test`, `routes:audit`, `tools:audit`, `racing:workflow:smoke`, and `npm run build`.
+- ✅ Local production smoke: `/`, `/buyers-guides`, `/article/best-fpv-goggles-2026`, and `/api/health` returned 200; `/api/ready` returned 503 because local DB/crawler dependencies were intentionally unavailable.
 
 ## Approved Affiliate + Social/Video Program (2026-06-19)
 

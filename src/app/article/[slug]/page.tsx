@@ -141,7 +141,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
             <EditorialTrustPanel article={a} />
 
             <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-12 pb-6 border-b border-[#00F2FF]/20">
-              <span className="flex items-center gap-1.5"><Cpu className="w-3 h-3" /> FPVLOVERS DATASTREAM</span>
+              <span className="flex items-center gap-1.5"><Cpu className="w-3 h-3" /> FPVLOVERS EDITORIAL</span>
               {a.publishedAt && (
                 <span>{new Date(a.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               )}
@@ -200,7 +200,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
             {a.internalLinks?.length > 0 && (
               <div className="border-t border-[#00F2FF]/20 pt-8 mt-12">
                 <h3 className="text-[10px] uppercase font-black tracking-widest text-[#00F2FF] mb-6 flex items-center gap-2">
-                  <Zap className="w-4 h-4" /> RELATED DATABANKS
+                  <Zap className="w-4 h-4" /> RELATED GUIDES
                 </h3>
                 <div className="flex flex-wrap gap-3">
                   {a.internalLinks.map((link: string, i: number) => {

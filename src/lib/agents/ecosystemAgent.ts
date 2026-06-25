@@ -1,5 +1,6 @@
 import { registerAgent } from '@/lib/agents';
 import { generateEcosystemReport } from '@/lib/ecosystem-intelligence';
+import { inputMode, inputString } from '@/lib/agents/input-normalizers';
 
 registerAgent({
   id: 'ecosystem',
@@ -25,7 +26,9 @@ You ALWAYS:
   },
 
   handler: async (input) => {
-    const { query, intent, mode = 'full' } = input;
+    const query = inputString(input, 'query');
+    const intent = inputString(input, 'intent');
+    const mode = inputMode(input, 'mode', 'full');
 
     if (mode === 'gaps') {
       const { analyzeContentGaps } = await import('@/lib/ecosystem-intelligence');

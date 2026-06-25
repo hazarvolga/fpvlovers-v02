@@ -147,6 +147,61 @@ function normalizeOutputs(outputs: Record<string, unknown>): RacingWorkflowOutpu
   };
 }
 
+function slugify(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 90);
+}
+
+function fallbackOutputs(input: RacingWorkflowInput, reason: string): RacingWorkflowOutputs {
+  const sourceName = input.sourceName || input.leagueHint || 'Racing source';
+  const leagueName = input.leagueHint || sourceName;
+  const title = `${sourceName}: racing source update`;
+
+  return {
+    sourceUrl: input.sourceUrl,
+    sourceName,
+    mode: input.mode,
+    entities: [
+      {
+        type: 'league',
+        name: leagueName,
+        summary: `Fallback extraction from ${sourceName}. Dify workflow did not return structured entities; source must be reviewed before publication.`,
+        confidence: 0.45,
+        sourceUrl: input.sourceUrl,
+        attributes: {
+          extractionMode: 'local-fallback',
+          workflowFailure: reason,
+        },
+      },
+    ],
+    calendarItems: [],
+    contentBriefs: [
+      {
+        contentType: 'league-update',
+        title,
+        slug: slugify(title),
+        angle: 'Source-backed racing update requiring editorial verification before publishing.',
+        priority: 'low',
+        targetSection: 'Racing',
+        sourceUrl: input.sourceUrl,
+        reviewRequired: true,
+      },
+    ],
+    warnings: [
+      `Dify racing workflow failed: ${reason}`,
+      'Local fallback produced a review-required brief only; do not auto-publish as live race data.',
+    ],
+    nextActions: [
+      'Check DIFY_RACING_WORKFLOW_TOKEN and the published Dify app status.',
+      'Run the racing workflow smoke again after Dify returns structured outputs.',
+      'Keep fallback briefs in editorial review until the source is verified.',
+    ],
+  };
+}
+
 export function getRacingWorkflowStatus() {
   const workflowId = getConfiguredWorkflowId();
   const token = WORKFLOW_TOKENS[WORKFLOW_NAME] || '';
@@ -168,6 +223,23 @@ export async function runRacingIntelligenceWorkflow(input: RacingWorkflowInput):
   }
 
   const result = await runWorkflow(token, normalizeInput(input));
+  if (!result.success) {
+    const failureReason = result.rawAnswer && result.rawAnswer !== '{}'
+      ? result.rawAnswer
+      : 'Dify workflow returned unsuccessful status without structured outputs.';
+    return {
+      configured: true,
+      workflowName: WORKFLOW_NAME,
+      workflowId,
+      success: true,
+      status: 'fallback',
+      workflowRunId: result.workflowRunId ?? undefined,
+      totalTokens: result.totalTokens ?? undefined,
+      outputs: fallbackOutputs(input, failureReason),
+      error: `Racing workflow failed; local fallback used. ${failureReason}`,
+    };
+  }
+
   return {
     configured: true,
     workflowName: WORKFLOW_NAME,

@@ -102,43 +102,49 @@ export default async function HomePage() {
           <div className="max-w-3xl">
             <div className="flex items-center gap-3 mb-6">
               <span className="flex h-2 w-2 rounded-full bg-[#00FF66] animate-pulse" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#00FF66]">System Online / Awaiting Input</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#00FF66]">Independent FPV Knowledge System</span>
             </div>
             
             <h1 className="text-4xl font-bold tracking-tight text-zinc-100 sm:text-5xl lg:text-6xl uppercase leading-[1.1]">
               <span className="text-zinc-500 block text-2xl sm:text-3xl mb-2 font-mono tracking-widest">FPVLOVERS</span>
-              Flight Control &<br /> Telemetry Hub
+              FPV Guides, Gear<br /> Intelligence & Skills
             </h1>
             
             <p className="mt-6 max-w-2xl text-sm leading-7 text-zinc-400 font-mono">
-              Actionable engineering data, real-time pulse feeds, build calculators, and tuning references designed for zero-latency decision making.
+              Practical FPV tutorials, buyer guides, product assessments, build references, and racing coverage for pilots who want cleaner decisions before they spend money or put a quad in the air.
             </p>
+
+            <div className="mt-6 flex flex-wrap gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-zinc-500">
+              <Link href="/editorial-policy" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-[#00F2FF]/40 hover:text-[#00F2FF]">Editorial policy</Link>
+              <Link href="/affiliate-disclosure" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-[#FF5C00]/40 hover:text-[#FF5C00]">Affiliate disclosure</Link>
+              <Link href="/advertise" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-white/25 hover:text-white">Sponsor standards</Link>
+            </div>
             
             <div className="mt-10 flex flex-col gap-4 sm:flex-row">
               <Link 
                 href="/academy/roadmap"
                 className="group relative flex items-center justify-between gap-4 rounded-sm border border-[#FF5C00]/40 bg-[#FF5C00]/10 px-6 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-[#FF5C00] transition-all hover:bg-[#FF5C00]/20 hover:border-[#FF5C00]"
               >
-                <span>Initialize Academy</span>
+                <span>Start Pilot Roadmap</span>
                 <Zap className="h-4 w-4" />
                 <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF5C00] transition-all duration-300 group-hover:w-full" />
               </Link>
               
               <Link 
-                href="/tools/calculator"
+                href="/buyers-guides"
                 className="group relative flex items-center justify-between gap-4 rounded-sm border border-white/10 bg-white/5 px-6 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-zinc-300 transition-all hover:bg-white/10 hover:text-white"
               >
-                <span>Access Calculator</span>
-                <Calculator className="h-4 w-4" />
+                <span>Browse Buyer Guides</span>
+                <BookOpen className="h-4 w-4" />
                 <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-white/30 transition-all duration-300 group-hover:w-full" />
               </Link>
             </div>
             
             <div className="mt-12 grid max-w-2xl grid-cols-3 gap-4 border-t border-white/5 pt-6">
               {[
-                ['Status', 'Active'],
-                ['Uplink', 'Secured'],
-                ['Version', 'OS-v2.0'],
+                ['Content', '117+'],
+                ['Reviews', 'Spec/Evidence'],
+                ['Editor', 'HVE'],
               ].map(([label, value]) => (
                 <div key={label} className="border-l border-white/10 pl-3">
                   <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-600">{label}</div>
@@ -153,7 +159,7 @@ export default async function HomePage() {
               <div className="absolute -inset-1 rounded-sm bg-gradient-to-tr from-[#00F2FF]/20 to-[#FF5C00]/20 opacity-0 blur transition duration-500 group-hover:opacity-100" />
               <Link href={heroCard.href} className="relative block overflow-hidden rounded-sm border border-white/10 bg-[#18181b]">
                 <div className="border-b border-white/5 px-4 py-2 bg-[#09090b] flex justify-between items-center">
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">Featured Datastream</span>
+                  <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">Featured Guide</span>
                   <Badge variant="outline" className="rounded-none border-white/10 text-[9px] bg-white/5 text-zinc-300">{heroCard.category}</Badge>
                 </div>
                 <div className="relative aspect-[16/10] overflow-hidden">

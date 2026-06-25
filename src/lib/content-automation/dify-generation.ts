@@ -1,10 +1,6 @@
-import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
+import { getRequiredEnv } from '@/lib/env';
+import { runWorkflow as runDifyWorkflow } from '@/lib/dify-client';
 import { parseGeneratedContent, type GeneratedContent } from './parse-generated-content';
-
-const BASE = getOptionalEnv(
-  'DIFY_INTERNAL_BASE_URL',
-  getOptionalEnv('APP_API_URL', getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1')),
-);
 
 export type ContentGenerationTemplate =
   | 'tech-article'
@@ -161,73 +157,6 @@ function buildSections(sections: readonly string[]) {
   }));
 }
 
-async function readWorkflowStream(resp: Response): Promise<{
-  workflowRunId: string | null;
-  totalTokens: number | null;
-  elapsedTime: number | null;
-  outputs: Record<string, unknown>;
-}> {
-  const reader = resp.body?.getReader();
-  if (!reader) {
-    throw new Error('DIFY_STREAM_NO_BODY');
-  }
-
-  const decoder = new TextDecoder();
-  let buffer = '';
-  let workflowRunId: string | null = null;
-  let totalTokens: number | null = null;
-  let elapsedTime: number | null = null;
-  let outputs: Record<string, unknown> = {};
-
-  const handlePayload = (payload: any) => {
-    workflowRunId = String(payload?.workflow_run_id || payload?.data?.id || workflowRunId || '') || null;
-    const data = payload?.data || payload;
-    if (typeof data?.total_tokens !== 'undefined') totalTokens = Number(data.total_tokens) || totalTokens;
-    if (typeof data?.elapsed_time !== 'undefined') elapsedTime = Number(data.elapsed_time) || elapsedTime;
-    if (data?.outputs && typeof data.outputs === 'object') {
-      outputs = { ...outputs, ...data.outputs };
-    }
-    if (payload?.outputs && typeof payload.outputs === 'object') {
-      outputs = { ...outputs, ...payload.outputs };
-    }
-  };
-
-  while (true) {
-    const { value, done } = await reader.read();
-    if (value) buffer += decoder.decode(value, { stream: !done });
-
-    let splitIndex = buffer.indexOf('\n\n');
-    while (splitIndex !== -1) {
-      const block = buffer.slice(0, splitIndex).trim();
-      buffer = buffer.slice(splitIndex + 2);
-      if (block) {
-        const dataLine = block
-          .split('\n')
-          .map((line) => line.trim())
-          .find((line) => line.startsWith('data:'));
-        if (dataLine) {
-          const raw = dataLine.replace(/^data:\s*/, '');
-          try {
-            const payload = JSON.parse(raw);
-            handlePayload(payload);
-            if (payload?.event === 'workflow_finished') {
-              reader.cancel().catch(() => {});
-              return { workflowRunId, totalTokens, elapsedTime, outputs };
-            }
-          } catch {
-            // ignore malformed chunks
-          }
-        }
-      }
-      splitIndex = buffer.indexOf('\n\n');
-    }
-
-    if (done) break;
-  }
-
-  return { workflowRunId, totalTokens, elapsedTime, outputs };
-}
-
 export async function generateContentViaDify(input: ContentGenerationRequest): Promise<ContentGenerationResult> {
   const template = normalizeContentGenerationTemplate(input.template);
   const config = TEMPLATES[template];
@@ -238,31 +167,22 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
   const workflowKeyword = `${baseKeyword} | CRITICAL: The entire article MUST be written in strictly English. DO NOT USE TURKISH.`;
 
   const appKey = getRequiredEnv('DIFY_APP_KEY');
-  const resp = await fetch(`${BASE}/workflows/run`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${appKey}`,
-      'Content-Type': 'application/json',
+  const workflow = await runDifyWorkflow(
+    'content-orchestrator',
+    {
+      keyword: workflowKeyword,
+      content_type: contentType,
+      word_count: wordCount,
     },
-    body: JSON.stringify({
-      inputs: {
-        keyword: workflowKeyword,
-        content_type: contentType,
-        word_count: wordCount,
-      },
-      response_mode: 'streaming',
-      user: 'content-orchestrator',
-    }),
-    signal: AbortSignal.timeout(300000),
-  });
+    appKey,
+    'content_gen',
+  );
 
-  if (!resp.ok) {
-    const err = await resp.text().catch(() => 'Unknown');
-    throw new Error(`DIFY_API_${resp.status}: ${err.slice(0, 300)}`);
+  if (!workflow.success) {
+    throw new Error(`DIFY_WORKFLOW_${workflow.status}: ${workflow.error || 'Workflow did not succeed'}`);
   }
 
-  const streamed = await readWorkflowStream(resp);
-  const outputs = streamed.outputs;
+  const outputs = workflow.outputs;
   const article = typeof outputs.article === 'string' ? outputs.article : '';
   const metadataRaw = typeof outputs.metadata === 'string' ? outputs.metadata : '';
   const outlineRaw = typeof outputs.outline === 'string' ? outputs.outline : '';
@@ -325,9 +245,9 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
     content,
     rawAnswer,
     sources: resources,
-    workflowRunId: streamed.workflowRunId,
-    totalTokens: streamed.totalTokens,
-    elapsedTime: streamed.elapsedTime,
+    workflowRunId: workflow.workflowRunId || null,
+    totalTokens: workflow.totalTokens || null,
+    elapsedTime: workflow.elapsedTime || null,
     outputs,
   };
 }
@@ -336,39 +256,18 @@ export async function runWorkflow(
   appToken: string,
   inputs: Record<string, unknown>,
 ): Promise<ContentGenerationResult> {
-  const resp = await fetch(`${BASE}/workflows/run`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${appToken}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      inputs,
-      response_mode: 'blocking',
-      user: 'fpvlovers-system',
-    }),
-    signal: AbortSignal.timeout(180000),
-  });
-
-  if (!resp.ok) {
-    const err = await resp.text().catch(() => 'Unknown');
-    throw new Error(`DIFY_API_${resp.status}: ${err.slice(0, 300)}`);
-  }
-
-  const data = await resp.json();
-  const workflowData = data?.data || {};
-  const outputs: Record<string, unknown> = workflowData.outputs || {};
+  const workflow = await runDifyWorkflow('fpvlovers-system', inputs, appToken, 'content_gen');
+  const outputs = workflow.outputs;
 
   return {
-    success: workflowData.status === 'succeeded',
+    success: workflow.success,
     template: 'tech-article',
     content: null,
     rawAnswer: JSON.stringify(outputs, null, 2),
     sources: [],
-    workflowRunId: data.workflow_run_id || workflowData.id || null,
-    totalTokens: workflowData.total_tokens ?? null,
-    elapsedTime: workflowData.elapsed_time ?? null,
+    workflowRunId: workflow.workflowRunId || null,
+    totalTokens: workflow.totalTokens || null,
+    elapsedTime: workflow.elapsedTime || null,
     outputs,
   };
 }
-

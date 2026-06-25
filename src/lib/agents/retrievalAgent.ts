@@ -1,6 +1,7 @@
 // Retrieval Agent — Handles semantic retrieval optimization, dataset routing, query expansion
 
 import { registerAgent } from '@/lib/agents';
+import { inputString } from '@/lib/agents/input-normalizers';
 
 registerAgent({
   id: 'retrieval',
@@ -43,7 +44,8 @@ ROUTING RULES:
   },
 
   handler: async (input) => {
-    const { query, content_type } = input;
+    const query = inputString(input, 'query');
+    const content_type = inputString(input, 'content_type');
     const queryLower = (query || '').toLowerCase();
 
     // Dataset routing
