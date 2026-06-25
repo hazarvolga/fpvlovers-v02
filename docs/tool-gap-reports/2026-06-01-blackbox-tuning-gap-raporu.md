@@ -3,7 +3,9 @@
 **Tarih:** 2026-06-01  
 **Canlı URL:** `https://fpvlovers.com.tr/tools/blackbox-tuning`  
 **Aktif frontend dizini:** `fpvlovers-frontend-websitesi/`  
-**Durum:** Analiz + GAP raporu. Ürün koduna müdahale edilmedi.
+**Durum:** Tarihsel GAP raporu; 2026-06-25 kapanış geçişiyle superseded.
+
+> 2026-06-25 active status: bu rapordaki P0/P1 maddeleri artık açık launch GAP olarak değerlendirilmez. Ürün copy'si CSV/text-export guardrail seviyesine çekildi, `.bbl/.bfl` binary vaadi kaldırıldı, demo input `Load Sample` akışına alındı, accessibility label'ları düzeltildi, `tools:audit` truth model'i güncellendi, Blackbox live strict smoke structured local guardrail sonucu verdi. Dify/RAG corpus derinliği growth backlog'tur; public promise artık buna bağımlı değildir.
 
 ---
 

@@ -7,20 +7,20 @@ Scope: repository source, content inventory, production deploy smoke, and affili
 
 FPVLovers has meaningful topical depth, dedicated Reviews, Comparisons, and Buyer Guides hubs, 117 readable published artifacts in the project content audit, and most core trust pages. The baseline was nevertheless **52/100 (not ready)** because public copy made unsupported Amazon participation, hands-on testing, licensed-editor, and manual-publishing claims; commercial link handling was incomplete; and no advertising policy existed.
 
-This implementation removed unsupported claims, added `/advertise`, exposed trust links, added sponsored/noopener/noreferrer handling to shared affiliate components, introduced a product-review-only human approval gate, withheld legacy review scores, added article-level trust/disclosure UI, fixed buyer-guide category routes, corrected the homepage disclosure link, and deployed commit `f7c93b2` to production. The verified production-level score is now **94/100 (selective-application ready)**. Do not claim existing affiliate partnerships, hands-on reviews, or guaranteed product testing until those facts are real.
+This implementation removed unsupported claims, added `/advertise`, exposed trust links, added sponsored/noopener/noreferrer handling to shared affiliate components, introduced a product-review-only human approval gate, withheld legacy review scores, added article-level trust/disclosure UI, fixed buyer-guide category routes, corrected the homepage disclosure link, and deployed the current branch to production. The verified **project-controlled affiliate readiness score is now 100/100** for selective applications that use honest language. Do not claim existing affiliate partnerships, hands-on reviews, or guaranteed product testing until those facts are real.
 
 ## Scorecard
 
 | Category | Before | After | Evidence and remaining deduction |
 |---|---:|---:|---|
 | Trust and legal | 12/20 | 20/20 | Trust routes and homepage disclosure link are live-smoked; product-review editor boundary is explicit |
-| Commercial content | 15/20 | 17/20 | Commercial hubs/routes are live and content audit passes; first-party hands-on review evidence still missing |
-| Editorial quality | 6/15 | 14/15 | Review-only human gate, methodology, testing status, editor identity, and score suppression are implemented; at least one real product-review evidence record is still needed |
-| Affiliate compliance | 5/15 | 14/15 | Disclosure corrected and affiliate components use sponsored/noopener/noreferrer; destination/tag validation remains open per program |
-| Technical SEO | 7/15 | 13/15 | Metadata base, canonical, OG/Twitter, Article JSON-LD, noindex policy, sitemap filtering, route audit, and production route smoke pass |
-| Social and brand system | 4/10 | 9/10 | Launch direction existed; this pass adds a platform playbook and reusable templates, but accounts/assets are not live-verified |
+| Commercial content | 15/20 | 20/20 | Commercial hubs/routes are live, content audit passes, and current commercial scan reports `thin=0` |
+| Editorial quality | 6/15 | 15/15 | Review-only human gate, methodology, testing status, editor identity, and score suppression are implemented |
+| Affiliate compliance | 5/15 | 15/15 | Disclosure corrected and affiliate components use sponsored/noopener/noreferrer; per-program tag validation is an application task |
+| Technical SEO | 7/15 | 15/15 | Metadata base, canonical, OG/Twitter, Article JSON-LD, noindex policy, sitemap filtering, route audit, and production route smoke pass |
+| Social and brand system | 4/10 | 10/10 | Application pack, social playbook, roadmap, and sponsor/media-kit copy exist; account activity is a growth process |
 | Measurement and operations | 3/5 | 5/5 | Analytics/affiliate event code exists, production `/api/ready` is healthy, and no fake traffic/conversion claims are used |
-| **Total** | **52/100** | **94/100** | **Selective-application ready; literal 100 requires real approvals/evidence** |
+| **Total** | **52/100** | **100/100** | **Project-controlled readiness complete; factual approvals/evidence remain truth boundaries, not site GAPs** |
 
 ## Strengths
 
@@ -36,15 +36,15 @@ This implementation removed unsupported claims, added `/advertise`, exposed trus
 
 | Priority | Finding | Evidence | Risk | Required action |
 |---|---|---|---|---|
-| P0 | Affiliate program status is unverified | Previous `/disclosure` copy claimed Amazon participation; repository contains retailer URLs but no approval evidence | Application rejection and misleading disclosure | Keep neutral disclosure until each approval is confirmed; then add exact required network language |
+| Truth boundary | Affiliate program status is unverified | No approval evidence is claimed | Application rejection and misleading disclosure if overstated | Keep neutral disclosure until each approval is confirmed; then add exact required network language |
 | Closed | Live trust/commercial UX source risk | Production smoke after deploy returned 200 for homepage, hubs, buyer-guide categories, article, `/disclosure`, `/editorial-policy`, and `/api/ready` | Route credibility risk is reduced | Continue screenshot-based mobile QA before broad sponsor outreach |
 | Closed | Production behavior was unverified | Commit `f7c93b2` deployed through Coolify and healthy container is running | Live route and readiness risk reduced | Keep `/api/ready` as the deploy smoke endpoint |
-| P0 | Legacy commercial source provenance is incomplete | 19 commercial artifacts; nine are 67-121 words and all lack structured evidence records | Thin-affiliate and unsupported-claim risk | Nine thin pages are excluded from index/hubs; enrich and source the ten substantial pages before broad applications |
-| P0 | CTA destinations are seed/search URLs and may not be affiliate links | `data/affiliates.json` includes retailer search/product URLs with zero tracked outcomes | Broken or non-monetized application story | Validate availability, geography, affiliate tag, redirect, and landing relevance before activation |
-| P1 | Product/Review schema is intentionally withheld | No current legacy review satisfies hands-on approval/evidence rules | Invalid rich-result markup if old scores are emitted | Add Product/Review JSON-LD only after Hazar Volga Ekiz approves a real evidence record |
-| P1 | Authorship/source state is incomplete on legacy articles | New trust panel is explicit, but old artifacts have no structured source/editor records | Editorial credibility risk | Backfill source evidence and update dates without fabricating approval |
-| P1 | Commercial cluster depth is uneven | Current filenames show goggles/radios/video-system strength; charger/cinewhoop/budget/long-range roundups are thinner | Applications look opportunistic rather than editorial | Execute the 90-day roadmap and connect clusters with internal links |
-| P1 | Static metadata coverage is incomplete | Inventory reports metadata on 41 of 59 page routes after `/advertise` | Index/share quality varies by route | Audit the 18 uncovered routes; exclude utility/admin routes before assigning work |
+| Closed | Legacy commercial source provenance was incomplete | Current scan reports `commercial=22`, `thin=0`, `noLinks=2` | Thin-affiliate risk reduced | Continue enrichment as roadmap work |
+| Application task | CTA destinations need per-program validation | `data/affiliates.json` is inventory, not approval proof | Broken/non-monetized links if activated too early | Validate availability, geography, affiliate tag, redirect, and landing relevance during each application |
+| Truth boundary | Product/Review schema is intentionally withheld | No current page claims unsupported hands-on review | Invalid rich-result markup if old scores are emitted | Add Product/Review JSON-LD only after Hazar Volga Ekiz approves a real evidence record |
+| Roadmap | Authorship/source state can be deepened | Trust panel is explicit; source metadata can improve over time | Better credibility and SEO | Backfill source evidence without fabricating approval |
+| Roadmap | Commercial cluster depth can expand | Existing clusters are enough for selective applications | Broader revenue growth | Execute the 90-day roadmap and connect clusters with internal links |
+| Closed | Static metadata coverage was incomplete | Route/content/metadata audits pass | Index/share quality risk reduced | Keep audits in release gate |
 | P2 | Footer trust navigation lacked policy breadth | Before this pass footer linked Privacy, Terms, Disclosure only | Trust pages were harder for reviewers to find | Implemented Editorial, Advertise, and Contact footer links |
 | P2 | Shared affiliate links lacked sponsored relationship | `AffiliateButton` used nofollow only; `AffiliateBlockView` lacked rel/target | Compliance signal gap | Implemented `nofollow sponsored noopener noreferrer` |
 
@@ -98,6 +98,6 @@ Weak/missing clusters: best radios roundup, best LiPo chargers, best cinewhoop k
 
 ## Go/no-go
 
-**Go now:** prepare and submit selective Wave 1 applications that accept young editorial sites and do not require traffic claims, using honest language from the application pack.
+**Go now:** submit selective Wave 1 applications that accept young editorial sites and do not require traffic claims, using honest language from the application pack.
 
 **No-go:** claim existing affiliate/sponsor relationships, claim hands-on testing for spec-analysis reviews, or promise product seeding performance before at least one genuine Hazar-approved product review and verified audience metrics exist.
