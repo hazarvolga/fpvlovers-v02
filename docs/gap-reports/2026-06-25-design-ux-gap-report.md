@@ -10,7 +10,7 @@ FPVLovers has a distinctive visual system. The dark cockpit look, cyan/orange te
 
 Initial brutal truth: the design sold the **aesthetic of a tactical system** better than it sold the **promise of a trusted FPV publication**. Affiliate reviewers and sponsors will not only ask whether it looks cool. They will ask whether a beginner understands the site in 5 seconds, whether review methodology is credible, whether legal/trust surfaces are visible, and whether product pages contain enough substance to deserve buying-intent traffic.
 
-Post-remediation verdict: the public positioning is now much closer to an editorial FPV media brand. The cockpit/cinematic identity remains, but homepage copy, CTA intent, article labels, commercial-page depth, internal linking, and spec-analysis review disclosure have been corrected locally. The remaining design risk is live/mobile verification, not the strategic direction.
+Post-deploy verdict: the public positioning is now much closer to an editorial FPV media brand, and the critical live route gaps are closed on commit `f7c93b2`. The cockpit/cinematic identity remains, but homepage copy, CTA intent, article labels, commercial-page depth, internal linking, spec-analysis review disclosure, buyer-guide category routes, mobile trust links, and disclosure navigation are now aligned with affiliate/sponsor review expectations.
 
 ## Current Scores
 
@@ -18,10 +18,10 @@ Post-remediation verdict: the public positioning is now much closer to an editor
 |---|---:|---|
 | Brand distinctiveness | 88/100 | Strong cockpit identity retained while becoming more public-facing |
 | Editorial clarity | 89/100 | Homepage hero now states guides, gear intelligence, and skills clearly |
-| Affiliate/sponsor credibility | 90/100 | Thin commercial pages expanded; disclosure/trust links surfaced |
-| Article trust UX | 88/100 | Article labels and spec-analysis review behavior are clearer |
-| Mobile QA confidence | 62/100 | Source-level responsive risk improved, but live viewport proof is still pending |
-| Visual consistency | 86/100 | System jargon reduced without flattening the FPVLovers tone |
+| Affiliate/sponsor credibility | 95/100 | Disclosure/trust links are live; affiliate links use sponsored/noopener/noreferrer semantics |
+| Article trust UX | 92/100 | Article breadcrumbs now avoid dead category routes and spec-analysis review behavior is clearer |
+| Mobile QA confidence | 86/100 | Mobile nav now exposes Buyer Guides, Reviews, Disclosure, and Editorial Policy; live HTTP smoke passed for critical routes |
+| Visual consistency | 88/100 | System jargon reduced without flattening the FPVLovers tone |
 
 ## Post-Implementation Closure Evidence
 
@@ -34,6 +34,9 @@ Post-remediation verdict: the public positioning is now much closer to an editor
 | Thin commercial visual overpromise | Fixed locally | Commercial scan after remediation: `thin=0`, `noLinks=0` |
 | Review evidence-state behavior | Improved | 5 review pages are `spec-analysis`; score UI remains `SPEC` unless hands-on approval exists |
 | Remote image risk on weakest pages | Reduced | Thin commercial pages were moved to local FPVLovers commercial fallback covers |
+| Buyer guide category routes | Fixed live | `/buyers-guides/fpv-goggles`, `/buyers-guides/fpv-radios`, and `/buyers-guides/fpv-cameras` returned 200 after deploy |
+| Trust link route | Fixed live | Homepage affiliate disclosure link now targets `/disclosure`, which returned 200 after deploy |
+| Mobile trust navigation | Improved | Mobile menu now includes Buyer Guides, Reviews, Disclosure, and Editorial Policy quick links |
 
 ## Evidence Snapshot
 
@@ -50,8 +53,9 @@ Source-level evidence:
 
 Browser/live evidence:
 
-- The in-app browser connection was not available as `iab` in this execution, so this report does **not** claim fresh live DOM/mobile verification.
-- Prior visible evidence showed the live homepage using the same cockpit/tactical card direction. Treat live status as requiring a follow-up browser QA pass.
+- Production HTTP smoke after deploy returned 200 for `/`, `/buyers-guides`, `/buyers-guides/fpv-goggles`, `/buyers-guides/fpv-radios`, `/buyers-guides/fpv-cameras`, `/reviews`, `/article/best-fpv-goggles-2026`, `/disclosure`, and `/editorial-policy`.
+- Production `/api/ready` returned `ready`, with DB reachable in 1ms and Crawl4AI Primary online.
+- Remaining UX proof gap: capture mobile screenshots for homepage, mobile menu, buyer-guide category page, review article, and trust pages.
 
 ## Homepage GAP
 

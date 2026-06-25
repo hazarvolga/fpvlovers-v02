@@ -10,16 +10,16 @@ FPVLovers is structurally alive, not abandoned and not a toy. The project now ha
 
 Initial brutal truth: `main` was not a clean deploy candidate. The production build failed, the recent quality gate failed, and full ESLint feedback was too slow to be useful in a fast launch loop. Affiliate readiness was also not application-safe because the commercial layer had too many thin or weakly linked money pages.
 
-Post-remediation verdict: the local branch is now a serious deploy candidate, pending final production build/live smoke. The strongest remaining blocker is not code quality; it is external production dependency confidence, especially Dify racing workflow behavior and source-backed corpus depth for tools.
+Post-deploy verdict: commit `f7c93b2` is live and healthy. The branch is now a clean production candidate and the public route gaps found in mobile/live audit are closed. The strongest remaining blocker is no longer release quality; it is external dependency confidence, especially the invalid Dify racing workflow token and the fact that no product review can honestly be called hands-on until Hazar Volga Ekiz has evidence-backed test notes.
 
 ## Current Scores
 
 | Area | Score | Verdict |
 |---|---:|---|
-| Operations readiness | 92/100 | Core gates are green; readiness endpoint and Dify gateway path improved |
-| Affiliate application readiness | 91/100 | Trust surfaces plus commercial depth/internal links now meet practical application baseline |
-| Automation reliability | 86/100 | Dify gateway bypass closed; racing fallback added; tool corpus still not 100 |
-| Release confidence | 88/100 | Typecheck, scoped lint, recent quality, content, routes, media, governance, social gates pass; final build/live smoke still required |
+| Operations readiness | 98/100 | Core gates, production build, deploy, live route smoke, DB readiness, and crawler readiness are green |
+| Affiliate application readiness | 94/100 | Trust surfaces, commercial hubs, disclosure routes, and sponsored link handling meet a practical application baseline |
+| Automation reliability | 91/100 | Dify gateway/fallback behavior is honest; racing workflow still needs a valid Dify token and full corpus grounding |
+| Release confidence | 100/100 | Current commit is pushed, deployed, healthy, and live-smoked on production |
 
 ## Post-Implementation Closure Evidence
 
@@ -34,9 +34,9 @@ Post-remediation verdict: the local branch is now a serious deploy candidate, pe
 | Commercial thin content | Fixed locally | Commercial scan after remediation: `commercial=20`, `thin=0`, `noLinks=0` |
 | Product review honesty | Improved | 5 review artifacts marked as editor-approved `spec-analysis`, not hands-on testing |
 | Package manager drift | Fixed | Removed tracked `pnpm-lock.yaml`; npm lock remains aligned with Docker/CI |
-| Racing workflow resilience | Improved | `npm run racing:workflow:smoke` now returns `fallback`, `Success: yes`, `Entities: 1`, `Content briefs: 1` when Dify returns an unsuccessful workflow result |
+| Racing workflow resilience | Improved honestly | `npm run racing:workflow:smoke` now returns `fallback`, `Dify success: no`, `Fallback used: yes`, `Entities: 1`, `Content briefs: 1`, and exposes the real Dify 401 |
 | Local production smoke | Mixed by design | `/`, `/buyers-guides`, `/article/best-fpv-goggles-2026`, `/api/health` returned 200; `/api/ready` returned 503 because local DB DNS and crawler provider were unavailable |
-| Production deploy/live smoke | Passed | Commit `1ca1b72` deployed through Coolify; healthy container is running `1ca1b72`; `/`, `/buyers-guides`, `/reviews`, `/article/best-fpv-goggles-2026`, `/api/health`, and `/api/ready` returned 200; production `/api/ready` status is `ready` |
+| Production deploy/live smoke | Passed | Commit `f7c93b2` deployed through Coolify; healthy container is running `f7c93b2934ce6212eb27500b73f705936857eaa8`; `/`, `/buyers-guides`, `/buyers-guides/fpv-goggles`, `/buyers-guides/fpv-radios`, `/buyers-guides/fpv-cameras`, `/reviews`, `/article/best-fpv-goggles-2026`, `/disclosure`, `/editorial-policy`, and `/api/ready` returned 200; production `/api/ready` status is `ready` |
 
 ## Last 15 Days: What Changed
 
@@ -66,8 +66,8 @@ This volume explains the current state: many strategic pieces landed, but the ne
 | `npx tsc --noEmit` | PASS | Exit 0, no TypeScript diagnostics |
 | `npm run lint:ci` | PASS | Scoped ESLint completed in 15.09s |
 | `npm run build` | PASS | Next.js production build completed; DB DNS was unavailable locally and committed-file fallback was used during prerender |
-| `npm run tools:audit` | GAP | Build Calculator PASS; Build Wizard/Part Matcher/Duel/Hardware/Blackbox remain PARTIAL due corpus/workflow depth |
-| `npm run racing:workflow:smoke` | PASS WITH FALLBACK | Dify workflow still returns unsuccessful status, but local review-required fallback now produces entities/briefs and exposes next actions |
+| `npm run tools:audit` | PASS WITH EXPLICIT LIMITS | Build Calculator, Build Wizard, Part Matcher, Component Duel, Hardware Analyzer, and Blackbox Tuning pass for local/catalog-backed claims; Flight Critic remains intentionally deferred |
+| `npm run racing:workflow:smoke` | PASS WITH FALLBACK | Local fallback works and exposes the real Dify failure: `HTTP 401 unauthorized`; Dify token rotation/import remains external work |
 
 ## Architecture State
 
@@ -81,9 +81,9 @@ Positive:
 
 Critical gaps:
 
-- `src/lib/content-automation/dify-generation.ts:241` and `:339` still call `/workflows/run` with direct `fetch`, bypassing the intended Dify gateway controls.
-- `/api/health` is a shallow liveness response only; `Dockerfile:29` uses it as container health. It cannot detect DB, Dify, crawler, queue, or budget failures.
-- Both `package-lock.json` and `pnpm-lock.yaml` exist, while Docker/CI use `npm ci`. This must be made an explicit repo decision.
+- Dify racing workflow authentication is invalid in the current environment: the smoke test receives `HTTP 401 unauthorized`.
+- `/api/health` is still shallow liveness; `/api/ready` now covers readiness and should remain the operational smoke endpoint.
+- Full Dify RAG grounding for build/components/PID/troubleshooting datasets is not complete, even though local catalog-backed tools are now honest and usable.
 
 ## Content Automation State
 
