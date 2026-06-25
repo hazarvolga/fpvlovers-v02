@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 
-export function AdZone({ className, title = "SPONSORED PARTNER" }: { className?: string; title?: string }) {
+export function AdZone({ className, title = "SPONSORSHIP SLOT" }: { className?: string; title?: string }) {
   return (
     <div className={cn("glass-panel relative flex flex-col items-center justify-center min-h-[120px] rounded-xl overflow-hidden group", className)}>
       <div className="absolute top-2 left-3 text-[10px] uppercase tracking-widest text-[#00F5FF]/60 font-bold">

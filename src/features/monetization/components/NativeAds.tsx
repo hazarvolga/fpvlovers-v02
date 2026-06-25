@@ -27,7 +27,7 @@ function trackAffiliateClick(product: AdProduct) {
   }).catch(() => {});
 }
 
-export function AdBanner({ className, title = "TOP TIER SPONSOR", product }: { className?: string; title?: string; product?: AdProduct }) {
+export function AdBanner({ className, title = "SPONSOR SLOT", product }: { className?: string; title?: string; product?: AdProduct }) {
   const displayName = product?.name || 'Featured FPV Product';
   const displayPrice = product?.price || 'See Details';
   const originalPrice = product?.originalPrice;
@@ -55,7 +55,7 @@ export function AdBanner({ className, title = "TOP TIER SPONSOR", product }: { c
           className="h-10 text-[10px] w-full sm:w-auto"
           onClick={() => product && trackAffiliateClick(product)}
         >
-          CLAIM DEAL
+          VIEW PICK
         </Button>
       </div>
 
@@ -99,12 +99,12 @@ export function AdInFeed({ className, product }: { className?: string; product?:
 }
 
 export function AdStickySidebar({ className, product }: { className?: string; product?: AdProduct }) {
-  const displayName = product?.name || 'Partner Product';
+  const displayName = product?.name || 'Gear Placement Slot';
   const displayPrice = product?.price || 'See Price';
 
   return (
     <div className={cn("glass-panel p-4 hex-panel flex flex-col border-[#00F2FF]/20 sticky top-24 neon-border bg-[#0A0A0B]/90", className)}>
-       <div className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-4 text-center">Partner Network</div>
+       <div className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-4 text-center">Affiliate-ready slot</div>
        <div className="flex flex-col gap-4">
          <div
            className="bg-[#050505] p-3 group hover:border-[#00F2FF]/40 border-b border-[#333333] transition-colors cursor-pointer relative"
@@ -113,7 +113,7 @@ export function AdStickySidebar({ className, product }: { className?: string; pr
             <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#00F2FF]/50 opacity-0 group-hover:opacity-100 transition-opacity" />
 
             <div className="w-full h-24 bg-gradient-to-br from-[#00F2FF]/20 to-transparent mb-3 flex items-center justify-center border border-[#00F2FF]/20 overflow-hidden relative hex-panel">
-               <span className="text-[10px] text-[#00F2FF] font-black uppercase tracking-widest z-10 bg-black/50 px-2 py-1 backdrop-blur-sm border border-[#00F2FF]/30">FPV PARTNER</span>
+               <span className="text-[10px] text-[#00F2FF] font-black uppercase tracking-widest z-10 bg-black/50 px-2 py-1 backdrop-blur-sm border border-[#00F2FF]/30">GEAR PICK</span>
             </div>
             <div className="text-xs font-black uppercase tracking-tight text-[#A0A0A0] mb-1">{displayName}</div>
             <div className="flex items-center justify-between">

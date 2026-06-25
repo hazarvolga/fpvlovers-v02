@@ -40,6 +40,66 @@ export const metadata = generateSeoMetadata({
 const academySkills = ['Race Lines', 'Gate Management', 'Throttle Discipline', 'Track Reading', 'Qualifying Strategy', 'Finals Strategy'];
 const mediaModules = ['Race Highlights', 'Pilot Interviews', 'Track Walkthroughs', 'Technical Breakdowns'];
 
+type UnknownRecord = Record<string, unknown>;
+
+type EventPreview = {
+  id: string;
+  name: string;
+  scope: string;
+};
+
+type CalendarPreview = {
+  window: string;
+  event: string;
+  region: string;
+  league: string;
+  status: 'live';
+};
+
+type RankingPreview = {
+  position: string;
+  pilot: string;
+  league: string;
+  country: string;
+  points: string;
+};
+
+type TrackPreview = {
+  name: string;
+  location: string;
+  league: string;
+  type: string;
+  difficulty: string;
+};
+
+type PilotPreview = {
+  name: string;
+  achievement: string;
+  league: string;
+  nationality: string;
+};
+
+type LeaguePreview = {
+  name: string;
+  region: string;
+  status: string;
+};
+
+function asRecord(value: unknown): UnknownRecord {
+  return value && typeof value === 'object' && !Array.isArray(value) ? value as UnknownRecord : {};
+}
+
+function asText(value: unknown, fallback: string): string {
+  return typeof value === 'string' && value.trim().length > 0
+    ? value.trim()
+    : fallback;
+}
+
+function asDisplayNumber(value: unknown, fallback = '0'): string {
+  if (typeof value === 'number' && Number.isFinite(value)) return String(value);
+  return asText(value, fallback);
+}
+
 export default function RacingDivisionPage() {
   const storePilots = getStorePilots();
   const storeLeagues = getStoreLeagues();
@@ -51,18 +111,72 @@ export default function RacingDivisionPage() {
   const summary = getStoreSummary();
 
   const topEvents = storeEvents.length > 0
-    ? storeEvents.slice(0, 8).map((e: any) => ({ id: e.name || e.title, name: e.name || e.title, scope: e.summary || e.type || 'Racing event' }))
+    ? storeEvents.slice(0, 8).map((event): EventPreview => {
+        const record = asRecord(event);
+        const name = asText(record.name ?? record.title, 'Racing event');
+        return {
+          id: asText(record.id, name),
+          name,
+          scope: asText(record.summary ?? record.type, 'Source-backed racing event'),
+        };
+      })
     : [];
 
-  const topRankings = storeRankings.length > 0 ? storeRankings : [];
+  const topRankings = storeRankings.length > 0
+    ? storeRankings.map((row): RankingPreview => {
+        const record = asRecord(row);
+        return {
+          position: asDisplayNumber(record.position, '-'),
+          pilot: asText(record.pilot ?? record.name, 'Pilot pending review'),
+          league: asText(record.league, 'League pending'),
+          country: asText(record.country, 'Global'),
+          points: asDisplayNumber(record.points, '0'),
+        };
+      })
+    : [];
 
   const topTrack = storeTracks.length > 0 ? storeTracks[0] : null;
-  const trackData = topTrack || { name: 'Track library', gateCount: '0', lapDistance: '0m', speedRating: 'N/A', difficulty: 'N/A' };
+  const trackRecord = asRecord(topTrack);
+  const trackData: TrackPreview = {
+    name: asText(trackRecord.name, 'Track library'),
+    location: asText(trackRecord.location, 'Global'),
+    league: asText(trackRecord.league, 'Multi-league'),
+    type: asText(trackRecord.type, 'Outdoor'),
+    difficulty: asText(trackRecord.difficulty, 'Medium'),
+  };
 
   // Calendar merge
   const mergedCalendar = storeCalendar.length > 0
-    ? storeCalendar.map((item: any) => ({ window: 'Upcoming', event: item.event, region: item.location, league: item.league, status: 'live' as const }))
+    ? storeCalendar.map((item): CalendarPreview => {
+        const record = asRecord(item);
+        return {
+          window: asText(record.date ?? record.startDate, 'Upcoming'),
+          event: asText(record.event ?? record.eventName, 'Race calendar item'),
+          region: asText(record.location ?? record.country, 'Global'),
+          league: asText(record.league, 'Independent'),
+          status: 'live',
+        };
+      })
     : [{ window: 'Season', event: 'Race calendar loading...', region: 'Global', league: 'Intelligence Pipeline', status: 'live' as const }];
+
+  const pilotPreviews: PilotPreview[] = storePilots.map((pilot) => {
+    const record = asRecord(pilot);
+    return {
+      name: asText(record.name, 'Pilot profile pending'),
+      achievement: asText(record.achievement, 'Achievement review pending'),
+      league: asText(record.league, 'League pending'),
+      nationality: asText(record.nationality, 'Global'),
+    };
+  });
+
+  const leaguePreviews: LeaguePreview[] = storeLeagues.map((league) => {
+    const record = asRecord(league);
+    return {
+      name: asText(record.name, 'League pending'),
+      region: asText(record.region, 'Global'),
+      status: asText(record.status, 'tracked'),
+    };
+  });
 
   return (
     <RacingShell>
@@ -110,7 +224,7 @@ export default function RacingDivisionPage() {
                 </div>
                 <div className="mt-2 space-y-2">
                   {mergedCalendar.map((item) => (
-                    <Link key={`${item.league}-${item.window}`} href="/racing/calendar" className="grid grid-cols-3 gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs transition-colors hover:border-[#ff5a1f]/30">
+                    <Link key={`${item.league}-${item.window}-${item.event}`} href="/racing/calendar" className="grid grid-cols-3 gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs transition-colors hover:border-[#ff5a1f]/30">
                       <span className="font-mono text-[#ff9b71]">{item.window}</span>
                       <span className="min-w-0 truncate text-[#d8d5cf]">{item.event}</span>
                       <span className="text-right font-mono text-[#8d8981]">{item.league}</span>
@@ -132,8 +246,8 @@ export default function RacingDivisionPage() {
                   <span className="text-right">Points</span>
                 </div>
                 <div className="mt-2 space-y-2">
-                  {topRankings.slice(0, 5).map((row: any, i: number) => (
-                    <div key={row.position} className="grid grid-cols-[44px_1fr_110px] gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs">
+                  {topRankings.slice(0, 5).map((row) => (
+                    <div key={`${row.position}-${row.pilot}-${row.league}`} className="grid grid-cols-[44px_1fr_110px] gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs">
                       <span className="font-mono text-lg font-black text-white">{row.position}</span>
                       <span>
                         <span className="block font-bold text-[#d8d5cf]">{row.pilot}</span>
@@ -173,11 +287,11 @@ export default function RacingDivisionPage() {
                     <div className="absolute bottom-3 left-3 font-mono text-[10px] uppercase tracking-[0.12em] text-white/50">Map renderer planned</div>
                   </div>
                   <div className="space-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-white/42">
-                    <div className="text-sm font-black text-white">{(trackData as any).name || 'Track'}</div>
-                    <div>Location: <span className="text-[#00f2ff]">{(topTrack as any)?.location || 'Global'}</span></div>
-                    <div>League: <span className="text-[#00f2ff]">{(topTrack as any)?.league || 'Multi-league'}</span></div>
-                    <div>Type: <span className="text-[#ff9b71]">{(topTrack as any)?.type || 'Outdoor'}</span></div>
-                    <div>Difficulty: <span className="text-[#ff9b71]">{(topTrack as any)?.difficulty || 'Medium'}</span></div>
+                    <div className="text-sm font-black text-white">{trackData.name}</div>
+                    <div>Location: <span className="text-[#00f2ff]">{trackData.location}</span></div>
+                    <div>League: <span className="text-[#00f2ff]">{trackData.league}</span></div>
+                    <div>Type: <span className="text-[#ff9b71]">{trackData.type}</span></div>
+                    <div>Difficulty: <span className="text-[#ff9b71]">{trackData.difficulty}</span></div>
                   </div>
                 </div>
               </Panel>
@@ -258,12 +372,12 @@ export default function RacingDivisionPage() {
               </Panel>
             </section>
 
-            {storePilots.length > 0 && (
+            {pilotPreviews.length > 0 && (
               <section className="mt-4 grid gap-4 xl:grid-cols-2">
                 <Panel title="Pilot Database" label="Verified profiles" href="/racing/pilots">
                   <div className="space-y-2">
-                    {storePilots.map((pilot: any, i: number) => (
-                      <div key={i} className="flex items-start gap-3 rounded-sm border border-white/8 bg-black/28 p-3">
+                    {pilotPreviews.map((pilot) => (
+                      <div key={`${pilot.name}-${pilot.league}`} className="flex items-start gap-3 rounded-sm border border-white/8 bg-black/28 p-3">
                         <div className="flex h-8 w-8 items-center justify-center rounded-sm bg-[#ff5a1f]/15 text-[#ff5a1f] text-xs font-black">{pilot.name?.charAt(0)}</div>
                         <div>
                           <div className="text-sm font-bold text-white">{pilot.name}</div>
@@ -275,10 +389,10 @@ export default function RacingDivisionPage() {
                   </div>
                 </Panel>
 
-                <Panel title="Active Leagues" label={`${storeLeagues.length} leagues`} href="/racing/leagues">
+                <Panel title="Active Leagues" label={`${leaguePreviews.length} leagues`} href="/racing/leagues">
                   <div className="grid grid-cols-2 gap-2">
-                    {storeLeagues.map((league: any, i: number) => (
-                      <div key={i} className="rounded-sm border border-white/8 bg-black/28 p-3">
+                    {leaguePreviews.map((league) => (
+                      <div key={`${league.name}-${league.region}`} className="rounded-sm border border-white/8 bg-black/28 p-3">
                         <div className="text-xs font-black text-white">{league.name}</div>
                         <div className="mt-1 text-[10px] text-[#8d8981]">{league.region}</div>
                         <div className="mt-1 font-mono text-[9px] text-[#00ff66]">{league.status}</div>
@@ -312,7 +426,7 @@ export default function RacingDivisionPage() {
                   ))}
                 </div>
                 <div className="flex items-center justify-end gap-4 px-4 py-3">
-                  <span>Source: <span className="text-white">36 official</span></span>
+                  <span>Source model: <span className="text-white">official-first queue</span></span>
                 </div>
               </div>
             </section>

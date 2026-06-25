@@ -8,14 +8,14 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
-import { CyberBreadcrumb } from "@/features/navigation/components/Breadcrumb";
 import { AdStickySidebar } from "@/features/monetization/components/NativeAds";
 import { AISummaryBox } from "@/components/ui/AISummaryBox";
-import { Map as MapIcon, Flag, CheckSquare, Shield, Award, Play, Lock, BookOpen } from "lucide-react";
+import { Flag, CheckSquare, Shield, Award, Play, Lock, BookOpen } from "lucide-react";
 import { loadDossierFromBrowser, saveDossierToBrowser } from "@/lib/state/dossier-serializer";
 import { PilotDossier, PilotClass } from "@/types/pilot-dossier";
 import localRoadmap from "../../../../data/roadmap.json";
 import { useSession, signOut } from "next-auth/react";
+import { SubpageHero, SubpageShell } from "@/components/subpage/SubpageChrome";
 
 interface ModuleGate {
   id: string;
@@ -195,11 +195,6 @@ export default function RoadmapPage() {
     };
   }, [status, triggerSync]);
 
-  const breadcrumbs = [
-    { label: "Learn", href: "/academy" },
-    { label: "Pilot Roadmap", isCurrentPage: true }
-  ];
-
   const phasesData = localRoadmap.phases as PhaseNode[];
   const qualifiedIds = dossier?.qualifications.qualifiedModuleIds || [];
 
@@ -285,9 +280,36 @@ export default function RoadmapPage() {
   const activeObj = getActiveObjective();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-zinc-300 font-sans">
-      <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
+    <SubpageShell className="text-zinc-300 font-sans">
+      <SubpageHero
+        label="Academy / Pilot Roadmap"
+        title="BUILD A REAL"
+        accent="FPV SKILL PATH."
+        description="A guided progression matrix for simulator hours, first flights, hardware knowledge, safety gates, and self-certified readiness. Guests can browse the path; signed-in pilots can sync dossier progress."
+        image="/images/fallbacks/fpv-academy-beginner.webp"
+        imageAlt="FPV beginner pilot training route over a dark tactical interface"
+        stats={[
+          { label: "Training Mode", value: dossier ? "Dossier Active" : "Guest Browse" },
+          { label: "Cleared Nodes", value: String(qualifiedIds.length) },
+          { label: "Sync State", value: isOffline ? "Offline Cache" : syncing ? "Syncing" : "Ready" },
+          { label: "Review Boundary", value: "Self-Certified" },
+        ]}
+        actions={[
+          { label: "Start Assessment", href: "/academy/assessment" },
+          { label: "Open Dossier", href: "/academy/dossier" },
+        ]}
+      />
 
+      <div className="mt-4 flex justify-end">
+        <button
+          onClick={() => setIsManualOpen(true)}
+          className="inline-flex items-center gap-2 rounded-[0.45rem] border border-[#00f2ff]/30 bg-[#00f2ff]/[0.06] px-4 py-2.5 font-mono text-[10px] font-black uppercase tracking-[0.16em] text-[#00f2ff] transition-colors hover:border-[#00f2ff]/55 hover:bg-[#00f2ff]/[0.1]"
+        >
+          System Manual
+        </button>
+      </div>
+
+      <div className="mt-10">
       {/* Offline Bar & Sync Notification HUD */}
       {isOffline && (
         <div className="mb-6 bg-[#FF5C00]/10 border border-[#FF5C00]/30 py-3 px-4 flex items-center justify-between text-xs text-[#FF5C00] font-mono animate-pulse rounded">
@@ -313,68 +335,47 @@ export default function RoadmapPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 flex flex-col gap-10">
-          
-          {/* Header Panel */}
-          <div className="relative p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden">
-            <div className="flex flex-col sm:flex-row justify-between items-start gap-8 relative z-10">
-              <div>
-                <MapIcon className="w-12 h-12 text-[#FF5C00] mb-6" />
-                <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-4">
-                  Pilot <span className="text-[#FF5C00]">Roadmap</span>
-                </h1>
-                <p className="text-xs uppercase text-[#A0A0A0] tracking-widest max-w-2xl leading-relaxed mb-4">
-                  {"// INTERACTIVE MULTI-DISCIPLINE FLIGHT PROGRESSION MATRIX (FPM)"}
-                </p>
-                <button
-                  onClick={() => setIsManualOpen(true)}
-                  className="inline-flex items-center gap-1.5 bg-[#FF5C00]/10 hover:bg-[#FF5C00]/20 text-[#FF5C00] border border-[#FF5C00]/30 hover:border-[#FF5C00]/60 font-black py-1.5 px-3 rounded text-[10px] uppercase tracking-wider transition-all duration-200 pointer-events-auto cursor-pointer"
-                >
-                  📡 [?] SYSTEM_MANUAL
-                </button>
+          {dossier ? (
+            <div className="rounded-xl border border-white/10 bg-zinc-950 p-5 text-xs">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <a href="/academy/dossier" className="block transition-colors hover:text-white">
+                  <div className="flex items-center gap-2">
+                    {syncing && <span className="animate-spin text-[#00F2FF]">⚙️</span>}
+                    <p className="font-mono font-bold uppercase tracking-widest text-zinc-100" title="Your official telemetry pilot identifier.">CALLSIGN: {dossier.callsign}</p>
+                  </div>
+                  <p className="mt-1 text-[#A0A0A0]" title="Your specialized flight class calibrated during assessment.">CLASS: {dossier.assignedClass || "Unassigned"}</p>
+                  <p className="mt-1 font-mono uppercase tracking-widest text-[#00FF66]" title="Operational Readiness Level: your active pilot qualification tier.">
+                    ORL LEVEL: {dossier.qualifications.operationalReadinessLevel}
+                  </p>
+                </a>
+                {status === "authenticated" && (
+                  <button
+                    onClick={() => signOut()}
+                    className="self-start rounded border border-red-500/20 bg-red-500/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-red-500 transition-colors hover:text-red-400 sm:self-center"
+                  >
+                    De-authorize Session
+                  </button>
+                )}
               </div>
-              {dossier ? (
-                <div className="flex flex-col gap-3 items-end w-full sm:w-auto">
-                  <a
-                    href="/academy/dossier"
-                    className="text-right bg-zinc-900 border border-white/10 hover:border-white/30 p-5 rounded-lg text-xs block transition-all duration-200 w-full sm:w-auto"
-                  >
-                    <div className="flex items-center justify-end gap-2 mb-2">
-                      {syncing && <span className="animate-spin text-[#00F2FF]">⚙️</span>}
-                      <p className="text-zinc-100 font-mono font-bold uppercase tracking-widest" title="Your official telemetry pilot identifier.">CALLSIGN: {dossier.callsign}</p>
-                    </div>
-                    <p className="text-[#A0A0A0] mt-1 font-black" title="Your specialized flight class calibrated during assessment.">CLASS: {dossier.assignedClass} ℹ️</p>
-                    <p className="text-[#00FF66] mt-1 font-mono uppercase tracking-widest" title="Operational Readiness Level: your active pilot qualification tier.">
-                      ORL LEVEL: {dossier.qualifications.operationalReadinessLevel} ℹ️
-                    </p>
-                    <p className="text-[10px] text-[#A0A0A0] mt-2 underline">Manage Dossier Card →</p>
-                  </a>
-                  {status === "authenticated" && (
-                    <button
-                      onClick={() => signOut()}
-                      className="text-[10px] text-red-500 hover:text-red-400 font-bold uppercase tracking-wider transition-colors bg-transparent border-none cursor-pointer self-end"
-                    >
-                      [x] De-authorize Session
-                    </button>
-                  )}
+            </div>
+          ) : (
+            <div className="rounded-xl border border-white/10 bg-zinc-950 p-5">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Guest Training Mode</p>
+                  <p className="mt-2 text-sm leading-6 text-zinc-400">Browse every training node, then initialize a pilot dossier when you are ready to track progress.</p>
                 </div>
-              ) : (
-                <div className="text-right flex flex-col gap-3 items-stretch w-full sm:w-auto">
-                  <a
-                    href="/academy/assessment"
-                    className="inline-flex items-center justify-center gap-2 bg-transparent hover:bg-white/5 border border-white/20 hover:border-white/40 text-white font-black py-2.5 px-4 rounded text-xs uppercase tracking-wider transition-all duration-200"
-                  >
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <a href="/academy/assessment" className="inline-flex items-center justify-center gap-2 rounded bg-transparent px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white transition-all duration-200 hover:bg-white/5">
                     <Play className="w-3.5 h-3.5" /> Assessment
                   </a>
-                  <a
-                    href="/auth/signin"
-                    className="inline-flex items-center justify-center gap-2 bg-[#FF5C00] hover:bg-[#FF5C00]/80 text-white font-black py-2.5 px-4 rounded text-xs uppercase tracking-wider transition-colors duration-200 border-b-2 border-[#9E3900]"
-                  >
+                  <a href="/auth/signin" className="inline-flex items-center justify-center gap-2 rounded bg-[#FF5C00] px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white transition-colors duration-200 hover:bg-[#FF5C00]/80">
                     Authorize Session
                   </a>
                 </div>
-              )}
+              </div>
             </div>
-          </div>
+          )}
 
           <AISummaryBox
             content={
@@ -804,6 +805,7 @@ export default function RoadmapPage() {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </SubpageShell>
   );
 }

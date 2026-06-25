@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
-import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { DroneAnatomyMap } from '@/features/academy/components/DroneAnatomyMap';
 import { 
   Search, BookOpen, Layers, Compass, Wrench, FileText, 
@@ -9,6 +8,27 @@ import {
   Settings, Award, RefreshCw, Cpu, Video, CheckCircle2, ChevronRight, RadioTower
 } from 'lucide-react';
 import { GlossaryTerm } from '@/lib/server/glossary';
+import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
+
+type RagInsight = {
+  source: string;
+  score: number;
+  content: string;
+};
+
+type RagTelemetry = {
+  grade: 'high' | 'medium' | 'low';
+  confidence: number;
+  insights?: RagInsight[];
+};
+
+function isRagTelemetry(value: unknown): value is RagTelemetry {
+  if (!value || typeof value !== 'object') return false;
+  const record = value as Record<string, unknown>;
+  const validGrade = record.grade === 'high' || record.grade === 'medium' || record.grade === 'low';
+  const validConfidence = typeof record.confidence === 'number' && Number.isFinite(record.confidence);
+  return validGrade && validConfidence;
+}
 
 export default function GlossaryPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,7 +41,7 @@ export default function GlossaryPage() {
   const [selectedTerm, setSelectedTerm] = useState<GlossaryTerm | null>(null);
   
   // RAG Details state
-  const [ragData, setRagData] = useState<any>(null);
+  const [ragData, setRagData] = useState<RagTelemetry | null>(null);
   const [ragLoading, setRagLoading] = useState(false);
   const [telemetryConnected, setTelemetryConnected] = useState(false);
 
@@ -30,11 +50,6 @@ export default function GlossaryPage() {
   const [selectedBuildDna, setSelectedBuildDna] = useState<string | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-  const breadcrumbs = [
-    { label: 'Learn', href: '/academy' },
-    { label: 'Glossary', isCurrentPage: true }
-  ];
 
   // Search shortcuts
   const popularKeywords = ['ELRS', 'LiPo', 'PID', 'RSSI', 'LQ', 'GPS Rescue', 'Propwash'];
@@ -278,8 +293,11 @@ export default function GlossaryPage() {
     try {
       const res = await fetch(`/api/academy/glossary?enrich=${term.slug}`);
       if (!res.ok) throw new Error('RAG API failed');
-      const data = await res.json();
-      setRagData(data.ragTelemetry || null);
+      const data: unknown = await res.json();
+      const telemetry = data && typeof data === 'object'
+        ? (data as Record<string, unknown>).ragTelemetry
+        : null;
+      setRagData(isRagTelemetry(telemetry) ? telemetry : null);
       setTelemetryConnected(true);
     } catch (err) {
       console.error('Telemetry linking failure:', err);
@@ -299,11 +317,28 @@ export default function GlossaryPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 font-mono text-[#EBE7DF]">
-      <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
+    <SubpageShell className="font-mono text-[#EBE7DF]">
+      <SubpageHero
+        label="Academy / Glossary"
+        title="DECODE FPV"
+        accent="WITHOUT GUESSWORK."
+        description="A practical terminology operating system for acronyms, hardware layers, symptoms, build profiles, and RAG-backed concept context. Built for beginners who need clarity and builders who need fast recall."
+        image="/images/fallbacks/fpv-radio-elrs-gps.webp"
+        imageAlt="FPV radio, receiver, and GPS telemetry concepts in a dark tactical layout"
+        stats={[
+          { label: "Search Mode", value: searchTerm ? "Filtered" : "Ready" },
+          { label: "Loaded Terms", value: loading ? "Syncing" : String(terms.length) },
+          { label: "Core Concepts", value: String(startHereSlugs.length) },
+          { label: "Live Context", value: telemetryConnected ? "Connected" : "On Demand" },
+        ]}
+        actions={[
+          { label: "Start Roadmap", href: "/academy/roadmap" },
+          { label: "Pilot Assessment", href: "/academy/assessment" },
+        ]}
+      />
 
       {/* SECTION 1: SEARCH FIRST (Primary Entry Point) */}
-      <div className="relative p-8 md:p-12 bg-zinc-950 border border-white/5 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] rounded-2xl mb-12 overflow-hidden">
+      <div className="relative mt-10 p-8 md:p-12 bg-zinc-950 border border-white/5 shadow-[inset_0_0_80px_rgba(0,242,255,0.05)] rounded-2xl mb-12 overflow-hidden">
         {/* Sleek tactical cockpit accent */}
         <div className="absolute inset-0 carbon-grid opacity-20 pointer-events-none" />
         <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#FF5C00]/20 via-[#00F2FF] to-[#00FF66]/20" />
@@ -311,9 +346,9 @@ export default function GlossaryPage() {
         
         <BookOpen className="w-10 h-10 text-[#FF5C00] mb-6 opacity-90" />
         
-        <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-zinc-100 mb-3 leading-none">
-          FPV <span className="text-[#00F2FF]">Terminology Operating System</span>
-        </h1>
+        <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-100 mb-3 leading-none">
+          Search the FPV terminology console
+        </h2>
         <p className="text-xs uppercase text-zinc-400 tracking-widest max-w-2xl leading-relaxed mb-8">
           {"// DECODE ACRONYMS, HARDWARE SYSTEMS, AND FLIGHT PROBLEMS INSTANTLY"}
         </p>
@@ -851,7 +886,7 @@ export default function GlossaryPage() {
                       
                       {ragData.insights && ragData.insights.length > 0 ? (
                         <div className="flex flex-col gap-3 max-h-48 overflow-y-auto pr-1">
-                          {ragData.insights.map((ins: any, idx: number) => (
+                          {ragData.insights.map((ins, idx) => (
                             <div key={idx} className="bg-black/80 border border-[#222] p-3 rounded text-[11px] leading-relaxed text-[#8D8981]">
                               <div className="text-[9px] text-[#444] uppercase mb-1">
                                 SOURCE: {ins.source} | RAG_SCORE: {ins.score.toFixed(3)}
@@ -978,6 +1013,6 @@ export default function GlossaryPage() {
           </div>
         </div>
       )}
-    </div>
+    </SubpageShell>
   );
 }
