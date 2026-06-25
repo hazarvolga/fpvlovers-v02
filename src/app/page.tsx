@@ -6,19 +6,23 @@ import {
   ArrowRight,
   BookOpen,
   Calculator,
+  CheckCircle2,
   Eye,
   Gauge,
+  Globe2,
   GraduationCap,
+  Heart,
+  Mail,
   RadioTower,
   ShieldCheck,
   ShoppingBag,
   Trophy,
+  Users,
   Wrench,
 } from 'lucide-react';
 import { resolveHomepageContent, type HomepageSectionCard } from '@/lib/homepage/homepage-content';
 import { Badge } from '@/components/ui/badge';
 import { NewsletterWidget } from '@/features/tools/components/NewsletterWidget';
-import { PilotPulseWidget } from '@/features/tools/components/PilotPulseWidget';
 import { ResilientCoverImage } from '@/components/ResilientCoverImage';
 
 type IconComponent = ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -113,6 +117,55 @@ const pillars: HomePillar[] = [
   },
 ];
 
+const communityStats: {
+  label: string;
+  value: string;
+  icon: IconComponent;
+}[] = [
+  { label: 'Published artifacts', value: '117+', icon: BookOpen },
+  { label: 'Pilot tools', value: '6', icon: Wrench },
+  { label: 'Core hubs', value: '5', icon: Globe2 },
+  { label: 'Fake event dates', value: '0', icon: CheckCircle2 },
+  { label: 'Editorial owner', value: 'HVE', icon: Users },
+];
+
+const editorialProofCards: {
+  title: string;
+  text: string;
+  detail: string;
+  icon: IconComponent;
+}[] = [
+  {
+    title: 'No fake scale',
+    text: 'FPVLovers does not invent traffic, user counts, awards, or sponsorship claims for marketing polish.',
+    detail: 'Startup-stage honest positioning',
+    icon: ShieldCheck,
+  },
+  {
+    title: 'Review evidence boundary',
+    text: 'Hands-on product reviews can be marked only when a real sample, test notes, or editor evidence exists.',
+    detail: 'Hazar Volga Ekiz review line',
+    icon: Eye,
+  },
+  {
+    title: 'Automation with oversight',
+    text: 'Autonomous content can support guides and research, while commercial product claims require stricter editorial control.',
+    detail: 'AI workflow, human accountability',
+    icon: RadioTower,
+  },
+];
+
+const coveredBrands = [
+  'BetaFPV',
+  'Gemfan',
+  'T-Motor',
+  'HQProp',
+  'RadioMaster',
+  'CaddxFPV',
+  'iFlight',
+  'DJI',
+];
+
 function ThinIcon({ icon: Icon, className = 'h-5 w-5' }: { icon: IconComponent; className?: string }) {
   return <Icon className={className} strokeWidth={1.35} />;
 }
@@ -127,6 +180,18 @@ function Metric({ label, value }: { label: string; value: string }) {
     <div className="border-l border-white/10 pl-4">
       <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-zinc-600">{label}</div>
       <div className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-zinc-200">{value}</div>
+    </div>
+  );
+}
+
+function CommunityStat({ label, value, icon: Icon }: { label: string; value: string; icon: IconComponent }) {
+  return (
+    <div className="text-center">
+      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#ff3131]/25 bg-[#ff3131]/[0.06] text-[#ff3131]">
+        <ThinIcon icon={Icon} className="h-5 w-5" />
+      </div>
+      <div className="mt-4 text-2xl font-black tracking-[-0.04em] text-white">{value}</div>
+      <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">{label}</div>
     </div>
   );
 }
@@ -477,12 +542,88 @@ export default async function HomePage() {
         )}
       </section>
 
-      <section className="mx-auto mt-20 max-w-3xl px-5 sm:px-8">
-        <PilotPulseWidget />
+      <section className="mx-auto mt-20 max-w-[112rem] px-5 sm:px-8 lg:px-16">
+        <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-10">
+          <div className="text-center">
+            <h2 className="text-2xl font-black uppercase tracking-[-0.03em] text-white md:text-3xl">
+              Join a global community of <span className="text-[#ff3131]">FPV pilots</span>
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
+              Community growth is earned, not inflated. These homepage signals show what FPVLovers can honestly stand behind today.
+            </p>
+          </div>
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+            {communityStats.map((stat) => (
+              <CommunityStat key={stat.label} {...stat} />
+            ))}
+          </div>
+        </div>
       </section>
 
-      <section className="mx-auto mt-10 max-w-3xl px-5 sm:px-8">
-        <NewsletterWidget />
+      <section className="mx-auto mt-8 max-w-[112rem] px-5 sm:px-8 lg:px-16">
+        <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-10">
+          <div className="text-center">
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">Trusted by process, not claims</p>
+            <h2 className="mt-3 text-2xl font-black uppercase tracking-[-0.03em] text-white md:text-3xl">
+              Editorial standards pilots can audit
+            </h2>
+          </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {editorialProofCards.map((card) => (
+              <div key={card.title} className="rounded-[0.7rem] border border-white/10 bg-white/[0.035] p-6">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff3131]/10 text-[#ff3131]">
+                  <ThinIcon icon={card.icon} />
+                </div>
+                <h3 className="mt-8 text-lg font-black uppercase tracking-[-0.02em] text-white">{card.title}</h3>
+                <p className="mt-4 text-sm leading-7 text-zinc-400">{card.text}</p>
+                <div className="mt-6 border-t border-white/10 pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-[#ff8a8d]">
+                  {card.detail}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto mt-8 max-w-[112rem] px-5 sm:px-8 lg:px-16">
+        <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <div className="flex items-start gap-5">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[0.7rem] border border-[#ff3131]/25 bg-[#ff3131]/[0.06] text-[#ff3131]">
+                <ThinIcon icon={Mail} className="h-7 w-7" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-black uppercase tracking-[-0.03em] text-white">Stay in the loop</h2>
+                <p className="mt-3 max-w-xl text-sm leading-6 text-zinc-400">
+                  Get practical FPV tutorials, tool updates, buying guides and verified race coverage without hype.
+                </p>
+              </div>
+            </div>
+            <div className="mt-8">
+              <NewsletterWidget />
+            </div>
+          </div>
+
+          <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <div className="text-center">
+              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">Brands covered in FPV guides</p>
+              <h2 className="mt-3 text-2xl font-black uppercase tracking-[-0.03em] text-white">Tracked, not claimed as partners</h2>
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
+                FPVLovers can cover products from these FPV ecosystem brands. This is not a partnership claim unless a sponsor agreement is explicitly published.
+              </p>
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {coveredBrands.map((brand) => (
+                <div
+                  key={brand}
+                  className="rounded-[0.45rem] border border-white/10 bg-white/[0.03] px-4 py-4 text-center text-sm font-black uppercase tracking-[0.08em] text-zinc-300"
+                >
+                  {brand}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   );
