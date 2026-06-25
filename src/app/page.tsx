@@ -1,307 +1,487 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import type { ComponentType } from 'react';
-import { ArrowRight, BookOpen, Calculator, Cpu, RadioTower, Wrench, Zap, Eye } from 'lucide-react';
+import type { ComponentType, ReactNode } from 'react';
+import {
+  Archive,
+  ArrowRight,
+  BookOpen,
+  Calculator,
+  Eye,
+  Gauge,
+  GraduationCap,
+  RadioTower,
+  ShieldCheck,
+  ShoppingBag,
+  Trophy,
+  Wrench,
+} from 'lucide-react';
 import { resolveHomepageContent, type HomepageSectionCard } from '@/lib/homepage/homepage-content';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { NewsletterWidget } from '@/features/tools/components/NewsletterWidget';
 import { PilotPulseWidget } from '@/features/tools/components/PilotPulseWidget';
 import { ResilientCoverImage } from '@/components/ResilientCoverImage';
 
-function ArticleCard({ card, accent = 'cyan' }: { card: HomepageSectionCard; accent?: 'cyan' | 'orange' | 'neutral' }) {
-  const accentClass = accent === 'orange' ? 'group-hover:text-[#ff9b71]' : accent === 'cyan' ? 'group-hover:text-[#9eeef2]' : 'group-hover:text-white';
+type IconComponent = ComponentType<{ className?: string; strokeWidth?: number }>;
+
+type HomePillar = {
+  eyebrow: string;
+  title: string;
+  description: string;
+  href: string;
+  image: string;
+  icon: IconComponent;
+};
+
+const heroShortcuts: {
+  title: string;
+  description: string;
+  href: string;
+  icon: IconComponent;
+}[] = [
+  {
+    title: 'Academy',
+    description: 'Step-by-step learning for every level',
+    href: '/academy/roadmap',
+    icon: GraduationCap,
+  },
+  {
+    title: 'Glossary',
+    description: 'Understand every FPV concept',
+    href: '/academy/glossary',
+    icon: BookOpen,
+  },
+  {
+    title: 'Buyer Guides',
+    description: 'Gear choices with commercial intent',
+    href: '/buyers-guides',
+    icon: ShoppingBag,
+  },
+  {
+    title: 'Tools',
+    description: 'Calculators and analyzers',
+    href: '/tools',
+    icon: Wrench,
+  },
+  {
+    title: 'Racing',
+    description: 'Events, pilots, teams and formats',
+    href: '/racing',
+    icon: Trophy,
+  },
+];
+
+const pillars: HomePillar[] = [
+  {
+    eyebrow: 'Academy',
+    title: 'Learn FPV',
+    description: 'Courses, roadmaps and beginner-safe paths designed for real pilot progress.',
+    href: '/academy/roadmap',
+    image: '/images/fallbacks/fpv-academy-beginner.webp',
+    icon: GraduationCap,
+  },
+  {
+    eyebrow: 'Buyer Guides',
+    title: 'Choose Gear',
+    description: 'Editorial buying guides for drones, goggles, radios, chargers and starter kits.',
+    href: '/buyers-guides',
+    image: '/images/fallbacks/fpv-commercial.webp',
+    icon: ShoppingBag,
+  },
+  {
+    eyebrow: 'Tools',
+    title: 'Improve FPV',
+    description: 'Calculators, blackbox analysis and practical setup tools for cleaner decisions.',
+    href: '/tools',
+    image: '/images/fallbacks/fpv-tuning-betaflight.webp',
+    icon: Gauge,
+  },
+  {
+    eyebrow: 'Drone Archive',
+    title: 'Explore FPV',
+    description: 'Drone categories, build styles and platform references for every mission type.',
+    href: '/archive',
+    image: '/images/fallbacks/fpv-cinematic-long-range.webp',
+    icon: Archive,
+  },
+  {
+    eyebrow: 'Racing',
+    title: 'Compete FPV',
+    description: 'Race formats, pilot development, league coverage and event intelligence.',
+    href: '/racing',
+    image: '/racing/racing-hero.png',
+    icon: Trophy,
+  },
+];
+
+function ThinIcon({ icon: Icon, className = 'h-5 w-5' }: { icon: IconComponent; className?: string }) {
+  return <Icon className={className} strokeWidth={1.35} />;
+}
+
+function formatDisplayDate(card: HomepageSectionCard): string {
+  if (!card.publishedAt || card.publishedAt === 'Seed content') return 'Editorial archive';
+  return card.publishedAt;
+}
+
+function Metric({ label, value }: { label: string; value: string }) {
   return (
-    <Card className="group overflow-hidden bg-[#101112]/72">
-      {card.coverImage && (
-        <Link href={card.href} className="relative block aspect-[16/10] overflow-hidden border-b border-white/8">
+    <div className="border-l border-white/10 pl-4">
+      <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-zinc-600">{label}</div>
+      <div className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-zinc-200">{value}</div>
+    </div>
+  );
+}
+
+function EditorialButton({
+  href,
+  children,
+  tone = 'red',
+}: {
+  href: string;
+  children: ReactNode;
+  tone?: 'red' | 'ghost';
+}) {
+  const toneClasses = tone === 'red'
+    ? 'border-[#ff3131]/60 bg-[#e12227] text-white shadow-[0_18px_44px_rgba(225,34,39,0.24)] hover:bg-[#ff3131]'
+    : 'border-white/[0.14] bg-black/20 text-white hover:border-white/[0.32] hover:bg-white/[0.06]';
+
+  return (
+    <Link
+      href={href}
+      className={`group inline-flex items-center justify-between gap-5 rounded-[0.45rem] border px-6 py-3 text-xs font-black uppercase tracking-[0.12em] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] active:scale-[0.98] ${toneClasses}`}
+    >
+      <span>{children}</span>
+      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/10 transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">
+        <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+      </span>
+    </Link>
+  );
+}
+
+function PillarCard({ pillar }: { pillar: HomePillar }) {
+  return (
+    <Link
+      href={pillar.href}
+      className="group relative min-h-[17rem] overflow-hidden rounded-[0.7rem] border border-white/[0.12] bg-[#111419] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:border-[#ff3131]/[0.45]"
+    >
+      <Image
+        src={pillar.image}
+        alt={`${pillar.title} FPV visual`}
+        fill
+        sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, 100vw"
+        className="object-cover opacity-50 grayscale transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04] group-hover:opacity-[0.68] group-hover:grayscale-0"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/[0.66] to-black/10" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,49,49,0.20),transparent_28rem)] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+      <div className="relative flex h-full min-h-[17rem] flex-col justify-between p-6">
+        <div className="flex items-center gap-3 text-white">
+          <span className="text-[#ff3131]">
+            <ThinIcon icon={pillar.icon} className="h-5 w-5" />
+          </span>
+          <span className="text-sm font-black uppercase tracking-[0.08em]">{pillar.eyebrow}</span>
+        </div>
+        <div>
+          <h3 className="text-2xl font-black tracking-[-0.03em] text-white">{pillar.title}</h3>
+          <p className="mt-3 max-w-[16rem] text-sm leading-6 text-zinc-300">{pillar.description}</p>
+          <div className="mt-6 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em] text-[#ff3131]">
+            Explore <ArrowRight className="h-3.5 w-3.5 transition-transform duration-700 group-hover:translate-x-1" strokeWidth={1.5} />
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function LatestContentItem({ card }: { card: HomepageSectionCard }) {
+  return (
+    <Link href={card.href} className="group grid gap-4 sm:grid-cols-[8.5rem_1fr] sm:items-center">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-[0.45rem] border border-white/10 bg-white/[0.03]">
+        {card.coverImage && (
           <ResilientCoverImage
             src={card.coverImage}
             fallbackSrc={card.fallbackCoverImage}
             alt={card.coverImageAlt || card.title}
             fill
-            sizes="(min-width: 768px) 33vw, 100vw"
+            sizes="(min-width: 768px) 9rem, 100vw"
             unoptimized={true}
-            className="h-full w-full object-cover opacity-[0.92] transition duration-500 group-hover:scale-[1.03] group-hover:opacity-100"
+            className="object-cover opacity-[0.78] grayscale transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.05] group-hover:opacity-100 group-hover:grayscale-0"
           />
-        </Link>
-      )}
-      <CardHeader>
-        <div className="mb-3 flex items-center justify-between gap-3">
-          <Badge variant={accent === 'orange' ? 'amber' : 'default'}>{card.category}</Badge>
-          <span className="font-mono text-xs text-[#77736d] flex items-center gap-1.5">
-            <span>{card.readingTime}</span>
-            {(card.views !== undefined && card.views !== null) ? (
-              <>
-                <span className="text-zinc-700">&bull;</span>
-                <Eye className="h-3.5 w-3.5 text-[#77736d] opacity-80" />
-                <span className="text-[11px] text-[#77736d]">{card.views ?? 0}</span>
-              </>
-            ) : null}
-          </span>
+        )}
+      </div>
+      <div>
+        <div className="flex flex-wrap items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-500">
+          <span>{card.category}</span>
+          <span className="text-zinc-700">/</span>
+          <span>{formatDisplayDate(card)}</span>
         </div>
-        <Link href={card.href}>
-          <CardTitle className={`line-clamp-2 text-lg transition-colors ${accentClass}`}>{card.title}</CardTitle>
-        </Link>
-        <CardDescription className="line-clamp-3 leading-relaxed">{card.excerpt}</CardDescription>
-      </CardHeader>
-      <CardFooter className="pt-0">
-        <Link href={card.href} className="inline-flex items-center gap-2 text-sm font-semibold text-[#d8d5cf] hover:text-white">
-          Read guide <ArrowRight className="h-4 w-4" />
-        </Link>
-      </CardFooter>
-    </Card>
+        <h3 className="mt-2 line-clamp-2 text-sm font-black leading-snug text-white transition-colors duration-500 group-hover:text-[#ff3131]">
+          {card.title}
+        </h3>
+        <div className="mt-2 flex items-center gap-2 font-mono text-[10px] text-zinc-500">
+          <span>{card.readingTime}</span>
+          {(card.views !== undefined && card.views !== null) ? (
+            <>
+              <span className="text-zinc-700">•</span>
+              <Eye className="h-3.5 w-3.5" strokeWidth={1.35} />
+              <span>{card.views ?? 0}</span>
+            </>
+          ) : null}
+        </div>
+      </div>
+    </Link>
   );
 }
 
-function SectionHeading({ title, href, icon: Icon }: { title: string; href?: string; icon: ComponentType<{ className?: string }> }) {
+function SectionTitle({ children }: { children: ReactNode }) {
   return (
-    <div className="mb-6 flex items-end justify-between gap-4">
-      <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-md border border-white/10 bg-white/[0.03] text-[#ff9b71]">
-          <Icon className="h-5 w-5" />
-        </div>
-        <h2 className="text-2xl font-bold tracking-tight text-white md:text-3xl">{title}</h2>
-      </div>
-      {href && (
-        <Link href={href} className="hidden items-center gap-1 text-sm font-semibold text-[#9f9a91] hover:text-white sm:flex">
-          View all <ArrowRight className="h-4 w-4" />
-        </Link>
-      )}
-    </div>
+    <h2 className="text-xl font-black uppercase tracking-[-0.02em] text-white md:text-2xl">
+      {children}
+    </h2>
   );
 }
 
 export default async function HomePage() {
   const content = await resolveHomepageContent();
-  const heroCard = content.featuredGuides[0] || content.recentPosts[0];
-  const secondaryHeroCards = content.featuredGuides.slice(1, 3);
-  const spotlightSlugs = new Set([
-    heroCard?.slug,
-    ...secondaryHeroCards.map((card) => card.slug),
-  ].filter((slug): slug is string => Boolean(slug)));
-  const featuredGuideCards = [
+  const recentPostCards = content.recentPosts.slice(0, 3);
+  const guideCards = [
     ...content.featuredGuides,
-    ...content.recentPosts,
     ...content.editorsPicks,
-  ].filter((card, index, cards) => (
-    !spotlightSlugs.has(card.slug)
-    && cards.findIndex((candidate) => candidate.slug === card.slug) === index
-  )).slice(0, 3);
-  const recentPostCards = content.recentPosts
-    .filter((card) => !spotlightSlugs.has(card.slug))
-    .slice(0, 6);
-  const editorsPickCards = content.editorsPicks
-    .filter((card) => !spotlightSlugs.has(card.slug))
+    ...content.recentPosts,
+  ]
+    .filter((card, index, cards) => cards.findIndex((candidate) => candidate.slug === card.slug) === index)
     .slice(0, 3);
 
   return (
-    <div className="pb-20">
-      <section className="px-4 pt-32 sm:px-6 lg:px-8 border-b border-white/5 pb-10 bg-[#09090b]">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-6">
-              <span className="flex h-2 w-2 rounded-full bg-[#00FF66] animate-pulse" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#00FF66]">Independent FPV Knowledge System</span>
-            </div>
-            
-            <h1 className="text-4xl font-bold tracking-tight text-zinc-100 sm:text-5xl lg:text-6xl uppercase leading-[1.1]">
-              <span className="text-zinc-500 block text-2xl sm:text-3xl mb-2 font-mono tracking-widest">FPVLOVERS</span>
-              FPV Guides, Gear<br /> Intelligence & Skills
+    <div className="overflow-hidden pb-24">
+      <section className="relative min-h-[calc(100dvh-5rem)] border-b border-white/8 bg-[#050607] pt-24">
+        <Image
+          src="/images/fallbacks/fpv-cinematic-long-range.webp"
+          alt="Cinematic long range FPV drone ready for flight"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-[0.86]"
+        />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#050607_0%,rgba(5,6,7,0.90)_28%,rgba(5,6,7,0.24)_62%,rgba(5,6,7,0.38)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_24%,rgba(225,34,39,0.20),transparent_24rem),radial-gradient(circle_at_78%_12%,rgba(0,242,255,0.12),transparent_30rem)]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-[#050607] to-transparent" />
+
+        <div className="relative mx-auto flex min-h-[calc(100dvh-5rem)] max-w-[104rem] flex-col justify-center px-5 pb-10 sm:px-8 lg:px-16">
+          <div className="max-w-3xl pt-10">
+            <p className="text-sm font-black uppercase tracking-[0.18em] text-[#ff3131] md:text-base">
+              Learn. Build. Fly. Compete.
+            </p>
+            <h1 className="mt-5 max-w-4xl text-5xl font-black uppercase leading-[0.96] tracking-[-0.055em] text-white sm:text-6xl lg:text-[4.8rem] xl:text-[5.35rem]">
+              The Ultimate FPV Knowledge <span className="text-[#e12227]">Hub</span>
             </h1>
-            
-            <p className="mt-6 max-w-2xl text-sm leading-7 text-zinc-400 font-mono">
-              Practical FPV tutorials, buyer guides, product assessments, build references, and racing coverage for pilots who want cleaner decisions before they spend money or put a quad in the air.
+            <p className="mt-7 max-w-xl text-base leading-7 text-zinc-300 md:text-lg">
+              Everything FPV pilots need in one place. Tutorials, buyer guides, product reviews, tools, racing coverage and real-world performance education.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-zinc-500">
-              <Link href="/editorial-policy" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-[#00F2FF]/40 hover:text-[#00F2FF]">Editorial policy</Link>
-              <Link href="/disclosure" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-[#FF5C00]/40 hover:text-[#FF5C00]">Affiliate disclosure</Link>
-              <Link href="/advertise" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-white/25 hover:text-white">Sponsor standards</Link>
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <EditorialButton href="/academy/roadmap">Start Learning</EditorialButton>
+              <EditorialButton href="/archive" tone="ghost">Explore Archive</EditorialButton>
             </div>
-            
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link 
-                href="/academy/roadmap"
-                className="group relative flex items-center justify-between gap-4 rounded-sm border border-[#FF5C00]/40 bg-[#FF5C00]/10 px-6 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-[#FF5C00] transition-all hover:bg-[#FF5C00]/20 hover:border-[#FF5C00]"
-              >
-                <span>Start Pilot Roadmap</span>
-                <Zap className="h-4 w-4" />
-                <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-[#FF5C00] transition-all duration-300 group-hover:w-full" />
-              </Link>
-              
-              <Link 
-                href="/buyers-guides"
-                className="group relative flex items-center justify-between gap-4 rounded-sm border border-white/10 bg-white/5 px-6 py-3 font-mono text-[11px] font-bold uppercase tracking-widest text-zinc-300 transition-all hover:bg-white/10 hover:text-white"
-              >
-                <span>Browse Buyer Guides</span>
-                <BookOpen className="h-4 w-4" />
-                <span className="absolute bottom-0 left-0 h-[2px] w-0 bg-white/30 transition-all duration-300 group-hover:w-full" />
-              </Link>
+
+            <div className="mt-10 grid max-w-2xl grid-cols-3 gap-4">
+              <Metric label="Content" value="117+ Articles" />
+              <Metric label="Reviews" value="Evidence First" />
+              <Metric label="Editor" value="Hazar Volga Ekiz" />
             </div>
-            
-            <div className="mt-12 grid max-w-2xl grid-cols-3 gap-4 border-t border-white/5 pt-6">
-              {[
-                ['Content', '117+'],
-                ['Reviews', 'Spec/Evidence'],
-                ['Editor', 'HVE'],
-              ].map(([label, value]) => (
-                <div key={label} className="border-l border-white/10 pl-3">
-                  <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-600">{label}</div>
-                  <div className="mt-1 font-mono text-xs font-bold text-zinc-300 uppercase">{value}</div>
-                </div>
+          </div>
+
+          <div className="mt-12 rounded-[0.9rem] border border-white/10 bg-black/[0.34] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_24px_80px_rgba(0,0,0,0.34)] backdrop-blur-md">
+            <div className="grid gap-2 md:grid-cols-5">
+              {heroShortcuts.map((item, index) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`group flex items-center gap-4 rounded-[0.55rem] px-5 py-5 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-white/[0.06] ${
+                    index > 0 ? 'md:border-l md:border-white/10' : ''
+                  }`}
+                >
+                  <span className="text-white transition-colors duration-500 group-hover:text-[#ff3131]">
+                    <ThinIcon icon={item.icon} className="h-7 w-7" />
+                  </span>
+                  <span>
+                    <span className="block text-sm font-black uppercase tracking-[0.06em] text-white">{item.title}</span>
+                    <span className="mt-1 block text-xs leading-5 text-zinc-400">{item.description}</span>
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
+        </div>
+      </section>
 
-          {heroCard && (
-            <div className="relative group">
-              <div className="absolute -inset-1 rounded-sm bg-gradient-to-tr from-[#00F2FF]/20 to-[#FF5C00]/20 opacity-0 blur transition duration-500 group-hover:opacity-100" />
-              <Link href={heroCard.href} className="relative block overflow-hidden rounded-sm border border-white/10 bg-[#18181b]">
-                <div className="border-b border-white/5 px-4 py-2 bg-[#09090b] flex justify-between items-center">
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-500">Featured Guide</span>
-                  <Badge variant="outline" className="rounded-none border-white/10 text-[9px] bg-white/5 text-zinc-300">{heroCard.category}</Badge>
-                </div>
-                <div className="relative aspect-[16/10] overflow-hidden">
-                  {heroCard.coverImage && (
-                    <ResilientCoverImage
-                      src={heroCard.coverImage}
-                      fallbackSrc={heroCard.fallbackCoverImage}
-                      alt={heroCard.coverImageAlt || heroCard.title}
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 50vw, 100vw"
-                      unoptimized={true}
-                      className="h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-[1.03] group-hover:opacity-100 mix-blend-luminosity hover:mix-blend-normal"
-                    />
-                  )}
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/80 to-transparent p-6">
-                    <h2 className="mt-3 max-w-xl text-xl font-bold leading-tight text-zinc-100 uppercase tracking-wide group-hover:text-[#00F2FF] transition-colors">{heroCard.title}</h2>
-                    <p className="mt-2 line-clamp-2 text-xs font-mono text-zinc-400">{heroCard.excerpt}</p>
-                    <div className="mt-3 flex items-center gap-1.5 font-mono text-[10px] text-zinc-500">
-                      <span>{heroCard.readingTime}</span>
-                      {(heroCard.views !== undefined && heroCard.views !== null) ? (
-                        <>
-                          <span className="text-zinc-700">&bull;</span>
-                          <Eye className="h-3.5 w-3.5 text-zinc-500 opacity-80" />
-                          <span>{heroCard.views ?? 0}</span>
-                        </>
-                      ) : null}
-                    </div>
-                  </div>
-                </div>
-              </Link>
+      <section className="relative mx-auto max-w-[112rem] px-5 py-20 sm:px-8 lg:px-16">
+        <div className="mb-10 text-center">
+          <h2 className="text-2xl font-black uppercase tracking-[-0.03em] text-white md:text-3xl">
+            Built for <span className="text-[#ff3131]">pilots.</span> By pilots.
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-zinc-400">
+            FPVLovers is not an internal telemetry dashboard. It is a public FPV media and knowledge system for beginners, builders, racers and cinematic pilots.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+          {pillars.map((pillar) => (
+            <PillarCard key={pillar.href} pillar={pillar} />
+          ))}
+        </div>
+      </section>
+
+      <section id="latest" className="mx-auto grid max-w-[112rem] gap-4 px-5 sm:px-8 lg:grid-cols-[1.45fr_0.85fr] lg:px-16">
+        <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-8">
+          <div className="mb-8 flex items-center justify-between gap-4">
+            <SectionTitle>Latest Content</SectionTitle>
+            <Link href="/search" className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
+              Browse all <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+            </Link>
+          </div>
+          {recentPostCards.length > 0 ? (
+            <div className="grid gap-6 lg:grid-cols-3">
+              {recentPostCards.map((card) => (
+                <LatestContentItem key={card.slug} card={card} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-[0.6rem] border border-dashed border-white/[0.12] py-12 text-center text-sm text-zinc-500">
+              Articles will appear here as they are published.
             </div>
           )}
         </div>
-      </section>
 
-      <section className="mx-auto mt-10 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <PilotPulseWidget />
-      </section>
-
-      <section className="mx-auto mt-12 grid max-w-7xl gap-4 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
-        {secondaryHeroCards.map((card) => (
-          <ArticleCard key={card.slug} card={card} />
-        ))}
-        <div className="rounded-sm border border-[#00F2FF]/20 bg-[#00F2FF]/5 p-6 flex flex-col justify-center">
-          <div className="font-mono text-[9px] uppercase tracking-widest text-[#00F2FF] flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#00F2FF] animate-pulse" />
-            {content.sponsorSlot.title}
+        <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-8">
+          <div className="mb-8 flex items-center justify-between gap-4">
+            <SectionTitle>Upcoming Races</SectionTitle>
+            <Link href="/racing" className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white">
+              View Calendar <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+            </Link>
           </div>
-          <h3 className="mt-4 text-sm font-bold text-zinc-100 uppercase tracking-wide">Partner-ready FPV placements</h3>
-          <p className="mt-2 text-xs leading-5 text-zinc-400 font-mono">{content.sponsorSlot.description}</p>
-        </div>
-      </section>
 
-      <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Featured Guides" href="/academy/roadmap" icon={BookOpen} />
-        {featuredGuideCards.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {featuredGuideCards.map((card) => (
-              <ArticleCard key={card.slug} card={card} />
-            ))}
-          </div>
-        ) : (
-          <div className="rounded-lg border border-dashed border-white/12 py-16 text-center text-[#9f9a91]">
-            Featured guides will appear here as content is published.
-          </div>
-        )}
-      </section>
-
-      <section className="mx-auto mt-20 grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-        <div>
-          <SectionHeading title="Learn" href="/academy" icon={RadioTower} />
-          <div className="grid gap-3 sm:grid-cols-2">
-            {content.academyCards.map((card) => (
-              <Link key={card.href} href={card.href} className="rounded-lg border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#28d7df]/35 hover:bg-[#28d7df]/6">
-                <div className="font-mono text-xs text-[#9eeef2]">{card.label}</div>
-                <h3 className="mt-2 font-bold text-white">{card.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-[#9f9a91]">{card.description}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <SectionHeading title="Build" href="/engineering" icon={Wrench} />
-          <div className="grid gap-3 sm:grid-cols-2">
-            {content.engineeringCards.map((card) => (
-              <Link key={card.href} href={card.href} className="rounded-lg border border-white/10 bg-white/[0.025] p-5 transition hover:border-[#ff5a1f]/35 hover:bg-[#ff5a1f]/6">
-                <div className="font-mono text-xs text-[#ff9b71]">{card.label}</div>
-                <h3 className="mt-2 font-bold text-white">{card.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-[#9f9a91]">{card.description}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8 border-t border-white/5 pt-12">
-        <SectionHeading title="System Utilities" href="/tools" icon={Calculator} />
-        <div className="grid gap-4 md:grid-cols-3">
-          {content.toolCards.map((card, index) => (
-            <Link key={card.href} href={card.href} className="group rounded-sm border border-white/5 bg-[#18181b]/50 p-6 transition hover:border-[#FF5C00]/40 hover:bg-[#18181b]">
-              <div className="mb-6 flex items-center justify-between border-b border-white/5 pb-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-[#FF5C00]/10 text-[#FF5C00] transition-colors group-hover:bg-[#FF5C00] group-hover:text-black">
-                  {index === 0 ? <Calculator className="h-4 w-4" /> : index === 1 ? <Cpu className="h-4 w-4" /> : <Zap className="h-4 w-4" />}
-                </div>
-                <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-600 group-hover:text-zinc-400 transition-colors">SYS_UTILITY_{index + 1}</span>
+          <div className="rounded-[0.7rem] border border-[#ff3131]/20 bg-black/[0.28] p-5">
+            <div className="grid gap-5 sm:grid-cols-[4.25rem_1fr] sm:items-center">
+              <div className="rounded-[0.45rem] border border-[#ff3131]/[0.24] bg-[#ff3131]/[0.08] px-3 py-4 text-center">
+                <div className="font-mono text-[10px] font-black uppercase tracking-[0.22em] text-[#ff3131]">Live</div>
+                <div className="mt-1 text-2xl font-black text-white">QA</div>
               </div>
-              <h3 className="text-sm font-bold text-zinc-200 uppercase tracking-wide group-hover:text-[#FF5C00] transition-colors">{card.title}</h3>
-              <p className="mt-2 text-[11px] leading-5 text-zinc-500 font-mono">{card.description}</p>
+              <div>
+                <h3 className="text-lg font-black text-white">Current race calendar only</h3>
+                <p className="mt-2 text-sm leading-6 text-zinc-400">
+                  FPVLovers will publish upcoming race dates only after they are current and verified. No past-dated fixture data is hard-coded into the homepage.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Badge variant="outline" className="rounded-[0.3rem] border-white/10 bg-white/[0.03] text-[10px] uppercase tracking-[0.14em] text-zinc-300">
+                    Racing workflow monitored
+                  </Badge>
+                  <Badge variant="outline" className="rounded-[0.3rem] border-[#ff3131]/30 bg-[#ff3131]/[0.08] text-[10px] uppercase tracking-[0.14em] text-[#ff8a8d]">
+                    No fake event dates
+                  </Badge>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto grid max-w-[112rem] gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:px-16">
+        <div className="space-y-5">
+          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#ff3131]">Editorial trust layer</p>
+          <h2 className="text-3xl font-black uppercase tracking-[-0.04em] text-white md:text-5xl">
+            Affiliate-ready without pretending to be bigger than we are.
+          </h2>
+          <p className="max-w-xl text-sm leading-7 text-zinc-400">
+            Reviews and buying guides are structured around disclosure, source quality, product evidence and editor accountability. Product review samples can be accepted, but conclusions stay independent.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <EditorialButton href="/reviews" tone="ghost">Read Reviews</EditorialButton>
+            <EditorialButton href="/disclosure" tone="ghost">Disclosure</EditorialButton>
+          </div>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {[
+            { title: 'Affiliate Disclosure', text: 'Commercial links are disclosed and separated from editorial judgment.', href: '/disclosure', icon: ShieldCheck },
+            { title: 'Product Reviews', text: 'Hands-on review paths can be marked and editor-approved by Hazar Volga Ekiz.', href: '/reviews', icon: Eye },
+            { title: 'Buying Intent', text: 'Buyer guides, comparisons and starter kits are surfaced for affiliate readiness.', href: '/buyers-guides', icon: ShoppingBag },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="group rounded-[0.7rem] border border-white/10 bg-white/[0.035] p-6 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:border-[#ff3131]/40 hover:bg-white/[0.055]"
+            >
+              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#ff3131]/10 text-[#ff3131]">
+                <ThinIcon icon={item.icon} />
+              </span>
+              <h3 className="mt-7 text-base font-black uppercase tracking-[-0.01em] text-white">{item.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-zinc-400">{item.text}</p>
+              <div className="mt-7 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131]">
+                Open <ArrowRight className="h-3.5 w-3.5 transition-transform duration-700 group-hover:translate-x-1" strokeWidth={1.5} />
+              </div>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <SectionHeading title="Recent Posts" icon={BookOpen} />
-        {recentPostCards.length > 0 ? (
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {recentPostCards.map((card) => (
-              <ArticleCard key={card.slug} card={card} accent="neutral" />
+      <section className="mx-auto max-w-[112rem] px-5 sm:px-8 lg:px-16">
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">Featured Guides</p>
+            <SectionTitle>Pilot Knowledge Feed</SectionTitle>
+          </div>
+          <Link href="/academy/roadmap" className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
+            View academy <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+          </Link>
+        </div>
+
+        {guideCards.length > 0 ? (
+          <div className="grid gap-4 md:grid-cols-3">
+            {guideCards.map((card) => (
+              <Link
+                key={card.slug}
+                href={card.href}
+                className="group overflow-hidden rounded-[0.7rem] border border-white/10 bg-[#0b0d10] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:border-[#ff3131]/[0.35]"
+              >
+                <div className="relative aspect-[16/10] border-b border-white/10">
+                  {card.coverImage && (
+                    <ResilientCoverImage
+                      src={card.coverImage}
+                      fallbackSrc={card.fallbackCoverImage}
+                      alt={card.coverImageAlt || card.title}
+                      fill
+                      sizes="(min-width: 768px) 33vw, 100vw"
+                      unoptimized={true}
+                      className="object-cover opacity-80 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04] group-hover:opacity-100"
+                    />
+                  )}
+                </div>
+                <div className="p-6">
+                  <div className="mb-4 flex items-center justify-between gap-3">
+                    <Badge variant="outline" className="rounded-[0.3rem] border-white/10 bg-white/[0.03] text-[10px] uppercase tracking-[0.14em] text-zinc-300">
+                      {card.category}
+                    </Badge>
+                    <span className="font-mono text-[10px] text-zinc-500">{card.readingTime}</span>
+                  </div>
+                  <h3 className="line-clamp-2 text-lg font-black leading-tight text-white transition-colors duration-500 group-hover:text-[#ff3131]">
+                    {card.title}
+                  </h3>
+                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-zinc-400">{card.excerpt}</p>
+                </div>
+              </Link>
             ))}
           </div>
         ) : (
-          <div className="rounded-lg border border-dashed border-white/12 py-12 text-center text-[#9f9a91]">
-            Articles will appear here as they are published.
+          <div className="rounded-[0.7rem] border border-dashed border-white/[0.12] py-16 text-center text-zinc-500">
+            Featured guides will appear here as content is published.
           </div>
         )}
       </section>
 
-      {editorsPickCards.length > 0 && (
-        <section className="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-          <SectionHeading title="Editor's Picks" icon={Cpu} />
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {editorsPickCards.map((card) => (
-              <ArticleCard key={card.slug} card={card} accent="orange" />
-            ))}
-          </div>
-        </section>
-      )}
+      <section className="mx-auto mt-20 max-w-3xl px-5 sm:px-8">
+        <PilotPulseWidget />
+      </section>
 
-      <section className="mx-auto mt-20 max-w-3xl px-4 sm:px-6 lg:px-8">
+      <section className="mx-auto mt-10 max-w-3xl px-5 sm:px-8">
         <NewsletterWidget />
       </section>
     </div>
