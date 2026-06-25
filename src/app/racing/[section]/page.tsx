@@ -30,6 +30,125 @@ type PageProps = {
   params: Promise<{ section: string }>;
 };
 
+type UnknownRecord = Record<string, unknown>;
+
+type CalendarItem = {
+  window: string;
+  event: string;
+  league: string;
+};
+
+type FilterGroup = {
+  label: string;
+  vals: string[];
+};
+
+function asRecord(value: unknown): UnknownRecord {
+  return value && typeof value === 'object' && !Array.isArray(value) ? value as UnknownRecord : {};
+}
+
+function asText(value: unknown): string | undefined {
+  return typeof value === 'string' && value.trim().length > 0 ? value.trim() : undefined;
+}
+
+function asDisplayText(value: unknown): string | undefined {
+  if (typeof value === 'number' && Number.isFinite(value)) return String(value);
+  return asText(value);
+}
+
+function recordTitle(item: unknown): string | undefined {
+  const record = asRecord(item);
+  return asText(record.name)
+    ?? asText(record.pilot)
+    ?? asText(record.event)
+    ?? asText(record.eventName)
+    ?? asText(record.title);
+}
+
+function recordDescription(item: unknown): string | undefined {
+  const record = asRecord(item);
+  return asText(record.summary)
+    ?? asText(record.achievement)
+    ?? asText(record.reason)
+    ?? asText(record.description);
+}
+
+function recordKey(item: unknown, index: number): string {
+  const record = asRecord(item);
+  return asText(record.id)
+    ?? [
+      recordTitle(record),
+      asText(record.league),
+      asDisplayText(record.position),
+      asText(record.date),
+      index,
+    ].filter(Boolean).join('-');
+}
+
+function metadataPairs(item: unknown): Array<{ label: string; value: string; tone?: 'cyan' | 'green' | 'orange' | 'muted' }> {
+  const record = asRecord(item);
+  const pairs: Array<{ label: string; value: string; tone?: 'cyan' | 'green' | 'orange' | 'muted' }> = [];
+
+  const add = (label: string, value: unknown, tone: 'cyan' | 'green' | 'orange' | 'muted' = 'muted') => {
+    const text = asDisplayText(value);
+    if (text) pairs.push({ label, value: text, tone });
+  };
+
+  add('Location', record.location, 'cyan');
+  add('Country', record.country);
+  add('League', record.league, 'cyan');
+  add('Difficulty', record.difficulty);
+  add('Nationality', record.nationality);
+  add('Team', record.team);
+  add('Years', record.years_active);
+  add('Specialty', record.specialty, 'green');
+  add('Date', record.date, 'green');
+  add('Position', record.position, 'orange');
+  add('Points', record.points, 'green');
+  add('Trend', record.trend);
+  add('Type', record.type);
+  add('Year', record.year, 'cyan');
+  add('Inducted', record.inducted, 'orange');
+  add('Category', record.category);
+  add('System', record.system, 'green');
+  add('Status', record.status, 'orange');
+
+  return pairs;
+}
+
+function metadataToneClass(tone: 'cyan' | 'green' | 'orange' | 'muted' = 'muted') {
+  if (tone === 'cyan') return 'text-[#00f2ff]';
+  if (tone === 'green') return 'text-[#00ff66]';
+  if (tone === 'orange') return 'text-[#ff9b71]';
+  return 'text-white/40';
+}
+
+function RacingRecordCard({ item, index, compact = false }: { item: unknown; index: number; compact?: boolean }) {
+  const record = asRecord(item);
+  const title = recordTitle(record) ?? `Racing record ${index + 1}`;
+  const description = recordDescription(record);
+  const position = asDisplayText(record.position);
+  const pairs = metadataPairs(record);
+
+  return (
+    <div className={`rounded-sm border border-white/8 bg-black/30 ${compact ? 'flex items-start gap-3 p-3' : 'p-4'}`}>
+      {compact && position ? <span className="w-8 shrink-0 font-mono text-lg font-black text-[#ff5a1f]">#{position}</span> : null}
+      <div className="min-w-0 flex-1">
+        <h3 className="text-sm font-black text-white">{title}</h3>
+        {description ? <p className="mt-1 text-xs text-[#9f9a91]">{description}</p> : null}
+        {!compact && position ? <span className="mt-2 inline-block font-mono text-sm font-black text-[#ff5a1f]">#{position}</span> : null}
+        <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1">
+          {pairs.map((pair) => (
+            <span key={`${pair.label}-${pair.value}`} className={`font-mono text-[10px] ${metadataToneClass(pair.tone)}`}>
+              {pair.label === 'Position' ? `#${pair.value}` : pair.label === 'Points' ? `${pair.value} pts` : pair.value}
+            </span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function generateStaticParams() {
   return racingSections.map((section) => ({ section: section.slug }));
 }
@@ -65,7 +184,7 @@ function sectionSignal(status: string) {
 export default async function RacingSectionPage({ params }: PageProps) {
   const { section: slug } = await params;
   const section = getRacingSection(slug);
-  const storeData = getStoreSection(slug);
+  const storeData = getStoreSection(slug) as unknown[];
 
   if (!section) {
     notFound();
@@ -76,13 +195,16 @@ export default async function RacingSectionPage({ params }: PageProps) {
   const dataCount = storeData.length;
 
   // Merge calendar items
-  const storeCal = getStoreCalendar();
+  const storeCal = getStoreCalendar() as unknown[];
   const calendarItems = slug === 'calendar' && storeCal.length > 0 ? [
-    ...storeCal.slice(0, 4).map((item: any) => ({
-      window: 'Upcoming',
-      event: item.event,
-      league: item.league,
-    })),
+    ...storeCal.slice(0, 4).map((item): CalendarItem => {
+      const record = asRecord(item);
+      return {
+        window: asText(record.date) ?? asText(record.startDate) ?? 'Upcoming',
+        event: asText(record.event) ?? asText(record.eventName) ?? 'Race calendar item',
+        league: asText(record.league) ?? 'Independent',
+      };
+    }),
     ...raceCalendarPreview,
   ] : raceCalendarPreview;
 
@@ -136,34 +258,10 @@ export default async function RacingSectionPage({ params }: PageProps) {
 
       <section className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
         {storeData.length > 0 ? (
-          <Panel title={`${section.title} records`} label={`${storeData.length} verified`}>
+          <Panel title={`${section.title} records`} label={`${storeData.length} tracked`}>
             <div className="grid gap-3 sm:grid-cols-2">
-              {storeData.slice(0, 10).map((item: any, i: number) => (
-                <div key={i} className="rounded-sm border border-white/8 bg-black/30 p-4">
-                  {item.name && <h3 className="text-sm font-black text-white">{item.name}</h3>}
-                  {item.pilot && <h3 className="text-sm font-black text-white">{item.pilot}</h3>}
-                  {item.event && <h3 className="text-sm font-black text-white">{item.event}</h3>}
-                  {item.title && <h3 className="text-sm font-black text-white">{item.title}</h3>}
-                  {item.summary && <p className="mt-1 text-xs text-[#9f9a91]">{item.summary}</p>}
-                  {item.achievement && <p className="mt-1 text-xs text-[#9f9a91]">{item.achievement}</p>}
-                  {item.reason && <p className="mt-1 text-xs text-[#9f9a91]">{item.reason}</p>}
-                  {item.description && <p className="mt-1 text-xs text-[#9f9a91]">{item.description}</p>}
-                  {item.location && <p className="mt-1 font-mono text-[10px] text-[#00f2ff]">{item.location}{item.country ? ' · ' + item.country : ''}</p>}
-                  {item.league && <p className="mt-1 font-mono text-[10px] text-white/40">{item.league}{item.difficulty ? ' · ' + item.difficulty : ''}</p>}
-                  {item.nationality && <p className="mt-1 font-mono text-[10px] text-white/40">{item.nationality}{item.team ? ' · ' + item.team : ''}</p>}
-                  {item.years_active && <p className="mt-1 font-mono text-[10px] text-white/40">{item.years_active}</p>}
-                  {item.specialty && <p className="mt-1 font-mono text-[10px] text-[#00f2ff]">{item.specialty}</p>}
-                  {item.date && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.date}</p>}
-                  {item.position && <span className="font-mono text-sm text-[#ff5a1f] font-black mr-2">#{item.position}</span>}
-                  {item.points && <span className="font-mono text-[10px] text-[#00ff66]">{item.points} pts</span>}
-                  {item.trend && <span className="ml-2 font-mono text-[9px] text-white/30 uppercase">{item.trend}</span>}
-                  {item.type && <span className="mt-1 inline-block font-mono text-[9px] text-white/30 uppercase">{item.type}</span>}
-                  {item.year && <span className="mt-1 inline-block font-mono text-[9px] text-[#00f2ff] ml-2">{item.year}</span>}
-                  {item.inducted && <p className="mt-1 font-mono text-[10px] text-[#ff5a1f]">Inducted: {item.inducted}</p>}
-                  {item.category && <p className="mt-1 font-mono text-[10px] text-white/40">{item.category}</p>}
-                  {item.system && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.system}</p>}
-                  {item.status && <span className="mt-1 inline-block font-mono text-[9px] text-[#ff9b71] uppercase">{item.status}</span>}
-                </div>
+              {storeData.slice(0, 10).map((item, index) => (
+                <RacingRecordCard key={recordKey(item, index)} item={item} index={index} />
               ))}
             </div>
           </Panel>
@@ -186,39 +284,8 @@ export default async function RacingSectionPage({ params }: PageProps) {
         {storeData.length > 0 ? (
           <Panel title={`${section.title} data`} label={`${storeData.length} records`} className="w-full">
             <div className="space-y-2 max-h-[400px] overflow-y-auto">
-              {storeData.slice(0, 15).map((item: any, i: number) => (
-                <div key={i} className="rounded-sm border border-white/8 bg-black/30 p-3 flex items-start gap-3">
-                  {item.position && <span className="font-mono text-lg font-black text-[#ff5a1f] shrink-0 w-8">#{item.position}</span>}
-                  <div className="flex-1 min-w-0">
-                    {item.name && <h3 className="text-sm font-black text-white">{item.name}</h3>}
-                    {item.pilot && <h3 className="text-sm font-black text-white">{item.pilot}</h3>}
-                    {item.event && <h3 className="text-sm font-black text-white">{item.event}</h3>}
-                    {item.title && <h3 className="text-sm font-black text-white">{item.title}</h3>}
-                    {item.summary && <p className="mt-1 text-xs text-[#9f9a91]">{item.summary}</p>}
-                    {item.achievement && <p className="mt-1 text-xs text-[#9f9a91]">{item.achievement}</p>}
-                    {item.reason && <p className="mt-1 text-xs text-[#9f9a91]">{item.reason}</p>}
-                    {item.description && <p className="mt-1 text-xs text-[#9f9a91]">{item.description}</p>}
-                    <div className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1">
-                      {item.nationality && <span className="font-mono text-[10px] text-white/40">{item.nationality}</span>}
-                      {item.team && <span className="font-mono text-[10px] text-white/40">{item.team}</span>}
-                      {item.league && <span className="font-mono text-[10px] text-[#00f2ff]">{item.league}</span>}
-                      {item.country && <span className="font-mono text-[10px] text-white/40">{item.country}</span>}
-                      {item.years_active && <span className="font-mono text-[10px] text-white/40">{item.years_active}</span>}
-                      {item.specialty && <span className="font-mono text-[10px] text-[#00ff66]">{item.specialty}</span>}
-                      {item.points && <span className="font-mono text-[10px] text-[#00ff66]">{item.points} pts</span>}
-                      {item.trend && <span className="font-mono text-[9px] text-white/30 uppercase">· {item.trend}</span>}
-                      {item.type && <span className="font-mono text-[9px] text-white/30 uppercase">· {item.type}</span>}
-                      {item.year && <span className="font-mono text-[9px] text-[#00f2ff]">· {item.year}</span>}
-                      {item.date && <span className="font-mono text-[10px] text-[#00ff66]">{item.date}</span>}
-                      {item.location && <span className="font-mono text-[10px] text-[#00f2ff]">{item.location}</span>}
-                      {item.difficulty && <span className="font-mono text-[10px] text-white/40">· {item.difficulty}</span>}
-                      {item.inducted && <span className="font-mono text-[10px] text-[#ff5a1f]">Inducted {item.inducted}</span>}
-                      {item.category && <span className="font-mono text-[10px] text-white/40">{item.category}</span>}
-                      {item.system && <span className="font-mono text-[10px] text-[#00ff66]">{item.system}</span>}
-                      {item.status && <span className="font-mono text-[9px] text-[#ff9b71] uppercase">{item.status}</span>}
-                    </div>
-                  </div>
-                </div>
+              {storeData.slice(0, 15).map((item, index) => (
+                <RacingRecordCard key={recordKey(item, index)} item={item} index={index} compact />
               ))}
             </div>
           </Panel>
@@ -240,7 +307,7 @@ export default async function RacingSectionPage({ params }: PageProps) {
         <Panel title="Calendar feed" label="Season model" href="/racing/calendar">
           <div className="space-y-2">
             {calendarItems.map((item) => (
-              <Link key={`${item.league}-${item.window}`} href="/racing/calendar" className="grid grid-cols-[86px_1fr_86px] gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs transition-colors hover:border-[#ff5a1f]/30">
+              <Link key={`${item.league}-${item.window}-${item.event}`} href="/racing/calendar" className="grid grid-cols-[86px_1fr_86px] gap-3 rounded-sm border border-white/6 bg-black/28 px-3 py-2.5 text-xs transition-colors hover:border-[#ff5a1f]/30">
                 <span className="font-mono text-[#ff9b71]">{item.window}</span>
                 <span className="min-w-0 truncate text-[#d8d5cf]">{item.event}</span>
                 <span className="text-right font-mono text-[#8d8981]">{item.league}</span>
@@ -276,21 +343,10 @@ export default async function RacingSectionPage({ params }: PageProps) {
       </section>
 
       {storeData.length > 0 && (
-        <Panel title="Intelligence pipeline records" label={`${storeData.length} verified`} className="mt-4">
+        <Panel title="Intelligence pipeline records" label={`${storeData.length} tracked`} className="mt-4">
           <div className="grid gap-3 md:grid-cols-2">
-            {storeData.slice(0, 10).map((item: any, i: number) => (
-              <div key={i} className="rounded-sm border border-white/8 bg-black/30 p-4">
-                {item.name && <h3 className="text-sm font-black text-white">{item.name}</h3>}
-                {item.event && <h3 className="text-sm font-black text-white">{item.event}</h3>}
-                {item.title && <h3 className="text-sm font-black text-white">{item.title}</h3>}
-                {item.summary && <p className="mt-1 text-xs text-[#9f9a91]">{item.summary}</p>}
-                {item.achievement && <p className="mt-1 text-xs text-[#9f9a91]">{item.achievement}</p>}
-                {item.location && <p className="mt-1 font-mono text-[10px] text-[#00f2ff]">{item.location}{item.country ? ' · ' + item.country : ''}</p>}
-                {item.league && <p className="mt-1 font-mono text-[10px] text-white/40">{item.league}{item.difficulty ? ' · ' + item.difficulty : ''}</p>}
-                {item.nationality && <p className="mt-1 font-mono text-[10px] text-white/40">{item.nationality}{item.team ? ' · ' + item.team : ''}</p>}
-                {item.date && <p className="mt-1 font-mono text-[10px] text-[#00ff66]">{item.date}</p>}
-                {item.position && <span className="font-mono text-xs text-[#ff5a1f]">#{item.position}</span>}
-              </div>
+            {storeData.slice(0, 10).map((item, index) => (
+              <RacingRecordCard key={recordKey(item, index)} item={item} index={index} />
             ))}
           </div>
         </Panel>
@@ -340,15 +396,15 @@ export default async function RacingSectionPage({ params }: PageProps) {
       {section.slug === 'calendar' && (
         <Panel title="Calendar filter model" label="Filters" className="mt-4">
           <div className="grid gap-3 md:grid-cols-4">
-            {storeCal.length > 0 ? [
-              {label:'Regions', vals:[...new Set(storeCal.map((c:any)=>c.country||c.location))].slice(0,4)},
-              {label:'Leagues', vals:[...new Set(storeCal.map((c:any)=>c.league))].filter(Boolean)},
-              {label:'Status', vals:['upcoming','completed','live']},
-              {label:'Confidence', vals:['verified (1.0)','high (0.9)','medium (0.8)']},
-            ].map((f) => (
+            {storeCal.length > 0 ? ([
+              { label: 'Regions', vals: [...new Set(storeCal.map((item) => asText(asRecord(item).country) ?? asText(asRecord(item).location)).filter((value): value is string => Boolean(value)))].slice(0, 4) },
+              { label: 'Leagues', vals: [...new Set(storeCal.map((item) => asText(asRecord(item).league)).filter((value): value is string => Boolean(value)))] },
+              { label: 'Status', vals: ['upcoming', 'completed', 'live'] },
+              { label: 'Confidence', vals: ['source-backed', 'high confidence', 'pending review'] },
+            ] satisfies FilterGroup[]).map((f) => (
               <div key={f.label} className="rounded-sm border border-white/8 bg-black/30 p-4">
                 <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-[#ff5a1f] mb-2">{f.label}</div>
-                {f.vals.map((v: string) => (
+                {f.vals.map((v) => (
                   <div key={v} className="font-mono text-[9px] text-[#d8d5cf] py-0.5">{v}</div>
                 ))}
               </div>

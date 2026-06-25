@@ -347,7 +347,7 @@ export const rankingMethodology: RankingMetric[] = [
   {
     label: 'Recency and confidence',
     weight: '5%',
-    description: 'Applies recency decay and source-confidence weighting so current verified results matter most.',
+    description: 'Applies recency decay and source-confidence weighting so current source-backed results matter most.',
   },
 ];
 
@@ -392,7 +392,7 @@ export const raceCalendarPreview: RaceCalendarPreview[] = [
 export const rankingPreviewRows: RankingPreviewRow[] = [
   {
     position: '01',
-    entity: 'Verified international event winner',
+    entity: 'International event winner',
     scope: 'Global pilot',
     ratingSignal: 'Finals conversion + podium index',
     sourceState: 'Awaiting official result ingestion',
