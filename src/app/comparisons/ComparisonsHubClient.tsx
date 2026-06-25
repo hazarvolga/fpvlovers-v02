@@ -3,8 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { GitCompare, Award, ArrowRight, ShieldAlert, Cpu } from 'lucide-react';
-import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
+import { Award, ArrowRight } from 'lucide-react';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { trackComparisonClick } from '@/lib/analytics';
 
@@ -39,27 +38,7 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pt-28">
-      <CyberBreadcrumb
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Comparisons', isCurrentPage: true }
-        ]}
-        className="mb-8"
-      />
-
-      {/* Cockpit HUD Header */}
-      <div className="relative mb-12 flex flex-col items-center justify-center p-8 bg-[#050810] border border-[#00F2FF]/20 hex-panel overflow-hidden shadow-[inset_0_0_80px_rgba(0,242,255,0.05)]">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,242,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,242,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-60 pointer-events-none" />
-        <GitCompare className="w-16 h-16 text-[#00F2FF] mb-4 relative z-10 animate-pulse" />
-        <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-2 relative z-10">
-          Product <span className="text-[#00F2FF]">Comparisons</span>
-        </h1>
-        <p className="text-xs font-mono text-[#00F2FF] max-w-2xl leading-relaxed uppercase tracking-widest text-center relative z-10">
-          {"// SOURCE-AWARE SPECIFICATIONS, COMPATIBILITY, USE CASES AND PRACTICAL TRADEOFFS."}
-        </p>
-      </div>
-
+    <div id="comparisons" className="mt-10">
       {/* Category Filter Tabs */}
       <div className="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-6">
         <button

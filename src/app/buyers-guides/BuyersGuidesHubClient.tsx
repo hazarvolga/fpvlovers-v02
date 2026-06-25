@@ -7,7 +7,6 @@ import {
   BookOpen, Eye, Radio, Battery, Video, HelpCircle,
   Compass, ArrowRight, Gauge, Layers
 } from 'lucide-react';
-import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
 import {
   BUYERS_GUIDE_CATEGORIES,
@@ -35,27 +34,7 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pt-28">
-      <CyberBreadcrumb
-        items={[
-          { label: 'Home', href: '/' },
-          { label: 'Buyer Guides', isCurrentPage: true }
-        ]}
-        className="mb-8"
-      />
-
-      {/* Cockpit HUD Header */}
-      <div className="relative mb-12 flex flex-col items-center justify-center p-8 bg-[#050810] border border-[#00F2FF]/20 hex-panel overflow-hidden shadow-[inset_0_0_80px_rgba(0,242,255,0.05)]">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,242,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,242,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-60 pointer-events-none" />
-        <BookOpen className="w-16 h-16 text-[#00F2FF] mb-4 relative z-10 animate-pulse" />
-        <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-2 relative z-10">
-          Buyer <span className="text-[#00F2FF]">Guides</span>
-        </h1>
-        <p className="text-xs font-mono text-[#00F2FF] max-w-2xl leading-relaxed uppercase tracking-widest text-center relative z-10">
-          {"// EMPIRICAL SELECTION HANDBOOKS. AGGREGATING REVIEWS, COMPARISONS AND RECOMMENDATIONS."}
-        </p>
-      </div>
-
+    <div id="guides" className="mt-10">
       {/* 7 Core Aggregator Hub Cards */}
       <h2 className="text-lg font-mono font-black uppercase text-white tracking-widest mb-6 flex items-center gap-2">
         <Gauge className="w-5 h-5 text-[#00F2FF]" /> Shop By Component Class
