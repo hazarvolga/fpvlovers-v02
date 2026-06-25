@@ -24,6 +24,33 @@ import { ResilientArticleCover } from '@/features/content/components/ResilientAr
 import { EditorialTrustPanel } from '@/features/content/components/EditorialTrustPanel';
 import { resolveFallbackCover } from '@/lib/content-automation/fallback-cover';
 
+function categoryHref(category: string | undefined) {
+  const normalized = (category || 'article').toLowerCase().trim().replace(/\s+/g, '-');
+  const routeMap: Record<string, string> = {
+    reviews: '/reviews',
+    review: '/reviews',
+    'buyer-guides': '/buyers-guides',
+    'buyer-guide': '/buyers-guides',
+    comparisons: '/comparisons',
+    comparison: '/comparisons',
+    racing: '/racing',
+    regulations: '/regulations',
+    regulation: '/regulations',
+    tutorial: '/academy/roadmap',
+    tutorials: '/academy/roadmap',
+    guide: '/academy/roadmap',
+    guides: '/academy/roadmap',
+    troubleshooting: '/academy/roadmap',
+    parts: '/category/parts',
+    components: '/category/parts',
+    software: '/category/software',
+    engineering: '/engineering',
+    'build-guides': '/engineering',
+  };
+
+  return routeMap[normalized] || '/#latest';
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const published = await getPublishedContentBySlugAsync(resolvedParams.slug);
@@ -98,7 +125,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
   const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
   const breadcrumbs = [
     { label: 'Content', href: '/#latest' },
-    { label: a.category || 'Article', href: `/category/${(a.category || 'article').toLowerCase().replace(/\s+/g, '-')}` },
+    { label: a.category || 'Article', href: categoryHref(a.category) },
     { label: a.title, isCurrentPage: true }
   ];
 
@@ -335,7 +362,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28">
         <CyberBreadcrumb items={[
           { label: 'Content', href: '/#latest' },
-          { label: seed.category, href: `/category/${seed.category.toLowerCase().replace(/\s+/g, '-')}` },
+          { label: seed.category, href: categoryHref(seed.category) },
           { label: seed.title, isCurrentPage: true },
         ]} className="mb-8" />
 
@@ -404,7 +431,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
   const breadcrumbs = [
     { label: 'Data Archives', href: '/#latest' },
-    { label: insight.category, href: `/category/${insight.category.toLowerCase().replace(/\s+/g, '-')}` },
+    { label: insight.category, href: categoryHref(insight.category) },
     { label: insight.title, isCurrentPage: true }
   ];
 

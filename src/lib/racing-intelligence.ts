@@ -224,14 +224,15 @@ export async function runRacingIntelligenceWorkflow(input: RacingWorkflowInput):
 
   const result = await runWorkflow(token, normalizeInput(input));
   if (!result.success) {
-    const failureReason = result.rawAnswer && result.rawAnswer !== '{}'
+    const fallbackReason = result.rawAnswer && result.rawAnswer !== '{}'
       ? result.rawAnswer
       : 'Dify workflow returned unsuccessful status without structured outputs.';
+    const failureReason = result.error || fallbackReason;
     return {
       configured: true,
       workflowName: WORKFLOW_NAME,
       workflowId,
-      success: true,
+      success: false,
       status: 'fallback',
       workflowRunId: result.workflowRunId ?? undefined,
       totalTokens: result.totalTokens ?? undefined,

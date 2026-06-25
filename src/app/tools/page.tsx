@@ -5,13 +5,13 @@ import { Cpu, Activity, Zap, Calculator, Crosshair, Wrench } from 'lucide-react'
 
 export const metadata = {
   title: 'Oracle Tools Hub | FPVLovers',
-  description: 'AI-Powered diagnostic engines, calculators, and hardware analyzers for FPV Pilots.',
+  description: 'Catalog-backed FPV calculators, compatibility checks, and guarded tuning tools for pilots.',
 };
 
 const TOOLS = [
   {
     name: 'Hardware Analyzer',
-    description: 'AI-powered diagnostic engine for component compatibility and risk assessment.',
+    description: 'Catalog-assisted compatibility and risk check with optional AI review when the gateway responds.',
     href: '/tools/hardware-analyzer',
     icon: Cpu,
     color: 'text-[#00A8B3]',
@@ -21,7 +21,7 @@ const TOOLS = [
   },
   {
     name: 'Blackbox Tuning',
-    description: 'Upload your Betaflight logs and get expert tuning recommendations.',
+    description: 'CSV/text-export tuning guardrail for Betaflight noise, oscillation, and filter review.',
     href: '/tools/blackbox-tuning',
     icon: Activity,
     color: 'text-[#FF5C00]',
@@ -51,7 +51,7 @@ const TOOLS = [
   },
   {
     name: 'Part Matcher',
-    description: 'Find the perfect matching components for your next FPV drone build.',
+    description: 'Catalog-backed compatibility checks for FPV parts, voltage, fit, and build risk.',
     href: '/tools/part-matcher',
     icon: Wrench,
     color: 'text-[#FF00FF]',
@@ -61,7 +61,7 @@ const TOOLS = [
   },
   {
     name: 'Flight Critic',
-    description: 'Upload your flight footage and receive AI-driven cinematic analysis.',
+    description: 'Future video-analysis workspace. Not marketed as live frame-level review yet.',
     href: '/tools/flight-critic',
     icon: Crosshair,
     color: 'text-[#0088FF]',
@@ -86,7 +86,7 @@ export default function ToolsHubPage() {
            Oracle <span className="text-[#FF5C00]">Tools Hub</span>
          </h1>
          <p className="text-sm font-sans text-zinc-400 max-w-2xl leading-relaxed mx-auto">
-           A suite of AI-powered diagnostic engines and calculators for FPV Pilots.
+           Catalog-backed calculators, compatibility checks, and guarded AI-assisted workflows. Tools show their source mode instead of pretending every answer is fully RAG-grounded.
          </p>
       </div>
 

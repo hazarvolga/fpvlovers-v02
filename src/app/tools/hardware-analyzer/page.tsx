@@ -6,7 +6,7 @@ import { HardwareAnalyzerWidget } from '@/features/tools/components/HardwareAnal
 
 export const metadata = {
   title: 'Hardware Analyzer | Tools',
-  description: 'AI-Powered FPV Drone Hardware Compatibility Check and Risk Assessment.',
+  description: 'Catalog-assisted FPV drone hardware compatibility check and risk assessment.',
 };
 
 export default function HardwareAnalyzerPage() {
@@ -28,7 +28,7 @@ export default function HardwareAnalyzerPage() {
                Hardware <span className="text-[#FF5C00]">Analyzer</span>
              </h1>
              <p className="text-sm font-sans text-zinc-400 max-w-2xl leading-relaxed mx-auto sm:mx-0">
-               AI-powered diagnostic engine for FPV component compatibility and risk assessment.
+               Catalog-assisted local compatibility check for FPV components, with optional source-backed AI review when the gateway returns usable context.
              </p>
           </div>
 

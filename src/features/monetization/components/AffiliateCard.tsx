@@ -46,7 +46,7 @@ export function AffiliateCard({ title, description, price, url, image, tag, clas
          <div className="mt-auto flex items-center justify-between border-t border-[#333333]/50 pt-3">
             <div className="text-lg font-black tracking-tighter text-[#A0A0A0]">{price}</div>
             <Button variant="amber" size="sm" asChild className="h-8 text-[10px] gap-2">
-               <Link href={url} target="_blank" rel="noopener noreferrer">
+               <Link href={url} target="_blank" rel="noopener noreferrer nofollow sponsored">
                  ACQUIRE <ShoppingCart className="w-3 h-3" />
                </Link>
             </Button>

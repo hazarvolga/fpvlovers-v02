@@ -1,7 +1,7 @@
 # FPVLovers Design And UX GAP Report
 
-Date: 2026-06-25  
-Scope: homepage, article detail, reviews/comparisons/buyer-guide hubs, trust/footer surfaces, commercial page presentation, mobile-readiness risk, source-level UI evidence.  
+Date: 2026-06-25
+Scope: homepage, article detail, reviews/comparisons/buyer-guide hubs, trust/footer surfaces, commercial page presentation, mobile-readiness risk, source-level UI evidence.
 Mode: brutal audit plus approved remediation pass. UI/content trust fixes were applied after the initial findings.
 
 ## Executive Verdict

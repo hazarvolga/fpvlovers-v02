@@ -2,19 +2,15 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import { isIndexablePublishedArtifact, listPublishedContentAsync } from '@/lib/content-automation/content-reader';
 import { CategoryGuideHubClient } from './CategoryGuideHubClient';
-import { BUYERS_GUIDE_CATEGORIES } from '../BuyersGuidesHubClient';
+import { findBuyersGuideCategory } from '@/lib/buyers-guide-categories';
 
 interface PageProps {
   params: Promise<{ category: string }>;
 }
 
-function findCategoryConfig(slug: string) {
-  return BUYERS_GUIDE_CATEGORIES.find(c => c.slug === slug);
-}
-
 export async function generateMetadata({ params }: PageProps) {
   const resolvedParams = await params;
-  const config = findCategoryConfig(resolvedParams.category);
+  const config = findBuyersGuideCategory(resolvedParams.category);
 
   if (!config) {
     return {
@@ -30,7 +26,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function CategoryGuidePage({ params }: PageProps) {
   const resolvedParams = await params;
-  const config = findCategoryConfig(resolvedParams.category);
+  const config = findBuyersGuideCategory(resolvedParams.category);
 
   if (!config) {
     notFound();

@@ -1,7 +1,7 @@
 # FPVLovers Project Operations GAP Report
 
-Date: 2026-06-25  
-Scope: last 15 days of commits, source state, local verification, content inventory, affiliate/trust readiness, Dify/Crawl4AI/cron operations.  
+Date: 2026-06-25
+Scope: last 15 days of commits, source state, local verification, content inventory, affiliate/trust readiness, Dify/Crawl4AI/cron operations.
 Mode: brutal audit plus approved remediation pass. Source and content fixes were applied after the initial findings.
 
 ## Executive Verdict

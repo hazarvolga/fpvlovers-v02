@@ -6,7 +6,7 @@ import { BlackboxTunerWidget } from '@/features/tools/components/BlackboxTuner';
 
 export const metadata = {
   title: 'Blackbox Tuning | Tools',
-  description: 'Analyze flight log data to diagnose vibrations and optimize PID/Filter settings.',
+  description: 'Analyze CSV/text flight log exports to diagnose vibrations and PID/filter risk.',
 };
 
 export default function BlackboxTuningPage() {
@@ -28,7 +28,7 @@ export default function BlackboxTuningPage() {
                Blackbox <span className="text-[#FF5C00]">Tuning</span>
              </h1>
              <p className="text-sm font-sans text-zinc-400 max-w-2xl leading-relaxed mx-auto sm:mx-0">
-               Analyze flight log data to diagnose vibrations, oscillations, and optimize PID/Filter settings.
+               Analyze CSV/text exports from Betaflight or Blackbox Explorer to diagnose vibration, oscillation, and PID/filter risk. Raw binary parsing is not claimed.
              </p>
           </div>
 

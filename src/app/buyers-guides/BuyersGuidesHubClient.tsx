@@ -9,109 +9,21 @@ import {
 } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
-import type { ContentMetadata } from '@/lib/content-metadata';
+import {
+  BUYERS_GUIDE_CATEGORIES,
+  type BuyersGuideIconKey,
+} from '@/lib/buyers-guide-categories';
 import { trackBuyerGuideClick } from '@/lib/analytics';
 
-// Category Definitions
-export const BUYERS_GUIDE_CATEGORIES = [
-  {
-    slug: 'fpv-goggles',
-    title: 'FPV Goggles',
-    description: 'Compare the best analog, digital, HD, and budget FPV goggles for your cockpit visual experience.',
-    icon: Eye,
-    color: '#00F2FF',
-    matcher: (meta: ContentMetadata) =>
-      meta.review?.productCategory?.toLowerCase().includes('goggle') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('goggle') ||
-      meta.components?.some((c: string) => c.toLowerCase().includes('goggle')) ||
-      meta.topics?.some((t: string) => t.toLowerCase().includes('goggle'))
-  },
-  {
-    slug: 'fpv-radios',
-    title: 'FPV Radios & Transmitters',
-    description: 'Browse top-tier radio controllers, ELRS modules, and gimbals for precise flight maneuvering.',
-    icon: Radio,
-    color: '#FF5C00',
-    matcher: (meta: ContentMetadata) =>
-      meta.review?.productCategory?.toLowerCase().includes('radio') ||
-      meta.review?.productCategory?.toLowerCase().includes('transmitter') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('radio') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('transmitter') ||
-      meta.components?.some((c: string) => c.toLowerCase().includes('radio') || c.toLowerCase().includes('transmitter') || c.toLowerCase().includes('tx')) ||
-      meta.topics?.some((t: string) => t.toLowerCase().includes('radio') || t.toLowerCase().includes('transmitter') || t.toLowerCase().includes('tx'))
-  },
-  {
-    slug: 'fpv-cameras',
-    title: 'FPV Cameras & VTX',
-    description: 'In-depth directories of analog and HD video transmitters, air units, and onboard cameras.',
-    icon: Video,
-    color: '#00FF66',
-    matcher: (meta: ContentMetadata) =>
-      meta.review?.productCategory?.toLowerCase().includes('camera') ||
-      meta.review?.productCategory?.toLowerCase().includes('vtx') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('camera') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('vtx') ||
-      meta.components?.some((c: string) => c.toLowerCase().includes('camera') || c.toLowerCase().includes('vtx') || c.toLowerCase().includes('o3') || c.toLowerCase().includes('o4')) ||
-      meta.topics?.some((t: string) => t.toLowerCase().includes('camera') || t.toLowerCase().includes('vtx') || t.toLowerCase().includes('o3') || t.toLowerCase().includes('o4'))
-  },
-  {
-    slug: 'fpv-batteries',
-    title: 'FPV Batteries & Chargers',
-    description: 'High discharge rate LiPo and LiHV flight packs, chargers, and safety equipment guides.',
-    icon: Battery,
-    color: '#EAB308',
-    matcher: (meta: ContentMetadata) =>
-      meta.review?.productCategory?.toLowerCase().includes('battery') ||
-      meta.review?.productCategory?.toLowerCase().includes('lipo') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('battery') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('lipo') ||
-      meta.components?.some((c: string) => c.toLowerCase().includes('battery') || c.toLowerCase().includes('lipo') || c.toLowerCase().includes('power')) ||
-      meta.topics?.some((t: string) => t.toLowerCase().includes('battery') || t.toLowerCase().includes('lipo') || t.toLowerCase().includes('power'))
-  },
-  {
-    slug: 'cinewhoops',
-    title: 'Cinewhoops',
-    description: 'Guides on duct-protected indoor micro drones and stable filming camera rigs.',
-    icon: Layers,
-    color: '#A855F7',
-    matcher: (meta: ContentMetadata) =>
-      meta.review?.productCategory?.toLowerCase().includes('whoop') ||
-      meta.review?.productCategory?.toLowerCase().includes('cinewhoop') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('whoop') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('cinewhoop') ||
-      meta.components?.some((c: string) => c.toLowerCase().includes('whoop') || c.toLowerCase().includes('cinewhoop')) ||
-      meta.topics?.some((t: string) => t.toLowerCase().includes('whoop') || t.toLowerCase().includes('cinewhoop')) ||
-      meta.discipline?.some((d: string) => d.toLowerCase() === 'whoop')
-  },
-  {
-    slug: 'long-range',
-    title: 'Long Range Gear',
-    description: 'GPS modules, high-gain antennas, and robust frames for flying far and safe.',
-    icon: Compass,
-    color: '#3B82F6',
-    matcher: (meta: ContentMetadata) =>
-      meta.review?.productCategory?.toLowerCase().includes('long-range') ||
-      meta.review?.productCategory?.toLowerCase().includes('gps') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('long-range') ||
-      meta.components?.some((c: string) => c.toLowerCase().includes('gps') || c.toLowerCase().includes('long-range')) ||
-      meta.topics?.some((t: string) => t.toLowerCase().includes('gps') || t.toLowerCase().includes('long-range') || t.toLowerCase().includes('lr')) ||
-      meta.discipline?.some((d: string) => d.toLowerCase() === 'long-range')
-  },
-  {
-    slug: 'beginner-equipment',
-    title: 'Beginner Equipment',
-    description: 'Ready-to-fly kits, radio transmitters, simulators, and start guides for new pilots.',
-    icon: HelpCircle,
-    color: '#EC4899',
-    matcher: (meta: ContentMetadata) =>
-      meta.difficulty === 'beginner' ||
-      meta.audience?.some((a: string) => a === 'new-pilot') ||
-      meta.review?.productCategory?.toLowerCase().includes('rtf') ||
-      meta.review?.productCategory?.toLowerCase().includes('beginner') ||
-      meta.comparison?.comparisonCategory?.toLowerCase().includes('beginner') ||
-      meta.topics?.some((t: string) => t.toLowerCase().includes('beginner') || t.toLowerCase().includes('start') || t.toLowerCase().includes('kit'))
-  }
-];
+const CATEGORY_ICONS = {
+  eye: Eye,
+  radio: Radio,
+  video: Video,
+  battery: Battery,
+  layers: Layers,
+  compass: Compass,
+  help: HelpCircle,
+} satisfies Record<BuyersGuideIconKey, React.ComponentType<{ className?: string }>>;
 
 interface BuyersGuidesHubClientProps {
   initialGuides: PublishedArtifact[];
@@ -150,7 +62,7 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
         {BUYERS_GUIDE_CATEGORIES.map((cat) => {
-          const IconComponent = cat.icon;
+          const IconComponent = CATEGORY_ICONS[cat.iconKey];
           // Calculate matching guides for this category tab
           const matchingCount = initialGuides.filter(
             g => g.metadata && cat.matcher(g.metadata)

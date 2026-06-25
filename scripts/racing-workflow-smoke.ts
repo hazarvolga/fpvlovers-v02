@@ -24,7 +24,8 @@ async function main() {
   });
 
   console.log(`Run status: ${result.status}`);
-  console.log(`Success: ${result.success ? 'yes' : 'no'}`);
+  console.log(`Dify success: ${result.success ? 'yes' : 'no'}`);
+  console.log(`Fallback used: ${result.status === 'fallback' ? 'yes' : 'no'}`);
   console.log(`Entities: ${result.outputs.entities?.length || 0}`);
   console.log(`Content briefs: ${result.outputs.contentBriefs?.length || 0}`);
   if (result.error) console.log(`Error: ${result.error}`);

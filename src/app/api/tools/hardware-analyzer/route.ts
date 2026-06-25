@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { difyRequest } from '@/lib/dify-client';
 import { extractDifyMarkdown } from '@/lib/dify-response';
 import { findApp } from '@/lib/master-routing-tables';
+import { analyzeBuildCompatibility } from '@/lib/tools/component-compatibility';
+import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
+import type { BuildSelection, BuildSlot, FpvCatalogProduct, FpvProductType } from '@/lib/tools/fpv-product-types';
 
 const TOOL_DIFY_TIMEOUT_MS = 15000;
 
@@ -13,6 +16,8 @@ type HardwarePayload = {
   fc: string;
   vtx: string;
 };
+
+type MatchedHardware = Partial<Record<BuildSlot, FpvCatalogProduct>>;
 
 function cleanText(value: unknown): string {
   return typeof value === 'string' ? value.trim().slice(0, 500) : '';
@@ -33,6 +38,61 @@ function parsePayload(value: unknown): HardwarePayload {
     battery: cleanText(record.battery) || 'Unknown battery',
     fc: cleanText(record.fc) || 'Unknown flight controller',
     vtx: cleanText(record.vtx) || 'Unknown VTX/camera',
+  };
+}
+
+function matchCatalogProduct(query: string, types: FpvProductType[], catalog: FpvCatalogProduct[]): FpvCatalogProduct | undefined {
+  const normalizedQuery = query.toLowerCase();
+  if (!normalizedQuery || normalizedQuery.startsWith('unknown ')) return undefined;
+
+  return catalog
+    .filter((product) => types.includes(product.type))
+    .map((product) => {
+      const haystack = [
+        product.name,
+        product.brand,
+        product.type,
+        product.category,
+        ...product.keywords,
+        ...product.tags,
+      ].join(' ').toLowerCase();
+      const nameHit = normalizedQuery.includes(product.name.toLowerCase()) || product.name.toLowerCase().includes(normalizedQuery);
+      const keywordHits = normalizedQuery
+        .split(/[^a-z0-9]+/i)
+        .filter((token) => token.length >= 3)
+        .filter((token) => haystack.includes(token))
+        .length;
+      return { product, score: (nameHit ? 10 : 0) + keywordHits + product.trustScore / 100 };
+    })
+    .filter((candidate) => candidate.score >= 2)
+    .sort((left, right) => right.score - left.score)[0]?.product;
+}
+
+function matchHardware(input: HardwarePayload, catalog: FpvCatalogProduct[]): MatchedHardware {
+  const frame = matchCatalogProduct(input.frame, ['frame', 'kit'], catalog);
+  const motor = matchCatalogProduct(input.motor, ['motor'], catalog);
+  const stackFromEsc = matchCatalogProduct(input.esc, ['stack'], catalog);
+  const stackFromFc = matchCatalogProduct(input.fc, ['stack'], catalog);
+  const battery = matchCatalogProduct(input.battery, ['battery'], catalog);
+  const video = matchCatalogProduct(input.vtx, ['video', 'vtx', 'camera'], catalog);
+
+  return {
+    ...(frame ? { frame } : {}),
+    ...(motor ? { motor } : {}),
+    ...(stackFromEsc || stackFromFc ? { stack: stackFromEsc || stackFromFc } : {}),
+    ...(battery ? { battery } : {}),
+    ...(video ? { video } : {}),
+  };
+}
+
+function selectionFromMatches(matches: MatchedHardware): BuildSelection {
+  return {
+    style: 'freestyle',
+    ...(matches.frame ? { frame: matches.frame.id } : {}),
+    ...(matches.motor ? { motor: matches.motor.id } : {}),
+    ...(matches.stack ? { stack: matches.stack.id } : {}),
+    ...(matches.battery ? { battery: matches.battery.id } : {}),
+    ...(matches.video ? { video: matches.video.id } : {}),
   };
 }
 
@@ -68,6 +128,39 @@ function localHardwareMarkdown(input: HardwarePayload): string {
     '',
     '### Recommended Next Step',
     '- Route this build through the guided compatibility workflow once production credentials are enabled for deeper source-backed recommendations.',
+  ].join('\n');
+}
+
+function catalogHardwareMarkdown(input: HardwarePayload, matches: MatchedHardware, catalog: FpvCatalogProduct[]): string {
+  const baseMarkdown = localHardwareMarkdown(input);
+  const matchedEntries = Object.entries(matches)
+    .filter((entry): entry is [BuildSlot, FpvCatalogProduct] => Boolean(entry[1]))
+    .map(([slot, product]) => `- ${slot}: ${product.name} (${product.brand}, ${product.provenance?.source || 'catalog'})`);
+
+  if (matchedEntries.length < 2) {
+    return [
+      baseMarkdown,
+      '',
+      '### Catalog Match',
+      matchedEntries.length
+        ? matchedEntries.join('\n')
+        : '- No confident catalog matches. The local check used text-pattern guardrails only.',
+      '- Use exact product names from the FPVLovers catalog for deeper compatibility scoring.',
+    ].join('\n');
+  }
+
+  const compatibility = analyzeBuildCompatibility(selectionFromMatches(matches), catalog);
+  return [
+    baseMarkdown,
+    '',
+    '### Catalog Match',
+    ...matchedEntries,
+    '',
+    '### Catalog Compatibility Score',
+    `- Verdict: ${compatibility.verdict}`,
+    `- Score: ${compatibility.score}/100`,
+    `- Summary: ${compatibility.summary}`,
+    ...compatibility.checks.map((check) => `- ${check.status.toUpperCase()} ${check.label}: ${check.detail}`),
   ].join('\n');
 }
 
@@ -109,7 +202,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const input = parsePayload(await req.json().catch(() => ({})));
-    const localMarkdown = localHardwareMarkdown(input);
+    const catalog = getFpvProductCatalog();
+    const matches = matchHardware(input, catalog);
+    const localMarkdown = catalogHardwareMarkdown(input, matches, catalog);
     const app = findApp('Part Matcher') ?? findApp('Build Wizard');
 
     if (!app?.token) {
@@ -117,6 +212,14 @@ export async function POST(req: NextRequest) {
         success: true,
         source: 'local',
         markdown: localMarkdown,
+        matchedProducts: Object.fromEntries(
+          Object.entries(matches).map(([slot, product]) => [slot, {
+            id: product?.id,
+            name: product?.name,
+            brand: product?.brand,
+            source: product?.provenance?.source,
+          }]),
+        ),
         warning: 'Hardware review gateway is not configured; returned deterministic local compatibility check.',
       });
     }
@@ -140,6 +243,14 @@ export async function POST(req: NextRequest) {
         success: true,
         source: 'local',
         markdown: localMarkdown,
+        matchedProducts: Object.fromEntries(
+          Object.entries(matches).map(([slot, product]) => [slot, {
+            id: product?.id,
+            name: product?.name,
+            brand: product?.brand,
+            source: product?.provenance?.source,
+          }]),
+        ),
         warning: response.dryRun
           ? 'Dry-run is active locally; returned deterministic local compatibility check.'
           : 'Hardware review gateway did not return usable Markdown; returned deterministic local compatibility check.',
@@ -150,6 +261,14 @@ export async function POST(req: NextRequest) {
       success: true,
       source: 'dify',
       markdown,
+      matchedProducts: Object.fromEntries(
+        Object.entries(matches).map(([slot, product]) => [slot, {
+          id: product?.id,
+          name: product?.name,
+          brand: product?.brand,
+          source: product?.provenance?.source,
+        }]),
+      ),
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Hardware analysis failed.';

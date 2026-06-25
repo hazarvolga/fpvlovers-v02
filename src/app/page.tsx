@@ -116,7 +116,7 @@ export default async function HomePage() {
 
             <div className="mt-6 flex flex-wrap gap-2 text-[10px] font-mono uppercase tracking-[0.14em] text-zinc-500">
               <Link href="/editorial-policy" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-[#00F2FF]/40 hover:text-[#00F2FF]">Editorial policy</Link>
-              <Link href="/affiliate-disclosure" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-[#FF5C00]/40 hover:text-[#FF5C00]">Affiliate disclosure</Link>
+              <Link href="/disclosure" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-[#FF5C00]/40 hover:text-[#FF5C00]">Affiliate disclosure</Link>
               <Link href="/advertise" className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-2 hover:border-white/25 hover:text-white">Sponsor standards</Link>
             </div>
             

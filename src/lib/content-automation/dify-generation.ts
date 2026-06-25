@@ -39,6 +39,7 @@ export type ContentGenerationResult = {
   totalTokens?: number | null;
   elapsedTime?: number | null;
   outputs?: Record<string, unknown> | null;
+  error?: string | null;
 };
 
 type TemplateConfig = {
@@ -249,6 +250,7 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
     totalTokens: workflow.totalTokens || null,
     elapsedTime: workflow.elapsedTime || null,
     outputs,
+    error: workflow.error || null,
   };
 }
 
@@ -269,5 +271,6 @@ export async function runWorkflow(
     totalTokens: workflow.totalTokens || null,
     elapsedTime: workflow.elapsedTime || null,
     outputs,
+    error: workflow.error || null,
   };
 }

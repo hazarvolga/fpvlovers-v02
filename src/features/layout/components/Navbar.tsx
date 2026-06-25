@@ -314,6 +314,24 @@ export function Navbar() {
                 </div>
               );
             })}
+
+            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-4">
+              {[
+                { title: 'Buyer Guides', href: '/buyers-guides' },
+                { title: 'Reviews', href: '/reviews' },
+                { title: 'Disclosure', href: '/disclosure' },
+                { title: 'Editorial Policy', href: '/editorial-policy' },
+              ].map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-3 text-center text-[10px] font-mono font-black uppercase tracking-widest text-zinc-300 transition-colors hover:border-[#00F2FF]/40 hover:text-[#00F2FF]"
+                  onClick={closeNavigation}
+                >
+                  {item.title}
+                </Link>
+              ))}
+            </div>
             
             {/* Dynamic Authentication Button for Mobile */}
             <div className="mt-4 pt-4 border-t border-white/10 flex flex-col gap-2">
