@@ -36,6 +36,7 @@ Post-remediation verdict: the local branch is now a serious deploy candidate, pe
 | Package manager drift | Fixed | Removed tracked `pnpm-lock.yaml`; npm lock remains aligned with Docker/CI |
 | Racing workflow resilience | Improved | `npm run racing:workflow:smoke` now returns `fallback`, `Success: yes`, `Entities: 1`, `Content briefs: 1` when Dify returns an unsuccessful workflow result |
 | Local production smoke | Mixed by design | `/`, `/buyers-guides`, `/article/best-fpv-goggles-2026`, `/api/health` returned 200; `/api/ready` returned 503 because local DB DNS and crawler provider were unavailable |
+| Production deploy/live smoke | Passed | Commit `1ca1b72` deployed through Coolify; healthy container is running `1ca1b72`; `/`, `/buyers-guides`, `/reviews`, `/article/best-fpv-goggles-2026`, `/api/health`, and `/api/ready` returned 200; production `/api/ready` status is `ready` |
 
 ## Last 15 Days: What Changed
 
