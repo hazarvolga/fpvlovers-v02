@@ -9,6 +9,49 @@ import { resolveDisplayCover, resolveFallbackCover } from './fallback-cover';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
+const TURKISH_LANGUAGE_MARKERS = [
+  'başlangıç',
+  'öğren',
+  'uçuş',
+  'gökyüz',
+  'satın alma',
+  'yeni başlayan',
+  'pratik ipucu',
+  'tavsiye edilir',
+  'türkiye',
+  'şiddetle',
+  'kumandanız',
+  'drone\'unuz',
+  'dronunuzu',
+  'gözlüğ',
+  'piller',
+  'uçur',
+] as const;
+
+const TURKISH_SPECIFIC_CHARS = /[ğĞıİşŞüÜöÖçÇ]/g;
+
+function getArtifactLanguageText(article: PublishedArtifact): string {
+  return [
+    article.title,
+    article.excerpt,
+    ...(article.bodySections || []).map((section) => `${section.title}\n${section.content}`),
+  ].join('\n');
+}
+
+export function hasTurkishLanguageLeak(article: PublishedArtifact): boolean {
+  const text = getArtifactLanguageText(article);
+  const lower = text.toLocaleLowerCase('tr-TR');
+  const markerHits = TURKISH_LANGUAGE_MARKERS.filter((marker) => lower.includes(marker)).length;
+  const specificCharHits = text.match(TURKISH_SPECIFIC_CHARS)?.length || 0;
+
+  return markerHits >= 2 || specificCharHits >= 12;
+}
+
+function shouldExposePublishedArtifact(article: PublishedArtifact): boolean {
+  if (process.env.ALLOW_NON_ENGLISH_PUBLISHED === 'true') return true;
+  return !hasTurkishLanguageLeak(article);
+}
+
 import type { ContentMetadata } from '../content-metadata';
 import type { EditorialRecord } from './types';
 
@@ -335,6 +378,7 @@ export function listPublishedContent(): PublishedArtifact[] {
         }
       })
       .filter((a): a is PublishedArtifact => a !== null && typeof a.slug === 'string')
+      .filter(shouldExposePublishedArtifact)
       .sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime());
   } catch {
     return [];
@@ -347,7 +391,7 @@ export function getPublishedContentBySlug(slug: string): PublishedArtifact | nul
     const raw = fs.readFileSync(filePath, 'utf-8');
     const parsed = JSON.parse(raw);
     const artifact = ensureMediaArtifact(parsed);
-    if (artifact) return artifact;
+    if (artifact && shouldExposePublishedArtifact(artifact)) return artifact;
     return null;
   } catch {
     return null;
@@ -369,6 +413,7 @@ export async function listPublishedContentAsync(): Promise<PublishedArtifact[]> 
     for (const artifact of [...files, ...database]) {
       const normalized = ensureMediaArtifact(artifact);
       if (!normalized) continue;
+      if (!shouldExposePublishedArtifact(normalized)) continue;
       const existing = merged.get(normalized.slug);
       const existingTime = new Date(existing?.publishedAt || 0).getTime();
       const candidateTime = new Date(normalized.publishedAt || 0).getTime();
@@ -391,7 +436,7 @@ export async function getPublishedContentBySlugAsync(slug: string): Promise<Publ
     const { getPublishedArtifact } = await import('@/lib/server/published-content-store');
     const database = await getPublishedArtifact(slug);
     const normalized = database ? ensureMediaArtifact(database) : null;
-    if (normalized) return normalized;
+    if (normalized && shouldExposePublishedArtifact(normalized)) return normalized;
   } catch (error) {
     console.warn(`[Published Content] Database lookup failed for ${slug}, using committed file:`, error);
   }

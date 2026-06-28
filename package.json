@@ -31,6 +31,7 @@
     "quality:recent": "node scripts/recent-code-quality-audit.mjs",
     "content:smoke": "node --import tsx scripts/content-automation-smoke.ts",
     "content:cover-test": "node scripts/article-cover-fallback-regression-test.mjs",
+    "content:language-audit": "node --import tsx scripts/content-language-audit.ts",
     "content:audit": "node --import tsx scripts/content-integrity-audit.ts",
     "content:topic-cover-test": "node --import tsx scripts/topic-fallback-cover-regression-test.ts",
     "crawl:worker-test": "node --import tsx scripts/crawl-worker-regression-test.ts",
