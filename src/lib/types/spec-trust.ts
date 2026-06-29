@@ -24,7 +24,9 @@ export const specValueSchema = z.union([
 export const evidenceBoundSpecSchema = z.object({
   value: specValueSchema,
   unit: z.string().trim().min(1).nullable(),
-  sourceUrls: z.array(z.string().url()).nonempty(),
+  sourceUrls: z.array(z.string().url().regex(/^https?:\/\//i, {
+    message: 'Source URLs must use HTTP or HTTPS',
+  })).nonempty(),
   sourceType: specSourceTypeSchema,
   confidence: z.number().min(0).max(1),
   extractionMethod: specExtractionMethodSchema,

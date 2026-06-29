@@ -62,6 +62,13 @@ assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, confidence: 1.01
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, status: 'trusted' }).success, false);
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, sourceUrls: [] }).success, false);
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, sourceUrls: ['not-a-url'] }).success, false);
+for (const unsafeUrl of [
+  'ftp://manufacturer.example/specs',
+  'file:///etc/passwd',
+  'javascript:alert(1)',
+]) {
+  assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, sourceUrls: [unsafeUrl] }).success, false);
+}
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: { nested: true } }).success, false);
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: Number.NaN }).success, false);
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: Number.POSITIVE_INFINITY }).success, false);
@@ -86,5 +93,29 @@ const malformedEvidenceProduct = product({
   } as unknown as FpvCatalogProduct['evidenceSpecs'],
 });
 assert.deepEqual(getLegacySpecs(malformedEvidenceProduct), {});
+
+const malformedStatusProduct = product({
+  specs: { label: 'primitive-fallback' },
+  evidenceSpecs: {
+    label: { ...verifiedKv, value: 'evidence', status: 42 },
+  } as unknown as FpvCatalogProduct['evidenceSpecs'],
+});
+assert.equal(getSpecValue(malformedStatusProduct, 'label'), undefined);
+assert.equal(getSpecNumber(malformedStatusProduct, 'label'), undefined);
+assert.equal(getSpecString(malformedStatusProduct, 'label'), undefined);
+assert.equal(getSpecTrustBadge(malformedStatusProduct, 'label'), undefined);
+assert.deepEqual(getLegacySpecs(malformedStatusProduct), {});
+
+const malformedNumberProduct = product({
+  specs: { kv: 1750 },
+  evidenceSpecs: {
+    kv: { ...verifiedKv, value: Number.POSITIVE_INFINITY },
+  } as unknown as FpvCatalogProduct['evidenceSpecs'],
+});
+assert.equal(getSpecValue(malformedNumberProduct, 'kv'), undefined);
+assert.equal(getSpecNumber(malformedNumberProduct, 'kv'), undefined);
+assert.equal(getSpecString(malformedNumberProduct, 'kv'), undefined);
+assert.equal(getSpecTrustBadge(malformedNumberProduct, 'kv'), undefined);
+assert.deepEqual(getLegacySpecs(malformedNumberProduct), {});
 
 console.log('spec trust regression tests passed');

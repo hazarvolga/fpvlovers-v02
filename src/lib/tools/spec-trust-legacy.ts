@@ -1,16 +1,33 @@
 import type { FpvCatalogProduct, ProductSpecValue } from '@/lib/tools/fpv-product-types';
-import type { EvidenceSpecStatus, SpecValue } from '@/lib/types/spec-trust';
+import {
+  evidenceBoundSpecSchema,
+  type EvidenceBoundSpec,
+  type EvidenceSpecStatus,
+  type SpecValue,
+} from '@/lib/types/spec-trust';
+
+function getValidatedEvidence(product: FpvCatalogProduct, key: string): EvidenceBoundSpec | undefined {
+  const result = evidenceBoundSpecSchema.safeParse(product.evidenceSpecs?.[key]);
+  return result.success ? result.data : undefined;
+}
+
+const TRUST_BADGES: Record<EvidenceSpecStatus, Uppercase<EvidenceSpecStatus>> = {
+  unverified: 'UNVERIFIED',
+  conflicting: 'CONFLICTING',
+  verified: 'VERIFIED',
+  rejected: 'REJECTED',
+};
 
 export function getSpecValue(product: FpvCatalogProduct, key: string): SpecValue | undefined {
   if (product.evidenceSpecs && Object.prototype.hasOwnProperty.call(product.evidenceSpecs, key)) {
-    return product.evidenceSpecs[key]?.value;
+    return getValidatedEvidence(product, key)?.value;
   }
   return product.specs[key];
 }
 
 export function getSpecNumber(product: FpvCatalogProduct, key: string): number | undefined {
   const value = getSpecValue(product, key);
-  return typeof value === 'number' ? value : undefined;
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
 }
 
 export function getSpecString(product: FpvCatalogProduct, key: string): string | undefined {
@@ -44,6 +61,6 @@ export function getSpecTrustBadge(
   product: FpvCatalogProduct,
   key: string,
 ): Uppercase<EvidenceSpecStatus> | undefined {
-  const status = product.evidenceSpecs?.[key]?.status;
-  return status?.toUpperCase() as Uppercase<EvidenceSpecStatus> | undefined;
+  const status = getValidatedEvidence(product, key)?.status;
+  return status ? TRUST_BADGES[status] : undefined;
 }
