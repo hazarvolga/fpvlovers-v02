@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
-import { query, getClient } from './db';
+import { getClient } from './db';
+import type { PoolClient } from './db';
 
 // Advisory lock ID for migrations — prevents concurrent runs.
 const MIGRATION_LOCK_ID = 2147483647;
@@ -11,6 +12,12 @@ export interface MigrationFile {
   name: string;
   filePath: string;
   checksum: string;
+}
+
+export interface MigrationResult {
+  applied: string[];
+  alreadyApplied: string[];
+  skipped: string[];
 }
 
 function calculateChecksum(content: string): string {
@@ -39,11 +46,110 @@ export function discoverMigrationFiles(migrationsDir: string): MigrationFile[] {
     });
 }
 
-export async function runMigrations(options: { dryRun?: boolean } = {}): Promise<{
-  applied: string[];
-  alreadyApplied: string[];
-  skipped: string[];
-}> {
+export async function executeMigrationPlan(
+  client: PoolClient,
+  migrations: MigrationFile[],
+): Promise<MigrationResult> {
+  const appliedMap = new Map<string, string>();
+  const applied: string[] = [];
+  const alreadyApplied: string[] = [];
+  const skipped: string[] = [];
+  let lockAcquired = false;
+  let transactionActive = false;
+  let primaryError: unknown;
+  let unlockError: unknown;
+
+  try {
+    await client.query(`
+      CREATE SCHEMA IF NOT EXISTS fpvlovers_app;
+      CREATE TABLE IF NOT EXISTS fpvlovers_app.schema_migrations (
+        version VARCHAR(50) PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        checksum VARCHAR(64) NOT NULL,
+        applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `);
+
+    await client.query('SELECT pg_advisory_lock($1)', [MIGRATION_LOCK_ID]);
+    lockAcquired = true;
+    console.log('[Migrations] Acquired advisory lock.');
+
+    const appliedRows = await client.query<{ version: string; checksum: string }>(
+      'SELECT version, checksum FROM fpvlovers_app.schema_migrations ORDER BY version ASC',
+    );
+    for (const row of appliedRows.rows) {
+      appliedMap.set(row.version, row.checksum);
+    }
+
+    for (const migration of migrations) {
+      const existingChecksum = appliedMap.get(migration.version);
+      if (existingChecksum !== undefined) {
+        if (existingChecksum !== migration.checksum) {
+          console.warn(`[Migrations] WARNING: Migration ${migration.version}_${migration.name} checksum mismatch!`);
+          console.warn(`[Migrations] Database has:  ${existingChecksum}`);
+          console.warn(`[Migrations] Local file has: ${migration.checksum}`);
+        }
+        alreadyApplied.push(migration.version);
+        continue;
+      }
+
+      console.log(`[Migrations] Running migration: ${migration.version}_${migration.name}...`);
+      const sql = fs.readFileSync(migration.filePath, 'utf-8');
+      await client.query('BEGIN');
+      transactionActive = true;
+      await client.query(sql);
+      await client.query(
+        'INSERT INTO fpvlovers_app.schema_migrations (version, name, checksum) VALUES ($1, $2, $3)',
+        [migration.version, migration.name, migration.checksum],
+      );
+      await client.query('COMMIT');
+      transactionActive = false;
+      console.log(`[Migrations] Successfully applied migration: ${migration.version}_${migration.name}`);
+      applied.push(migration.version);
+    }
+  } catch (error: unknown) {
+    primaryError = error;
+    if (transactionActive) {
+      try {
+        await client.query('ROLLBACK');
+      } catch (rollbackError: unknown) {
+        console.error('[Migrations] Failed to roll back active migration transaction:', rollbackError);
+      } finally {
+        transactionActive = false;
+      }
+    }
+  } finally {
+    if (lockAcquired) {
+      try {
+        const unlockResult = await client.query<{ pg_advisory_unlock: boolean }>(
+          'SELECT pg_advisory_unlock($1) AS pg_advisory_unlock',
+          [MIGRATION_LOCK_ID],
+        );
+        if (unlockResult.rows[0]?.pg_advisory_unlock !== true) {
+          unlockError = new Error('[Migrations] Advisory lock was not held by the migration client during unlock.');
+          console.error(unlockError);
+        } else {
+          console.log('[Migrations] Released advisory lock.');
+        }
+      } catch (error: unknown) {
+        unlockError = error;
+        console.error('[Migrations] Failed to release advisory lock:', error);
+      }
+    }
+    client.release();
+  }
+
+  if (primaryError !== undefined) {
+    throw primaryError;
+  }
+  if (unlockError !== undefined) {
+    throw unlockError;
+  }
+
+  return { applied, alreadyApplied, skipped };
+}
+
+export async function runMigrations(options: { dryRun?: boolean } = {}): Promise<MigrationResult> {
   console.log(`[Migrations] Starting database migration runner (dryRun: ${!!options.dryRun})...`);
 
   const migrationsDir = path.join(process.cwd(), 'db/migrations');
@@ -60,109 +166,19 @@ export async function runMigrations(options: { dryRun?: boolean } = {}): Promise
     return { applied: [], alreadyApplied: [], skipped: [] };
   }
 
-  const appliedMap = new Map<string, string>();
-
-  if (!options.dryRun) {
-    // 2. Ensure schema_migrations table exists (run inline if not initialized)
-    try {
-      await query(`
-        CREATE SCHEMA IF NOT EXISTS fpvlovers_app;
-        CREATE TABLE IF NOT EXISTS fpvlovers_app.schema_migrations (
-          version VARCHAR(50) PRIMARY KEY,
-          name VARCHAR(255) NOT NULL,
-          checksum VARCHAR(64) NOT NULL,
-          applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-        );
-      `);
-    } catch (err) {
-      console.error('[Migrations] Failed to ensure schema_migrations table exists:', err);
-      throw err;
-    }
-
-    // 2b. Acquire advisory lock to prevent concurrent migrations
-    try {
-      await query('SELECT pg_advisory_lock($1)', [MIGRATION_LOCK_ID]);
-      console.log('[Migrations] Acquired advisory lock.');
-    } catch (err) {
-      console.error('[Migrations] Failed to acquire advisory lock:', err);
-      throw err;
-    }
-
-    // 3. Fetch already applied migrations
-    const appliedRows = await query<{ version: string; checksum: string }>(
-      'SELECT version, checksum FROM fpvlovers_app.schema_migrations ORDER BY version ASC'
-    );
-    
-    for (const row of appliedRows.rows) {
-      appliedMap.set(row.version, row.checksum);
-    }
-  }
-
   const applied: string[] = [];
-  const alreadyApplied: string[] = [];
-  const skipped: string[] = [];
-
-  try {
-    // 4. Run migrations in sequence
+  if (options.dryRun) {
     for (const migration of migrations) {
-      const existingChecksum = appliedMap.get(migration.version);
-
-      if (existingChecksum !== undefined) {
-        if (existingChecksum !== migration.checksum) {
-          console.warn(`[Migrations] WARNING: Migration ${migration.version}_${migration.name} checksum mismatch!`);
-          console.warn(`[Migrations] Database has:  ${existingChecksum}`);
-          console.warn(`[Migrations] Local file has: ${migration.checksum}`);
-        }
-        alreadyApplied.push(migration.version);
-        continue;
-      }
-
       console.log(`[Migrations] Running migration: ${migration.version}_${migration.name}...`);
-      const sql = fs.readFileSync(migration.filePath, 'utf-8');
-
-      if (options.dryRun) {
-        console.log(`[Migrations] [Dry Run] Would apply: ${migration.version}_${migration.name}`);
-        applied.push(migration.version);
-        continue;
-      }
-
-      // Execute in a transaction
-      const client = await getClient();
-      try {
-        await client.query('BEGIN');
-        
-        // Execute the migration content
-        await client.query(sql);
-        
-        // Record applied migration
-        await client.query(
-          'INSERT INTO fpvlovers_app.schema_migrations (version, name, checksum) VALUES ($1, $2, $3)',
-          [migration.version, migration.name, migration.checksum]
-        );
-        
-        await client.query('COMMIT');
-        console.log(`[Migrations] Successfully applied migration: ${migration.version}_${migration.name}`);
-        applied.push(migration.version);
-      } catch (err) {
-        await client.query('ROLLBACK');
-        console.error(`[Migrations] Failed to apply migration ${migration.version}_${migration.name}. Transaction rolled back.`, err);
-        throw err;
-      } finally {
-        client.release();
-      }
+      console.log(`[Migrations] [Dry Run] Would apply: ${migration.version}_${migration.name}`);
+      applied.push(migration.version);
     }
-  } finally {
-    // 5. Release advisory lock
-    if (!options.dryRun) {
-      try {
-        await query('SELECT pg_advisory_unlock($1)', [MIGRATION_LOCK_ID]);
-        console.log('[Migrations] Released advisory lock.');
-      } catch (unlockErr) {
-        console.warn('[Migrations] Failed to release advisory lock:', unlockErr);
-      }
-    }
+    console.log(`[Migrations] Completed. Applied: ${applied.length}, Already Applied: 0`);
+    return { applied, alreadyApplied: [], skipped: [] };
   }
 
-  console.log(`[Migrations] Completed. Applied: ${applied.length}, Already Applied: ${alreadyApplied.length}`);
-  return { applied, alreadyApplied, skipped };
+  const client = await getClient();
+  const result = await executeMigrationPlan(client, migrations);
+  console.log(`[Migrations] Completed. Applied: ${result.applied.length}, Already Applied: ${result.alreadyApplied.length}`);
+  return result;
 }
