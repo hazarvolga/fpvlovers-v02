@@ -36,10 +36,10 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
   return (
     <div id="guides" className="mt-10">
       {/* 7 Core Aggregator Hub Cards */}
-      <h2 className="text-lg font-mono font-black uppercase text-white tracking-widest mb-6 flex items-center gap-2">
-        <Gauge className="w-5 h-5 text-[#00F2FF]" /> Shop By Component Class
+      <h2 className="mb-6 flex items-center gap-2 font-mono text-lg font-black uppercase tracking-widest text-white">
+        <Gauge className="h-5 w-5 text-[#FF5C00]" /> Shop By Component Class
       </h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      <div className="mb-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {BUYERS_GUIDE_CATEGORIES.map((cat) => {
           const IconComponent = CATEGORY_ICONS[cat.iconKey];
           // Calculate matching guides for this category tab
@@ -50,34 +50,34 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
           return (
             <div
               key={cat.slug}
-              className="hex-panel glass-panel border border-white/10 hover:border-[#00F2FF]/50 bg-[#050810]/40 transition-all duration-300 p-6 flex flex-col justify-between group rounded-lg"
+              className="fpv-public-card fpv-public-card-hover group flex flex-col justify-between rounded-lg p-6 transition-all duration-300"
             >
               <div>
-                <div className="flex items-center justify-between mb-4">
+                <div className="mb-4 flex items-center justify-between">
                   <div
-                    className="p-3 border rounded-lg bg-black/40"
+                    className="rounded-lg border bg-black/40 p-3"
                     style={{ borderColor: `${cat.color}20`, color: cat.color }}
                   >
-                    <IconComponent className="w-6 h-6" />
+                    <IconComponent className="h-6 w-6" />
                   </div>
                   <span className="text-[10px] font-mono text-white/40 uppercase font-black">
                     {matchingCount} {matchingCount === 1 ? 'Guide' : 'Guides'}
                   </span>
                 </div>
-                <h3 className="text-xl font-black text-white uppercase mb-2 group-hover:text-[#00F2FF] transition-colors">
+                <h3 className="mb-2 text-xl font-black uppercase text-white transition-colors group-hover:text-[#FF5C00]">
                   {cat.title}
                 </h3>
-                <p className="text-xs text-white/60 font-sans leading-relaxed mb-6">
+                <p className="mb-6 font-sans text-xs leading-relaxed text-white/60">
                   {cat.description}
                 </p>
               </div>
 
               <Link
                 href={`/buyers-guides/${cat.slug}`}
-                className="inline-flex items-center gap-1.5 text-xs font-mono font-black uppercase text-[#00F2FF] hover:text-[#FF5C00] transition-colors"
+                className="inline-flex items-center gap-1.5 font-mono text-xs font-black uppercase text-[#FF5C00] transition-colors hover:text-white"
               >
                 Browse Guides
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
           );
@@ -85,18 +85,18 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
       </div>
 
       {/* List of guides */}
-      <h2 className="text-lg font-mono font-black uppercase text-white tracking-widest mb-6 flex items-center gap-2">
-        <BookOpen className="w-5 h-5 text-[#FF5C00]" /> Published Buying Handbooks
+      <h2 className="mb-6 flex items-center gap-2 font-mono text-lg font-black uppercase tracking-widest text-white">
+        <BookOpen className="h-5 w-5 text-[#FF5C00]" /> Published Buying Handbooks
       </h2>
 
       {initialGuides.length === 0 ? (
-        <div className="text-center py-16 border border-white/5 bg-[#050810]/40 rounded-lg">
+        <div className="rounded-lg border border-white/5 bg-[#050810]/40 py-16 text-center">
           <p className="text-[#A0A0A0] font-mono text-sm uppercase tracking-widest">
             No published buyer guides or roundups found.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {initialGuides.map((guide) => {
             const coverImage = guide.media?.coverImage?.src || guide.coverImage;
             const isRoundup = guide.metadata?.contentType === 'product-roundup';
@@ -104,30 +104,30 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
             return (
               <div
                 key={guide.slug}
-                className="hex-panel glass-panel border border-white/10 hover:border-[#FF5C00]/50 bg-[#050810]/60 transition-all duration-300 rounded-lg overflow-hidden flex flex-col group"
+                className="fpv-public-card fpv-public-card-hover group flex flex-col overflow-hidden rounded-lg transition-all duration-300"
               >
                 {coverImage && (
-                  <div className="relative w-full h-40 bg-black/40 overflow-hidden">
+                  <div className="relative h-40 w-full overflow-hidden bg-black/40">
                     <Image
                       src={coverImage}
                       alt={guide.title}
                       fill
-                      className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover opacity-72 transition-transform duration-500 group-hover:scale-105"
                       unoptimized
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050810] to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050607] to-transparent" />
                   </div>
                 )}
-                <div className="p-5 flex-1 flex flex-col justify-between">
+                <div className="flex flex-1 flex-col justify-between p-5">
                   <div>
-                    <div className="flex items-center gap-2 mb-2 text-[9px] font-mono uppercase tracking-widest text-[#00F2FF]">
+                    <div className="mb-2 flex items-center gap-2 font-mono text-[9px] uppercase tracking-widest text-[#ff9b71]">
                       <span className="px-1.5 py-0.5 bg-white/5 border border-white/10 rounded font-black text-white/80">
                         {isRoundup ? 'Roundup' : 'Buyer Guide'}
                       </span>
                       <span>&bull;</span>
                       <span>{guide.category}</span>
                     </div>
-                    <h3 className="text-lg font-bold uppercase tracking-tight text-white mb-2 line-clamp-2 leading-snug group-hover:text-[#00F2FF] transition-colors">
+                    <h3 className="mb-2 line-clamp-2 text-lg font-bold uppercase leading-snug tracking-tight text-white transition-colors group-hover:text-[#FF5C00]">
                       {guide.title}
                     </h3>
                     {guide.excerpt && (

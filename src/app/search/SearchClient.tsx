@@ -118,17 +118,17 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
   }, [query, topicFilter, disciplineFilter, difficultyFilter, audienceFilter, contentTypeFilter, filteredContent.length]);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8 items-start">
+    <div className="flex flex-col items-start gap-8 lg:flex-row">
       {/* Filters Sidebar */}
-      <aside className="w-full lg:w-64 flex-shrink-0 flex flex-col gap-6 p-6 hex-panel glass-panel bg-[#050810]/70 border border-white/5 rounded-lg sticky top-28">
+      <aside className="fpv-public-card sticky top-28 flex w-full flex-shrink-0 flex-col gap-6 rounded-lg p-6 lg:w-64">
         <div className="relative">
-          <Search className="absolute left-3 top-2.5 w-4 h-4 text-[#A0A0A0]" />
+          <Search className="absolute left-3 top-2.5 h-4 w-4 text-[#A0A0A0]" />
           <input
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search title, topic, body..."
-            className="w-full pl-9 pr-3 py-2 bg-black/60 border border-[#222] rounded text-white font-mono text-xs uppercase focus:border-[#00F2FF] focus:outline-none"
+            className="w-full rounded border border-white/10 bg-black/60 py-2 pl-9 pr-3 font-mono text-xs uppercase text-white placeholder:text-white/25 focus:border-[#FF5C00] focus:outline-none"
           />
         </div>
 
@@ -140,8 +140,8 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
               onClick={() => setContentTypeFilter(type)}
               className={`rounded border px-2 py-2 text-[9px] font-black uppercase tracking-widest transition-colors ${
                 contentTypeFilter === type
-                  ? 'border-[#00F2FF] bg-[#00F2FF]/15 text-[#00F2FF]'
-                  : 'border-white/10 bg-black/30 text-white/55 hover:border-[#00F2FF]/40 hover:text-white'
+                  ? 'border-[#FF5C00] bg-[#FF5C00]/15 text-[#FF5C00]'
+                  : 'border-white/10 bg-black/30 text-white/55 hover:border-[#FF5C00]/40 hover:text-white'
               }`}
             >
               {formatLabel(type)}
@@ -150,40 +150,40 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
         </div>
 
         <div>
-          <label className="block text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-2">Topic</label>
-          <select value={topicFilter} onChange={e => setTopicFilter(e.target.value)} className="w-full bg-black/60 border border-[#222] rounded p-2 text-white text-xs uppercase font-mono focus:border-[#00F2FF] focus:outline-none">
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Topic</label>
+          <select value={topicFilter} onChange={e => setTopicFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
             <option value="">All Topics</option>
             {options.topics.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="block text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-2">Discipline</label>
-          <select value={disciplineFilter} onChange={e => setDisciplineFilter(e.target.value)} className="w-full bg-black/60 border border-[#222] rounded p-2 text-white text-xs uppercase font-mono focus:border-[#00F2FF] focus:outline-none">
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Discipline</label>
+          <select value={disciplineFilter} onChange={e => setDisciplineFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
             <option value="">All Disciplines</option>
             {options.disciplines.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="block text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-2">Difficulty</label>
-          <select value={difficultyFilter} onChange={e => setDifficultyFilter(e.target.value)} className="w-full bg-black/60 border border-[#222] rounded p-2 text-white text-xs uppercase font-mono focus:border-[#00F2FF] focus:outline-none">
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Difficulty</label>
+          <select value={difficultyFilter} onChange={e => setDifficultyFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
             <option value="">All Difficulties</option>
             {options.difficulties.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="block text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-2">Audience</label>
-          <select value={audienceFilter} onChange={e => setAudienceFilter(e.target.value)} className="w-full bg-black/60 border border-[#222] rounded p-2 text-white text-xs uppercase font-mono focus:border-[#00F2FF] focus:outline-none">
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Audience</label>
+          <select value={audienceFilter} onChange={e => setAudienceFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
             <option value="">All Audiences</option>
             {options.audiences.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="block text-[10px] font-black uppercase tracking-widest text-[#00F2FF] mb-2">Content Type</label>
-          <select value={contentTypeFilter} onChange={e => setContentTypeFilter(e.target.value)} className="w-full bg-black/60 border border-[#222] rounded p-2 text-white text-xs uppercase font-mono focus:border-[#00F2FF] focus:outline-none">
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Content Type</label>
+          <select value={contentTypeFilter} onChange={e => setContentTypeFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
             <option value="">All Types</option>
             {options.contentTypes.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
           </select>
@@ -201,11 +201,11 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
       </aside>
 
       {/* Results Grid */}
-      <div className="flex-1 min-w-0">
+      <div className="min-w-0 flex-1">
         <div className="mb-6 rounded-lg border border-white/10 bg-black/30 p-4">
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-widest text-[#00F2FF]">
+              <p className="text-[10px] font-black uppercase tracking-widest text-[#FF5C00]">
                 {filteredContent.length} results / {initialContent.length} indexed
               </p>
               <p className="mt-1 text-sm text-[#A0A0A0]">
@@ -221,7 +221,7 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
           </div>
         </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {filteredContent.length === 0 ? (
           <div className="col-span-full p-12 text-center text-[#A0A0A0] border border-dashed border-white/10 rounded">
             <p className="text-lg font-bold text-white">No results found.</p>
@@ -237,9 +237,9 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
                 targetSlug={a.slug}
                 linkType="search_result"
                 searchQuery={query}
-                className="block relative hex-panel glass-panel p-6 border border-white/5 hover:border-[#00F2FF]/50 bg-[#050810]/70 rounded-lg group transition-all"
+                className="fpv-public-card fpv-public-card-hover group relative block rounded-lg p-6 transition-all"
               >
-                <div className="text-[10px] font-mono text-[#00F2FF] uppercase mb-2 flex items-center justify-between">
+                <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase text-[#ff9b71]">
                   <span>{formatLabel(a.metadata?.difficulty)} &bull; {formatLabel(a.metadata?.contentType)}</span>
                   {commercial ? (
                     <span className="bg-[#FFB800]/10 px-2 py-0.5 rounded text-[#FFB800]">Disclosure</span>
@@ -247,7 +247,7 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
                     <span className="bg-white/10 px-2 py-0.5 rounded">{formatLabel(a.metadata.topics[0])}</span>
                   ) : null}
                 </div>
-                <h3 className="text-lg font-bold text-white group-hover:text-[#00F2FF] transition-colors mb-2 line-clamp-2">{a.title}</h3>
+                <h3 className="mb-2 line-clamp-2 text-lg font-bold text-white transition-colors group-hover:text-[#FF5C00]">{a.title}</h3>
                 <p className="text-sm text-[#A0A0A0] line-clamp-3">{a.excerpt || 'FPVLovers editorial artifact with structured metadata and article sections.'}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {(a.metadata?.topics || []).slice(0, 3).map((topic) => (

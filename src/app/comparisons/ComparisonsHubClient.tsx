@@ -40,13 +40,13 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
   return (
     <div id="comparisons" className="mt-10">
       {/* Category Filter Tabs */}
-      <div className="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-6">
+      <div className="mb-8 flex flex-wrap gap-2 border-b border-white/10 pb-6">
         <button
           onClick={() => setSelectedCategory('all')}
-          className={`px-4 py-2 text-xs font-mono font-black uppercase border tracking-wider transition-all duration-300 ${
+          className={`border px-4 py-2 font-mono text-xs font-black uppercase tracking-wider transition-all duration-300 ${
             selectedCategory === 'all'
-              ? 'bg-[#00F2FF]/10 border-[#00F2FF] text-[#00F2FF] shadow-[0_0_15px_rgba(0,242,255,0.15)]'
-              : 'border-white/10 text-white/60 hover:border-white/30 hover:text-white'
+              ? 'border-[#FF5C00] bg-[#FF5C00]/10 text-[#FF5C00] shadow-[0_0_18px_rgba(255,92,0,0.14)]'
+              : 'border-white/10 text-white/60 hover:border-[#FF5C00]/40 hover:text-white'
           }`}
         >
           All Categories ({initialComparisons.length})
@@ -61,8 +61,8 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 text-xs font-mono font-black uppercase border tracking-wider transition-all duration-300 ${
                 selectedCategory === cat
-                  ? 'bg-[#00F2FF]/10 border-[#00F2FF] text-[#00F2FF] shadow-[0_0_15px_rgba(0,242,255,0.15)]'
-                  : 'border-white/10 text-white/60 hover:border-white/30 hover:text-white'
+                  ? 'border-[#FF5C00] bg-[#FF5C00]/10 text-[#FF5C00] shadow-[0_0_18px_rgba(255,92,0,0.14)]'
+                  : 'border-white/10 text-white/60 hover:border-[#FF5C00]/40 hover:text-white'
               }`}
             >
               {cat} ({count})
@@ -72,7 +72,7 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
       </div>
 
       {filteredComparisons.length === 0 ? (
-        <div className="text-center py-20 border border-white/5 bg-[#050810]/40 rounded-lg">
+        <div className="rounded-lg border border-white/5 bg-[#050810]/40 py-20 text-center">
           <p className="text-[#A0A0A0] font-mono text-sm uppercase tracking-widest">
             No published comparisons found matching selection.
           </p>
@@ -86,25 +86,25 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
             return (
               <div
                 key={comp.slug}
-                className="hex-panel glass-panel border border-white/10 bg-[#050810]/70 hover:border-[#FF5C00]/50 transition-all duration-500 rounded-lg overflow-hidden flex flex-col group relative"
+                className="fpv-public-card fpv-public-card-hover group relative flex flex-col overflow-hidden rounded-lg transition-all duration-500"
               >
                 {/* Cover Image */}
                 {coverImage && (
-                  <div className="relative w-full h-48 bg-black/50 border-b border-white/5 overflow-hidden">
+                  <div className="relative h-48 w-full overflow-hidden border-b border-white/5 bg-black/50">
                     <Image
                       src={coverImage}
                       alt={`${meta.productA} vs ${meta.productB}`}
                       fill
-                      className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover opacity-68 transition-transform duration-500 group-hover:scale-105"
                       unoptimized
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050810] to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050607] to-transparent" />
                   </div>
                 )}
 
-                <div className="p-6 md:p-8 flex-1 flex flex-col">
+                <div className="flex flex-1 flex-col p-6 md:p-8">
                   {/* Category info */}
-                  <div className="flex items-center gap-2 mb-3 text-[10px] font-mono uppercase tracking-widest text-[#00F2FF]">
+                  <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#ff9b71]">
                     <span className="font-black px-2 py-0.5 bg-white/5 border border-white/10 rounded text-white/80">
                       VS Matchup
                     </span>
@@ -128,21 +128,21 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl font-bold uppercase tracking-tight text-white mb-4 group-hover:text-[#00F2FF] transition-colors leading-tight">
+                  <h3 className="mb-4 text-xl font-bold uppercase leading-tight tracking-tight text-white transition-colors group-hover:text-[#FF5C00]">
                     {comp.title}
                   </h3>
 
-                  {/* Winner telemetry badge */}
-                  <div className="mb-6 p-4 bg-zinc-950/80 border border-white/5 rounded-lg flex items-center justify-between">
+                  {/* Verdict evidence badge */}
+                  <div className="mb-6 flex items-center justify-between rounded-lg border border-white/5 bg-zinc-950/80 p-4">
                     <div className="flex items-center gap-2">
                       <Award className="w-5 h-5 text-[#00FF66]" />
                       <div>
-                        <div className="text-[8px] font-mono text-white/40 uppercase tracking-widest">VERDICT WINNER</div>
+                        <div className="font-mono text-[8px] uppercase tracking-widest text-white/40">BEST FIT</div>
                         <div className="text-sm font-mono font-black text-white uppercase">{meta.winner}</div>
                       </div>
                     </div>
-                    <div className="text-[9px] font-mono font-black uppercase text-[#00F2FF] tracking-wider px-2.5 py-1 bg-[#00F2FF]/10 border border-[#00F2FF]/20 rounded">
-                      {meta.winner.toLowerCase() === 'tie' ? 'DRAW' : 'DOMINATED'}
+                    <div className="rounded border border-[#FF5C00]/25 bg-[#FF5C00]/10 px-2.5 py-1 font-mono text-[9px] font-black uppercase tracking-wider text-[#FF5C00]">
+                      {meta.winner.toLowerCase() === 'tie' ? 'DRAW' : 'CONTEXTUAL'}
                     </div>
                   </div>
 

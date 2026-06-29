@@ -41,13 +41,13 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
   return (
     <div id="reviews" className="mt-10">
       {/* Category Filter Tabs */}
-      <div className="flex flex-wrap gap-2 mb-8 border-b border-white/10 pb-6">
+      <div className="mb-8 flex flex-wrap gap-2 border-b border-white/10 pb-6">
         <button
           onClick={() => setSelectedCategory('all')}
-          className={`px-4 py-2 text-xs font-mono font-black uppercase border tracking-wider transition-all duration-300 ${
+          className={`border px-4 py-2 font-mono text-xs font-black uppercase tracking-wider transition-all duration-300 ${
             selectedCategory === 'all'
-              ? 'bg-[#00F2FF]/10 border-[#00F2FF] text-[#00F2FF] shadow-[0_0_15px_rgba(0,242,255,0.15)]'
-              : 'border-white/10 text-white/60 hover:border-white/30 hover:text-white'
+              ? 'border-[#FF5C00] bg-[#FF5C00]/10 text-[#FF5C00] shadow-[0_0_18px_rgba(255,92,0,0.14)]'
+              : 'border-white/10 text-white/60 hover:border-[#FF5C00]/40 hover:text-white'
           }`}
         >
           All Categories ({initialReviews.length})
@@ -62,8 +62,8 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 text-xs font-mono font-black uppercase border tracking-wider transition-all duration-300 ${
                 selectedCategory === cat
-                  ? 'bg-[#00F2FF]/10 border-[#00F2FF] text-[#00F2FF] shadow-[0_0_15px_rgba(0,242,255,0.15)]'
-                  : 'border-white/10 text-white/60 hover:border-white/30 hover:text-white'
+                  ? 'border-[#FF5C00] bg-[#FF5C00]/10 text-[#FF5C00] shadow-[0_0_18px_rgba(255,92,0,0.14)]'
+                  : 'border-white/10 text-white/60 hover:border-[#FF5C00]/40 hover:text-white'
               }`}
             >
               {cat} ({count})
@@ -73,7 +73,7 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
       </div>
 
       {filteredReviews.length === 0 ? (
-        <div className="text-center py-20 border border-white/5 bg-[#050810]/40 rounded-lg">
+        <div className="rounded-lg border border-white/5 bg-[#050810]/40 py-20 text-center">
           <p className="text-[#A0A0A0] font-mono text-sm uppercase tracking-widest">
             No published reviews found matching selection.
           </p>
@@ -88,33 +88,33 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
             return (
               <div
                 key={rev.slug}
-                className="hex-panel glass-panel border border-white/10 bg-[#050810]/70 hover:border-[#FF5C00]/50 transition-all duration-500 rounded-lg overflow-hidden flex flex-col group relative"
+                className="fpv-public-card fpv-public-card-hover group relative flex flex-col overflow-hidden rounded-lg transition-all duration-500"
               >
-                {/* Score telemetry badge */}
-                <div className="absolute top-4 right-4 z-20 flex items-center justify-center min-w-14 h-14 rounded-full border-2 border-[#00F2FF] bg-black/80 px-2 shadow-[0_0_15px_rgba(0,242,255,0.2)] font-mono text-center">
+                {/* Evidence badge */}
+                <div className="absolute right-4 top-4 z-20 flex h-14 min-w-14 items-center justify-center rounded-full border-2 border-[#FF5C00]/70 bg-black/85 px-2 text-center font-mono shadow-[0_0_18px_rgba(255,92,0,0.18)]">
                   <div className="flex flex-col items-center">
-                    <span className="text-xs font-black text-white leading-none">{showScore ? meta.reviewScore : 'SPEC'}</span>
-                    <span className="text-[7px] text-[#00F2FF] font-bold uppercase tracking-tighter">{showScore ? 'SCORE' : 'ANALYSIS'}</span>
+                    <span className="text-xs font-black leading-none text-white">{showScore ? meta.reviewScore : 'SPEC'}</span>
+                    <span className="text-[7px] font-bold uppercase tracking-tighter text-[#FF5C00]">{showScore ? 'SCORE' : 'ASSESS'}</span>
                   </div>
                 </div>
 
                 {/* Cover Image */}
                 {coverImage && (
-                  <div className="relative w-full h-48 bg-black/50 border-b border-white/5 overflow-hidden">
+                  <div className="relative h-48 w-full overflow-hidden border-b border-white/5 bg-black/50">
                     <Image
                       src={coverImage}
                       alt={`${meta.productBrand} ${meta.productModel}`}
                       fill
-                      className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-500"
+                      className="object-cover opacity-72 transition-transform duration-500 group-hover:scale-105"
                       unoptimized
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050810] to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050607] to-transparent" />
                   </div>
                 )}
 
-                <div className="p-6 md:p-8 flex-1 flex flex-col">
+                <div className="flex flex-1 flex-col p-6 md:p-8">
                   {/* Brand & Category info */}
-                  <div className="flex items-center gap-2 mb-3 text-[10px] font-mono uppercase tracking-widest text-[#00F2FF]">
+                  <div className="mb-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#ff9b71]">
                     <span className="font-black px-2 py-0.5 bg-white/5 border border-white/10 rounded text-white/80">
                       {meta.productBrand}
                     </span>
@@ -125,7 +125,7 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-2xl font-black uppercase tracking-tight text-white mb-3 group-hover:text-[#FF5C00] transition-colors leading-tight">
+                  <h3 className="mb-3 text-2xl font-black uppercase leading-tight tracking-tight text-white transition-colors group-hover:text-[#FF5C00]">
                     {rev.title}
                   </h3>
 
