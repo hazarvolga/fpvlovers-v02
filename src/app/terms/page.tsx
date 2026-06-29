@@ -21,7 +21,7 @@ export default function TermsPage() {
       title: '1. Agreement to Terms',
       content: `By accessing and using FPVLovers (fpvlovers.com.tr), you agree to be bound by these Terms of Service. If you do not agree, please do not access our engineering tools, pilot roadmaps, or RAG insights.
       
-      This site is dedicated to drone builder educational references, diagnostic tools, and telemetry calculations.`,
+      This site is dedicated to drone builder educational references, diagnostic tools, and safety-focused calculation helpers.`,
     },
     {
       icon: AlertTriangle,
@@ -35,7 +35,7 @@ export default function TermsPage() {
     {
       icon: BookOpen,
       title: '3. Intellectual Property and Content Use',
-      content: `The editorial guides, custom telemetry calculations, page layouts, and graphic indicators on FPVLovers are protected by copyright:
+      content: `The editorial guides, calculation helpers, page layouts, and graphic indicators on FPVLovers are protected by copyright:
       
       - You may use the resources and study materials for personal learning and local drone builds.
       - Automated scraping of our compiled catalogs or dynamic guides for commercial use without express permission is strictly prohibited.`,
@@ -48,21 +48,21 @@ export default function TermsPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-zinc-300 font-sans">
+    <div className="fpv-public-shell mx-auto max-w-4xl px-4 py-12 pt-28 font-sans text-zinc-300 sm:px-6 lg:px-8">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       {/* Header Panel */}
-      <div className="relative p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden mb-10">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00F2FF]/40 to-transparent" />
+      <div className="fpv-public-panel relative mb-10 overflow-hidden rounded-xl p-8 shadow-2xl md:p-12">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF5C00]/45 to-transparent" />
         <div className="pointer-events-none absolute inset-0 carbon-grid opacity-10" />
 
         <div className="relative z-10">
-          <Scale className="w-12 h-12 text-[#00F2FF] mb-6" />
+          <Scale className="mb-6 h-12 w-12 text-[#FF5C00]" />
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-4 uppercase">
-            Terms of <span className="text-[#00F2FF]">Service</span>
+            Terms of <span className="text-[#FF5C00]">Service</span>
           </h1>
-          <p className="text-[10px] uppercase text-[#A0A0A0] tracking-widest leading-relaxed font-mono">
-            {"// PROTOCOL ID: SYS.TERMS_PILOT_CONTRACT_v1.0"}
+          <p className="fpv-kicker">
+            User terms and safety disclaimer
           </p>
           <p className="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-widest">
             Last Updated: June 12, 2026
@@ -80,7 +80,7 @@ export default function TermsPage() {
         {sections.map((section, idx) => (
           <div key={idx} className="p-6 md:p-8 border border-white/5 bg-zinc-900/40 rounded-xl">
             <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-4">
-              <section.icon className="w-5 h-5 text-[#00F2FF]" />
+              <section.icon className="h-5 w-5 text-[#FF5C00]" />
               <h2 className="text-lg font-bold uppercase text-zinc-100 tracking-wider">
                 {section.title}
               </h2>
@@ -95,8 +95,8 @@ export default function TermsPage() {
       {/* Legal Footer Note */}
       <div className="mt-12 text-center p-6 border-t border-white/5 font-mono text-[10px] uppercase tracking-widest text-zinc-500">
         <p>FPVLovers operates in full compliance with global safety practices. Fly safe.</p>
-        <Link href="/" className="mt-4 inline-block text-[#00F2FF] hover:underline">
-          Return to Mission Control
+        <Link href="/" className="mt-4 inline-block text-[#FF5C00] hover:underline">
+          Return to homepage
         </Link>
       </div>
     </div>

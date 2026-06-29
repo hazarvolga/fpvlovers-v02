@@ -27,7 +27,7 @@ export default function ContactPage() {
       icon: Clock,
       label: 'Response SLA',
       value: '24-48 Hours',
-      desc: 'Our pilot editorial team checks incoming datastreams daily.',
+      desc: 'Our editorial inbox is reviewed regularly for corrections, business inquiries, and support requests.',
     },
     {
       icon: MessageSquare,
@@ -38,12 +38,12 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-zinc-300 font-sans">
+    <div className="fpv-public-shell mx-auto max-w-4xl px-4 py-12 pt-28 font-sans text-zinc-300 sm:px-6 lg:px-8">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       {/* Header Panel */}
-      <div className="relative p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden mb-10">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00F2FF]/40 to-transparent" />
+      <div className="fpv-public-panel relative mb-10 overflow-hidden rounded-xl p-8 shadow-2xl md:p-12">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF5C00]/45 to-transparent" />
         <div className="pointer-events-none absolute inset-0 carbon-grid opacity-10" />
 
         <div className="relative z-10">
@@ -51,8 +51,8 @@ export default function ContactPage() {
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-4 uppercase">
             Contact <span className="text-[#FF5C00]">Support</span>
           </h1>
-          <p className="text-[10px] uppercase text-[#FF5C00] tracking-widest leading-relaxed font-mono">
-            {"// TRANSCEIVER CHANNEL: SYS.INCOMING_INQUIRIES_v1.0"}
+          <p className="fpv-kicker">
+            Corrections, partnerships, sponsorships, and support
           </p>
           <p className="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-widest">
             Last Updated: June 18, 2026
@@ -65,17 +65,17 @@ export default function ContactPage() {
         <div className="lg:col-span-5 space-y-6">
           <div className="p-6 border border-white/5 bg-zinc-900/40 rounded-xl space-y-6">
             <h3 className="text-sm font-mono font-black uppercase text-zinc-100 tracking-widest flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-[#00FF66]" /> Transmission Guidelines
+              <ShieldCheck className="w-4 h-4 text-[#FF5C00]" /> Inquiry Guidelines
             </h3>
 
             <p className="text-xs leading-relaxed text-zinc-400">
-              Please choose the correct inquiry department on the form. This routes the message directly to the appropriate pilot or system engineer.
+              Please choose the correct inquiry department on the form. This helps us route corrections, vendor notes, and partnership proposals responsibly.
             </p>
 
             <div className="space-y-4 pt-4 border-t border-white/5">
               {infoItems.map((item, idx) => (
                 <div key={idx} className="flex gap-3">
-                  <item.icon className="w-4.5 h-4.5 text-[#00F2FF] shrink-0 mt-0.5" />
+                  <item.icon className="w-4.5 h-4.5 text-[#FF5C00] shrink-0 mt-0.5" />
                   <div>
                     <div className="text-[10px] font-mono font-black uppercase text-white tracking-wide">{item.label}</div>
                     <div className="text-xs text-zinc-300 font-bold mb-0.5">{item.value}</div>
@@ -95,8 +95,8 @@ export default function ContactPage() {
 
       {/* Return Button */}
       <div className="mt-12 text-center p-6 border-t border-white/5 font-mono text-[10px] uppercase tracking-widest text-zinc-500">
-        <Link href="/" className="inline-block text-[#00F2FF] hover:underline">
-          Return to Mission Control
+        <Link href="/" className="inline-block text-[#FF5C00] hover:underline">
+          Return to homepage
         </Link>
       </div>
     </div>

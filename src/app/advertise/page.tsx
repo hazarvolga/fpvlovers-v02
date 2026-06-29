@@ -28,13 +28,13 @@ const principles = [
 
 export default function AdvertisePage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-zinc-300 font-sans">
+    <div className="fpv-public-shell mx-auto max-w-4xl px-4 py-12 pt-28 font-sans text-zinc-300 sm:px-6 lg:px-8">
       <CyberBreadcrumb items={[
         { label: 'Home', href: '/' },
         { label: 'Advertising Policy', isCurrentPage: true },
       ]} className="mb-8" />
 
-      <header className="relative overflow-hidden rounded-xl border border-white/5 bg-zinc-950 p-8 shadow-2xl md:p-12">
+      <header className="fpv-public-panel relative overflow-hidden rounded-xl p-8 shadow-2xl md:p-12">
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF5C00]/50 to-transparent" />
         <div className="pointer-events-none absolute inset-0 carbon-grid opacity-10" />
         <div className="relative z-10">
@@ -52,14 +52,14 @@ export default function AdvertisePage() {
       <div className="mt-10 grid gap-5 md:grid-cols-3">
         {principles.map((principle) => (
           <section key={principle.title} className="rounded-xl border border-white/5 bg-zinc-900/40 p-6">
-            <principle.icon className="mb-4 h-5 w-5 text-[#00F2FF]" />
+            <principle.icon className="mb-4 h-5 w-5 text-[#FF5C00]" />
             <h2 className="text-sm font-bold uppercase tracking-wider text-white">{principle.title}</h2>
             <p className="mt-3 text-xs leading-6 text-zinc-400">{principle.body}</p>
           </section>
         ))}
       </div>
 
-      <section className="mt-10 rounded-xl border border-[#00F2FF]/20 bg-[#00F2FF]/5 p-6 md:p-8">
+      <section className="fpv-public-panel mt-10 rounded-xl p-6 md:p-8">
         <h2 className="text-lg font-bold uppercase tracking-wider text-white">Collaboration Formats</h2>
         <p className="mt-3 text-sm leading-7 text-zinc-300">
           Potential formats include clearly labeled sponsored education, supplied-product evaluation, newsletter placement, event coverage, and campaign creative. Availability, scope, testing method, usage rights, and disclosure language are agreed in writing before publication.
@@ -83,7 +83,7 @@ export default function AdvertisePage() {
         <Link href="/contact" className="rounded-sm bg-[#FF5C00] px-5 py-3 text-center text-xs font-black uppercase tracking-widest text-black hover:bg-[#ff7a33]">
           Discuss a Collaboration
         </Link>
-        <Link href="/editorial-policy" className="rounded-sm border border-white/10 px-5 py-3 text-center text-xs font-black uppercase tracking-widest text-zinc-200 hover:border-[#00F2FF]/50">
+        <Link href="/editorial-policy" className="rounded-sm border border-white/10 px-5 py-3 text-center text-xs font-black uppercase tracking-widest text-zinc-200 hover:border-[#FF5C00]/50">
           Read Editorial Policy
         </Link>
       </div>

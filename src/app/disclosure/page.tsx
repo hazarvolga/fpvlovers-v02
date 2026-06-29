@@ -37,22 +37,22 @@ const sections = [
 
 export default function DisclosurePage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-zinc-300 font-sans">
+    <div className="fpv-public-shell mx-auto max-w-4xl px-4 py-12 pt-28 font-sans text-zinc-300 sm:px-6 lg:px-8">
       <CyberBreadcrumb items={[
         { label: 'Home', href: '/' },
         { label: 'Affiliate Disclosure', isCurrentPage: true },
       ]} className="mb-8" />
 
-      <div className="relative p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden mb-10">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00F2FF]/40 to-transparent" />
+      <div className="fpv-public-panel relative mb-10 overflow-hidden rounded-xl p-8 shadow-2xl md:p-12">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF5C00]/45 to-transparent" />
         <div className="pointer-events-none absolute inset-0 carbon-grid opacity-10" />
         <div className="relative z-10">
-          <DollarSign className="w-12 h-12 text-[#00F2FF] mb-6" />
+          <DollarSign className="mb-6 h-12 w-12 text-[#FF5C00]" />
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-4 uppercase">
-            Affiliate <span className="text-[#00F2FF]">Disclosure</span>
+            Affiliate <span className="text-[#FF5C00]">Disclosure</span>
           </h1>
-          <p className="text-[10px] uppercase text-[#A0A0A0] tracking-widest leading-relaxed font-mono">
-            {'// PROTOCOL ID: SYS.AFFILIATE_REVENUE_TRANSPARENCY_v1.1'}
+          <p className="fpv-kicker">
+            Revenue transparency for readers
           </p>
           <p className="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-widest">
             Last Updated: June 19, 2026
@@ -60,10 +60,10 @@ export default function DisclosurePage() {
         </div>
       </div>
 
-      <div className="p-6 mb-8 border border-[#00F2FF]/30 bg-[#00F2FF]/5 rounded-lg text-sm font-mono text-zinc-100 flex items-start gap-4">
-        <HelpingHand className="w-6 h-6 text-[#00F2FF] flex-shrink-0 mt-0.5" />
+      <div className="mb-8 flex items-start gap-4 rounded-lg border border-[#FF5C00]/30 bg-[#FF5C00]/5 p-6 text-sm font-mono text-zinc-100">
+        <HelpingHand className="mt-0.5 h-6 w-6 flex-shrink-0 text-[#FF5C00]" />
         <div>
-          <span className="text-xs uppercase text-[#00F2FF] font-black tracking-widest block mb-1">Reader Notice</span>
+          <span className="mb-1 block text-xs font-black uppercase tracking-widest text-[#FF5C00]">Reader Notice</span>
           Commercial links are labeled. Program participation is never implied until it has been confirmed and disclosed on this page.
         </div>
       </div>
@@ -72,7 +72,7 @@ export default function DisclosurePage() {
         {sections.map((section) => (
           <section key={section.title} className="p-6 md:p-8 border border-white/5 bg-zinc-900/40 rounded-xl">
             <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-4">
-              <section.icon className="w-5 h-5 text-[#00F2FF]" />
+              <section.icon className="h-5 w-5 text-[#FF5C00]" />
               <h2 className="text-lg font-bold uppercase text-zinc-100 tracking-wider">{section.title}</h2>
             </div>
             <div className="space-y-3 text-sm leading-relaxed text-zinc-400">
@@ -84,7 +84,7 @@ export default function DisclosurePage() {
 
       <div className="mt-12 text-center p-6 border-t border-white/5 font-mono text-[10px] uppercase tracking-widest text-zinc-500">
         <p>FPVLovers operates transparently with its flying community.</p>
-        <Link href="/" className="mt-4 inline-block text-[#00F2FF] hover:underline">Return to Mission Control</Link>
+        <Link href="/" className="mt-4 inline-block text-[#FF5C00] hover:underline">Return to homepage</Link>
       </div>
     </div>
   );

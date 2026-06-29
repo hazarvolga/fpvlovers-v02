@@ -8,7 +8,7 @@ import {
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About Mission Control | FPVLovers',
+  title: 'About FPVLovers | FPVLovers',
   description: 'Learn about FPVLovers—an FPV Knowledge Operating System designed to help pilots make better decisions through empirical data, calculators, and reviews.',
 };
 
@@ -22,8 +22,8 @@ export default function AboutPage() {
     {
       icon: GraduationCap,
       title: 'Learning (Pilot Academy)',
-      description: 'Step-by-step roadmaps, telemetry breakdowns, and mental models designed to take beginner pilots to fully autonomous acro flight.',
-      color: '#00F2FF',
+      description: 'Step-by-step roadmaps, technical explainers, and mental models designed to take beginner pilots toward confident acro flight.',
+      color: '#FF5C00',
     },
     {
       icon: Wrench,
@@ -46,21 +46,21 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-28 text-zinc-300 font-sans">
+    <div className="fpv-public-shell mx-auto max-w-4xl px-4 py-12 pt-28 font-sans text-zinc-300 sm:px-6 lg:px-8">
       <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
 
       {/* Header Panel */}
-      <div className="relative p-8 md:p-12 border border-white/5 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden mb-10">
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00F2FF]/40 to-transparent" />
+      <div className="fpv-public-panel relative mb-10 overflow-hidden rounded-xl p-8 shadow-2xl md:p-12">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#FF5C00]/45 to-transparent" />
         <div className="pointer-events-none absolute inset-0 carbon-grid opacity-10" />
 
         <div className="relative z-10">
-          <Info className="w-12 h-12 text-[#00F2FF] mb-6 animate-pulse" />
+          <Info className="mb-6 h-12 w-12 text-[#FF5C00]" />
           <h1 className="text-4xl md:text-5xl font-black tracking-tight text-zinc-100 mb-4 uppercase">
-            Mission <span className="text-[#00F2FF]">Control</span>
+            About <span className="text-[#FF5C00]">FPVLovers</span>
           </h1>
-          <p className="text-[10px] uppercase text-[#00F2FF] tracking-widest leading-relaxed font-mono">
-            {"// DOCUMENT ID: FPV.MISSION_OBJECTIVES_v1.0"}
+          <p className="fpv-kicker">
+            Editorial FPV knowledge system
           </p>
           <p className="text-xs text-zinc-500 font-mono mt-2 uppercase tracking-widest">
             Last Updated: June 19, 2026
@@ -96,11 +96,11 @@ export default function AboutPage() {
         {/* Focus Areas Grid */}
         <div>
           <h2 className="text-xl font-bold uppercase text-zinc-100 tracking-wider mb-6 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#00F2FF]" /> Niche Focus Areas
+            <Cpu className="w-5 h-5 text-[#FF5C00]" /> Niche Focus Areas
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {focusAreas.map((area, idx) => (
-              <div key={idx} className="p-6 border border-white/5 bg-zinc-950/40 rounded-lg group hover:border-[#00F2FF]/40 transition-all duration-300">
+              <div key={idx} className="fpv-public-card p-6 rounded-lg group transition-all duration-300 hover:border-[#FF5C00]/40">
                 <div className="flex items-center gap-3 mb-4">
                   <div
                     className="p-2 border rounded-md bg-black/40"
@@ -134,20 +134,20 @@ export default function AboutPage() {
         </div>
 
         {/* Tech Stack Disclosure */}
-        <div className="p-6 md:p-8 border border-[#00F2FF]/20 bg-[#00F2FF]/5 rounded-xl">
+        <div className="fpv-public-panel rounded-xl p-6 md:p-8">
           <h2 className="text-xl font-bold uppercase text-zinc-100 tracking-wider mb-4 flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-[#00F2FF]" /> Technical Infrastructure & Human Review
+            <Cpu className="w-5 h-5 text-[#FF5C00]" /> Technical Infrastructure & Human Review
           </h2>
           <p className="text-sm leading-relaxed text-zinc-300 mb-4">
             FPVLovers leverages an advanced autonomous content infrastructure to monitor the FPV ecosystem:
           </p>
           <ul className="space-y-2.5 text-xs text-zinc-400 font-mono mb-6">
             <li className="flex items-start gap-2">
-              <span className="text-[#00F2FF] font-bold">&gt;</span>
+              <span className="text-[#FF5C00] font-bold">&gt;</span>
               <span><strong>Crawl4AI Pipelines:</strong> We run automated agents to monitor and parse technical specification updates from verified global FPV vendors.</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="text-[#00F2FF] font-bold">&gt;</span>
+              <span className="text-[#FF5C00] font-bold">&gt;</span>
               <span><strong>Qdrant & Dify workflows:</strong> Harvester data is chunked and stored in vector indexes to power our FPV Assistant RAG datasets.</span>
             </li>
           </ul>
@@ -160,8 +160,8 @@ export default function AboutPage() {
 
       {/* Return Button */}
       <div className="mt-12 text-center p-6 border-t border-white/5 font-mono text-[10px] uppercase tracking-widest text-zinc-500">
-        <Link href="/" className="inline-block text-[#00F2FF] hover:underline">
-          Return to Mission Control
+        <Link href="/" className="inline-block text-[#FF5C00] hover:underline">
+          Return to homepage
         </Link>
       </div>
     </div>

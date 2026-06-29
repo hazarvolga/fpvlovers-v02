@@ -63,7 +63,7 @@ export function ContactForm() {
       if (response.ok && result.success) {
         setSuccess(true);
       } else {
-        setErrors(result.errors || ['Transmission failure. Please try again.']);
+        setErrors(result.errors || ['Message delivery failed. Please try again.']);
       }
     } catch (err: unknown) {
       setErrors(['Network connection error. Server unreachable.']);
@@ -85,19 +85,18 @@ export function ContactForm() {
 
   if (success) {
     return (
-      <div className="p-8 border border-[#00FF66]/30 bg-[#00FF66]/5 rounded-xl text-center space-y-6 animate-pulse">
-        <CheckCircle2 className="w-16 h-16 text-[#00FF66] mx-auto" />
+      <div className="space-y-6 rounded-xl border border-[#00FF66]/30 bg-[#00FF66]/5 p-8 text-center">
+        <CheckCircle2 className="mx-auto h-16 w-16 text-[#00FF66]" />
         <h3 className="text-xl font-mono font-black uppercase text-zinc-100 tracking-wider">
-          Transmission Success
+          Message Received
         </h3>
-        <div className="p-4 bg-black/60 border border-white/5 rounded font-mono text-[10px] text-zinc-400 text-left space-y-1">
-          <div>DATALINK: ACTIVE</div>
-          <div>STATUS: INQUIRY LOGGED SUCCESSFULLY</div>
-          <div>TIMESTAMP: {new Date().toISOString()}</div>
-          <div>RESPONDENT: FPVLOVERS OPERATIONS TEAM</div>
+        <div className="space-y-1 rounded border border-white/5 bg-black/60 p-4 text-left font-mono text-[10px] text-zinc-400">
+          <div>Status: inquiry logged successfully</div>
+          <div>Timestamp: {new Date().toISOString()}</div>
+          <div>Responder: FPVLovers editorial team</div>
         </div>
         <p className="text-sm text-zinc-400">
-          Your inquiry has been stored securely in our system log. We will reply to your registered email address shortly.
+          Your inquiry has been received. We will reply to your registered email address as soon as possible.
         </p>
         <Button
           variant="amber"
@@ -113,7 +112,7 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="p-6 md:p-8 border border-white/5 bg-zinc-950/40 rounded-xl space-y-6">
       <h3 className="text-lg font-mono font-black uppercase text-zinc-100 tracking-widest border-b border-white/5 pb-3">
-        {"// SECURE INQUIRY FORM"}
+        Inquiry Form
       </h3>
 
       {errors.length > 0 && (
@@ -133,7 +132,7 @@ export function ContactForm() {
       {/* Name & Email Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label className="block text-[10px] font-mono font-black uppercase tracking-widest text-[#00F2FF] mb-2">
+          <label className="block text-[10px] font-mono font-black uppercase tracking-widest text-[#FF5C00] mb-2">
             Your Name
           </label>
           <input
@@ -143,12 +142,12 @@ export function ContactForm() {
             onChange={handleChange}
             placeholder="e.g. John Doe"
             disabled={loading}
-            className="w-full px-3 py-2 bg-black/60 border border-white/10 hover:border-white/20 focus:border-[#00F2FF] rounded text-white font-mono text-xs focus:outline-none transition-colors"
+            className="w-full px-3 py-2 bg-black/60 border border-white/10 hover:border-white/20 focus:border-[#FF5C00] rounded text-white font-mono text-xs focus:outline-none transition-colors"
           />
         </div>
 
         <div>
-          <label className="block text-[10px] font-mono font-black uppercase tracking-widest text-[#00F2FF] mb-2">
+          <label className="block text-[10px] font-mono font-black uppercase tracking-widest text-[#FF5C00] mb-2">
             Email Address
           </label>
           <input
@@ -158,14 +157,14 @@ export function ContactForm() {
             onChange={handleChange}
             placeholder="e.g. john@example.com"
             disabled={loading}
-            className="w-full px-3 py-2 bg-black/60 border border-white/10 hover:border-white/20 focus:border-[#00F2FF] rounded text-white font-mono text-xs focus:outline-none transition-colors"
+            className="w-full px-3 py-2 bg-black/60 border border-white/10 hover:border-white/20 focus:border-[#FF5C00] rounded text-white font-mono text-xs focus:outline-none transition-colors"
           />
         </div>
       </div>
 
       {/* Inquiry Type */}
       <div>
-        <label className="block text-[10px] font-mono font-black uppercase tracking-widest text-[#00F2FF] mb-2">
+        <label className="block text-[10px] font-mono font-black uppercase tracking-widest text-[#FF5C00] mb-2">
           Inquiry Department
         </label>
         <select
@@ -173,7 +172,7 @@ export function ContactForm() {
           value={formData.inquiryType}
           onChange={handleChange}
           disabled={loading}
-          className="w-full px-3 py-2 bg-black/85 border border-white/10 hover:border-white/20 focus:border-[#00F2FF] rounded text-white font-mono text-xs focus:outline-none transition-colors"
+          className="w-full px-3 py-2 bg-black/85 border border-white/10 hover:border-white/20 focus:border-[#FF5C00] rounded text-white font-mono text-xs focus:outline-none transition-colors"
         >
           {INQUIRY_TYPES.map((type) => (
             <option key={type} value={type}>
@@ -185,7 +184,7 @@ export function ContactForm() {
 
       {/* Message */}
       <div>
-        <label className="block text-[10px] font-mono font-black uppercase tracking-widest text-[#00F2FF] mb-2">
+        <label className="block text-[10px] font-mono font-black uppercase tracking-widest text-[#FF5C00] mb-2">
           Your Message
         </label>
         <textarea
@@ -195,7 +194,7 @@ export function ContactForm() {
           onChange={handleChange}
           placeholder="Describe your request, correction link, or vendor business offer details here..."
           disabled={loading}
-          className="w-full px-3 py-2 bg-black/60 border border-white/10 hover:border-white/20 focus:border-[#00F2FF] rounded text-white font-mono text-xs focus:outline-none transition-colors resize-y min-h-[120px]"
+          className="w-full px-3 py-2 bg-black/60 border border-white/10 hover:border-white/20 focus:border-[#FF5C00] rounded text-white font-mono text-xs focus:outline-none transition-colors resize-y min-h-[120px]"
         />
       </div>
 
@@ -208,7 +207,7 @@ export function ContactForm() {
       >
         {loading ? (
           <>
-            <RefreshCw className="w-4 h-4 animate-spin" /> Transmission Sending...
+            <RefreshCw className="w-4 h-4 animate-spin" /> Sending Message...
           </>
         ) : (
           <>
