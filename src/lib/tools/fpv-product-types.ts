@@ -1,3 +1,9 @@
+import type {
+  EvidenceBoundSpec,
+  ProductReviewMetadata,
+  ProductTrustStatus,
+} from '@/lib/types/spec-trust';
+
 export type FpvProductType =
   | 'frame'
   | 'motor'
@@ -12,7 +18,7 @@ export type FpvProductType =
   | 'goggles'
   | 'kit';
 
-export type ProductSpecValue = number | string | number[];
+export type ProductSpecValue = number | string | boolean | number[] | string[] | boolean[];
 
 export type FpvCatalogProduct = {
   id: string;
@@ -29,6 +35,9 @@ export type FpvCatalogProduct = {
   compatibleWith: string[];
   tags: string[];
   specs: Record<string, ProductSpecValue>;
+  evidenceSpecs?: Record<string, EvidenceBoundSpec>;
+  trustStatus?: ProductTrustStatus;
+  reviewMetadata?: ProductReviewMetadata;
   fit: {
     styles: string[];
     cellCounts?: number[];
