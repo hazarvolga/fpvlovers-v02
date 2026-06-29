@@ -1,5 +1,7 @@
 import { createHash } from 'crypto';
 import type { FpvCatalogProduct, FpvProductType, ProductSpecValue } from '@/lib/tools/fpv-product-types';
+import type { EvidenceBoundSpec, SpecSourceType } from '@/lib/types/spec-trust';
+import { evidenceBoundSpecSchema } from '@/lib/types/spec-trust';
 
 type ExtractionInput = {
   url: string;
@@ -102,39 +104,127 @@ function parsePrice(text: string): number | undefined {
   return Number.isFinite(parsed) ? parsed : undefined;
 }
 
-function parseSpecs(text: string): Record<string, ProductSpecValue> {
-  const specs: Record<string, ProductSpecValue> = {};
-  const kv = text.match(/\b(\d{3,5})\s*kv\b/i)?.[1];
-  const stator = text.match(/\b(\d{4})\b/)?.[1];
-  const amp = text.match(/\b(\d{2,3})\s*a\b/i)?.[1];
-  const mah = text.match(/\b(\d{3,5})\s*mah\b/i)?.[1];
-  const cell = text.match(/\b([1-8])s\b/i)?.[1];
-  const prop = text.match(/\b([1-9](?:\.\d)?)\s*(?:inch|in|")\b/i)?.[1];
-  const weight = text.match(/\b(\d{1,4}(?:\.\d+)?)\s*g\b/i)?.[1];
-  const mount = text.match(/\b(20x20|25\.5x25\.5|30x30|16x16|12x12)\b/i)?.[1];
+type ParsedSpecs = {
+  specs: Record<string, ProductSpecValue>;
+  evidenceSpecs: Record<string, EvidenceBoundSpec>;
+  issues: string[];
+};
 
-  if (kv) specs.kv = Number(kv);
-  if (stator) specs.stator = stator;
-  if (amp) specs.escAmp = Number(amp);
-  if (mah) specs.capacityMah = Number(mah);
-  if (cell) specs.cellCount = Number(cell);
-  if (prop) specs.propSize = Number(prop);
-  if (weight) specs.weight = Number(weight);
-  if (mount) specs.mount = mount;
+const MANUFACTURER_DOMAINS = [
+  'betafpv.com', 'cnhl.com', 'dji.com', 'emax-usa.com', 'foxeer.com', 'geprc.com',
+  'hd-zero.com', 'hglrc.com', 'iflight-rc.com', 'team-blacksheep.com', 'walksnail.com',
+];
+const RETAILER_DOMAINS = ['getfpv.com', 'pyrodrone.com', 'racedayquads.com'];
 
-  return specs;
+function hostMatches(hostname: string, domain: string): boolean {
+  return hostname === domain || hostname.endsWith(`.${domain}`);
 }
 
-function parseFit(type: FpvProductType, text: string): FpvCatalogProduct['fit'] {
-  const specs = parseSpecs(text);
+function classifySourceType(sourceUrl: string): SpecSourceType {
+  try {
+    const url = new URL(sourceUrl);
+    const host = url.hostname.toLowerCase().replace(/^www\./, '');
+    const manufacturer = MANUFACTURER_DOMAINS.some((domain) => hostMatches(host, domain));
+    if (manufacturer && /\.pdf$/i.test(url.pathname)) return 'manual';
+    if (manufacturer) return 'manufacturer';
+    if (RETAILER_DOMAINS.some((domain) => hostMatches(host, domain))) return 'retailer';
+    return 'unknown';
+  } catch {
+    return 'unknown';
+  }
+}
+
+function parseSpecs(text: string, sourceUrl: string, observedAt?: string): ParsedSpecs {
+  const specs: Record<string, ProductSpecValue> = {};
+  const evidenceSpecs: Record<string, EvidenceBoundSpec> = {};
+  const issues: string[] = [];
+  const sourceType = classifySourceType(sourceUrl);
+  let evidenceSourceUrl: string | undefined;
+  try {
+    const parsed = new URL(sourceUrl);
+    if (/^https?:$/.test(parsed.protocol)) evidenceSourceUrl = parsed.toString();
+  } catch {
+    evidenceSourceUrl = undefined;
+  }
+
+  const add = (key: string, value: ProductSpecValue, unit: string | null, rawValue: string) => {
+    if (!evidenceSourceUrl) {
+      issues.push(`invalid_evidence_source:${sourceUrl}`);
+      return;
+    }
+    const parsedEvidence = evidenceBoundSpecSchema.safeParse({
+      value, unit, sourceUrls: [evidenceSourceUrl], sourceType, confidence: 0.82,
+      extractionMethod: 'regex', status: 'unverified', ...(observedAt ? { observedAt } : {}), rawValue,
+    });
+    if (!parsedEvidence.success) {
+      issues.push(`invalid_evidence:${key}`);
+      return;
+    }
+    specs[key] = value;
+    evidenceSpecs[key] = parsedEvidence.data;
+  };
+  const numeric = (
+    key: string,
+    regex: RegExp,
+    unit: string,
+    min: number,
+    max: number,
+    reasonKey = key,
+  ) => {
+    const match = regex.exec(text);
+    if (!match) return;
+    const value = Number(match[1]);
+    const matchedUnit = match[2] || unit;
+    const separator = /^(?:g|inch|in)$/i.test(matchedUnit) ? ' ' : '';
+    const rawValue = `${match[1]}${separator}${matchedUnit}`;
+    if (!Number.isFinite(value) || value < min || value > max) {
+      issues.push(`${reasonKey}_out_of_range:${rawValue}`);
+      return;
+    }
+    add(key, value, unit, rawValue);
+  };
+
+  numeric('kv', /\b(?:motor\s+kv|kv)\s*[:=-]\s*(\d{1,9})(?!\d)\s*(KV)\b/i, 'KV', 100, 50_000, 'kv');
+  numeric('escAmp', /\b(?:continuous(?:\s+current)?|esc(?:\s+continuous)?(?:\s+current)?)\s*[:=-]\s*(\d{1,9})(?!\d)\s*(A)\b/i, 'A', 1, 500, 'escAmp');
+  numeric('capacityMah', /\b(?:capacity)\s*[:=-]\s*(\d{1,9})(?!\d)\s*(mAh)\b/i, 'mAh', 50, 100_000);
+  numeric('cellCount', /\b(?:cell(?:\s+count)?|battery)\s*[:=-]\s*(\d{1,9})(?!\d)\s*(S)\b/i, 'S', 1, 8, 'cellCount');
+  numeric('propSize', /\b(?:prop(?:eller)?(?:\s+(?:size|diameter))?)\s*[:=-]\s*(\d{1,9}(?:\.\d+)?)(?![\d.])\s*(inch|in|")\b/i, 'in', 0.5, 15, 'propSize');
+  numeric('weight', /\b(?:weight)\s*[:=-]\s*(\d{1,9}(?:\.\d+)?)(?![\d.])\s*(g)\b/i, 'g', 0.1, 5_000, 'weight');
+
+  const mount = /\b(?:mount(?:ing)?(?:\s+pattern)?)\s*[:=-]\s*(\d{1,3}(?:\.\d+)?\s*x\s*\d{1,3}(?:\.\d+)?)\s*(?:mm)?\b/i.exec(text);
+  if (mount) {
+    const normalized = mount[1].replace(/\s+/g, '').toLowerCase();
+    const allowed = new Set(['12x12', '16x16', '20x20', '25.5x25.5', '30x30']);
+    if (allowed.has(normalized)) add('mount', normalized, 'mm', `${normalized} mm`);
+    else issues.push(`mount_out_of_range:${normalized} mm`);
+  }
+
+  for (const [key, regex] of [
+    ['connector', /\bconnector\s*[:=-]\s*([A-Za-z0-9][A-Za-z0-9+._/-]{1,30})\b/i],
+    ['protocol', /\bprotocol\s*[:=-]\s*(DJI|O3|O4|HDZero|Walksnail|Analog|ELRS|Crossfire|Tracer)\b/i],
+    ['firmware', /\bfirmware\s*[:=-]\s*([A-Za-z0-9][A-Za-z0-9+._/-]{1,40})\b/i],
+  ] as const) {
+    const match = regex.exec(text);
+    if (match?.[1]) add(key, match[1], null, match[1]);
+  }
+
+  for (const [key, regex, unit] of [
+    ['kv', /\b(?:motor\s+kv|kv)\s*[:=-]\s*\d+(?!\s*KV\b)/i, 'KV'],
+    ['escAmp', /\b(?:continuous(?:\s+current)?|esc(?:\s+continuous)?(?:\s+current)?)\s*[:=-]\s*\d+(?!\s*A\b)/i, 'A'],
+  ] as const) {
+    if (!(key in specs) && regex.test(text)) issues.push(`${key}_missing_unit:${unit}`);
+  }
+
+  return { specs, evidenceSpecs, issues };
+}
+
+function parseFit(type: FpvProductType, text: string, specs: Record<string, ProductSpecValue>): FpvCatalogProduct['fit'] {
   const cellCounts = typeof specs.cellCount === 'number' ? [specs.cellCount] : undefined;
   const propSizes = typeof specs.propSize === 'number'
     ? [specs.propSize]
-    : type === 'motor' || type === 'frame' || type === 'prop'
-      ? [5]
-      : undefined;
+    : undefined;
   const mount = typeof specs.mount === 'string' ? specs.mount : undefined;
-  const protocol = text.match(/\b(DJI|O3|O4|HDZero|Walksnail|Analog|ELRS|Crossfire|Tracer)\b/i)?.[1];
+  const protocol = typeof specs.protocol === 'string' ? specs.protocol : undefined;
 
   return {
     styles: inferStyles(text),
@@ -189,12 +279,14 @@ function collectLinkCandidates(markdown: string, baseUrl: string, images: Map<st
       const url = absoluteUrl(match[2] || '', baseUrl);
       if (!name || !url) continue;
 
-      const context = cleanText([
-        lines[index - 1] || '',
-        line,
-        lines[index + 1] || '',
-        lines[index + 2] || '',
-      ].join(' '));
+      const contextLines = [line.replace(match[0], '')];
+      for (let offset = index + 1; offset < lines.length && offset <= index + 6; offset++) {
+        const nextLine = lines[offset] || '';
+        if (/^(?:\s*[-*+]\s*)?\[[^\]]+\]\([^)]+\)/.test(nextLine)) break;
+        if (!nextLine.trim()) break;
+        contextLines.push(nextLine);
+      }
+      const context = cleanText(contextLines.join(' '));
 
       candidates.push({
         name,
@@ -208,15 +300,17 @@ function collectLinkCandidates(markdown: string, baseUrl: string, images: Map<st
   return candidates;
 }
 
-function normalizeProduct(candidate: LinkCandidate, input: ExtractionInput): FpvCatalogProduct | undefined {
+function normalizeProduct(candidate: LinkCandidate, input: ExtractionInput): { product?: FpvCatalogProduct; reason?: string } {
   const text = `${candidate.name} ${candidate.context}`;
-  if (!looksLikeProduct(candidate.name, candidate.context, input.productTypes || [])) return undefined;
+  if (!looksLikeProduct(candidate.name, candidate.context, input.productTypes || [])) return {};
 
   const type = inferType(text, input.productTypes);
-  if (!type) return undefined;
+  if (!type) return {};
 
   const price = parsePrice(text);
-  const specs = parseSpecs(text);
+  const parsedSpecs = parseSpecs(candidate.context, input.url, input.crawledAt);
+  if (parsedSpecs.issues.length) return { reason: parsedSpecs.issues[0] };
+  const { specs, evidenceSpecs } = parsedSpecs;
   const brand = inferBrand(candidate.name);
   const keywords = [...new Set([
     brand.toLowerCase(),
@@ -224,7 +318,7 @@ function normalizeProduct(candidate: LinkCandidate, input: ExtractionInput): Fpv
     ...cleanText(candidate.name).toLowerCase().split(/\s+/).filter((word) => word.length > 2).slice(0, 8),
   ])];
 
-  return {
+  return { product: {
     id: hashId(candidate.url),
     name: cleanText(candidate.name),
     brand,
@@ -239,7 +333,9 @@ function normalizeProduct(candidate: LinkCandidate, input: ExtractionInput): Fpv
     compatibleWith: [],
     tags: [...new Set([type, ...inferStyles(text), ...(input.productTypes || [])])],
     specs,
-    fit: parseFit(type, text),
+    evidenceSpecs,
+    trustStatus: 'QUARANTINE',
+    fit: parseFit(type, text, specs),
     imageUrl: candidate.imageUrl,
     provenance: {
       source: 'crawler',
@@ -248,7 +344,7 @@ function normalizeProduct(candidate: LinkCandidate, input: ExtractionInput): Fpv
       crawledAt: input.crawledAt || new Date().toISOString(),
       extractionConfidence: candidate.imageUrl ? 0.72 : 0.58,
     },
-  };
+  } };
 }
 
 export function extractProductsFromMarkdown(input: ExtractionInput): ExtractionResult {
@@ -261,11 +357,11 @@ export function extractProductsFromMarkdown(input: ExtractionInput): ExtractionR
   for (const candidate of candidates) {
     if (seen.has(candidate.url)) continue;
     seen.add(candidate.url);
-    const product = normalizeProduct(candidate, input);
-    if (product) {
-      products.push(product);
+    const normalized = normalizeProduct(candidate, input);
+    if (normalized.product) {
+      products.push(normalized.product);
     } else {
-      rejected.push({ name: candidate.name, reason: 'not_product_or_low_signal' });
+      rejected.push({ name: candidate.name, reason: normalized.reason || 'not_product_or_low_signal' });
     }
   }
 

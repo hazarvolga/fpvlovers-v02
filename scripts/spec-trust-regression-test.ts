@@ -18,6 +18,8 @@ import {
   getSpecValue,
 } from '../src/lib/tools/spec-trust-legacy';
 import type { FpvCatalogProduct } from '../src/lib/tools/fpv-product-types';
+import { extractProductsFromMarkdown } from '../src/lib/tools/product-catalog-extractor';
+import { normalizeCrawlerCatalog } from '../src/lib/tools/crawler-product-catalog';
 
 const sourceUrl = 'https://manufacturer.example/products/motor-2207';
 
@@ -191,5 +193,93 @@ const migrationVersions = discoveredMigrations.map((migration) => migration.vers
 assert.ok(migrationVersions.includes('0008'));
 assert.ok(migrationVersions.indexOf('0008') > migrationVersions.indexOf('0007'));
 assert.equal(discoveredMigrations.find((migration) => migration.version === '0008')?.name, 'spec_trust_layer');
+
+function extract(markdown: string, url = 'https://www.getfpv.com/motors.html') {
+  return extractProductsFromMarkdown({ url, markdown, crawledAt: '2026-06-29T10:00:00.000Z' });
+}
+
+const explicitKv = extract('- [Example 2207 Motor](https://shop.example/motor)\n  - Motor KV: 1850KV');
+assert.equal(explicitKv.products.length, 1);
+assert.equal(explicitKv.products[0]?.specs.kv, 1850);
+assert.deepEqual(explicitKv.products[0]?.evidenceSpecs?.kv, {
+  value: 1850,
+  unit: 'KV',
+  sourceUrls: ['https://www.getfpv.com/motors.html'],
+  sourceType: 'retailer',
+  confidence: 0.82,
+  extractionMethod: 'regex',
+  status: 'unverified',
+  observedAt: '2026-06-29T10:00:00.000Z',
+  rawValue: '1850KV',
+});
+assert.equal(explicitKv.products[0]?.trustStatus, 'QUARANTINE');
+
+const manufacturer = extract(
+  '- [DJI O4 Air Unit](https://store.dji.com/product/o4-air-unit)\n  - Weight: 8.2 g',
+  'https://www.dji.com/o4-air-unit/specs',
+);
+assert.equal(manufacturer.products[0]?.evidenceSpecs?.weight.sourceType, 'manufacturer');
+assert.equal(manufacturer.products[0]?.evidenceSpecs?.weight.status, 'unverified');
+assert.equal(manufacturer.products[0]?.trustStatus, 'QUARANTINE');
+assert.equal(manufacturer.products[0]?.fit.protocols, undefined);
+
+const noCellInference = extract('- [Example 2207 1850KV Motor](https://shop.example/motor)\n  - Stator: 2207');
+assert.equal(noCellInference.products[0]?.specs.cellCount, undefined);
+assert.equal(noCellInference.products[0]?.evidenceSpecs?.cellCount, undefined);
+assert.equal(noCellInference.products[0]?.evidenceSpecs?.kv, undefined);
+assert.equal(noCellInference.products[0]?.fit.cellCounts, undefined);
+assert.equal(noCellInference.products[0]?.fit.propSizes, undefined);
+
+for (const [label, statement, reason] of [
+  ['ESC', 'Continuous current: 999A', 'escAmp_out_of_range:999A'],
+  ['motor', 'Motor KV: 99999KV', 'kv_out_of_range:99999KV'],
+  ['battery', 'Cell count: 0S', 'cellCount_out_of_range:0S'],
+  ['battery', 'Cell count: 9S', 'cellCount_out_of_range:9S'],
+  ['prop', 'Prop diameter: 25 inch', 'propSize_out_of_range:25 inch'],
+  ['frame', 'Weight: 9999 g', 'weight_out_of_range:9999 g'],
+  ['stack', 'Mounting: 99x99 mm', 'mount_out_of_range:99x99 mm'],
+] as const) {
+  const result = extract(`- [Example ${label} Product](https://shop.example/${label})\n  - ${statement}`);
+  assert.equal(result.products.length, 0, statement);
+  assert.equal(result.rejected[0]?.reason, reason);
+}
+
+const lookalike = extract(
+  '- [DJI O4 Air Unit](https://evil-dji.com/o4)\n  - Weight: 8.2 g',
+  'https://evil-dji.com/specs.pdf',
+);
+assert.equal(lookalike.products[0]?.evidenceSpecs?.weight.sourceType, 'unknown');
+assert.doesNotThrow(() => extractProductsFromMarkdown({ url: 'not a url', markdown: '- [Motor](https://shop.example/m)\n  - Motor KV: 1850KV' }));
+
+const isolatedCards = extract([
+  '- [Alpha 2207 Motor](https://shop.example/alpha)',
+  '  - Motor KV: 1850KV',
+  '- [Beta 2207 Motor](https://shop.example/beta)',
+  '  - Weight: 32 g',
+].join('\n'));
+assert.equal(isolatedCards.products.find((item) => item.name.includes('Alpha'))?.specs.weight, undefined);
+assert.equal(isolatedCards.products.find((item) => item.name.includes('Beta'))?.specs.kv, undefined);
+
+const persisted = normalizeCrawlerCatalog({ products: [{
+  ...product(),
+  trustStatus: 'VERIFIED',
+  evidenceSpecs: { kv: verifiedKv },
+}, {
+  ...product({ id: 'bad-evidence' }),
+  trustStatus: 'VERIFIED',
+  evidenceSpecs: { kv: { ...verifiedKv, sourceUrls: ['javascript:alert(1)'] } },
+}, {
+  ...product({ id: 'bad-status' }),
+  trustStatus: 'NOT_A_STATUS',
+}] });
+assert.equal(persisted[0]?.trustStatus, 'VERIFIED');
+assert.equal(persisted[0]?.evidenceSpecs?.kv.status, 'verified');
+assert.equal(persisted[1]?.trustStatus, 'QUARANTINE');
+assert.deepEqual(persisted[1]?.evidenceSpecs, {});
+assert.equal(persisted[2]?.trustStatus, 'QUARANTINE');
+assert.deepEqual(normalizeCrawlerCatalog('{ malformed json'), []);
+
+const crawlerSource = readFileSync(new URL('../src/lib/tools/crawler-product-catalog.ts', import.meta.url), 'utf8');
+assert.doesNotMatch(crawlerSource, /safeReadJson\s*<\s*any\s*>|\bas\s+any\b|:\s*any\b/);
 
 console.log('spec trust regression tests passed');

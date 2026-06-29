@@ -1,13 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import type { FpvCatalogProduct, FpvProductType, ProductSpecValue } from '@/lib/tools/fpv-product-types';
-import { safeReadJson } from '@/lib/utils/json';
-
-type RawCrawlerCatalog = {
-  generated_at?: unknown;
-  source?: unknown;
-  products?: unknown;
-};
+import {
+  evidenceBoundSpecSchema,
+  productReviewMetadataSchema,
+  productTrustStatusSchema,
+} from '@/lib/types/spec-trust';
+import type { EvidenceBoundSpec } from '@/lib/types/spec-trust';
 
 type RawProductRecord = Record<string, unknown>;
 
@@ -71,6 +70,19 @@ function asSpecs(value: unknown): Record<string, ProductSpecValue> {
   }, {});
 }
 
+function asEvidenceSpecs(value: unknown): { specs: Record<string, EvidenceBoundSpec>; malformed: boolean } {
+  const record = asRecord(value);
+  if (!record) return { specs: {}, malformed: value !== undefined };
+  let malformed = false;
+  const specs = Object.entries(record).reduce<Record<string, EvidenceBoundSpec>>((result, [key, candidate]) => {
+    const parsed = evidenceBoundSpecSchema.safeParse(candidate);
+    if (parsed.success) result[key] = parsed.data;
+    else malformed = true;
+    return result;
+  }, {});
+  return { specs, malformed };
+}
+
 function asProductType(value: unknown): FpvProductType | undefined {
   const type = asString(value);
   return type && PRODUCT_TYPES.has(type as FpvProductType) ? type as FpvProductType : undefined;
@@ -126,6 +138,13 @@ function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
   const brand = asString(record.brand) || name.split(' ')[0] || 'FPV';
   const sourceUrl = asString(asRecord(record.provenance)?.sourceUrl) || url;
   const imageUrl = cleanImageUrl(record.imageUrl);
+  const evidence = asEvidenceSpecs(record.evidenceSpecs);
+  const specs = asSpecs(record.specs);
+  for (const [key, spec] of Object.entries(evidence.specs)) {
+    if (spec.value === null) delete specs[key];
+    else specs[key] = spec.value;
+  }
+  const parsedTrustStatus = productTrustStatusSchema.safeParse(record.trustStatus);
 
   return {
     id,
@@ -141,7 +160,12 @@ function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
     keywords: asStringArray(record.keywords),
     compatibleWith: asStringArray(record.compatibleWith),
     tags: asStringArray(record.tags),
-    specs: asSpecs(record.specs),
+    specs,
+    evidenceSpecs: evidence.specs,
+    trustStatus: parsedTrustStatus.success && !evidence.malformed ? parsedTrustStatus.data : 'QUARANTINE',
+    reviewMetadata: productReviewMetadataSchema.safeParse(record.reviewMetadata).success
+      ? productReviewMetadataSchema.parse(record.reviewMetadata)
+      : undefined,
     fit: asFit(record.fit),
     imageUrl,
     provenance: {
@@ -154,13 +178,26 @@ function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
   };
 }
 
+export function normalizeCrawlerCatalog(value: unknown): FpvCatalogProduct[] {
+  let parsed: unknown = value;
+  if (typeof value === 'string') {
+    try {
+      parsed = JSON.parse(value) as unknown;
+    } catch {
+      return [];
+    }
+  }
+  const raw = asRecord(parsed);
+  if (!raw) return [];
+  const products = Array.isArray(raw.products) ? raw.products : (Array.isArray(raw.components) ? raw.components : []);
+  return products.map(normalizeProduct).filter((product): product is FpvCatalogProduct => Boolean(product));
+}
+
 export function getCrawlerProductCatalog(): FpvCatalogProduct[] {
   try {
-    const raw = safeReadJson<any>(CATALOG_FILE, null) as RawCrawlerCatalog & { components?: unknown };
-    const products = Array.isArray(raw.products) ? raw.products : (Array.isArray(raw.components) ? raw.components : []);
-    return products
-      .map(normalizeProduct)
-      .filter((product): product is FpvCatalogProduct => Boolean(product));
+    if (!fs.existsSync(CATALOG_FILE)) return [];
+    const rawText = fs.readFileSync(CATALOG_FILE, 'utf8');
+    return normalizeCrawlerCatalog(rawText);
   } catch {
     return [];
   }
