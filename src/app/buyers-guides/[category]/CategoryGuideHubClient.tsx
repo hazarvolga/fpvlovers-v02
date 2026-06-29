@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {
   BookOpen, Star, GitCompare, Award, ArrowRight,
-  ThumbsUp, ThumbsDown, HelpCircle
+  HelpCircle
 } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
@@ -38,7 +38,7 @@ export function CategoryGuideHubClient({
   const totalCount = guides.length + reviews.length + comparisons.length;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 pt-28">
+    <div className="fpv-public-shell mx-auto max-w-7xl px-4 py-12 pt-28 sm:px-6">
       <CyberBreadcrumb
         items={[
           { label: 'Home', href: '/' },
@@ -48,29 +48,30 @@ export function CategoryGuideHubClient({
         className="mb-8"
       />
 
-      {/* Cockpit HUD Header */}
+      {/* Editorial category header */}
       <div
-        className="relative mb-12 flex flex-col items-center justify-center p-8 bg-[#050810] border hex-panel overflow-hidden shadow-[inset_0_0_80px_rgba(0,242,255,0.05)]"
+        className="fpv-public-panel relative mb-12 flex flex-col items-center justify-center overflow-hidden rounded-xl bg-[#050810] p-8"
         style={{ borderColor: `${categoryColor}30` }}
       >
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(0,242,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,242,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] opacity-60 pointer-events-none" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(rgba(255,92,0,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,92,0,0.025)_1px,transparent_1px)] bg-[size:20px_20px] opacity-60" />
         <div
-          className="absolute right-6 top-1/2 -translate-y-1/2 w-32 h-32 rounded-full border opacity-10 blur-sm pointer-events-none hidden md:block"
+          className="pointer-events-none absolute right-6 top-1/2 hidden h-32 w-32 -translate-y-1/2 rounded-full border opacity-10 blur-sm md:block"
           style={{ borderColor: categoryColor }}
         />
-        <h1 className="text-4xl md:text-5xl font-black uppercase text-white tracking-tighter mb-2 relative z-10">
+        <p className="fpv-kicker relative z-10 mb-4">Buyer Guide Category</p>
+        <h1 className="relative z-10 mb-2 text-4xl font-black uppercase tracking-tighter text-white md:text-5xl">
           {categoryTitle} <span style={{ color: categoryColor }}>Guides</span>
         </h1>
-        <p className="text-xs font-mono text-[#A0A0A0] max-w-2xl leading-relaxed uppercase tracking-widest text-center relative z-10 mb-4">
+        <p className="relative z-10 mb-4 max-w-2xl text-center font-mono text-xs uppercase leading-relaxed tracking-widest text-[#A0A0A0]">
           {categoryDescription}
         </p>
-        <div className="text-[10px] font-mono uppercase tracking-widest px-3 py-1 bg-black/60 border border-white/10 rounded text-white/60">
-          {"// "}Datastream: {totalCount} matching articles found
+        <div className="rounded border border-white/10 bg-black/60 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-white/60">
+          {totalCount} matching editorial resources
         </div>
       </div>
 
       {totalCount === 0 ? (
-        <div className="text-center py-20 border border-white/5 bg-[#050810]/40 rounded-lg">
+        <div className="rounded-lg border border-white/5 bg-[#050810]/40 py-20 text-center">
           <HelpCircle className="w-12 h-12 text-[#FF5C00] mx-auto mb-4 animate-bounce" />
           <h3 className="text-lg font-mono font-black uppercase text-white tracking-widest mb-2">No Content Available</h3>
           <p className="text-[#A0A0A0] font-sans text-sm max-w-md mx-auto">
@@ -91,23 +92,23 @@ export function CategoryGuideHubClient({
                   return (
                     <div
                       key={guide.slug}
-                      className="hex-panel glass-panel border border-white/10 hover:border-[#FF5C00]/50 bg-[#050810]/60 transition-all duration-300 rounded-lg overflow-hidden flex flex-col group"
+                      className="fpv-public-card fpv-public-card-hover group flex flex-col overflow-hidden rounded-lg transition-all duration-300"
                     >
                       {coverImage && (
-                        <div className="relative w-full h-40 bg-black/40 overflow-hidden">
+                        <div className="relative h-40 w-full overflow-hidden bg-black/40">
                           <Image
                             src={coverImage}
                             alt={guide.title}
                             fill
-                            className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-500"
+                            className="object-cover opacity-72 transition-transform duration-500 group-hover:scale-105"
                             unoptimized
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#050810] to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#050607] to-transparent" />
                         </div>
                       )}
-                      <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div className="flex flex-1 flex-col justify-between p-5">
                         <div>
-                          <h3 className="text-lg font-bold uppercase tracking-tight text-white mb-2 line-clamp-2 leading-snug group-hover:text-[#00F2FF] transition-colors">
+                          <h3 className="mb-2 line-clamp-2 text-lg font-bold uppercase leading-snug tracking-tight text-white transition-colors group-hover:text-[#FF5C00]">
                             {guide.title}
                           </h3>
                           {guide.excerpt && (
@@ -146,34 +147,34 @@ export function CategoryGuideHubClient({
                   return (
                     <div
                       key={rev.slug}
-                      className="hex-panel glass-panel border border-white/10 hover:border-[#FF5C00]/50 bg-[#050810]/60 transition-all duration-300 rounded-lg overflow-hidden flex flex-col group relative"
+                      className="fpv-public-card fpv-public-card-hover group relative flex flex-col overflow-hidden rounded-lg transition-all duration-300"
                     >
-                      {/* Score Badge */}
-                      <div className="absolute top-4 right-4 z-20 flex items-center justify-center w-12 h-12 rounded-full border border-[#00F2FF]/40 bg-black/90 font-mono text-center">
+                      {/* Evidence badge */}
+                      <div className="absolute right-4 top-4 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-[#FF5C00]/60 bg-black/90 text-center font-mono">
                         <div className="flex flex-col items-center">
-                          <span className="text-sm font-black text-white leading-none">{showScore ? meta.reviewScore : 'SPEC'}</span>
-                          <span className="text-[6px] text-[#00F2FF] font-bold uppercase tracking-tighter">{showScore ? 'SCORE' : 'ANALYSIS'}</span>
+                          <span className="text-sm font-black leading-none text-white">{showScore ? meta.reviewScore : 'SPEC'}</span>
+                          <span className="text-[6px] font-bold uppercase tracking-tighter text-[#FF5C00]">{showScore ? 'SCORE' : 'ASSESS'}</span>
                         </div>
                       </div>
 
                       {coverImage && (
-                        <div className="relative w-full h-40 bg-black/40 overflow-hidden">
+                        <div className="relative h-40 w-full overflow-hidden bg-black/40">
                           <Image
                             src={coverImage}
                             alt={rev.title}
                             fill
-                            className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-500"
+                            className="object-cover opacity-72 transition-transform duration-500 group-hover:scale-105"
                             unoptimized
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#050810] to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#050607] to-transparent" />
                         </div>
                       )}
-                      <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div className="flex flex-1 flex-col justify-between p-5">
                         <div>
-                          <div className="text-[9px] font-mono uppercase tracking-widest text-[#00F2FF] mb-1">
+                          <div className="mb-1 font-mono text-[9px] uppercase tracking-widest text-[#ff9b71]">
                             {meta.productBrand} &bull; {meta.releaseYear}
                           </div>
-                          <h3 className="text-lg font-bold uppercase tracking-tight text-white mb-2 line-clamp-2 leading-snug group-hover:text-[#00F2FF] transition-colors">
+                          <h3 className="mb-2 line-clamp-2 text-lg font-bold uppercase leading-snug tracking-tight text-white transition-colors group-hover:text-[#FF5C00]">
                             {rev.title}
                           </h3>
                           {meta.bestFor && (
@@ -202,7 +203,7 @@ export function CategoryGuideHubClient({
           {comparisons.length > 0 && (
             <div>
               <h2 className="text-xl font-mono font-black uppercase text-white tracking-widest mb-6 flex items-center gap-2">
-                <GitCompare className="w-5 h-5 text-[#00F2FF]" /> Head-to-Head Comparisons
+                <GitCompare className="h-5 w-5 text-[#FF5C00]" /> Head-to-Head Comparisons
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {comparisons.map((comp) => {
@@ -211,26 +212,26 @@ export function CategoryGuideHubClient({
                   return (
                     <div
                       key={comp.slug}
-                      className="hex-panel glass-panel border border-white/10 hover:border-[#FF5C00]/50 bg-[#050810]/60 transition-all duration-300 rounded-lg overflow-hidden flex flex-col group"
+                      className="fpv-public-card fpv-public-card-hover group flex flex-col overflow-hidden rounded-lg transition-all duration-300"
                     >
                       {coverImage && (
-                        <div className="relative w-full h-40 bg-black/40 overflow-hidden">
+                        <div className="relative h-40 w-full overflow-hidden bg-black/40">
                           <Image
                             src={coverImage}
                             alt={comp.title}
                             fill
-                            className="object-cover opacity-70 group-hover:scale-105 transition-transform duration-500"
+                            className="object-cover opacity-72 transition-transform duration-500 group-hover:scale-105"
                             unoptimized
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#050810] to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#050607] to-transparent" />
                         </div>
                       )}
-                      <div className="p-5 flex-1 flex flex-col justify-between">
+                      <div className="flex flex-1 flex-col justify-between p-5">
                         <div>
                           <div className="text-[10px] font-mono text-[#FF5C00] font-black uppercase mb-2">
                             {meta.productA} VS {meta.productB}
                           </div>
-                          <h3 className="text-lg font-bold uppercase tracking-tight text-white mb-2 line-clamp-2 leading-snug group-hover:text-[#00F2FF] transition-colors">
+                          <h3 className="mb-2 line-clamp-2 text-lg font-bold uppercase leading-snug tracking-tight text-white transition-colors group-hover:text-[#FF5C00]">
                             {comp.title}
                           </h3>
                           <div className="mb-4 inline-flex items-center gap-1.5 px-2 py-1 bg-white/5 border border-white/10 rounded text-[9px] font-mono uppercase text-white/80">
