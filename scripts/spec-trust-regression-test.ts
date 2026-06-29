@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { discoverMigrationFiles } from '../src/lib/server/migrations';
 import {
   createUnknownSpec,
   createVerifiedSpec,
@@ -125,6 +127,8 @@ const migrationSql = readFileSync(
 );
 const normalizedMigrationSql = migrationSql.replace(/--.*$/gm, '').replace(/\s+/g, ' ').trim();
 
+assert.match(normalizedMigrationSql, /SET\s+LOCAL\s+lock_timeout\s*=\s*'5s'/i);
+
 for (const [column, definition] of [
   ['trust_status', String.raw`TEXT\s+NOT\s+NULL\s+DEFAULT\s+'QUARANTINE'`],
   ['conflict_log', String.raw`JSONB\s+NOT\s+NULL\s+DEFAULT\s+'\[\]'::JSONB`],
@@ -142,24 +146,50 @@ for (const [column, definition] of [
   );
 }
 
-assert.match(normalizedMigrationSql, /DO\s+\$\$[\s\S]*pg_constraint[\s\S]*ADD\s+CONSTRAINT[\s\S]*CHECK/i);
+assert.match(
+  normalizedMigrationSql,
+  /DO\s+\$\$[\s\S]*pg_constraint[\s\S]*conrelid\s*=\s*'fpvlovers_commerce\.products'::regclass[\s\S]*ADD\s+CONSTRAINT\s+products_trust_status_check[\s\S]*CHECK/i,
+);
 assert.match(
   normalizedMigrationSql,
   /CHECK\s*\(\s*trust_status\s+IN\s*\(\s*'QUARANTINE'\s*,\s*'REVIEW_REQUIRED'\s*,\s*'VERIFIED'\s*,\s*'REJECTED'\s*\)\s*\)/i,
 );
+const notValidOffset = normalizedMigrationSql.search(/NOT\s+VALID/i);
+const validateOffset = normalizedMigrationSql.search(
+  /VALIDATE\s+CONSTRAINT\s+products_trust_status_check/i,
+);
+assert.ok(notValidOffset >= 0 && validateOffset > notValidOffset);
 
-assert.match(normalizedMigrationSql, /CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+\S+\s+ON\s+fpvlovers_commerce\.products\s*\(\s*trust_status\s*\)/i);
-assert.match(normalizedMigrationSql, /CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+\S+\s+ON\s+fpvlovers_commerce\.products\s*\(\s*category\s*,\s*trust_status\s*\)/i);
-for (const column of ['motor_kv', 'esc_continuous_amp', 'max_cell_count', 'mounting_pattern']) {
+assert.match(normalizedMigrationSql, /CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+idx_commerce_products_trust_status\s+ON\s+fpvlovers_commerce\.products\s*\(\s*trust_status\s*\)/i);
+assert.match(normalizedMigrationSql, /CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+idx_commerce_products_category_trust_status\s+ON\s+fpvlovers_commerce\.products\s*\(\s*category\s*,\s*trust_status\s*\)/i);
+for (const [indexName, column] of [
+  ['idx_commerce_products_motor_kv', 'motor_kv'],
+  ['idx_commerce_products_esc_continuous_amp', 'esc_continuous_amp'],
+  ['idx_commerce_products_max_cell_count', 'max_cell_count'],
+  ['idx_commerce_products_mounting_pattern', 'mounting_pattern'],
+] as const) {
   assert.match(
     normalizedMigrationSql,
-    new RegExp(String.raw`CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+\S+\s+ON\s+fpvlovers_commerce\.products\s*\(\s*${column}\s*\)\s+WHERE\s+${column}\s+IS\s+NOT\s+NULL`, 'i'),
+    new RegExp(String.raw`CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+${indexName}\s+ON\s+fpvlovers_commerce\.products\s*\(\s*${column}\s*\)\s+WHERE\s+${column}\s+IS\s+NOT\s+NULL`, 'i'),
     `migration must create a partial ${column} index`,
   );
 }
 
 assert.doesNotMatch(normalizedMigrationSql, /\b(?:DROP|TRUNCATE|DELETE)\b/i);
-assert.doesNotMatch(normalizedMigrationSql, /\bALTER\s+TABLE\b[\s\S]*\bRENAME\b/i);
-assert.doesNotMatch(normalizedMigrationSql, /\bUPDATE\s+fpvlovers_commerce\.products\b[\s\S]*\bVERIFIED\b/i);
+assert.doesNotMatch(normalizedMigrationSql, /\b(?:UPDATE|INSERT|DELETE|MERGE|COPY)\b/i);
+assert.doesNotMatch(normalizedMigrationSql, /\bALTER\s+TABLE\s+[^;]*\b(?:RENAME|ALTER\s+COLUMN)\b/i);
+for (const alterTableStatement of normalizedMigrationSql.match(/ALTER\s+TABLE\s+[^;]+/gi) ?? []) {
+  assert.match(
+    alterTableStatement,
+    /\b(?:ADD\s+COLUMN\s+IF\s+NOT\s+EXISTS|ADD\s+CONSTRAINT|VALIDATE\s+CONSTRAINT)\b/i,
+  );
+}
+
+const migrationsDir = fileURLToPath(new URL('../db/migrations', import.meta.url));
+const discoveredMigrations = discoverMigrationFiles(migrationsDir);
+const migrationVersions = discoveredMigrations.map((migration) => migration.version);
+assert.ok(migrationVersions.includes('0008'));
+assert.ok(migrationVersions.indexOf('0008') > migrationVersions.indexOf('0007'));
+assert.equal(discoveredMigrations.find((migration) => migration.version === '0008')?.name, 'spec_trust_layer');
 
 console.log('spec trust regression tests passed');

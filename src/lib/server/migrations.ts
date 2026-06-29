@@ -6,7 +6,7 @@ import { query, getClient } from './db';
 // Advisory lock ID for migrations — prevents concurrent runs.
 const MIGRATION_LOCK_ID = 2147483647;
 
-interface MigrationFile {
+export interface MigrationFile {
   version: string;
   name: string;
   filePath: string;
@@ -15,6 +15,28 @@ interface MigrationFile {
 
 function calculateChecksum(content: string): string {
   return crypto.createHash('sha256').update(content).digest('hex');
+}
+
+export function discoverMigrationFiles(migrationsDir: string): MigrationFile[] {
+  return fs.readdirSync(migrationsDir)
+    .filter(file => file.endsWith('.sql'))
+    .sort()
+    .map(file => {
+      const filePath = path.join(migrationsDir, file);
+      const content = fs.readFileSync(filePath, 'utf-8');
+      const match = file.match(/^(\d+)_(.+)\.sql$/);
+
+      if (!match) {
+        throw new Error(`[Migrations] Invalid migration filename pattern: "${file}". Expected format "0001_name.sql".`);
+      }
+
+      return {
+        version: match[1],
+        name: match[2],
+        filePath,
+        checksum: calculateChecksum(content),
+      };
+    });
 }
 
 export async function runMigrations(options: { dryRun?: boolean } = {}): Promise<{
@@ -31,28 +53,7 @@ export async function runMigrations(options: { dryRun?: boolean } = {}): Promise
   }
 
   // 1. Gather all SQL files from directory
-  const files = fs.readdirSync(migrationsDir)
-    .filter(f => f.endsWith('.sql'))
-    .sort();
-
-  const migrations: MigrationFile[] = files.map(file => {
-    const filePath = path.join(migrationsDir, file);
-    const content = fs.readFileSync(filePath, 'utf-8');
-    const checksum = calculateChecksum(content);
-    
-    // Parse version and name (e.g. 0001_fpv_foundation.sql -> version=0001, name=fpv_foundation)
-    const match = file.match(/^(\d+)_(.+)\.sql$/);
-    if (!match) {
-      throw new Error(`[Migrations] Invalid migration filename pattern: "${file}". Expected format "0001_name.sql".`);
-    }
-
-    return {
-      version: match[1],
-      name: match[2],
-      filePath,
-      checksum,
-    };
-  });
+  const migrations = discoverMigrationFiles(migrationsDir);
 
   if (migrations.length === 0) {
     console.log('[Migrations] No migration files found.');
