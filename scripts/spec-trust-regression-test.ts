@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   createUnknownSpec,
   createVerifiedSpec,
@@ -117,5 +118,48 @@ assert.equal(getSpecNumber(malformedNumberProduct, 'kv'), undefined);
 assert.equal(getSpecString(malformedNumberProduct, 'kv'), undefined);
 assert.equal(getSpecTrustBadge(malformedNumberProduct, 'kv'), undefined);
 assert.deepEqual(getLegacySpecs(malformedNumberProduct), {});
+
+const migrationSql = readFileSync(
+  new URL('../db/migrations/0008_spec_trust_layer.sql', import.meta.url),
+  'utf8',
+);
+const normalizedMigrationSql = migrationSql.replace(/--.*$/gm, '').replace(/\s+/g, ' ').trim();
+
+for (const [column, definition] of [
+  ['trust_status', String.raw`TEXT\s+NOT\s+NULL\s+DEFAULT\s+'QUARANTINE'`],
+  ['conflict_log', String.raw`JSONB\s+NOT\s+NULL\s+DEFAULT\s+'\[\]'::JSONB`],
+  ['max_cell_count', String.raw`INTEGER`],
+  ['mounting_pattern', String.raw`TEXT`],
+  ['motor_kv', String.raw`INTEGER`],
+  ['esc_continuous_amp', String.raw`INTEGER`],
+  ['prop_diameter', String.raw`NUMERIC\s*\(\s*4\s*,\s*2\s*\)`],
+  ['connector', String.raw`TEXT`],
+] as const) {
+  assert.match(
+    normalizedMigrationSql,
+    new RegExp(String.raw`ADD\s+COLUMN\s+IF\s+NOT\s+EXISTS\s+${column}\s+${definition}`, 'i'),
+    `migration must add ${column} idempotently`,
+  );
+}
+
+assert.match(normalizedMigrationSql, /DO\s+\$\$[\s\S]*pg_constraint[\s\S]*ADD\s+CONSTRAINT[\s\S]*CHECK/i);
+assert.match(
+  normalizedMigrationSql,
+  /CHECK\s*\(\s*trust_status\s+IN\s*\(\s*'QUARANTINE'\s*,\s*'REVIEW_REQUIRED'\s*,\s*'VERIFIED'\s*,\s*'REJECTED'\s*\)\s*\)/i,
+);
+
+assert.match(normalizedMigrationSql, /CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+\S+\s+ON\s+fpvlovers_commerce\.products\s*\(\s*trust_status\s*\)/i);
+assert.match(normalizedMigrationSql, /CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+\S+\s+ON\s+fpvlovers_commerce\.products\s*\(\s*category\s*,\s*trust_status\s*\)/i);
+for (const column of ['motor_kv', 'esc_continuous_amp', 'max_cell_count', 'mounting_pattern']) {
+  assert.match(
+    normalizedMigrationSql,
+    new RegExp(String.raw`CREATE\s+INDEX\s+IF\s+NOT\s+EXISTS\s+\S+\s+ON\s+fpvlovers_commerce\.products\s*\(\s*${column}\s*\)\s+WHERE\s+${column}\s+IS\s+NOT\s+NULL`, 'i'),
+    `migration must create a partial ${column} index`,
+  );
+}
+
+assert.doesNotMatch(normalizedMigrationSql, /\b(?:DROP|TRUNCATE|DELETE)\b/i);
+assert.doesNotMatch(normalizedMigrationSql, /\bALTER\s+TABLE\b[\s\S]*\bRENAME\b/i);
+assert.doesNotMatch(normalizedMigrationSql, /\bUPDATE\s+fpvlovers_commerce\.products\b[\s\S]*\bVERIFIED\b/i);
 
 console.log('spec trust regression tests passed');
