@@ -22,7 +22,7 @@ export function ResilientArticleCover({
 
   return (
     <>
-      <div className="relative w-full h-[360px] md:h-[420px] border-b border-[#00F2FF]/20 overflow-hidden bg-black/80 flex items-center justify-center">
+      <div className="relative flex h-[360px] w-full items-center justify-center overflow-hidden border-b border-white/10 bg-black/80 md:h-[420px]">
         <ResilientCoverImage
           src={asset.src}
           fallbackSrc={fallbackSrc}
@@ -45,19 +45,19 @@ export function ResilientArticleCover({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050810] via-[#050810]/20 to-transparent z-20 pointer-events-none" />
         <div className="absolute top-6 left-6 z-30">
-          <span className="text-[10px] uppercase font-black tracking-widest px-3 py-1 bg-black/80 backdrop-blur-md border border-[#00F2FF]/50 text-[#00F2FF] rounded">
+          <span className="rounded border border-[#FF5C00]/40 bg-black/80 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#FF5C00] backdrop-blur-md">
             {category}
           </span>
         </div>
       </div>
-      <div className="px-8 pt-4 text-[10px] text-white/30 font-mono italic flex items-center justify-between">
+      <div className="flex items-center justify-between px-8 pt-4 font-mono text-[10px] italic text-white/30">
         <span>{usesFallback ? 'FPVLovers generated fallback' : asset.credit}</span>
         {!usesFallback && asset.sourceUrl && (
           <a
             href={asset.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[#00F2FF] hover:text-[#00FF66] transition-colors uppercase tracking-widest text-[9px] font-black z-10 relative"
+            className="relative z-10 text-[9px] font-black uppercase tracking-widest text-[#FF5C00] transition-colors hover:text-[#FF7A33]"
           >
             [ Cover Source ]
           </a>

@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   if (denied) return denied;
 
   try {
-    const { topic, template, language = 'tr', tone = 'professional', title, category, brief } = await req.json();
+    const { topic, template, language = 'en', tone = 'professional', title, category, brief } = await req.json();
     const normalizedTemplate = normalizeContentGenerationTemplate(template);
 
     const result = await generateContentViaDify({
@@ -32,7 +32,8 @@ export async function POST(req: NextRequest) {
       outputs: result.outputs,
       jobId: undefined,
     });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : 'Content generation failed';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

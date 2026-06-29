@@ -110,16 +110,16 @@ export function MarkdownRenderer({ content, gallery = [], injectImageAtSections 
               
               if (componentType === 'telemetry-graph') {
                 return (
-                  <div className="my-8 p-6 rounded-xl border border-[#00F2FF]/30 bg-zinc-950 shadow-[0_0_15px_rgba(0,242,255,0.1)] flex flex-col items-center justify-center not-prose">
-                    <span className="text-[#00F2FF] font-mono text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-[#00F2FF] animate-pulse" />
-                      Live Telemetry Stream
+                  <div className="not-prose my-8 flex flex-col items-center justify-center rounded-xl border border-[#FF5C00]/30 bg-zinc-950 p-6 shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
+                    <span className="mb-2 flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[#FF5C00]">
+                      <span className="h-2 w-2 rounded-full bg-[#FF5C00]" />
+                      Flight Data Reference
                     </span>
                     <div className="w-full h-32 bg-black/50 rounded-lg border border-white/5 relative overflow-hidden">
                       {/* Placeholder for actual telemetry charts */}
-                      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(0,242,255,0.05)_50%,transparent_100%)] animate-[shimmer_2s_infinite]" />
-                      <div className="absolute bottom-0 w-full h-[1px] bg-[#00F2FF]/30" />
-                      <div className="absolute bottom-0 left-1/4 w-1/2 h-16 border-t border-[#00F2FF] rounded-t-full opacity-50" />
+                      <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,92,0,0.05)_50%,transparent_100%)]" />
+                      <div className="absolute bottom-0 h-px w-full bg-[#FF5C00]/30" />
+                      <div className="absolute bottom-0 left-1/4 h-16 w-1/2 rounded-t-full border-t border-[#FF5C00] opacity-50" />
                     </div>
                     <p className="mt-4 text-xs text-zinc-500 font-sans text-center">{children}</p>
                   </div>

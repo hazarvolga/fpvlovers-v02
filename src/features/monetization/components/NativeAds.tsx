@@ -99,27 +99,30 @@ export function AdInFeed({ className, product }: { className?: string; product?:
 }
 
 export function AdStickySidebar({ className, product }: { className?: string; product?: AdProduct }) {
-  const displayName = product?.name || 'Gear Placement Slot';
+  const displayName = product?.name || 'Curated FPV gear guide';
   const displayPrice = product?.price || 'See Price';
 
   return (
-    <div className={cn("glass-panel p-4 hex-panel flex flex-col border-[#00F2FF]/20 sticky top-24 neon-border bg-[#0A0A0B]/90", className)}>
-       <div className="text-[10px] font-bold uppercase tracking-widest text-white/40 mb-4 text-center">Affiliate-ready slot</div>
+    <div className={cn("fpv-public-panel sticky top-24 flex flex-col rounded-xl p-4 bg-[#0A0A0B]/90", className)}>
+       <div className="mb-4 text-center text-[10px] font-bold uppercase tracking-widest text-white/45">Reader-supported gear reference</div>
        <div className="flex flex-col gap-4">
          <div
-           className="bg-[#050505] p-3 group hover:border-[#00F2FF]/40 border-b border-[#333333] transition-colors cursor-pointer relative"
+           className="group relative cursor-pointer rounded-lg border border-white/10 bg-[#050505] p-3 transition-colors hover:border-[#FF5C00]/50"
            onClick={() => product && trackAffiliateClick(product)}
          >
-            <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#00F2FF]/50 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute right-0 top-0 h-2 w-2 border-r border-t border-[#FF5C00]/50 opacity-0 transition-opacity group-hover:opacity-100" />
 
-            <div className="w-full h-24 bg-gradient-to-br from-[#00F2FF]/20 to-transparent mb-3 flex items-center justify-center border border-[#00F2FF]/20 overflow-hidden relative hex-panel">
-               <span className="text-[10px] text-[#00F2FF] font-black uppercase tracking-widest z-10 bg-black/50 px-2 py-1 backdrop-blur-sm border border-[#00F2FF]/30">GEAR PICK</span>
+            <div className="relative mb-3 flex h-24 w-full items-center justify-center overflow-hidden rounded-md border border-[#FF5C00]/20 bg-gradient-to-br from-[#FF5C00]/15 to-transparent">
+               <span className="z-10 border border-[#FF5C00]/30 bg-black/50 px-2 py-1 text-[10px] font-black uppercase tracking-widest text-[#FF5C00] backdrop-blur-sm">Editorial pick</span>
             </div>
-            <div className="text-xs font-black uppercase tracking-tight text-[#A0A0A0] mb-1">{displayName}</div>
+            <div className="mb-1 text-xs font-black uppercase tracking-tight text-zinc-300">{displayName}</div>
+            <p className="mb-3 text-[10px] leading-4 text-zinc-500">
+              Commercial links are disclosed and do not change editorial verdicts.
+            </p>
             <div className="flex items-center justify-between">
               <div className="text-[10px] text-[#FF5C00] font-black tracking-widest">{displayPrice}</div>
-              <div className="w-5 h-5 hex-panel bg-[#00F2FF]/10 flex items-center justify-center border border-[#00F2FF]/30">
-                <span className="text-[8px] text-[#00F2FF]">↗</span>
+              <div className="flex h-5 w-5 items-center justify-center rounded border border-[#FF5C00]/30 bg-[#FF5C00]/10">
+                <span className="text-[8px] text-[#FF5C00]">↗</span>
               </div>
             </div>
          </div>

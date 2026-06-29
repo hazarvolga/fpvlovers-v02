@@ -26,10 +26,10 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
     .includes(article.metadata?.contentType || '');
 
   return (
-    <aside className="mb-10 rounded-lg border border-[#00F2FF]/20 bg-black/50 p-5 text-xs text-zinc-300">
-      <div className="flex items-center gap-2 font-mono text-[10px] font-black uppercase tracking-widest text-[#00F2FF]">
+    <aside className="mb-10 rounded-xl border border-[#FF5C00]/25 bg-black/45 p-5 text-xs text-zinc-300 shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
+      <div className="flex items-center gap-2 font-mono text-[10px] font-black uppercase tracking-widest text-[#FF5C00]">
         {handsOnApproved ? <BadgeCheck className="h-4 w-4" /> : isReview ? <FileSearch className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
-        Editorial status
+        Editorial trust status
       </div>
 
       {handsOnApproved ? (
@@ -53,13 +53,13 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
         </div>
       ) : (
         <p className="mt-3 leading-5">
-          This non-review article may be produced through FPVLovers&apos; autonomous research workflow. Automation does not create first-hand testing evidence; factual claims remain subject to source and correction controls.
+          This non-review article may be produced through FPVLovers&apos; autonomous research workflow. It is not a hands-on product test. Technical claims remain subject to source checks, correction requests, and future editor review where needed.
         </p>
       )}
 
       {commercial && (
         <p className="mt-3 border-t border-white/10 pt-3 leading-5 text-zinc-400">
-          Commercial disclosure: links may become affiliate links and may earn FPVLovers a commission at no additional cost to the reader. <Link href="/disclosure" className="text-[#00F2FF] hover:underline">Read the disclosure</Link> or <Link href="/editorial-policy" className="text-[#00F2FF] hover:underline">editorial policy</Link>.
+          Commercial disclosure: links may become affiliate links and may earn FPVLovers a commission at no additional cost to the reader. <Link href="/disclosure" className="text-[#FF5C00] hover:underline">Read the disclosure</Link> or <Link href="/editorial-policy" className="text-[#FF5C00] hover:underline">editorial policy</Link>.
         </p>
       )}
     </aside>
