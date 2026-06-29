@@ -18,8 +18,16 @@ export function getSpecString(product: FpvCatalogProduct, key: string): string |
   return typeof value === 'string' ? value : undefined;
 }
 
-function isLegacySpecValue(value: SpecValue): value is ProductSpecValue {
-  return value !== null;
+function isLegacySpecValue(value: unknown): value is ProductSpecValue {
+  if (typeof value === 'number') return Number.isFinite(value);
+  if (typeof value === 'string' || typeof value === 'boolean') return true;
+  if (!Array.isArray(value) || value.length === 0) return false;
+
+  const elementType = typeof value[0];
+  if (elementType !== 'number' && elementType !== 'string' && elementType !== 'boolean') return false;
+  return value.every((item) => (
+    typeof item === elementType && (elementType !== 'number' || Number.isFinite(item))
+  ));
 }
 
 export function getLegacySpecs(product: FpvCatalogProduct): Record<string, ProductSpecValue> {

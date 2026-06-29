@@ -59,10 +59,32 @@ assert.equal(getSpecTrustBadge(evidenceProduct, 'kv'), 'VERIFIED');
 assert.equal(getSpecTrustBadge(suppressedProduct, 'kv'), 'UNVERIFIED');
 
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, confidence: 1.01 }).success, false);
+assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, status: 'trusted' }).success, false);
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, sourceUrls: [] }).success, false);
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, sourceUrls: ['not-a-url'] }).success, false);
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: { nested: true } }).success, false);
+assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: Number.NaN }).success, false);
+assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: Number.POSITIVE_INFINITY }).success, false);
+assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: [] }).success, false);
+assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: ['dshot600', 600] }).success, false);
 assert.equal(evidenceBoundSpecSchema.safeParse({ ...verifiedKv, value: null }).success, false);
 assert.throws(() => createVerifiedSpec({ ...verifiedKv, value: null }));
+assert.throws(() => createVerifiedSpec({ ...verifiedKv, value: [] }));
+
+const malformedEvidenceProduct = product({
+  specs: {
+    nan: 100,
+    infinity: 200,
+    empty: ['primitive-fallback'],
+    mixed: 'primitive-fallback',
+  },
+  evidenceSpecs: {
+    nan: { ...verifiedKv, value: Number.NaN },
+    infinity: { ...verifiedKv, value: Number.POSITIVE_INFINITY },
+    empty: { ...verifiedKv, value: [] },
+    mixed: { ...verifiedKv, value: ['dshot600', 600] },
+  } as unknown as FpvCatalogProduct['evidenceSpecs'],
+});
+assert.deepEqual(getLegacySpecs(malformedEvidenceProduct), {});
 
 console.log('spec trust regression tests passed');

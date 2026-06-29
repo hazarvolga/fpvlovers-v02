@@ -5,10 +5,20 @@ export const evidenceSpecStatusSchema = z.enum(['unverified', 'conflicting', 've
 export const specSourceTypeSchema = z.enum(['manufacturer', 'retailer', 'manual', 'community', 'unknown']);
 export const specExtractionMethodSchema = z.enum(['json_ld', 'spec_table', 'regex', 'llm_structured', 'manual_override']);
 
-const specScalarValueSchema = z.union([z.string(), z.number().finite(), z.boolean(), z.null()]);
+const substantiveStringSchema = z.string().refine((value) => value.trim().length > 0, {
+  message: 'Spec values must not be empty',
+});
+const specScalarValueSchema = z.union([
+  substantiveStringSchema,
+  z.number().finite(),
+  z.boolean(),
+  z.null(),
+]);
 export const specValueSchema = z.union([
   specScalarValueSchema,
-  z.array(z.union([z.string(), z.number().finite(), z.boolean()])),
+  z.array(substantiveStringSchema).nonempty(),
+  z.array(z.number().finite()).nonempty(),
+  z.array(z.boolean()).nonempty(),
 ]);
 
 export const evidenceBoundSpecSchema = z.object({
