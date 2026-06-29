@@ -4,17 +4,20 @@ import type { PoolClient, QueryResult, QueryResultRow } from '../src/lib/server/
 import {
   discoverMigrationFiles,
   executeMigrationPlan,
+  runMigrations,
 } from '../src/lib/server/migrations';
 
 type Call = { text: string; params?: unknown[] };
 
 class FakeClient implements PoolClient {
   readonly calls: Call[] = [];
-  releaseCount = 0;
+  readonly releaseArgs: Array<Error | boolean | undefined> = [];
 
   constructor(
     private readonly options: {
       failMigration?: boolean;
+      failLock?: boolean;
+      failUnlock?: boolean;
       unlockResult?: boolean;
     } = {},
   ) {}
@@ -26,6 +29,12 @@ class FakeClient implements PoolClient {
     this.calls.push({ text, params });
     const normalized = text.replace(/\s+/g, ' ').trim();
 
+    if (normalized.startsWith('SELECT pg_advisory_lock') && this.options.failLock) {
+      throw new Error('lock outcome unknown');
+    }
+    if (normalized.startsWith('SELECT pg_advisory_unlock') && this.options.failUnlock) {
+      throw new Error('unlock exploded');
+    }
     if (normalized.startsWith('SELECT version, checksum')) {
       return result([]);
     }
@@ -38,8 +47,8 @@ class FakeClient implements PoolClient {
     return result([]);
   }
 
-  release(): void {
-    this.releaseCount += 1;
+  release(error?: Error | boolean): void {
+    this.releaseArgs.push(error);
   }
 }
 
@@ -57,7 +66,7 @@ async function main(): Promise<void> {
   const successClient = new FakeClient();
   const success = await executeMigrationPlan(successClient, [migration]);
   assert.deepEqual(success.applied, ['0008']);
-  assert.equal(successClient.releaseCount, 1);
+  assert.deepEqual(successClient.releaseArgs, [undefined]);
   const successSql = successClient.calls.map((call) => call.text);
   const ensureSchemaOffset = successSql.findIndex((sql) => sql.includes('CREATE SCHEMA IF NOT EXISTS'));
   const lockOffset = successSql.findIndex((sql) => sql.includes('pg_advisory_lock'));
@@ -78,14 +87,34 @@ async function main(): Promise<void> {
     executeMigrationPlan(unlockFalseClient, [migration]),
     /advisory lock was not held by the migration client/i,
   );
-  assert.equal(unlockFalseClient.releaseCount, 1);
+  assert.deepEqual(unlockFalseClient.releaseArgs, [true]);
+
+  const unlockErrorClient = new FakeClient({ failUnlock: true });
+  await assert.rejects(executeMigrationPlan(unlockErrorClient, [migration]), /unlock exploded/);
+  assert.deepEqual(unlockErrorClient.releaseArgs, [true]);
 
   const failedClient = new FakeClient({ failMigration: true, unlockResult: false });
   await assert.rejects(executeMigrationPlan(failedClient, [migration]), /migration exploded/);
   const failedSql = failedClient.calls.map((call) => call.text);
   assert.ok(failedSql.includes('ROLLBACK'));
   assert.ok(failedSql.findIndex((sql) => sql.includes('pg_advisory_unlock')) > failedSql.indexOf('ROLLBACK'));
-  assert.equal(failedClient.releaseCount, 1);
+  assert.deepEqual(failedClient.releaseArgs, [true]);
+
+  const lockErrorClient = new FakeClient({ failLock: true });
+  await assert.rejects(executeMigrationPlan(lockErrorClient, [migration]), /lock outcome unknown/);
+  assert.deepEqual(lockErrorClient.releaseArgs, [true]);
+
+  let dryRunClientRequested = false;
+  await runMigrations(
+    { dryRun: true },
+    {
+      getClient: async () => {
+        dryRunClientRequested = true;
+        return new FakeClient();
+      },
+    },
+  );
+  assert.equal(dryRunClientRequested, false);
 
   console.log('migration runner regression tests passed');
 }

@@ -20,6 +20,10 @@ export interface MigrationResult {
   skipped: string[];
 }
 
+export interface MigrationDependencies {
+  getClient: () => Promise<PoolClient>;
+}
+
 function calculateChecksum(content: string): string {
   return crypto.createHash('sha256').update(content).digest('hex');
 }
@@ -55,6 +59,8 @@ export async function executeMigrationPlan(
   const alreadyApplied: string[] = [];
   const skipped: string[] = [];
   let lockAcquired = false;
+  let lockAttempted = false;
+  let destroyClient = false;
   let transactionActive = false;
   let primaryError: unknown;
   let unlockError: unknown;
@@ -70,6 +76,7 @@ export async function executeMigrationPlan(
       );
     `);
 
+    lockAttempted = true;
     await client.query('SELECT pg_advisory_lock($1)', [MIGRATION_LOCK_ID]);
     lockAcquired = true;
     console.log('[Migrations] Acquired advisory lock.');
@@ -126,17 +133,22 @@ export async function executeMigrationPlan(
           [MIGRATION_LOCK_ID],
         );
         if (unlockResult.rows[0]?.pg_advisory_unlock !== true) {
+          destroyClient = true;
           unlockError = new Error('[Migrations] Advisory lock was not held by the migration client during unlock.');
           console.error(unlockError);
         } else {
           console.log('[Migrations] Released advisory lock.');
         }
       } catch (error: unknown) {
+        destroyClient = true;
         unlockError = error;
         console.error('[Migrations] Failed to release advisory lock:', error);
       }
     }
-    client.release();
+    if (lockAttempted && !lockAcquired) {
+      destroyClient = true;
+    }
+    client.release(destroyClient ? true : undefined);
   }
 
   if (primaryError !== undefined) {
@@ -149,7 +161,10 @@ export async function executeMigrationPlan(
   return { applied, alreadyApplied, skipped };
 }
 
-export async function runMigrations(options: { dryRun?: boolean } = {}): Promise<MigrationResult> {
+export async function runMigrations(
+  options: { dryRun?: boolean } = {},
+  dependencies: MigrationDependencies = { getClient },
+): Promise<MigrationResult> {
   console.log(`[Migrations] Starting database migration runner (dryRun: ${!!options.dryRun})...`);
 
   const migrationsDir = path.join(process.cwd(), 'db/migrations');
@@ -177,7 +192,7 @@ export async function runMigrations(options: { dryRun?: boolean } = {}): Promise
     return { applied, alreadyApplied: [], skipped: [] };
   }
 
-  const client = await getClient();
+  const client = await dependencies.getClient();
   const result = await executeMigrationPlan(client, migrations);
   console.log(`[Migrations] Completed. Applied: ${result.applied.length}, Already Applied: ${result.alreadyApplied.length}`);
   return result;
