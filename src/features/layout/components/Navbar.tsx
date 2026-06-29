@@ -62,8 +62,8 @@ export function Navbar() {
       className={cn(
         'fixed top-0 z-50 w-full border-b transition-all duration-300 font-sans',
         scrolled
-          ? 'border-white/5 bg-[#09090b]/90 shadow-2xl backdrop-blur-xl'
-          : 'border-transparent bg-[#09090b]/50 backdrop-blur-md',
+          ? 'border-white/10 bg-[#050608]/92 shadow-2xl backdrop-blur-xl'
+          : 'border-transparent bg-[#050608]/62 backdrop-blur-md',
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
@@ -96,8 +96,8 @@ export function Navbar() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'flex items-center gap-2 px-3 py-2 text-xs font-bold uppercase tracking-wider text-zinc-400 transition-colors hover:text-zinc-100',
-                    isActive && 'text-zinc-100'
+                    'fpv-focus-ring flex items-center gap-2 rounded-sm px-3 py-2 text-xs font-bold uppercase tracking-wider text-zinc-400 transition-colors hover:text-zinc-100',
+                    isActive && 'bg-white/[0.035] text-zinc-100'
                   )}
                   aria-haspopup="menu"
                   aria-expanded={isOpen}
@@ -115,8 +115,8 @@ export function Navbar() {
                     )}
                     role="menu"
                   >
-                    <div className="overflow-hidden rounded-md border border-white/5 bg-[#18181b]/95 shadow-2xl backdrop-blur-xl">
-                      <div className="border-b border-white/5 px-4 py-3 bg-[#09090b]">
+                    <div className="overflow-hidden rounded-md border border-white/10 bg-[#111419]/96 shadow-2xl backdrop-blur-xl">
+                      <div className="border-b border-white/10 bg-[#050608] px-4 py-3">
                         <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-zinc-500">{item.label}</div>
                         <div className="mt-1 flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-zinc-100">
                           {item.title}
@@ -137,8 +137,8 @@ export function Navbar() {
                               role="menuitem"
                             >
                               <div className={cn(
-                                'mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-white/5 bg-black/20 text-zinc-500 transition-colors group-hover:border-[#00F2FF]/30 group-hover:text-[#00F2FF]',
-                                subActive && 'border-[#00F2FF]/50 text-[#00F2FF]',
+                                'mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-sm border border-white/10 bg-black/20 text-zinc-500 transition-colors group-hover:border-[#ff3131]/30 group-hover:text-[#ff3131]',
+                                subActive && 'border-[#ff3131]/50 text-[#ff3131]',
                               )}>
                                 <subItem.icon className="h-3.5 w-3.5" />
                               </div>
@@ -162,15 +162,23 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-3 lg:flex">
+          <Link
+            href="/search"
+            className="fpv-focus-ring flex h-9 w-9 items-center justify-center rounded-sm border border-white/10 bg-white/[0.03] text-zinc-300 transition-colors hover:border-[#ff3131]/40 hover:text-white"
+            aria-label="Search FPVLovers"
+          >
+            <Search className="h-4 w-4" strokeWidth={1.6} />
+          </Link>
+
           {/* Dynamic Authentication Button */}
           {status === 'authenticated' ? (
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-2 rounded-sm border border-[#00F2FF]/30 hover:border-[#00F2FF] bg-[#00F2FF]/5 px-3.5 py-2 text-[10px] font-mono uppercase tracking-widest text-[#00F2FF] transition-all hover:bg-[#00F2FF]/10 cursor-pointer"
+                className="fpv-focus-ring flex cursor-pointer items-center gap-2 rounded-sm border border-[#00F2FF]/30 bg-[#00F2FF]/5 px-3.5 py-2 text-[10px] font-mono uppercase tracking-widest text-[#00F2FF] transition-all hover:border-[#00F2FF] hover:bg-[#00F2FF]/10"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00FF66] animate-ping animate-duration-1000" />
-                🛰️ {session.user?.name || 'Pilot'}
+                <span className="h-1.5 w-1.5 rounded-full bg-[#00FF66]" />
+                {session.user?.name || 'Pilot'}
                 <ChevronDown className="w-3.5 h-3.5 ml-1 opacity-70" />
               </button>
               {userMenuOpen && (
@@ -184,14 +192,14 @@ export function Navbar() {
                     onClick={() => setUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
                   >
-                    🚀 Dossier Profile
+                    Dossier Profile
                   </Link>
                   <Link
                     href="/academy/roadmap"
                     onClick={() => setUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
                   >
-                    🗺️ Flight Roadmap
+                    Flight Roadmap
                   </Link>
                   <button
                     onClick={() => {
@@ -200,7 +208,7 @@ export function Navbar() {
                     }}
                     className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md text-[#FF5C00] hover:bg-[#FF5C00]/5 transition-colors uppercase text-[10px] cursor-pointer mt-1 border-t border-white/5 pt-2"
                   >
-                    ❌ Logout Session
+                    Logout Session
                   </button>
                 </div>
               )}
@@ -209,10 +217,10 @@ export function Navbar() {
             <div className="relative">
               <button
                 onClick={() => setUserMenuOpen(!userMenuOpen)}
-                className="flex items-center gap-2 rounded-md border border-[#FF5C00]/30 hover:border-[#FF5C00] bg-[#FF5C00]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#FF5C00] transition-all hover:bg-[#FF5C00]/10 cursor-pointer"
+                className="fpv-focus-ring flex cursor-pointer items-center gap-2 rounded-md border border-[#FF5C00]/30 bg-[#FF5C00]/5 px-3.5 py-2 text-xs font-mono uppercase tracking-widest text-[#FF5C00] transition-all hover:border-[#FF5C00] hover:bg-[#FF5C00]/10"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C00] animate-pulse" />
-                📡 {localDossier.callsign}
+                <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C00]" />
+                {localDossier.callsign}
                 <ChevronDown className="w-3.5 h-3.5 ml-1 opacity-70" />
               </button>
               {userMenuOpen && (
@@ -226,14 +234,14 @@ export function Navbar() {
                     onClick={() => setUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
                   >
-                    🚀 Dossier Profile
+                    Dossier Profile
                   </Link>
                   <Link
                     href="/academy/roadmap"
                     onClick={() => setUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
                   >
-                    🗺️ Flight Roadmap
+                    Flight Roadmap
                   </Link>
                   <button
                     onClick={() => {
@@ -245,7 +253,7 @@ export function Navbar() {
                     }}
                     className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md text-[#FF5C00] hover:bg-[#FF5C00]/5 transition-colors uppercase text-[10px] cursor-pointer mt-1 border-t border-white/5 pt-2"
                   >
-                    ❌ Decommission Call
+                    Decommission Call
                   </button>
                 </div>
               )}
@@ -253,9 +261,9 @@ export function Navbar() {
           ) : (
             <Link
               href="/auth/signin"
-              className="rounded-sm bg-[#FF5C00] hover:bg-[#FF5C00]/90 px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white transition-all"
+              className="fpv-focus-ring rounded-sm border border-[#ff3131]/70 bg-[#e12227] px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white shadow-[0_12px_32px_rgba(225,34,39,0.22)] transition-all hover:bg-[#ff3131]"
             >
-              Authorize
+              Sign In
             </Link>
           )}
         </div>
@@ -272,12 +280,12 @@ export function Navbar() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="border-t border-white/10 bg-[#080808]/96 px-4 py-4 backdrop-blur-xl lg:hidden">
+        <div className="border-t border-white/10 bg-[#050608]/96 px-4 py-4 backdrop-blur-xl lg:hidden">
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
             {navLinks.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
               return (
-                <div key={item.href} className="rounded-sm border border-white/5 bg-[#18181b]/50 p-2">
+                <div key={item.href} className="rounded-sm border border-white/10 bg-[#111419]/60 p-2">
                   <Link
                     href={item.href}
                     className={cn(
@@ -286,7 +294,7 @@ export function Navbar() {
                     )}
                     onClick={closeNavigation}
                   >
-                    <item.icon className={cn('h-3.5 w-3.5', isActive ? 'text-[#00F2FF]' : 'text-zinc-500')} />
+                    <item.icon className={cn('h-3.5 w-3.5', isActive ? 'text-[#ff3131]' : 'text-zinc-500')} />
                     <span className="flex-1">{item.title}</span>
                     <ChevronRight className="h-4 w-4 text-[#77736d]" />
                   </Link>
@@ -304,7 +312,7 @@ export function Navbar() {
                             )}
                             onClick={closeNavigation}
                           >
-                            <subItem.icon className={cn('h-3 w-3', subActive ? 'text-[#00F2FF]' : 'text-zinc-600')} />
+                            <subItem.icon className={cn('h-3 w-3', subActive ? 'text-[#ff3131]' : 'text-zinc-600')} />
                             {subItem.title}
                           </Link>
                         );
@@ -325,7 +333,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-3 text-center text-[10px] font-mono font-black uppercase tracking-widest text-zinc-300 transition-colors hover:border-[#00F2FF]/40 hover:text-[#00F2FF]"
+                  className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-3 text-center text-[10px] font-mono font-black uppercase tracking-widest text-zinc-300 transition-colors hover:border-[#ff3131]/40 hover:text-white"
                   onClick={closeNavigation}
                 >
                   {item.title}
@@ -341,8 +349,8 @@ export function Navbar() {
                   className="flex items-center justify-center gap-2 rounded-md border border-[#00F2FF]/30 bg-[#00F2FF]/5 py-3 text-sm font-mono uppercase tracking-widest text-[#00F2FF]"
                   onClick={closeNavigation}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00FF66] animate-ping" />
-                  🛰️ Pilot: {session.user?.name || 'Authorized'}
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#00FF66]" />
+                  Pilot: {session.user?.name || 'Authorized'}
                 </Link>
               ) : localDossier ? (
                 <Link
@@ -350,16 +358,16 @@ export function Navbar() {
                   className="flex items-center justify-center gap-2 rounded-md border border-[#FF5C00]/30 bg-[#FF5C00]/5 py-3 text-sm font-mono uppercase tracking-widest text-[#FF5C00]"
                   onClick={closeNavigation}
                 >
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FF5C00] animate-pulse" />
-                  📡 Pilot: {localDossier.callsign}
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#FF5C00]" />
+                  Pilot: {localDossier.callsign}
                 </Link>
               ) : (
                 <Link
                   href="/auth/signin"
-                  className="flex items-center justify-center rounded-sm bg-[#FF5C00] py-3 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white"
+                  className="flex items-center justify-center rounded-sm bg-[#e12227] py-3 text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-white"
                   onClick={closeNavigation}
                 >
-                  Authorize Signal
+                  Sign In
                 </Link>
               )}
             </div>

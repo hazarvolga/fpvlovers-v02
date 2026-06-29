@@ -9,7 +9,7 @@ export function CookieBanner() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Check if user has already accepted/declined cookie protocols
+    // Check if user has already accepted/declined cookies.
     const consent = localStorage.getItem('fpvlovers_cookie_consent');
     if (!consent) {
       queueMicrotask(() => {
@@ -32,29 +32,25 @@ export function CookieBanner() {
 
   return (
     <div className="fixed bottom-20 md:bottom-6 right-4 left-4 md:left-auto md:w-96 z-50 animate-bounce-short">
-      <div className="relative hex-panel glass-panel p-5 border border-[#00F2FF]/30 bg-[#050810]/95 backdrop-blur-md rounded-lg shadow-[0_0_30px_rgba(0,242,255,0.15)] overflow-hidden">
-        {/* Telemetry Accent Lines */}
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00F2FF] to-transparent" />
+      <div className="relative overflow-hidden rounded-lg border border-[#ff3131]/25 bg-[#050810]/95 p-5 shadow-[0_0_30px_rgba(225,34,39,0.12)] backdrop-blur-md">
+        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#ff3131] to-transparent" />
         <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />
 
         <div className="relative z-10 flex flex-col gap-4">
-          {/* Header */}
           <div className="flex items-center gap-2 border-b border-white/5 pb-2">
-            <ShieldCheck className="w-4 h-4 text-[#00F2FF]" />
+            <ShieldCheck className="w-4 h-4 text-[#ff3131]" />
             <span className="text-[10px] font-mono font-black uppercase text-white tracking-widest">
-              Cookie Protocol Active
+              Cookie Notice
             </span>
           </div>
 
-          {/* Description */}
           <p className="text-[11px] font-sans text-zinc-400 leading-normal">
-            FPVLovers uses necessary system cookies and third-party affiliate cookies to track commission referrals. By clicking accept, you authorize cookie storage. Review our{' '}
-            <Link href="/privacy" className="text-[#00F2FF] hover:underline font-mono">
+            FPVLovers uses necessary cookies and affiliate referral cookies to keep the site working and support future gear guides. Review our{' '}
+            <Link href="/privacy" className="text-[#ff8a8d] hover:underline font-mono">
               Privacy Policy
             </Link>.
           </p>
 
-          {/* Action Buttons */}
           <div className="flex items-center gap-2 pt-2">
             <Button
               variant="amber"
@@ -62,7 +58,7 @@ export function CookieBanner() {
               onClick={handleAccept}
               className="flex-1 uppercase font-mono font-black text-[9px] py-1.5"
             >
-              Accept Protocol
+              Accept Cookies
             </Button>
             <button
               onClick={handleDecline}

@@ -65,7 +65,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
                 >
                   <input
                      type="email"
-                     placeholder="ENTER_EMAIL_PROTOCOL"
+                     placeholder="Email address"
                      value={email}
                      onChange={(e) => setEmail(e.target.value)}
                      className={cn(
@@ -78,7 +78,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
                     variant="cyber"
                     className="absolute right-1 top-1 bottom-1 h-auto text-[10px] px-4"
                   >
-                     INITIALIZE <Send className="w-3 h-3 ml-2" />
+                     Subscribe <Send className="w-3 h-3 ml-2" />
                   </Button>
                 </motion.form>
               ) : status === 'loading' ? (
@@ -90,7 +90,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
                   className="flex flex-col items-center justify-center p-4"
                 >
                    <Zap className="w-6 h-6 text-[#00F5FF] animate-pulse mb-2" />
-                   <span className="font-mono text-[10px] text-[#00F5FF] uppercase tracking-widest">Integrating...</span>
+                   <span className="font-mono text-[10px] text-[#00F5FF] uppercase tracking-widest">Subscribing...</span>
                 </motion.div>
               ) : (
                 <motion.div
@@ -100,7 +100,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
                   className="flex flex-col items-center justify-center p-4 bg-green-500/10 border border-green-500/30 rounded-lg"
                 >
                    <CheckCircle2 className="w-6 h-6 text-green-400 mb-2" />
-                   <span className="font-mono text-xs text-green-400 font-bold uppercase tracking-widest">Protocol Linked Successfully</span>
+                   <span className="font-mono text-xs text-green-400 font-bold uppercase tracking-widest">Subscription confirmed</span>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -113,7 +113,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
                   exit={{ opacity: 0 }}
                   className="mt-3 flex items-center justify-center gap-2 text-red-400 font-mono text-[10px] uppercase"
                 >
-                   <AlertCircle className="w-3 h-3" /> System rejected input. Re-verify syntax.
+                   <AlertCircle className="w-3 h-3" /> We could not subscribe this email. Please check it and try again.
                 </motion.div>
               )}
             </AnimatePresence>
