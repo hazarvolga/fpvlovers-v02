@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Activity, AlertTriangle, Battery, Gauge, RotateCcw, ShieldCheck, Zap, ChevronUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { calculateBuild, type BuildCalculatorInput, type BuildStyle } from '@/lib/tools/build-calculator';
+import { customInputEngineeringSafetyWarning } from '@/lib/tools/engineering-safety';
 import { loadDossierFromBrowser } from '@/lib/state/dossier-serializer';
 import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
@@ -215,6 +216,7 @@ export function BuildCalculatorWidget() {
   }, []);
 
   const result = useMemo(() => calculateBuild(build), [build]);
+  const engineeringSafety = useMemo(() => customInputEngineeringSafetyWarning(), []);
 
   const setNumber = (key: NumberField['key'], value: number) => {
     setBuild((current) => ({ ...current, [key]: value }));
@@ -317,6 +319,10 @@ export function BuildCalculatorWidget() {
         Safety Notes
       </h2>
       <AnimatePresence mode="popLayout">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-4 border-l-2 border-yellow-300 bg-yellow-300/5 p-4 text-xs font-mono text-yellow-100 leading-relaxed">
+          <div className="mb-2 font-black uppercase tracking-widest">Engineering Safety Guardrail: educational only</div>
+          {engineeringSafety.warnings[0]}
+        </motion.div>
         {result.warnings.length ? (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="space-y-4">
             {result.warnings.map((warning) => (

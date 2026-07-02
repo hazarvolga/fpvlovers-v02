@@ -3,6 +3,7 @@ import { difyRequest } from '@/lib/dify-client';
 import { extractDifyMarkdown } from '@/lib/dify-response';
 import { findApp } from '@/lib/master-routing-tables';
 import { analyzeBuildCompatibility } from '@/lib/tools/component-compatibility';
+import { customInputEngineeringSafetyWarning, evaluateBuildEngineeringSafety } from '@/lib/tools/engineering-safety';
 import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
 import type { BuildSelection, BuildSlot, FpvCatalogProduct, FpvProductType } from '@/lib/tools/fpv-product-types';
 
@@ -133,6 +134,7 @@ function localHardwareMarkdown(input: HardwarePayload): string {
 
 function catalogHardwareMarkdown(input: HardwarePayload, matches: MatchedHardware, catalog: FpvCatalogProduct[]): string {
   const baseMarkdown = localHardwareMarkdown(input);
+  const engineeringSafety = evaluateBuildEngineeringSafety(matches);
   const matchedEntries = Object.entries(matches)
     .filter((entry): entry is [BuildSlot, FpvCatalogProduct] => Boolean(entry[1]))
     .map(([slot, product]) => `- ${slot}: ${product.name} (${product.brand}, ${product.provenance?.source || 'catalog'})`);
@@ -146,6 +148,10 @@ function catalogHardwareMarkdown(input: HardwarePayload, matches: MatchedHardwar
         ? matchedEntries.join('\n')
         : '- No confident catalog matches. The local check used text-pattern guardrails only.',
       '- Use exact product names from the FPVLovers catalog for deeper compatibility scoring.',
+      '',
+      '### Engineering Safety Guardrail',
+      `- Engineering-safe output: ${engineeringSafety.isEngineeringSafe ? 'yes' : 'no'}`,
+      ...customInputEngineeringSafetyWarning().warnings.map((warning) => `- ${warning}`),
     ].join('\n');
   }
 
@@ -160,6 +166,13 @@ function catalogHardwareMarkdown(input: HardwarePayload, matches: MatchedHardwar
     `- Verdict: ${compatibility.verdict}`,
     `- Score: ${compatibility.score}/100`,
     `- Summary: ${compatibility.summary}`,
+    '',
+    '### Engineering Safety Guardrail',
+    `- Engineering-safe output: ${compatibility.engineeringSafety.isEngineeringSafe ? 'yes' : 'no'}`,
+    ...(compatibility.engineeringSafety.warnings.length
+      ? compatibility.engineeringSafety.warnings.map((warning) => `- ${warning}`)
+      : ['- Critical compatibility specs are backed by verified evidence.']),
+    '',
     ...compatibility.checks.map((check) => `- ${check.status.toUpperCase()} ${check.label}: ${check.detail}`),
   ].join('\n');
 }
@@ -204,6 +217,7 @@ export async function POST(req: NextRequest) {
     const input = parsePayload(await req.json().catch(() => ({})));
     const catalog = getFpvProductCatalog();
     const matches = matchHardware(input, catalog);
+    const engineeringSafety = evaluateBuildEngineeringSafety(matches);
     const localMarkdown = catalogHardwareMarkdown(input, matches, catalog);
     const app = findApp('Part Matcher') ?? findApp('Build Wizard');
 
@@ -220,6 +234,7 @@ export async function POST(req: NextRequest) {
             source: product?.provenance?.source,
           }]),
         ),
+        engineeringSafety,
         warning: 'Hardware review gateway is not configured; returned deterministic local compatibility check.',
       });
     }
@@ -251,6 +266,7 @@ export async function POST(req: NextRequest) {
             source: product?.provenance?.source,
           }]),
         ),
+        engineeringSafety,
         warning: response.dryRun
           ? 'Dry-run is active locally; returned deterministic local compatibility check.'
           : 'Hardware review gateway did not return usable Markdown; returned deterministic local compatibility check.',
@@ -269,6 +285,7 @@ export async function POST(req: NextRequest) {
           source: product?.provenance?.source,
         }]),
       ),
+      engineeringSafety,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Hardware analysis failed.';

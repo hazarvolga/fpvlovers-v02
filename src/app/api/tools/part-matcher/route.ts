@@ -51,6 +51,12 @@ function buildLocalMarkdown(result: ReturnType<typeof analyzeBuildCompatibility>
     '### Selected Parts',
     ...(selected.length ? selected : ['- No complete build selected yet.']),
     '',
+    '### Engineering Safety Guardrail',
+    `- Engineering-safe output: ${result.engineeringSafety.isEngineeringSafe ? 'yes' : 'no'}`,
+    ...(result.engineeringSafety.warnings.length
+      ? result.engineeringSafety.warnings.map((warning) => `- ${warning}`)
+      : ['- Critical compatibility specs are backed by verified evidence.']),
+    '',
     '### Checks',
     ...result.checks.map((check) => `- ${check.status.toUpperCase()} ${check.label}: ${check.detail}`),
     result.calculator ? '' : '',
@@ -81,7 +87,7 @@ function buildDifyPrompt(selection: BuildSelection, result: ReturnType<typeof an
     '',
     `Build style: ${selection.style}`,
     `Selected products JSON:\n${JSON.stringify(selectedProducts)}`,
-    `Deterministic result JSON:\n${JSON.stringify({ score: result.score, verdict: result.verdict, checks: result.checks, calculator: result.calculator })}`,
+    `Deterministic result JSON:\n${JSON.stringify({ score: result.score, verdict: result.verdict, checks: result.checks, calculator: result.calculator, engineeringSafety: result.engineeringSafety })}`,
     '',
     `Local guardrail:\n${localMarkdown}`,
   ].join('\n');

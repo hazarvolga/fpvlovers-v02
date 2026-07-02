@@ -3,6 +3,7 @@ import { difyRequest } from '@/lib/dify-client';
 import { extractDifyMarkdown } from '@/lib/dify-response';
 import { findApp } from '@/lib/master-routing-tables';
 import { calculateBuild, type BuildCalculatorInput, type BuildStyle } from '@/lib/tools/build-calculator';
+import { customInputEngineeringSafetyWarning, type EngineeringSafetyReport } from '@/lib/tools/engineering-safety';
 
 const BUILD_STYLES: BuildStyle[] = ['freestyle', 'racing', 'cinematic', 'longRange', 'whoop'];
 const TOOL_DIFY_TIMEOUT_MS = 25000;
@@ -45,7 +46,11 @@ function parseBuildInput(value: unknown): BuildCalculatorInput {
   };
 }
 
-function buildLocalMarkdown(input: BuildCalculatorInput, result: ReturnType<typeof calculateBuild>): string {
+function buildLocalMarkdown(
+  input: BuildCalculatorInput,
+  result: ReturnType<typeof calculateBuild>,
+  engineeringSafety: EngineeringSafetyReport,
+): string {
   const warningLines = result.warnings.length
     ? result.warnings.map((warning) => `- ${warning}`)
     : ['- No major fit warnings from the deterministic calculator.'];
@@ -60,6 +65,10 @@ function buildLocalMarkdown(input: BuildCalculatorInput, result: ReturnType<type
     `- ESC current margin: ${result.currentMargin}A per motor`,
     `- Safe KV window: ${result.safeKvRange.min}-${result.safeKvRange.max}KV`,
     '',
+    '### Engineering Safety Guardrail',
+    `- Engineering-safe output: ${engineeringSafety.isEngineeringSafe ? 'yes' : 'no'}`,
+    ...engineeringSafety.warnings.map((warning) => `- ${warning}`),
+    '',
     '### Safety Notes',
     ...warningLines,
     '',
@@ -68,7 +77,12 @@ function buildLocalMarkdown(input: BuildCalculatorInput, result: ReturnType<type
   ].join('\n');
 }
 
-function buildDifyPrompt(input: BuildCalculatorInput, result: ReturnType<typeof calculateBuild>, localMarkdown: string): string {
+function buildDifyPrompt(
+  input: BuildCalculatorInput,
+  result: ReturnType<typeof calculateBuild>,
+  engineeringSafety: EngineeringSafetyReport,
+  localMarkdown: string,
+): string {
   return [
     'You are the FPVLovers Build Wizard.',
     'Use the project RAG datasets for FPV build guidance when available.',
@@ -77,6 +91,7 @@ function buildDifyPrompt(input: BuildCalculatorInput, result: ReturnType<typeof 
     '',
     `Build input JSON:\n${JSON.stringify(input)}`,
     `Calculator result JSON:\n${JSON.stringify(result)}`,
+    `Engineering safety JSON:\n${JSON.stringify(engineeringSafety)}`,
     '',
     `Local guardrail:\n${localMarkdown}`,
   ].join('\n');
@@ -104,7 +119,8 @@ export async function POST(req: NextRequest) {
   try {
     const input = parseBuildInput(await req.json().catch(() => ({})));
     const result = calculateBuild(input);
-    const localMarkdown = buildLocalMarkdown(input, result);
+    const engineeringSafety = customInputEngineeringSafetyWarning();
+    const localMarkdown = buildLocalMarkdown(input, result, engineeringSafety);
     const app = findApp('Build Wizard');
 
     if (!app?.token) {
@@ -112,6 +128,7 @@ export async function POST(req: NextRequest) {
         success: true,
         source: 'local',
         result,
+        engineeringSafety,
         markdown: localMarkdown,
         warning: 'Build review gateway is not configured; returned deterministic build review.',
       });
@@ -124,7 +141,7 @@ export async function POST(req: NextRequest) {
       timeout: TOOL_DIFY_TIMEOUT_MS,
       body: {
         inputs: {},
-        query: buildDifyPrompt(input, result, localMarkdown),
+        query: buildDifyPrompt(input, result, engineeringSafety, localMarkdown),
         response_mode: 'blocking',
         user: 'fpvlovers-build-wizard',
       },
@@ -136,6 +153,7 @@ export async function POST(req: NextRequest) {
         success: true,
         source: 'local',
         result,
+        engineeringSafety,
         markdown: localMarkdown,
         warning: response.dryRun
           ? 'Dry-run is active locally; returned deterministic build review.'
@@ -147,6 +165,7 @@ export async function POST(req: NextRequest) {
       success: true,
       source: 'dify',
       result,
+      engineeringSafety,
       markdown,
     });
   } catch (error) {

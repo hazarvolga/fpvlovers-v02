@@ -42,5 +42,7 @@ const cellCheck = result.checks.find((check) => check.label === 'Motor / battery
 assert.equal(cellCheck?.status, 'warn');
 assert.match(cellCheck?.detail || '', /cell count/i);
 assert.equal(result.verdict, 'caution');
+assert.equal(result.engineeringSafety.isEngineeringSafe, false);
+assert.ok(result.engineeringSafety.unverifiedFields.includes('battery.cellCount'));
 
 console.log('part-matcher regression checks passed');

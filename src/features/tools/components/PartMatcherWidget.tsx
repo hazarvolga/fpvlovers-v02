@@ -225,6 +225,27 @@ export function PartMatcherWidget({ products }: Props) {
           </div>
         )}
 
+        {hasStarted && (
+          <div className={cn(
+            'mt-5 border p-4 text-sm leading-relaxed',
+            result.engineeringSafety.isEngineeringSafe
+              ? 'border-[#00FF66]/20 bg-[#00FF66]/5 text-[#d8d5cf]'
+              : 'border-yellow-300/20 bg-yellow-300/5 text-yellow-100',
+          )}>
+            <div className="mb-2 text-xs font-black uppercase tracking-widest">
+              Engineering Safety Guardrail: {result.engineeringSafety.isEngineeringSafe ? 'verified' : 'educational only'}
+            </div>
+            <ul className="space-y-1">
+              {(result.engineeringSafety.warnings.length
+                ? result.engineeringSafety.warnings.slice(0, 4)
+                : ['Critical compatibility specs are backed by verified evidence.']
+              ).map((warning) => (
+                <li key={warning}>- {warning}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
         <div className="mt-6 space-y-3">
           {hasStarted && result.checks.map((check) => (
             <div key={check.label} className={cn(

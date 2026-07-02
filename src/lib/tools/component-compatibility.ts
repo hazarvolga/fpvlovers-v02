@@ -1,4 +1,5 @@
 import { calculateBuild, getSafeKvRange, type BuildStyle } from '@/lib/tools/build-calculator';
+import { evaluateBuildEngineeringSafety, type EngineeringSafetyReport } from '@/lib/tools/engineering-safety';
 import type { BuildSelection, BuildSlot, FpvCatalogProduct } from '@/lib/tools/fpv-product-types';
 
 export type ComponentDuelMetric = {
@@ -23,6 +24,7 @@ export type BuildCompatibilityResult = {
   selected: Partial<Record<BuildSlot, FpvCatalogProduct>>;
   checks: { label: string; status: 'pass' | 'warn' | 'fail'; detail: string }[];
   summary: string;
+  engineeringSafety: EngineeringSafetyReport;
   calculator?: ReturnType<typeof calculateBuild>;
 };
 
@@ -214,6 +216,7 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
   const score = Math.max(0, 100 - failCount * 28 - warnCount * 10);
   const verdict: BuildCompatibilityResult['verdict'] = failCount ? 'blocked' : warnCount ? 'caution' : 'ready';
   const protocol = stringSpec(selected.video, 'protocol') || stringSpec(selected.receiver, 'protocol');
+  const engineeringSafety = evaluateBuildEngineeringSafety(selected);
 
   return {
     score,
@@ -221,6 +224,7 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
     selected,
     checks,
     calculator,
+    engineeringSafety,
     summary: protocol
       ? `Build check completed with ${protocol} control/video context and ${score}/100 confidence.`
       : `Build check completed with ${score}/100 confidence.`,
