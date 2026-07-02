@@ -20,6 +20,13 @@ import {
 import type { FpvCatalogProduct } from '../src/lib/tools/fpv-product-types';
 import { extractProductsFromMarkdown } from '../src/lib/tools/product-catalog-extractor';
 import { normalizeCrawlerCatalog } from '../src/lib/tools/crawler-product-catalog';
+import {
+  mergeCrawlerProductCatalog,
+  mergeCatalogProduct,
+  prepareCatalogProductForIngestion,
+  upsertCatalogProductsToDb,
+  type ProductCatalogDbClient,
+} from '../src/lib/tools/product-catalog-ingestion';
 
 const sourceUrl = 'https://manufacturer.example/products/motor-2207';
 
@@ -293,7 +300,156 @@ assert.equal(persisted[4]?.trustStatus, 'QUARANTINE');
 assert.equal(persisted[5]?.trustStatus, 'QUARANTINE');
 assert.deepEqual(normalizeCrawlerCatalog('{ malformed json'), []);
 
+const ingestedNew = mergeCrawlerProductCatalog([], [{
+  ...product({ url: 'https://shop.example/new-motor', id: 'new-motor' }),
+  trustStatus: 'VERIFIED',
+  evidenceSpecs: { kv: verifiedKv },
+}], '2026-06-29T11:00:00.000Z');
+assert.equal(ingestedNew.stats.accepted, 1);
+assert.equal(ingestedNew.products[0]?.trustStatus, 'QUARANTINE');
+
+const verifiedWithoutEvidence = prepareCatalogProductForIngestion(product({ trustStatus: 'VERIFIED' }));
+assert.equal(verifiedWithoutEvidence.trustStatus, 'QUARANTINE');
+
+const incomingConflictKv = evidenceBoundSpecSchema.parse({
+  value: 2200,
+  unit: 'KV',
+  sourceUrls: ['https://retailer.example/motor-2207'],
+  sourceType: 'retailer',
+  confidence: 0.72,
+  extractionMethod: 'regex',
+  status: 'unverified',
+});
+const incomingSameKvUnverified = evidenceBoundSpecSchema.parse({
+  value: 1950,
+  unit: 'KV',
+  sourceUrls: ['https://retailer.example/motor-2207'],
+  sourceType: 'retailer',
+  confidence: 0.72,
+  extractionMethod: 'regex',
+  status: 'unverified',
+});
+
+const conflictMerge = mergeCatalogProduct(
+  product({
+    evidenceSpecs: { kv: verifiedKv },
+    trustStatus: 'VERIFIED',
+    specs: { kv: 1950 },
+  }),
+  product({
+    evidenceSpecs: { kv: incomingConflictKv },
+    trustStatus: 'QUARANTINE',
+    specs: { kv: 2200 },
+    url: sourceUrl,
+  }),
+  '2026-06-29T11:05:00.000Z',
+);
+assert.equal(conflictMerge.conflicts, 1);
+assert.equal(conflictMerge.product.trustStatus, 'REVIEW_REQUIRED');
+assert.equal(conflictMerge.product.evidenceSpecs?.kv.status, 'conflicting');
+assert.equal(conflictMerge.product.conflictLog?.[0]?.field, 'kv');
+assert.equal(conflictMerge.product.conflictLog?.[0]?.existingValue, 1950);
+assert.equal(conflictMerge.product.conflictLog?.[0]?.incomingValue, 2200);
+
+const identicalCriticalMerge = mergeCatalogProduct(
+  product({ evidenceSpecs: { kv: verifiedKv }, trustStatus: 'VERIFIED', specs: { kv: 1950 } }),
+  product({ evidenceSpecs: { kv: incomingSameKvUnverified }, trustStatus: 'QUARANTINE', specs: { kv: 1950 } }),
+  '2026-06-29T11:06:00.000Z',
+);
+assert.equal(identicalCriticalMerge.conflicts, 0);
+assert.equal(identicalCriticalMerge.product.conflictLog?.length, 0);
+assert.equal(identicalCriticalMerge.product.trustStatus, 'VERIFIED');
+assert.equal(identicalCriticalMerge.product.evidenceSpecs?.kv.status, 'verified');
+
+const crossUrlConflictMerge = mergeCrawlerProductCatalog([
+  product({
+    brand: 'Example',
+    name: 'Example 2207 Motor',
+    url: 'https://manufacturer.example/motor-2207',
+    evidenceSpecs: { kv: verifiedKv },
+    trustStatus: 'VERIFIED',
+    specs: { kv: 1950 },
+  }),
+], [
+  product({
+    brand: 'Example',
+    name: 'Example 2207 Motor',
+    url: 'https://retailer.example/motor-2207',
+    evidenceSpecs: { kv: incomingConflictKv },
+    trustStatus: 'QUARANTINE',
+    specs: { kv: 2200 },
+  }),
+], '2026-06-29T11:06:30.000Z');
+assert.equal(crossUrlConflictMerge.products.length, 1);
+assert.equal(crossUrlConflictMerge.products[0]?.trustStatus, 'REVIEW_REQUIRED');
+assert.equal(crossUrlConflictMerge.stats.conflicts, 1);
+
+const existingColor = evidenceBoundSpecSchema.parse({
+  value: 'black',
+  unit: null,
+  sourceUrls: [sourceUrl],
+  sourceType: 'manufacturer',
+  confidence: 0.9,
+  extractionMethod: 'spec_table',
+  status: 'verified',
+});
+const incomingColor = evidenceBoundSpecSchema.parse({
+  value: 'orange',
+  unit: null,
+  sourceUrls: ['https://retailer.example/motor-2207'],
+  sourceType: 'retailer',
+  confidence: 0.7,
+  extractionMethod: 'regex',
+  status: 'unverified',
+});
+const noncriticalMerge = mergeCatalogProduct(
+  product({ evidenceSpecs: { color: existingColor }, specs: { color: 'black' } }),
+  product({ evidenceSpecs: { color: incomingColor }, specs: { color: 'orange' } }),
+  '2026-06-29T11:07:00.000Z',
+);
+assert.equal(noncriticalMerge.conflicts, 0);
+assert.equal(noncriticalMerge.product.evidenceSpecs?.color.value, 'black');
+
+const malformedRawIngestion = mergeCrawlerProductCatalog([], [
+  { not: 'a product' },
+  {
+    ...product({ id: 'malformed-evidence-ingestion', url: 'https://shop.example/malformed' }),
+    evidenceSpecs: { kv: { ...verifiedKv, sourceUrls: ['javascript:alert(1)'] } },
+    trustStatus: 'VERIFIED',
+  },
+]);
+assert.equal(malformedRawIngestion.products.length, 1);
+assert.equal(malformedRawIngestion.products[0]?.trustStatus, 'QUARANTINE');
+assert.deepEqual(malformedRawIngestion.products[0]?.evidenceSpecs, {});
+
+const fakeQueries: { text: string; params?: unknown[] }[] = [];
+const fakeDbClient: ProductCatalogDbClient = {
+  async query(text: string, params?: unknown[]) {
+    fakeQueries.push({ text, params });
+    return { rows: [], command: 'INSERT', rowCount: 1, oid: 0, fields: [] };
+  },
+};
+const newDbVerifiedProduct = product({
+  id: 'db-new-verified',
+  url: 'https://shop.example/db-new-verified',
+  trustStatus: 'VERIFIED',
+  evidenceSpecs: { kv: verifiedKv },
+  specs: { kv: 1950 },
+});
+
 const crawlerSource = readFileSync(new URL('../src/lib/tools/crawler-product-catalog.ts', import.meta.url), 'utf8');
 assert.doesNotMatch(crawlerSource, /safeReadJson\s*<\s*any\s*>|\bas\s+any\b|:\s*any\b/);
 
-console.log('spec trust regression tests passed');
+void upsertCatalogProductsToDb(fakeDbClient, [conflictMerge.product])
+  .then(() => upsertCatalogProductsToDb(fakeDbClient, [newDbVerifiedProduct]))
+  .then(() => {
+    assert.equal(fakeQueries.length, 2);
+    assert.match(fakeQueries[0]?.text || '', /ON CONFLICT \(slug\) DO UPDATE/i);
+    assert.equal(fakeQueries[0]?.params?.[6], 'REVIEW_REQUIRED');
+    assert.match(String(fakeQueries[0]?.params?.[7]), /review_required/);
+    assert.equal(fakeQueries[1]?.params?.[6], 'QUARANTINE');
+    console.log('spec trust regression tests passed');
+  })
+  .catch((error: unknown) => {
+    throw error;
+  });

@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import type { FpvCatalogProduct } from '@/lib/tools/fpv-product-types';
 import { getCrawlerProductCatalog } from '@/lib/tools/crawler-product-catalog';
+import { mergeCrawlerProductCatalog } from '@/lib/tools/product-catalog-ingestion';
 import { safeReadJson } from '@/lib/utils/json';
 
 type StoredCatalog = {
@@ -14,9 +15,12 @@ const CATALOG_FILE = path.join(process.cwd(), 'data', 'fpv-products.catalog.json
 
 function readExistingCatalogMeta(): Pick<StoredCatalog, 'source'> {
   try {
-    const raw = safeReadJson<any>(CATALOG_FILE, null) as { source?: unknown };
+    const raw = safeReadJson<unknown>(CATALOG_FILE, null);
+    const record = raw && typeof raw === 'object' && !Array.isArray(raw)
+      ? raw as { source?: unknown }
+      : {};
     return {
-      source: typeof raw.source === 'string' ? raw.source : 'crawler-normalized-product-catalog',
+      source: typeof record.source === 'string' ? record.source : 'crawler-normalized-product-catalog',
     };
   } catch {
     return { source: 'crawler-normalized-product-catalog' };
@@ -37,15 +41,6 @@ export function writeCrawlerProductCatalog(products: FpvCatalogProduct[]) {
 }
 
 export function upsertCrawlerProductCatalog(products: FpvCatalogProduct[]) {
-  const byKey = new Map<string, FpvCatalogProduct>();
-
-  for (const product of getCrawlerProductCatalog()) {
-    byKey.set(product.url || product.id, product);
-  }
-
-  for (const product of products) {
-    byKey.set(product.url || product.id, product);
-  }
-
-  return writeCrawlerProductCatalog([...byKey.values()]);
+  const merged = mergeCrawlerProductCatalog(getCrawlerProductCatalog(), products);
+  return writeCrawlerProductCatalog(merged.products);
 }

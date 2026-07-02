@@ -1,8 +1,11 @@
 import type {
   EvidenceBoundSpec,
   ProductReviewMetadata,
+  ProductSpecConflictLogEntry,
   ProductTrustStatus,
 } from '@/lib/types/spec-trust';
+
+export type { ProductSpecConflictLogEntry } from '@/lib/types/spec-trust';
 
 export type FpvProductType =
   | 'frame'
@@ -37,6 +40,7 @@ export type FpvCatalogProduct = {
   specs: Record<string, ProductSpecValue>;
   evidenceSpecs?: Record<string, EvidenceBoundSpec>;
   trustStatus?: ProductTrustStatus;
+  conflictLog?: ProductSpecConflictLogEntry[];
   reviewMetadata?: ProductReviewMetadata;
   fit: {
     styles: string[];

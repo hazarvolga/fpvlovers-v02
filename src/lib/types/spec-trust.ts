@@ -50,6 +50,16 @@ export const productReviewMetadataSchema = z.object({
   notes: z.string().optional(),
 }).strict();
 
+export const productSpecConflictLogEntrySchema = z.object({
+  field: z.string().trim().min(1),
+  existingValue: specValueSchema,
+  incomingValue: specValueSchema,
+  existingSourceUrls: z.array(z.string().url().regex(/^https?:\/\//i)).nonempty(),
+  incomingSourceUrls: z.array(z.string().url().regex(/^https?:\/\//i)).nonempty(),
+  detectedAt: z.string().datetime(),
+  resolution: z.literal('review_required'),
+}).strict();
+
 export type ProductTrustStatus = z.infer<typeof productTrustStatusSchema>;
 export type EvidenceSpecStatus = z.infer<typeof evidenceSpecStatusSchema>;
 export type SpecSourceType = z.infer<typeof specSourceTypeSchema>;
@@ -57,6 +67,7 @@ export type SpecExtractionMethod = z.infer<typeof specExtractionMethodSchema>;
 export type SpecValue = z.infer<typeof specValueSchema>;
 export type EvidenceBoundSpec = z.infer<typeof evidenceBoundSpecSchema>;
 export type ProductReviewMetadata = z.infer<typeof productReviewMetadataSchema>;
+export type ProductSpecConflictLogEntry = z.infer<typeof productSpecConflictLogEntrySchema>;
 
 type UnknownSpecInput = Omit<EvidenceBoundSpec, 'value' | 'status'>;
 type VerifiedSpecInput = Omit<EvidenceBoundSpec, 'status' | 'value'> & { value: Exclude<SpecValue, null> };

@@ -1,8 +1,14 @@
 import fs from 'fs';
 import path from 'path';
-import type { FpvCatalogProduct, FpvProductType, ProductSpecValue } from '@/lib/tools/fpv-product-types';
+import type {
+  FpvCatalogProduct,
+  FpvProductType,
+  ProductSpecConflictLogEntry,
+  ProductSpecValue,
+} from '@/lib/tools/fpv-product-types';
 import {
   evidenceBoundSpecSchema,
+  productSpecConflictLogEntrySchema,
   productReviewMetadataSchema,
   productTrustStatusSchema,
 } from '@/lib/types/spec-trust';
@@ -81,6 +87,14 @@ function asEvidenceSpecs(value: unknown): { specs: Record<string, EvidenceBoundS
     return result;
   }, {});
   return { specs, malformed };
+}
+
+function asConflictLog(value: unknown): ProductSpecConflictLogEntry[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((entry) => {
+    const parsed = productSpecConflictLogEntrySchema.safeParse(entry);
+    return parsed.success ? [parsed.data] : [];
+  });
 }
 
 function asProductType(value: unknown): FpvProductType | undefined {
@@ -180,6 +194,7 @@ function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
     specs,
     evidenceSpecs: evidence.specs,
     trustStatus,
+    conflictLog: asConflictLog(record.conflictLog),
     reviewMetadata: productReviewMetadataSchema.safeParse(record.reviewMetadata).success
       ? productReviewMetadataSchema.parse(record.reviewMetadata)
       : undefined,
