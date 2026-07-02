@@ -1,21 +1,18 @@
 {
-  "generatedAt": "2026-06-25T14:43:16.498Z",
+  "generatedAt": "2026-07-02T00:00:00+03:00",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "release-verification-pending",
-  "branch": "main",
-  "head": "1ca1b724bda1",
-  "behind": 0,
-  "ahead": 0,
+  "state": "spec-trust-layer-complete-push-pending",
+  "branch": "feat/spec-trust-layer",
   "currentBlockers": [
-    "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
-    "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
-    "Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy."
+    "Production deployment and live browser verification are pending.",
+    "Local no-env build still requires DIFY_API_KEY during page-data collection; dummy env verification passed.",
+    "Optional DB upsert was verified with a fake client, not a live production database write."
   ],
-  "nextTask": "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
+  "nextTask": "Run final verification and push feat/spec-trust-layer.",
   "filesOfTruth": [
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/PROJECT_MEMORY.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/NEXT_ACTIONS.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-06-18-post-analysis-gap-closure.md"
+    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/handoff/2026-07-02-spec-trust-layer.md",
+    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-06-29-technical-spec-trust-layer.md",
+    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/specs/2026-06-29-technical-spec-trust-layer-design.md"
   ],
   "handoffPath": "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/handoff/latest.md"
 }
