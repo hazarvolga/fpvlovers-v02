@@ -122,6 +122,23 @@ function mapCategoryToType(category: string | undefined): FpvProductType | undef
   return undefined;
 }
 
+function normalizeTrustStatus(
+  rawStatus: unknown,
+  evidence: { specs: Record<string, EvidenceBoundSpec>; malformed: boolean },
+): FpvCatalogProduct['trustStatus'] {
+  const parsedTrustStatus = productTrustStatusSchema.safeParse(rawStatus);
+  if (!parsedTrustStatus.success || evidence.malformed) return 'QUARANTINE';
+
+  const evidenceValues = Object.values(evidence.specs);
+  if (!evidenceValues.length) return 'QUARANTINE';
+
+  if (parsedTrustStatus.data === 'VERIFIED') {
+    return evidenceValues.some((spec) => spec.status === 'verified') ? 'VERIFIED' : 'QUARANTINE';
+  }
+
+  return parsedTrustStatus.data;
+}
+
 function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
   const record = asRecord(value);
   if (!record) return undefined;
@@ -144,7 +161,7 @@ function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
     if (spec.value === null) delete specs[key];
     else specs[key] = spec.value;
   }
-  const parsedTrustStatus = productTrustStatusSchema.safeParse(record.trustStatus);
+  const trustStatus = normalizeTrustStatus(record.trustStatus, evidence);
 
   return {
     id,
@@ -162,7 +179,7 @@ function normalizeProduct(value: unknown): FpvCatalogProduct | undefined {
     tags: asStringArray(record.tags),
     specs,
     evidenceSpecs: evidence.specs,
-    trustStatus: parsedTrustStatus.success && !evidence.malformed ? parsedTrustStatus.data : 'QUARANTINE',
+    trustStatus,
     reviewMetadata: productReviewMetadataSchema.safeParse(record.reviewMetadata).success
       ? productReviewMetadataSchema.parse(record.reviewMetadata)
       : undefined,

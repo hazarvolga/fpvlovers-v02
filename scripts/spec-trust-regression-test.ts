@@ -271,12 +271,26 @@ const persisted = normalizeCrawlerCatalog({ products: [{
 }, {
   ...product({ id: 'bad-status' }),
   trustStatus: 'NOT_A_STATUS',
+}, {
+  ...product({ id: 'missing-evidence' }),
+  trustStatus: 'VERIFIED',
+}, {
+  ...product({ id: 'empty-evidence' }),
+  trustStatus: 'VERIFIED',
+  evidenceSpecs: {},
+}, {
+  ...product({ id: 'unverified-only' }),
+  trustStatus: 'VERIFIED',
+  evidenceSpecs: { kv: unknownKv },
 }] });
 assert.equal(persisted[0]?.trustStatus, 'VERIFIED');
 assert.equal(persisted[0]?.evidenceSpecs?.kv.status, 'verified');
 assert.equal(persisted[1]?.trustStatus, 'QUARANTINE');
 assert.deepEqual(persisted[1]?.evidenceSpecs, {});
 assert.equal(persisted[2]?.trustStatus, 'QUARANTINE');
+assert.equal(persisted[3]?.trustStatus, 'QUARANTINE');
+assert.equal(persisted[4]?.trustStatus, 'QUARANTINE');
+assert.equal(persisted[5]?.trustStatus, 'QUARANTINE');
 assert.deepEqual(normalizeCrawlerCatalog('{ malformed json'), []);
 
 const crawlerSource = readFileSync(new URL('../src/lib/tools/crawler-product-catalog.ts', import.meta.url), 'utf8');
