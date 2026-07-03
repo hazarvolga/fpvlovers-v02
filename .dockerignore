@@ -1,0 +1,25 @@
+.git
+.github
+.next
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime secrets are injected by the deployment platform at container runtime.
+# They must never enter the Docker build context or image layers.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*secret*
+*secrets*
+
+coverage
+playwright-report
+test-results
+*.tsbuildinfo
+
+docs/handoff
