@@ -1,7 +1,6 @@
-import { getOptionalEnv, getRequiredEnv } from "@/lib/env";
+import { getOptionalEnv } from "@/lib/env";
 
 const DIFY_BASE = getOptionalEnv("DIFY_BASE_URL", "https://dify.affexai.tr/v1");
-const API_KEY = getRequiredEnv("DIFY_API_KEY");
 
 const DATASETS = {
   components: "38bb7d60-b921-440c-b8f4-e49f9982a61f",
@@ -14,13 +13,33 @@ const DATASETS = {
   racingEvents: "cd17b1ea-a852-4d31-87d7-1b4c0bd46e7f",
 };
 
-const headers = { Authorization: `Bearer ${API_KEY}` };
+type DifyDocument = {
+  id: string;
+  name?: string;
+  indexing_status?: string;
+  tokens?: number;
+  doc_metadata?: {
+    source_url?: string;
+    tag?: string;
+  };
+};
 
-async function fetchDocs(datasetId: string): Promise<any[]> {
+type DifySegment = {
+  content?: string;
+};
+
+function getDifyHeaders(): HeadersInit | undefined {
+  const apiKey = process.env.DIFY_API_KEY?.trim();
+  return apiKey ? { Authorization: `Bearer ${apiKey}` } : undefined;
+}
+
+async function fetchDocs(datasetId: string): Promise<DifyDocument[]> {
+  const headers = getDifyHeaders();
+  if (!headers) return [];
   try {
     const resp = await fetch(`${DIFY_BASE}/datasets/${datasetId}/documents?limit=20`, { headers, signal: AbortSignal.timeout(10000) });
     if (!resp.ok) return [];
-    const { data } = await resp.json() as { data: any[] };
+    const { data } = await resp.json() as { data?: DifyDocument[] };
     return data || [];
   } catch {
     return [];
@@ -28,11 +47,13 @@ async function fetchDocs(datasetId: string): Promise<any[]> {
 }
 
 async function fetchSegments(datasetId: string, docId: string, limit = 1): Promise<string> {
+  const headers = getDifyHeaders();
+  if (!headers) return "";
   try {
     const resp = await fetch(`${DIFY_BASE}/datasets/${datasetId}/documents/${docId}/segments?limit=${limit}`, { headers, signal: AbortSignal.timeout(8000) });
     if (!resp.ok) return "";
-    const { data } = await resp.json() as { data: any[] };
-    return data?.map((s: any) => s.content).join(" ").slice(0, 500) || "";
+    const { data } = await resp.json() as { data?: DifySegment[] };
+    return data?.map((segment) => segment.content || "").join(" ").slice(0, 500) || "";
   } catch {
     return "";
   }
@@ -62,7 +83,7 @@ export type HardwareItem = {
 
 export async function getHardwareData(): Promise<{ summary: string; hardware: HardwareItem[] }> {
   const docs = await fetchDocs(DATASETS.components);
-  const completed = docs.filter((d: any) => d.indexing_status === "completed");
+  const completed = docs.filter((document) => document.indexing_status === "completed");
   const items: HardwareItem[] = [];
 
   for (const doc of completed.slice(0, 8)) {
@@ -97,7 +118,7 @@ export async function getHardwareData(): Promise<{ summary: string; hardware: Ha
 
 export async function getFirmwareData(): Promise<{ summary: string; cliCommands: { title: string; content: string; tag: string; tokens: number }[] }> {
   const docs = await fetchDocs(DATASETS.flightTuning);
-  const completed = docs.filter((d: any) => d.indexing_status === "completed");
+  const completed = docs.filter((document) => document.indexing_status === "completed");
   const items: { title: string; content: string; tag: string; tokens: number }[] = [];
 
   for (const doc of completed.slice(0, 6)) {
@@ -151,15 +172,15 @@ export async function getPageData(pageSlug: string): Promise<PageContent> {
 
   try {
     const docs = await fetchDocs(dsId);
-    const completed = docs.filter((d: any) => d.indexing_status === 'completed');
+    const completed = docs.filter((document) => document.indexing_status === 'completed');
 
     if (completed.length === 0) {
       return {
         summary: `${docs.length} documents indexing in the FPV reference library. Ready soon.`,
-        items: docs.slice(0, 3).map((d: any) => ({
-          title: (d.doc_metadata?.source_url || d.name || 'FPV Entry').slice(0, 60),
-          description: `${d.tokens || 0} tokens from ${d.doc_metadata?.source_url || 'reference source'}`,
-          url: d.doc_metadata?.source_url || '#',
+        items: docs.slice(0, 3).map((document) => ({
+          title: (document.doc_metadata?.source_url || document.name || 'FPV Entry').slice(0, 60),
+          description: `${document.tokens || 0} tokens from ${document.doc_metadata?.source_url || 'reference source'}`,
+          url: document.doc_metadata?.source_url || '#',
         })),
       };
     }
@@ -172,7 +193,7 @@ export async function getPageData(pageSlug: string): Promise<PageContent> {
       const seg = await fetchSegments(dsId, doc.id);
       const cleaned = cleanSegment(seg);
       items.push({
-        title: title || doc.name?.slice(0, 32),
+        title: title || doc.name?.slice(0, 32) || 'FPV Reference',
         description: cleaned.slice(0, 250) || `${doc.tokens || 0} tokens`,
         url: sourceUrl || '#',
       });
