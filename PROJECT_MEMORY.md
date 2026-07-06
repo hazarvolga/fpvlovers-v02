@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-06-19
+Last updated: 2026-07-06
 
 ## Current Product Direction
 
@@ -28,6 +28,9 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 
 ## Current Known State
 
+- Data-safe automation recovery started on 2026-07-06. A production PostgreSQL custom-format backup was created before scheduler/content changes: `/root/fpvlovers-db-backups/fpvlovers_prod_20260706T110705Z.dump` on `hulyaekiz`, SHA-256 `06e21a737efbbf574a9108a7055e8b056b404ab96b03bc1017558e6a12c42293`. This backup is the restore point for the automation-monitoring and four-articles-per-day recovery phase.
+- Production automation status on 2026-07-06: frontend container `r0c44ok0cskc800gs0c8o8wk:f80c1ab...` is healthy, PostgreSQL is reachable, but host/user and root crontabs on `hulyaekiz` appeared empty in salt-read verification. PostgreSQL shows `fpvlovers_app.content_jobs`: 47 `published`, 39 `generating`, 4 `failed`, 1 `queued`; `fpvlovers_app.crawl_jobs`: 33 `completed`, 10 `pending`, 5 `failed`, 1 `throttled`. Last published shadow article is `street-league-spec-upcoming-races-section-currently-empty` at `2026-06-22T17:01:18Z`; no new published shadow article was observed after that. Last generate automation record was `2026-07-03T10:00:03Z`; last crawl automation record was `2026-07-03T06:00:05Z`, with recent throttling caused by `Daily embedding budget exceeded (500+500/500)`.
+- New operating target approved on 2026-07-06: autonomous non-review content should be scheduled for at least **4 publishable items/day**, not 1-2/day. Product reviews remain excluded from autonomous publishing and require Hazar Volga Ekiz approval plus evidence/testing/product relationship fields. The next implementation phases must proceed backup-first, update `PROJECT_MEMORY.md` and `NEXT_ACTIONS.md` after each successful phase, and commit each phase so later agents can resume safely.
 - Production credential rotation completed on 2026-06-19 without downtime. `CRON_SECRET`, the dataset API token, and seven unique active Dify app/workflow token groups were replaced in Coolify; the healthy application container was recreated, the host crontab was updated, new credentials were verified, old cron auth returns `401`, and old Dify tokens were revoked after cache invalidation. Secret values were not added to Git or project memory.
 - Production automation audit on 2026-06-19 proved the host cron was firing, but no usable new crawl had reached the knowledge pipeline since 2026-06-09. The file queue reported 162 jobs (84 pending, 25 failed, 53 completed) while the Postgres queue held 49 jobs (32 pending, 17 completed), exposing `dual` storage drift. The crawl cron was subsequently reduced from every 5 minutes to every 6 hours; generation remains every 20 minutes while it stays low-cost/`noop`.
 - Guarded production crawl worker consumes the Postgres-isolated queue, uses primary-to-backup Crawl4AI failover, uploads only through `src/lib/dify-client.ts`, blocks private targets, and processes at most one job by default. Authenticated `?dry_run=true` previews one pending job without crawl/embedding use. Dify uploads are capped at 1,500 characters (500 estimated tokens); the client rejects calls that would exceed the daily 500-token budget and resets the ledger after its UTC reset boundary. Global `FPV_STORAGE_MODE` remains `dual` because the Postgres publication shadow has 109 records versus 117 committed artifacts.

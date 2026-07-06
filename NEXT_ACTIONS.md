@@ -1,8 +1,17 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-06-25
+Last updated: 2026-07-06
 
-## Current Priority After 2026-06-25 GAP Closure
+## Current Priority After 2026-07-06 Automation Recovery Start
+
+1. **DONE - Backup before automation changes:** Production PostgreSQL backup created on `hulyaekiz` at `/root/fpvlovers-db-backups/fpvlovers_prod_20260706T110705Z.dump`, SHA-256 `06e21a737efbbf574a9108a7055e8b056b404ab96b03bc1017558e6a12c42293`.
+2. **Automation monitor phase:** add a commit-ready monitor/report path that reads PostgreSQL state and reports last crawl, last generation, last publish, queued/generating/failed counts, throttled embedding-budget jobs, and stale jobs. This must become the first tool any future agent runs before changing content automation.
+3. **Scheduler repair phase:** identify and standardize the production scheduler source. Current read-only verification found empty user/root crontabs on `hulyaekiz`, despite old memory saying cron was active. Choose one canonical scheduler path and make it write `fpvlovers_app.automation_runs` records every run.
+4. **Four-per-day generation target:** configure autonomous non-review publishing around at least 4 publishable items/day. Product reviews remain held for Hazar Volga Ekiz approval and evidence. Do not increase generation before stale `generating` jobs and the queued “Upcoming Races Section Currently Empty” item are quarantined or resolved.
+5. **Embedding budget guard:** recent crawl throttling shows `Daily embedding budget exceeded (500+500/500)`. The crawl cadence/content volume plan must not spend embedding budget blindly; prioritize source quality and daily quota visibility.
+6. **Phase discipline:** after each successful phase, update `PROJECT_MEMORY.md`, update this file, run the fastest relevant verification, commit, and push before moving to the next phase.
+
+## Previous Priority After 2026-06-25 GAP Closure
 
 1. **Tool corpus phase:** keep Build Wizard, Part Matcher, Component Duel, Hardware Analyzer, and Blackbox Tuning marketed as partial/guardrailed until `fpv-build-guides`, `fpv-components-specs`, `fpv-pid-profiles`, and `fpv-troubleshooting` receive source-backed docs.
 2. **Racing workflow phase:** Dify racing workflow currently falls back locally when Dify returns unsuccessful structured output. Fix Dify workflow output shape/token status before claiming full autonomous racing intelligence.
