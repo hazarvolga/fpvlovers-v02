@@ -1,17 +1,18 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-07-06
+Last updated: 2026-07-13
 
 ## Current Priority After 2026-07-06 Automation Recovery Start
 
 1. **DONE - Backup before automation changes:** Production PostgreSQL backup created on `hulyaekiz` at `/root/fpvlovers-db-backups/fpvlovers_prod_20260706T110705Z.dump`, SHA-256 `06e21a737efbbf574a9108a7055e8b056b404ab96b03bc1017558e6a12c42293`.
 2. **DONE - Automation monitor phase:** added `src/lib/automation/automation-status.ts`, protected `GET /api/admin/automation/status`, and `npm run automation:status` with daily target `4`. Local typecheck and targeted ESLint passed. Deployed `fcbcc20` through Coolify deployment `f0w8k4gg4o008c0oko8ks04s`; authenticated live smoke returned `overall=critical`, `publishedLast24h=0`, `staleGenerating=39`, `staleQueued=1`, `throttled=1`.
-3. **DONE - Stale recovery command added:** `npm run automation:recover-stale` is dry-run by default and `--apply` marks stale `generating`/`queued` content jobs as `failed` with audit metadata instead of deleting rows. Local `npx tsc --noEmit` and targeted ESLint passed. Commit/push this as the next safe checkpoint before touching production state.
-4. **NEXT - Apply production stale recovery:** after the recovery command is pushed/deployed or executed from the updated server checkout, run dry-run first, then `--apply` only if candidates match the known 39 stale `generating` jobs plus 1 stale `queued` item. Re-run `/api/admin/automation/status` afterward and confirm stale counts drop.
-5. **NEXT - Scheduler repair phase:** identify and standardize the production scheduler source. Current read-only verification found empty user/root crontabs on `hulyaekiz`, despite old memory saying cron was active. Choose one canonical scheduler path and make it write `fpvlovers_app.automation_runs` records every run.
-6. **Four-per-day generation target:** configure autonomous non-review publishing around at least 4 publishable items/day. Product reviews remain held for Hazar Volga Ekiz approval and evidence. Do not increase generation before stale `generating` jobs and the queued “Upcoming Races Section Currently Empty” item are quarantined or resolved.
-7. **Embedding budget guard:** recent crawl throttling shows `Daily embedding budget exceeded (500+500/500)`. The crawl cadence/content volume plan must not spend embedding budget blindly; prioritize source quality and daily quota visibility.
-8. **Phase discipline:** after each successful phase, update `PROJECT_MEMORY.md`, update this file, run the fastest relevant verification, commit, and push before moving to the next phase.
+3. **DONE - Stale recovery command added:** `npm run automation:recover-stale` is dry-run by default and `--apply` marks stale `generating`/`queued` content jobs as `failed` with audit metadata instead of deleting rows. Local `npx tsc --noEmit` and targeted ESLint passed. Committed and pushed as `bc4b5fa`.
+4. **DONE - Production stale recovery applied:** production DB recovery marked 40 stale rows as `failed` without deletion. Monitor verification showed `staleGenerating=0` and `staleQueued=0`.
+5. **DONE - Scheduler source restored:** root crontab on `hulyaekiz` now uses `/usr/local/bin/fpvlovers-cron-call`; generate runs every 3 hours and crawl runs twice daily. The wrapper reads `CRON_SECRET` from the controlled root secret file and does not expose the value in crontab.
+6. **IN PROGRESS - Close file/DB drift permanently:** dry-run generate exposed that `FPV_STORAGE_MODE=dual` can merge stale file-backed `content-jobs.json` racing briefs back into the queue. Code now adds `FPV_CONTENT_JOBS_STORAGE_MODE=postgres` and changes cron racing brief selection to dedupe against existing slug/id without file writes. Commit, push, deploy, then set `FPV_CONTENT_JOBS_STORAGE_MODE=postgres` in Coolify.
+7. **NEXT - Validate four-per-day generation target:** after deploy/env update, clear any live file-only queued duplicate in the running container, call generate dry-run, then one real generate if Dify budget allows. Monitor should move from `generate_stale` to active runs and eventually from `publishedLast24h=0` toward `4`.
+8. **Embedding budget guard:** recent crawl throttling shows `Daily embedding budget exceeded (500+500/500)`. The crawl cadence/content volume plan must not spend embedding budget blindly; prioritize source quality and daily quota visibility.
+9. **Phase discipline:** after each successful phase, update `PROJECT_MEMORY.md`, update this file, run the fastest relevant verification, commit, and push before moving to the next phase.
 
 ## Previous Priority After 2026-06-25 GAP Closure
 

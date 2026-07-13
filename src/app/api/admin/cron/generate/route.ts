@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
 import { enqueueBestBriefs } from '@/lib/content-automation/brief-from-source';
-import { enqueueRacingBriefs } from '@/lib/content-automation/racing-to-content';
+import { selectRacingBriefJobs } from '@/lib/content-automation/racing-to-content';
 import { generateContentViaDify } from '@/lib/content-automation/dify-generation';
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
 import { firstWaveContentPlan } from '@/lib/content-plan';
@@ -217,10 +217,11 @@ export async function GET(req: Request) {
     let racingBriefs: ContentJob[] = [];
     try {
       const racingStore = readRacingIntelligenceStore();
-      racingBriefs = enqueueRacingBriefs(racingStore.contentBriefs || [], 2);
+      racingBriefs = selectRacingBriefJobs(racingStore.contentBriefs || [], existingSlugs, 2);
       if (racingBriefs.length > 0) {
         for (const brief of racingBriefs) {
           existingSlugs.add(brief.briefSlug);
+          existingSlugs.add(brief.id);
         }
       }
     } catch {

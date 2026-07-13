@@ -14,3 +14,11 @@ export function getCrawlQueueStorageMode(): StorageMode {
   if (mode === 'files') return 'files';
   return getStorageMode();
 }
+
+export function getContentJobsStorageMode(): StorageMode {
+  const mode = process.env.FPV_CONTENT_JOBS_STORAGE_MODE;
+  if (mode === 'postgres') return 'postgres';
+  if (mode === 'dual') return 'dual';
+  if (mode === 'files') return 'files';
+  return getStorageMode();
+}

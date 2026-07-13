@@ -1,10 +1,26 @@
 import { query } from './db';
 import type { ContentJob } from '../content-automation/types';
-import { getStorageMode } from './storage-mode';
+import { getContentJobsStorageMode } from './storage-mode';
 import * as fs from 'fs';
 import * as path from 'path';
 
 const QUEUE_FILE = path.join(process.cwd(), 'data', 'content-jobs.json');
+
+type ContentJobRow = {
+  id: string;
+  status: ContentJob['status'];
+  topic: string | null;
+  language: ContentJob['language'] | null;
+  title: string | null;
+  briefSlug: string | null;
+  brief: Partial<ContentJob> | null;
+  draft: Record<string, unknown> | null;
+  publish_artifact: { publishedPath?: unknown } | null;
+  error_message: string | null;
+  attempt_count: number | null;
+  createdAt: Date | string | null;
+  updatedAt: Date | string | null;
+};
 
 // --- FILE IMPLEMENTATIONS ---
 function fileLoadContentJobs(): ContentJob[] {
@@ -33,7 +49,7 @@ function fileSaveContentJobs(jobs: ContentJob[]): void {
 // --- DATABASE IMPLEMENTATIONS ---
 async function dbLoadContentJobs(): Promise<ContentJob[]> {
   try {
-    const res = await query(`
+    const res = await query<ContentJobRow>(`
       SELECT 
         id, status, topic, keyword, intent, language, title, slug as "briefSlug",
         brief, draft, publish_artifact, error_message, attempt_count,
@@ -42,14 +58,14 @@ async function dbLoadContentJobs(): Promise<ContentJob[]> {
       ORDER BY updated_at DESC
     `);
     
-    return res.rows.map((row: any) => ({
+    return res.rows.map((row) => ({
       id: row.id,
       briefSlug: row.briefSlug || '',
       title: row.title || '',
       category: row.brief?.category || 'Flight Guides',
       status: row.status,
       topic: row.topic || '',
-      language: row.language,
+      language: row.language || 'en',
       template: row.brief?.template || 'tech-article',
       promptVersion: row.brief?.promptVersion || 'v2',
       sourceHints: Array.isArray(row.brief?.sourceHints) ? row.brief.sourceHints : [],
@@ -60,7 +76,9 @@ async function dbLoadContentJobs(): Promise<ContentJob[]> {
       },
       createdAt: row.createdAt ? new Date(row.createdAt).toISOString() : new Date().toISOString(),
       updatedAt: row.updatedAt ? new Date(row.updatedAt).toISOString() : new Date().toISOString(),
-      publishedPath: row.publish_artifact?.publishedPath || undefined,
+      publishedPath: typeof row.publish_artifact?.publishedPath === 'string'
+        ? row.publish_artifact.publishedPath
+        : undefined,
       error_message: row.error_message || undefined,
       attempt_count: row.attempt_count || 0
     }));
@@ -120,7 +138,7 @@ async function dbUpsertContentJob(job: ContentJob): Promise<void> {
 // --- ORCHESTRATED STORE API ---
 
 export async function loadContentJobsAsync(): Promise<ContentJob[]> {
-  const mode = getStorageMode();
+  const mode = getContentJobsStorageMode();
   if (mode === 'postgres') {
     return dbLoadContentJobs();
   }
@@ -144,7 +162,7 @@ export async function loadContentJobsAsync(): Promise<ContentJob[]> {
 }
 
 export async function saveContentJobsAsync(jobs: ContentJob[]): Promise<void> {
-  const mode = getStorageMode();
+  const mode = getContentJobsStorageMode();
   
   if (mode === 'postgres') {
     try {
@@ -180,7 +198,7 @@ export async function saveContentJobsAsync(jobs: ContentJob[]): Promise<void> {
 }
 
 export async function enqueueContentJobAsync(job: ContentJob): Promise<ContentJob[]> {
-  const mode = getStorageMode();
+  const mode = getContentJobsStorageMode();
   const nowStr = new Date().toISOString();
   
   const enriched: ContentJob = {

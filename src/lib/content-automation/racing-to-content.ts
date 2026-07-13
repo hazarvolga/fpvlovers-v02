@@ -44,14 +44,10 @@ export function enqueueRacingBriefs(
   maxCount: number = MAX_AUTO_ENQUEUE,
 ): ContentJob[] {
   const jobs = loadContentJobs();
-  const existingSlugs = new Set(jobs.map((j) => j.briefSlug));
-
-  const eligible = briefs
-    .filter((b) => TARGET_PRIORITY.includes(b.priority as typeof TARGET_PRIORITY[number]))
-    .filter((b) => !existingSlugs.has(b.slug))
-    .slice(0, maxCount);
-
-  const newJobs = eligible.map(racingBriefToContentJob);
+  const existingSlugs = new Set(
+    jobs.flatMap((job) => [job.id, job.briefSlug, job.seo?.slug].filter(Boolean) as string[]),
+  );
+  const newJobs = selectRacingBriefJobs(briefs, existingSlugs, maxCount);
 
   if (newJobs.length > 0) {
     const now = new Date().toISOString();
@@ -64,4 +60,20 @@ export function enqueueRacingBriefs(
   }
 
   return newJobs;
+}
+
+export function selectRacingBriefJobs(
+  briefs: RacingContentBrief[],
+  existingSlugsOrIds: Set<string>,
+  maxCount: number = MAX_AUTO_ENQUEUE,
+): ContentJob[] {
+  const eligible = briefs
+    .filter((brief) => TARGET_PRIORITY.includes(brief.priority as typeof TARGET_PRIORITY[number]))
+    .filter((brief) => {
+      const jobId = `racing-${brief.slug}`;
+      return !existingSlugsOrIds.has(brief.slug) && !existingSlugsOrIds.has(jobId);
+    })
+    .slice(0, maxCount);
+
+  return eligible.map(racingBriefToContentJob);
 }
