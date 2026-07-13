@@ -14,6 +14,41 @@ const CATEGORY_TEMPLATE_MAP: Record<string, ContentTemplate> = {
 const PILLAR_TEMPLATE: ContentTemplate = 'build-guide';
 const SUPPORT_TEMPLATE: ContentTemplate = 'tech-article';
 
+const CATEGORY_SOURCE_HINTS: Record<string, string[]> = {
+  'Flight Guides': [
+    'https://betaflight.com/docs/wiki',
+    'https://www.expresslrs.org/',
+  ],
+  'Build Guides': [
+    'https://betaflight.com/docs/wiki',
+    'https://www.fpvknowitall.com/',
+  ],
+  Troubleshooting: [
+    'https://betaflight.com/docs/wiki',
+    'https://oscarliang.com/',
+  ],
+  Components: [
+    'https://betaflight.com/docs/wiki',
+    'https://www.fpvknowitall.com/',
+  ],
+  Racing: [
+    'https://www.multigp.com/',
+    'https://www.fai.org/page/drone-racing',
+  ],
+  Regulations: [
+    'https://www.faa.gov/uas/recreational_flyers',
+  ],
+  'News and Reviews': [
+    'https://www.fpvknowitall.com/',
+    'https://oscarliang.com/',
+  ],
+};
+
+function sourceHintsForEntry(entry: ContentBrief): string[] {
+  const categorySources = CATEGORY_SOURCE_HINTS[entry.category] || [];
+  return [...categorySources, entry.whyThisMatters];
+}
+
 export function briefFromContentEntry(entry: ContentBrief): ContentJob {
   const template =
     CATEGORY_TEMPLATE_MAP[entry.category] ||
@@ -29,7 +64,7 @@ export function briefFromContentEntry(entry: ContentBrief): ContentJob {
     language: 'en',
     template,
     promptVersion: 'v2',
-    sourceHints: [entry.whyThisMatters],
+    sourceHints: sourceHintsForEntry(entry),
     seo: {
       slug: entry.slug,
       metaDescription: entry.metaDescription,
