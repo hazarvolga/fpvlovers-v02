@@ -177,6 +177,7 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
     },
     appKey,
     'content_gen',
+    180000,
   );
 
   if (!workflow.success) {

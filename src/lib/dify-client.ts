@@ -438,6 +438,7 @@ export async function runWorkflow(
   inputs: Record<string, unknown>,
   appToken: string,
   taskType: TaskType = 'content_gen',
+  timeout = 30000,
 ): Promise<DifyWorkflowResponse> {
   const response = await difyRequest('/workflows/run', {
     method: 'POST',
@@ -448,6 +449,7 @@ export async function runWorkflow(
     },
     apiKey: appToken,
     taskType,
+    timeout,
   });
 
   return normalizeWorkflowResponse(response);
