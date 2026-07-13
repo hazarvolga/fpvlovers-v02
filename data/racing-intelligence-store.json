@@ -161,7 +161,7 @@
       {
         "id": "5f0469bb42b7f643",
         "type": "event",
-        "name": "Kings of Tulsa \u2013 MultiGP Champs 2025",
+        "name": "Kings of Tulsa – MultiGP Champs 2025",
         "summary": "The MultiGP Championship event held in Tulsa in 2025.",
         "confidence": 0.8,
         "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
@@ -525,13 +525,13 @@
         "id": "5a8d3d4d77b81afd",
         "type": "event",
         "name": "DCL Super Final",
-        "summary": "The culminating event of the 2025 Drone Champions League season, held at K\u00f6nigssee, Germany, where Raiden Racing secured the championship.",
+        "summary": "The culminating event of the 2025 Drone Champions League season, held at Königssee, Germany, where Raiden Racing secured the championship.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "sourceName": "DCL 2025 Super Final Report",
         "attributes": {
           "year": 2025,
-          "location": "K\u00f6nigssee, Germany"
+          "location": "Königssee, Germany"
         },
         "reviewStatus": "pending-review",
         "lastVerifiedAt": "2026-06-06T09:30:52.368Z"
@@ -678,7 +678,7 @@
         "status": "upcoming",
         "sourceUrl": "https://dutchdroneracing.com/racing/events/nk-drone-racing-2026-ranking-2",
         "sourceName": "Dutch Drone Racing",
-        "confidence": 1.0
+        "confidence": 1
       },
       {
         "date": "2026-06-21",
@@ -1340,13 +1340,13 @@
         "id": "49c1db2416e671a7",
         "type": "team",
         "name": "Vexcel Spain Drone Team",
-        "summary": "Vexcel Spain Drone Team is a DCL team based in Spain, managed by Juan Antonio Riobo\u00f3 and Salvador Riobo\u00f3, and joined DCL in 2016.",
+        "summary": "Vexcel Spain Drone Team is a DCL team based in Spain, managed by Juan Antonio Rioboó and Salvador Rioboó, and joined DCL in 2016.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/teams/",
         "sourceName": "Drone Champions League Teams",
         "attributes": {
           "base": "Spain",
-          "manager": "Juan Antonio Riobo\u00f3; Salvador Riobo\u00f3",
+          "manager": "Juan Antonio Rioboó; Salvador Rioboó",
           "championshipTitles": 0,
           "dclMemberSince": 2016,
           "instagramUrl": "https://www.instagram.com/spaindroneteam?igsh=bWFpYmdqcXdvd3c3",
@@ -2028,12 +2028,12 @@
         "id": "62aa683f5b3bfcd9",
         "type": "rule",
         "name": "DCL 2025 Season Competition Format",
-        "summary": "The 2025 DCL season featured qualification via DCL \u2013 The Game simulator, leading to Cup Finals for top teams and a Super Final invitation for the top two teams of the season.",
+        "summary": "The 2025 DCL season featured qualification via DCL – The Game simulator, leading to Cup Finals for top teams and a Super Final invitation for the top two teams of the season.",
         "confidence": 1,
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "sourceName": "DCL 2025 Super Final Report",
         "attributes": {
-          "qualification_method": "DCL \u2013 The Game simulator",
+          "qualification_method": "DCL – The Game simulator",
           "progression": "Qualification -> Cup Finals -> Super Final"
         },
         "reviewStatus": "pending-review",
@@ -2463,7 +2463,7 @@
       {
         "id": "b2ad7693e3c5c468",
         "type": "media",
-        "name": "Kings of Tulsa \u2013 MultiGP Champs 2025",
+        "name": "Kings of Tulsa – MultiGP Champs 2025",
         "summary": "A news article published by MultiGP on October 20, 2025, recapping the MultiGP Champs 2025 event.",
         "confidence": 1,
         "sourceUrl": "https://www.multigp.com/kings-of-tulsa-multigp-champs-2025/",
@@ -2519,8 +2519,8 @@
       {
         "id": "be863c26fdcbfdd7",
         "type": "media",
-        "name": "DCL \u2013 The Game",
-        "summary": "DCL \u2013 The Game is a simulation game that brings the thrill of drone racing to PC, PlayStation, and Xbox, featuring over 30 tracks and four flight modes.",
+        "name": "DCL – The Game",
+        "summary": "DCL – The Game is a simulation game that brings the thrill of drone racing to PC, PlayStation, and Xbox, featuring over 30 tracks and four flight modes.",
         "confidence": 0.9,
         "sourceUrl": "https://dronechampionsleague.com/game/",
         "sourceName": "Drone Champions League Home",
@@ -2627,19 +2627,19 @@
         "pilot": "MinJae Kim",
         "inducted": 2024,
         "category": "World Champion",
-        "reason": "FAI Drone Racing World Cup 2024 Champion \u2014 dominant season with 3 race wins."
+        "reason": "FAI Drone Racing World Cup 2024 Champion — dominant season with 3 race wins."
       },
       {
         "pilot": "Alex Vanover",
         "inducted": 2023,
         "category": "Multi-Discipline",
-        "reason": "DCL Champion, MultiGP Champion, DRL Medalist \u2014 proven across all major leagues."
+        "reason": "DCL Champion, MultiGP Champion, DRL Medalist — proven across all major leagues."
       },
       {
         "pilot": "Thomas Bitmatta",
         "inducted": 2025,
         "category": "Series Champion",
-        "reason": "DCL 2024-25 Series Champion \u2014 consistent podium finishes across the season."
+        "reason": "DCL 2024-25 Series Champion — consistent podium finishes across the season."
       },
       {
         "pilot": "Shaun Taylor (Nytfury)",
@@ -3162,7 +3162,7 @@
       "contentType": "league-update",
       "title": "Drone Champions League: Pioneering Mixed-Reality Drone Racing",
       "slug": "dcl-overview-mixed-reality",
-      "angle": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL \u2013 The Game.",
+      "angle": "Explores DCL's role as the world's leading mixed-reality drone racing league, its use of Digital Twin technology, and its simulation game, DCL – The Game.",
       "priority": "medium",
       "targetSection": "about",
       "sourceUrl": "https://dronechampionsleague.com/about-us/",
@@ -3199,9 +3199,9 @@
     },
     {
       "contentType": "race-tech",
-      "title": "DCL \u2013 The Game: Experience Drone Racing on 30+ Tracks",
+      "title": "DCL – The Game: Experience Drone Racing on 30+ Tracks",
       "slug": "dcl-the-game-features",
-      "angle": "Details the features of DCL \u2013 The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
+      "angle": "Details the features of DCL – The Game, including over 30 tracks, real-world locations like LAAX and Reutte, and four flight modes for all skill levels.",
       "priority": "medium",
       "targetSection": "gaming",
       "sourceUrl": "https://dronechampionsleague.com/game/",
@@ -3316,7 +3316,7 @@
     },
     {
       "contentType": "result-recap",
-      "title": "Raiden Racing Conquers K\u00f6nigssee to Claim 2025 DCL Championship",
+      "title": "Raiden Racing Conquers Königssee to Claim 2025 DCL Championship",
       "slug": "raiden-racing-dcl-2025-champions-konigssee",
       "angle": "Highlight Raiden Racing's dominant performance at the Super Final and their third DCL title, acknowledging Spain Drone Team's strong season.",
       "priority": "high",
@@ -3384,13 +3384,14 @@
       "title": "Street League Spec: Upcoming Races Section Currently Empty",
       "slug": "street-league-spec-upcoming-races-empty",
       "angle": "Informative update indicating that no upcoming races are currently listed on the Street League Spec 'Races' page.",
-      "priority": "high",
+      "priority": "low",
       "targetSection": "calendar",
       "sourceUrl": "https://www.streetleague.io/races",
       "reviewRequired": true,
       "id": "4a69ed0f4cab5c99",
-      "reviewStatus": "pending-review",
-      "createdAt": "2026-06-06T09:31:29.993Z"
+      "reviewStatus": "rejected",
+      "createdAt": "2026-06-06T09:31:29.993Z",
+      "rejectionReason": "Source page reported an empty upcoming races section; not publishable as autonomous content."
     },
     {
       "contentType": "league-update",
