@@ -48,6 +48,10 @@ function optionMatches(product: FpvCatalogProduct, type: FpvProductType | FpvPro
   return Array.isArray(type) ? type.includes(product.type) : product.type === type;
 }
 
+function isHttpUrl(value: string | undefined): value is string {
+  return Boolean(value && /^https?:\/\//i.test(value));
+}
+
 export function PartMatcherWidget({ products }: Props) {
   const [selection, setSelection] = useState<BuildSelection>(DEFAULT_SELECTION);
   const [review, setReview] = useState<PartMatcherApiResponse | null>(null);
@@ -179,16 +183,31 @@ export function PartMatcherWidget({ products }: Props) {
                 ))}
               </select>
               {selection[slot.slot] && (() => {
-                 const selectedProduct = options.find(p => p.id === selection[slot.slot])!;
+                 const selectedProduct = options.find((p) => p.id === selection[slot.slot]);
+                 if (!selectedProduct) return null;
+                 const isVerified = selectedProduct.trustStatus === 'VERIFIED';
+                 const evidenceCount = Object.values(selectedProduct.evidenceSpecs ?? {}).filter((spec) => spec.status === 'verified').length;
                  return (
                  <div className="mt-3">
-                    <AffiliateCard 
-                       title={selectedProduct.name}
-                       description={`${selectedProduct.brand} ${selectedProduct.category}`}
-                       price={`$${selectedProduct.price.toFixed(2)}`}
-                       url={selectedProduct.url || '#'}
-                       image={selectedProduct.imageUrl || '/images/placeholders/part-placeholder.jpg'}
-                    />
+                    {isVerified && isHttpUrl(selectedProduct.url) ? (
+                      <AffiliateCard
+                         title={selectedProduct.name}
+                         description={`${selectedProduct.brand} ${selectedProduct.category}`}
+                         price={`$${selectedProduct.price.toFixed(2)}`}
+                         url={selectedProduct.url}
+                         image={selectedProduct.imageUrl || '/images/placeholders/part-placeholder.jpg'}
+                      />
+                    ) : (
+                      <div className="border border-yellow-300/20 bg-yellow-300/5 p-4 text-sm text-yellow-100">
+                        <div className="text-xs font-black uppercase tracking-widest">Research only</div>
+                        <p className="mt-2 leading-relaxed">Purchase links stay disabled until this product has verified critical specifications. Current evidence: {evidenceCount} verified field{evidenceCount === 1 ? '' : 's'}.</p>
+                        {isHttpUrl(selectedProduct.url) && (
+                          <a href={selectedProduct.url} target="_blank" rel="nofollow noopener noreferrer" className="mt-3 inline-flex text-xs font-bold uppercase tracking-widest text-yellow-200 underline underline-offset-4">
+                            Open source for manual verification
+                          </a>
+                        )}
+                      </div>
+                    )}
                  </div>
                  );
               })()}

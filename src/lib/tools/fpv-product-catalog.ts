@@ -230,6 +230,7 @@ export function getFpvProductCatalog(): FpvCatalogProduct[] {
         price: product.price,
         currency: product.currency,
         trustScore: product.trustScore || 80,
+        trustStatus: 'QUARANTINE',
         keywords: product.keywords.filter((keyword): keyword is string => typeof keyword === 'string'),
         compatibleWith: product.compatibleWith.filter((item): item is string => typeof item === 'string'),
         tags: [...new Set([...(override.tags || []), ...product.keywords])],

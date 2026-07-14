@@ -25,8 +25,13 @@ function formatSpecValue(value: ProductSpecValue): string {
   return String(value);
 }
 
+function isHttpUrl(value: string | undefined): value is string {
+  return Boolean(value && /^https?:\/\//i.test(value));
+}
+
 function ProductCard({ product, winner, score, side }: { product: FpvCatalogProduct; winner: boolean; score: number, side: 'left' | 'right' }) {
   const specs = Object.entries(product.specs).slice(0, 5);
+  const isVerified = product.trustStatus === 'VERIFIED';
 
   return (
     <div className={cn(
@@ -54,7 +59,7 @@ function ProductCard({ product, winner, score, side }: { product: FpvCatalogProd
             ? side === 'left' ? 'border-[#FF5C00] bg-[#FF5C00]/10 text-[#FF5C00]' : 'border-[#00F2FF] bg-[#00F2FF]/10 text-[#00F2FF]'
             : 'border-white/10 text-[#A0A0A0] bg-black/40'
         )}>
-          {winner ? 'WINNER' : 'SCORE'} <span className="ml-1 text-white">{score}</span>
+          {winner ? 'WINNER' : isVerified ? 'SCORE' : 'RESEARCH'} <span className="ml-1 text-white">{score}</span>
         </div>
       </div>
 
@@ -67,7 +72,9 @@ function ProductCard({ product, winner, score, side }: { product: FpvCatalogProd
         <div className="border border-white/10 bg-black/40 p-4 relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-1 h-full bg-[#00FF66]/50"></div>
           <div className="text-[10px] uppercase tracking-[0.2em] text-[#A0A0A0] mb-1">TRUST</div>
-          <div className="font-mono text-xl text-[#00FF66] tracking-tight">{product.trustScore}<span className="text-sm text-white/40">/100</span></div>
+          <div className={cn('font-mono text-xl tracking-tight', isVerified ? 'text-[#00FF66]' : 'text-yellow-300')}>
+            {isVerified ? `${product.trustScore}` : 'N/A'}<span className="text-sm text-white/40">{isVerified ? '/100' : ' unverified'}</span>
+          </div>
         </div>
       </div>
 
@@ -80,14 +87,20 @@ function ProductCard({ product, winner, score, side }: { product: FpvCatalogProd
         ))}
       </div>
 
-      <Button asChild variant="outline" className={cn(
-        "mt-8 w-full z-10 font-bold tracking-widest text-xs uppercase border-none text-black",
-        side === 'left' ? "bg-[#FF5C00] hover:bg-[#FF5C00]/90" : "bg-[#00F2FF] hover:bg-[#00F2FF]/90"
-      )}>
-        <a href={product.url} target="_blank" rel="nofollow sponsored noopener noreferrer">
-          VIEW SOURCE <ArrowUpRight className="ml-2 h-4 w-4" />
-        </a>
-      </Button>
+      {isHttpUrl(product.url) ? (
+        <Button asChild variant="outline" className={cn(
+          "mt-8 w-full z-10 font-bold tracking-widest text-xs uppercase border-none text-black",
+          side === 'left' ? "bg-[#FF5C00] hover:bg-[#FF5C00]/90" : "bg-[#00F2FF] hover:bg-[#00F2FF]/90"
+        )}>
+          <a href={product.url} target="_blank" rel={isVerified ? 'nofollow sponsored noopener noreferrer' : 'nofollow noopener noreferrer'}>
+            {isVerified ? 'VIEW SOURCE' : 'RESEARCH LINK'} <ArrowUpRight className="ml-2 h-4 w-4" />
+          </a>
+        </Button>
+      ) : (
+        <div className="mt-8 border border-yellow-300/20 bg-yellow-300/5 px-4 py-3 text-center text-xs font-bold uppercase tracking-widest text-yellow-200">
+          No verified source link
+        </div>
+      )}
     </div>
   );
 }

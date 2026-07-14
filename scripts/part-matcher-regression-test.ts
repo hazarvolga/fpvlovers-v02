@@ -41,8 +41,30 @@ const cellCheck = result.checks.find((check) => check.label === 'Motor / battery
 
 assert.equal(cellCheck?.status, 'warn');
 assert.match(cellCheck?.detail || '', /cell count/i);
-assert.equal(result.verdict, 'caution');
+assert.equal(result.verdict, 'blocked');
 assert.equal(result.engineeringSafety.isEngineeringSafe, false);
 assert.ok(result.engineeringSafety.unverifiedFields.includes('battery.cellCount'));
+
+const completeRawCatalog = [
+  product({ id: 'raw-frame', name: 'Raw frame', type: 'frame', specs: { propSize: 5, weight: 130 }, fit: { styles: ['freestyle'], propSizes: [5] } }),
+  product({ id: 'raw-motor', name: 'Raw motor', type: 'motor', specs: { kv: 1850, propSize: 5, weight: 32, cellCounts: [6] }, fit: { styles: ['freestyle'], cellCounts: [6], propSizes: [5] } }),
+  product({ id: 'raw-prop', name: 'Raw prop', type: 'prop', specs: { diameter: 5, pitch: 3.7, weight: 4.4 }, fit: { styles: ['freestyle'], propSizes: [5] } }),
+  product({ id: 'raw-stack', name: 'Raw stack', type: 'stack', specs: { escAmp: 50 }, fit: { styles: ['freestyle'], cellCounts: [6] } }),
+  product({ id: 'raw-battery', name: 'Raw battery', type: 'battery', specs: { cellCount: 6, capacityMah: 1300, cRating: 100, weight: 220 }, fit: { styles: ['freestyle'], cellCounts: [6] } }),
+];
+
+const unverifiedCompleteResult = analyzeBuildCompatibility({
+  style: 'freestyle',
+  frame: 'raw-frame',
+  motor: 'raw-motor',
+  prop: 'raw-prop',
+  stack: 'raw-stack',
+  battery: 'raw-battery',
+}, completeRawCatalog);
+
+assert.equal(unverifiedCompleteResult.verdict, 'blocked');
+assert.ok(unverifiedCompleteResult.score < 100);
+assert.equal(unverifiedCompleteResult.calculator, undefined);
+assert.equal(unverifiedCompleteResult.engineeringSafety.isEngineeringSafe, false);
 
 console.log('part-matcher regression checks passed');

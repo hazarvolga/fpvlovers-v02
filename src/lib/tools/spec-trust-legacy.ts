@@ -35,6 +35,27 @@ export function getSpecString(product: FpvCatalogProduct, key: string): string |
   return typeof value === 'string' ? value : undefined;
 }
 
+/**
+ * Reads a specification only when the evidence record explicitly marks it as
+ * verified. Raw catalog values remain available for research display, but
+ * must never drive an engineering-safe compatibility verdict.
+ */
+export function getVerifiedSpecValue(product: FpvCatalogProduct, key: string): SpecValue | undefined {
+  const evidence = getValidatedEvidence(product, key);
+  if (!evidence || evidence.status !== 'verified' || evidence.value === null) return undefined;
+  return evidence.value;
+}
+
+export function getVerifiedSpecNumber(product: FpvCatalogProduct, key: string): number | undefined {
+  const value = getVerifiedSpecValue(product, key);
+  return typeof value === 'number' && Number.isFinite(value) ? value : undefined;
+}
+
+export function getVerifiedSpecString(product: FpvCatalogProduct, key: string): string | undefined {
+  const value = getVerifiedSpecValue(product, key);
+  return typeof value === 'string' && value.trim().length > 0 ? value : undefined;
+}
+
 function isLegacySpecValue(value: unknown): value is ProductSpecValue {
   if (typeof value === 'number') return Number.isFinite(value);
   if (typeof value === 'string' || typeof value === 'boolean') return true;

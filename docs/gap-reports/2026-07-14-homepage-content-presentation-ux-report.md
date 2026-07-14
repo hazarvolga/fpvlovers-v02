@@ -1,7 +1,7 @@
 # FPVLovers Homepage Content Presentation & UX GAP Report
 
-**Date:** 2026-07-14  
-**Scope:** Homepage content discovery, editorial presentation, visual hierarchy, responsive behavior, trust/commercial framing, and the relationship between the live UI and the approved design references.  
+**Date:** 2026-07-14
+**Scope:** Homepage content discovery, editorial presentation, visual hierarchy, responsive behavior, trust/commercial framing, and the relationship between the live UI and the approved design references.
 **Mode:** Analysis only. No source-code or runtime behavior was changed for this report.
 
 ## Executive Verdict

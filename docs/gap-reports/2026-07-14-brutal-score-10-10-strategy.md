@@ -1,7 +1,7 @@
 # FPVLovers Brutal Score 10/10 Closure Strategy
 
-**Date:** 2026-07-14  
-**Scope:** Homepage content presentation report, wider public UX system, affiliate readiness, and production operations.  
+**Date:** 2026-07-14
+**Scope:** Homepage content presentation report, wider public UX system, affiliate readiness, and production operations.
 **Rule:** A score reaches 10/10 only when the claim is backed by an automated check, a route-level or browser-level observation, and production evidence. A design opinion alone cannot close a score.
 
 ## Executive Truth
@@ -46,7 +46,7 @@ The current values are directional status, not marketing claims. Re-score after 
 3. Add a rollback rehearsal on Coolify using the immediately previous healthy image. Record start time, recovery time, and the exact image restored. Do not call release confidence 10/10 until this has been exercised once.
 4. Add a synthetic publish test that creates an idempotent test artifact, calls the normal publish path, verifies `/` after revalidation, and cleans up the test row without deleting user data.
 
-**Owner:** engineering/release.  
+**Owner:** engineering/release.
 **Evidence:** CI run URL or log, route smoke output, Coolify image tag, rollback record, and production timestamp.
 
 ### P0 - Freshness and source-of-truth control
@@ -55,7 +55,7 @@ The current values are directional status, not marketing claims. Re-score after 
 2. Define one public archive-count source: merged published artifacts plus documented shadow policy. Emit the count in the homepage, archive metadata, and monitoring output from the same resolver.
 3. Alert when the newest published shadow item is older than the newest committed/public artifact beyond the agreed threshold, or when the homepage count diverges from the resolver.
 
-**Owner:** content platform.  
+**Owner:** content platform.
 **Evidence:** freshness regression test, resolver snapshot, and a production synthetic check.
 
 ### P1 - Commercial and affiliate evidence
@@ -66,7 +66,7 @@ The current values are directional status, not marketing claims. Re-score after 
 4. Obtain one real product/evidence event. Hazar Volga Ekiz records product relationship, test method, date, images/measurements, limitations, and approval. Until then, keep review pages explicitly labeled `spec-analysis`.
 5. Submit only after the application pack contains truthful audience, acquisition, compliance, and disclosure language. Never invent traffic, partnerships, or samples.
 
-**Owner:** Hazar Volga Ekiz (product review editor) plus editorial/SEO.  
+**Owner:** Hazar Volga Ekiz (product review editor) plus editorial/SEO.
 **Evidence:** page audit output, CTA status, JSON-LD snapshot, source links, and the signed evidence record.
 
 ### P1 - Public editorial visual system
@@ -78,7 +78,7 @@ The current values are directional status, not marketing claims. Re-score after 
 5. Replace linear decorative timing with the approved cubic-bezier token and keep non-essential motion off the critical content path.
 6. Run WCAG AA contrast checks, keyboard focus checks, semantic labels for fixed mobile navigation, and 44px minimum tap-target checks at 360px and 390px.
 
-**Owner:** frontend/design system.  
+**Owner:** frontend/design system.
 **Evidence:** component contract, visual baselines, contrast report, and mobile browser captures.
 
 ### P1 - Automation and crawl reliability
@@ -89,7 +89,7 @@ The current values are directional status, not marketing claims. Re-score after 
 4. Keep the seven terminal target/provider failure rows visible in monitoring until an explicit retry or closure decision is recorded.
 5. Add daily monitoring for stale jobs, publish target, crawl queue, Dify budget, and source-hint coverage. Alert on regressions instead of relying on manual inspection.
 
-**Owner:** automation/platform.  
+**Owner:** automation/platform.
 **Evidence:** 14-day monitor export, queue snapshots, budget ledger, and controlled worker log.
 
 ### P2 - Distribution and brand proof
@@ -98,7 +98,7 @@ The current values are directional status, not marketing claims. Re-score after 
 2. Keep YouTube upload private-by-default until a human QA pass confirms title, captions, claims, disclosure, thumbnail, and landing-page link.
 3. Use the media kit and sponsor copy as positioning assets, not as proof of reach. Add real platform metrics only when they are measured and dated.
 
-**Owner:** editorial/marketing.  
+**Owner:** editorial/marketing.
 **Evidence:** fact-pack validation, private video QA checklist, and dated analytics export.
 
 ## 30/60/90-Day Sequence

@@ -1,6 +1,7 @@
 import { calculateBuild, getSafeKvRange, type BuildStyle } from '@/lib/tools/build-calculator';
 import { evaluateBuildEngineeringSafety, type EngineeringSafetyReport } from '@/lib/tools/engineering-safety';
 import type { BuildSelection, BuildSlot, FpvCatalogProduct } from '@/lib/tools/fpv-product-types';
+import { getVerifiedSpecNumber, getVerifiedSpecString, getVerifiedSpecValue } from '@/lib/tools/spec-trust-legacy';
 
 export type ComponentDuelMetric = {
   label: string;
@@ -48,6 +49,21 @@ function arraySpec(product: FpvCatalogProduct | undefined, key: string): number[
   return Array.isArray(value) ? value.filter((item): item is number => typeof item === 'number') : [];
 }
 
+function verifiedNumberSpec(product: FpvCatalogProduct | undefined, key: string): number | undefined {
+  return product ? getVerifiedSpecNumber(product, key) : undefined;
+}
+
+function verifiedStringSpec(product: FpvCatalogProduct | undefined, key: string): string | undefined {
+  return product ? getVerifiedSpecString(product, key) : undefined;
+}
+
+function verifiedNumberArraySpec(product: FpvCatalogProduct | undefined, key: string): number[] {
+  const value = product ? getVerifiedSpecValue(product, key) : undefined;
+  return Array.isArray(value) && value.every((item): item is number => typeof item === 'number' && Number.isFinite(item))
+    ? value
+    : [];
+}
+
 function formatSpec(value: number | string): string {
   return typeof value === 'number' ? String(Math.round(value * 10) / 10) : value;
 }
@@ -72,7 +88,8 @@ function metricWinner(a: number, b: number, lowerIsBetter = false): 'A' | 'B' | 
 export function compareComponents(productA: FpvCatalogProduct, productB: FpvCatalogProduct): ComponentDuelResult {
   const scoreA = performanceScore(productA);
   const scoreB = performanceScore(productB);
-  const winnerId = scoreA >= scoreB ? productA.id : productB.id;
+  const evidenceReady = productA.trustStatus === 'VERIFIED' && productB.trustStatus === 'VERIFIED';
+  const winnerId = evidenceReady ? (scoreA >= scoreB ? productA.id : productB.id) : '';
   const winner = winnerId === productA.id ? productA : productB;
 
   const metrics: ComponentDuelMetric[] = [
@@ -80,13 +97,13 @@ export function compareComponents(productA: FpvCatalogProduct, productB: FpvCata
       label: 'Trust score',
       productA: `${productA.trustScore}/100`,
       productB: `${productB.trustScore}/100`,
-      winner: metricWinner(productA.trustScore, productB.trustScore),
+      winner: evidenceReady ? metricWinner(productA.trustScore, productB.trustScore) : 'tie',
     },
     {
       label: 'Price',
       productA: `$${productA.price.toFixed(2)}`,
       productB: `$${productB.price.toFixed(2)}`,
-      winner: metricWinner(productA.price, productB.price, true),
+      winner: evidenceReady ? metricWinner(productA.price, productB.price, true) : 'tie',
     },
   ];
 
@@ -98,18 +115,25 @@ export function compareComponents(productA: FpvCatalogProduct, productB: FpvCata
       label: key.replace(/([A-Z])/g, ' $1'),
       productA: formatSpec(a),
       productB: formatSpec(b),
-      winner: metricWinner(a, b, key.toLowerCase().includes('weight') || key.toLowerCase().includes('latency')),
+      winner: evidenceReady ? metricWinner(a, b, key.toLowerCase().includes('weight') || key.toLowerCase().includes('latency')) : 'tie',
     });
   }
 
-  const warnings: Record<string, string> = {
-    [productA.id]: productA.trustScore < 90 ? 'Lower trust score; verify recent community feedback before buying.' : 'Strong catalog confidence; still confirm exact variant and mounting pattern.',
-    [productB.id]: productB.trustScore < 90 ? 'Lower trust score; verify recent community feedback before buying.' : 'Strong catalog confidence; still confirm exact variant and mounting pattern.',
-  };
+  const warnings: Record<string, string> = evidenceReady
+    ? {
+        [productA.id]: productA.trustScore < 90 ? 'Lower trust score; verify recent community feedback before buying.' : 'Strong catalog confidence; still confirm exact variant and mounting pattern.',
+        [productB.id]: productB.trustScore < 90 ? 'Lower trust score; verify recent community feedback before buying.' : 'Strong catalog confidence; still confirm exact variant and mounting pattern.',
+      }
+    : {
+        [productA.id]: 'Research only: critical product evidence is not verified, so no winner or purchase recommendation is issued.',
+        [productB.id]: 'Research only: critical product evidence is not verified, so no winner or purchase recommendation is issued.',
+      };
 
   return {
     winnerId,
-    verdict: `${winner.name} wins this matchup on the current catalog score: trust, price, and available performance specs.`,
+    verdict: evidenceReady
+      ? `${winner.name} wins this matchup on the current catalog score: trust, price, and available performance specs.`
+      : 'Research-only comparison: neither product can be declared a winner until critical specifications are verified against a primary source.',
     metrics,
     warnings,
     scoreA,
@@ -148,21 +172,25 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
     checks.push({ label: 'Flight style fit', status: 'pass', detail: `Selected parts are tagged for ${style}.` });
   }
 
-  const propDiameter = numberSpec(selected.prop, 'diameter', numberSpec(selected.motor, 'propSize', numberSpec(selected.frame, 'propSize', 5)));
+  const propDiameter = verifiedNumberSpec(selected.prop, 'diameter')
+    ?? verifiedNumberSpec(selected.motor, 'propSize')
+    ?? verifiedNumberSpec(selected.frame, 'propSize');
   const framePropSizes = selected.frame?.fit.propSizes || [];
   if (!selected.frame || !selected.prop) {
     checks.push({ label: 'Frame / prop clearance', status: 'warn', detail: 'Select a frame and propeller to verify physical clearance.' });
-  } else if (propDiameter && framePropSizes.length && !framePropSizes.includes(propDiameter)) {
+  } else if (!propDiameter) {
+    checks.push({ label: 'Frame / prop clearance', status: 'warn', detail: 'Verified prop diameter evidence is missing; physical clearance cannot be confirmed.' });
+  } else if (framePropSizes.length && !framePropSizes.includes(propDiameter)) {
     checks.push({ label: 'Frame / prop clearance', status: 'fail', detail: `${selected.frame.name} is tagged for ${framePropSizes.join('/')}" props, not ${propDiameter}".` });
   } else {
     checks.push({ label: 'Frame / prop clearance', status: 'pass', detail: `${propDiameter}" prop clearance is consistent with the selected frame.` });
   }
 
   const batteryCellCount = optionalNumberSpec(selected.battery, 'cellCount');
-  const motorKv = numberSpec(selected.motor, 'kv', 1900);
+  const motorKv = verifiedNumberSpec(selected.motor, 'kv');
   if (!selected.motor || !selected.battery || !selected.prop) {
     checks.push({ label: 'KV / voltage window', status: 'warn', detail: 'Select motor, battery, and propeller to verify KV safety window.' });
-  } else if (!batteryCellCount) {
+  } else if (!batteryCellCount || !motorKv || !propDiameter) {
     checks.push({ label: 'KV / voltage window', status: 'warn', detail: `${selected.battery.name} is missing explicit cell count data; verify pack voltage before buying.` });
   } else {
     const safeKvRange = getSafeKvRange(batteryCellCount, propDiameter || 5);
@@ -173,7 +201,7 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
     }
   }
 
-  const motorCells = selected.motor?.fit.cellCounts || [];
+  const motorCells = verifiedNumberArraySpec(selected.motor, 'cellCounts');
   if (!selected.motor || !selected.battery) {
     checks.push({ label: 'Motor / battery cells', status: 'warn', detail: 'Select motor and battery to verify voltage compatibility.' });
   } else if (!batteryCellCount) {
@@ -185,23 +213,35 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
   }
 
   let calculator: ReturnType<typeof calculateBuild> | undefined;
-  if (!missing.length && batteryCellCount) {
+  const calculatorInputs = {
+    frameWeight: verifiedNumberSpec(selected.frame, 'weight'),
+    motorWeight: verifiedNumberSpec(selected.motor, 'weight'),
+    videoWeight: verifiedNumberSpec(selected.video, 'weight'),
+    propWeight: verifiedNumberSpec(selected.prop, 'weight'),
+    batteryWeight: verifiedNumberSpec(selected.battery, 'weight'),
+    batteryCapacityMah: verifiedNumberSpec(selected.battery, 'capacityMah'),
+    batteryCRating: verifiedNumberSpec(selected.battery, 'cRating'),
+    propPitch: verifiedNumberSpec(selected.prop, 'pitch'),
+    escAmpRating: verifiedNumberSpec(selected.stack, 'escAmp'),
+  };
+  const calculatorReady = !missing.length && Boolean(batteryCellCount && motorKv && propDiameter && Object.values(calculatorInputs).every((value) => value !== undefined));
+  if (calculatorReady) {
     calculator = calculateBuild({
       style: style as BuildStyle,
-      frameWeight: numberSpec(selected.frame, 'weight', 130),
-      motorWeight: numberSpec(selected.motor, 'weight', 32),
+      frameWeight: calculatorInputs.frameWeight!,
+      motorWeight: calculatorInputs.motorWeight!,
       stackWeight: 28,
-      videoWeight: numberSpec(selected.video, 'weight', 25),
-      propWeight: numberSpec(selected.prop, 'weight', 4.4) * 4,
-      batteryWeight: numberSpec(selected.battery, 'weight', 190),
+      videoWeight: calculatorInputs.videoWeight!,
+      propWeight: calculatorInputs.propWeight! * 4,
+      batteryWeight: calculatorInputs.batteryWeight!,
       payloadWeight: 0,
-      cellCount: batteryCellCount,
-      batteryCapacityMah: numberSpec(selected.battery, 'capacityMah', 1100),
-      batteryCRating: numberSpec(selected.battery, 'cRating', 100),
-      motorKv,
-      propDiameter: propDiameter || 5,
-      propPitch: numberSpec(selected.prop, 'pitch', 3.6),
-      escAmpRating: numberSpec(selected.stack, 'escAmp', 45),
+      cellCount: batteryCellCount!,
+      batteryCapacityMah: calculatorInputs.batteryCapacityMah!,
+      batteryCRating: calculatorInputs.batteryCRating!,
+      motorKv: motorKv!,
+      propDiameter: propDiameter!,
+      propPitch: calculatorInputs.propPitch!,
+      escAmpRating: calculatorInputs.escAmpRating!,
     });
 
     if (calculator.currentMargin < 8) {
@@ -209,14 +249,20 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
     } else {
       checks.push({ label: 'ESC current margin', status: 'pass', detail: `${calculator.currentMargin}A current margin per motor.` });
     }
+  } else if (!missing.length) {
+    checks.push({ label: 'Calculator evidence', status: 'warn', detail: 'Calculator deferred: one or more required numeric specifications are not verified by source evidence.' });
+  }
+
+  const engineeringSafety = evaluateBuildEngineeringSafety(selected);
+  if (!engineeringSafety.isEngineeringSafe) {
+    checks.push({ label: 'Engineering evidence', status: 'fail', detail: 'Critical compatibility fields are not fully verified; this output is educational only and cannot be used as a build-ready recommendation.' });
   }
 
   const failCount = checks.filter((check) => check.status === 'fail').length;
   const warnCount = checks.filter((check) => check.status === 'warn').length + (calculator?.warnings.length || 0);
   const score = Math.max(0, 100 - failCount * 28 - warnCount * 10);
   const verdict: BuildCompatibilityResult['verdict'] = failCount ? 'blocked' : warnCount ? 'caution' : 'ready';
-  const protocol = stringSpec(selected.video, 'protocol') || stringSpec(selected.receiver, 'protocol');
-  const engineeringSafety = evaluateBuildEngineeringSafety(selected);
+  const protocol = verifiedStringSpec(selected.video, 'protocol') || verifiedStringSpec(selected.receiver, 'protocol');
 
   return {
     score,
