@@ -18,8 +18,9 @@
   --color-cyan-glow: #28d7df;
   --color-amber-accent: #ff5a1f;
 
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+  /* Keep builds deterministic in offline/isolated CI and Coolify environments. */
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {

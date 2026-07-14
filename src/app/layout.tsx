@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
 import { Navbar } from '@/features/layout/components/Navbar';
 import { SearchSection } from '@/features/layout/components/SearchSection';
 import { SiteFooter } from '@/features/layout/components/SiteFooter';
@@ -35,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const enableVercelAnalytics = process.env.VERCEL === '1' || process.env.NEXT_PUBLIC_ENABLE_VERCEL_ANALYTICS === 'true';
 
   return (
-    <html lang="en" className={`dark ${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className="dark">
       <body className="font-sans min-h-screen antialiased selection:bg-[#ff5a1f]/30 selection:text-white relative" suppressHydrationWarning>
         <SessionProvider>
           {/* Subtle global atmosphere. Tool pages can opt into heavier cockpit UI locally. */}
