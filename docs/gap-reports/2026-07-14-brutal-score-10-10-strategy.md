@@ -10,6 +10,18 @@ The homepage bottleneck identified in the report is now closed in production cod
 
 The project is **not yet 10/10 overall**. The remaining gap is no longer “there is content but the homepage hides it”. The remaining gap is evidence, consistency, and operational proof: public dashboard language and scrolling blur were reduced in the live shell, but a formal shared card contract and full accessibility baseline are still open; ten commercial pages need enrichment, a genuine hands-on review does not yet exist, and crawl/embedding debt still requires controlled operations.
 
+## Closure Update — Trust, SEO, Affiliate, and Tool Safety (2026-07-14)
+
+The next local/pushed phase is complete in commits `0399899` and `1f08ad0`:
+
+- Product/spec trust is fail-closed. Unverified catalog rows cannot produce a build-ready verdict, calculator output, Component Duel winner, or affiliate purchase card. Affiliate seeds are explicitly quarantined and the Part Matcher regression test covers a complete-looking but evidence-free catalog.
+- The 1S whoop calculator clamp is fixed and covered by regression: 3.7V nominal and 4.2V full voltage are preserved.
+- SEO/AI discovery now has `en_US` OG locale, a valid publisher logo, global OG/favicon metadata, dynamic commercial/legal sitemap hubs with `lastmod`, publish-triggered sitemap revalidation, planned-seed `noindex`, Article/BreadcrumbList schema, conditional hands-on Review/Product schema, and `/llms.txt`.
+- Affiliate surfaces no longer emit dead `#` links or clickable placeholder ads. A valid HTTP(S) destination is required; otherwise the UI presents an editorial placeholder. Search now ships a lightweight server-built index instead of all 117 article bodies.
+- Local verification passed TypeScript, focused ESLint, build (122 routes), content/metadata/language/editorial audits, quality, content smoke, SEO discovery, calculator, and Part Matcher tests.
+
+This phase is **pushed but not live-verified**. Coolify deployment was not triggered because the environment rejected the required SSH escalation. The live public search result still exposes the older three-card homepage snapshot, so production remains below the source-level score until `1f08ad0` is deployed and smoke-tested.
+
 ## Closure Update — 2026-07-14
 
 The following gates are now evidenced rather than planned:
