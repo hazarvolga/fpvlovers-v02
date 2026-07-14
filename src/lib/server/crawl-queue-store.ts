@@ -1,5 +1,5 @@
 import { query, getClient } from './db';
-import type { CrawlJob, CrawlQueue } from '../crawl-queue';
+import { resolveCrawlRetryStatus, type CrawlJob, type CrawlQueue } from '../crawl-queue';
 import { getCrawlQueueStorageMode } from './storage-mode';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -175,10 +175,12 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
     const current = currentRes.rows[0];
     let nextAttemptAt: Date | null = null;
     let retries = current.retry_count;
+    let effectiveStatus = update.status;
 
     if (update.status === 'throttled') {
       const maxRetries = retryDelaysMs.length;
-      if (retries < maxRetries) {
+      effectiveStatus = resolveCrawlRetryStatus(retries, maxRetries);
+      if (effectiveStatus === 'throttled') {
         const delay = retryDelaysMs[retries] || retryDelaysMs[retryDelaysMs.length - 1];
         nextAttemptAt = new Date(Date.now() + delay);
         retries++;
@@ -190,9 +192,9 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
     const params: unknown[] = [id, now];
     let paramIndex = 3;
 
-    if (update.status) {
+    if (effectiveStatus) {
       fieldsToUpdate.push(`status = $${paramIndex++}`);
-      params.push(update.status);
+      params.push(effectiveStatus);
     }
     if (update.error) {
       fieldsToUpdate.push(`error_message = $${paramIndex++}`);
@@ -220,7 +222,7 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
       if (nextAttemptAt) {
         fieldsToUpdate.push(`next_attempt_at = $${paramIndex++}`);
         params.push(nextAttemptAt);
-      }
+      } else fieldsToUpdate.push('next_attempt_at = NULL');
     } else if (update.status === 'completed') {
       fieldsToUpdate.push(`completed_at = $${paramIndex++}`);
       params.push(now);

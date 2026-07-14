@@ -46,6 +46,10 @@ export interface CrawlQueue {
   };
 }
 
+export function resolveCrawlRetryStatus(retries: number, maxRetries: number): 'throttled' | 'failed' {
+  return retries < maxRetries ? 'throttled' : 'failed';
+}
+
 // ─── SYNCHRONOUS BACKWARD COMPATIBILITY APIs (Files Only) ───
 
 function calculateStats(jobs: CrawlJob[]): CrawlQueue['stats'] {
@@ -131,10 +135,16 @@ export function updateJob(id: string, update: Partial<CrawlJob>) {
 
   Object.assign(job, { ...update, updatedAt: new Date().toISOString() });
 
-  if (update.status === 'throttled' && job.retries < job.maxRetries) {
-    const delay = q.config.retryDelaysMs[job.retries] || q.config.retryDelaysMs[q.config.retryDelaysMs.length - 1];
-    job.nextRetryAt = new Date(Date.now() + delay).toISOString();
-    job.retries++;
+  if (update.status === 'throttled') {
+    const retryStatus = resolveCrawlRetryStatus(job.retries, job.maxRetries);
+    job.status = retryStatus;
+    if (retryStatus === 'throttled') {
+      const delay = q.config.retryDelaysMs[job.retries] || q.config.retryDelaysMs[q.config.retryDelaysMs.length - 1];
+      job.nextRetryAt = new Date(Date.now() + delay).toISOString();
+      job.retries++;
+    } else {
+      delete job.nextRetryAt;
+    }
   }
 
   save(q);
