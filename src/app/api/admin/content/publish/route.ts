@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
 import type { ContentJob, ContentJobStatus } from '@/lib/content-automation/types';
 import type { GeneratedContent } from '@/lib/content-automation/parse-generated-content';
@@ -78,6 +79,7 @@ export async function POST(req: NextRequest) {
 
     if (alreadyPublished) {
       const publishedFile = await publishGeneratedContentArtifact(slug, job, publishContent);
+      revalidatePath('/');
       return NextResponse.json({
         success: true,
         idempotent: true,
@@ -94,6 +96,7 @@ export async function POST(req: NextRequest) {
     job.publishedPath = publishedFile;
     jobs[index] = job;
     await saveContentJobsNew(jobs);
+    revalidatePath('/');
 
     // Log to database in background
     Promise.resolve().then(async () => {

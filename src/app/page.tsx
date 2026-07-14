@@ -25,6 +25,8 @@ import { Badge } from '@/components/ui/badge';
 import { NewsletterWidget } from '@/features/tools/components/NewsletterWidget';
 import { ResilientCoverImage } from '@/components/ResilientCoverImage';
 
+export const revalidate = 300;
+
 type IconComponent = ComponentType<{ className?: string; strokeWidth?: number }>;
 
 type HomePillar = {
@@ -256,34 +258,39 @@ function PillarCard({ pillar }: { pillar: HomePillar }) {
   );
 }
 
-function LatestContentItem({ card }: { card: HomepageSectionCard }) {
+function LatestContentItem({ card, featured = false }: { card: HomepageSectionCard; featured?: boolean }) {
   return (
-    <Link href={card.href} className="group grid gap-4 sm:grid-cols-[8.5rem_1fr] sm:items-center">
-      <div className="relative aspect-[16/10] overflow-hidden rounded-[0.45rem] border border-white/10 bg-white/[0.03]">
+    <Link
+      href={card.href}
+      className={`group overflow-hidden rounded-[1.5rem] border border-white/[0.10] bg-[#080b0f] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:border-[#ff3131]/[0.42] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_24px_80px_rgba(225,34,39,0.12)] ${
+        featured ? 'md:col-span-2 md:grid md:grid-cols-[minmax(0,1.18fr)_minmax(0,0.82fr)]' : ''
+      }`}
+    >
+      <div className={`relative overflow-hidden bg-white/[0.03] ${featured ? 'aspect-[16/10] md:aspect-auto md:min-h-[16rem]' : 'aspect-[16/10]'}`}>
         {card.coverImage && (
           <ResilientCoverImage
             src={card.coverImage}
             fallbackSrc={card.fallbackCoverImage}
             alt={card.coverImageAlt || card.title}
             fill
-            sizes="(min-width: 768px) 9rem, 100vw"
+            sizes={featured ? '(min-width: 1024px) 48vw, 100vw' : '(min-width: 768px) 30vw, 100vw'}
             unoptimized={true}
             className="object-cover opacity-[0.78] grayscale transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.05] group-hover:opacity-100 group-hover:grayscale-0"
           />
         )}
       </div>
-      <div>
-        <div className="flex flex-wrap items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-500">
-          <span>{card.category}</span>
-          <span className="text-zinc-700">/</span>
+      <div className={featured ? 'flex flex-col justify-center p-6 md:p-8' : 'p-5'}>
+        <div className="flex flex-wrap items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-400">
+          <span className="rounded-full border border-[#ff3131]/30 bg-[#ff3131]/[0.08] px-2.5 py-1 text-[#ff8a8d]">{card.category}</span>
           <span>{formatDisplayDate(card)}</span>
         </div>
-        <h3 className="mt-2 line-clamp-2 text-sm font-black leading-snug text-white transition-colors duration-500 group-hover:text-[#ff3131]">
+        <h3 className={`${featured ? 'mt-5 text-xl md:text-2xl' : 'mt-4 text-base'} line-clamp-3 font-black leading-tight tracking-[-0.02em] text-white transition-colors duration-500 group-hover:text-[#ff3131]`}>
           {card.title}
         </h3>
-        <div className="mt-2 flex items-center gap-2 font-mono text-[10px] text-zinc-500">
+        {featured ? <p className="mt-4 line-clamp-3 text-sm leading-6 text-zinc-400">{card.excerpt}</p> : null}
+        <div className="mt-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500">
           <span>{card.readingTime}</span>
-          {(card.views !== undefined && card.views !== null) ? (
+          {(card.views !== undefined && card.views > 0) ? (
             <>
               <span className="text-zinc-700">•</span>
               <Eye className="h-3.5 w-3.5" strokeWidth={1.35} />
@@ -306,7 +313,12 @@ function SectionTitle({ children }: { children: ReactNode }) {
 
 export default async function HomePage() {
   const content = await resolveHomepageContent();
-  const recentPostCards = content.recentPosts.slice(0, 3);
+  const recentPostCards = content.recentPosts;
+  const dynamicCommunityStats = communityStats.map((stat) => (
+    stat.label === 'Published artifacts'
+      ? { ...stat, value: `${content.archiveCount}+` }
+      : stat
+  ));
   const guideCards = [
     ...content.featuredGuides,
     ...content.editorsPicks,
@@ -348,7 +360,7 @@ export default async function HomePage() {
             </div>
 
             <div className="mt-10 grid max-w-2xl grid-cols-3 gap-4">
-              <Metric label="Content" value="117+ Articles" />
+              <Metric label="Content" value={`${content.archiveCount}+ Articles`} />
               <Metric label="Reviews" value="Evidence First" />
               <Metric label="Editor" value="Hazar Volga Ekiz" />
             </div>
@@ -395,18 +407,25 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section id="latest" className="mx-auto grid max-w-[112rem] gap-4 px-5 sm:px-8 lg:grid-cols-[1.45fr_0.85fr] lg:px-16">
-        <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-8">
-          <div className="mb-8 flex items-center justify-between gap-4">
-            <SectionTitle>Latest Content</SectionTitle>
-            <Link href="/search" className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
-              Browse all <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-            </Link>
-          </div>
+      <section id="latest" className="mx-auto grid max-w-[112rem] gap-6 px-5 sm:px-8 lg:grid-cols-[minmax(0,1.85fr)_minmax(19rem,0.75fr)] lg:px-16">
+        <div className="rounded-[2rem] border border-white/[0.10] bg-white/[0.035] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <div className="rounded-[calc(2rem-0.5rem)] bg-[#0b0d10]/[0.96] p-6 md:p-8">
+            <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <p className="mb-3 font-mono text-[10px] uppercase tracking-[0.24em] text-[#ff8a8d]">Editorial index · {content.archiveCount} published</p>
+                <SectionTitle>Latest Content</SectionTitle>
+              </div>
+              <Link href="/search" className="group inline-flex items-center gap-3 rounded-full border border-white/[0.14] bg-white/[0.04] px-4 py-2.5 text-[10px] font-black uppercase tracking-[0.14em] text-white transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-[#ff3131]/50 hover:bg-[#ff3131]/[0.10]">
+                Browse all
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ff3131]/[0.14] transition-transform duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:translate-x-1">
+                  <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                </span>
+              </Link>
+            </div>
           {recentPostCards.length > 0 ? (
-            <div className="grid gap-6 lg:grid-cols-3">
-              {recentPostCards.map((card) => (
-                <LatestContentItem key={card.slug} card={card} />
+            <div className="grid gap-4 md:grid-cols-2">
+              {recentPostCards.map((card, index) => (
+                <LatestContentItem key={card.slug} card={card} featured={index === 0} />
               ))}
             </div>
           ) : (
@@ -414,17 +433,19 @@ export default async function HomePage() {
               Articles will appear here as they are published.
             </div>
           )}
+          </div>
         </div>
 
-        <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-8">
-          <div className="mb-8 flex items-center justify-between gap-4">
+        <div className="rounded-[2rem] border border-white/[0.10] bg-white/[0.035] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+          <div className="rounded-[calc(2rem-0.5rem)] bg-[#0b0d10]/[0.96] p-6 md:p-8">
+          <div className="mb-6 flex items-center justify-between gap-4">
             <SectionTitle>Upcoming Races</SectionTitle>
             <Link href="/racing" className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white">
               View Calendar <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
             </Link>
           </div>
 
-          <div className="rounded-[0.7rem] border border-[#ff3131]/20 bg-black/[0.28] p-5">
+          <div className="rounded-[1.25rem] border border-[#ff3131]/20 bg-black/[0.28] p-5">
             <div className="grid gap-5 sm:grid-cols-[4.25rem_1fr] sm:items-center">
               <div className="rounded-[0.45rem] border border-[#ff3131]/[0.24] bg-[#ff3131]/[0.08] px-3 py-4 text-center">
                 <div className="font-mono text-[10px] font-black uppercase tracking-[0.22em] text-[#ff3131]">Live</div>
@@ -445,6 +466,7 @@ export default async function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </div>
       </section>
@@ -553,7 +575,7 @@ export default async function HomePage() {
             </p>
           </div>
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
-            {communityStats.map((stat) => (
+            {dynamicCommunityStats.map((stat) => (
               <CommunityStat key={stat.label} {...stat} />
             ))}
           </div>

@@ -20,6 +20,7 @@ export type HomepageSectionCard = {
 };
 
 export type HomepageContentModel = {
+  archiveCount: number;
   featuredGuides: HomepageSectionCard[];
   recentPosts: HomepageSectionCard[];
   editorsPicks: HomepageSectionCard[];
@@ -159,6 +160,7 @@ export async function resolveHomepageContent(): Promise<HomepageContentModel> {
     .slice(0, 3);
 
   return {
+    archiveCount: publishedCards.length,
     featuredGuides,
     recentPosts,
     editorsPicks,
