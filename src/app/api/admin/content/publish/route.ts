@@ -80,6 +80,7 @@ export async function POST(req: NextRequest) {
     if (alreadyPublished) {
       const publishedFile = await publishGeneratedContentArtifact(slug, job, publishContent);
       revalidatePath('/');
+      revalidatePath('/sitemap.xml');
       return NextResponse.json({
         success: true,
         idempotent: true,
@@ -97,6 +98,7 @@ export async function POST(req: NextRequest) {
     jobs[index] = job;
     await saveContentJobsNew(jobs);
     revalidatePath('/');
+    revalidatePath('/sitemap.xml');
 
     // Log to database in background
     Promise.resolve().then(async () => {

@@ -1,6 +1,7 @@
 "use client"; // client-side interactivity for deal click tracking
 
 import React from 'react';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { Flame, Tag, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,10 @@ export type AdProduct = {
   productId?: string;
   network?: string;
 };
+
+function isHttpUrl(value: string | undefined): value is string {
+  return Boolean(value && /^https?:\/\//i.test(value));
+}
 
 function trackAffiliateClick(product: AdProduct) {
   if (!product.productId || !product.network) return;
@@ -28,8 +33,9 @@ function trackAffiliateClick(product: AdProduct) {
 }
 
 export function AdBanner({ className, title = "SPONSOR SLOT", product }: { className?: string; title?: string; product?: AdProduct }) {
-  const displayName = product?.name || 'Featured FPV Product';
-  const displayPrice = product?.price || 'See Details';
+  const hasProductLink = Boolean(product && isHttpUrl(product.url));
+  const displayName = product?.name || 'Editorial placement reserved';
+  const displayPrice = product?.price || 'No product selected';
   const originalPrice = product?.originalPrice;
 
   return (
@@ -49,14 +55,15 @@ export function AdBanner({ className, title = "SPONSOR SLOT", product }: { class
            {originalPrice && <div className="text-[10px] text-white/30 line-through">{originalPrice}</div>}
            <div className="text-[#FF5C00] font-black tracking-tighter">{displayPrice}</div>
         </div>
-        <Button
-          variant="amber"
-          size="sm"
-          className="h-10 text-[10px] w-full sm:w-auto"
-          onClick={() => product && trackAffiliateClick(product)}
-        >
-          VIEW PICK
-        </Button>
+        {hasProductLink ? (
+          <Button variant="amber" size="sm" className="h-10 text-[10px] w-full sm:w-auto" asChild>
+            <Link href={product!.url!} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => trackAffiliateClick(product!)}>
+              VIEW PICK
+            </Link>
+          </Button>
+        ) : (
+          <span className="border border-white/10 px-3 py-2 text-center text-[9px] font-black uppercase tracking-widest text-white/40">Editorial slot reserved</span>
+        )}
       </div>
 
       <div className="absolute top-0 left-0 w-full h-[2px] bg-[#00F2FF]/50 shadow-[0_0_10px_#00F2FF] opacity-0 group-hover:animate-[scan_2s_ease-in-out_infinite]" />
@@ -66,8 +73,9 @@ export function AdBanner({ className, title = "SPONSOR SLOT", product }: { class
 }
 
 export function AdInFeed({ className, product }: { className?: string; product?: AdProduct }) {
-  const displayName = product?.name || 'Premium FPV Gear';
-  const displayDesc = product?.price ? `Starting at ${product.price}` : 'Browse our top picks';
+  const hasProductLink = Boolean(product && isHttpUrl(product.url));
+  const displayName = product?.name || 'Editorial gear reference';
+  const displayDesc = product?.price ? `Starting at ${product.price}` : 'No sponsored product selected';
 
   return (
     <div className={cn("glass-panel relative flex flex-col p-6 hex-panel overflow-hidden group border-dashed border-[#FF5C00]/30", className)}>
@@ -86,29 +94,31 @@ export function AdInFeed({ className, product }: { className?: string; product?:
          </div>
          <h4 className="text-white font-black uppercase text-lg mb-2 tracking-tighter">{displayName}</h4>
          <p className="text-[#A0A0A0] text-[10px] uppercase tracking-widest leading-relaxed mb-4">{displayDesc}</p>
-         <Button
-           variant="outline"
-           className="w-full text-[#FF5C00] border-[#FF5C00] hover:bg-[#FF5C00]/10 text-[10px] object-bottom mt-auto"
-           onClick={() => product && trackAffiliateClick(product)}
-         >
-           SHOP NOW
-         </Button>
+         {hasProductLink ? (
+           <Button variant="outline" className="w-full text-[#FF5C00] border-[#FF5C00] hover:bg-[#FF5C00]/10 text-[10px] object-bottom mt-auto" asChild>
+             <Link href={product!.url!} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => trackAffiliateClick(product!)}>
+               SHOP NOW
+             </Link>
+           </Button>
+         ) : (
+           <span className="w-full border border-white/10 px-3 py-2 text-center text-[9px] font-black uppercase tracking-widest text-white/40">Editorial slot reserved</span>
+         )}
       </div>
     </div>
   );
 }
 
 export function AdStickySidebar({ className, product }: { className?: string; product?: AdProduct }) {
+  const hasProductLink = Boolean(product && isHttpUrl(product.url));
   const displayName = product?.name || 'Curated FPV gear guide';
-  const displayPrice = product?.price || 'See Price';
+  const displayPrice = product?.price || 'No product selected';
 
   return (
     <div className={cn("fpv-public-panel sticky top-24 flex flex-col rounded-xl p-4 bg-[#0A0A0B]/90", className)}>
        <div className="mb-4 text-center text-[10px] font-bold uppercase tracking-widest text-white/45">Reader-supported gear reference</div>
        <div className="flex flex-col gap-4">
          <div
-           className="group relative cursor-pointer rounded-lg border border-white/10 bg-[#050505] p-3 transition-colors hover:border-[#FF5C00]/50"
-           onClick={() => product && trackAffiliateClick(product)}
+           className={cn('group relative rounded-lg border border-white/10 bg-[#050505] p-3 transition-colors', hasProductLink && 'cursor-pointer hover:border-[#FF5C00]/50')}
          >
             <div className="absolute right-0 top-0 h-2 w-2 border-r border-t border-[#FF5C00]/50 opacity-0 transition-opacity group-hover:opacity-100" />
 
@@ -121,9 +131,13 @@ export function AdStickySidebar({ className, product }: { className?: string; pr
             </p>
             <div className="flex items-center justify-between">
               <div className="text-[10px] text-[#FF5C00] font-black tracking-widest">{displayPrice}</div>
-              <div className="flex h-5 w-5 items-center justify-center rounded border border-[#FF5C00]/30 bg-[#FF5C00]/10">
-                <span className="text-[8px] text-[#FF5C00]">↗</span>
-              </div>
+              {hasProductLink ? (
+                <Link href={product!.url!} target="_blank" rel="nofollow sponsored noopener noreferrer" onClick={() => trackAffiliateClick(product!)} className="flex h-5 w-5 items-center justify-center rounded border border-[#FF5C00]/30 bg-[#FF5C00]/10">
+                  <span className="text-[8px] text-[#FF5C00]">↗</span>
+                </Link>
+              ) : (
+                <span className="text-[9px] uppercase tracking-widest text-white/35">Reference only</span>
+              )}
             </div>
          </div>
        </div>

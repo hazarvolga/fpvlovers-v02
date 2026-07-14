@@ -15,16 +15,19 @@ export const metadata: Metadata = {
   title: 'FPV LOVERS | Learn, Build, Race, Fly, Tools, News',
   description: 'English-first FPV guides, engineering references, and practical pilot tools for building, tuning, and learning faster.',
   keywords: ['FPV', 'Learn', 'Build', 'Race', 'Fly', 'Tools', 'News', 'Build Guides', 'Troubleshooting'],
+  icons: { icon: '/logo-type.png', shortcut: '/logo-type.png' },
   openGraph: {
     type: 'website',
     siteName: 'FPVLovers',
     title: 'FPVLovers | Learn, Build, Race, Fly',
     description: 'English-first FPV guides, engineering references, and practical pilot tools.',
+    images: [{ url: '/images/fallbacks/fpv-commercial.webp', width: 1200, height: 630, alt: 'FPVLovers FPV editorial guides' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'FPVLovers | Learn, Build, Race, Fly',
     description: 'English-first FPV guides, engineering references, and practical pilot tools.',
+    images: ['/images/fallbacks/fpv-commercial.webp'],
   },
 };
 

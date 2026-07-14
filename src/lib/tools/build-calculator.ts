@@ -233,7 +233,7 @@ function estimateThrust(
 }
 
 export function getSafeKvRange(cellCount: number, propDiameter: number): { min: number; max: number } {
-  const cells = clamp(Math.round(finiteNumber(cellCount, 6)), 2, 8);
+  const cells = clamp(Math.round(finiteNumber(cellCount, 6)), 1, 8);
   const diameter = clamp(finiteNumber(propDiameter, 5), 1.6, 8);
   const diameterFactor = 5 / diameter;
   const voltageFactor = 6 / cells;
@@ -248,7 +248,7 @@ export function getSafeKvRange(cellCount: number, propDiameter: number): { min: 
 
 export function calculateBuild(input: BuildCalculatorInput): BuildCalculatorResult {
   const style = input.style;
-  const cellCount = clamp(Math.round(finiteNumber(input.cellCount, 6)), 2, 8);
+  const cellCount = clamp(Math.round(finiteNumber(input.cellCount, 6)), 1, 8);
   const propDiameter = clamp(finiteNumber(input.propDiameter, 5), 1.6, 8);
   const propPitch = clamp(finiteNumber(input.propPitch, 3.6), 1, 6);
   const motorKv = clamp(finiteNumber(input.motorKv, 1900), 800, 6000);

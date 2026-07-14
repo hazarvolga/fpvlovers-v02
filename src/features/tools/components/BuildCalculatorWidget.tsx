@@ -79,7 +79,7 @@ const WEIGHT_FIELDS: NumberField[] = [
 ];
 
 const POWER_FIELDS: NumberField[] = [
-  { key: 'cellCount', label: 'Battery cells', suffix: 'S', min: 2, max: 8 },
+  { key: 'cellCount', label: 'Battery cells', suffix: 'S', min: 1, max: 8 },
   { key: 'batteryCapacityMah', label: 'Capacity', suffix: 'mAh', min: 300, max: 8000, step: 50 },
   { key: 'batteryWeight', label: 'Battery weight', suffix: 'g', min: 18, max: 900 },
   { key: 'batteryCRating', label: 'C rating', suffix: 'C', min: 30, max: 180 },

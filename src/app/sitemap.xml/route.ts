@@ -3,6 +3,9 @@ import {
   listPublishedContentAsync,
 } from '@/lib/content-automation/content-reader';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 300;
+
 const STATIC_PAGES = [
   { url: '/', priority: '1.0', changefreq: 'daily' },
   { url: '/academy/roadmap', priority: '0.9', changefreq: 'weekly' },
@@ -38,17 +41,31 @@ const STATIC_PAGES = [
   { url: '/pilot-pulse', priority: '0.8', changefreq: 'daily' },
   { url: '/category/parts', priority: '0.8', changefreq: 'weekly' },
   { url: '/category/software', priority: '0.8', changefreq: 'weekly' },
+  { url: '/academy', priority: '0.8', changefreq: 'weekly' },
+  { url: '/engineering', priority: '0.8', changefreq: 'weekly' },
+  { url: '/tools', priority: '0.8', changefreq: 'weekly' },
+  { url: '/buyers-guides', priority: '0.9', changefreq: 'weekly' },
+  { url: '/comparisons', priority: '0.9', changefreq: 'weekly' },
+  { url: '/reviews', priority: '0.9', changefreq: 'weekly' },
+  { url: '/archive', priority: '0.7', changefreq: 'weekly' },
+  { url: '/about', priority: '0.6', changefreq: 'monthly' },
+  { url: '/contact', priority: '0.6', changefreq: 'monthly' },
+  { url: '/disclosure', priority: '0.6', changefreq: 'monthly' },
+  { url: '/editorial-policy', priority: '0.6', changefreq: 'monthly' },
+  { url: '/advertise', priority: '0.6', changefreq: 'monthly' },
+  { url: '/privacy', priority: '0.4', changefreq: 'yearly' },
+  { url: '/terms', priority: '0.4', changefreq: 'yearly' },
 ];
 
 const BASE_URL = process.env.APP_URL || 'https://fpvlovers.com.tr';
 
 export async function GET() {
-  const slugsSet = new Set<string>();
+  const articlesBySlug = new Map<string, string>();
 
   try {
     const articles = await listPublishedContentAsync();
     for (const article of articles) {
-      if (article.slug && isIndexablePublishedArtifact(article)) slugsSet.add(article.slug);
+      if (article.slug && isIndexablePublishedArtifact(article)) articlesBySlug.set(article.slug, article.publishedAt);
     }
   } catch (err) {
     console.error('[Sitemap] Failed to load published content from files:', err);
@@ -61,9 +78,10 @@ export async function GET() {
       <changefreq>${page.changefreq}</changefreq>
     </url>`);
 
-  const dynamicUrls = Array.from(slugsSet).map(slug => `
+  const dynamicUrls = Array.from(articlesBySlug.entries()).map(([slug, publishedAt]) => `
     <url>
       <loc>${BASE_URL}/article/${slug}</loc>
+      ${publishedAt ? `<lastmod>${new Date(publishedAt).toISOString()}</lastmod>` : ''}
       <priority>0.8</priority>
       <changefreq>weekly</changefreq>
     </url>`);
@@ -72,6 +90,6 @@ export async function GET() {
 
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}\n</urlset>`,
-    { headers: { 'Content-Type': 'application/xml' } }
+    { headers: { 'Content-Type': 'application/xml', 'Cache-Control': 'public, max-age=300, s-maxage=300' } }
   );
 }

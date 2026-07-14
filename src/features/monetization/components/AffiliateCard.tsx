@@ -15,6 +15,10 @@ interface AffiliateCardProps {
   className?: string;
 }
 
+function isHttpUrl(value: string): boolean {
+  return /^https?:\/\//i.test(value);
+}
+
 export function AffiliateCard({ title, description, price, url, image, tag, className }: AffiliateCardProps) {
   return (
     <div className={cn("glass-panel p-4 flex flex-col sm:flex-row gap-6 relative group overflow-hidden hex-panel border-[#333333] hover:border-[#FF5C00]/50 transition-colors", className)}>
@@ -45,11 +49,15 @@ export function AffiliateCard({ title, description, price, url, image, tag, clas
 
          <div className="mt-auto flex items-center justify-between border-t border-[#333333]/50 pt-3">
             <div className="text-lg font-black tracking-tighter text-[#A0A0A0]">{price}</div>
-            <Button variant="amber" size="sm" asChild className="h-8 text-[10px] gap-2">
-               <Link href={url} target="_blank" rel="noopener noreferrer nofollow sponsored">
-                 ACQUIRE <ShoppingCart className="w-3 h-3" />
-               </Link>
-            </Button>
+            {isHttpUrl(url) ? (
+              <Button variant="amber" size="sm" asChild className="h-8 text-[10px] gap-2">
+                 <Link href={url} target="_blank" rel="noopener noreferrer nofollow sponsored">
+                   ACQUIRE <ShoppingCart className="w-3 h-3" />
+                 </Link>
+              </Button>
+            ) : (
+              <span className="border border-white/10 px-3 py-2 text-[9px] font-black uppercase tracking-widest text-white/40">Source pending</span>
+            )}
          </div>
       </div>
     </div>

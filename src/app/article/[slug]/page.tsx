@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { fetchEditorialInsights } from '@/lib/dify';
 import {
   getPublishedContentBySlugAsync,
+  getArtifactWordCount,
   isIndexablePublishedArtifact,
   type PublishedArtifact,
 } from '@/lib/content-automation/content-reader';
@@ -22,6 +23,7 @@ import { DiscoveryLink } from '@/components/DiscoveryLink';
 import { ResilientArticleCover } from '@/features/content/components/ResilientArticleCover';
 import { EditorialTrustPanel } from '@/features/content/components/EditorialTrustPanel';
 import { resolveFallbackCover } from '@/lib/content-automation/fallback-cover';
+import { generateArticleSchema } from '@/lib/seo/metadata';
 
 function categoryHref(category: string | undefined) {
   const normalized = (category || 'article').toLowerCase().trim().replace(/\s+/g, '-');
@@ -87,6 +89,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: `${seed.title} | FPVLovers`,
       description: seed.metaDescription,
       keywords: [...seed.secondaryKeywords, seed.primaryKeyword],
+      robots: { index: false, follow: true },
     };
   }
 
@@ -111,22 +114,64 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
   const fallbackCover = resolveFallbackCover({ category: a.category, metadata: a.metadata });
   const baseUrl = process.env.APP_URL || 'https://fpvlovers.com.tr';
   const articleUrl = `${baseUrl}/article/${a.slug}`;
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: a.title,
-    description: a.excerpt || a.seo.metaDescription,
-    datePublished: a.publishedAt,
-    mainEntityOfPage: articleUrl,
-    image: a.media?.coverImage?.src ? [a.media.coverImage.src] : undefined,
-    publisher: { '@type': 'Organization', name: 'FPVLovers', url: baseUrl },
+  const evidenceSources = a.editorial?.contentClass === 'product-review'
+    ? a.editorial.evidenceSources.filter((source) => /^https?:\/\//i.test(source))
+    : [];
+  const articleSchema = {
+    ...generateArticleSchema({
+      title: a.title,
+      description: a.excerpt || a.seo.metaDescription,
+      url: articleUrl,
+      datePublished: a.publishedAt,
+      dateModified: a.publishedAt,
+      image: a.media?.coverImage?.src || `${baseUrl}/images/fallbacks/fpv-commercial.webp`,
+      section: a.category,
+      wordCount: getArtifactWordCount(a),
+      citations: evidenceSources,
+    }),
+    mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
   };
-  const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
   const breadcrumbs = [
     { label: 'Content', href: '/#latest' },
     { label: a.category || 'Article', href: categoryHref(a.category) },
     { label: a.title, isCurrentPage: true }
   ];
+  const breadcrumbSchema = {
+    '@type': 'BreadcrumbList',
+    itemListElement: breadcrumbs.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.label,
+      ...(item.isCurrentPage ? { item: articleUrl } : { item: `${baseUrl}${item.href}` }),
+    })),
+  };
+  const reviewMetadata = a.metadata?.review;
+  const reviewEditorName = a.editorial?.contentClass === 'product-review' ? a.editorial.editorName : undefined;
+  const isApprovedHandsOnReview = a.editorial?.contentClass === 'product-review'
+    && a.editorial.approvalStatus === 'approved'
+    && a.editorial.testingMethod === 'hands-on'
+    && evidenceSources.length > 0;
+  const reviewSchema = isApprovedHandsOnReview && reviewMetadata ? {
+    '@type': 'Review',
+    name: a.title,
+    reviewBody: a.excerpt || a.seo.metaDescription,
+    datePublished: a.publishedAt,
+    author: { '@type': 'Person', name: reviewEditorName || 'Hazar Volga Ekiz' },
+    reviewRating: { '@type': 'Rating', ratingValue: reviewMetadata.reviewScore, bestRating: 100, worstRating: 0 },
+    positiveNotes: reviewMetadata.pros,
+    negativeNotes: reviewMetadata.cons,
+    itemReviewed: {
+      '@type': 'Product',
+      name: `${reviewMetadata.productBrand} ${reviewMetadata.productModel}`,
+      brand: { '@type': 'Brand', name: reviewMetadata.productBrand },
+      category: reviewMetadata.productCategory,
+    },
+  } : null;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [articleSchema, breadcrumbSchema, ...(reviewSchema ? [reviewSchema] : [])],
+  };
+  const safeJsonLd = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
   const sectionCount = a.bodySections?.length || 0;
   const contentType = a.metadata?.contentType || a.template || 'article';
   const isCommercial = ['review', 'comparison', 'buyer-guide', 'product-roundup'].includes(contentType);

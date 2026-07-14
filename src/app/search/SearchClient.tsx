@@ -1,14 +1,24 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import { type PublishedArtifact } from '@/lib/content-automation/content-reader';
+import type { ContentMetadata } from '@/lib/content-metadata';
 import { RotateCcw, Search, ShieldCheck } from 'lucide-react';
 import { DiscoveryLink } from '@/components/DiscoveryLink';
 
 interface SearchClientProps {
-  initialContent: PublishedArtifact[];
+  initialContent: SearchDocument[];
   initialQuery: string;
 }
+
+export type SearchDocument = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  publishedAt: string;
+  metadata?: ContentMetadata;
+  searchText: string;
+};
 
 const COMMERCIAL_TYPES = new Set(['review', 'comparison', 'buyer-guide', 'product-roundup']);
 
@@ -16,23 +26,11 @@ function formatLabel(value: string | undefined): string {
   return (value || 'unclassified').replace(/-/g, ' ');
 }
 
-function articleSearchText(article: PublishedArtifact): string {
-  return [
-    article.title,
-    article.excerpt,
-    article.slug,
-    article.category,
-    article.metadata?.contentType,
-    article.metadata?.difficulty,
-    ...(article.metadata?.topics || []),
-    ...(article.metadata?.discipline || []),
-    ...(article.metadata?.audience || []),
-    ...(article.metadata?.components || []),
-    ...(article.bodySections || []).map((section) => `${section.title} ${section.content}`),
-  ].filter(Boolean).join(' ').toLowerCase();
+function articleSearchText(article: SearchDocument): string {
+  return article.searchText;
 }
 
-function isCommercialArticle(article: PublishedArtifact): boolean {
+function isCommercialArticle(article: SearchDocument): boolean {
   return COMMERCIAL_TYPES.has(article.metadata?.contentType || '');
 }
 

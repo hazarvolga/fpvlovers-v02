@@ -3,7 +3,6 @@ import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 import { AdStickySidebar } from '@/features/monetization/components/NativeAds';
 import { AISummaryBox } from '@/components/ui/AISummaryBox';
 import { BatteryWarning, ShieldAlert } from 'lucide-react';
-import { AffiliateCard } from '@/features/monetization/components/AffiliateCard';
 
 export const metadata = {
   title: 'LiPo Battery Safety | REGULATIONS',
@@ -45,23 +44,17 @@ export default function BatteryPage() {
                 <h3 className="text-lg font-black uppercase text-[#f8fafc] tracking-widest">Crucial Containment Gear</h3>
              </div>
 
-             <div className="flex flex-col gap-4">
-                <AffiliateCard
-                   title="ISDT K4 Dual Smart Charger"
-                   description="Powerful AC/DC charger with intelligent balancing and cell internal resistance check."
-                   price="$249.00"
-                   url="#"
-                   image="/api/content/media/cover/isdt-k4-smart-charger"
-                   tag="SMART CHARGER"
-                />
-                <AffiliateCard
-                   title="Torvol LiPo Safe Bag"
-                   description="Fire-retardant fiberglass bag designed to contain LiPo fires during charging or transit."
-                   price="$24.99"
-                   url="#"
-                   image="/api/content/media/cover/torvol-lipo-safe-bag"
-                   tag="REQUIRED SAFETY"
-                />
+             <div className="grid gap-4 md:grid-cols-2">
+                {[
+                  ['Smart charger checklist', 'Choose a charger with balance mode, cell-count detection, current limiting, and visible storage-charge controls.'],
+                  ['LiPo containment checklist', 'Use a purpose-built fire-resistant bag or container, inspect packs before charging, and never leave a pack unattended.'],
+                ].map(([title, description]) => (
+                  <div key={title} className="border border-white/10 bg-black/30 p-5">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-[#FF5C00]">Research checklist</div>
+                    <h4 className="mt-3 text-lg font-black uppercase tracking-tight text-white">{title}</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-zinc-400">{description}</p>
+                  </div>
+                ))}
              </div>
           </div>
 

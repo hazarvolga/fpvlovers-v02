@@ -185,6 +185,19 @@ Canonical documents:
 - Generate pipeline çalışıyor, içerik üretiliyor (Racing)
 - Crawl pipeline çalışıyor (CRAWL_DRY_RUN=false)
 
+## 2026-07-14 Production Readiness Closure Phase
+
+- ✅ Commit `0399899` pushed to `origin/main`: product/spec trust is fail-closed. Unverified products cannot produce a build-ready verdict, calculator output, duel winner, or affiliate purchase card.
+- ✅ Added `npm run tools:part-matcher:test` coverage for complete-but-unverified raw specs; the result is blocked and calculator output is deferred.
+- ✅ Added `npm run tools:calculator:test`; 1S whoop calculations now preserve 3.7V nominal / 4.2V full voltage instead of clamping to 2S.
+- ✅ Added SEO/AI discovery controls: `en_US` OG locale, valid `/logo-type.png` publisher logo, global OG/favicon, dynamic sitemap hub coverage with `lastmod`, publish-triggered sitemap revalidation, planned-seed `noindex`, Article/BreadcrumbList schema, conditional hands-on Review/Product schema, and `/llms.txt`.
+- ✅ Added `npm run seo:discoverability-test` for metadata, robots, sitemap, schema, seed noindex, and llms.txt regression checks.
+- ✅ Removed dead `#` affiliate destinations. Native ads now render a real linked CTA only when a valid HTTP(S) product URL is present; otherwise they show an editorial placeholder. Battery safety recommendations are research checklists, not fake purchase cards.
+- ✅ Search now sends a lightweight server-built index to the client instead of serializing all 117 article bodies.
+- Local verification passed: TypeScript, focused ESLint, content/audit/language/editorial gates, SEO discovery, calculator, Part Matcher, quality, and content smoke.
+- ⏳ Runtime commit `0399899` is pushed but not yet Coolify-deployed/live-verified. Deploy manually, then run `npm run production:smoke`, `/api/ready`, and homepage latest-card count (>=6) checks.
+- ⏳ Remaining evidence-dependent blockers: verified primary-source product mappings, first genuine Hazar-approved hands-on review, 14-day four-publish reliability window, crawl failure retirement/retry decisions, rollback rehearsal, and full accessibility/route visual matrix.
+
 ## Manuel Yapılacak (Coolify)
 
 1. ✅ `be392db` production deploy tamamlandı; container healthy ve restart sayısı 0

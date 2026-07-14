@@ -60,6 +60,7 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
       {commercial && (
         <p className="mt-3 border-t border-white/10 pt-3 leading-5 text-zinc-400">
           Commercial disclosure: links may become affiliate links and may earn FPVLovers a commission at no additional cost to the reader. <Link href="/disclosure" className="text-[#FF5C00] hover:underline">Read the disclosure</Link> or <Link href="/editorial-policy" className="text-[#FF5C00] hover:underline">editorial policy</Link>.
+          <span className="ml-1">Brands with a review unit can use <Link href="/advertise#product-evaluation" className="text-[#FF5C00] hover:underline">the product evaluation brief</Link>.</span>
         </p>
       )}
     </aside>
