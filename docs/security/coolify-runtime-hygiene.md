@@ -57,4 +57,3 @@ Latest verified production deploy:
 - Container image tag: `r0c44ok0cskc800gs0c8o8wk:1c63eb6...`
 - Health: `/api/health` returned `200`
 - Tool guardrails remained active after deploy.
-

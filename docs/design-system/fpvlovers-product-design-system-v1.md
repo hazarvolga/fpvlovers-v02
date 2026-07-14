@@ -1,8 +1,8 @@
 # FPVLovers Product Design System V1
 
-Status: Review draft, no implementation code generated  
-Restore point: `restore-before-design-system-audit-2026-06-28`  
-Reference sources: root `design/` images, `frontend.png`, `forntendend_full.png`, `subpages.png`, attached Product Design System brief  
+Status: Review draft, no implementation code generated
+Restore point: `restore-before-design-system-audit-2026-06-28`
+Reference sources: root `design/` images, `frontend.png`, `forntendend_full.png`, `subpages.png`, attached Product Design System brief
 Primary principle: FPVLovers is not a blog skin. It is the operating system for FPV pilots, with an editorial public surface and cockpit-grade product surfaces.
 
 ## Executive Verdict
@@ -621,4 +621,3 @@ FPVLovers reaches 100/100 design readiness only when:
 - Mobile layouts are intentionally designed, not merely collapsed.
 - The component system prevents future visual drift.
 - The site feels like a premium FPV media/product ecosystem, not a generic blog and not an internal-only dashboard.
-
