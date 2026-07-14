@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-07-13
+Last updated: 2026-07-14
 
 ## Current Product Direction
 
@@ -28,6 +28,7 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 
 ## Current Known State
 
+- Release-gate documentation cleanup completed on 2026-07-14 in commit `7be7c5e`: removed trailing whitespace and EOF violations from the product design system and Coolify runtime hygiene docs. `npm run quality:recent`, `npx tsc --noEmit`, and `git diff --check` passed; pushed to `origin/main`. Runtime/build remediation remains the next phase.
 - Data-safe automation recovery started on 2026-07-06. A production PostgreSQL custom-format backup was created before scheduler/content changes: `/root/fpvlovers-db-backups/fpvlovers_prod_20260706T110705Z.dump` on `hulyaekiz`, SHA-256 `06e21a737efbbf574a9108a7055e8b056b404ab96b03bc1017558e6a12c42293`. This backup is the restore point for the automation-monitoring and four-articles-per-day recovery phase.
 - Stale-job recovery tooling added on 2026-07-06. `scripts/automation-recover-stale-jobs.ts` and `npm run automation:recover-stale` provide a dry-run-by-default recovery command for production `fpvlovers_app.content_jobs`; `--apply` marks stale `generating` and stale `queued` jobs as `failed` without deleting rows, increments attempts, writes an `automationRecovery` JSONB note, and records an `automation_runs` audit entry. Local verification passed with `npx tsc --noEmit` and targeted ESLint. At this point the code is ready to commit/push; production DB recovery and scheduler installation are the next ops phase.
 - Production stale-job recovery was applied on 2026-07-09 from the verified backup state: 40 stale content jobs were marked `failed` without deletion (39 stale `generating`, 1 stale `queued` “Street League Spec: Upcoming Races Section Currently Empty”), and an `automation_runs` record with status `recovered_stale_jobs` was inserted. Authenticated monitor verification then reported `staleGenerating=0` and `staleQueued=0`; remaining findings were publish stale, generate stale, crawl stale, daily target missed, and one crawl throttled by embedding budget.
