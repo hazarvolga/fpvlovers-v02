@@ -13,6 +13,10 @@ const checks = [
       assertStatus(res, 200);
       assertHeaderIncludes(res, 'content-type', 'text/html');
       assert(body.includes('FPV') || body.includes('fpv'), 'homepage should include FPV copy');
+      assert(body.includes('Editorial index'), 'homepage should expose editorial archive context');
+      assert(body.includes('Browse all'), 'homepage should expose the archive CTA');
+      assert((body.match(/data-testid="latest-content-card"/g) || []).length >= 6, 'homepage should expose at least six latest content cards');
+      assert(!body.includes('LINK ACTIVE') && !body.includes('SYS.SCANNER: STANDBY'), 'public homepage should not expose internal telemetry labels');
     },
   },
   {
@@ -25,6 +29,17 @@ const checks = [
       const json = parseJson(body);
       assert(json.status === 'ok', 'health status should be ok');
       assert(json.service === 'fpvlovers-frontend', 'health service should identify frontend');
+    },
+  },
+  {
+    name: 'public readiness',
+    method: 'GET',
+    path: '/api/ready',
+    expect: async (res, body) => {
+      assertStatus(res, 200);
+      const json = parseJson(body);
+      assert(json.status === 'ready', 'readiness status should be ready');
+      assert(Array.isArray(json.checks), 'readiness should include dependency checks');
     },
   },
   {
