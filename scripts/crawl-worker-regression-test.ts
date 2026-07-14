@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import type { CrawlJob } from '../src/lib/crawl-queue';
-import { processCrawlQueueBatch } from '../src/lib/content-automation/crawl-worker';
+import { isPermanentCrawlBlock, processCrawlQueueBatch } from '../src/lib/content-automation/crawl-worker';
 import { getCrawlQueueStorageMode } from '../src/lib/server/storage-mode';
 
 const job: CrawlJob = {
@@ -74,6 +74,24 @@ assert.equal(uploadTextLength, 1_500);
 assert.equal(uploadTokens, Math.ceil(uploadTextLength / 3));
 assert.equal(updates.at(-1)?.tokens, uploadTokens);
 assert.deepEqual(updates.map((update) => update.status), ['processing', 'completed']);
+
+assert.equal(isPermanentCrawlBlock('All crawler providers failed. primary: HTTP 500 (Blocked by anti-bot protection: HTTP 403)'), true);
+const antiBotUpdates: Array<Partial<CrawlJob>> = [];
+const antiBot = await processCrawlQueueBatch({
+  enabled: true,
+  dryRun: false,
+  dependencies: {
+    getNextBatch: async () => [{ ...job, id: 'anti-bot', retries: 0 }],
+    updateJob: async (_id, update) => { antiBotUpdates.push(update); },
+    fetchCrawler: async () => Response.json(
+      { detail: 'Blocked by anti-bot protection: HTTP 403 with HTML content' },
+      { status: 500 },
+    ),
+    uploadToDify: async () => { throw new Error('anti-bot must not upload'); },
+  },
+});
+assert.equal(antiBot.items[0]?.action, 'failed');
+assert.equal(antiBotUpdates.at(-1)?.status, 'failed');
 
 let privateFetchCalled = false;
 const privateTarget = await processCrawlQueueBatch({

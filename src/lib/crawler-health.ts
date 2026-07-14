@@ -18,19 +18,37 @@ type CrawlerConfig = {
 };
 
 const PRIMARY_HEALTH_URL = 'http://crawler-proxy:3002/health';
-const BACKUP_HEALTH_URL = 'http://crawler-backup:3002/health'; // Should be overridden by CRAWL4AI_BACKUP_HEALTH_URL in production
+const BACKUP_HEALTH_URL = 'http://crawler-backup:3002/health';
+
+export function healthUrlFromCrawlUrl(crawlUrl: string | undefined, fallback: string): string {
+  if (!crawlUrl) return fallback;
+
+  try {
+    const url = new URL(crawlUrl);
+    if (url.pathname.endsWith('/crawl')) {
+      url.pathname = `${url.pathname.slice(0, -'/crawl'.length)}/health`;
+      return url.toString();
+    }
+  } catch {
+    // Invalid crawl URLs are handled by the crawl worker; keep health checks deterministic.
+  }
+
+  return fallback;
+}
 
 function getCrawlerConfigs(): CrawlerConfig[] {
   return [
     {
       name: 'Crawl4AI Primary (B)',
       role: 'primary',
-      healthUrl: process.env.CRAWL4AI_PRIMARY_HEALTH_URL || PRIMARY_HEALTH_URL,
+      healthUrl: process.env.CRAWL4AI_PRIMARY_HEALTH_URL
+        || healthUrlFromCrawlUrl(process.env.CRAWL4AI_PRIMARY_CRAWL_URL, PRIMARY_HEALTH_URL),
     },
     {
       name: 'Crawl4AI Backup (C)',
       role: 'backup',
-      healthUrl: process.env.CRAWL4AI_BACKUP_HEALTH_URL || BACKUP_HEALTH_URL,
+      healthUrl: process.env.CRAWL4AI_BACKUP_HEALTH_URL
+        || healthUrlFromCrawlUrl(process.env.CRAWL4AI_BACKUP_CRAWL_URL, BACKUP_HEALTH_URL),
     },
   ];
 }

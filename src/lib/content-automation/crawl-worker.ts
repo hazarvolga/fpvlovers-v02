@@ -75,6 +75,19 @@ function readDocumentId(payload: unknown): string | undefined {
   return typeof document?.id === 'string' ? document.id : undefined;
 }
 
+function readErrorDetail(payload: unknown, rawBody: string): string {
+  const record = asRecord(payload);
+  for (const key of ['detail', 'error', 'message']) {
+    const value = record?.[key];
+    if (typeof value === 'string' && value.trim()) return value.trim().slice(0, 240);
+  }
+  return rawBody.replace(/\s+/g, ' ').trim().slice(0, 240);
+}
+
+export function isPermanentCrawlBlock(message: string): boolean {
+  return /(anti[- ]bot|blocked by|cloudflare|captcha|robots\.txt|http 403)/i.test(message);
+}
+
 function assertPublicHttpUrl(value: string): void {
   const url = new URL(value);
   if (!['http:', 'https:'].includes(url.protocol)) {
@@ -126,12 +139,21 @@ async function crawlUrl(
         body: JSON.stringify({ urls: [url], priority: 10, markdown: true }),
         signal: AbortSignal.timeout(45_000),
       });
+      const rawBody = await response.text();
+      let payload: unknown;
+      try {
+        payload = JSON.parse(rawBody) as unknown;
+      } catch {
+        payload = undefined;
+      }
+
       if (!response.ok) {
-        errors.push(`${endpoint.role}: HTTP ${response.status}`);
+        const detail = readErrorDetail(payload, rawBody);
+        errors.push(`${endpoint.role}: HTTP ${response.status}${detail ? ` (${detail})` : ''}`);
         continue;
       }
 
-      const markdown = readMarkdown(await response.json());
+      const markdown = readMarkdown(payload);
       if (markdown.length < 200) {
         errors.push(`${endpoint.role}: content too short (${markdown.length})`);
         continue;
@@ -226,8 +248,10 @@ export async function processCrawlQueueBatch(options: {
       });
     } catch (error: unknown) {
       const record = asRecord(error);
-      const status = record?.queueStatus === 'throttled' ? 'throttled' : failureStatus(job);
       const message = error instanceof Error ? error.message : 'Unknown crawl worker error';
+      const status = record?.queueStatus === 'throttled'
+        ? 'throttled'
+        : isPermanentCrawlBlock(message) ? 'failed' : failureStatus(job);
       await dependencies.updateJob(job.id, { status, error: message.slice(0, 500) });
       items.push({ jobId: job.id, url: job.url, dataset, action: status, error: message });
     }

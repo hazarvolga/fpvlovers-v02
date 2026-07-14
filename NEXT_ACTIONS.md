@@ -4,6 +4,7 @@ Last updated: 2026-07-14
 
 ## Current Priority After 2026-07-06 Automation Recovery Start
 
+0.3. **IN PROGRESS - Automatic crawl failover repair:** Coolify production now has explicit primary/backup health URLs; code derives health paths from crawl URLs when health envs are omitted. Anti-bot/Cloudflare/HTTP-403 provider responses are terminal `failed` instead of retry-throttled. Commit and redeploy this source change, then run one authenticated cron worker window and verify queue counts. Do not spend Dify embedding budget on known blocked domains; replace them with official/alternate sources or quarantine them.
 0. **DONE - Release quality gate cleanup:** commit `7be7c5e` removed the five documentation whitespace/EOF violations; `quality:recent`, TypeScript, and `git diff --check` pass. Next: remove the isolated-build dependency on Google Fonts.
 0.1. **DONE - Offline build hardening:** removed `next/font/google`; standalone build generated 122 routes successfully with committed-content fallback when local DB DNS was unavailable. TypeScript, lint, content smoke, route audit, and quality gate pass. Next: reconcile production crawl pending/throttled state.
 0.2. **DONE - Crawl retry exhaustion fix and deploy:** commit `2709840` is deployed healthy; crawl dry-run confirms the worker selects without mutation. The two provider-failure rows remain throttled until a controlled real worker window; do not bypass the embedding budget guard.
