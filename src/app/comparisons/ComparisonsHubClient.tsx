@@ -78,7 +78,7 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {filteredComparisons.map((comp) => {
             const meta = comp.metadata!.comparison!;
             const coverImage = comp.media?.coverImage?.src || comp.coverImage;
@@ -110,6 +110,8 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
                     </span>
                     <span>&bull;</span>
                     <span>{meta.comparisonCategory}</span>
+                    <span>&bull;</span>
+                    <span className="text-white/55">Editorial comparison</span>
                   </div>
 
                   {/* Versus Header */}
@@ -157,7 +159,7 @@ export function ComparisonsHubClient({ initialComparisons }: ComparisonsHubClien
                   <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
                     <Link
                       href={`/article/${comp.slug}`}
-                      className="inline-flex items-center gap-2 text-xs font-mono font-black uppercase tracking-widest text-white/80 hover:text-[#FF5C00] transition-colors group/link"
+                      className="inline-flex min-h-11 items-center gap-2 text-xs font-mono font-black uppercase tracking-widest text-white/80 hover:text-[#FF5C00] transition-colors group/link"
                       onClick={() => handleComparisonClick(comp.slug, meta.productA, meta.productB)}
                     >
                       Read Full Comparison

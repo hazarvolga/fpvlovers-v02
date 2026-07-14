@@ -21,12 +21,12 @@ export function SearchSection() {
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-[#FF5C00]/40 to-transparent pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row items-center justify-between gap-4">
-        {/* Left Telemetry Status */}
-        <div className="flex items-center gap-2.5 text-[10px] tracking-wider text-[#A0A0A0] uppercase">
+        {/* Public editorial context; operational telemetry stays in tools/admin surfaces. */}
+        <div className="flex items-center gap-2.5 text-[10px] tracking-wider text-[#A0A0A0] uppercase" aria-label="Editorial search context">
           <Radio className="w-3.5 h-3.5 text-[#00FF66] animate-pulse" />
-          <span className="text-[#00FF66] font-bold">LINK ACTIVE</span>
+          <span className="text-[#00FF66] font-bold">EDITORIAL SEARCH</span>
           <span className="text-[#333]">|</span>
-          <span>SYS.SCANNER: STANDBY</span>
+          <span>FIELD GUIDES &amp; REVIEWS</span>
         </div>
 
         {/* Center/Right Dynamic Search Box */}
@@ -36,8 +36,9 @@ export function SearchSection() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search FPV guides... (Press Enter)"
-            className="w-full pl-9 pr-4 py-1.5 bg-black/60 border border-[#222] rounded-md text-white font-mono text-[11px] uppercase tracking-wider focus:outline-none focus:border-[#00F2FF] focus:ring-1 focus:ring-[#00F2FF] transition-all placeholder-[#555]"
+            placeholder="Search FPV guides and reviews"
+            aria-label="Search FPV guides and reviews"
+            className="w-full min-h-11 pl-9 pr-4 py-2 bg-black/60 border border-[#222] rounded-md text-white font-mono text-[11px] tracking-wider focus:outline-none focus:border-[#00F2FF] focus:ring-1 focus:ring-[#00F2FF] transition-all placeholder-[#777]"
           />
         </form>
       </div>

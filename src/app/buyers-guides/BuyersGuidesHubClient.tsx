@@ -96,7 +96,7 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {initialGuides.map((guide) => {
             const coverImage = guide.media?.coverImage?.src || guide.coverImage;
             const isRoundup = guide.metadata?.contentType === 'product-roundup';
@@ -126,6 +126,8 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
                       </span>
                       <span>&bull;</span>
                       <span>{guide.category}</span>
+                      <span>&bull;</span>
+                      <span className="text-white/55">Editorial guide</span>
                     </div>
                     <h3 className="mb-2 line-clamp-2 text-lg font-bold uppercase leading-snug tracking-tight text-white transition-colors group-hover:text-[#FF5C00]">
                       {guide.title}
@@ -138,7 +140,7 @@ export function BuyersGuidesHubClient({ initialGuides }: BuyersGuidesHubClientPr
                   </div>
                   <Link
                     href={`/article/${guide.slug}`}
-                    className="inline-flex items-center gap-1 text-xs font-mono font-black uppercase text-[#FF5C00] hover:text-white transition-colors group/link"
+                    className="inline-flex min-h-11 items-center gap-1 text-xs font-mono font-black uppercase text-[#FF5C00] hover:text-white transition-colors group/link"
                     onClick={() => handleGuideClick(guide.slug)}
                   >
                     Open Guide

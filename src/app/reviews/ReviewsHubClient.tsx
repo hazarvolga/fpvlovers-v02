@@ -122,6 +122,8 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
                     <span>{meta.productCategory}</span>
                     <span>&bull;</span>
                     <span className="text-white/40">{meta.releaseYear}</span>
+                    <span>&bull;</span>
+                    <span className="text-white/55">{showScore ? 'Hands-on review' : 'Spec analysis'}</span>
                   </div>
 
                   {/* Title */}
@@ -181,7 +183,7 @@ export function ReviewsHubClient({ initialReviews }: ReviewsHubClientProps) {
                   <div className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between">
                     <Link
                       href={`/article/${rev.slug}`}
-                      className="inline-flex items-center gap-2 text-xs font-mono font-black uppercase tracking-widest text-white/80 hover:text-[#FF5C00] transition-colors group/link"
+                      className="inline-flex min-h-11 items-center gap-2 text-xs font-mono font-black uppercase tracking-widest text-white/80 hover:text-[#FF5C00] transition-colors group/link"
                       onClick={() => handleReviewClick(rev.slug, meta.productBrand, meta.productModel)}
                     >
                       {showScore ? 'Read Full Review' : 'Read Assessment'}

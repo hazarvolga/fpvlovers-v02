@@ -36,6 +36,7 @@
     "content:language-audit": "node --import tsx scripts/content-language-audit.ts",
     "content:audit": "node --import tsx scripts/content-integrity-audit.ts",
     "content:topic-cover-test": "node --import tsx scripts/topic-fallback-cover-regression-test.ts",
+    "public:editorial-test": "node --import tsx scripts/public-editorial-regression-test.ts",
     "crawl:worker-test": "node --import tsx scripts/crawl-worker-regression-test.ts",
     "crawl:retry-test": "node --import tsx scripts/crawl-retry-regression-test.ts",
     "crawl:health-test": "node --import tsx scripts/crawler-health-regression-test.ts",

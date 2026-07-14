@@ -262,6 +262,8 @@ function LatestContentItem({ card, featured = false }: { card: HomepageSectionCa
   return (
     <Link
       href={card.href}
+      data-testid="latest-content-card"
+      data-featured={featured ? 'true' : 'false'}
       className={`group overflow-hidden rounded-[1.5rem] border border-white/[0.10] bg-[#080b0f] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:border-[#ff3131]/[0.42] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_24px_80px_rgba(225,34,39,0.12)] ${
         featured ? 'md:col-span-2 md:grid md:grid-cols-[minmax(0,1.18fr)_minmax(0,0.82fr)]' : ''
       }`}

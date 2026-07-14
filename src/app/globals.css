@@ -93,7 +93,6 @@
     background: rgba(11, 13, 16, 0.88);
     border: 1px solid var(--fpv-border-subtle);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 24px 80px rgba(0, 0, 0, 0.34);
-    backdrop-filter: blur(20px) saturate(1.25);
   }
 
   .fpv-public-card {
@@ -194,7 +193,7 @@
 }
 
 .scanline-anim {
-  animation: scanline 8s linear infinite;
+  animation: scanline 8s var(--fpv-ease-premium) infinite;
 }
 
 @keyframes glitch-noise {
@@ -207,6 +206,13 @@
 }
 
 .glitch-hover:hover {
-  animation: glitch-noise 0.2s linear infinite;
+  animation: glitch-noise 0.2s steps(2, end) infinite;
   text-shadow: 2px 0 #00F2FF, -2px 0 #FF5C00;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanline-anim,
+  .glitch-hover:hover {
+    animation: none;
+  }
 }
