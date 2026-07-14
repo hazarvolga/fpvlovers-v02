@@ -8,7 +8,17 @@
 
 The homepage bottleneck identified in the report is now closed in production code commit `8737bf5` (source implementation commit `72d08fe`). Live verification shows six article cards, a visible `Browse all` action, `Editorial index · 117 published`, 284px mobile cards at 390px viewport width, and no horizontal overflow. This raises the homepage content gateway materially.
 
-The project is **not yet 10/10 overall**. The remaining gap is no longer “there is content but the homepage hides it”. The remaining gap is evidence, consistency, and operational proof: the public shell still contains dashboard language, hub card geometry is not fully standardized, ten commercial pages need enrichment, a genuine hands-on review does not yet exist, and crawl/embedding debt still requires controlled operations.
+The project is **not yet 10/10 overall**. The remaining gap is no longer “there is content but the homepage hides it”. The remaining gap is evidence, consistency, and operational proof: public dashboard language and scrolling blur were reduced in the live shell, but a formal shared card contract and full accessibility baseline are still open; ten commercial pages need enrichment, a genuine hands-on review does not yet exist, and crawl/embedding debt still requires controlled operations.
+
+## Closure Update — 2026-07-14
+
+The following gates are now evidenced rather than planned:
+
+- Commit `5eb2fac` is live in Coolify deployment `hk08wc0skcoksw04coww8848`. Public search context uses editorial language, commercial hubs expose evidence labels, `.fpv-public-panel` no longer uses scrolling `backdrop-filter`, and reduced-motion handling covers the remaining decorative animations. Live DOM verification found six latest-content cards, a visible `Browse all` CTA, `Editorial search`, no legacy `LINK ACTIVE`/`SYS.SCANNER: STANDBY` labels, and no inspected viewport overflow.
+- Commit `4482d5b` adds `npm run production:smoke` and `npm run commercial:readiness-test`. The live smoke suite passed 7/7: homepage, health, readiness, robots, sitemap, admin page auth, and admin API auth. The commercial suite passed all 19 commercial artifacts with a hard gate of 600+ body words, two internal article links, disclosure, and review evidence/testing contracts.
+- Read-only production queue observation reports `completed=39`, `failed=7`, `pending=3`, `throttled=0`. The three pending jobs are Oscar Liang sources and remain behind the embedding budget guard; the seven failed rows are terminal target/provider blocks and are not treated as crawler-service outages.
+
+This update closes the controllable release, public-shell, and commercial-governance gaps. It does **not** claim the overall score is 10/10: the ten sub-1,200-word enrichment candidates, a genuine Hazar-approved hands-on review, a controlled real crawl window, a full route/accessibility matrix, and rollback rehearsal remain evidence-dependent.
 
 ## Scoreboard and Exit Gates
 
@@ -21,7 +31,7 @@ The project is **not yet 10/10 overall**. The remaining gap is no longer “ther
 | Mobile content flow | 5/10 | 8/10 | 360x800 and 390x844 Playwright checks pass for CTA visibility, focus order, tap targets, and no horizontal overflow. |
 | Trust and honesty | 8/10 | 8/10 | Review evidence contract is enforced and one real product/evidence event is published without unsupported claims. |
 | Affiliate conversion readiness | 5/10 | 7/10 | Ten enrichment pages, schema/CTA checks, source links, disclosure placement, and an honest application evidence pack pass. |
-| Public visual system | 6/10 | 6/10 | Public telemetry language, type, blur, motion, contrast, and shared hub-card rules pass the design-system audit. |
+| Public visual system | 6/10 | 7/10 | Public telemetry language, blur scope, reduced-motion behavior, and commercial hub evidence labels are covered; shared card contract, contrast, and focus baselines remain. |
 | Automation reliability | 6/10 | 7/10 | Four publishable non-review items/day is sustained for 14 days with zero stale jobs and bounded Dify/crawl failures. |
 | Release confidence | 7/10 | 9/10 | All release gates, image-SHA verification, health/ready checks, rollback rehearsal, and post-deploy smoke pass. |
 
@@ -61,7 +71,7 @@ The current values are directional status, not marketing claims. Re-score after 
 
 ### P1 - Public editorial visual system
 
-1. Replace public `LINK ACTIVE`, `SYS.SCANNER`, and similar operational labels with editorial language. Keep telemetry vocabulary in tools, pilot surfaces, and admin only.
+1. Replace public `LINK ACTIVE`, `SYS.SCANNER`, and similar operational labels with editorial language. Keep telemetry vocabulary in tools, pilot surfaces, and admin only. **Completed for the homepage/search shell in `5eb2fac`; audit remaining public surfaces before marking the whole category closed.**
 2. Define a shared `EditorialCard` contract for homepage, buyers guides, comparisons, and reviews: image ratio, category, date, title wrap, excerpt, reading time, trust slot, CTA, and empty/loading/error states.
 3. Establish a deterministic display face only if licensing, subset size, and offline build constraints are documented. Keep body text in a readable sans stack; do not reintroduce remote font fetches.
 4. Scope blur to fixed/sticky surfaces. Remove large scrolling `backdrop-filter` regions and replace them with opaque/translucent surfaces.
@@ -75,8 +85,8 @@ The current values are directional status, not marketing claims. Re-score after 
 
 1. Sustain the approved target of at least four publishable non-review articles/day for 14 consecutive days; product reviews remain human-gated.
 2. Keep Dify calls behind `src/lib/dify-client.ts`, enforce timeout/budget accounting, and record bounded failure reasons. A timeout is an observable failure, not a silent fallback to fabricated data.
-3. Resolve the four pending crawl sources only in a controlled worker window with the embedding budget guard enabled. Anti-bot/403 sources stay terminally failed; they are not retried forever.
-4. Keep the two historical provider-failure rows visible in monitoring until an explicit retry or closure decision is recorded.
+3. Resolve the three pending crawl sources only in a controlled worker window with the embedding budget guard enabled. Anti-bot/403 sources stay terminally failed; they are not retried forever.
+4. Keep the seven terminal target/provider failure rows visible in monitoring until an explicit retry or closure decision is recorded.
 5. Add daily monitoring for stale jobs, publish target, crawl queue, Dify budget, and source-hint coverage. Alert on regressions instead of relying on manual inspection.
 
 **Owner:** automation/platform.  
@@ -125,8 +135,8 @@ The current values are directional status, not marketing claims. Re-score after 
 
 - No genuine hands-on product review/evidence event exists yet.
 - Ten commercial pages are still enrichment candidates even though they pass the 600-word/indexability gate.
-- Four pending crawl sources and the historical provider-failure rows require a controlled, budget-approved worker window.
-- Public shell typography, dashboard language, blur/motion scope, and shared hub-card anatomy remain open design-system work.
+- Three pending crawl sources and seven terminal target/provider failure rows require a controlled, budget-approved worker window or explicit source retirement.
+- Public shell typography, full contrast/focus coverage, and shared hub-card anatomy remain open design-system work; the homepage/search telemetry-label and blur issues are closed.
 - A full production route matrix and rollback rehearsal still need recorded evidence.
 
 ## Definition of Done
@@ -139,4 +149,3 @@ The project can honestly state “10/10” only when the scorecard is regenerate
 - Reviews clearly distinguish spec analysis from hands-on testing, and any hands-on review has Hazar Volga Ekiz approval and evidence.
 - Four non-review publishes/day, crawl queue health, Dify budget, and stale-job alerts are green for the agreed observation window.
 - Production deploy, health, ready, rollback, and live browser evidence all point to the same release SHA.
-
