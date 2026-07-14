@@ -19,6 +19,7 @@ Last updated: 2026-07-14
 10. **Embedding budget guard:** recent crawl throttling shows `Daily embedding budget exceeded (500+500/500)`. The crawl cadence/content volume plan must not spend embedding budget blindly; prioritize source quality and daily quota visibility. Keep the four old pending Oscar Liang jobs queued until the next controlled worker window.
 11. **DONE - Published shadow parity:** production plain-Node upsert reconciled all 117 committed artifacts into the shadow table without deleting five runtime-generated rows; local-only parity difference is zero.
 12. **Affiliate evidence boundary:** commercial pages pass the 600-word/indexability and internal-link gates. Ten pages under 1,200 words remain editorial enrichment work. A genuine hands-on review remains blocked until Hazar Volga Ekiz records a real product/evidence event; never synthesize that evidence.
+13. **FINAL STATUS - 2026-07-14:** all controllable GAP/BUG phases are closed and pushed through `b6f0b89`; production deploy `2709840` is healthy. Remaining work is monitored/external: controlled crawl retry after embedding budget approval, optional enrichment of 10 sub-1200-word commercial pages, and one genuine Hazar-approved hands-on review when a product/evidence event exists.
 11. **Phase discipline:** after each successful phase, update `PROJECT_MEMORY.md`, update this file, run the fastest relevant verification, commit, and push before moving to the next phase.
 
 ## Previous Priority After 2026-06-25 GAP Closure
