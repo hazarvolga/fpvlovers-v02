@@ -252,7 +252,7 @@ export default function SimulatorsPage() {
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-6">
                 {data.gear.map((item, i) => (
                    <div key={i} className="flex h-full">
-                     <AffiliateCard {...item} />
+                     <AffiliateCard {...item} linkKind="source" tag={`${item.tag} — MANUFACTURER SOURCE, NOT AFFILIATE`} />
                    </div>
                 ))}
              </div>

@@ -12,6 +12,8 @@ interface AffiliateCardProps {
   url: string;
   image: string;
   tag?: string;
+  /** Use source mode for editorial links that are not verified affiliate destinations. */
+  linkKind?: 'affiliate' | 'source';
   className?: string;
 }
 
@@ -19,7 +21,8 @@ function isHttpUrl(value: string): boolean {
   return /^https?:\/\//i.test(value);
 }
 
-export function AffiliateCard({ title, description, price, url, image, tag, className }: AffiliateCardProps) {
+export function AffiliateCard({ title, description, price, url, image, tag, linkKind = 'affiliate', className }: AffiliateCardProps) {
+  const isAffiliate = linkKind === 'affiliate';
   return (
     <div className={cn("glass-panel p-4 flex flex-col sm:flex-row gap-6 relative group overflow-hidden hex-panel border-[#333333] hover:border-[#FF5C00]/50 transition-colors", className)}>
       {/* Decorative Background */}
@@ -51,8 +54,8 @@ export function AffiliateCard({ title, description, price, url, image, tag, clas
             <div className="text-lg font-black tracking-tighter text-[#A0A0A0]">{price}</div>
             {isHttpUrl(url) ? (
               <Button variant="amber" size="sm" asChild className="h-8 text-[10px] gap-2">
-                 <Link href={url} target="_blank" rel="noopener noreferrer nofollow sponsored">
-                   ACQUIRE <ShoppingCart className="w-3 h-3" />
+                 <Link href={url} target="_blank" rel={isAffiliate ? 'noopener noreferrer nofollow sponsored' : 'noopener noreferrer nofollow'}>
+                   {isAffiliate ? 'ACQUIRE' : 'VIEW SOURCE'} <ShoppingCart className="w-3 h-3" />
                  </Link>
               </Button>
             ) : (

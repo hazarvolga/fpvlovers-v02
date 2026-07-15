@@ -32,6 +32,16 @@ interface AffiliateProduct {
   url: string; price: number; currency: string; commission: number; category: string;
   keywords: string[]; trustScore: number; image: string; compatibleWith: string[];
   active: boolean; featured: boolean; stats: { clicks: number; conversions: number; revenue: number; ctr: number; conversionRate: number };
+  /** Explicitly set only after the destination and network account are verified. */
+  affiliateUrlVerified?: boolean;
+  verificationEvidence?: string[];
+}
+
+function isVerifiedAffiliateProduct(product: AffiliateProduct): boolean {
+  if (!product.active || product.affiliateUrlVerified !== true) return false;
+  if (!/^https?:\/\//i.test(product.url)) return false;
+  return Array.isArray(product.verificationEvidence)
+    && product.verificationEvidence.some((url) => /^https?:\/\//i.test(url));
 }
 
 interface Sponsor {
@@ -193,7 +203,7 @@ export function getRecommendations(
   const scoredSponsors: Scored<Sponsor>[] = [];
 
   for (const p of affiliates) {
-    if (!p.active) continue;
+    if (!isVerifiedAffiliateProduct(p)) continue;
 
     const tScore = trust.affiliates[p.id]?.trustScore ?? p.trustScore;
     if (tScore < g.minTrustScoreAffiliate) continue;
@@ -299,6 +309,9 @@ export function checkAffiliateEligibility(
   const product = affiliates.find(a => a.id === productId);
   if (!product) return { eligible: false, reason: 'Product not found', score: 0, details: { trustScore: 0, semanticRelevance: 0, retrievalConfidence: 0 } };
   if (!product.active) return { eligible: false, reason: 'Product inactive', score: 0, details: { trustScore: 0, semanticRelevance: 0, retrievalConfidence: 0 } };
+  if (!isVerifiedAffiliateProduct(product)) {
+    return { eligible: false, reason: 'Affiliate destination is not verified', score: 0, details: { trustScore: 0, semanticRelevance: 0, retrievalConfidence: 0 } };
+  }
 
   const tScore = trust.affiliates[productId]?.trustScore ?? product.trustScore;
   const g = trust.globalConfig;
