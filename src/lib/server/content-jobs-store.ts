@@ -18,6 +18,9 @@ type ContentJobRow = {
   publish_artifact: { publishedPath?: unknown } | null;
   error_message: string | null;
   attempt_count: number | null;
+  scheduled_for: Date | string | null;
+  started_at: Date | string | null;
+  completed_at: Date | string | null;
   createdAt: Date | string | null;
   updatedAt: Date | string | null;
 };
@@ -80,7 +83,10 @@ async function dbLoadContentJobs(): Promise<ContentJob[]> {
         ? row.publish_artifact.publishedPath
         : undefined,
       error_message: row.error_message || undefined,
-      attempt_count: row.attempt_count || 0
+      attempt_count: row.attempt_count || 0,
+      scheduled_for: row.scheduled_for ? new Date(row.scheduled_for).toISOString() : undefined,
+      started_at: row.started_at ? new Date(row.started_at).toISOString() : undefined,
+      completed_at: row.completed_at ? new Date(row.completed_at).toISOString() : undefined,
     }));
   } catch (err) {
     console.error('[DB Store] Failed to load content jobs from database:', err);

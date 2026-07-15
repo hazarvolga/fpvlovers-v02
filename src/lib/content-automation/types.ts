@@ -7,6 +7,7 @@ export type ContentJobStatus =
   | 'reviewed'
   | 'approved'
   | 'published'
+  | 'throttled'
   | 'failed';
 
 export type ContentTemplate =

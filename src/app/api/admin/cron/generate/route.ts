@@ -43,12 +43,29 @@ type GenerationBatchResult = {
     title: string;
     publishedPath?: string;
   };
-  action: 'would_generate' | 'failed' | 'published' | 'await_product_editor' | 'held_for_quality';
+    action: 'would_generate' | 'failed' | 'published' | 'await_product_editor' | 'held_for_quality' | 'deferred_budget';
   workflowRunId?: string | null;
   totalTokens?: number | null;
   blockers?: string[];
   error?: string;
 };
+
+function isBudgetError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error);
+  return /DIFY_WORKFLOW_(budget_exceeded|throttled)|daily embedding budget exceeded|budget exceeded/i.test(message);
+}
+
+function nextUtcBudgetReset(now = new Date()): string {
+  const next = new Date(Date.UTC(
+    now.getUTCFullYear(),
+    now.getUTCMonth(),
+    now.getUTCDate() + 1,
+    0,
+    5,
+    0,
+  ));
+  return next.toISOString();
+}
 
 function writeLastRun(payload: Omit<LastRunPayload, 'generated_at'>): void {
   fs.writeFileSync(
@@ -85,7 +102,11 @@ export async function GET(req: Request) {
     const existingSlugs = await buildExistingSlugSet(jobs);
 
     // Process multiple queued jobs in batch
-    const readyJobs = jobs.filter((j) => j.status === 'queued');
+    const nowMs = Date.now();
+    const readyJobs = jobs.filter((j) => (
+      j.status === 'queued'
+      && (!j.scheduled_for || Date.parse(j.scheduled_for) <= nowMs)
+    ));
     const batch = readyJobs.slice(0, batchCount);
     const results: GenerationBatchResult[] = [];
     let batchError: string | null = null;
@@ -180,11 +201,24 @@ export async function GET(req: Request) {
         });
       } catch (error: unknown) {
         const message = error instanceof Error ? error.message : 'Unknown generation error';
-        job.status = 'failed';
-        job.feedback = message;
+        if (isBudgetError(error)) {
+          job.status = 'queued';
+          job.scheduled_for = nextUtcBudgetReset();
+          job.feedback = `Deferred until the next UTC budget reset (${job.scheduled_for}). ${message}`;
+          job.error_message = message;
+          job.attempt_count = (job.attempt_count || 0) + 1;
+        } else {
+          job.status = 'failed';
+          job.feedback = message;
+          job.error_message = message;
+        }
         job.updatedAt = new Date().toISOString();
         await saveContentJobsNew(jobs);
-        results.push({ job: { id: job.id, title: job.title }, action: 'failed', error: message });
+        results.push({
+          job: { id: job.id, title: job.title },
+          action: isBudgetError(error) ? 'deferred_budget' : 'failed',
+          error: message,
+        });
       }
     }
 
@@ -203,6 +237,7 @@ export async function GET(req: Request) {
           published: results.filter((r) => r.action === 'published').length,
           awaitingProductEditor: results.filter((r) => r.action === 'await_product_editor').length,
           heldForQuality: results.filter((r) => r.action === 'held_for_quality').length,
+          deferredBudget: results.filter((r) => r.action === 'deferred_budget').length,
           failed: results.filter((r) => r.action === 'failed').length,
         },
         results,

@@ -26,6 +26,7 @@ const VALID_TRANSITIONS: TransitionMap = {
   reviewed: ['approved', 'failed'],
   approved: ['published', 'failed'],
   published: [],
+  throttled: ['queued', 'failed'],
   failed: [],
 };
 
@@ -38,6 +39,7 @@ const CONTENT_JOB_STATUSES = new Set<ContentJobStatus>([
   'reviewed',
   'approved',
   'published',
+  'throttled',
   'failed',
 ]);
 const REVIEW_METHODS = new Set<ReviewTestingMethod>(['hands-on', 'spec-analysis']);
