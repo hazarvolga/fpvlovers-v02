@@ -14,13 +14,13 @@ export function MobileUtilityBar() {
   const utilities = [
     { name: 'Home', href: '/', icon: Rocket },
     { name: 'Academy', href: '/academy', icon: BookOpen },
-    { name: 'Search', href: '#search', icon: Search },
+    { name: 'Search', href: '/search', icon: Search },
     { name: 'Tools', href: '/tools', icon: Cpu },
     { name: 'Dossier', href: status === 'authenticated' ? '/academy/dossier' : '/auth/signin', icon: Activity },
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 z-50 w-full border-t border-white/5 bg-[#09090b]/90 backdrop-blur-xl lg:hidden pb-safe">
+    <nav aria-label="Mobile utility navigation" className="fixed bottom-0 left-0 z-50 w-full border-t border-white/5 bg-[#09090b]/90 backdrop-blur-xl lg:hidden pb-safe">
       <div className="flex items-center justify-around h-16 px-2">
         {utilities.map((item) => {
           const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
@@ -40,6 +40,6 @@ export function MobileUtilityBar() {
           );
         })}
       </div>
-    </div>
+    </nav>
   );
 }

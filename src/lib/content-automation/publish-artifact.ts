@@ -17,6 +17,17 @@ import {
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
+function validHttpSources(values: readonly string[]): string[] {
+  return [...new Set(values.filter((value) => {
+    try {
+      const url = new URL(value);
+      return url.protocol === 'https:' || url.protocol === 'http:';
+    } catch {
+      return false;
+    }
+  }))];
+}
+
 function ensureDir(dir: string): void {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
@@ -122,6 +133,12 @@ export async function publishGeneratedContentArtifact(
       note !== 'SEO research generated'
   );
 
+  const sourceReferences = validHttpSources([
+    ...job.sourceHints,
+    ...(job.editorial?.contentClass === 'product-review' ? job.editorial.evidenceSources : []),
+    ...media.gallery.map((asset) => asset.sourceUrl || ''),
+  ]);
+
   const artifact = {
     slug,
     title: content.title,
@@ -138,6 +155,8 @@ export async function publishGeneratedContentArtifact(
     editorial: job.editorial,
     publishedAt: new Date().toISOString(),
     promptVersion: job.promptVersion,
+    sourceHints: job.sourceHints,
+    sourceReferences,
   };
 
   fs.writeFileSync(jsonPath, JSON.stringify(artifact, null, 2) + '\n', 'utf-8');

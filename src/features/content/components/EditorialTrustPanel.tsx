@@ -24,6 +24,7 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
     && reviewRecord.testingMethod === 'spec-analysis';
   const commercial = ['review', 'comparison', 'buyer-guide', 'product-roundup']
     .includes(article.metadata?.contentType || '');
+  const sourceReferences = (article.sourceReferences || []).filter((source) => /^https?:\/\//i.test(source));
 
   return (
     <aside className="mb-10 rounded-xl border border-[#FF5C00]/25 bg-black/45 p-5 text-xs text-zinc-300 shadow-[0_18px_60px_rgba(0,0,0,0.35)]">
@@ -55,6 +56,31 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
         <p className="mt-3 leading-5">
           This non-review article may be produced through FPVLovers&apos; autonomous research workflow. It is not a hands-on product test. Technical claims remain subject to source checks, correction requests, and future editor review where needed.
         </p>
+      )}
+
+      {sourceReferences.length > 0 && (
+        <div className="mt-3 border-t border-white/10 pt-3 leading-5 text-zinc-400">
+          <p className="font-mono text-[10px] font-black uppercase tracking-widest text-zinc-500">
+            Source trail · {sourceReferences.length} recorded reference{sourceReferences.length === 1 ? '' : 's'}
+          </p>
+          <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+            {sourceReferences.slice(0, 4).map((source) => {
+              const host = new URL(source).hostname.replace(/^www\./, '');
+              return (
+                <li key={source}>
+                  <a
+                    href={source}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    className="text-[#FF5C00] hover:underline"
+                  >
+                    {host}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       )}
 
       {commercial && (

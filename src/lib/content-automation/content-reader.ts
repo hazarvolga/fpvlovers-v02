@@ -67,6 +67,8 @@ export type PublishedArtifact = GeneratedContent & {
   coverImage?: string;
   metadata?: ContentMetadata;
   editorial?: EditorialRecord;
+  sourceHints?: string[];
+  sourceReferences?: string[];
 };
 
 export function getArtifactWordCount(article: PublishedArtifact): number {

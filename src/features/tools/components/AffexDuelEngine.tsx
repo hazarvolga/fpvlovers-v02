@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { DuelProduct, DuelResult, getSpecWinner } from '@/lib/duelEngine';
+import { isSafeExternalHttpUrl } from '@/lib/monetization/safe-external-url';
 
 interface DuelEngineProps {
   productA: DuelProduct;
@@ -99,8 +100,8 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
        {/* Vendor Price Table */}
        <div className="flex flex-col gap-2 mt-auto">
           <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-widest border-b border-white/10 pb-1">Acquisition Relays</h4>
-          {product.vendors.map((vendor, i) => (
-             <a href={vendor.url} key={i} className={cn("flex items-center justify-between p-2 rounded border transition-colors group", vendor.inStock ? "bg-white/5 border-white/10 hover:border-[#00F5FF]/50 hover:bg-[#00F5FF]/5" : "bg-black/40 border-dashed border-white/10 opacity-50 cursor-not-allowed")}>
+          {product.vendors.map((vendor, i) => isSafeExternalHttpUrl(vendor.url) ? (
+             <a href={vendor.url} key={i} target="_blank" rel="nofollow sponsored noopener noreferrer" className={cn("flex items-center justify-between p-2 rounded border transition-colors group", vendor.inStock ? "bg-white/5 border-white/10 hover:border-[#00F5FF]/50 hover:bg-[#00F5FF]/5" : "bg-black/40 border-dashed border-white/10 opacity-50 cursor-not-allowed")}>
                 <div className="flex flex-col">
                   <span className="text-[10px] font-bold uppercase">{vendor.name}</span>
                   <span className={cn("text-xs font-black", vendor.inStock ? "text-[#00F5FF]" : "text-white/30")}>
@@ -113,6 +114,10 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
                   </Button>
                 )}
              </a>
+          ) : (
+            <div key={i} className="flex items-center justify-between rounded border border-yellow-300/20 bg-yellow-300/5 p-2 text-yellow-100">
+              <span className="text-[10px] uppercase tracking-widest">Source pending</span>
+            </div>
           ))}
        </div>
     </div>

@@ -117,6 +117,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
   const evidenceSources = a.editorial?.contentClass === 'product-review'
     ? a.editorial.evidenceSources.filter((source) => /^https?:\/\//i.test(source))
     : [];
+  const sourceReferences = (a.sourceReferences || evidenceSources).filter((source) => /^https?:\/\//i.test(source));
   const articleSchema = {
     ...generateArticleSchema({
       title: a.title,
@@ -127,7 +128,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
       image: a.media?.coverImage?.src || `${baseUrl}/images/fallbacks/fpv-commercial.webp`,
       section: a.category,
       wordCount: getArtifactWordCount(a),
-      citations: evidenceSources,
+      citations: sourceReferences,
     }),
     mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
   };

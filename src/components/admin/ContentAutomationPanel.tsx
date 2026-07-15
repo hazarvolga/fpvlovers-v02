@@ -11,6 +11,42 @@ type ContentAutomationPanelProps = {
   onNavigateToGeneration?: () => void;
 };
 
+async function collectProductReviewEditorial(): Promise<Record<string, unknown> | null> {
+  const testingMethod = window.prompt('Testing method: hands-on or spec-analysis');
+  const productRelationship = window.prompt('Product relationship: purchased, supplied, loaned, or none');
+  const evidenceSources = window.prompt('Verified evidence source URLs (comma separated)');
+  if (!testingMethod || !productRelationship || !evidenceSources) return null;
+
+  const normalizedSources = evidenceSources
+    .split(',')
+    .map((source) => source.trim())
+    .filter((source) => /^https?:\/\//i.test(source));
+  if (!['hands-on', 'spec-analysis'].includes(testingMethod)
+    || !['purchased', 'supplied', 'loaned', 'none'].includes(productRelationship)
+    || normalizedSources.length === 0
+    || (testingMethod === 'hands-on' && productRelationship === 'none')) {
+    window.alert('Review not submitted. Use valid values and at least one verified HTTP(S) evidence URL.');
+    return null;
+  }
+
+  const disclosure = (productRelationship === 'supplied' || productRelationship === 'loaned')
+    ? window.prompt('Disclosure for supplied or loaned product') || ''
+    : '';
+  if ((productRelationship === 'supplied' || productRelationship === 'loaned') && !disclosure.trim()) {
+    window.alert('A supplied or loaned product requires a disclosure before review.');
+    return null;
+  }
+
+  return {
+    editorName: 'Hazar Volga Ekiz',
+    testingMethod,
+    productRelationship,
+    evidenceSources: normalizedSources,
+    compensationReceived: false,
+    disclosure: disclosure.trim() || undefined,
+  };
+}
+
 export default function ContentAutomationPanel({ onNavigateToGeneration }: ContentAutomationPanelProps) {
   const [jobs, setJobs] = useState<ContentJob[]>([]);
   const [loading, setLoading] = useState(true);
@@ -111,10 +147,22 @@ export default function ContentAutomationPanel({ onNavigateToGeneration }: Conte
             });
           }
         } else if (action === 'review') {
+          const isProductReview = job.template === 'product-review'
+            || job.category.toLowerCase().includes('review');
+          const editorial = isProductReview ? await collectProductReviewEditorial() : undefined;
+          if (isProductReview && !editorial) {
+            setActionLoading(null);
+            return;
+          }
+          const reviewPayload = {
+            status: 'reviewed',
+            feedback: detail || feedback || 'Reviewed by Hazar Volga Ekiz',
+            ...(editorial ? { editorial } : {}),
+          };
           await fetch('/api/admin/content/jobs/' + job.id, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ status: 'reviewed', feedback: detail || feedback || 'Reviewed' }),
+            body: JSON.stringify(reviewPayload),
           });
         } else if (action === 'approve') {
           await fetch('/api/admin/content/jobs/' + job.id, {

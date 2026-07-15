@@ -15,8 +15,11 @@ function hasDatabaseConfig(): boolean {
   );
 }
 
-export async function persistRawCrawlContent(input: RawCrawlContent): Promise<void> {
-  if (!hasDatabaseConfig() || !input.url || !input.rawMarkdown) return;
+export async function persistRawCrawlContent(input: RawCrawlContent): Promise<boolean> {
+  if (!input.url || !input.rawMarkdown) return false;
+  // Local dry-runs may not have a database. Production has FPV_DATABASE_URL,
+  // so a query error is allowed to fail the crawl before Dify ingestion.
+  if (!hasDatabaseConfig()) return true;
 
   const contentHash = createHash('sha256').update(input.rawMarkdown).digest('hex');
   await query(
@@ -35,6 +38,7 @@ export async function persistRawCrawlContent(input: RawCrawlContent): Promise<vo
     `,
     [input.url, input.rawMarkdown, input.crawler || null, contentHash, input.metadata || {}],
   );
+  return true;
 }
 
 export async function listRawCrawlContent(options: {

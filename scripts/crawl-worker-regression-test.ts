@@ -59,6 +59,7 @@ const success = await processCrawlQueueBatch({
         results: [{ markdown: { raw_markdown: '# PID tuning\n'.repeat(1_000) } }],
       });
     },
+    persistRawContent: async () => true,
     uploadToDify: async (endpoint, options) => {
       uploadEndpoint = endpoint;
       uploadTokens = options.tokens;
@@ -74,6 +75,26 @@ assert.equal(uploadTextLength, 1_500);
 assert.equal(uploadTokens, Math.ceil(uploadTextLength / 3));
 assert.equal(updates.at(-1)?.tokens, uploadTokens);
 assert.deepEqual(updates.map((update) => update.status), ['processing', 'completed']);
+
+let uploadAfterRawFailure = false;
+const rawFailureUpdates: Array<Partial<CrawlJob>> = [];
+const rawFailure = await processCrawlQueueBatch({
+  enabled: true,
+  dryRun: false,
+  dependencies: {
+    getNextBatch: async () => [{ ...job, id: 'raw-failure', retries: 0 }],
+    updateJob: async (_id, update) => { rawFailureUpdates.push(update); },
+    fetchCrawler: async () => Response.json({ results: [{ markdown: { raw_markdown: '# source\\n'.repeat(100) } }] }),
+    persistRawContent: async () => false,
+    uploadToDify: async () => {
+      uploadAfterRawFailure = true;
+      return { ok: true, status: 'success' };
+    },
+  },
+});
+assert.equal(rawFailure.items[0]?.action, 'throttled');
+assert.equal(rawFailureUpdates.at(-1)?.status, 'throttled');
+assert.equal(uploadAfterRawFailure, false);
 
 assert.equal(isPermanentCrawlBlock('All crawler providers failed. primary: HTTP 500 (Blocked by anti-bot protection: HTTP 403)'), true);
 const antiBotUpdates: Array<Partial<CrawlJob>> = [];

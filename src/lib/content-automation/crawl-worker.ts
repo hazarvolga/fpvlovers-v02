@@ -28,7 +28,7 @@ type CrawlWorkerDependencies = {
     rawMarkdown: string;
     crawler: 'primary' | 'backup';
     metadata?: Record<string, unknown>;
-  }) => Promise<void>;
+  }) => Promise<boolean>;
 };
 
 export type CrawlWorkerItemResult = {
@@ -211,17 +211,21 @@ export async function processCrawlQueueBatch(options: {
       try {
         // Keep the source markdown locally before Dify upload so image
         // provenance survives an embedding budget or API failure.
-        await dependencies.persistRawContent({
+        const rawPersisted = await dependencies.persistRawContent({
           url: job.url,
           rawMarkdown: crawled.markdown,
           crawler: crawled.crawler,
           metadata: { jobId: job.id, dataset },
         });
+        if (!rawPersisted) {
+          throw new Error('Raw source persistence returned false; Dify upload was skipped.');
+        }
       } catch (error: unknown) {
         console.warn(
           `[CrawlWorker] Raw source persistence failed for ${job.url}:`,
           error instanceof Error ? error.message : String(error),
         );
+        throw error;
       }
       const uploadText = crawled.markdown.slice(0, MAX_DIFY_UPLOAD_CHARACTERS);
       const uploadTokens = Math.ceil(uploadText.length / 3);

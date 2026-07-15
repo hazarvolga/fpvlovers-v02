@@ -113,7 +113,7 @@ export function SubpageSectionHeader({
         <h2 className="mt-2 text-2xl font-black uppercase tracking-[-0.03em] text-white md:text-3xl">{title}</h2>
       </div>
       {action ? (
-        <Link href={action.href} className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
+        <Link href={action.href} className="inline-flex shrink-0 items-center gap-1.5 rounded border border-[#ff3131]/30 px-3 py-2 text-[10px] font-black uppercase tracking-[0.1em] text-[#ff3131] transition-colors hover:border-[#ff3131]/60 hover:text-white sm:gap-2 sm:border-0 sm:px-0 sm:py-0 sm:text-xs sm:tracking-[0.12em]">
           {action.label}
           <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
         </Link>

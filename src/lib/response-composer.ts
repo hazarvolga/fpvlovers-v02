@@ -21,6 +21,12 @@ const INTENT_LAYOUT_MAP: Record<string, LayoutType> = {
   news:       'default',
 };
 
+function getVerifiedAffiliateBlock(): AffiliateBlock | null {
+  // The monetization agent must provide a real catalog record before this
+  // becomes non-null. Keeping the boundary explicit prevents `#` CTAs.
+  return null;
+}
+
 export async function composeResponse(
   master: MasterResponse,
   query: string,
@@ -93,13 +99,18 @@ export async function composeResponse(
 
   // 5. AFFILIATE BLOCK
   const mono = master.routing.monetization;
-  if (['affiliate', 'mixed'].includes(mono.strategy) && mono.maxPlacements > 0) {
+  // A monetization strategy alone is not evidence of a product. Do not emit
+  // a placeholder CTA until the affiliate agent supplies a verified URL.
+  const verifiedAffiliate = getVerifiedAffiliateBlock();
+  if (verifiedAffiliate && ['affiliate', 'mixed'].includes(mono.strategy) && mono.maxPlacements > 0) {
     const aff: AffiliateBlock = {
-      id: randomUUID(), type: 'affiliate_block', priority: priority++,
-      productName: '[Ürün adı affiliate agent\'dan gelecek]',
-      ctaText: 'Fiyatı Gör',
-      affiliateUrl: '#',
-      trustLevel: 'high',
+      id: randomUUID(),
+      type: 'affiliate_block',
+      priority: priority++,
+      productName: verifiedAffiliate.productName,
+      ctaText: verifiedAffiliate.ctaText,
+      affiliateUrl: verifiedAffiliate.affiliateUrl,
+      trustLevel: verifiedAffiliate.trustLevel,
     };
     blocks.push(aff);
   }

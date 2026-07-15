@@ -12,6 +12,7 @@ import { CyberBreadcrumb } from "@/features/navigation/components/Breadcrumb";
 import { AdStickySidebar } from "@/features/monetization/components/NativeAds";
 import { loadDossierFromBrowser, saveDossierToBrowser } from "@/lib/state/dossier-serializer";
 import { BuildDNA } from "@/types/build-dna";
+import { isSafeExternalHttpUrl } from "@/lib/monetization/safe-external-url";
 import { Cpu, Award, HardDrive, ShieldCheck, ExternalLink, Play, CheckCircle2 } from "lucide-react";
 
 interface ReferenceBuild {
@@ -231,14 +232,16 @@ export default function BuildDetailsPage() {
                       {part.brand} {part.model}
                     </span>
                   </div>
-                  <a
-                    href={part.affiliateUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#00F2FF] hover:underline flex items-center gap-1 font-black"
-                  >
-                    View Part <ExternalLink className="w-3 h-3" />
-                  </a>
+                  {isSafeExternalHttpUrl(part.affiliateUrl) ? (
+                    <a
+                      href={part.affiliateUrl}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      className="text-[#00F2FF] hover:underline flex items-center gap-1 font-black"
+                    >
+                      View source <ExternalLink className="w-3 h-3" />
+                    </a>
+                  ) : <span className="text-yellow-200">Source pending</span>}
                 </div>
               ))}
             </div>
