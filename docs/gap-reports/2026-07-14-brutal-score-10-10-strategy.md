@@ -20,7 +20,7 @@ The next local/pushed phase is complete in commits `0399899` and `1f08ad0`:
 - Affiliate surfaces no longer emit dead `#` links or clickable placeholder ads. A valid HTTP(S) destination is required; otherwise the UI presents an editorial placeholder. Search now ships a lightweight server-built index instead of all 117 article bodies.
 - Local verification passed TypeScript, focused ESLint, build (122 routes), content/metadata/language/editorial audits, quality, content smoke, SEO discovery, calculator, and Part Matcher tests.
 
-This phase is **pushed but not live-verified**. Coolify deployment was not triggered because the environment rejected the required SSH escalation. The live public search result still exposes the older three-card homepage snapshot, so production remains below the source-level score until `1f08ad0` is deployed and smoke-tested.
+This phase was deployed through Coolify on 2026-07-15 as deployment `zowkok880k88k0ws844kwscw`; the `df76a58` container is healthy. Server-side smoke verified public 200 routes, admin 401 boundaries, homepage latest-card markers, `/llms.txt`, sitemap hubs, and zero Turkish leakage in the previously flagged article. The local network could not resolve the public domain, so production smoke was executed from the production host/container.
 
 ## Closure Update — 2026-07-14
 

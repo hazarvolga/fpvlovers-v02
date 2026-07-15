@@ -195,7 +195,7 @@ Canonical documents:
 - ✅ Removed dead `#` affiliate destinations. Native ads now render a real linked CTA only when a valid HTTP(S) product URL is present; otherwise they show an editorial placeholder. Battery safety recommendations are research checklists, not fake purchase cards.
 - ✅ Search now sends a lightweight server-built index to the client instead of serializing all 117 article bodies.
 - Local verification passed: TypeScript, focused ESLint, content/audit/language/editorial gates, SEO discovery, calculator, Part Matcher, quality, and content smoke.
-- ⏳ Runtime commit `0399899` is pushed but not yet Coolify-deployed/live-verified. Deploy manually, then run `npm run production:smoke`, `/api/ready`, and homepage latest-card count (>=6) checks.
+- ✅ Runtime commits `1f08ad0` + docs `df76a58` deployed through Coolify on 2026-07-15 (deployment `zowkok880k88k0ws844kwscw`). New container `df76a58...` is healthy; server-side smoke passed public 200 routes, admin 401 boundaries, homepage latest-card markers, `/llms.txt`, sitemap hubs, and article schema/language checks.
 - ⏳ Remaining evidence-dependent blockers: verified primary-source product mappings, first genuine Hazar-approved hands-on review, 14-day four-publish reliability window, crawl failure retirement/retry decisions, rollback rehearsal, and full accessibility/route visual matrix.
 
 ## Manuel Yapılacak (Coolify)
