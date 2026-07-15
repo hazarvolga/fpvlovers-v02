@@ -15,6 +15,7 @@ function calculateFileStats(jobs: CrawlJob[]): CrawlQueue['stats'] {
     completed: jobs.filter(j => j.status === 'completed').length,
     failed: jobs.filter(j => j.status === 'failed').length,
     throttled: jobs.filter(j => j.status === 'throttled').length,
+    retired: jobs.filter(j => j.status === 'retired').length,
   };
 }
 
@@ -33,7 +34,7 @@ function fileLoad(): CrawlQueue {
       batchSize: 3, batchDelayMs: 60000,
       maxConcurrent: 1,
       retryDelaysMs: [60000, 300000, 900000],
-    }, stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0 },
+    }, stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0, retired: 0 },
   };
 }
 
@@ -223,10 +224,11 @@ async function dbUpdateJob(id: string, update: Partial<CrawlJob>, retryDelaysMs:
         fieldsToUpdate.push(`next_attempt_at = $${paramIndex++}`);
         params.push(nextAttemptAt);
       } else fieldsToUpdate.push('next_attempt_at = NULL');
-    } else if (update.status === 'completed') {
+    } else if (update.status === 'completed' || update.status === 'retired') {
       fieldsToUpdate.push(`completed_at = $${paramIndex++}`);
       params.push(now);
-      fieldsToUpdate.push('next_attempt_at = NULL', 'error_message = NULL');
+      fieldsToUpdate.push('next_attempt_at = NULL');
+      if (update.status === 'completed') fieldsToUpdate.push('error_message = NULL');
     }
 
     await client.query(`
@@ -282,7 +284,7 @@ async function dbGetQueueStatus(config: CrawlQueue['config']): Promise<CrawlQueu
     return {
       jobs: [],
       config,
-      stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0 }
+      stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0, retired: 0 }
     };
   }
 }
@@ -392,12 +394,12 @@ export async function updateJobAsync(id: string, update: Partial<CrawlJob>): Pro
   const q = fileLoad();
 
   // Log crawl events to database in background
-  if (update.status === 'completed' || update.status === 'failed') {
+  if (update.status === 'completed' || update.status === 'failed' || update.status === 'retired') {
     Promise.resolve().then(async () => {
       try {
         const { logAnalyticsEvent } = await import('./analytics-store');
         await logAnalyticsEvent({
-          eventType: update.status === 'completed' ? 'crawl_complete' : 'crawl_failed',
+          eventType: update.status === 'completed' ? 'crawl_complete' : update.status === 'retired' ? 'crawl_retired' : 'crawl_failed',
           source: 'crawler',
           metadata: {
             jobId: id,
@@ -474,7 +476,7 @@ export async function clearQueueAsync(): Promise<void> {
 
   if (mode === 'dual') {
     // 1. Clear files
-    fileSave({ jobs: [], config: q.config, stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0 } });
+    fileSave({ jobs: [], config: q.config, stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0, retired: 0 } });
     
     // 2. Dual-clear DB in background
     Promise.resolve().then(async () => {
@@ -488,5 +490,5 @@ export async function clearQueueAsync(): Promise<void> {
   }
 
   // default: files
-  fileSave({ jobs: [], config: q.config, stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0 } });
+  fileSave({ jobs: [], config: q.config, stats: { total: 0, pending: 0, completed: 0, failed: 0, throttled: 0, retired: 0 } });
 }

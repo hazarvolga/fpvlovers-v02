@@ -24,7 +24,7 @@ export type BlackboxSourcePack = {
 
 type QueueJobSnapshot = {
   url: string;
-  status: 'pending' | 'processing' | 'completed' | 'failed' | 'throttled';
+  status: 'pending' | 'processing' | 'completed' | 'failed' | 'throttled' | 'retired';
   updatedAt?: string;
 };
 
@@ -86,7 +86,7 @@ function isNewerJob(candidate: QueueJobSnapshot, current?: QueueJobSnapshot): bo
 
 function sourceStatusFromJob(job: QueueJobSnapshot): BlackboxSourceStatus {
   if (job.status === 'completed') return 'crawled';
-  if (job.status === 'failed') return 'failed';
+  if (job.status === 'failed' || job.status === 'retired') return 'failed';
   return 'queued';
 }
 

@@ -42,6 +42,13 @@ type PublishedSummaryRow = {
   latest_published_at: Date | string | null;
   latest_updated_at: Date | string | null;
   published_last_24h: string | number;
+  published_last_14d: string | number;
+  observed_days_14d: string | number;
+};
+
+type CrawlIssueRow = {
+  unresolved_failed: string | number;
+  unresolved_pending: string | number;
 };
 
 type RecentPublishedRow = {
@@ -85,6 +92,9 @@ export type AutomationStatusReport = {
     total: number;
     byStatus: Record<string, StatusBucket>;
     throttled: number;
+    retired: number;
+    unresolvedFailed: number;
+    unresolvedPending: number;
     recent: RecentCrawlJobRow[];
   };
   automationRuns: {
@@ -97,6 +107,10 @@ export type AutomationStatusReport = {
   publishing: {
     totalShadowArticles: number;
     publishedLast24h: number;
+    publishedLast14d: number;
+    observedDays14d: number;
+    dailyAverage14d: number;
+    targetMet14d: boolean;
     latestPublishedAt: string | null;
     latestUpdatedAt: string | null;
     recent: RecentPublishedRow[];
@@ -164,6 +178,7 @@ export async function getAutomationStatusReport(
     recentContentJobs,
     recentCrawlJobs,
     staleJobs,
+    crawlIssues,
   ] = await Promise.all([
     query<CountRow>(`
       SELECT
@@ -201,7 +216,9 @@ export async function getAutomationStatusReport(
         COUNT(*) AS total,
         MAX(published_at) AS latest_published_at,
         MAX(updated_at) AS latest_updated_at,
-        COUNT(*) FILTER (WHERE published_at >= NOW() - INTERVAL '24 hours') AS published_last_24h
+        COUNT(*) FILTER (WHERE published_at >= NOW() - INTERVAL '24 hours') AS published_last_24h,
+        COUNT(*) FILTER (WHERE published_at >= NOW() - INTERVAL '14 days') AS published_last_14d,
+        COUNT(DISTINCT published_at::date) FILTER (WHERE published_at >= NOW() - INTERVAL '14 days') AS observed_days_14d
       FROM fpvlovers_app.published_articles_shadow
     `),
     query<RecentPublishedRow>(`
@@ -228,6 +245,12 @@ export async function getAutomationStatusReport(
         COUNT(*) FILTER (WHERE status = 'queued' AND updated_at < NOW() - INTERVAL '24 hours') AS stale_queued
       FROM fpvlovers_app.content_jobs
     `),
+    query<CrawlIssueRow>(`
+      SELECT
+        COUNT(*) FILTER (WHERE status = 'failed' AND COALESCE(metadata->>'resolution', '') = '') AS unresolved_failed,
+        COUNT(*) FILTER (WHERE status = 'pending' AND COALESCE(metadata->>'resolution', '') = '') AS unresolved_pending
+      FROM fpvlovers_app.crawl_jobs
+    `),
   ]);
 
   const content = summarizeCounts(contentCounts.rows);
@@ -237,6 +260,8 @@ export async function getAutomationStatusReport(
     latest_published_at: null,
     latest_updated_at: null,
     published_last_24h: 0,
+    published_last_14d: 0,
+    observed_days_14d: 0,
   };
 
   const byKindStatus: AutomationStatusReport['automationRuns']['byKindStatus'] = {};
@@ -253,7 +278,14 @@ export async function getAutomationStatusReport(
   const staleGenerating = toCount(stale.stale_generating);
   const staleQueued = toCount(stale.stale_queued);
   const throttled = crawl.byStatus.throttled?.count ?? 0;
+  const retired = crawl.byStatus.retired?.count ?? 0;
+  const crawlIssue = crawlIssues.rows[0] ?? { unresolved_failed: 0, unresolved_pending: 0 };
+  const unresolvedFailed = toCount(crawlIssue.unresolved_failed);
+  const unresolvedPending = toCount(crawlIssue.unresolved_pending);
   const publishedLast24h = toCount(published.published_last_24h);
+  const publishedLast14d = toCount(published.published_last_14d);
+  const observedDays14d = toCount(published.observed_days_14d);
+  const dailyAverage14d = Number((publishedLast14d / 14).toFixed(2));
   const latestPublishedAt = toIso(published.latest_published_at);
   const latestGenerateAt = Object.entries(byKindStatus)
     .filter(([key]) => key.startsWith('generate:'))
@@ -321,6 +353,14 @@ export async function getAutomationStatusReport(
     });
   }
 
+  if (unresolvedFailed > 0 || unresolvedPending > 0) {
+    findings.push({
+      severity: 'warning',
+      code: 'crawl_queue_unresolved',
+      message: `Unresolved crawl jobs detected: failed=${unresolvedFailed}, pending=${unresolvedPending}.`,
+    });
+  }
+
   const overall = findings.reduce<AutomationSeverity>(
     (current, finding) => severityRank(finding.severity) > severityRank(current) ? finding.severity : current,
     'ok',
@@ -345,6 +385,9 @@ export async function getAutomationStatusReport(
       total: crawl.total,
       byStatus: crawl.byStatus,
       throttled,
+      retired,
+      unresolvedFailed,
+      unresolvedPending,
       recent: recentCrawlJobs.rows.map((row) => ({
         ...row,
         updated_at: toIso(row.updated_at),
@@ -355,6 +398,10 @@ export async function getAutomationStatusReport(
     publishing: {
       totalShadowArticles: toCount(published.total),
       publishedLast24h,
+      publishedLast14d,
+      observedDays14d,
+      dailyAverage14d,
+      targetMet14d: publishedLast14d >= dailyPublishTarget * 14,
       latestPublishedAt,
       latestUpdatedAt: toIso(published.latest_updated_at),
       recent: recentPublished.rows.map((row) => ({

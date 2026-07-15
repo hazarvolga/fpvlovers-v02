@@ -17,7 +17,7 @@ export interface CrawlJob {
   id: string;
   url: string;
   dataset?: string;
-  status: 'pending' | 'processing' | 'completed' | 'failed' | 'throttled';
+  status: 'pending' | 'processing' | 'completed' | 'failed' | 'throttled' | 'retired';
   priority: number;
   retries: number;
   maxRetries: number;
@@ -43,6 +43,7 @@ export interface CrawlQueue {
     completed: number;
     failed: number;
     throttled: number;
+    retired?: number;
   };
 }
 
@@ -59,6 +60,7 @@ function calculateStats(jobs: CrawlJob[]): CrawlQueue['stats'] {
     completed: jobs.filter(j => j.status === 'completed').length,
     failed: jobs.filter(j => j.status === 'failed').length,
     throttled: jobs.filter(j => j.status === 'throttled').length,
+    retired: jobs.filter(j => j.status === 'retired').length,
   };
 }
 
