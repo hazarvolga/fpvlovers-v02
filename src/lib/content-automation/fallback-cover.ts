@@ -1,4 +1,5 @@
 import type { ContentMetadata } from '@/lib/content-metadata';
+import { buildCoverImageUrl } from './content-media';
 
 export type FallbackCoverFamily =
   | 'racing'
@@ -31,11 +32,22 @@ export const FALLBACK_COVER_PATHS: Record<FallbackCoverFamily, string> = {
   generic: '/images/fallbacks/fpv-generic.webp',
 };
 
-const GENERATED_COVER_PREFIX = '/api/content/media/cover/';
+const STATIC_FALLBACK_SOURCES = new Set(Object.values(FALLBACK_COVER_PATHS));
 
-export function resolveDisplayCover(source: string | undefined, fallback: string): string {
-  if (!source || source.startsWith(GENERATED_COVER_PREFIX)) return fallback;
-  return source;
+export function resolveDisplayCover(
+  source: string | undefined,
+  fallback: string,
+  slug?: string,
+): string {
+  // Generated covers are deterministic per slug and are the primary
+  // copyright-safe visual. The category fallback is only for a missing or
+  // failed source and is applied by ResilientCoverImage at render time.
+  // Normalize legacy artifacts that persisted a fallback as their primary
+  // cover; this fixes old DB shadow rows without rewriting their content.
+  if (slug && source && STATIC_FALLBACK_SOURCES.has(source)) {
+    return buildCoverImageUrl(slug);
+  }
+  return source || fallback;
 }
 
 interface FallbackCoverInput {

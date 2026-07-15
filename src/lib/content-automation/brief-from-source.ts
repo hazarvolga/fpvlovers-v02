@@ -46,7 +46,16 @@ const CATEGORY_SOURCE_HINTS: Record<string, string[]> = {
 
 function sourceHintsForEntry(entry: ContentBrief): string[] {
   const categorySources = CATEGORY_SOURCE_HINTS[entry.category] || [];
-  return [...categorySources, entry.whyThisMatters];
+  // Keep the stable source domains, but add article-specific terms so the
+  // image harvester can rank candidates for this article instead of returning
+  // the same first rows for every category job.
+  return [
+    ...categorySources,
+    entry.title,
+    entry.primaryKeyword,
+    ...entry.secondaryKeywords,
+    entry.whyThisMatters,
+  ].filter((hint, index, hints) => hint.trim().length > 0 && hints.indexOf(hint) === index);
 }
 
 export function briefFromContentEntry(entry: ContentBrief): ContentJob {

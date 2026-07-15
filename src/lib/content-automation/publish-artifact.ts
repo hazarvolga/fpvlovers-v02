@@ -3,7 +3,7 @@ import path from 'path';
 import type { GeneratedContent } from './parse-generated-content';
 import { buildContentMedia } from './content-media';
 import type { ContentJob } from './types';
-import { matchImagesToSections, pickBestRelevantImage } from './crawl-image-match';
+import { matchImagesToSections } from './crawl-image-match';
 import { harvestImagesFromDatabase } from './crawl-image-harvest';
 import {
   classifyImageLicenses,
@@ -76,24 +76,11 @@ export async function publishGeneratedContentArtifact(
       sourceUrl: img.sourceUrl,
       credit: `Source: ${img.hostname} (${img.licenseReason})`,
       license: img.license,
+      context: img.context,
     }));
 
     // Prepend crawled images to the gallery pool
     media.gallery = [...crawledAssets, ...media.gallery].slice(0, 6);
-
-    // Pick the absolute best crawled image as the cover image if highly relevant
-    const bestCrawlCover = pickBestRelevantImage(crawledLicensed, content.bodySections);
-    if (bestCrawlCover) {
-      media.coverImage = {
-        src: bestCrawlCover.src,
-        alt: bestCrawlCover.alt || content.title,
-        caption: bestCrawlCover.alt || content.title,
-        source: bestCrawlCover.hostname,
-        sourceUrl: bestCrawlCover.sourceUrl,
-        credit: `Source: ${bestCrawlCover.hostname} (${bestCrawlCover.licenseReason})`,
-        license: bestCrawlCover.license,
-      };
-    }
   }
 
   // 4. Perform Jaccard semantic matching of gallery images to bodySections
@@ -104,7 +91,7 @@ export async function publishGeneratedContentArtifact(
       alt: asset.alt,
       sourceUrl: asset.sourceUrl || '',
       hostname: asset.source || 'local-fallback',
-      context: `${asset.caption || ''} ${asset.alt || ''}`,
+      context: `${asset.context || ''} ${asset.caption || ''} ${asset.alt || ''}`,
       license: (asset.license as any) || 'open',
       canSelfHost: true,
       licenseReason: 'Gallery asset',

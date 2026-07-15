@@ -32,6 +32,7 @@ export type ContentMediaAsset = {
   sourceUrl?: string;
   credit?: string;
   license?: string;
+  context?: string;
 };
 
 export type ContentMedia = {

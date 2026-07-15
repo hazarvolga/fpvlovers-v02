@@ -6,6 +6,8 @@ export type ContentMediaAsset = {
   sourceUrl?: string;
   credit?: string;
   license?: string;
+  /** Crawled context retained for deterministic section matching. */
+  context?: string;
 };
 
 export type ContentMedia = {

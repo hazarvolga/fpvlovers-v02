@@ -341,7 +341,7 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
   }
 
   const fallbackCover = resolveFallbackCover({ category, metadata: parsed.metadata });
-  const displayCoverSrc = resolveDisplayCover(finalCoverImage.src, fallbackCover);
+  const displayCoverSrc = resolveDisplayCover(finalCoverImage.src, fallbackCover, parsed.slug);
   if (displayCoverSrc !== finalCoverImage.src) {
     finalCoverImage = {
       ...finalCoverImage,

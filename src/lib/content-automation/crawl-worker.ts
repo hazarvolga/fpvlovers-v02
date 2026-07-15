@@ -2,6 +2,7 @@ import { getOptionalEnv } from '@/lib/env';
 import { difyRequest } from '@/lib/dify-client';
 import { getNextBatchNew, updateJobNew, type CrawlJob } from '@/lib/crawl-queue';
 import { findDataset } from '@/lib/master-routing-tables';
+import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 
 type QueueUpdate = Partial<CrawlJob>;
 
@@ -22,6 +23,12 @@ type CrawlWorkerDependencies = {
     timeout: number;
     tokens: number;
   }) => Promise<DifyUploadResponse>;
+  persistRawContent: (input: {
+    url: string;
+    rawMarkdown: string;
+    crawler: 'primary' | 'backup';
+    metadata?: Record<string, unknown>;
+  }) => Promise<void>;
 };
 
 export type CrawlWorkerItemResult = {
@@ -47,6 +54,7 @@ const DEFAULT_DEPENDENCIES: CrawlWorkerDependencies = {
   updateJob: updateJobNew,
   fetchCrawler: fetch,
   uploadToDify: (endpoint, options) => difyRequest(endpoint, options),
+  persistRawContent: persistRawCrawlContent,
 };
 
 const MAX_DIFY_UPLOAD_CHARACTERS = 1_500;
@@ -200,6 +208,21 @@ export async function processCrawlQueueBatch(options: {
 
       await dependencies.updateJob(job.id, { status: 'processing' });
       const crawled = await crawlUrl(job.url, dependencies);
+      try {
+        // Keep the source markdown locally before Dify upload so image
+        // provenance survives an embedding budget or API failure.
+        await dependencies.persistRawContent({
+          url: job.url,
+          rawMarkdown: crawled.markdown,
+          crawler: crawled.crawler,
+          metadata: { jobId: job.id, dataset },
+        });
+      } catch (error: unknown) {
+        console.warn(
+          `[CrawlWorker] Raw source persistence failed for ${job.url}:`,
+          error instanceof Error ? error.message : String(error),
+        );
+      }
       const uploadText = crawled.markdown.slice(0, MAX_DIFY_UPLOAD_CHARACTERS);
       const uploadTokens = Math.ceil(uploadText.length / 3);
       const urlHash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(job.url));

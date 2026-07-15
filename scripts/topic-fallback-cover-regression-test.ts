@@ -134,8 +134,9 @@ assert.equal(
   resolveDisplayCover(
     '/api/content/media/cover/street-league-spec-upcoming-races-section-currently-empty',
     FALLBACK_COVER_PATHS.racing,
+    'street-league-spec-upcoming-races-section-currently-empty',
   ),
-  FALLBACK_COVER_PATHS.racing,
+  '/api/content/media/cover/street-league-spec-upcoming-races-section-currently-empty',
 );
 assert.equal(
   resolveDisplayCover('https://example.com/real-race-cover.jpg', FALLBACK_COVER_PATHS.racing),
@@ -169,7 +170,22 @@ const placeholderArtifact = ensureMediaArtifact({
   bodySections: [],
 });
 assert.ok(placeholderArtifact);
-assert.equal(placeholderArtifact.media?.coverImage.src, FALLBACK_COVER_PATHS.racing);
+assert.equal(
+  placeholderArtifact.media?.coverImage.src,
+  '/api/content/media/cover/street-league-placeholder-cover',
+);
+
+const legacyArtifact = ensureMediaArtifact({
+  slug: 'legacy-commercial-cover',
+  title: 'Legacy Commercial Cover',
+  category: 'Components',
+  coverImage: FALLBACK_COVER_PATHS.commercial,
+  bodySections: [],
+});
+assert.equal(
+  legacyArtifact?.media?.coverImage.src,
+  '/api/content/media/cover/legacy-commercial-cover',
+);
 
 for (const coverPath of Object.values(FALLBACK_COVER_PATHS)) {
   assert.ok(fs.existsSync(`public${coverPath}`), `Missing fallback cover asset: ${coverPath}`);
