@@ -1,3 +1,9 @@
+# FPV Starter Kits by Budget: What to Buy First in 2026
+
+> A practical kit-planning guide that turns beginner uncertainty into budget tiers and purchase order.
+
+## FPV Starter Kits by Budget: What to Buy First in 2026
+
 # Building Your First FPV Drone on a Budget: Your Affordable Gateway to the Skies
 
 Dreaming of soaring through the skies, performing acrobatic maneuvers, and experiencing the world from a bird's-eye view? FPV (First Person View) drones offer an unparalleled thrill, but many beginners are deterred by the perceived high cost. The good news? Getting into FPV doesn't have to break the bank! This comprehensive guide will show you how to build your first FPV drone affordably, component by component, proving that an exhilarating FPV journey is within reach for any budget-conscious enthusiast.
@@ -246,3 +252,6 @@ The essential components for a budget FPV build include a frame, motors, ESCs (E
 
 ### What are the best value FPV starter kits available?
 Some of the best value FPV starter kits for beginners include the Eachine Novice series (e.g., Novice-III), BetaFPV Cetus series (e.g., Cetus X), and sometimes bundled deals from brands like Happymodel. These kits often provide a complete package with decent performance for their price point, making them excellent entry points into the hobby.
+
+![BETAFPV Cetus Pro Brushless Tiny Whoop Kit](https://cdn.shopify.com/s/files/1/1025/1577/products/Cetus_Pro_FPV_Kit.jpg)
+_BETAFPV Cetus Pro Brushless Tiny Whoop Kit catalog image used as source-backed visual context for FPV Starter Kits by Budget: What to Buy First in 2026._

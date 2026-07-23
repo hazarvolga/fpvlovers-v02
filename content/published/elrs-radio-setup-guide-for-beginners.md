@@ -1,3 +1,9 @@
+# ELRS Radio Setup Guide for Beginners
+
+> A beginner-friendly ELRS setup guide that supports radio buyer guides and troubleshooting paths.
+
+## ELRS Radio Setup Guide for Beginners
+
 # Unlocking FPV Freedom: A Comprehensive Guide to ExpressLRS Setup
 
 Welcome, FPV pilots, to fpvlovers.com.tr! If you're looking to elevate your FPV experience with unparalleled range, rock-solid reliability, and incredibly low latency, then ExpressLRS (ELRS) is your answer. This open-source radio control link has rapidly become the gold standard in the FPV community, and for good reason.
@@ -370,3 +376,6 @@ The ELRS community is vibrant and constantly innovating. If you encounter unique
 *   **fpvlovers.com.tr Blog:** Keep an eye on our blog for more FPV tutorials, reviews, and flying tips!
 
 Happy flying, and may your ELRS link always be solid!
+
+![RadioMaster Boxer Radio Transmitter (ELRS 2.4G)](https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917)
+_RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for ELRS Radio Setup Guide for Beginners._

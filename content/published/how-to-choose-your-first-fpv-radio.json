@@ -20,12 +20,34 @@
     {
       "id": "scope",
       "title": "Buyer Intent Scope",
-      "content": "How to Choose Your First FPV Radio: Stop Buying Twice is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where RadioMaster TX16S MKII vs RadioMaster Zorro vs TBS Tango 2 Pro fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet."
+      "content": "How to Choose Your First FPV Radio: Stop Buying Twice is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where RadioMaster TX16S MKII vs RadioMaster Zorro vs TBS Tango 2 Pro fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.",
+      "imageMatch": {
+        "src": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+        "alt": "TBS Tango 2 Pro RC Radio Transmitter",
+        "caption": "TBS Tango 2 Pro RC Radio Transmitter catalog image used as source-backed visual context for How to Choose Your First FPV Radio: Stop Buying Twice.",
+        "source": "TBS",
+        "sourceUrl": "https://www.team-blacksheep.com/products/prod:tango2_pro",
+        "credit": "Catalog/source image: TBS",
+        "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
+        "context": "TBS Tango 2 Pro RC Radio Transmitter TBS Radios radio tbs tango tango2 pro radio transmitter crossfire gamepad radio crossfire 915mhz gamepad-style folding-gimbals https://www.team-blacksheep.com/products",
+        "kind": "source-backed"
+      }
     },
     {
       "id": "who-it-is-for",
       "title": "Who This Is For",
-      "content": "RadioMaster TX16S MKII vs RadioMaster Zorro vs TBS Tango 2 Pro is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line."
+      "content": "RadioMaster TX16S MKII vs RadioMaster Zorro vs TBS Tango 2 Pro is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line.",
+      "imageMatch": {
+        "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+        "alt": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G)",
+        "caption": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for How to Choose Your First FPV Radio: Stop Buying Twice.",
+        "source": "RadioMaster",
+        "sourceUrl": "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
+        "credit": "Catalog/source image: RadioMaster",
+        "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
+        "context": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) RadioMaster Radios radio radiomaster boxer radio transmitter elrs 2.4g gimbals radio elrs 2.4ghz full-size hall-gimbals https://www.getfpv.com/downloads",
+        "kind": "source-backed"
+      }
     },
     {
       "id": "evaluation-criteria",
@@ -62,13 +84,15 @@
   ],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/how-to-choose-your-first-fpv-radio",
-      "alt": "How to Choose Your First FPV Radio: Stop Buying Twice",
-      "caption": "FPVLovers commercial-intent editorial cover artwork",
-      "credit": "FPVLovers generated editorial artwork",
-      "license": "site-owned fallback",
-      "source": "FPVLovers local media layer",
-      "kind": "generated-artwork"
+      "src": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+      "alt": "TBS Tango 2 Pro RC Radio Transmitter",
+      "caption": "TBS Tango 2 Pro RC Radio Transmitter catalog image used as source-backed visual context for How to Choose Your First FPV Radio: Stop Buying Twice.",
+      "source": "TBS",
+      "sourceUrl": "https://www.team-blacksheep.com/products/prod:tango2_pro",
+      "credit": "Catalog/source image: TBS",
+      "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
+      "context": "TBS Tango 2 Pro RC Radio Transmitter TBS Radios radio tbs tango tango2 pro radio transmitter crossfire gamepad radio crossfire 915mhz gamepad-style folding-gimbals https://www.team-blacksheep.com/products",
+      "kind": "source-backed"
     },
     "gallery": [
       {
@@ -110,16 +134,20 @@
     ],
     "figureCaptions": [],
     "imageSources": [
-      "Local PNG illustration generated from the published content metadata"
+      "Local PNG illustration generated from the published content metadata",
+      "https://www.team-blacksheep.com/products/prod:tango2_pro",
+      "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html"
     ],
     "attribution": [
-      "Copyright-safe raster media generated locally by FPVLovers"
+      "Copyright-safe raster media generated locally by FPVLovers",
+      "Catalog/source image: TBS",
+      "Catalog/source image: RadioMaster"
     ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-01T14:07:05.000Z",
   "promptVersion": "v2",
-  "coverImage": "/api/content/media/cover/how-to-choose-your-first-fpv-radio",
+  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
   "contentType": "buyer-guide",
   "metadata": {
     "topics": [
@@ -154,5 +182,9 @@
     "metadataComplete": true,
     "linksValid": true,
     "disclosurePresent": true
-  }
+  },
+  "sourceReferences": [
+    "https://www.team-blacksheep.com/products/prod:tango2_pro",
+    "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html"
+  ]
 }

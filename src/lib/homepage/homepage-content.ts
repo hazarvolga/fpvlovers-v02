@@ -2,7 +2,7 @@ import { listPublishedContentAsync, type PublishedArtifact } from '@/lib/content
 import { buildFallbackHomepageCards } from './homepage-defaults';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { buildCoverImageUrl } from '@/lib/content-automation/content-media';
-import { resolveFallbackCover } from '@/lib/content-automation/fallback-cover';
+import { FALLBACK_COVER_PATHS, resolveFallbackCover } from '@/lib/content-automation/fallback-cover';
 
 export type HomepageSectionCard = {
   slug: string;
@@ -82,6 +82,35 @@ function formatPublishedDate(dateStr: string): string {
   }
 }
 
+function resolveHomepageFallbackCover(item: PublishedArtifact): string {
+  const base = resolveFallbackCover({
+    category: item.category,
+    metadata: item.metadata,
+  });
+  const signal = `${item.slug} ${item.title} ${item.category}`.toLowerCase();
+
+  if (/(propeller|props|propulsion|motor|motors)/.test(signal)) {
+    return FALLBACK_COVER_PATHS['motors-propulsion'];
+  }
+  if (/(esc|battery|batteries|lipo|charger|power)/.test(signal)) {
+    return FALLBACK_COVER_PATHS['power-battery-esc'];
+  }
+  if (/(goggles|walksnail|avatar|o3|video|vtx|digital|analog)/.test(signal)) {
+    return FALLBACK_COVER_PATHS['video-goggles-vtx'];
+  }
+  if (/(radio|elrs|receiver|gps|long-range|long range|signal)/.test(signal)) {
+    return FALLBACK_COVER_PATHS['radio-elrs-gps'];
+  }
+  if (/(cinewhoop|starter|kit|toolkit|build|repair|workshop)/.test(signal)) {
+    return FALLBACK_COVER_PATHS['build-workshop'];
+  }
+  if (/racing|race/.test(signal)) {
+    return FALLBACK_COVER_PATHS.racing;
+  }
+
+  return base;
+}
+
 function toHomepageCard(item: PublishedArtifact, tier?: 'pillar' | 'support'): HomepageSectionCard {
   const coverImage = item.media?.coverImage?.src
     || item.coverImage
@@ -97,10 +126,7 @@ function toHomepageCard(item: PublishedArtifact, tier?: 'pillar' | 'support'): H
     href: `/article/${item.slug}`,
     coverImage,
     coverImageAlt: item.media?.coverImage?.alt || `${item.title} cover illustration`,
-    fallbackCoverImage: resolveFallbackCover({
-      category: item.category,
-      metadata: item.metadata,
-    }),
+    fallbackCoverImage: resolveHomepageFallbackCover(item),
     tier,
   };
 }
@@ -153,7 +179,7 @@ export async function resolveHomepageContent(): Promise<HomepageContentModel> {
     .filter((item) => item.tier === 'pillar' || PILLAR_CATEGORIES.has(item.category))
     .slice(0, 3);
 
-  const recentPosts = merged.slice(0, 6);
+  const recentPosts = merged.slice(0, 12);
 
   const editorsPicks = merged
     .filter((item) => item.tier === 'support' || !PILLAR_CATEGORIES.has(item.category))

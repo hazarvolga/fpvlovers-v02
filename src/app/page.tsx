@@ -236,7 +236,7 @@ function PillarCard({ pillar }: { pillar: HomePillar }) {
         alt={`${pillar.title} FPV visual`}
         fill
         sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, 100vw"
-        className="object-cover opacity-50 grayscale transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04] group-hover:opacity-[0.68] group-hover:grayscale-0"
+        className="object-cover opacity-[0.72] saturate-[0.92] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04] group-hover:opacity-[0.92] group-hover:saturate-100"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/[0.66] to-black/10" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_0%,rgba(255,49,49,0.20),transparent_28rem)] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
@@ -278,7 +278,7 @@ function LatestContentItem({ card, featured = false }: { card: HomepageSectionCa
             fill
             sizes={featured ? '(min-width: 1024px) 48vw, 100vw' : '(min-width: 768px) 30vw, 100vw'}
             unoptimized={true}
-            className="object-cover opacity-[0.78] grayscale transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.05] group-hover:opacity-100 group-hover:grayscale-0"
+            className="object-cover opacity-[0.92] saturate-[0.95] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.05] group-hover:opacity-100 group-hover:saturate-100"
           />
         )}
       </div>
@@ -322,13 +322,23 @@ export default async function HomePage() {
       ? { ...stat, value: `${content.archiveCount}+` }
       : stat
   ));
-  const guideCards = [
+  const uniqueGuideCandidates = [
     ...content.featuredGuides,
     ...content.editorsPicks,
     ...content.recentPosts,
   ]
-    .filter((card, index, cards) => cards.findIndex((candidate) => candidate.slug === card.slug) === index)
+    .filter((card, index, cards) => cards.findIndex((candidate) => candidate.slug === card.slug) === index);
+  const recentPostSlugs = new Set(recentPostCards.map((card) => card.slug));
+  const guideCards = uniqueGuideCandidates
+    .filter((card) => !recentPostSlugs.has(card.slug))
     .slice(0, 3);
+  if (guideCards.length < 3) {
+    guideCards.push(
+      ...uniqueGuideCandidates
+        .filter((card) => !guideCards.some((selected) => selected.slug === card.slug))
+        .slice(0, 3 - guideCards.length),
+    );
+  }
 
   return (
     <div className="overflow-hidden pb-24">
@@ -541,7 +551,7 @@ export default async function HomePage() {
                       fill
                       sizes="(min-width: 768px) 33vw, 100vw"
                       unoptimized={true}
-                      className="object-cover opacity-80 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04] group-hover:opacity-100"
+                      className="object-cover opacity-[0.92] saturate-[0.95] transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-[1.04] group-hover:opacity-100 group-hover:saturate-100"
                     />
                   )}
                 </div>

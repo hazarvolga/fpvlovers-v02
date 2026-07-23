@@ -6,9 +6,42 @@ const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.mjs']);
 const STOCK_URL = /https?:\/\/[^\s"'`]*(?:picsum\.photos|(?:images\.)?unsplash\.com|(?:images\.)?pexels\.com)/gi;
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 const STATIC_FALLBACK = /^\/images\/fallbacks\//;
+const GENERATED_COVER = /^\/api\/content\/media\/cover\//;
 const ALLOWED_FILES = new Set([
   path.normalize('src/lib/content-automation/crawl-image-license.ts'),
 ]);
+
+type PublishedMediaRow = {
+  slug: string;
+  file: string;
+  category: string;
+  template: string;
+  contentType: string;
+  publishedAt: string;
+  coverSrc: string;
+  galleryCount: number;
+};
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  return value && typeof value === 'object' && !Array.isArray(value)
+    ? value as Record<string, unknown>
+    : null;
+}
+
+function asString(value: unknown): string {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function generatedCover(src: string): boolean {
+  return GENERATED_COVER.test(src);
+}
+
+function isCommercialMediaRow(row: PublishedMediaRow): boolean {
+  if (row.contentType === 'review') return false;
+  return ['buyer-guide', 'comparison', 'product-roundup'].includes(row.contentType)
+    || ['Buyer Guides', 'Comparisons', 'Components'].includes(row.category)
+    || row.template === 'comparison';
+}
 
 function listSourceFiles(root: string): string[] {
   if (!fs.existsSync(root)) return [];
@@ -53,24 +86,34 @@ console.log('Media policy audit passed: no Unsplash, Pexels, or Picsum runtime U
 
 const publishedCoverViolations: string[] = [];
 const coverUsage = new Map<string, string[]>();
+const publishedMediaRows: PublishedMediaRow[] = [];
 
 if (fs.existsSync(PUBLISHED_DIR)) {
   for (const file of fs.readdirSync(PUBLISHED_DIR).filter((name) => name.endsWith('.json'))) {
     const filePath = path.join(PUBLISHED_DIR, file);
     try {
-      const article = JSON.parse(fs.readFileSync(filePath, 'utf8')) as {
-        slug?: string;
-        coverImage?: unknown;
-        media?: { coverImage?: { src?: unknown } };
-      };
+      const article = asRecord(JSON.parse(fs.readFileSync(filePath, 'utf8')));
+      if (!article) {
+        publishedCoverViolations.push(`${file}: invalid JSON shape`);
+        continue;
+      }
+      const media = asRecord(article.media);
+      const mediaCover = asRecord(media?.coverImage);
+      const metadata = asRecord(article.metadata);
       const coverSrc =
-        typeof article.media?.coverImage?.src === 'string'
-          ? article.media.coverImage.src
-          : typeof article.coverImage === 'string'
-            ? article.coverImage
-            : '';
+        asString(mediaCover?.src) || asString(article.coverImage);
       if (!coverSrc) continue;
-      const slug = article.slug || file.replace(/\.json$/, '');
+      const slug = asString(article.slug) || file.replace(/\.json$/, '');
+      publishedMediaRows.push({
+        slug,
+        file,
+        category: asString(article.category),
+        template: asString(article.template),
+        contentType: asString(metadata?.contentType),
+        publishedAt: asString(article.publishedAt),
+        coverSrc,
+        galleryCount: Array.isArray(media?.gallery) ? media.gallery.length : 0,
+      });
       if (STATIC_FALLBACK.test(coverSrc)) {
         publishedCoverViolations.push(`${file}: ${coverSrc}`);
       }
@@ -99,5 +142,29 @@ if (repeatedStaticSources.length > 0) {
   process.exit(1);
 }
 
+const recentRows = [...publishedMediaRows]
+  .sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime())
+  .slice(0, 12);
+const recentMediaViolations = recentRows
+  .filter((row) => generatedCover(row.coverSrc) || row.galleryCount === 0)
+  .map((row) => `${row.slug}: cover=${row.coverSrc || 'missing'}, gallery=${row.galleryCount}`);
+
+if (recentMediaViolations.length > 0) {
+  console.error('Recent homepage candidates must not render as generated/empty media:');
+  for (const violation of recentMediaViolations) console.error(`  - ${violation}`);
+  process.exit(1);
+}
+
+const commercialMediaViolations = publishedMediaRows
+  .filter(isCommercialMediaRow)
+  .filter((row) => generatedCover(row.coverSrc) || row.galleryCount === 0)
+  .map((row) => `${row.slug}: cover=${row.coverSrc || 'missing'}, gallery=${row.galleryCount}`);
+
+if (commercialMediaViolations.length > 0) {
+  console.error('Commercial/buyer-intent artifacts need source-backed media before release:');
+  for (const violation of commercialMediaViolations) console.error(`  - ${violation}`);
+  process.exit(1);
+}
+
 const generatedCount = [...coverUsage.keys()].filter((src) => src.startsWith('/api/content/media/cover/')).length;
-console.log(`Published media audit passed: ${coverUsage.size} unique primary covers (${generatedCount} slug-specific generated covers).`);
+console.log(`Published media audit passed: ${coverUsage.size} unique primary covers (${generatedCount} non-commercial generated covers).`);

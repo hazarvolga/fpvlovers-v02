@@ -19,22 +19,66 @@
     {
       "id": "scope",
       "title": "Buyer Intent Scope",
-      "content": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet."
+      "content": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.",
+      "imageMatch": {
+        "src": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+        "alt": "TBS Tango 2 Pro RC Radio Transmitter",
+        "caption": "TBS Tango 2 Pro RC Radio Transmitter catalog image used as source-backed visual context for RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation.",
+        "source": "TBS",
+        "sourceUrl": "https://www.team-blacksheep.com/products/prod:tango2_pro",
+        "credit": "Catalog/source image: TBS",
+        "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
+        "context": "TBS Tango 2 Pro RC Radio Transmitter TBS Radios radio tbs tango tango2 pro radio transmitter crossfire gamepad radio crossfire 915mhz gamepad-style folding-gimbals https://www.team-blacksheep.com/products",
+        "kind": "source-backed"
+      }
     },
     {
       "id": "who-it-is-for",
       "title": "Who This Is For",
-      "content": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line."
+      "content": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line.",
+      "imageMatch": {
+        "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+        "alt": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G)",
+        "caption": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation.",
+        "source": "RadioMaster",
+        "sourceUrl": "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
+        "credit": "Catalog/source image: RadioMaster",
+        "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
+        "context": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) RadioMaster Radios radio radiomaster boxer radio transmitter elrs 2.4g gimbals radio elrs 2.4ghz full-size hall-gimbals https://www.getfpv.com/downloads",
+        "kind": "source-backed"
+      }
     },
     {
       "id": "evaluation-criteria",
       "title": "Evaluation Criteria",
-      "content": "FPVLovers evaluates Communication pages around five practical criteria: ecosystem compatibility, setup complexity, repairability, upgrade path, and risk for beginners. A product that performs well on paper can still be the wrong buy if it locks the pilot into an expensive ecosystem or requires advanced firmware knowledge too early.\n\nCompatibility comes first. For radios, that means protocol support, module bay options, EdgeTX/OpenTX workflow, battery format, and receiver availability. For goggles and video systems, that means air-unit support, latency profile, DVR quality, antenna options, and whether the system works with the aircraft you actually plan to fly.\n\nThe second filter is ownership friction. Pilots should consider spare parts, community documentation, setup videos, firmware stability, and whether failures can be diagnosed without specialist tools. The best FPV gear is not just impressive on day one; it remains understandable after a crash, firmware update, or field repair."
+      "content": "FPVLovers evaluates Communication pages around five practical criteria: ecosystem compatibility, setup complexity, repairability, upgrade path, and risk for beginners. A product that performs well on paper can still be the wrong buy if it locks the pilot into an expensive ecosystem or requires advanced firmware knowledge too early.\n\nCompatibility comes first. For radios, that means protocol support, module bay options, EdgeTX/OpenTX workflow, battery format, and receiver availability. For goggles and video systems, that means air-unit support, latency profile, DVR quality, antenna options, and whether the system works with the aircraft you actually plan to fly.\n\nThe second filter is ownership friction. Pilots should consider spare parts, community documentation, setup videos, firmware stability, and whether failures can be diagnosed without specialist tools. The best FPV gear is not just impressive on day one; it remains understandable after a crash, firmware update, or field repair.",
+      "imageMatch": {
+        "src": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
+        "alt": "Happymodel EP1 RX 2.4GHz ExpressLRS Receiver",
+        "caption": "Happymodel EP1 RX 2.4GHz ExpressLRS Receiver catalog image used as source-backed visual context for RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation.",
+        "source": "Happymodel",
+        "sourceUrl": "https://pyrodrone.com/products/happymodel-expresslrs-nano-2-4ghz-ep1-rx",
+        "credit": "Catalog/source image: Happymodel",
+        "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
+        "context": "Happymodel EP1 RX 2.4GHz ExpressLRS Receiver Happymodel Receivers receiver happymodel ep1 rx receiver elrs 2.4g antenna receiver elrs 2.4ghz long-range reliable https://pyrodrone.com/collections/flight-controllers-escs",
+        "kind": "source-backed"
+      }
     },
     {
       "id": "strengths-and-tradeoffs",
       "title": "Strengths and Tradeoffs",
-      "content": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation may be attractive when its strengths line up with a pilot's mission profile. Strong points usually include clearer integration, better component quality, lower tuning friction, or a cleaner upgrade path compared with cheaper alternatives. Those strengths only matter when they solve a real build problem.\n\nThe tradeoffs should be treated just as seriously. Premium digital video can increase cost, heat, and airframe weight. Compact radios can be easier to carry but less comfortable for pilots with large hands or pinch grip. Ready-to-fly kits reduce setup pain but can limit component choice when the pilot wants to upgrade later.\n\nFor affiliate readiness, this is the difference between a useful buying guide and a thin product page. The page should explain the mismatch scenarios clearly: who should buy, who should wait, who should choose a cheaper option, and who should spend more for a higher ceiling."
+      "content": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation may be attractive when its strengths line up with a pilot's mission profile. Strong points usually include clearer integration, better component quality, lower tuning friction, or a cleaner upgrade path compared with cheaper alternatives. Those strengths only matter when they solve a real build problem.\n\nThe tradeoffs should be treated just as seriously. Premium digital video can increase cost, heat, and airframe weight. Compact radios can be easier to carry but less comfortable for pilots with large hands or pinch grip. Ready-to-fly kits reduce setup pain but can limit component choice when the pilot wants to upgrade later.\n\nFor affiliate readiness, this is the difference between a useful buying guide and a thin product page. The page should explain the mismatch scenarios clearly: who should buy, who should wait, who should choose a cheaper option, and who should spend more for a higher ceiling.",
+      "imageMatch": {
+        "src": "https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg",
+        "alt": "Tattu R-Line Version 5.0 1400mAh 6S 150C LiPo Battery",
+        "caption": "Tattu R-Line Version 5.0 1400mAh 6S 150C LiPo Battery catalog image used as source-backed visual context for RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation.",
+        "source": "Tattu",
+        "sourceUrl": "https://www.getfpv.com/tattu-r-line-version-5-0-1400mah-22-2v-6s1p-150c-lipo-battery-pack-with-xt60-plug.html",
+        "credit": "Catalog/source image: Tattu",
+        "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
+        "context": "Tattu R-Line Version 5.0 1400mAh 6S 150C LiPo Battery Tattu Batteries battery tattu rline v5 1400mah 6s 150c battery premium lipo battery 6s racing freestyle premium high-discharge https://www.getfpv.com/batteries.html",
+        "kind": "source-backed"
+      }
     },
     {
       "id": "before-you-buy",
@@ -57,13 +101,15 @@
   ],
   "media": {
     "coverImage": {
-      "src": "/api/content/media/cover/rf-link-engineering",
-      "alt": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation",
-      "caption": "FPVLovers commercial-intent editorial cover artwork",
-      "credit": "FPVLovers generated editorial artwork",
-      "license": "site-owned fallback",
-      "source": "FPVLovers local media layer",
-      "kind": "generated-artwork"
+      "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+      "alt": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G)",
+      "caption": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation.",
+      "source": "RadioMaster",
+      "sourceUrl": "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
+      "credit": "Catalog/source image: RadioMaster",
+      "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
+      "context": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) RadioMaster Radios radio radiomaster boxer radio transmitter elrs 2.4g gimbals radio elrs 2.4ghz full-size hall-gimbals https://www.getfpv.com/downloads",
+      "kind": "source-backed"
     },
     "gallery": [
       {
@@ -77,13 +123,23 @@
       }
     ],
     "figureCaptions": [],
-    "imageSources": [],
-    "attribution": []
+    "imageSources": [
+      "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
+      "https://www.team-blacksheep.com/products/prod:tango2_pro",
+      "https://www.getfpv.com/tattu-r-line-version-5-0-1400mah-22-2v-6s1p-150c-lipo-battery-pack-with-xt60-plug.html",
+      "https://pyrodrone.com/products/happymodel-expresslrs-nano-2-4ghz-ep1-rx"
+    ],
+    "attribution": [
+      "Catalog/source image: RadioMaster",
+      "Catalog/source image: TBS",
+      "Catalog/source image: Tattu",
+      "Catalog/source image: Happymodel"
+    ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.020Z",
   "promptVersion": "v2",
-  "coverImage": "/api/content/media/cover/rf-link-engineering",
+  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
   "metadata": {
     "topics": [
       "elrs"
@@ -98,5 +154,11 @@
     ],
     "difficulty": "advanced",
     "contentType": "guide"
-  }
+  },
+  "sourceReferences": [
+    "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
+    "https://www.team-blacksheep.com/products/prod:tango2_pro",
+    "https://www.getfpv.com/tattu-r-line-version-5-0-1400mah-22-2v-6s1p-150c-lipo-battery-pack-with-xt60-plug.html",
+    "https://pyrodrone.com/products/happymodel-expresslrs-nano-2-4ghz-ep1-rx"
+  ]
 }

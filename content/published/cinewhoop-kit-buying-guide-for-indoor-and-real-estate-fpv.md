@@ -225,3 +225,5 @@ Ready to capture stunning cinematic FPV footage? Explore the best cinewhoop kits
 *   **Building your own provides invaluable learning and customization**, making you a more capable pilot and troubleshooter.
 *   **With the right kit and a bit of patience, anyone can achieve breathtaking aerial cinematography** and tell their story from unique FPV perspectives.
 
+![iFlight Nazgul5 V3 6S 5" BNF Freestyle Drone](https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg)
+_iFlight Nazgul5 V3 6S 5" BNF Freestyle Drone catalog image used as source-backed visual context for Cinewhoop Kit Buying Guide for Indoor and Real Estate FPV._
