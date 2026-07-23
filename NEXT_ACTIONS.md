@@ -236,7 +236,7 @@ Canonical documents:
 - ⏳ Monetization follow-up remains separate: use `$monetizasyon` for verified affiliate program applications, verified affiliate URLs, sponsor outreach, and first Hazar Volga Ekiz evidence-backed product review flow.
 - ✅ Source-backed media cache deployed: commit `8c45dd0`, Coolify deployment `m8csk44cg4w0040kk4gckwo4`, production image `8c45dd0b4812389db45f5c3b03973a3399f78e2c`. Browser live audit after lazy-load scroll: `22/22` images loaded, `0` real broken images, Latest Content `12/12` loaded with `8` source-cache covers, `4` local autonomous troubleshooting fallbacks, `0` generated API covers, `0` external hotlinks.
 - ✅ Crawler queue active blocker closed in production: `completed=40`, `retired=9`, `pending=0`, `failed=0`, `throttled=0`.
-- ✅ Content-job terminal state model added: resolved historical failed rows can be moved to first-class `retired` without deleting data; retired rows no longer block brief selection and show separately in admin.
+- ✅ Content-job terminal state model added and applied in production: resolved historical failed rows moved to first-class `retired` without deleting data. Current production counts: `published=66`, `queued=1`, `retired=46`, `failed=0`.
 
 ## Manuel Yapılacak (Coolify)
 
