@@ -52,6 +52,10 @@ function categoryHref(category: string | undefined) {
   return routeMap[normalized] || '/#latest';
 }
 
+function isHttpUrl(value: string | undefined): value is string {
+  return typeof value === 'string' && /^https?:\/\//i.test(value);
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
   const published = await getPublishedContentBySlugAsync(resolvedParams.slug);
@@ -125,7 +129,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
       url: articleUrl,
       datePublished: a.publishedAt,
       dateModified: a.publishedAt,
-      image: a.media?.coverImage?.src || `${baseUrl}/images/fallbacks/fpv-commercial.webp`,
+      image: a.media?.coverImage?.src || `${baseUrl}/api/content/media/cover/${encodeURIComponent(a.slug)}`,
       section: a.category,
       wordCount: getArtifactWordCount(a),
       citations: sourceReferences,
@@ -488,6 +492,10 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     { label: insight.category, href: categoryHref(insight.category) },
     { label: insight.title, isCurrentPage: true }
   ];
+  const verifiedAffiliateUrl = insight.commerceVerified === true && isHttpUrl(insight.affiliateLink)
+    ? insight.affiliateLink
+    : null;
+  const sourceUrl = isHttpUrl(insight.sourceUrl) ? insight.sourceUrl : null;
 
   return (
     <div className="fpv-public-shell mx-auto max-w-7xl px-4 py-12 pt-28 sm:px-6 lg:px-8">
@@ -559,23 +567,46 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
               </div>
            </div>
 
-           <div className="-mx-8 -mb-8 mt-8 flex flex-col items-center justify-between border-t border-white/10 bg-gradient-to-r from-transparent to-[#FF5C00]/5 p-8 sm:-mx-12 sm:-mb-12 sm:flex-row sm:items-end">
-              <div className="absolute inset-0 bg-[#FF5C00]/5 pointer-events-none mix-blend-screen" />
-              <div className="flex-1 mb-6 sm:mb-0 text-center sm:text-left relative z-10">
-                <h4 className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#FF5C00]">Commercial Link</h4>
-                <p className="text-[9px] text-[#A0A0A0] font-mono uppercase tracking-widest max-w-[200px] mx-auto sm:mx-0">
-                   Commission may be earned. Editorial policy still applies.
-                </p>
-              </div>
+           {verifiedAffiliateUrl ? (
+             <div className="-mx-8 -mb-8 mt-8 flex flex-col items-center justify-between border-t border-white/10 bg-gradient-to-r from-transparent to-[#FF5C00]/5 p-8 sm:-mx-12 sm:-mb-12 sm:flex-row sm:items-end">
+                <div className="absolute inset-0 bg-[#FF5C00]/5 pointer-events-none mix-blend-screen" />
+                <div className="flex-1 mb-6 sm:mb-0 text-center sm:text-left relative z-10">
+                  <h4 className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#FF5C00]">Verified Commercial Link</h4>
+                  <p className="text-[9px] text-[#A0A0A0] font-mono uppercase tracking-widest max-w-[220px] mx-auto sm:mx-0">
+                     Commission may be earned. Editorial policy still applies.
+                  </p>
+                </div>
 
-              <AffiliateButton
-                 url={insight.affiliateLink}
-                 price={insight.price}
-                 label="PROCEED TO VENDOR"
-                 provider={insight.category === 'Flight Guides' ? 'Direct' : 'Amazon'}
-                 className="w-full sm:w-[300px] flex-shrink-0 relative z-10"
-              />
-           </div>
+                <AffiliateButton
+                   url={verifiedAffiliateUrl}
+                   price={insight.price}
+                   label="PROCEED TO VENDOR"
+                   provider={insight.category === 'Flight Guides' ? 'Direct' : 'Amazon'}
+                   className="w-full sm:w-[300px] flex-shrink-0 relative z-10"
+                />
+             </div>
+           ) : (
+             <div className="-mx-8 -mb-8 mt-8 flex flex-col gap-4 border-t border-white/10 bg-black/30 p-8 sm:-mx-12 sm:-mb-12">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <h4 className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#FF5C00]">Commercial CTA Locked</h4>
+                    <p className="max-w-xl text-xs leading-relaxed text-zinc-400">
+                       FPVLovers does not render affiliate or sponsored CTAs from legacy source data until the destination, network account, and disclosure evidence are verified.
+                    </p>
+                  </div>
+                  {sourceUrl && (
+                    <Link
+                      href={sourceUrl}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 rounded border border-white/10 bg-white/[0.03] px-4 py-3 text-[10px] font-black uppercase tracking-widest text-zinc-200 transition-colors hover:border-[#FF5C00]/40 hover:text-[#FF5C00]"
+                    >
+                      Source Reference <ArrowRight className="h-3 w-3" />
+                    </Link>
+                  )}
+                </div>
+             </div>
+           )}
         </div>
       </article>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { isIndexablePublishedArtifact, listPublishedContentAsync } from '@/lib/content-automation/content-reader';
 import { BuyersGuidesHubClient } from './BuyersGuidesHubClient';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const metadata = {
   title: 'FPV Buyer Guides & Product Roundups | FPVLovers',
@@ -24,7 +25,7 @@ export default async function BuyersGuidesPage() {
         title="Choose better FPV gear"
         accent="without the hype."
         description="Evidence-aware buying handbooks for FPV goggles, radios, batteries, frames, video systems, and starter kits. Commercial intent is useful, but editorial trust comes first."
-        image="/images/fallbacks/fpv-commercial.webp"
+        image={HUB_COVER_IMAGES.buyersGuides}
         imageAlt="FPV product buying guide workspace"
         stats={[
           { label: 'Published guides', value: `${guides.length}` },

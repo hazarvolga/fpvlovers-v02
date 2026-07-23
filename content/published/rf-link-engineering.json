@@ -57,11 +57,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "/images/fallbacks/fpv-commercial.webp",
+      "src": "/api/content/media/cover/rf-link-engineering",
       "alt": "RF Link Engineering: ELRS Packet Rates, LQ Interpretation & Signal Propagation",
       "caption": "FPVLovers commercial-intent editorial cover artwork",
-      "credit": "FPVLovers generated artwork",
-      "license": "site-owned fallback"
+      "credit": "FPVLovers generated editorial artwork",
+      "license": "site-owned fallback",
+      "source": "FPVLovers local media layer",
+      "kind": "generated-artwork"
     },
     "gallery": [
       {
@@ -81,7 +83,7 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.020Z",
   "promptVersion": "v2",
-  "coverImage": "/images/fallbacks/fpv-commercial.webp",
+  "coverImage": "/api/content/media/cover/rf-link-engineering",
   "metadata": {
     "topics": [
       "elrs"

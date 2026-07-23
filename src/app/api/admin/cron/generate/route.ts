@@ -8,7 +8,7 @@ import { generateContentViaDify } from '@/lib/content-automation/dify-generation
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { authorizeCronRequest } from '@/lib/cron-auth';
-import { getPublishedSlugsAsync } from '@/lib/content-automation/content-reader';
+import { getPublishedJobIdsAsync, getPublishedSlugsAsync } from '@/lib/content-automation/content-reader';
 import type { ContentJob } from '@/lib/content-automation/types';
 import { logAutomationRun } from '@/lib/server/automation-runs-store';
 import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
@@ -82,11 +82,15 @@ function isDryRun(req: Request): boolean {
 async function buildExistingSlugSet(jobs: ContentJob[]): Promise<Set<string>> {
   const existing = new Set<string>();
   for (const job of jobs) {
+    existing.add(job.id);
     existing.add(job.briefSlug);
     if (job.seo.slug) existing.add(job.seo.slug);
   }
   for (const slug of await getPublishedSlugsAsync()) {
     existing.add(slug);
+  }
+  for (const jobId of await getPublishedJobIdsAsync()) {
+    existing.add(jobId);
   }
   return existing;
 }

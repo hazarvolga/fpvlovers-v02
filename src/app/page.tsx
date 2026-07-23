@@ -24,6 +24,7 @@ import { resolveHomepageContent, type HomepageSectionCard } from '@/lib/homepage
 import { Badge } from '@/components/ui/badge';
 import { NewsletterWidget } from '@/features/tools/components/NewsletterWidget';
 import { ResilientCoverImage } from '@/components/ResilientCoverImage';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const revalidate = 300;
 
@@ -82,7 +83,7 @@ const pillars: HomePillar[] = [
     title: 'Learn FPV',
     description: 'Courses, roadmaps and beginner-safe paths designed for real pilot progress.',
     href: '/academy/roadmap',
-    image: '/images/fallbacks/fpv-academy-beginner.webp',
+    image: HUB_COVER_IMAGES.academy,
     icon: GraduationCap,
   },
   {
@@ -90,7 +91,7 @@ const pillars: HomePillar[] = [
     title: 'Choose Gear',
     description: 'Editorial buying guides for drones, goggles, radios, chargers and starter kits.',
     href: '/buyers-guides',
-    image: '/images/fallbacks/fpv-commercial.webp',
+    image: HUB_COVER_IMAGES.buyersGuides,
     icon: ShoppingBag,
   },
   {
@@ -98,7 +99,7 @@ const pillars: HomePillar[] = [
     title: 'Improve FPV',
     description: 'Calculators, blackbox analysis and practical setup tools for cleaner decisions.',
     href: '/tools',
-    image: '/images/fallbacks/fpv-tuning-betaflight.webp',
+    image: HUB_COVER_IMAGES.tools,
     icon: Gauge,
   },
   {
@@ -106,7 +107,7 @@ const pillars: HomePillar[] = [
     title: 'Explore FPV',
     description: 'Drone categories, build styles and platform references for every mission type.',
     href: '/archive',
-    image: '/images/fallbacks/fpv-cinematic-long-range.webp',
+    image: HUB_COVER_IMAGES.archive,
     icon: Archive,
   },
   {
@@ -114,7 +115,7 @@ const pillars: HomePillar[] = [
     title: 'Compete FPV',
     description: 'Race formats, pilot development, league coverage and event intelligence.',
     href: '/racing',
-    image: '/racing/racing-hero.png',
+    image: HUB_COVER_IMAGES.racing,
     icon: Trophy,
   },
 ];
@@ -333,7 +334,7 @@ export default async function HomePage() {
     <div className="overflow-hidden pb-24">
       <section className="relative min-h-[calc(100dvh-5rem)] border-b border-white/8 bg-[#050607] pt-24">
         <Image
-          src="/images/fallbacks/fpv-cinematic-long-range.webp"
+        src={HUB_COVER_IMAGES.racing}
           alt="Cinematic long range FPV drone ready for flight"
           fill
           priority

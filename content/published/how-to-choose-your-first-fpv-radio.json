@@ -62,11 +62,13 @@
   ],
   "media": {
     "coverImage": {
-      "src": "/images/fallbacks/fpv-commercial.webp",
+      "src": "/api/content/media/cover/how-to-choose-your-first-fpv-radio",
       "alt": "How to Choose Your First FPV Radio: Stop Buying Twice",
       "caption": "FPVLovers commercial-intent editorial cover artwork",
-      "credit": "FPVLovers generated artwork",
-      "license": "site-owned fallback"
+      "credit": "FPVLovers generated editorial artwork",
+      "license": "site-owned fallback",
+      "source": "FPVLovers local media layer",
+      "kind": "generated-artwork"
     },
     "gallery": [
       {
@@ -117,7 +119,7 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-01T14:07:05.000Z",
   "promptVersion": "v2",
-  "coverImage": "/images/fallbacks/fpv-commercial.webp",
+  "coverImage": "/api/content/media/cover/how-to-choose-your-first-fpv-radio",
   "contentType": "buyer-guide",
   "metadata": {
     "topics": [

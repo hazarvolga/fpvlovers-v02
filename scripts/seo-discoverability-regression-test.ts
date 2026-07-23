@@ -10,7 +10,7 @@ const metadata = generateSeoMetadata({
 });
 
 assert.equal(metadata.openGraph?.locale, 'en_US');
-assert.deepEqual(metadata.twitter?.images, ['https://fpvlovers.com.tr/images/fallbacks/fpv-commercial.webp']);
+assert.deepEqual(metadata.twitter?.images, ['https://fpvlovers.com.tr/api/content/media/cover/site-default']);
 assert.equal(metadata.alternates?.canonical, 'https://fpvlovers.com.tr/article/test-guide');
 
 const articleSchema = generateArticleSchema({

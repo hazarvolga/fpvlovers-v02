@@ -5,6 +5,7 @@ import {
   SubpageSectionHeader,
   SubpageShell,
 } from '@/components/subpage/SubpageChrome';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const metadata = {
   title: 'Drone Archive | FPVLovers',
@@ -76,7 +77,7 @@ export default function ArchiveIndexPage() {
         title="Explore drone types,"
         accent="builds and evolution."
         description="A mission-first archive for understanding FPV aircraft categories, platform tradeoffs, and the build decisions behind real flying styles."
-        image="/images/fallbacks/fpv-cinematic-long-range.webp"
+        image={HUB_COVER_IMAGES.archive}
         imageAlt="Long range FPV drone archive visual"
         stats={[
           { label: 'Core categories', value: '5 classes' },

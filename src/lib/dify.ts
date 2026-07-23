@@ -1,13 +1,37 @@
+import { getOptionalEnv } from '@/lib/env';
+
 export type DifyResponse = {
   id: string;
   category: 'Drone Parts' | 'AI Software' | 'Flight Guides';
   title: string;
   summary: string;
   technicalSpecs: Record<string, string>;
-  affiliateLink: string;
-  price: string;
+  affiliateLink?: string;
+  commerceVerified?: boolean;
+  price?: string;
+  sourceUrl?: string;
   imageUrl?: string;
 };
+
+type RecordLike = Record<string, unknown>;
+
+function asRecord(value: unknown): RecordLike | null {
+  return value && typeof value === 'object' && !Array.isArray(value) ? value as RecordLike : null;
+}
+
+function asString(value: unknown): string | null {
+  return typeof value === 'string' && value.trim() ? value.trim() : null;
+}
+
+function asNumber(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+function asRecordArray(value: unknown): RecordLike[] {
+  return Array.isArray(value)
+    ? value.map(asRecord).filter((entry): entry is RecordLike => Boolean(entry))
+    : [];
+}
 
 // Simulated mock data for fallback
 const mockData: DifyResponse[] = [
@@ -21,8 +45,7 @@ const mockData: DifyResponse[] = [
       'Weight': '125g (with hardware)',
       'Material': 'Premium 3K Carbon Fiber',
     },
-    affiliateLink: 'https://amazon.com/fpv-frame',
-    price: '$79.99',
+    price: 'Reference',
     imageUrl: '/api/content/media/cover/drone-frame-reference',
   },
   {
@@ -35,8 +58,7 @@ const mockData: DifyResponse[] = [
       'Compatibility': 'Betaflight 4.4+, INAV',
       'Engine': 'TensorFlow Lite Edge',
     },
-    affiliateLink: 'https://github.com/neuroflight',
-    price: '$15/mo',
+    price: 'Reference',
     imageUrl: '/api/content/media/cover/ai-pid-autotuner',
   },
   {
@@ -49,7 +71,6 @@ const mockData: DifyResponse[] = [
       'Prerequisites': 'Power loops, Split-S',
       'Type': 'Cinematic Freestyle',
     },
-    affiliateLink: 'https://udemy.com/fpv-masterclass',
     price: 'Free',
     imageUrl: '/api/content/media/cover/matty-flip-guide',
   },
@@ -63,8 +84,7 @@ const mockData: DifyResponse[] = [
       'Latency': '30ms',
       'Recording': '4K/120fps built-in',
     },
-    affiliateLink: 'https://amazon.com/dji-o3',
-    price: '$229.00',
+    price: 'Reference',
     imageUrl: '/api/content/media/cover/dji-o3-air-unit',
   }
 ];
@@ -89,43 +109,52 @@ export async function fetchEditorialInsights(): Promise<DifyResponse[]> {
       return mockData;
     }
 
-    const { data: datasets } = await resp.json() as { data: any[] };
-    const fpvDatasets = (datasets || []).filter((d: any) => d.name?.startsWith("fpv-"));
+    const datasetsPayload = asRecord(await resp.json());
+    const fpvDatasets = asRecordArray(datasetsPayload?.data)
+      .filter((dataset) => asString(dataset.name)?.startsWith('fpv-'));
     const insights: DifyResponse[] = [];
 
     for (const ds of fpvDatasets.slice(0, 4)) {
-      const docsResp = await fetch(`${baseUrl}/datasets/${ds.id}/documents?limit=3&keyword=`, {
+      const datasetId = asString(ds.id);
+      if (!datasetId) continue;
+      const docsResp = await fetch(`${baseUrl}/datasets/${datasetId}/documents?limit=3&keyword=`, {
         headers: { Authorization: `Bearer ${apiKey}` },
         signal: AbortSignal.timeout(10000),
       });
       if (!docsResp.ok) continue;
 
-      const { data: docs } = await docsResp.json() as { data: any[] };
+      const docsPayload = asRecord(await docsResp.json());
+      const docs = asRecordArray(docsPayload?.data);
       if (!docs?.length) continue;
 
       for (const doc of docs.slice(0, 2)) {
         if (insights.length >= 5) break;
 
-        const meta = doc.doc_metadata || {};
-        const sourceUrl = meta.source_url || "";
+        const meta = asRecord(doc.doc_metadata) || {};
+        const sourceUrl = asString(meta.source_url) || "";
         let title = sourceUrl;
         try { title = new URL(sourceUrl).hostname.replace("www.", ""); } catch {}
 
-        let summary = `From ${ds.name} dataset. ${doc.tokens || 0} tokens.`;
+        const datasetName = asString(ds.name) || 'fpv';
+        const tokenCount = asNumber(doc.tokens) || 0;
+        let summary = `From ${datasetName} dataset. ${tokenCount} tokens.`;
         let specs: Record<string, string> = {
-          "Dataset": ds.name?.replace("fpv-", "") || "FPV",
-          "Tokens": String(doc.tokens || 0),
+          "Dataset": datasetName.replace("fpv-", "") || "FPV",
+          "Tokens": String(tokenCount),
         };
         if (sourceUrl) specs["Source"] = sourceUrl;
 
         try {
-          const detailResp = await fetch(`${baseUrl}/datasets/${ds.id}/documents/${doc.id}`, {
+          const docId = asString(doc.id);
+          if (!docId) continue;
+          const detailResp = await fetch(`${baseUrl}/datasets/${datasetId}/documents/${docId}`, {
             headers: { Authorization: `Bearer ${apiKey}` },
             signal: AbortSignal.timeout(8000),
           });
           if (detailResp.ok) {
-            const detail = await detailResp.json() as any;
-            const text = detail.segments?.map((s: any) => s.content).join(" ") || "";
+            const detail = asRecord(await detailResp.json());
+            const segments = asRecordArray(detail?.segments);
+            const text = segments.map((segment) => asString(segment.content) || '').join(" ");
             if (text) {
               summary = text
                 .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
@@ -139,18 +168,21 @@ export async function fetchEditorialInsights(): Promise<DifyResponse[]> {
           }
         } catch {}
 
-        const cat = ds.name?.includes("tuning") || ds.name?.includes("pid") ? "Flight Guides"
-          : ds.name?.includes("specs") || ds.name?.includes("build") ? "Drone Parts"
-          : ds.name?.includes("news") || ds.name?.includes("review") ? "AI Software"
+        const cat = datasetName.includes("tuning") || datasetName.includes("pid") ? "Flight Guides"
+          : datasetName.includes("specs") || datasetName.includes("build") ? "Drone Parts"
+          : datasetName.includes("news") || datasetName.includes("review") ? "AI Software"
           : "Flight Guides";
+        const docId = asString(doc.id);
+        if (!docId) continue;
 
         insights.push({
-          id: doc.id,
+          id: docId,
           category: cat as DifyResponse["category"],
-          title: title || ds.name || "FPV Entry",
-          summary: summary || `Indexed from ${sourceUrl || ds.name}`,
+          title: title || datasetName || "FPV Entry",
+          summary: summary || `Indexed from ${sourceUrl || datasetName}`,
           technicalSpecs: specs,
-          affiliateLink: sourceUrl || "#",
+          sourceUrl,
+          commerceVerified: false,
           price: "Free",
           imageUrl: undefined,
         });
@@ -180,4 +212,3 @@ export async function fetchDifyStats() {
         lastSync: new Date().toISOString()
     };
 }
-import { getOptionalEnv } from '@/lib/env';

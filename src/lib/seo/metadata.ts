@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 
 const BASE = process.env.APP_URL || 'https://fpvlovers.com.tr';
-const DEFAULT_OG_IMAGE = `${BASE}/images/fallbacks/fpv-commercial.webp`;
+const DEFAULT_OG_IMAGE = `${BASE}/api/content/media/cover/site-default`;
 
 export function generateSeoMetadata({
   title,

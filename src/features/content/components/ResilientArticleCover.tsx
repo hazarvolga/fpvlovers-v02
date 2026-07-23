@@ -51,7 +51,7 @@ export function ResilientArticleCover({
         </div>
       </div>
       <div className="flex items-center justify-between px-8 pt-4 font-mono text-[10px] italic text-white/30">
-        <span>{usesFallback ? 'FPVLovers generated fallback' : asset.credit}</span>
+        <span>{usesFallback ? 'FPVLovers fallback after media load failure' : asset.credit}</span>
         {!usesFallback && asset.sourceUrl && (
           <a
             href={asset.sourceUrl}

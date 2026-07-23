@@ -16,6 +16,7 @@ import { PilotDossier, PilotClass } from "@/types/pilot-dossier";
 import localRoadmap from "../../../../data/roadmap.json";
 import { useSession, signOut } from "next-auth/react";
 import { SubpageHero, SubpageShell } from "@/components/subpage/SubpageChrome";
+import { HUB_COVER_IMAGES } from "@/lib/content-automation/hub-media";
 
 interface ModuleGate {
   id: string;
@@ -286,7 +287,7 @@ export default function RoadmapPage() {
         title="BUILD A REAL"
         accent="FPV SKILL PATH."
         description="A guided progression matrix for simulator hours, first flights, hardware knowledge, safety gates, and self-certified readiness. Guests can browse the path; signed-in pilots can sync dossier progress."
-        image="/images/fallbacks/fpv-academy-beginner.webp"
+        image={HUB_COVER_IMAGES.roadmap}
         imageAlt="FPV beginner pilot training route over a dark tactical interface"
         stats={[
           { label: "Training Mode", value: dossier ? "Dossier Active" : "Guest Browse" },

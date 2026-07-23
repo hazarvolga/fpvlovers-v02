@@ -5,6 +5,7 @@ import {
   SubpageSectionHeader,
   SubpageShell,
 } from '@/components/subpage/SubpageChrome';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const metadata = {
   title: 'FPV Tools Hub | FPVLovers',
@@ -70,7 +71,7 @@ export default function ToolsHubPage() {
         title="Powerful calculators,"
         accent="analyzers and utilities."
         description="Practical FPV tools for build planning, tuning checks, component comparison, and safer setup decisions."
-        image="/images/fallbacks/fpv-tuning-betaflight.webp"
+        image={HUB_COVER_IMAGES.tools}
         imageAlt="FPV tuning dashboard and analyzer visual"
         stats={[
           { label: 'Live tools', value: '6 utilities' },

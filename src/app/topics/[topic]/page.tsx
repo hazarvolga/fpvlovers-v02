@@ -7,6 +7,7 @@ import { BookOpen, Compass, ShieldCheck } from 'lucide-react';
 import { HubTracker } from '@/components/HubTracker';
 import { DiscoveryLink } from '@/components/DiscoveryLink';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
+import { buildTopicHubCover } from '@/lib/content-automation/hub-media';
 
 export async function generateMetadata({ params }: { params: Promise<{ topic: string }> }) {
   const resolvedParams = await params;
@@ -124,7 +125,7 @@ export default async function TopicHubPage({ params }: { params: Promise<{ topic
         title={displayTopic}
         accent="Knowledge"
         description={`Explore FPVLovers guides, tutorials, reviews, comparisons, and racing intelligence related to ${displayTopic.toLowerCase()}.`}
-        image="/images/fallbacks/fpv-academy-beginner.webp"
+        image={buildTopicHubCover(topic)}
         imageAlt={`${displayTopic} FPV knowledge hub`}
         stats={[
           { label: 'Indexed artifacts', value: String(topicContent.length) },

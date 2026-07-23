@@ -3,7 +3,7 @@ import path from 'path';
 import type { GeneratedContent } from './parse-generated-content';
 import { buildContentMedia } from './content-media';
 import type { ContentJob } from './types';
-import { matchImagesToSections } from './crawl-image-match';
+import { matchImagesToSections, pickBestRelevantImage } from './crawl-image-match';
 import { harvestImagesFromDatabase } from './crawl-image-harvest';
 import {
   classifyImageLicenses,
@@ -88,10 +88,31 @@ export async function publishGeneratedContentArtifact(
       credit: `Source: ${img.hostname} (${img.licenseReason})`,
       license: img.license,
       context: img.context,
+      kind: 'source-backed' as const,
     }));
 
     // Prepend crawled images to the gallery pool
     media.gallery = [...crawledAssets, ...media.gallery].slice(0, 6);
+
+    // Promote only a semantically matched source image. A generated cover is
+    // retained when no image clears the relevance threshold; we never pick a
+    // random crawler image merely to make the page look less empty.
+    const bestCover = pickBestRelevantImage(crawledLicensed, content.bodySections);
+    const hasGeneratedCover =
+      media.coverImage.src.startsWith('/api/content/media/cover/') ||
+      media.coverImage.src.startsWith('/images/fallbacks/');
+    if (bestCover && hasGeneratedCover) {
+      media.coverImage = {
+        src: bestCover.src,
+        alt: bestCover.alt || `FPV source image from ${bestCover.hostname}`,
+        caption: bestCover.context || `Source image from ${bestCover.hostname}`,
+        source: bestCover.hostname,
+        sourceUrl: bestCover.sourceUrl,
+        credit: `Source: ${bestCover.hostname} (${bestCover.licenseReason})`,
+        license: bestCover.license,
+        kind: 'source-backed',
+      };
+    }
   }
 
   // 4. Perform Jaccard semantic matching of gallery images to bodySections

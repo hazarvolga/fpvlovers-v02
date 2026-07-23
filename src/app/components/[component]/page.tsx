@@ -6,6 +6,7 @@ import { listPublishedContentAsync, type PublishedArtifact } from '@/lib/content
 import { Cpu } from 'lucide-react';
 import { HubTracker } from '@/components/HubTracker';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
+import { buildComponentHubCover } from '@/lib/content-automation/hub-media';
 
 export async function generateMetadata({ params }: { params: Promise<{ component: string }> }) {
   const resolvedParams = await params;
@@ -68,7 +69,7 @@ export default async function ComponentHubPage({ params }: { params: Promise<{ c
         title={displayComponent}
         accent="Reference"
         description={`Hardware specification guides, troubleshooting, and setup instructions for ${displayComponent.toLowerCase()}s.`}
-        image="/images/fallbacks/fpv-build-workshop.webp"
+        image={buildComponentHubCover(component)}
         imageAlt={`${displayComponent} FPV component reference`}
         stats={[
           { label: 'Indexed artifacts', value: String(componentContent.length) },

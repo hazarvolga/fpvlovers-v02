@@ -6,6 +6,8 @@ export type ContentMediaAsset = {
   sourceUrl?: string;
   credit?: string;
   license?: string;
+  /** Describes whether this is source-backed media or generated artwork. */
+  kind?: 'source-backed' | 'generated-artwork' | 'fallback';
   /** Crawled context retained for deterministic section matching. */
   context?: string;
 };
@@ -213,6 +215,7 @@ export function buildContentMedia(input: {
       caption,
       source: 'FPVLovers local media layer',
       credit: 'FPVLovers generated artwork',
+      kind: 'generated-artwork',
     },
     gallery: [],
     figureCaptions: [],

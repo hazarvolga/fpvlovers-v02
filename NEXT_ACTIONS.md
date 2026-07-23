@@ -1,6 +1,17 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-07-15
+Last updated: 2026-07-23
+
+## Current Priority After 2026-07-23 Score-Closure Phase
+
+1. **DONE - Production shadow parity:** nine production-only artifacts were exported from the live container into `content/published`. `npm run content:audit` reports **133** published artifacts, and `npm run production:shadow-parity` reports **133 local / 133 live / 0 live-only / 0 local-only**.
+2. **DONE - Four-per-day capacity gate:** `npm run automation:backlog-audit` reports **94 planned briefs**, **69 available briefs**, and **56 projected publications over 14 days** with the current eight daily cron windows. This proves capacity, not the 14-day observed result. Keep the production monitor running until the rolling window shows 56+ real shadow publications.
+3. **DONE - Duplicate generation guard:** `cron/generate` now excludes already-published `jobId`s as well as slugs, including `brief-<slug>` IDs. This protects production from re-enqueueing content already present in shadow/Git after file/DB drift.
+4. **DONE - Cron secret hygiene:** direct raw cron endpoint entries were removed from the user crontab. Keep only the root `/usr/local/bin/fpvlovers-cron-call` wrapper path; never store `CRON_SECRET` directly in crontab or Git.
+5. **DONE - Affiliate application readiness, not monetization activation:** `npm run affiliate:application-readiness` is **100/100** and application-ready with honest language, trust routes, commercial depth, review boundaries, and no unsupported claims. `ctaActivationReady=false` is expected because no affiliate program has been accepted. `npm run catalog:affiliate-audit` remains `blocked-pending-network-verification` until real affiliate URLs and evidence are added.
+6. **DONE - Unverified CTA lock:** Dify/legacy article fallback pages no longer render source URLs as commercial CTAs. They show `Commercial CTA Locked` unless `commerceVerified === true`.
+7. **NEXT - Deploy and verify the new backlog/gate release:** after commit/push, deploy through Coolify, then run production smoke plus a wrapper dry-run generate call. Expected dry-run outcome: a new eligible brief is selected without spending Dify budget. Do not force real crawl/generation manually unless budget and source quality are confirmed.
+8. **NEXT - Monetization phase stays separate:** use `$monetizasyon` later to add real affiliate URL verification, evidence URLs, application submissions, and source-backed CTA activation. Do not claim Amazon Associate status, official partnerships, supplied products, traffic, conversions, or hands-on testing before they are real.
 
 ## Current Priority After 2026-07-15 Automation/Data-Safety Closure
 

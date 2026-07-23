@@ -1,6 +1,6 @@
 # BETAFPV Cetus X RTF Kit Review: Ultimate Beginner Starter Bundle
 
-The BETAFPV Cetus X is pitched as the ideal entry point for prospective FPV pilots. We tested the full Ready-To-Fly bundle to see if it delivers on that promise.
+The BETAFPV Cetus X is pitched as an entry point for prospective FPV pilots. This FPVLovers page is a specification-based assessment that reviews the published bundle, ecosystem fit, and beginner ownership tradeoffs; it is not a hands-on durability test.
 
 ## Brushless Power & Flight Durability
 

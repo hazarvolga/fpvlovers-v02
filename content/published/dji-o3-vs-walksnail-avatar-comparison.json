@@ -57,11 +57,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/images/fallbacks/fpv-commercial.webp",
+      "src": "/api/content/media/cover/dji-o3-vs-walksnail-avatar-comparison",
       "alt": "DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle",
       "caption": "FPVLovers commercial-intent editorial cover artwork",
-      "credit": "FPVLovers generated artwork",
-      "license": "site-owned fallback"
+      "credit": "FPVLovers generated editorial artwork",
+      "license": "site-owned fallback",
+      "source": "FPVLovers local media layer",
+      "kind": "generated-artwork"
     },
     "gallery": [],
     "figureCaptions": [],
@@ -71,7 +73,7 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-18T10:25:00.000Z",
   "promptVersion": "v2",
-  "coverImage": "/images/fallbacks/fpv-commercial.webp",
+  "coverImage": "/api/content/media/cover/dji-o3-vs-walksnail-avatar-comparison",
   "metadata": {
     "topics": [
       "video",

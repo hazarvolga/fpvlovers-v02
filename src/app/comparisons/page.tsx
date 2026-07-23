@@ -2,6 +2,7 @@ import React from 'react';
 import { isIndexablePublishedArtifact, listPublishedContentAsync } from '@/lib/content-automation/content-reader';
 import { ComparisonsHubClient } from './ComparisonsHubClient';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const metadata = {
   title: 'Product Comparisons | FPVLovers',
@@ -27,7 +28,7 @@ export default async function ComparisonsPage() {
         title="Side-by-side FPV"
         accent="tradeoff analysis."
         description="Source-aware FPV product comparisons that explain specifications, compatibility, use cases, and practical tradeoffs without pretending every winner is universal."
-        image="/images/fallbacks/fpv-video-goggles-vtx.webp"
+        image={HUB_COVER_IMAGES.comparisons}
         imageAlt="FPV comparison bench with video and radio systems"
         stats={[
           { label: 'Published comparisons', value: `${comparisons.length}` },

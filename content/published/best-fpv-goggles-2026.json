@@ -57,11 +57,13 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "/images/fallbacks/fpv-commercial.webp",
+      "src": "/api/content/media/cover/best-fpv-goggles-2026",
       "alt": "Best FPV Goggles in 2026: The Complete Buying Guide",
       "caption": "FPVLovers commercial-intent editorial cover artwork",
-      "credit": "FPVLovers generated artwork",
-      "license": "site-owned fallback"
+      "credit": "FPVLovers generated editorial artwork",
+      "license": "site-owned fallback",
+      "source": "FPVLovers local media layer",
+      "kind": "generated-artwork"
     },
     "gallery": [],
     "figureCaptions": [],
@@ -71,7 +73,7 @@
   "jobStatus": "published",
   "publishedAt": "2026-06-18T12:00:00.000Z",
   "promptVersion": "v2",
-  "coverImage": "/images/fallbacks/fpv-commercial.webp",
+  "coverImage": "/api/content/media/cover/best-fpv-goggles-2026",
   "metadata": {
     "topics": [
       "goggles",

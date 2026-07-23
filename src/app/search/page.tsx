@@ -3,6 +3,7 @@ import { listPublishedContentAsync } from '@/lib/content-automation/content-read
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
 import { SearchClient, type SearchDocument } from './SearchClient';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const metadata = {
   title: 'Search Hub | FPVLovers',
@@ -51,7 +52,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
         title="Search FPV"
         accent="Library"
         description="Search FPVLovers tutorials, buyer guides, reviews, comparisons, racing updates, and technical references from one editorial index."
-        image="/images/fallbacks/fpv-racing.webp"
+        image={HUB_COVER_IMAGES.search}
         imageAlt="FPV drone knowledge index visual"
         stats={[
           { label: 'Published artifacts', value: String(searchIndex.length) },

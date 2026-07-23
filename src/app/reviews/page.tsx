@@ -3,6 +3,7 @@ import { isIndexablePublishedArtifact, listPublishedContentAsync } from '@/lib/c
 import { ReviewsHubClient } from './ReviewsHubClient';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
 import { isApprovedHandsOnReview } from '@/lib/content-automation/editorial-governance';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const metadata = {
   title: 'Hardware Reviews and Assessments | FPVLovers',
@@ -24,7 +25,7 @@ export default async function ReviewsPage() {
         title="Hardware reviews"
         accent="with evidence boundaries."
         description="FPV hardware assessments that separate sourced specifications from hands-on testing. Scores and hands-on labels are reserved for editor-approved evidence."
-        image="/images/fallbacks/fpv-commercial.webp"
+        image={HUB_COVER_IMAGES.reviews}
         imageAlt="FPV hardware review bench"
         stats={[
           { label: 'Published reviews', value: `${reviews.length}` },

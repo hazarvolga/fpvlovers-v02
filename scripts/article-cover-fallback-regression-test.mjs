@@ -13,7 +13,7 @@ if (!fs.existsSync(componentPath)) {
   if (!componentSource.includes('<ResilientCoverImage')) violations.push('article cover does not use the shared resilient image chain');
   if (!componentSource.includes('fallbackSrc={fallbackSrc}')) violations.push('article cover does not receive the topic fallback source');
   if (!componentSource.includes('onFallbackChange={setUsesFallback}')) violations.push('article cover does not track runtime fallback state');
-  if (!componentSource.includes('FPVLovers generated fallback')) violations.push('cover component has no fallback attribution');
+  if (!componentSource.includes('FPVLovers fallback after media load failure')) violations.push('cover component has no runtime fallback attribution');
 }
 
 if (!fs.existsSync(sharedComponentPath)) {

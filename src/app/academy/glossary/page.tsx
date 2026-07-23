@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { GlossaryTerm } from '@/lib/server/glossary';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 type RagInsight = {
   source: string;
@@ -323,7 +324,7 @@ export default function GlossaryPage() {
         title="DECODE FPV"
         accent="WITHOUT GUESSWORK."
         description="A practical terminology operating system for acronyms, hardware layers, symptoms, build profiles, and RAG-backed concept context. Built for beginners who need clarity and builders who need fast recall."
-        image="/images/fallbacks/fpv-radio-elrs-gps.webp"
+        image={HUB_COVER_IMAGES.glossary}
         imageAlt="FPV radio, receiver, and GPS telemetry concepts in a dark tactical layout"
         stats={[
           { label: "Search Mode", value: searchTerm ? "Filtered" : "Ready" },

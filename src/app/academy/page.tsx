@@ -5,6 +5,7 @@ import {
   SubpageSectionHeader,
   SubpageShell,
 } from '@/components/subpage/SubpageChrome';
+import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const metadata = {
   title: 'FPV Academy | FPVLovers',
@@ -60,7 +61,7 @@ export default function AcademyPage() {
         title="Learn FPV."
         accent="Master the skies."
         description="Step-by-step learning paths for pilots who want a safer route from simulator practice to confident real-world flights."
-        image="/images/fallbacks/fpv-academy-beginner.webp"
+        image={HUB_COVER_IMAGES.academy}
         imageAlt="FPV goggles and radio controller academy visual"
         stats={[
           { label: 'Learning paths', value: '4 core tracks' },

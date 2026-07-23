@@ -9,6 +9,9 @@ import { CookieBanner } from '@/features/layout/components/CookieBanner';
 import { Analytics } from '@vercel/analytics/react';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { SessionProvider } from 'next-auth/react';
+import { buildCoverImageUrl } from '@/lib/content-automation/content-media';
+
+const DEFAULT_SITE_COVER = buildCoverImageUrl('site-default');
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.APP_URL || 'https://fpvlovers.com.tr'),
@@ -21,13 +24,13 @@ export const metadata: Metadata = {
     siteName: 'FPVLovers',
     title: 'FPVLovers | Learn, Build, Race, Fly',
     description: 'English-first FPV guides, engineering references, and practical pilot tools.',
-    images: [{ url: '/images/fallbacks/fpv-commercial.webp', width: 1200, height: 630, alt: 'FPVLovers FPV editorial guides' }],
+    images: [{ url: DEFAULT_SITE_COVER, width: 1200, height: 675, alt: 'FPVLovers FPV editorial guides' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'FPVLovers | Learn, Build, Race, Fly',
     description: 'English-first FPV guides, engineering references, and practical pilot tools.',
-    images: ['/images/fallbacks/fpv-commercial.webp'],
+    images: [DEFAULT_SITE_COVER],
   },
 };
 

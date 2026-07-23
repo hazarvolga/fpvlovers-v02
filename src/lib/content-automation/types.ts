@@ -33,6 +33,7 @@ export type ContentMediaAsset = {
   sourceUrl?: string;
   credit?: string;
   license?: string;
+  kind?: 'source-backed' | 'generated-artwork' | 'fallback';
   context?: string;
 };
 

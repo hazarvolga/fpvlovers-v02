@@ -95,7 +95,10 @@ export function pickNextBestBriefs(
   entries: readonly ContentBrief[],
   count: number,
 ): BriefPriority[] {
-  const unpicked = entries.filter((e) => !existingJobSlugs.has(e.slug));
+  const unpicked = entries.filter((e) => (
+    !existingJobSlugs.has(e.slug) &&
+    !existingJobSlugs.has(`brief-${e.slug}`)
+  ));
 
   const scored = unpicked.map((entry) => {
     let priority = 0;

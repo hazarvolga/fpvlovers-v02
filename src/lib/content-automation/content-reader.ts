@@ -349,7 +349,9 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
       ...finalCoverImage,
       src: displayCoverSrc,
       alt: `${title} topic cover`,
-      credit: 'FPVLovers generated fallback',
+      source: 'FPVLovers local media layer',
+      credit: 'FPVLovers generated editorial artwork',
+      kind: 'generated-artwork',
       sourceUrl: undefined,
     };
   }
@@ -448,4 +450,10 @@ export async function getPublishedContentBySlugAsync(slug: string): Promise<Publ
 
 export async function getPublishedSlugsAsync(): Promise<string[]> {
   return (await listPublishedContentAsync()).map((artifact) => artifact.slug);
+}
+
+export async function getPublishedJobIdsAsync(): Promise<string[]> {
+  return (await listPublishedContentAsync())
+    .map((artifact) => artifact.jobId)
+    .filter((jobId): jobId is string => typeof jobId === 'string' && jobId.trim().length > 0);
 }
