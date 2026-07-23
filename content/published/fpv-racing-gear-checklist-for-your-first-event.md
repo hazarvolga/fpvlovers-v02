@@ -228,5 +228,5 @@ Always bring plenty of **spare propellers** (they break constantly!), extra **Li
 
 With this comprehensive FPV racing gear checklist, you're now equipped with the knowledge to select, set up, and maintain your competitive FPV racing drone. The world of FPV racing is thrilling and constantly evolving, but with the right gear and dedication, you'll be soaring through gates and leaving competitors in your dust. Don't just dream of the podium; build your way to it! Explore the latest gear, start practicing in a simulator, and join your local FPV community today. Your racing journey begins now!
 
-![Tattu R-Line Version 5.0 1400mAh 6S 150C LiPo Battery](https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg)
+![Tattu R-Line Version 5.0 1400mAh 6S 150C LiPo Battery](/images/source-cache/fpv-racing-gear-checklist-for-your-first-event-section-1-75cf324e.jpg)
 _Tattu R-Line Version 5.0 1400mAh 6S 150C LiPo Battery catalog image used as source-backed visual context for FPV Racing Gear Checklist for Your First Event._

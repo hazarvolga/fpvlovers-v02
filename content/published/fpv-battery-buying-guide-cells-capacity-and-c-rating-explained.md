@@ -259,5 +259,5 @@ It is highly recommended to **balance charge your FPV batteries every time you c
 
 Choosing the right FPV battery is a critical step towards unlocking your drone's full potential and ensuring safe, enjoyable flights. By understanding the core principles of voltage, capacity, C-rating, and proper care, you're now equipped to make informed decisions. Remember, the 'best' battery is always the one that perfectly matches your specific drone, flying style, and safety practices. So, go forth, power up, and conquer the skies! Ready to upgrade your flight experience? Explore our recommended FPV battery selections and find your next perfect pack today!
 
-![Gaoneng GNB 450mAh 1S 80C HV LiPo Battery (PH2.0)](https://cdn.shopify.com/s/files/1/1025/1577/products/BT2.0_450mAh_1S_Battery.jpg)
+![Gaoneng GNB 450mAh 1S 80C HV LiPo Battery (PH2.0)](/images/source-cache/fpv-battery-buying-guide-cells-capacity-and-c-rating-explained-section-1-75cf324e.jpg)
 _Gaoneng GNB 450mAh 1S 80C HV LiPo Battery (PH2.0) catalog image used as source-backed visual context for FPV Battery Buying Guide: Cells, Capacity, and C-Rating Explained._

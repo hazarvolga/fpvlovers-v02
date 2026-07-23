@@ -214,5 +214,5 @@ Consider whether integrated simplicity and top-tier 4K recording appeal more tha
 
 By weighing these factors, you're now equipped to make an informed decision that will truly elevate your FPV experience. Ready to elevate your FPV experience? Make an informed choice and dive into the world of digital FPV today!
 
-![TBS Unify Pro32 HV 5.8GHz VTX](https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg)
+![TBS Unify Pro32 HV 5.8GHz VTX](/images/source-cache/dji-o3-vs-walksnail-avatar-fpv-system-comparison-section-1-f8c1954f.jpg)
 _TBS Unify Pro32 HV 5.8GHz VTX catalog image used as source-backed visual context for DJI O3 vs Walksnail Avatar: FPV System Comparison._

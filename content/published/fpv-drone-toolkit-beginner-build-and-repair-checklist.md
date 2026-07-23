@@ -252,5 +252,5 @@ Remember, your toolkit is a living entity, just like your FPV journey. As you ga
 
 So, whether you're just starting to dream of your first quad or you're looking to upgrade your existing setup, take the time to curate your ultimate **FPV maintenance kit**. With the right gear in hand, you’ll not only build incredible machines but also gain a deeper appreciation for the intricate engineering behind every breathtaking FPV flight. Get ready to empower your FPV journey, one tool at a time, and take to the skies with confidence!
 
-![EMAX ECO II Series 2306 1900KV Motor](https://shop.iflight-rc.com/image/cache/catalog/product/xing2/XING2-2207-Motor-1-800x800.jpg)
+![EMAX ECO II Series 2306 1900KV Motor](/images/source-cache/fpv-drone-toolkit-beginner-build-and-repair-checklist-section-1-64dde62b.webp)
 _EMAX ECO II Series 2306 1900KV Motor catalog image used as source-backed visual context for FPV Drone Toolkit: Beginner Build and Repair Checklist._

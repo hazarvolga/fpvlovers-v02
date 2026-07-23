@@ -10,7 +10,7 @@ The recommendations below prioritize compatibility, upgrade path, repairability,
 
 Affiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.
 
-![TBS Unify Pro32 HV 5.8GHz VTX](https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg)
+![TBS Unify Pro32 HV 5.8GHz VTX](/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-section-1-f8c1954f.jpg)
 _TBS Unify Pro32 HV 5.8GHz VTX catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle._
 
 ## Who This Is For
@@ -21,7 +21,7 @@ A cinematic pilot will usually prioritize image quality, predictable range, and 
 
 If this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line.
 
-![DJI O3 Air Unit Digital HD Video System](https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg)
+![DJI O3 Air Unit Digital HD Video System](/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-section-2-f8c1954f.jpg)
 _DJI O3 Air Unit Digital HD Video System catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle._
 
 ## Evaluation Criteria
@@ -32,7 +32,7 @@ Compatibility comes first. For radios, that means protocol support, module bay o
 
 The second filter is ownership friction. Pilots should consider spare parts, community documentation, setup videos, firmware stability, and whether failures can be diagnosed without specialist tools. The best FPV gear is not just impressive on day one; it remains understandable after a crash, firmware update, or field repair.
 
-![DJI Goggles 2 FPV Headset](https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg)
+![DJI Goggles 2 FPV Headset](/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-section-3-f8c1954f.jpg)
 _DJI Goggles 2 FPV Headset catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle._
 
 ## Strengths and Tradeoffs

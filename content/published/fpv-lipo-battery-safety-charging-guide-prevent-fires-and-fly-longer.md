@@ -253,6 +253,5 @@ Now that you're armed with this essential knowledge, go forth and fly with confi
 
 **Ready to take your FPV knowledge further? Explore our other FPV build guides and become a true master of the skies!**
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg)
+![FPV image from oscarliang.com](/images/source-cache/fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer-section-1-3eb582f8.jpg)
 _Source: oscarliang.com_
-

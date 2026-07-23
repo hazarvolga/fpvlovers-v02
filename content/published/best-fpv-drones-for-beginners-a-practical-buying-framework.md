@@ -280,5 +280,5 @@ By focusing on durable, forgiving drones like the BetaFPV Cetus X or EMAX Tinyha
 
 Ready to experience the adrenaline of FPV? Explore our recommended beginner FPV drones and start your immersive flying adventure today! The skies are calling, and your crash-proof journey begins now!
 
-![BETAFPV Cetus Pro Brushless Tiny Whoop Kit](https://cdn.shopify.com/s/files/1/1025/1577/products/Cetus_Pro_FPV_Kit.jpg)
+![BETAFPV Cetus Pro Brushless Tiny Whoop Kit](/images/source-cache/best-fpv-drones-for-beginners-a-practical-buying-framework-section-1-5f0f8381.jpg)
 _BETAFPV Cetus Pro Brushless Tiny Whoop Kit catalog image used as source-backed visual context for Best FPV Drones for Beginners: A Practical Buying Framework._

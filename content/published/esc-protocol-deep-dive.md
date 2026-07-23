@@ -40,4 +40,3 @@ Higher PWM switching frequencies (e.g. 48kHz or 96kHz) smooth out motor operatio
 
 ![ESCs \(Electronic Speed Controllers\)](https://www.racedayquads.com/cdn/shop/files/nav-all-electronics-escs-electronic-speed-controllers.webp?v=3773967901496022457)
 _ESCs \(Electronic Speed Controllers\)_
-

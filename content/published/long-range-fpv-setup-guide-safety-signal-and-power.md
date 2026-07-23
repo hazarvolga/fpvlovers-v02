@@ -257,5 +257,5 @@ The satisfaction of a perfectly executed long-range flight is truly unique. It's
 
 Are you ready to unlock the horizon and experience the unparalleled freedom of long-range FPV? Use this guide as your blueprint, research your components, plan your build, and always prioritize safety. The world is waiting to be explored from a new perspective. Start your long-range FPV build today and prepare for adventures that will redefine your FPV experience!
 
-![Happymodel EP1 RX 2.4GHz ExpressLRS Receiver](https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg)
+![Happymodel EP1 RX 2.4GHz ExpressLRS Receiver](/images/source-cache/long-range-fpv-setup-guide-safety-signal-and-power-section-1-739591c1.jpg)
 _Happymodel EP1 RX 2.4GHz ExpressLRS Receiver catalog image used as source-backed visual context for Long-Range FPV Setup Guide: Safety, Signal, and Power._

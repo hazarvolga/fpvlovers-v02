@@ -216,5 +216,5 @@ Choosing the right FPV flight controller is a critical decision that impacts eve
 
 Now that you're equipped with the knowledge to navigate the FPV flight controller landscape, it's time to put that expertise into action. Research specific models, read reviews, and confidently select the FC that will bring your FPV drone dreams to life. Happy building, and we'll see you in the skies!
 
-![Diatone Mamba MK4 F722 + F40 20x20 Mini Stack](https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_Mini_Stack_1.jpg)
+![Diatone Mamba MK4 F722 + F40 20x20 Mini Stack](/images/source-cache/fpv-flight-controller-buying-guide-for-beginner-builds-section-1-656931d1.jpg)
 _Diatone Mamba MK4 F722 + F40 20x20 Mini Stack catalog image used as source-backed visual context for FPV Flight Controller Buying Guide for Beginner Builds._

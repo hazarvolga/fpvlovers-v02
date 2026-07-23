@@ -262,5 +262,5 @@ Choosing the right FPV ESC is a crucial decision that impacts every aspect of yo
 
 With this comprehensive guide, you're now equipped to make an informed decision about your FPV ESC. Go forth, choose wisely, and build the FPV drone of your dreams. The sky is waiting!
 
-![T-Motor F7 HD + F55A Pro II 30x30 Stack](https://cdn.shopify.com/s/files/1/0559/1174/3656/products/SpeedyBee_F405_V3_Stack_1.jpg)
+![T-Motor F7 HD + F55A Pro II 30x30 Stack](/images/source-cache/fpv-esc-buying-guide-current-rating-firmware-and-stack-fit-section-1-656931d1.jpg)
 _T-Motor F7 HD + F55A Pro II 30x30 Stack catalog image used as source-backed visual context for FPV ESC Buying Guide: Current Rating, Firmware, and Stack Fit._

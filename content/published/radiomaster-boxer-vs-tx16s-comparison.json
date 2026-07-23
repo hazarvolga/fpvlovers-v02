@@ -21,7 +21,7 @@
       "title": "Comparison Scope",
       "content": "RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose? is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where RadioMaster Boxer vs RadioMaster TX16S MKII fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.",
       "imageMatch": {
-        "src": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+        "src": "/images/source-cache/radiomaster-boxer-vs-tx16s-comparison-section-1-cbde45d7.webp",
         "alt": "TBS Tango 2 Pro RC Radio Transmitter",
         "caption": "TBS Tango 2 Pro RC Radio Transmitter catalog image used as source-backed visual context for RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose?.",
         "source": "TBS",
@@ -29,7 +29,10 @@
         "credit": "Catalog/source image: TBS",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "TBS Tango 2 Pro RC Radio Transmitter TBS Radios radio tbs tango tango2 pro radio transmitter crossfire gamepad radio crossfire 915mhz gamepad-style folding-gimbals https://www.team-blacksheep.com/products",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+        "cachedFrom": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+        "sourceImageUrl": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
       }
     },
     {
@@ -37,7 +40,7 @@
       "title": "Who This Is For",
       "content": "RadioMaster Boxer vs RadioMaster TX16S MKII is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line.",
       "imageMatch": {
-        "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+        "src": "/images/source-cache/radiomaster-boxer-vs-tx16s-comparison-section-2-cbde45d7.webp",
         "alt": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G)",
         "caption": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose?.",
         "source": "RadioMaster",
@@ -45,7 +48,10 @@
         "credit": "Catalog/source image: RadioMaster",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) RadioMaster Radios radio radiomaster boxer radio transmitter elrs 2.4g gimbals radio elrs 2.4ghz full-size hall-gimbals https://www.getfpv.com/downloads",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+        "cachedFrom": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+        "sourceImageUrl": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
       }
     },
     {
@@ -79,7 +85,7 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+      "src": "/images/source-cache/radiomaster-boxer-vs-tx16s-comparison-cover-1-cbde45d7.webp",
       "alt": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G)",
       "caption": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose?.",
       "source": "RadioMaster",
@@ -87,11 +93,14 @@
       "credit": "Catalog/source image: RadioMaster",
       "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
       "context": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) RadioMaster Radios radio radiomaster boxer radio transmitter elrs 2.4g gimbals radio elrs 2.4ghz full-size hall-gimbals https://www.getfpv.com/downloads",
-      "kind": "source-backed"
+      "kind": "source-backed-cache",
+      "originalSrc": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+      "cachedFrom": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+      "sourceImageUrl": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
     },
     "gallery": [
       {
-        "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+        "src": "/images/source-cache/radiomaster-boxer-vs-tx16s-comparison-gallery-1-cbde45d7.webp",
         "alt": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G)",
         "caption": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose?.",
         "source": "RadioMaster",
@@ -99,10 +108,13 @@
         "credit": "Catalog/source image: RadioMaster",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) RadioMaster Radios radio radiomaster boxer radio transmitter elrs 2.4g gimbals radio elrs 2.4ghz full-size hall-gimbals https://www.getfpv.com/downloads",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+        "cachedFrom": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+        "sourceImageUrl": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
       },
       {
-        "src": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+        "src": "/images/source-cache/radiomaster-boxer-vs-tx16s-comparison-gallery-2-cbde45d7.webp",
         "alt": "TBS Tango 2 Pro RC Radio Transmitter",
         "caption": "TBS Tango 2 Pro RC Radio Transmitter catalog image used as source-backed visual context for RadioMaster Boxer vs TX16S MKII: Which FPV Radio Should You Choose?.",
         "source": "TBS",
@@ -110,23 +122,29 @@
         "credit": "Catalog/source image: TBS",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "TBS Tango 2 Pro RC Radio Transmitter TBS Radios radio tbs tango tango2 pro radio transmitter crossfire gamepad radio crossfire 915mhz gamepad-style folding-gimbals https://www.team-blacksheep.com/products",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+        "cachedFrom": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+        "sourceImageUrl": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
       }
     ],
     "figureCaptions": [],
     "imageSources": [
       "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
-      "https://www.team-blacksheep.com/products/prod:tango2_pro"
+      "https://www.team-blacksheep.com/products/prod:tango2_pro",
+      "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
     ],
     "attribution": [
       "Catalog/source image: RadioMaster",
-      "Catalog/source image: TBS"
+      "Catalog/source image: TBS",
+      "RadioMaster",
+      "TBS"
     ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-18T10:30:00.000Z",
   "promptVersion": "v2",
-  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+  "coverImage": "/images/source-cache/radiomaster-boxer-vs-tx16s-comparison-cover-1-cbde45d7.webp",
   "metadata": {
     "topics": [
       "radio",
@@ -164,6 +182,7 @@
   },
   "sourceReferences": [
     "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
-    "https://www.team-blacksheep.com/products/prod:tango2_pro"
+    "https://www.team-blacksheep.com/products/prod:tango2_pro",
+    "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
   ]
 }

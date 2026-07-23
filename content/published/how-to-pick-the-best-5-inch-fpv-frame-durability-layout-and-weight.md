@@ -210,6 +210,5 @@ You've embarked on an FPV frame masterclass, and now you understand that the fra
 
 Armed with this knowledge, you're ready to select the perfect 5-inch FPV frame that will serve as the foundation for countless exhilarating flights. Don't just buy a frame; choose a partner for your FPV adventures. Explore our top recommendations, consider your unique needs, and embark on the exciting journey of building your dream FPV drone. Share your build with us and join the conversation at fpvlovers.com.tr!
 
-![Bundles](https://rotorriot.com/cdn/shop/files/Bubito-Starter-ECHO.png?v=1708626445&width=1000)
+![Bundles](/images/source-cache/how-to-pick-the-best-5-inch-fpv-frame-durability-layout-and-weight-section-1-74ce8c43.webp)
 _Bundles_
-

@@ -238,6 +238,5 @@ The FPV community is one of the most welcoming and helpful out there. Join onlin
 
 So, go ahead, *choose your first tiny whoop*, and prepare to see the world from an entirely new perspective. Happy flying!
 
-![Tinyhawk III FPV Racing Drone - Ready To Fly \(RTF\) w/ Controller and Goggles](https://emax-usa.com/cdn/shop/products/TinyhawkIIIRTF_1_1000x1000.progressive.jpg?v=1637194872)
+![Tinyhawk III FPV Racing Drone - Ready To Fly \(RTF\) w/ Controller and Goggles](/images/source-cache/how-to-choose-your-first-tiny-whoop-indoor-fun-safe-training-section-1-d6d49e51.png)
 _Tinyhawk III FPV Racing Drone - Ready To Fly \(RTF\) w/ Controller and Goggles_
-

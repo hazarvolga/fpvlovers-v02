@@ -21,7 +21,7 @@
       "title": "Buyer Intent Scope",
       "content": "Best FPV Goggles in 2026: The Complete Buying Guide is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where DJI Goggles Integra vs Walksnail Avatar Goggles X vs Eachine EV800D vs Fat Shark Dominator HDO3 fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.",
       "imageMatch": {
-        "src": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+        "src": "/images/source-cache/best-fpv-goggles-2026-section-1-f8c1954f.jpg",
         "alt": "Fat Shark Dominator HDO3 Digital Goggles",
         "caption": "Fat Shark Dominator HDO3 Digital Goggles catalog image used as source-backed visual context for Best FPV Goggles in 2026: The Complete Buying Guide.",
         "source": "Fat Shark",
@@ -29,7 +29,10 @@
         "credit": "Catalog/source image: Fat Shark",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "Fat Shark Dominator HDO3 Digital Goggles Fat Shark Goggles goggles fatshark dominator hdo3 digital hd goggles walksnail goggles digital walksnail-compatible oled https://pyrodrone.com/collections/flight-controllers-escs",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+        "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+        "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
       }
     },
     {
@@ -68,7 +71,7 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+      "src": "/images/source-cache/best-fpv-goggles-2026-cover-1-f8c1954f.jpg",
       "alt": "Fat Shark Dominator HDO3 Digital Goggles",
       "caption": "Fat Shark Dominator HDO3 Digital Goggles catalog image used as source-backed visual context for Best FPV Goggles in 2026: The Complete Buying Guide.",
       "source": "Fat Shark",
@@ -76,11 +79,14 @@
       "credit": "Catalog/source image: Fat Shark",
       "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
       "context": "Fat Shark Dominator HDO3 Digital Goggles Fat Shark Goggles goggles fatshark dominator hdo3 digital hd goggles walksnail goggles digital walksnail-compatible oled https://pyrodrone.com/collections/flight-controllers-escs",
-      "kind": "source-backed"
+      "kind": "source-backed-cache",
+      "originalSrc": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+      "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+      "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
     },
     "gallery": [
       {
-        "src": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+        "src": "/images/source-cache/best-fpv-goggles-2026-gallery-1-f8c1954f.jpg",
         "alt": "Fat Shark Dominator HDO3 Digital Goggles",
         "caption": "Fat Shark Dominator HDO3 Digital Goggles catalog image used as source-backed visual context for Best FPV Goggles in 2026: The Complete Buying Guide.",
         "source": "Fat Shark",
@@ -88,21 +94,26 @@
         "credit": "Catalog/source image: Fat Shark",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "Fat Shark Dominator HDO3 Digital Goggles Fat Shark Goggles goggles fatshark dominator hdo3 digital hd goggles walksnail goggles digital walksnail-compatible oled https://pyrodrone.com/collections/flight-controllers-escs",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+        "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+        "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
       }
     ],
     "figureCaptions": [],
     "imageSources": [
-      "https://pyrodrone.com/products/fat-shark-dominator-digital-hd-fpv-goggles-hdo3"
+      "https://pyrodrone.com/products/fat-shark-dominator-digital-hd-fpv-goggles-hdo3",
+      "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
     ],
     "attribution": [
-      "Catalog/source image: Fat Shark"
+      "Catalog/source image: Fat Shark",
+      "Fat Shark"
     ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-18T12:00:00.000Z",
   "promptVersion": "v2",
-  "coverImage": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+  "coverImage": "/images/source-cache/best-fpv-goggles-2026-cover-1-f8c1954f.jpg",
   "metadata": {
     "topics": [
       "goggles",
@@ -142,6 +153,7 @@
     "disclosurePresent": true
   },
   "sourceReferences": [
-    "https://pyrodrone.com/products/fat-shark-dominator-digital-hd-fpv-goggles-hdo3"
+    "https://pyrodrone.com/products/fat-shark-dominator-digital-hd-fpv-goggles-hdo3",
+    "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
   ]
 }

@@ -273,6 +273,5 @@ With the right FPV radio in hand and a solid understanding of its setup, you're 
 
 Which radio will you choose to kickstart your FPV journey? Share your thoughts in the comments below!
 
-![Cinemini 4S 2.5" Pro-Spec Built & Tuned Drone - DJI 04 Pro / DJI](https://rotorriot.com/cdn/shop/files/Cinemini-4s-2.5-B_T-DJI-04_25Nov2025-3.jpg?v=1764106993&width=1493)
+![Cinemini 4S 2.5" Pro-Spec Built & Tuned Drone - DJI 04 Pro / DJI](/images/source-cache/how-to-choose-your-first-fpv-radio-without-buying-twice-section-1-8bfe0258.webp)
 _Cinemini 4S 2.5" Pro-Spec Built & Tuned Drone - DJI 04 Pro / DJI_
-

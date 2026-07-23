@@ -198,6 +198,5 @@ Remember to consider your learning style, your budget, and your future FPV aspir
 
 Ready to take the plunge? Don't wait! Explore the **BetaFPV Cetus Pro**, **EMAX Tinyhawk III Plus**, and **Eachine Novice IV** kits. Read reviews, watch some flight videos, and choose the kit that calls to your inner pilot. The skies are waiting!
 
-![FPV image from droneracing.fai.org](https://droneracing.fai.org/images/arisf.png)
+![FPV image from droneracing.fai.org](/images/source-cache/best-fpv-starter-kits-2026-rtf-bundles-for-beginners-section-1-c68c423e.jpg)
 _Source: droneracing.fai.org_
-

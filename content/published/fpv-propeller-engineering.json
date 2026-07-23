@@ -21,13 +21,17 @@
       "title": "FPV Propeller Engineering: Disc Loading, Blade Pitch & Aerodynamic Drag",
       "content": "## 1. Propeller Aerodynamics\n\nmultirotor propellers generate lift by pushing air downwards. The thrust $T$ generated is mathematically defined by the momentum theory equation:\n\n$$T = 2 \\cdot \\rho \\cdot A \\cdot v_i^2$$\n\nWhere $\\rho$ is air density, $A$ is the disc area, and $v_i$ is the induced velocity of the airflow.\n\n---\n\n## 2. Aerodynamic Pitch, Blade Count & Grip\n\n### 2.1 Propeller Pitch\nPitch defines the theoretical distance a propeller moves forward in one revolution.\n* **Low Pitch (e.g. 5x4.3):** High efficiency, quick acceleration, low current draw, but lower top-end speed.\n* **High Pitch (e.g. 5x4.8 or 5x5.1):** High top-end speed, but requires significant motor torque, draws extreme current, and suffers from heavy aerodynamic drag at low throttle.\n\n### 2.2 Bi-Blade vs Tri-Blade Dynamics\n* **Bi-Blade:** Lowest drag, highest thermodynamic efficiency. Ideal for ultra-light long range.\n* **Tri-Blade:** Balanced grip, high thrust, linear throttle response. Standard for freestyle and racing.\n\n---\n\n## 3. Disc Loading & Airflow Contamination\n\nHigh disc loading occurs when a heavy multirotor uses small propellers (e.g. 3-inch cinewhoops). High disc loading leads to severe aerodynamic instability in descents, forcing the PID controller to work in highly turbulent vortex states.",
       "imageMatch": {
-        "src": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+        "src": "/images/source-cache/fpv-propeller-engineering-section-1-4ad5aeca.jpg",
         "alt": "FPV image from en.tmotor.com",
         "caption": "Source: en.tmotor.com",
         "source": "en.tmotor.com",
         "sourceUrl": "https://uav-en.tmotor.com/",
         "credit": "Source: en.tmotor.com",
-        "license": "attribution"
+        "license": "attribution",
+        "originalSrc": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+        "cachedFrom": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+        "sourceImageUrl": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+        "kind": "source-backed-cache"
       }
     }
   ],
@@ -41,33 +45,47 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+      "src": "/images/source-cache/fpv-propeller-engineering-cover-1-4ad5aeca.jpg",
       "alt": "FPV image from en.tmotor.com",
       "caption": "Source: en.tmotor.com",
       "source": "en.tmotor.com",
       "sourceUrl": "https://uav-en.tmotor.com/",
       "credit": "Source: en.tmotor.com",
-      "license": "attribution"
+      "license": "attribution",
+      "originalSrc": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+      "cachedFrom": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+      "sourceImageUrl": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+      "kind": "source-backed-cache"
     },
     "gallery": [
       {
-        "src": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+        "src": "/images/source-cache/fpv-propeller-engineering-gallery-1-4ad5aeca.jpg",
         "alt": "FPV image from en.tmotor.com",
         "caption": "Source: en.tmotor.com",
         "source": "en.tmotor.com",
         "sourceUrl": "https://uav-en.tmotor.com/",
         "credit": "Source: en.tmotor.com",
-        "license": "attribution"
+        "license": "attribution",
+        "originalSrc": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+        "cachedFrom": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+        "sourceImageUrl": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+        "kind": "source-backed-cache"
       }
     ],
     "figureCaptions": [],
-    "imageSources": [],
-    "attribution": []
+    "imageSources": [
+      "https://uav-en.tmotor.com/",
+      "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg"
+    ],
+    "attribution": [
+      "Source: en.tmotor.com",
+      "en.tmotor.com"
+    ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-02T07:41:42.018Z",
   "promptVersion": "v2",
-  "coverImage": "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg",
+  "coverImage": "/images/source-cache/fpv-propeller-engineering-cover-1-4ad5aeca.jpg",
   "metadata": {
     "topics": [
       "general-knowledge"
@@ -81,5 +99,9 @@
     ],
     "difficulty": "advanced",
     "contentType": "guide"
-  }
+  },
+  "sourceReferences": [
+    "https://uav-en.tmotor.com/",
+    "https://en.tmotor.com/uploadfile/2025/1117/20251117051213250.jpg"
+  ]
 }

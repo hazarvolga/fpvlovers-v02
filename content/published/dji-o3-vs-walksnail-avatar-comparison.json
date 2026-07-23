@@ -21,7 +21,7 @@
       "title": "Comparison Scope",
       "content": "DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where DJI O3 Air Unit vs Walksnail Avatar HD Pro fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.",
       "imageMatch": {
-        "src": "https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg",
+        "src": "/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-section-1-f8c1954f.jpg",
         "alt": "TBS Unify Pro32 HV 5.8GHz VTX",
         "caption": "TBS Unify Pro32 HV 5.8GHz VTX catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle.",
         "source": "TBS",
@@ -29,7 +29,10 @@
         "credit": "Catalog/source image: TBS",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "TBS Unify Pro32 HV 5.8GHz VTX TBS Video Transmitters vtx tbs unify pro32 hv vtx 5.8ghz analog smartaudio vtx analog smartaudio premium long-range https://www.getfpv.com/quad-parts/flight-controllers.html",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg",
+        "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+        "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
       }
     },
     {
@@ -37,7 +40,7 @@
       "title": "Who This Is For",
       "content": "DJI O3 Air Unit vs Walksnail Avatar HD Pro is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line.",
       "imageMatch": {
-        "src": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+        "src": "/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-section-2-f8c1954f.jpg",
         "alt": "DJI O3 Air Unit Digital HD Video System",
         "caption": "DJI O3 Air Unit Digital HD Video System catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle.",
         "source": "DJI",
@@ -45,7 +48,10 @@
         "credit": "Catalog/source image: DJI",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "DJI O3 Air Unit Digital HD Video System DJI Digital Systems video dji o3 air unit digital hd camera 4k recording video-system digital o3 4k-recording premium https://www.dji.com/downloads",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+        "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+        "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
       }
     },
     {
@@ -53,7 +59,7 @@
       "title": "Evaluation Criteria",
       "content": "FPVLovers evaluates Digital VTX & Cameras pages around five practical criteria: ecosystem compatibility, setup complexity, repairability, upgrade path, and risk for beginners. A product that performs well on paper can still be the wrong buy if it locks the pilot into an expensive ecosystem or requires advanced firmware knowledge too early.\n\nCompatibility comes first. For radios, that means protocol support, module bay options, EdgeTX/OpenTX workflow, battery format, and receiver availability. For goggles and video systems, that means air-unit support, latency profile, DVR quality, antenna options, and whether the system works with the aircraft you actually plan to fly.\n\nThe second filter is ownership friction. Pilots should consider spare parts, community documentation, setup videos, firmware stability, and whether failures can be diagnosed without specialist tools. The best FPV gear is not just impressive on day one; it remains understandable after a crash, firmware update, or field repair.",
       "imageMatch": {
-        "src": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+        "src": "/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-section-3-f8c1954f.jpg",
         "alt": "DJI Goggles 2 FPV Headset",
         "caption": "DJI Goggles 2 FPV Headset catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle.",
         "source": "DJI",
@@ -61,7 +67,10 @@
         "credit": "Catalog/source image: DJI",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "DJI Goggles 2 FPV Headset DJI Goggles goggles dji goggles goggles2 digital hd fpv oled goggles digital dji oled premium https://www.dji.com/downloads",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+        "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+        "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
       }
     },
     {
@@ -90,7 +99,7 @@
   "publishNotes": [],
   "media": {
     "coverImage": {
-      "src": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+      "src": "/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-cover-1-f8c1954f.jpg",
       "alt": "DJI O3 Air Unit Digital HD Video System",
       "caption": "DJI O3 Air Unit Digital HD Video System catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle.",
       "source": "DJI",
@@ -98,11 +107,14 @@
       "credit": "Catalog/source image: DJI",
       "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
       "context": "DJI O3 Air Unit Digital HD Video System DJI Digital Systems video dji o3 air unit digital hd camera 4k recording video-system digital o3 4k-recording premium https://www.dji.com/downloads",
-      "kind": "source-backed"
+      "kind": "source-backed-cache",
+      "originalSrc": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+      "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+      "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
     },
     "gallery": [
       {
-        "src": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+        "src": "/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-gallery-1-f8c1954f.jpg",
         "alt": "DJI O3 Air Unit Digital HD Video System",
         "caption": "DJI O3 Air Unit Digital HD Video System catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle.",
         "source": "DJI",
@@ -110,10 +122,13 @@
         "credit": "Catalog/source image: DJI",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "DJI O3 Air Unit Digital HD Video System DJI Digital Systems video dji o3 air unit digital hd camera 4k recording video-system digital o3 4k-recording premium https://www.dji.com/downloads",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+        "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+        "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
       },
       {
-        "src": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+        "src": "/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-gallery-2-f8c1954f.jpg",
         "alt": "DJI Goggles 2 FPV Headset",
         "caption": "DJI Goggles 2 FPV Headset catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle.",
         "source": "DJI",
@@ -121,10 +136,13 @@
         "credit": "Catalog/source image: DJI",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "DJI Goggles 2 FPV Headset DJI Goggles goggles dji goggles goggles2 digital hd fpv oled goggles digital dji oled premium https://www.dji.com/downloads",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
+        "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+        "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
       },
       {
-        "src": "https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg",
+        "src": "/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-gallery-3-f8c1954f.jpg",
         "alt": "TBS Unify Pro32 HV 5.8GHz VTX",
         "caption": "TBS Unify Pro32 HV 5.8GHz VTX catalog image used as source-backed visual context for DJI O3 Air Unit vs Walksnail Avatar HD Pro: Premium Digital VTX Battle.",
         "source": "TBS",
@@ -132,24 +150,30 @@
         "credit": "Catalog/source image: TBS",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "TBS Unify Pro32 HV 5.8GHz VTX TBS Video Transmitters vtx tbs unify pro32 hv vtx 5.8ghz analog smartaudio vtx analog smartaudio premium long-range https://www.getfpv.com/quad-parts/flight-controllers.html",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://rushfpv.com/uploads/allimg/200619/1-200619145610.jpg",
+        "cachedFrom": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg",
+        "sourceImageUrl": "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
       }
     ],
     "figureCaptions": [],
     "imageSources": [
       "https://www.dji.com/o3-air-unit",
       "https://www.dji.com/goggles-2",
-      "https://www.getfpv.com/tbs-unify-pro32-hv-5-8ghz-video-transmitter.html"
+      "https://www.getfpv.com/tbs-unify-pro32-hv-5-8ghz-video-transmitter.html",
+      "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
     ],
     "attribution": [
       "Catalog/source image: DJI",
-      "Catalog/source image: TBS"
+      "Catalog/source image: TBS",
+      "DJI",
+      "TBS"
     ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-18T10:25:00.000Z",
   "promptVersion": "v2",
-  "coverImage": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+  "coverImage": "/images/source-cache/dji-o3-vs-walksnail-avatar-comparison-cover-1-f8c1954f.jpg",
   "metadata": {
     "topics": [
       "video",
@@ -189,6 +213,7 @@
   "sourceReferences": [
     "https://www.dji.com/o3-air-unit",
     "https://www.dji.com/goggles-2",
-    "https://www.getfpv.com/tbs-unify-pro32-hv-5-8ghz-video-transmitter.html"
+    "https://www.getfpv.com/tbs-unify-pro32-hv-5-8ghz-video-transmitter.html",
+    "https://www-cdn.djiits.com/cms/uploads/a7d23e73c4a047c1f929f6681e13d815.jpg"
   ]
 }

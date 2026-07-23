@@ -223,5 +223,5 @@ Choosing the best ELRS FPV radio is a personal decision, deeply influenced by yo
 
 By considering the factors outlined in this guide – from gimbals and form factor to firmware and real-world performance – you can confidently select a radio that feels like an extension of yourself. Ready to elevate your FPV experience? Choose your ideal ELRS radio today and take to the skies with unparalleled confidence and control!
 
-![RadioMaster Boxer Radio Transmitter (ELRS 2.4G)](https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917)
+![RadioMaster Boxer Radio Transmitter (ELRS 2.4G)](/images/source-cache/best-fpv-radios-for-elrs-pilots-buying-guide-by-budget-section-1-cbde45d7.webp)
 _RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for Best FPV Radios for ELRS Pilots: Buying Guide by Budget._

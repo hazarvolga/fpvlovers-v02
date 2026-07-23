@@ -230,6 +230,5 @@ Choosing FPV goggles is a deeply personal decision, influenced by your budget, f
 
 With this comprehensive guide, you're now equipped to make an informed decision. Whether you opt for the raw, responsive feel of analog or the breathtaking clarity of digital, the right FPV goggles will transform your drone flights into an unforgettable journey. So, define your needs, explore the options, and get ready to experience the world from a whole new perspective. Happy flying!
 
-![FPV image from oscarliang.com](https://oscarliang.com/wp-content/uploads/2019/07/betaflight-static-notch-filter.jpg)
+![FPV image from oscarliang.com](/images/source-cache/fpv-goggles-buying-guide-analog-vs-digital-for-beginners-section-1-63e91790.webp)
 _Source: oscarliang.com_
-

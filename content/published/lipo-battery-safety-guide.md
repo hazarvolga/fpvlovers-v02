@@ -253,6 +253,5 @@ Now that you're armed with this essential knowledge, go forth and fly with confi
 
 **Ready to take your FPV knowledge further? Explore our other FPV build guides and become a true master of the skies!**
 
-![Size and weight overview of cnhl 5200mah 6s 90c lipo battery](https://chinahobbyline.com/cdn/shop/files/520906EC5_22c37d9d-9d73-4d14-b1aa-fbf5b238784b_512x512.jpg?v=1760336026)
+![Size and weight overview of cnhl 5200mah 6s 90c lipo battery](/images/source-cache/lipo-battery-safety-guide-section-1-cf67f8a3.webp)
 _Size and weight overview of cnhl 5200mah 6s 90c lipo battery_
-

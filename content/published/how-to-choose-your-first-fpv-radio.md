@@ -10,7 +10,7 @@ The recommendations below prioritize compatibility, upgrade path, repairability,
 
 Affiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.
 
-![TBS Tango 2 Pro RC Radio Transmitter](https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439)
+![TBS Tango 2 Pro RC Radio Transmitter](/images/source-cache/how-to-choose-your-first-fpv-radio-section-1-cbde45d7.webp)
 _TBS Tango 2 Pro RC Radio Transmitter catalog image used as source-backed visual context for How to Choose Your First FPV Radio: Stop Buying Twice._
 
 ## Who This Is For
@@ -21,7 +21,7 @@ A cinematic pilot will usually prioritize image quality, predictable range, and 
 
 If this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line.
 
-![RadioMaster Boxer Radio Transmitter (ELRS 2.4G)](https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917)
+![RadioMaster Boxer Radio Transmitter (ELRS 2.4G)](/images/source-cache/how-to-choose-your-first-fpv-radio-section-2-cbde45d7.webp)
 _RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for How to Choose Your First FPV Radio: Stop Buying Twice._
 
 ## Evaluation Criteria

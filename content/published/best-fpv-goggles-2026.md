@@ -10,7 +10,7 @@ The recommendations below prioritize compatibility, upgrade path, repairability,
 
 Affiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.
 
-![Fat Shark Dominator HDO3 Digital Goggles](https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg)
+![Fat Shark Dominator HDO3 Digital Goggles](/images/source-cache/best-fpv-goggles-2026-section-1-f8c1954f.jpg)
 _Fat Shark Dominator HDO3 Digital Goggles catalog image used as source-backed visual context for Best FPV Goggles in 2026: The Complete Buying Guide._
 
 ## Who This Is For

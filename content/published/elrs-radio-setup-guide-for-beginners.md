@@ -377,5 +377,5 @@ The ELRS community is vibrant and constantly innovating. If you encounter unique
 
 Happy flying, and may your ELRS link always be solid!
 
-![RadioMaster Boxer Radio Transmitter (ELRS 2.4G)](https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917)
+![RadioMaster Boxer Radio Transmitter (ELRS 2.4G)](/images/source-cache/elrs-radio-setup-guide-for-beginners-section-1-cbde45d7.webp)
 _RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for ELRS Radio Setup Guide for Beginners._

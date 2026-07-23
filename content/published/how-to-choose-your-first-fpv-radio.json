@@ -22,7 +22,7 @@
       "title": "Buyer Intent Scope",
       "content": "How to Choose Your First FPV Radio: Stop Buying Twice is treated by FPVLovers as a commercial-intent editorial page, not as a paid placement. The goal is to help pilots understand where RadioMaster TX16S MKII vs RadioMaster Zorro vs TBS Tango 2 Pro fits inside a real FPV setup before they spend money on parts, goggles, radios, batteries, or digital video gear.\n\nThe recommendations below prioritize compatibility, upgrade path, repairability, safety, and total system cost. Prices, bundles, and firmware details can change quickly, so pilots should verify the current product page before ordering.\n\nAffiliate links may be added to this page when available. That does not change the editorial standard: weak products should be labeled weak, missing evidence should be called out, and beginner pilots should not be pushed toward expensive parts they cannot use yet.",
       "imageMatch": {
-        "src": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+        "src": "/images/source-cache/how-to-choose-your-first-fpv-radio-section-1-cbde45d7.webp",
         "alt": "TBS Tango 2 Pro RC Radio Transmitter",
         "caption": "TBS Tango 2 Pro RC Radio Transmitter catalog image used as source-backed visual context for How to Choose Your First FPV Radio: Stop Buying Twice.",
         "source": "TBS",
@@ -30,7 +30,10 @@
         "credit": "Catalog/source image: TBS",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "TBS Tango 2 Pro RC Radio Transmitter TBS Radios radio tbs tango tango2 pro radio transmitter crossfire gamepad radio crossfire 915mhz gamepad-style folding-gimbals https://www.team-blacksheep.com/products",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+        "cachedFrom": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+        "sourceImageUrl": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
       }
     },
     {
@@ -38,7 +41,7 @@
       "title": "Who This Is For",
       "content": "RadioMaster TX16S MKII vs RadioMaster Zorro vs TBS Tango 2 Pro is most relevant for pilots who already know the role this component plays in the aircraft or ground-station stack. For a beginner, the first question is not only whether the product is good, but whether it matches the radio protocol, video ecosystem, battery voltage, frame size, firmware workflow, and repair skill level of the full build.\n\nA cinematic pilot will usually prioritize image quality, predictable range, and post-production flexibility. A racer will usually care more about latency, crash replacement cost, event legality, and fast setup. A freestyle pilot sits between those two worlds: durability, tuning headroom, and consistent link behavior matter more than headline specs.\n\nIf this is your first FPV purchase in the category, read this page together with the connected starter, radio, goggles, and video-system guides. The safest purchase is the one that fits your ecosystem, not the one with the loudest marketing line.",
       "imageMatch": {
-        "src": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+        "src": "/images/source-cache/how-to-choose-your-first-fpv-radio-section-2-cbde45d7.webp",
         "alt": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G)",
         "caption": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) catalog image used as source-backed visual context for How to Choose Your First FPV Radio: Stop Buying Twice.",
         "source": "RadioMaster",
@@ -46,7 +49,10 @@
         "credit": "Catalog/source image: RadioMaster",
         "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
         "context": "RadioMaster Boxer Radio Transmitter (ELRS 2.4G) RadioMaster Radios radio radiomaster boxer radio transmitter elrs 2.4g gimbals radio elrs 2.4ghz full-size hall-gimbals https://www.getfpv.com/downloads",
-        "kind": "source-backed"
+        "kind": "source-backed-cache",
+        "originalSrc": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+        "cachedFrom": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+        "sourceImageUrl": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
       }
     },
     {
@@ -84,7 +90,7 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+      "src": "/images/source-cache/how-to-choose-your-first-fpv-radio-cover-1-cbde45d7.webp",
       "alt": "TBS Tango 2 Pro RC Radio Transmitter",
       "caption": "TBS Tango 2 Pro RC Radio Transmitter catalog image used as source-backed visual context for How to Choose Your First FPV Radio: Stop Buying Twice.",
       "source": "TBS",
@@ -92,62 +98,97 @@
       "credit": "Catalog/source image: TBS",
       "license": "Catalog/manufacturer or retailer image; displayed with attribution, not a hands-on review claim",
       "context": "TBS Tango 2 Pro RC Radio Transmitter TBS Radios radio tbs tango tango2 pro radio transmitter crossfire gamepad radio crossfire 915mhz gamepad-style folding-gimbals https://www.team-blacksheep.com/products",
-      "kind": "source-backed"
+      "kind": "source-backed-cache",
+      "originalSrc": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+      "cachedFrom": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+      "sourceImageUrl": "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
     },
     "gallery": [
       {
-        "src": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+        "src": "/images/source-cache/how-to-choose-your-first-fpv-radio-gallery-1-12720d87.webp",
         "alt": "How To Use Blackbox Betaflight 4.3",
         "caption": "How To Use Blackbox Betaflight 4.3",
         "source": "oscarliang.com",
         "sourceUrl": "https://oscarliang.com/blackbox/",
         "credit": "Source: oscarliang.com",
-        "license": "attribution"
+        "license": "attribution",
+        "originalSrc": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+        "cachedFrom": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+        "sourceImageUrl": "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+        "kind": "source-backed-cache"
       },
       {
-        "src": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+        "src": "/images/source-cache/how-to-choose-your-first-fpv-radio-gallery-2-6746c1e6.jpg",
         "alt": "FPV image from judgeme.imgix.net",
         "caption": "Source: judgeme.imgix.net",
         "source": "judgeme.imgix.net",
         "sourceUrl": "https://rotorriot.com/",
         "credit": "Source: judgeme.imgix.net",
-        "license": "attribution"
+        "license": "attribution",
+        "originalSrc": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+        "cachedFrom": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+        "sourceImageUrl": "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+        "kind": "source-backed-cache"
       },
       {
-        "src": "https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg",
+        "src": "/images/source-cache/how-to-choose-your-first-fpv-radio-gallery-3-16021961.webp",
         "alt": "FPV image from dronechampionsleague.com",
         "caption": "Source: dronechampionsleague.com",
         "source": "dronechampionsleague.com",
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "credit": "Source: dronechampionsleague.com",
-        "license": "attribution"
+        "license": "attribution",
+        "originalSrc": "https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg",
+        "cachedFrom": "https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg",
+        "sourceImageUrl": "https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg",
+        "kind": "source-backed-cache"
       },
       {
-        "src": "https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024",
+        "src": "/images/source-cache/how-to-choose-your-first-fpv-radio-gallery-4-279156bb.jpg",
         "alt": "FPV image from judgeme.imgix.net",
         "caption": "Source: judgeme.imgix.net",
         "source": "judgeme.imgix.net",
         "sourceUrl": "https://rotorriot.com/",
         "credit": "Source: judgeme.imgix.net",
-        "license": "attribution"
+        "license": "attribution",
+        "originalSrc": "https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024",
+        "cachedFrom": "https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024",
+        "sourceImageUrl": "https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024",
+        "kind": "source-backed-cache"
       }
     ],
     "figureCaptions": [],
     "imageSources": [
       "Local PNG illustration generated from the published content metadata",
       "https://www.team-blacksheep.com/products/prod:tango2_pro",
-      "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html"
+      "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
+      "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+      "https://oscarliang.com/blackbox/",
+      "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+      "https://rotorriot.com/",
+      "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+      "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+      "https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg",
+      "https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024"
     ],
     "attribution": [
       "Copyright-safe raster media generated locally by FPVLovers",
       "Catalog/source image: TBS",
-      "Catalog/source image: RadioMaster"
+      "Catalog/source image: RadioMaster",
+      "TBS",
+      "Source: oscarliang.com",
+      "oscarliang.com",
+      "Source: judgeme.imgix.net",
+      "judgeme.imgix.net",
+      "Source: dronechampionsleague.com",
+      "dronechampionsleague.com",
+      "RadioMaster"
     ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-01T14:07:05.000Z",
   "promptVersion": "v2",
-  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/ZorroMainBlack_1024x1024.png?v=1641571439",
+  "coverImage": "/images/source-cache/how-to-choose-your-first-fpv-radio-cover-1-cbde45d7.webp",
   "contentType": "buyer-guide",
   "metadata": {
     "topics": [
@@ -185,6 +226,14 @@
   },
   "sourceReferences": [
     "https://www.team-blacksheep.com/products/prod:tango2_pro",
-    "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html"
+    "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
+    "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786",
+    "https://oscarliang.com/blackbox/",
+    "https://oscarliang.com/wp-content/uploads/2022/10/how-to-use-blackbox-betaflight-4.3-1170x837.jpg",
+    "https://rotorriot.com/",
+    "https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024",
+    "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
+    "https://dronechampionsleague.com/wp-content/uploads/2025/12/World-Champions-Post-1x1-1.jpg",
+    "https://judgeme.imgix.net/rotor-riot/1774991363__1000003554__original.jpg?auto=format&w=1024"
   ]
 }

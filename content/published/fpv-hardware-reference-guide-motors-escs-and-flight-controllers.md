@@ -2,6 +2,12 @@
 
 > A comprehensive reference covering motor sizing, ESC protocols, and flight controller selection for reliable FPV builds.
 
+## FPV Hardware Reference Guide: Motors, ESCs, and Flight Controllers
+
+# FPV Hardware Reference Guide: Motors, ESCs, and Flight Controllers
+
+> A comprehensive reference covering motor sizing, ESC protocols, and flight controller selection for reliable FPV builds.
+
 ## What This Guide Covers
 
 Motors, ESCs, and flight controllers form the core control stack of every FPV quad. The frame gives the aircraft shape, but this hardware stack decides how fast it responds, how cleanly it holds attitude, how efficiently it uses battery power, and how much room you have for future upgrades.
@@ -151,3 +157,6 @@ Before flying any new or repaired build:
 For a first serious FPV build, choose proven parts that other pilots already fly successfully. A reliable build is more valuable than a spec-sheet monster. Start with a balanced motor, ESC, FC, propeller, and battery combination, then upgrade only when you understand what problem the upgrade solves.
 
 The strongest FPV pilots are not just good at flying. They understand how their hardware behaves, how to diagnose failures, and how to keep the aircraft safe before the next pack.
+
+![Rotor Riot](/images/source-cache/fpv-hardware-reference-guide-motors-escs-and-flight-controllers-section-1-327249a0.webp)
+_Rotor Riot_

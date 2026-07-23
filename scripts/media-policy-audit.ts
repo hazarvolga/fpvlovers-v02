@@ -12,6 +12,7 @@ const STOCK_URL = /https?:\/\/[^\s"'`]*(?:picsum\.photos|(?:images\.)?unsplash\.
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 const STATIC_FALLBACK = /^\/images\/fallbacks\//;
 const GENERATED_COVER = /^\/api\/content\/media\/cover\//;
+const SOURCE_CACHE = /^\/images\/source-cache\//;
 const ALLOWED_FILES = new Set([
   path.normalize('src/lib/content-automation/crawl-image-license.ts'),
 ]);
@@ -26,6 +27,7 @@ type PublishedMediaRow = {
   coverSrc: string;
   homepageCoverSrc: string;
   galleryCount: number;
+  mediaSources: string[];
 };
 
 function asRecord(value: unknown): Record<string, unknown> | null {
@@ -40,6 +42,11 @@ function asString(value: unknown): string {
 
 function generatedCover(src: string): boolean {
   return GENERATED_COVER.test(src);
+}
+
+function localPublicAssetExists(src: string): boolean {
+  const normalized = src.replace(/^\//, '');
+  return fs.existsSync(path.join(process.cwd(), 'public', normalized));
 }
 
 function isCommercialMediaRow(row: PublishedMediaRow): boolean {
@@ -106,6 +113,19 @@ if (fs.existsSync(PUBLISHED_DIR)) {
       const media = asRecord(article.media);
       const mediaCover = asRecord(media?.coverImage);
       const metadata = asRecord(article.metadata);
+      const gallerySources = Array.isArray(media?.gallery)
+        ? media.gallery
+          .map(asRecord)
+          .map((asset) => asString(asset?.src))
+          .filter(Boolean)
+        : [];
+      const sectionSources = Array.isArray(article.bodySections)
+        ? article.bodySections
+          .map(asRecord)
+          .map((section) => asRecord(section?.imageMatch))
+          .map((asset) => asString(asset?.src))
+          .filter(Boolean)
+        : [];
       const coverSrc =
         asString(mediaCover?.src) || asString(article.coverImage);
       if (!coverSrc) continue;
@@ -131,9 +151,15 @@ if (fs.existsSync(PUBLISHED_DIR)) {
         coverSrc,
         homepageCoverSrc,
         galleryCount: Array.isArray(media?.gallery) ? media.gallery.length : 0,
+        mediaSources: [coverSrc, ...gallerySources, ...sectionSources].filter(Boolean),
       });
       if (STATIC_FALLBACK.test(coverSrc)) {
         publishedCoverViolations.push(`${file}: ${coverSrc}`);
+      }
+      for (const source of [coverSrc, ...gallerySources, ...sectionSources]) {
+        if (SOURCE_CACHE.test(source) && !localPublicAssetExists(source)) {
+          publishedCoverViolations.push(`${file}: missing source-cache asset ${source}`);
+        }
       }
       const usages = coverUsage.get(coverSrc) || [];
       usages.push(slug);
@@ -175,12 +201,24 @@ if (recentMediaViolations.length > 0) {
 
 const commercialMediaViolations = publishedMediaRows
   .filter(isCommercialMediaRow)
-  .filter((row) => generatedCover(row.coverSrc) || row.galleryCount === 0)
+  .filter((row) => generatedCover(row.coverSrc) || row.galleryCount === 0 || !SOURCE_CACHE.test(row.coverSrc))
   .map((row) => `${row.slug}: cover=${row.coverSrc || 'missing'}, gallery=${row.galleryCount}`);
 
 if (commercialMediaViolations.length > 0) {
-  console.error('Commercial/buyer-intent artifacts need source-backed media before release:');
+  console.error('Commercial/buyer-intent artifacts need local source-cache media before release:');
   for (const violation of commercialMediaViolations) console.error(`  - ${violation}`);
+  process.exit(1);
+}
+
+const commercialExternalMediaViolations = publishedMediaRows
+  .filter(isCommercialMediaRow)
+  .flatMap((row) => row.mediaSources
+    .filter((source) => /^https?:\/\//i.test(source))
+    .map((source) => `${row.slug}: external media still hotlinked ${source}`));
+
+if (commercialExternalMediaViolations.length > 0) {
+  console.error('Commercial/buyer-intent artifacts cannot render hotlinked external media:');
+  for (const violation of commercialExternalMediaViolations) console.error(`  - ${violation}`);
   process.exit(1);
 }
 
