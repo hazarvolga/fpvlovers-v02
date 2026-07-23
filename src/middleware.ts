@@ -10,6 +10,18 @@ function getSessionRole(user: unknown): string | undefined {
   return typeof role === "string" ? role : undefined;
 }
 
+function readPresentedCronSecret(req: { headers: Headers; nextUrl: URL }): string | null {
+  const authHeader = req.headers.get("authorization");
+  if (authHeader?.startsWith("Bearer ")) {
+    return authHeader.slice("Bearer ".length).trim();
+  }
+
+  const headerSecret = req.headers.get("x-cron-secret");
+  if (headerSecret) return headerSecret.trim();
+
+  return req.nextUrl.searchParams.get("cron_secret");
+}
+
 export default auth((req) => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
@@ -22,10 +34,10 @@ export default auth((req) => {
       return NextResponse.next();
     }
 
-    // Bypassing Basic Auth for Cron requests carrying the correct x-cron-secret
+    // Bypass Basic Auth for cron requests carrying the configured cron secret.
     const isCronRoute = nextUrl.pathname.startsWith("/api/admin/cron");
     if (isCronRoute) {
-      const cronSecretHeader = req.headers.get("x-cron-secret");
+      const cronSecretHeader = readPresentedCronSecret(req);
       const cronSecret = process.env.CRON_SECRET;
       if (cronSecret && cronSecretHeader === cronSecret) {
         return NextResponse.next();
