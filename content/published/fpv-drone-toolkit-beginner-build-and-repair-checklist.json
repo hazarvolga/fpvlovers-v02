@@ -115,7 +115,10 @@
     }
   ],
   "publishNotes": [],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/smoke-stopper-protocol",
+    "/article/fpv-soldering-masterclass"
+  ],
   "promptVersion": "v2",
   "updatedAt": "2026-07-14T09:16:20.023Z",
   "coverImage": "https://cdn.shopify.com/s/files/1/1025/1577/products/F4_1S_5A_AIO_Brushless_Flight_Controller.jpg",
@@ -124,5 +127,32 @@
     "https://www.getfpv.com/emax-eco-ii-series-2306-motor-1900kv.html",
     "https://betafpv.com/products/happymodel-ex0802-19000kv-brushless-motor",
     "https://pyrodrone.com/products/flywoo-nin-v2-1404-3750kv-ultralight-motor"
-  ]
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "beginner-fpv",
+      "buying-decision"
+    ],
+    "audience": [
+      "new-pilot",
+      "buyer",
+      "builder"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "build-kit"
+    ],
+    "buyerGuide": {
+      "products": [
+        "beginner FPV drone kits",
+        "RTF FPV kits",
+        "FPV repair tools",
+        "smoke stoppers"
+      ]
+    }
+  }
 }

@@ -115,7 +115,10 @@
     }
   ],
   "publishNotes": [],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/fpv-racing-for-beginners-what-to-practice-first",
+    "/article/multigp-race-classes-a-guide-to-open-pro-spec-whoop-and-more"
+  ],
   "promptVersion": "v2",
   "updatedAt": "2026-07-14T03:16:51.038Z",
   "coverImage": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/a96b7582-7d2d-4d7a-8fce-c44dbe5954a6.jpg",
@@ -124,5 +127,29 @@
     "https://www.getfpv.com/tattu-r-line-version-5-0-1400mah-22-2v-6s1p-150c-lipo-battery-pack-with-xt60-plug.html",
     "https://www.getfpv.com/gemfan-hurricane-51466-v2-durable-3-blade-propeller-set-of-4.html",
     "https://www.team-blacksheep.com/products/prod:tango2_pro"
-  ]
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "beginner-fpv",
+      "buying-decision",
+      "fpv-racing"
+    ],
+    "audience": [
+      "new-pilot",
+      "racer"
+    ],
+    "discipline": [
+      "racing"
+    ],
+    "components": [
+      "race-gear"
+    ],
+    "buyerGuide": {
+      "products": [
+        "FPV racing gear"
+      ]
+    }
+  }
 }

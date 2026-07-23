@@ -28,7 +28,10 @@
       }
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/esc-protocol-deep-dive",
+    "/article/fpv-components-wiring-guide"
+  ],
   "publishNotes": [
     "Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader."
   ],
@@ -123,5 +126,25 @@
     "https://www.getfpv.com/t-motor-f7-hd-f55a-pro-ii-30x30-stack.html",
     "https://pyrodrone.com/products/diatone-mamba-mk4-f722-mini-40a-6s-stack-20x20"
   ],
-  "coverImage": "https://cdn.shopify.com/s/files/1/1025/1577/products/F4_1S_5A_AIO_Brushless_Flight_Controller.jpg"
+  "coverImage": "https://cdn.shopify.com/s/files/1/1025/1577/products/F4_1S_5A_AIO_Brushless_Flight_Controller.jpg",
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "buying-decision",
+      "product-comparison",
+      "components"
+    ],
+    "audience": [
+      "buyer",
+      "builder"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "propulsion",
+      "esc"
+    ]
+  }
 }

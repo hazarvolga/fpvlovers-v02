@@ -28,7 +28,10 @@
       }
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/how-to-choose-your-first-fpv-radio-without-buying-twice",
+    "/article/expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight"
+  ],
   "publishNotes": [
     "Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader."
   ],
@@ -109,5 +112,24 @@
     "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
     "https://www.team-blacksheep.com/products/prod:tango2_pro"
   ],
-  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917"
+  "coverImage": "https://www.radiomasterrc.com/cdn/shop/products/BoxerMainBlack_1024x1024.png?v=1672304917",
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "buying-decision",
+      "product-comparison",
+      "elrs"
+    ],
+    "audience": [
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "radio-link",
+      "radio"
+    ]
+  }
 }

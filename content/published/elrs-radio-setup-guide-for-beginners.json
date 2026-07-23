@@ -96,5 +96,23 @@
   "sourceReferences": [
     "https://www.getfpv.com/radiomaster-boxer-radio-transmitter-elrs-2-4ghz.html",
     "https://www.team-blacksheep.com/products/prod:tango2_pro"
-  ]
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "guide",
+    "topics": [
+      "beginner-fpv",
+      "elrs"
+    ],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "radio-link",
+      "radio"
+    ]
+  }
 }

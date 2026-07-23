@@ -116,7 +116,10 @@
   "publishNotes": [
     "Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader."
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/fpv-beginner-setup-guide-the-easiest-way-to-get-flying",
+    "/article/fpv-pilot-roadmap-from-simulator-to-first-flight"
+  ],
   "promptVersion": "v2",
   "updatedAt": "2026-07-13T14:37:34.291Z",
   "coverImage": "https://cdn.shopify.com/s/files/1/1025/1577/products/Cetus_Pro_FPV_Kit.jpg",
@@ -125,5 +128,29 @@
     "https://www.getfpv.com/iflight-nazgul5-v3-6s-5-freestyle-bnf.html",
     "https://betafpv.com/products/meteor65-micro-brushless-whoop-frame",
     "https://pyrodrone.com/products/flywoo-explorer-lr-4-v2-frame-kit"
-  ]
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "beginner-fpv",
+      "buying-decision"
+    ],
+    "audience": [
+      "new-pilot",
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "fpv-system"
+    ],
+    "buyerGuide": {
+      "products": [
+        "beginner FPV drone kits",
+        "RTF FPV kits"
+      ]
+    }
+  }
 }

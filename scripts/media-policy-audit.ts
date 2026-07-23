@@ -1,5 +1,10 @@
 import fs from 'fs';
 import path from 'path';
+import {
+  resolveHomepageFallbackCover,
+  shouldPreferHomepageFallbackCover,
+} from '../src/lib/homepage/homepage-media';
+import type { ContentMetadata } from '../src/lib/content-metadata';
 
 const ROOTS = ['src', 'scripts'];
 const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.mjs']);
@@ -19,6 +24,7 @@ type PublishedMediaRow = {
   contentType: string;
   publishedAt: string;
   coverSrc: string;
+  homepageCoverSrc: string;
   galleryCount: number;
 };
 
@@ -104,14 +110,26 @@ if (fs.existsSync(PUBLISHED_DIR)) {
         asString(mediaCover?.src) || asString(article.coverImage);
       if (!coverSrc) continue;
       const slug = asString(article.slug) || file.replace(/\.json$/, '');
+      const title = asString(article.title);
+      const category = asString(article.category);
+      const homepageFallback = resolveHomepageFallbackCover({
+        slug,
+        title,
+        category,
+        metadata: metadata as unknown as ContentMetadata,
+      });
+      const homepageCoverSrc = shouldPreferHomepageFallbackCover(coverSrc)
+        ? homepageFallback
+        : coverSrc;
       publishedMediaRows.push({
         slug,
         file,
-        category: asString(article.category),
+        category,
         template: asString(article.template),
         contentType: asString(metadata?.contentType),
         publishedAt: asString(article.publishedAt),
         coverSrc,
+        homepageCoverSrc,
         galleryCount: Array.isArray(media?.gallery) ? media.gallery.length : 0,
       });
       if (STATIC_FALLBACK.test(coverSrc)) {
@@ -146,11 +164,11 @@ const recentRows = [...publishedMediaRows]
   .sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime())
   .slice(0, 12);
 const recentMediaViolations = recentRows
-  .filter((row) => generatedCover(row.coverSrc) || row.galleryCount === 0)
-  .map((row) => `${row.slug}: cover=${row.coverSrc || 'missing'}, gallery=${row.galleryCount}`);
+  .filter((row) => !row.homepageCoverSrc || generatedCover(row.homepageCoverSrc))
+  .map((row) => `${row.slug}: homepageCover=${row.homepageCoverSrc || 'missing'}, artifactCover=${row.coverSrc || 'missing'}`);
 
 if (recentMediaViolations.length > 0) {
-  console.error('Recent homepage candidates must not render as generated/empty media:');
+  console.error('Recent homepage candidates must have a non-generated display cover:');
   for (const violation of recentMediaViolations) console.error(`  - ${violation}`);
   process.exit(1);
 }
@@ -167,4 +185,5 @@ if (commercialMediaViolations.length > 0) {
 }
 
 const generatedCount = [...coverUsage.keys()].filter((src) => src.startsWith('/api/content/media/cover/')).length;
-console.log(`Published media audit passed: ${coverUsage.size} unique primary covers (${generatedCount} non-commercial generated covers).`);
+const homepageFallbackDisplayCount = recentRows.filter((row) => row.homepageCoverSrc !== row.coverSrc).length;
+console.log(`Published media audit passed: ${coverUsage.size} unique primary covers (${generatedCount} non-commercial generated covers, ${homepageFallbackDisplayCount} recent display fallbacks).`);

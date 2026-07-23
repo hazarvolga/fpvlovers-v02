@@ -28,7 +28,10 @@
       }
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/the-ultimate-fpv-video-ecosystem-guide-in-2026-dji-vs-walksnail-vs-hdzero-vs-analog",
+    "/article/vtx-and-camera-setup-guide-clean-video-from-the-start"
+  ],
   "publishNotes": [
     "Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader."
   ],
@@ -122,5 +125,28 @@
     "https://www.dji.com/goggles-2",
     "https://www.getfpv.com/tbs-unify-pro32-hv-5-8ghz-video-transmitter.html"
   ],
-  "coverImage": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg"
+  "coverImage": "https://gdetail.image-gmkt.com/712/325/1857325712/2022/11/ad3be5cc-88fe-4e08-bf22-f67e91bb164f.jpg",
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "comparison",
+    "topics": [
+      "product-comparison",
+      "fpv-video"
+    ],
+    "audience": [
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "video-system"
+    ],
+    "comparison": {
+      "productA": "DJI O3",
+      "productB": "Walksnail Avatar",
+      "comparisonCategory": "Components",
+      "winner": "editorial-context-dependent"
+    }
+  }
 }

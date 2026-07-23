@@ -222,6 +222,17 @@ Canonical documents:
 - ✅ Runtime commits `1f08ad0` + docs `df76a58` deployed through Coolify on 2026-07-15 (deployment `zowkok880k88k0ws844kwscw`). New container `df76a58...` is healthy; server-side smoke passed public 200 routes, admin 401 boundaries, homepage latest-card markers, `/llms.txt`, sitemap hubs, and article schema/language checks.
 - ⏳ Remaining evidence-dependent blockers: verified primary-source product mappings, first genuine Hazar-approved hands-on review, 14-day four-publish reliability window, crawl failure retirement/retry decisions, rollback rehearsal, and full accessibility/route visual matrix.
 
+## 2026-07-23 Closure Sprint State
+
+- ✅ Homepage media policy hardened: recent homepage cards now render a non-generated display cover even when a new autonomous article only has a generated API cover. Commercial/buyer-intent pages still require source-backed media before release.
+- ✅ Production cron/generate flow restored: failed backlog jobs no longer block autonomous first-wave selection, and middleware accepts the same cron secret formats as the route handler.
+- ✅ Real production generation tested with Dify: 4 articles published in the last 24 hours. Current production automation status: `overall=ok`, `publishedLast24h=4`, `publishedLast14d=19`, `targetMet14d=false`.
+- ✅ Production shadow content synced back to Git working tree: 137 local articles and 137 live shadow articles, with no live-only/local-only drift.
+- ✅ Metadata gap closed: `metadata:audit` reports 137/137 valid metadata and 0 missing metadata fields.
+- ✅ Affiliate application readiness is 100/100 with honest boundaries. Live CTA activation remains intentionally disabled until verified affiliate program URLs exist.
+- ⏳ True 10/10 evidence still requires time-based proof: monitor 4 articles/day for 14 consecutive days, then `targetMet14d` can move from false to true.
+- ⏳ Monetization follow-up remains separate: use `$monetizasyon` for verified affiliate program applications, verified affiliate URLs, sponsor outreach, and first Hazar Volga Ekiz evidence-backed product review flow.
+
 ## Manuel Yapılacak (Coolify)
 
 1. ✅ `be392db` production deploy tamamlandı; container healthy ve restart sayısı 0

@@ -28,7 +28,10 @@
       }
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/fpv-propeller-engineering",
+    "/article/props-in-vs-props-out-betaflight-motor-direction-explained"
+  ],
   "publishNotes": [
     "Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader."
   ],
@@ -123,5 +126,24 @@
     "https://www.getfpv.com/hqprop-ethix-s3-watermelon-propeller-set-of-4.html",
     "https://betafpv.com/products/gemfan-1635-3-blade-whoop-propellers-1-0mm-shaft"
   ],
-  "coverImage": "https://www.gemfanfpv.com/uploads/allimg/180620/1-1P620150931.jpg"
+  "coverImage": "https://www.gemfanfpv.com/uploads/allimg/180620/1-1P620150931.jpg",
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "buying-decision",
+      "product-comparison",
+      "components"
+    ],
+    "audience": [
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "propulsion",
+      "propeller"
+    ]
+  }
 }

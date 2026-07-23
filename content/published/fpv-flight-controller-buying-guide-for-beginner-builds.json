@@ -28,7 +28,10 @@
       }
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/betaflight-firmware-tuning-complete-setup-guide",
+    "/article/fpv-hardware-reference-guide-motors-escs-and-flight-controllers"
+  ],
   "publishNotes": [
     "Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader."
   ],
@@ -123,5 +126,28 @@
     "https://www.getfpv.com/speedybee-f405-v4-50a-30x30-stack.html",
     "https://pyrodrone.com/products/diatone-mamba-mk4-f722-mini-40a-6s-stack-20x20"
   ],
-  "coverImage": "https://cdn.shopify.com/s/files/1/1025/1577/products/F4_1S_5A_AIO_Brushless_Flight_Controller.jpg"
+  "coverImage": "https://cdn.shopify.com/s/files/1/1025/1577/products/F4_1S_5A_AIO_Brushless_Flight_Controller.jpg",
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "beginner-fpv",
+      "buying-decision",
+      "product-comparison",
+      "components"
+    ],
+    "audience": [
+      "new-pilot",
+      "buyer",
+      "builder"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "propulsion",
+      "build-kit",
+      "flight-controller"
+    ]
+  }
 }

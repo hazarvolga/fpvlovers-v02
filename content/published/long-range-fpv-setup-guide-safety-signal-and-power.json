@@ -135,5 +135,26 @@
     "https://www.dji.com/o3-air-unit",
     "https://www.team-blacksheep.com/products/prod:tango2_pro"
   ],
-  "coverImage": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg"
+  "coverImage": "https://www.happymodel.cn/wp-content/uploads/2021/04/EP1-RX.jpg",
+  "metadata": {
+    "difficulty": "intermediate",
+    "contentType": "guide",
+    "topics": [
+      "safety",
+      "long-range-fpv"
+    ],
+    "audience": [
+      "new-pilot",
+      "builder",
+      "cinematographer"
+    ],
+    "discipline": [
+      "long-range"
+    ],
+    "components": [
+      "radio-link",
+      "battery",
+      "build-kit"
+    ]
+  }
 }

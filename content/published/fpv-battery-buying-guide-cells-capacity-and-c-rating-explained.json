@@ -103,7 +103,10 @@
   "publishNotes": [
     "Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader."
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer",
+    "/article/lihv-vs-lipo-batteries-what-beginners-need-to-know"
+  ],
   "promptVersion": "v2",
   "updatedAt": "2026-07-14T21:16:35.420Z",
   "coverImage": "https://www.gensace.de/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/t/a/ta-rl5-1400-6s1p.jpg",
@@ -111,5 +114,25 @@
     "https://chinahobbyline.com/collections/fpv-batteries/products/cnhl-black-series-1300mah-22-2v-6s-100c-lipo-battery",
     "https://chinahobbyline.com/collections/fpv-batteries/products/cnhl-ministar-850mah-14-8v-4s-70c-lipo-battery",
     "https://betafpv.com/products/gaoneng-gnb-450mah-1s-80c-hv-lipo-battery"
-  ]
+  ],
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "buying-decision",
+      "product-comparison",
+      "safety",
+      "components"
+    ],
+    "audience": [
+      "buyer",
+      "builder"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "battery"
+    ]
+  }
 }

@@ -28,7 +28,10 @@
       }
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/cinematic-fpv-vs-freestyle-drones-frame-and-component-differences",
+    "/article/fpv-starter-kits-by-budget-what-to-buy-first-in-2026"
+  ],
   "publishNotes": [],
   "media": {
     "coverImage": {
@@ -135,5 +138,32 @@
     "https://geprc.com/product/gep-cl35-v2-frame-kit/",
     "https://pyrodrone.com/products/flywoo-explorer-lr-4-v2-frame-kit"
   ],
-  "coverImage": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg"
+  "coverImage": "https://shop.iflight-rc.com/image/cache/catalog/product/nazgul5/Nazgul5-v3-Analog-RTF-1-800x800.jpg",
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "buying-decision",
+      "cinewhoop"
+    ],
+    "audience": [
+      "buyer",
+      "builder",
+      "cinematographer"
+    ],
+    "discipline": [
+      "cinematic",
+      "whoop"
+    ],
+    "components": [
+      "build-kit"
+    ],
+    "buyerGuide": {
+      "products": [
+        "beginner FPV drone kits",
+        "RTF FPV kits",
+        "cinewhoop kits"
+      ]
+    }
+  }
 }

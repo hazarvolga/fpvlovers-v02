@@ -28,7 +28,10 @@
       }
     }
   ],
-  "internalLinks": [],
+  "internalLinks": [
+    "/article/fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer",
+    "/article/lipo-battery-safety-guide"
+  ],
   "publishNotes": [
     "Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader."
   ],
@@ -122,5 +125,25 @@
     "https://chinahobbyline.com/collections/fpv-batteries/products/cnhl-black-series-1300mah-22-2v-6s-100c-lipo-battery",
     "https://betafpv.com/products/gaoneng-gnb-450mah-1s-80c-hv-lipo-battery"
   ],
-  "coverImage": "https://www.gaoneng.co/uploads/allimg/190807/1-1Z80G51206.jpg"
+  "coverImage": "https://www.gaoneng.co/uploads/allimg/190807/1-1Z80G51206.jpg",
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
+    "topics": [
+      "beginner-fpv",
+      "buying-decision",
+      "product-comparison",
+      "safety"
+    ],
+    "audience": [
+      "new-pilot",
+      "buyer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "components": [
+      "battery"
+    ]
+  }
 }
