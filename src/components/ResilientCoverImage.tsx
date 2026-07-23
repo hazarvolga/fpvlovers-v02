@@ -27,6 +27,8 @@ export function ResilientCoverImage({
   const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
 
   const currentSrc = candidates[candidateIndex];
+  const isExternalSrc = /^https?:\/\//i.test(currentSrc || '');
+  const loadingMode = imageProps.loading || (imageProps.priority ? 'eager' : 'lazy');
 
   const handleError = () => setCandidateIndex((index) => {
     onFallbackChange?.(true);
@@ -34,7 +36,7 @@ export function ResilientCoverImage({
   });
 
   useEffect(() => {
-    if (!currentSrc || !/^https?:\/\//i.test(currentSrc)) return undefined;
+    if (!currentSrc || !isExternalSrc || loadingMode === 'lazy') return undefined;
 
     const timer = window.setTimeout(() => {
       setCandidateIndex((index) => {
@@ -42,23 +44,23 @@ export function ResilientCoverImage({
         onFallbackChange?.(true);
         return index + 1;
       });
-    }, 1800);
+    }, 5000);
 
     return () => window.clearTimeout(timer);
-  }, [candidateIndex, currentSrc, loadedSrc, onFallbackChange]);
+  }, [candidateIndex, currentSrc, isExternalSrc, loadedSrc, loadingMode, onFallbackChange]);
 
   if (!currentSrc) return null;
 
-  if (/^https?:\/\//i.test(currentSrc)) {
+  if (isExternalSrc) {
     const {
       className,
       style,
       fill,
       width,
       height,
-      loading,
       decoding,
       priority,
+      referrerPolicy,
     } = imageProps;
 
     return (
@@ -75,8 +77,9 @@ export function ResilientCoverImage({
         } : style}
         width={fill ? undefined : width}
         height={fill ? undefined : height}
-        loading={loading || (priority ? 'eager' : 'lazy')}
+        loading={loadingMode}
         decoding={decoding || 'async'}
+        referrerPolicy={referrerPolicy || 'no-referrer'}
         onLoad={() => setLoadedSrc(currentSrc)}
         onError={handleError}
       />
