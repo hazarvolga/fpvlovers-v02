@@ -13,6 +13,10 @@ import type { ContentJob } from '@/lib/content-automation/types';
 import { logAutomationRun } from '@/lib/server/automation-runs-store';
 import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
 import { prepareGeneratedPublication } from '@/lib/content-automation/generated-publication';
+import {
+  buildBlockingJobKeySet,
+  removeJobsSupersededByIncomingBriefs,
+} from '@/lib/content-automation/job-selection';
 
 const LAST_RUN_FILE = path.join(process.cwd(), 'data', 'content-last-auto-run.json');
 const MAX_AUTO_GENERATE_PER_RUN = 1;
@@ -79,13 +83,11 @@ function isDryRun(req: Request): boolean {
   return url.searchParams.get('dry_run') === 'true' || url.searchParams.get('dryRun') === 'true';
 }
 
-async function buildExistingSlugSet(jobs: ContentJob[]): Promise<Set<string>> {
-  const existing = new Set<string>();
-  for (const job of jobs) {
-    existing.add(job.id);
-    existing.add(job.briefSlug);
-    if (job.seo.slug) existing.add(job.seo.slug);
-  }
+async function buildExistingSlugSet(
+  jobs: ContentJob[],
+  options: { includeFailedJobs?: boolean } = {},
+): Promise<Set<string>> {
+  const existing = buildBlockingJobKeySet(jobs, options);
   for (const slug of await getPublishedSlugsAsync()) {
     existing.add(slug);
   }
@@ -256,7 +258,8 @@ export async function GET(req: Request) {
     let racingBriefs: ContentJob[] = [];
     try {
       const racingStore = readRacingIntelligenceStore();
-      racingBriefs = selectRacingBriefJobs(racingStore.contentBriefs || [], existingSlugs, 2);
+      const racingExistingSlugs = await buildExistingSlugSet(jobs, { includeFailedJobs: true });
+      racingBriefs = selectRacingBriefJobs(racingStore.contentBriefs || [], racingExistingSlugs, 2);
       if (racingBriefs.length > 0) {
         for (const brief of racingBriefs) {
           existingSlugs.add(brief.briefSlug);
@@ -342,7 +345,20 @@ export async function GET(req: Request) {
 
     const allNewBriefs = [...newBriefs, ...racingBriefs];
     const draftJobs = await loadContentJobsNew();
-    const combined = [...draftJobs.filter((j) => j.status !== 'queued'), ...allNewBriefs.map((b) => ({ ...b, status: 'queued' as const, updatedAt: new Date().toISOString() })), ...draftJobs.filter((j) => j.status === 'queued')];
+    const incomingQueued = allNewBriefs.map((brief) => ({
+      ...brief,
+      status: 'queued' as const,
+      updatedAt: new Date().toISOString(),
+    }));
+    const retainedJobs = removeJobsSupersededByIncomingBriefs(
+      draftJobs.filter((job) => job.status !== 'queued'),
+      incomingQueued,
+    );
+    const retainedQueuedJobs = removeJobsSupersededByIncomingBriefs(
+      draftJobs.filter((job) => job.status === 'queued'),
+      incomingQueued,
+    );
+    const combined = [...retainedJobs, ...incomingQueued, ...retainedQueuedJobs];
     await saveContentJobsNew(combined);
     writeLastRun({
       action: 'enqueued',
