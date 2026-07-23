@@ -17,7 +17,7 @@ export function buildBlockingJobKeySet(
   const keys = new Set<string>();
 
   for (const job of jobs) {
-    if (job.status === 'failed' && !options.includeFailedJobs) continue;
+    if ((job.status === 'failed' || job.status === 'retired') && !options.includeFailedJobs) continue;
     addJobKeys(keys, job);
   }
 

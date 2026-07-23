@@ -24,6 +24,7 @@ const STATUS_COLORS: Record<string, { bg: string; text: string; border: string }
   approved:    { bg: 'bg-[#1A0A1A]',     text: 'text-[#EC4899]', border: 'border-[#EC4899]/30' },
   published:   { bg: 'bg-[#0A1A1A]',     text: 'text-[#00FF66]', border: 'border-[#00FF66]/30' },
   failed:      { bg: 'bg-[#1A0A0A]',     text: 'text-[#FF4444]', border: 'border-[#FF4444]/30' },
+  retired:     { bg: 'bg-[#111]',        text: 'text-[#777]',    border: 'border-[#333]' },
 };
 
 const ACTIONS_BY_STATUS: Record<string, { label: string; action: string; icon: React.ElementType }[]> = {
@@ -36,6 +37,7 @@ const ACTIONS_BY_STATUS: Record<string, { label: string; action: string; icon: R
   approved:   [{ label: 'Publish', action: 'publish', icon: Send }],
   published:  [],
   failed:     [],
+  retired:    [],
 };
 
 export default function ContentJobTable({

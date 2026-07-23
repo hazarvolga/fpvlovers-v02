@@ -57,7 +57,7 @@ async function applyRecovery(candidates: CandidateRow[], options: RecoveryOption
 
   const ids = candidates.map((candidate) => candidate.id);
   const reason = [
-    'Automation recovery marked this stale job as failed without deleting data.',
+    'Automation recovery retired this stale job without deleting data.',
     `generating>${options.generatingMaxAgeHours}h`,
     `queued>${options.queuedMaxAgeHours}h`,
     `recovered_at=${new Date().toISOString()}`,
@@ -67,7 +67,7 @@ async function applyRecovery(candidates: CandidateRow[], options: RecoveryOption
     `
       UPDATE fpvlovers_app.content_jobs
       SET
-        status = 'failed',
+        status = 'retired',
         error_message = $2,
         attempt_count = attempt_count + 1,
         completed_at = NOW(),
@@ -94,7 +94,7 @@ async function applyRecovery(candidates: CandidateRow[], options: RecoveryOption
         kind, status, started_at, finished_at, summary, error_message
       ) VALUES (
         'generate',
-        'recovered_stale_jobs',
+        'retired_stale_jobs',
         NOW(),
         NOW(),
         $1::jsonb,

@@ -72,6 +72,7 @@ export default function ContentAutomationPanel({ onNavigateToGeneration }: Conte
 
   const queueSize = jobs.length;
   const failedCount = jobs.filter((j) => j.status === 'failed').length;
+  const retiredCount = jobs.filter((j) => j.status === 'retired').length;
   const awaitingReview = jobs.filter((j) => j.status === 'generated').length;
   const publishedToday = jobs.filter((j) => {
     if (j.status !== 'published') return false;
@@ -262,8 +263,11 @@ export default function ContentAutomationPanel({ onNavigateToGeneration }: Conte
           <div className="text-xl font-mono text-[#00FF66] mt-1">{publishedToday}</div>
         </div>
         <div className="bg-[#0A0A0B] border border-[#333] p-3">
-          <div className="text-[10px] font-mono uppercase text-[#A0A0A0] tracking-widest">Failed</div>
-          <div className="text-xl font-mono text-[#FF4444] mt-1">{failedCount}</div>
+          <div className="text-[10px] font-mono uppercase text-[#A0A0A0] tracking-widest">Failed / Retired</div>
+          <div className="text-xl font-mono text-[#FF4444] mt-1">
+            {failedCount}
+            <span className="ml-2 text-sm text-[#777]">/ {retiredCount}</span>
+          </div>
         </div>
       </div>
 

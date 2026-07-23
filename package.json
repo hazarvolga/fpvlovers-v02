@@ -32,6 +32,7 @@
     "automation:status": "node --import tsx scripts/automation-status.ts --daily-target=4",
     "automation:backlog-audit": "node --import tsx scripts/automation-backlog-audit.ts --target=56 --daily-cron-runs=8",
     "automation:recover-stale": "node --import tsx scripts/automation-recover-stale-jobs.ts",
+    "content:retire-resolved-jobs": "node --import tsx scripts/retire-resolved-content-jobs.ts",
     "production:smoke": "node scripts/production-smoke.mjs",
     "production:shadow-parity": "node scripts/production-shadow-parity-audit.mjs",
     "commercial:readiness-test": "node --import tsx scripts/commercial-readiness-regression-test.ts",

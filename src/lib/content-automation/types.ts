@@ -8,7 +8,8 @@ export type ContentJobStatus =
   | 'approved'
   | 'published'
   | 'throttled'
-  | 'failed';
+  | 'failed'
+  | 'retired';
 
 export type ContentTemplate =
   | 'tech-article'
