@@ -292,7 +292,14 @@ export function FlightCriticWidget() {
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
                       <PolarGrid stroke="rgba(0,245,255,0.2)" />
-                      <PolarAngleAxis dataKey="subject" tick={{ fill: 'rgba(255,255,255,0.5)', fontSize: 10, fontFamily: 'monospace' }} />
+                      <PolarAngleAxis
+                        dataKey="subject"
+                        tick={{ fill: 'rgba(255,255,255,0.6)', fontSize: 10, fontFamily: 'monospace' }}
+                        tickFormatter={(value) => {
+                          const row = radarData.find(d => d.subject === value);
+                          return row ? `${value} ${row.A}` : value;
+                        }}
+                      />
                       <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
                       <Radar
                         name="Pilot"

@@ -348,11 +348,22 @@ function SendIcon() {
   return <Activity aria-hidden="true" className="h-3 w-3" />;
 }
 
+const METRIC_TOOLTIPS: Record<string, string> = {
+  AUW: 'All-Up Weight: total mass including battery. Lower = more agile.',
+  'Thrust ratio': 'Total motor thrust divided by AUW. Freestyle: 5:1, Racing: 8:1.',
+  Hover: 'Estimated throttle percentage needed to hover. Below 35% = efficient; above 55% = heavy.',
+  'Flight time': 'Estimated flight time at average throttle. Real-world may vary ±20%.',
+};
+
 function Metric({ label, value, tone = 'white' }: { label: string; value: string; tone?: 'white' | 'cyan' | 'green' }) {
   const color = tone === 'cyan' ? 'text-[#00F2FF]' : tone === 'green' ? 'text-[#00FF66]' : 'text-white';
+  const tooltip = METRIC_TOOLTIPS[label];
   return (
-    <div className="border border-white/10 bg-white/[0.02] p-4">
-      <div className="text-[9px] uppercase tracking-widest text-[#8e8b86]">{label}</div>
+    <div className="border border-white/10 bg-white/[0.02] p-4" title={tooltip}>
+      <div className="text-[9px] uppercase tracking-widest text-[#8e8b86] flex items-center gap-1">
+        {label}
+        {tooltip && <span className="text-zinc-700 cursor-help" aria-hidden="true">ⓘ</span>}
+      </div>
       <div className={cn('mt-1 text-xl font-black', color)}>{value}</div>
     </div>
   );
