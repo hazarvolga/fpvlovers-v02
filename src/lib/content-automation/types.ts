@@ -34,7 +34,7 @@ export type ContentMediaAsset = {
   sourceUrl?: string;
   credit?: string;
   license?: string;
-  kind?: 'source-backed' | 'generated-artwork' | 'fallback';
+  kind?: 'source-backed' | 'source-backed-cache' | 'generated-artwork' | 'fallback';
   context?: string;
 };
 

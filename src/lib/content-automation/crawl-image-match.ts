@@ -40,11 +40,14 @@ export type MatchResult = {
 };
 
 /**
- * Minimum overlap score for an image to be attached to a section. Tuned to be
- * conservative: a single incidental shared word is not enough — the image's
- * alt/context must share several distinctive terms with the section.
+ * Minimum overlap score for an image to be attached to a section.
+ * Set conservatively but not so high that blank alt-text images are always
+ * excluded. Alt text is frequently missing on FPV editorial sites; when it is,
+ * context carries the full signal weight. 0.08 requires at least a handful of
+ * shared distinctive tokens — better than 0.18 which excluded everything when
+ * alt was empty (common on oscarliang.com, rotorriot.com, multigp.com).
  */
-const MATCH_THRESHOLD = 0.18;
+const MATCH_THRESHOLD = 0.08;
 
 /** Generic FPV/web words that carry little discriminative signal. */
 const STOPWORDS = new Set([
@@ -69,9 +72,11 @@ function tokenSet(value: string): Set<string> {
 }
 
 /**
- * Weighted Jaccard-style overlap. We weight the alt text more heavily than the
- * harvested surrounding context, because alt text is the author's own
- * description of the image and is the strongest relevance signal.
+ * Weighted Jaccard-style overlap.
+ * When alt text is present it is the dominant signal (0.7 weight) because it
+ * is the author's own description. When alt is empty or tiny (common on FPV
+ * sites like oscarliang.com), context carries full weight (1.0) so those
+ * images are not systematically excluded.
  */
 function scoreImageAgainstSection(image: LicensedImage, sectionTokens: Set<string>): number {
   if (sectionTokens.size === 0) return 0;
@@ -92,7 +97,8 @@ function scoreImageAgainstSection(image: LicensedImage, sectionTokens: Set<strin
   const altSignal = altTokens.size ? altHits / altTokens.size : 0;
   const contextSignal = contextTokens.size ? contextHits / contextTokens.size : 0;
 
-  // Alt text is the dominant signal (0.7); context is corroborating (0.3).
+  // If alt is empty, give context full weight so images aren't auto-excluded.
+  if (altTokens.size === 0) return contextSignal;
   return altSignal * 0.7 + contextSignal * 0.3;
 }
 

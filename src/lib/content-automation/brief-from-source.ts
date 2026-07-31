@@ -14,32 +14,36 @@ const CATEGORY_TEMPLATE_MAP: Record<string, ContentTemplate> = {
 const PILLAR_TEMPLATE: ContentTemplate = 'build-guide';
 const SUPPORT_TEMPLATE: ContentTemplate = 'tech-article';
 
+// Editorial FPV sites that carry actual photography — used by harvestImagesFromDatabase()
+// to find real images in the raw_content table.
+// Rules: pick sites that (a) were/are crawled, (b) have editorial photography, not just docs.
 const CATEGORY_SOURCE_HINTS: Record<string, string[]> = {
   'Flight Guides': [
-    'https://betaflight.com/docs/wiki',
-    'https://www.expresslrs.org/',
+    'https://oscarliang.com/',
+    'https://www.rotorriot.com/',
   ],
   'Build Guides': [
-    'https://betaflight.com/docs/wiki',
+    'https://oscarliang.com/',
     'https://www.fpvknowitall.com/',
   ],
   Troubleshooting: [
-    'https://betaflight.com/docs/wiki',
     'https://oscarliang.com/',
+    'https://www.rotorriot.com/',
   ],
   Components: [
-    'https://betaflight.com/docs/wiki',
-    'https://www.fpvknowitall.com/',
+    'https://oscarliang.com/',
+    'https://pyrodrone.com/',
   ],
   Racing: [
+    'https://www.rotorriot.com/',
     'https://www.multigp.com/',
-    'https://www.fai.org/page/drone-racing',
   ],
   Regulations: [
-    'https://www.faa.gov/uas/recreational_flyers',
+    'https://oscarliang.com/',
+    'https://www.rotorriot.com/',
   ],
   'News and Reviews': [
-    'https://www.fpvknowitall.com/',
+    'https://www.rotorriot.com/',
     'https://oscarliang.com/',
   ],
 };

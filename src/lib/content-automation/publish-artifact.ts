@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { createHash } from 'crypto';
 import type { GeneratedContent } from './parse-generated-content';
 import { buildContentMedia } from './content-media';
 import type { ContentJob } from './types';
@@ -16,6 +17,7 @@ import {
 } from './editorial-governance';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
+const SOURCE_CACHE_DIR = path.join(process.cwd(), 'public', 'images', 'source-cache');
 
 function validHttpSources(values: readonly string[]): string[] {
   return [...new Set(values.filter((value) => {
@@ -31,6 +33,62 @@ function validHttpSources(values: readonly string[]): string[] {
 function ensureDir(dir: string): void {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
+  }
+}
+
+function imageExtFromUrl(url: string): string {
+  try {
+    const pathname = new URL(url).pathname.toLowerCase();
+    if (pathname.endsWith('.webp')) return 'webp';
+    if (pathname.endsWith('.png')) return 'png';
+    if (pathname.endsWith('.gif')) return 'gif';
+  } catch {
+    // ignore
+  }
+  return 'jpg';
+}
+
+function slugHash8(slug: string, suffix: string): string {
+  return createHash('sha1').update(`${slug}:${suffix}`).digest('hex').slice(0, 8);
+}
+
+/**
+ * Download an external image URL and persist it to /public/images/source-cache/.
+ * Returns the local public path on success, or null if the download fails.
+ * This eliminates hotlink failures, CORS blocks, and next.config.ts remotePatterns
+ * restrictions for editorial images.
+ */
+async function downloadToSourceCache(
+  externalUrl: string,
+  slug: string,
+  label: 'cover' | 'gallery',
+  index: number,
+): Promise<string | null> {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 12_000);
+    const res = await fetch(externalUrl, {
+      signal: controller.signal,
+      headers: { 'User-Agent': 'FPVLovers-MediaBot/1.0 (editorial image cache)' },
+    });
+    clearTimeout(timer);
+
+    if (!res.ok) return null;
+    const contentType = res.headers.get('content-type') || '';
+    if (!contentType.startsWith('image/')) return null;
+
+    const ext = contentType.includes('webp') ? 'webp' : contentType.includes('png') ? 'png' : imageExtFromUrl(externalUrl);
+    const hash = slugHash8(slug, externalUrl);
+    const filename = `${slug}-${label}-${index}-${hash}.${ext}`;
+
+    ensureDir(SOURCE_CACHE_DIR);
+    const destPath = path.join(SOURCE_CACHE_DIR, filename);
+    const buffer = Buffer.from(await res.arrayBuffer());
+    fs.writeFileSync(destPath, buffer);
+
+    return `/images/source-cache/${filename}`;
+  } catch {
+    return null;
   }
 }
 
@@ -79,17 +137,23 @@ export async function publishGeneratedContentArtifact(
 
   // 3. Prioritize relevant crawled FPV source images over the local fallback.
   if (crawledLicensed.length > 0) {
-    const crawledAssets = crawledLicensed.map((img) => ({
-      src: img.src,
-      alt: img.alt || `FPV crawled image from ${img.hostname}`,
-      caption: img.alt || `Original asset crawled from ${img.hostname}`,
-      source: img.hostname,
-      sourceUrl: img.sourceUrl,
-      credit: `Source: ${img.hostname} (${img.licenseReason})`,
-      license: img.license,
-      context: img.context,
-      kind: 'source-backed' as const,
-    }));
+    // Download gallery candidates to source-cache (resolves CORS + hotlink blocks).
+    const crawledAssets = await Promise.all(
+      crawledLicensed.slice(0, 6).map(async (img, i) => {
+        const localSrc = await downloadToSourceCache(img.src, slug, 'gallery', i + 1);
+        return {
+          src: localSrc || img.src,
+          alt: img.alt || `FPV image from ${img.hostname}`,
+          caption: img.alt || `Source: ${img.hostname}`,
+          source: img.hostname,
+          sourceUrl: img.sourceUrl,
+          credit: `Source: ${img.hostname} (${img.licenseReason})`,
+          license: img.license,
+          context: img.context,
+          kind: localSrc ? ('source-backed-cache' as const) : ('source-backed' as const),
+        };
+      }),
+    );
 
     // Prepend crawled images to the gallery pool
     media.gallery = [...crawledAssets, ...media.gallery].slice(0, 6);
@@ -102,15 +166,17 @@ export async function publishGeneratedContentArtifact(
       media.coverImage.src.startsWith('/api/content/media/cover/') ||
       media.coverImage.src.startsWith('/images/fallbacks/');
     if (bestCover && hasGeneratedCover) {
+      // Download cover to source-cache — eliminates next.config.ts remotePattern blocks.
+      const localCoverSrc = await downloadToSourceCache(bestCover.src, slug, 'cover', 1);
       media.coverImage = {
-        src: bestCover.src,
+        src: localCoverSrc || bestCover.src,
         alt: bestCover.alt || `FPV source image from ${bestCover.hostname}`,
         caption: bestCover.context || `Source image from ${bestCover.hostname}`,
         source: bestCover.hostname,
         sourceUrl: bestCover.sourceUrl,
         credit: `Source: ${bestCover.hostname} (${bestCover.licenseReason})`,
         license: bestCover.license,
-        kind: 'source-backed',
+        kind: localCoverSrc ? 'source-backed-cache' : 'source-backed',
       };
     }
   }

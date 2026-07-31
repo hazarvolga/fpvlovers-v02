@@ -93,6 +93,14 @@ ${existingSlugs.map((s) => `- ${s}`).join('\n')}
 4. Context from FPV community & datasets:
 ${contextText}
 
+5. sourceHints MUST contain real editorial FPV website URLs (not outline points). These are used by the image harvester to find photos from our crawled database. Use this mapping based on the article's category:
+- Flight Guides      → ["https://oscarliang.com/", "https://www.rotorriot.com/"]
+- Build Guides       → ["https://oscarliang.com/", "https://www.fpvknowitall.com/"]
+- Troubleshooting    → ["https://oscarliang.com/", "https://www.rotorriot.com/"]
+- Components         → ["https://oscarliang.com/", "https://pyrodrone.com/"]
+- News and Reviews   → ["https://www.rotorriot.com/", "https://oscarliang.com/"]
+Always include the 2 category URLs, then add the article's primary keyword and 1-2 key sub-topics as plain strings for semantic matching.
+
 Output MUST be a raw JSON array of briefs. Do not include markdown code block fences (no \`\`\`json). Just return the array.
 Each brief object in the array MUST strictly follow this TypeScript structure:
 {
@@ -101,7 +109,7 @@ Each brief object in the array MUST strictly follow this TypeScript structure:
   "category": "Flight Guides | Troubleshooting | Build Guides | Components | News and Reviews",
   "template": "tech-article | product-review | build-guide | comparison | troubleshooting | regulation-guide | community-roundup",
   "topic": "A detailed 2-3 sentence description of what the article will cover and target audience",
-  "sourceHints": ["Key sub-topic or outline point 1", "Key sub-topic or outline point 2", "Key sub-topic or outline point 3"],
+  "sourceHints": ["https://oscarliang.com/", "https://www.rotorriot.com/", "primary keyword for this article"],
   "seo": {
     "slug": "unique-kebab-case-slug-for-article",
     "metaDescription": "An SEO-friendly meta description under 150 characters with a CTA",

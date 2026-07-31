@@ -7,7 +7,7 @@ export type ContentMediaAsset = {
   credit?: string;
   license?: string;
   /** Describes whether this is source-backed media or generated artwork. */
-  kind?: 'source-backed' | 'generated-artwork' | 'fallback';
+  kind?: 'source-backed' | 'source-backed-cache' | 'generated-artwork' | 'fallback';
   /** Crawled context retained for deterministic section matching. */
   context?: string;
 };

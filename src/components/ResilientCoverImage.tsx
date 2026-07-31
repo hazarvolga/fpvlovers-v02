@@ -44,7 +44,7 @@ export function ResilientCoverImage({
         onFallbackChange?.(true);
         return index + 1;
       });
-    }, 5000);
+    }, 8000);
 
     return () => window.clearTimeout(timer);
   }, [candidateIndex, currentSrc, isExternalSrc, loadedSrc, loadingMode, onFallbackChange]);
