@@ -108,27 +108,8 @@ export function FlightCriticWidget() {
   return (
     <div className="w-full max-w-4xl mx-auto glass-card overflow-hidden neon-border shadow-2xl relative">
 
-      {/* JSON-LD Schema for Review (UGC) SEO */}
-      {analysis && (
-         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Review",
-            "itemReviewed": {
-                "@type": "MediaObject",
-                "name": "FPV Flight Analysis",
-            },
-            "reviewRating": {
-                "@type": "Rating",
-                "ratingValue": (analysis.scores.flow + analysis.scores.speed + analysis.scores.proximity + analysis.scores.acro + analysis.scores.stability) / 5 / 20,
-                "bestRating": "5"
-            },
-            "author": {
-                "@type": "Organization",
-                "name": "AFFEXAI Oracle"
-            },
-            "reviewBody": analysis.summary
-         })}} />
-      )}
+      {/* JSON-LD schema intentionally omitted: scores are rubric-generated, not based on real video analysis.
+          Publishing a schema:Review with ratingValue for fabricated data is misleading. */}
 
       {/* HEADER */}
       <div className="border-b border-white/10 p-4 flex items-center justify-between bg-black/40">

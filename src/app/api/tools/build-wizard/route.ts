@@ -87,6 +87,7 @@ function buildDifyPrompt(
     'You are the FPVLovers Build Wizard.',
     'Use the project RAG datasets for FPV build guidance when available.',
     'Do not replace the deterministic calculator numbers; explain them and give practical build recommendations.',
+    'CRITICAL: Only make claims supported by the calculator result JSON or RAG context provided below. If a spec is absent, say "unverified — confirm manually" rather than inventing a value.',
     'Return concise Markdown with headings: Build Verdict, Risk Notes, Recommended Adjustments, Shopping/Validation Checklist.',
     '',
     `Build input JSON:\n${JSON.stringify(input)}`,

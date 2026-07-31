@@ -9,7 +9,7 @@ import ReactMarkdown from 'react-markdown';
 type BlackboxApiResponse = {
   success: boolean;
   source?: 'dify' | 'local';
-  answerMode?: 'local_guardrail' | 'dify_grounded';
+  answerMode?: 'local_guardrail' | 'dify_grounded' | 'dify_unverified';
   gatewayStatus?: 'dry_run' | 'dify_ok' | 'dify_empty' | 'dify_error' | 'not_configured';
   retrievalConfidence?: number;
   sources?: Array<{
@@ -130,7 +130,11 @@ export function BlackboxTunerWidget() {
   };
 
   const canAnalyze = Boolean(formData.problem.trim() || formData.logData.trim() || selectedFile);
-  const sourceLabel = answerMode === 'dify_grounded' ? 'Source-backed Review' : 'Local Guardrail';
+  const sourceLabel = answerMode === 'dify_grounded'
+    ? 'Source-backed Review'
+    : answerMode === 'dify_unverified'
+      ? 'AI — No Sources'
+      : 'Local Guardrail';
   const gatewayLabel = gatewayStatus ? gatewayStatus.replace(/_/g, ' ') : 'unknown';
 
   return (
@@ -308,7 +312,9 @@ export function BlackboxTunerWidget() {
             </div>
             <div className="border border-white/10 bg-zinc-950 p-3 rounded-lg">
               <div className="text-[9px] uppercase tracking-widest text-zinc-500">Retrieval</div>
-              <div className="text-sm font-bold text-white">{retrievalConfidence ?? 0}/100</div>
+              <div className="text-sm font-bold text-white">
+                {answerMode === 'dify_unverified' || !retrievalConfidence ? '—' : `${retrievalConfidence}/100`}
+              </div>
             </div>
             <div className="border border-white/10 bg-zinc-950 p-3 rounded-lg">
               <div className="text-[9px] uppercase tracking-widest text-zinc-500">Risk</div>

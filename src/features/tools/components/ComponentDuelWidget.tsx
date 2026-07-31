@@ -59,7 +59,7 @@ function ProductCard({ product, winner, score, side }: { product: FpvCatalogProd
             ? side === 'left' ? 'border-[#FF5C00] bg-[#FF5C00]/10 text-[#FF5C00]' : 'border-[#00F2FF] bg-[#00F2FF]/10 text-[#00F2FF]'
             : 'border-white/10 text-[#A0A0A0] bg-black/40'
         )}>
-          {winner ? 'WINNER' : isVerified ? 'SCORE' : 'RESEARCH'} <span className="ml-1 text-white">{score}</span>
+          {winner ? 'WINNER' : isVerified ? 'SCORE' : 'RESEARCH'} <span className="ml-1 text-white">{isVerified ? score : '—'}</span>
         </div>
       </div>
 

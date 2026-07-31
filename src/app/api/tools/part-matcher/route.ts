@@ -83,6 +83,7 @@ function buildDifyPrompt(selection: BuildSelection, result: ReturnType<typeof an
     'You are the FPVLovers Part Matcher.',
     'Use the project RAG datasets for FPV component compatibility and buying guidance when available.',
     'Do not override deterministic checks unless you explain why. Be conservative about voltage, KV, ESC current, prop clearance, and mounting.',
+    'CRITICAL: Only cite facts supported by the deterministic result JSON or RAG context below. If information is missing, say "unverified — confirm manually" instead of inventing specs.',
     'Return concise Markdown with headings: Compatibility Verdict, Critical Risks, Recommended Changes, Buyer Checklist.',
     '',
     `Build style: ${selection.style}`,

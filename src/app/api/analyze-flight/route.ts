@@ -91,8 +91,8 @@ function parseDifyAnalysis(markdownOrJson: string): FlightAnalysis | undefined {
 
 function buildFallback(meta: UploadedVideoMeta, warning: string): FlightAnalysis {
   return {
-    scores: { flow: 72, speed: 70, proximity: 68, acro: 66, stability: 74 },
-    verdict: 'B-Rookie Hunter',
+    scores: { flow: 70, speed: 70, proximity: 70, acro: 70, stability: 70 },
+    verdict: 'C-Trainee',
     summary: `Upload received: ${meta.name}. Frame-level video analysis is not connected locally; this is a conservative training rubric until the video workflow is enabled.`,
     telemetrySimulation: [
       { timestamp: '00:00', event: 'DVR upload accepted', riskScore: 'Info' },
