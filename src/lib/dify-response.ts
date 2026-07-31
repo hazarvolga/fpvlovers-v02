@@ -14,6 +14,29 @@ export function stripDifyReasoningBlocks(value: string): string {
     .trim();
 }
 
+export type DifyCitation = {
+  title: string;
+  score: number;
+  datasetName?: string;
+};
+
+export function extractDifyCitations(value: unknown): DifyCitation[] {
+  const data = asRecord(value);
+  const nestedData = asRecord(data?.data);
+  const resources = data?.retriever_resources ?? nestedData?.retriever_resources;
+  if (!Array.isArray(resources)) return [];
+  const results: DifyCitation[] = [];
+  for (const r of resources) {
+    const rec = asRecord(r);
+    if (!rec) continue;
+    const title = asString(rec.document_name) ?? asString(rec.title) ?? 'Unknown source';
+    const score = typeof rec.score === 'number' ? rec.score : 0;
+    const datasetName = asString(rec.dataset_name) ?? asString(rec.segment_id);
+    results.push({ title, score, ...(datasetName ? { datasetName } : {}) });
+  }
+  return results;
+}
+
 export function extractDifyMarkdown(value: unknown): string | undefined {
   const data = asRecord(value);
   const nestedData = asRecord(data?.data);

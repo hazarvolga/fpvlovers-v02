@@ -219,13 +219,23 @@ export function FlightCriticWidget() {
                key="results"
                initial={{ opacity: 0, y: 20 }}
                animate={{ opacity: 1, y: 0 }}
-               className="grid grid-cols-1 md:grid-cols-2 gap-8"
+               className="flex flex-col gap-6"
              >
+                {/* Honest disclaimer — required, always visible */}
+                <div className="p-3 border border-amber-500/30 bg-amber-500/5 rounded-lg flex items-start gap-3">
+                  <ShieldAlert className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
+                  <p className="text-amber-400 text-xs font-mono leading-relaxed">
+                    <span className="font-bold">RUBRIC-BASED REVIEW — </span>
+                    Video frames are not analyzed. Scores and events are generated from a conservative FPV coaching rubric using only filename, type, and size metadata. Do not treat this as frame-level analysis.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Result Left */}
                 <div className="flex flex-col">
                    <div className="mb-6 flex flex-col gap-2 relative">
                       <div className="absolute -left-6 top-0 w-1 h-full bg-[#FFB800]" />
-                      <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#FFB800]">Verdict</h4>
+                      <h4 className="text-[10px] font-bold uppercase tracking-widest text-[#FFB800]">Coaching Verdict</h4>
                       <h2 className="text-4xl font-black uppercase text-white tracking-tighter text-glow">{analysis.verdict}</h2>
                    </div>
 
@@ -233,7 +243,7 @@ export function FlightCriticWidget() {
 
                    <div className="glass-panel p-4 rounded-lg mb-8">
                      <h4 className="text-[10px] font-bold text-[#00F5FF] uppercase tracking-widest mb-3 flex items-center gap-2">
-                       <Activity className="w-3 h-3" /> Event Log
+                       <Activity className="w-3 h-3" /> Coaching Events <span className="text-[8px] opacity-50 font-normal ml-1">RUBRIC-GENERATED</span>
                      </h4>
                      <div className="flex flex-col gap-2">
                         {analysis.telemetrySimulation.map((event, i) => (
@@ -284,6 +294,7 @@ export function FlightCriticWidget() {
                       />
                     </RadarChart>
                   </ResponsiveContainer>
+                </div>
                 </div>
              </motion.div>
           )}
