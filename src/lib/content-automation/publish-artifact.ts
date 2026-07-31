@@ -86,7 +86,7 @@ async function downloadToSourceCache(
     const buffer = Buffer.from(await res.arrayBuffer());
     fs.writeFileSync(destPath, buffer);
 
-    return `/images/source-cache/${filename}`;
+    return `/api/images/source-cache/${filename}`;
   } catch {
     return null;
   }

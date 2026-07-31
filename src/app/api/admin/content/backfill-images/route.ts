@@ -80,6 +80,8 @@ function isFallbackOrHotlink(src: string, kind?: string): boolean {
   if (!src) return true;
   if (src.startsWith('/images/fallbacks/')) return true;
   if (src.startsWith('/api/content/media/cover/')) return true;
+  // Old static-path cache entries are broken (404 in Docker standalone) — re-process them.
+  if (src.startsWith('/images/source-cache/')) return true;
   if (src.startsWith('http') && kind !== 'source-backed-cache') return true;
   return false;
 }
@@ -132,7 +134,8 @@ async function downloadToSourceCache(
     const buffer = Buffer.from(await res.arrayBuffer());
     fs.writeFileSync(destPath, buffer);
 
-    return `/images/source-cache/${filename}`;
+    // Serve via API route — static /public/ path is unreliable in Docker standalone.
+    return `/api/images/source-cache/${filename}`;
   } catch {
     return null;
   }
