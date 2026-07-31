@@ -1,0 +1,258 @@
+version: 0.6.0
+kind: app
+app:
+  name: Drone Build Recommender
+  mode: advanced-chat
+  icon: 🏗
+  icon_background: '#FFF3E0'
+  icon_type: emoji
+  description: Tell me your budget, flight style, range, and camera preference — I'll generate complete FPV builds with ecosystem recommendations, compatibility validation, and affiliate-ready product links.
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: 'Let''s build your dream FPV drone! Tell me:
+
+      - Your budget (e.g. $200, $500, $1000+)
+
+      - Flight style (freestyle, racing, long-range, cinematic, whoop)
+
+      - Range preference (park, bandos, mountain surfing)
+
+      - Camera system (analog, DJI/Walksnail HD, HDZero)
+
+
+      I''ll build you a fully compatible setup with parts list, pricing, and where to buy.'
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+    - Build me a $300 beginner freestyle 5-inch drone with analog
+    - Recommend a $600 cinematic long-range build with DJI O3
+    - What's the best $200 3-inch whoop for indoor/outdoor?
+    - Build a $1000 racing drone with HDZero
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+  graph:
+    edges:
+    - id: 1746830001001-source-1746830001002-target
+      source: '1746830001001'
+      sourceHandle: source
+      target: '1746830001002'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: start
+        targetType: parameter-extractor
+        isInIteration: false
+        isInLoop: false
+    - id: 1746830001002-source-1746830001003-target
+      source: '1746830001002'
+      sourceHandle: source
+      target: '1746830001003'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: parameter-extractor
+        targetType: knowledge-retrieval
+        isInIteration: false
+        isInLoop: false
+    - id: 1746830001003-source-1746830001004-target
+      source: '1746830001003'
+      sourceHandle: source
+      target: '1746830001004'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: knowledge-retrieval
+        targetType: llm
+        isInIteration: false
+        isInLoop: false
+    - id: 1746830001004-source-1746830001005-target
+      source: '1746830001004'
+      sourceHandle: source
+      target: '1746830001005'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: answer
+        isInIteration: false
+        isInLoop: false
+    nodes:
+    - id: '1746830001001'
+      type: custom
+      position:
+        x: 80
+        y: 282
+      data:
+        type: start
+        title: Start
+        desc: ''
+        variables: []
+    - id: '1746830001002'
+      type: custom
+      position:
+        x: 380
+        y: 282
+      data:
+        type: parameter-extractor
+        title: Build Spec Extractor
+        desc: Extract build requirements from user message
+        model:
+          provider: langgenius/google/google
+          name: gemini-2.5-flash
+          mode: chat
+          completion_params:
+            temperature: 0.2
+        query_variable_selector:
+        - sys
+        - query
+        parameters:
+        - name: budget
+          type: string
+          description: Budget mentioned (e.g. $300, $500)
+          required: true
+        - name: flight_style
+          type: string
+          description: 'Flight style: freestyle, racing, long-range, cinematic, whoop, micro'
+          required: true
+        - name: range
+          type: string
+          description: 'Range: park, bandos, mountain, indoor, outdoor'
+          required: false
+        - name: camera_system
+          type: string
+          description: 'Camera system: analog, DJI, Walksnail, HDZero'
+          required: false
+        - name: frame_size
+          type: string
+          description: 'Frame size: 3inch, 5inch, 7inch, whoop'
+          required: false
+        - name: experience_level
+          type: string
+          description: 'Experience: beginner, intermediate, expert'
+          required: false
+        instruction: Extract the user's drone build requirements from their message.
+        vision:
+          enabled: false
+    - id: '1746830001003'
+      type: custom
+      position:
+        x: 680
+        y: 282
+      data:
+        type: knowledge-retrieval
+        title: RAG Search
+        desc: Search knowledge base for compatible parts and build guides
+        query_variable_selector:
+        - sys
+        - query
+        dataset_ids:
+        - a733583a-5e50-4e00-8b50-759380da59db
+        - 38bb7d60-b921-440c-b8f4-e49f9982a61f
+        - 639af5aa-d424-4d0b-9633-a7ab541afcb2
+        retrieval_mode: hybrid
+        score_threshold_enabled: true
+        score_threshold: 0.5
+        top_k: 8
+        reranking_enable: true
+        reranking_mode: reranking_model
+        reranking_model:
+          reranking_provider_name: langgenius/jina/jina
+          reranking_model_name: jina-reranker-v2-base-multilingual
+    - id: '1746830001004'
+      type: custom
+      position:
+        x: 980
+        y: 282
+      data:
+        type: llm
+        title: Build Architect
+        desc: Generate complete build recommendation
+        model:
+          provider: langgenius/google/google
+          name: gemini-2.5-flash
+          mode: chat
+          completion_params:
+            temperature: 0.6
+            max_tokens: 3072
+        prompt_template:
+        - role: system
+          text: "You are an expert FPV drone build architect for fpvlovers.com.tr. Create detailed, fully compatible build recommendations based on the user's requirements.\n\nBUILD PRINCIPLES:\n1. **Compatibility\
+            \ First**: Every component must work together. Check:\n   - FC mounting pattern vs frame (20x20, 30x30, whoop)\n   - ESC protocol vs FC capabilities (DShot300/600)\n   - Motor KV vs battery\
+            \ voltage (6S: 1700-1950KV for 5\", 4S: 2400-2700KV)\n   - VTX mounting vs frame clearance\n   - Receiver protocol vs radio (ELRS, Crossfire, Tracer)\n   - Stack height vs frame internal space\n\
+            \n2. **Budget Allocation** (approximate):\n   - Frame: 10-15%\n   - FC+ESC Stack: 20-25%\n   - Motors: 20-25%\n   - VTX+Camera: 15-30% (HD is expensive!)\n   - RX: 5-10%\n   - Props+Battery+Misc:\
+            \ 10-15%\n\n3. **Build Types**:\n   - Freestyle 5\": Durable frame, mid-KV motors, high-quality stack\n   - Racing 5\": Lightweight frame, high-KV motors, racing stack\n   - Long-Range 7\":\
+            \ Efficient motors, GPS mandatory, crossfire/ELRS\n   - Cinematic: Smooth tune, HD system, stable frame\n   - Whoop/Micro: AIO board, small batteries, durable frame\n\nOUTPUT FORMAT:\n## {Build\
+            \ Name} — Total: ~$XXX\n\n### Component List\n| Part | Model | Price | Why This Choice |\n|------|-------|-------|-----------------|\n| Frame | ... | $XX | ... |\n| FC+ESC | ... | $XX | ...\
+            \ |\n| Motors | ... | $XX | ... |\n| VTX | ... | $XX | ... |\n| Camera | ... | $XX | ... |\n| RX | ... | $XX | ... |\n| Props | ... | $X | ... |\n| Battery | ... | $XX | ... |\n\n### Compatibility\
+            \ Verification\nConfirmation that all parts work together\n\n### Flight Characteristics\nWhat to expect from this build (speed, handling, durability)\n\n### Upgrade Path\n2-3 recommended future\
+            \ upgrades\n\n### Where to Buy\nRecommended retailers with affiliate links\n\n### Build Tips\n2-3 specific tips for this build (soldering, setup, first flight)\n\nAlways end with: \"Happy flying!\
+            \ This build is a recommendation — always verify component compatibility before purchasing.\"\n"
+        - role: user
+          text: 'Build Requirements:
+
+            - Budget: {{#1746830001002.budget#}}
+
+            - Flight Style: {{#1746830001002.flight_style#}}
+
+            - Range: {{#1746830001002.range#}}
+
+            - Camera: {{#1746830001002.camera_system#}}
+
+            - Frame Size: {{#1746830001002.frame_size#}}
+
+            - Experience: {{#1746830001002.experience_level#}}
+
+
+            RETRIEVED KNOWLEDGE:
+
+            {{#context#}}
+
+
+            User Query: {{#sys.query#}}
+
+            '
+        context:
+          enabled: true
+          variable_selector:
+          - '1746830001003'
+          - result
+        vision:
+          enabled: false
+        memory:
+          role_prefix:
+            user: ''
+            assistant: ''
+          window:
+            enabled: true
+            size: 10
+    - id: '1746830001005'
+      type: custom
+      position:
+        x: 1280
+        y: 282
+      data:
+        type: answer
+        title: Answer
+        desc: ''
+        answer: '{{#1746830001004.text#}}'
+        variables: []
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingCart, AlertTriangle, Zap, Check, ArrowUpRight, Flame, TrendingUp } from 'lucide-react';
+import { AlertTriangle, Zap, Check, ArrowUpRight, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
@@ -28,38 +28,6 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const seoSchema = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Product",
-        "name": productA.name,
-        "brand": { "@type": "Brand", "name": productA.brand },
-        "image": productA.imageUrl,
-        "offers": {
-          "@type": "AggregateOffer",
-          "highPrice": Math.max(...productA.vendors.map(v => parseFloat(v.price.replace('$', '')))),
-          "lowPrice": Math.min(...productA.vendors.map(v => parseFloat(v.price.replace('$', '')))),
-          "priceCurrency": "USD",
-          "offerCount": productA.vendors.length
-        }
-      },
-      {
-        "@type": "Product",
-        "name": productB.name,
-        "brand": { "@type": "Brand", "name": productB.brand },
-        "image": productB.imageUrl,
-        "offers": {
-          "@type": "AggregateOffer",
-          "highPrice": Math.max(...productB.vendors.map(v => parseFloat(v.price.replace('$', '')))),
-          "lowPrice": Math.min(...productB.vendors.map(v => parseFloat(v.price.replace('$', '')))),
-          "priceCurrency": "USD",
-          "offerCount": productB.vendors.length
-        }
-      }
-    ]
-  };
-
   const renderProductColumn = (product: DuelProduct, isWinner: boolean, warning: string) => (
     <div className={cn("flex flex-col gap-6 relative p-6 glass-panel rounded-2xl transition-all duration-300", isWinner ? "border-[#00F5FF]/50 shadow-[0_0_30px_rgba(0,245,255,0.15)] bg-[#00F5FF]/5" : "border-white/5 opacity-90")}>
 
@@ -78,13 +46,9 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
           </div>
        </div>
 
-       {/* FOMO Component */}
-       {product.fomoAlert && (
-          <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/30 rounded-md p-2 text-red-400">
-            <Flame className="w-4 h-4 animate-pulse" />
-            <span className="text-[10px] font-bold uppercase tracking-widest">{product.fomoAlert}</span>
-          </div>
-       )}
+       <div className="rounded-md border border-yellow-300/20 bg-yellow-300/5 p-2 text-[10px] font-bold uppercase tracking-widest text-yellow-100">
+         {product.referenceLabel} - live price, stock, and affiliate status disabled
+       </div>
 
        {/* Honest Mechanic Warning */}
        <div className="bg-[#FFB800]/5 border border-[#FFB800]/20 rounded-md p-3">
@@ -99,24 +63,19 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
 
        {/* Vendor Price Table */}
        <div className="flex flex-col gap-2 mt-auto">
-          <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-widest border-b border-white/10 pb-1">Acquisition Relays</h4>
+          <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-widest border-b border-white/10 pb-1">Source Verification</h4>
           {product.vendors.map((vendor, i) => isSafeExternalHttpUrl(vendor.url) ? (
-             <a href={vendor.url} key={i} target="_blank" rel="nofollow sponsored noopener noreferrer" className={cn("flex items-center justify-between p-2 rounded border transition-colors group", vendor.inStock ? "bg-white/5 border-white/10 hover:border-[#00F5FF]/50 hover:bg-[#00F5FF]/5" : "bg-black/40 border-dashed border-white/10 opacity-50 cursor-not-allowed")}>
+             <a href={vendor.url} key={i} target="_blank" rel="nofollow sponsored noopener noreferrer" className={cn("flex items-center justify-between p-2 rounded border transition-colors group", vendor.verified ? "bg-white/5 border-white/10 hover:border-[#00F5FF]/50 hover:bg-[#00F5FF]/5" : "bg-black/40 border-dashed border-white/10 opacity-50 cursor-not-allowed")}>
                 <div className="flex flex-col">
                   <span className="text-[10px] font-bold uppercase">{vendor.name}</span>
-                  <span className={cn("text-xs font-black", vendor.inStock ? "text-[#00F5FF]" : "text-white/30")}>
-                    {vendor.inStock ? vendor.price : 'OUT OF STOCK'}
+                  <span className={cn("text-xs font-black", vendor.verified ? "text-[#00F5FF]" : "text-white/30")}>
+                    {vendor.status}
                   </span>
                 </div>
-                {vendor.inStock && (
-                  <Button variant="ghost" size="icon" className="w-8 h-8 rounded-full group-hover:bg-[#00F5FF] group-hover:text-[#050810] transition-colors">
-                     <ShoppingCart className="w-4 h-4" />
-                  </Button>
-                )}
              </a>
           ) : (
             <div key={i} className="flex items-center justify-between rounded border border-yellow-300/20 bg-yellow-300/5 p-2 text-yellow-100">
-              <span className="text-[10px] uppercase tracking-widest">Source pending</span>
+              <span className="text-[10px] uppercase tracking-widest">{vendor.name}: {vendor.status}</span>
             </div>
           ))}
        </div>
@@ -125,9 +84,7 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
 
   return (
     <div className="w-full flex flex-col gap-12 relative">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(seoSchema) }} />
-
-      {/* STICKY PURCHASE BAR */}
+      {/* STICKY COMPARISON BAR */}
       <AnimatePresence>
          {isSticky && (
            <motion.div
@@ -139,13 +96,13 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
               <div className="max-w-5xl mx-auto flex items-center justify-between">
                  <div className="flex items-center gap-4 flex-1 justify-center">
                     <span className="text-sm font-black uppercase text-white truncate max-w-[200px]">{productA.name}</span>
-                    <Button variant="cyber" size="sm" className="h-8 text-[10px]">Buy {productA.price}</Button>
+                    <Badge variant="outline" className="h-8 text-[10px]">Evidence pending</Badge>
                  </div>
 
                  <div className="w-[2px] h-8 bg-gradient-to-b from-transparent via-[#00F5FF] to-transparent mx-8 opacity-50" />
 
                  <div className="flex items-center gap-4 flex-1 justify-center">
-                    <Button variant="amber" size="sm" className="h-8 text-[10px]">Buy {productB.price}</Button>
+                    <Badge variant="outline" className="h-8 text-[10px]">Evidence pending</Badge>
                     <span className="text-sm font-black uppercase text-white truncate max-w-[200px]">{productB.name}</span>
                  </div>
               </div>
@@ -158,7 +115,7 @@ export function AffexDuelEngine({ productA, productB, result }: DuelEngineProps)
          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter text-white mb-2 leading-none">
            Component <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-amber-500">Duel</span>
          </h1>
-         <p className="text-white/50 text-sm font-semibold max-w-lg">Neural analysis evaluating thermodynamics, structural integrity, and telemetry performance.</p>
+         <p className="text-white/50 text-sm font-semibold max-w-lg">Static benchmark comparison. Live prices, stock, and affiliate recommendations stay locked until source verification is complete.</p>
       </div>
 
       <div className="grid md:grid-cols-[1fr_auto_1fr] gap-6 md:gap-8 items-stretch relative max-w-6xl mx-auto w-full">

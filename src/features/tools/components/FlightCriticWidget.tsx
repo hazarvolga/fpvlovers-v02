@@ -51,13 +51,12 @@ export function FlightCriticWidget() {
       setStatus('complete');
     } catch (error) {
       console.error(error);
-      // Fallback
       setAnalysis({
-         scores: { flow: 88, speed: 82, proximity: 95, acro: 90, stability: 75 },
-         verdict: "S1-Elite Pilot",
-         summary: "Exceptional mastery of aeronautic physics. High-risk tolerance with near-perfect execution.",
+         scores: { flow: 50, speed: 50, proximity: 50, acro: 50, stability: 50 },
+         verdict: "Manual Review Needed",
+         summary: "Automated review is unavailable. No pilot rank or frame-level finding was generated.",
          telemetrySimulation: [
-           { timestamp: "00:04", event: "Proximity dive", riskScore: "Extreme" }
+           { timestamp: "N/A", event: "Review pipeline unavailable", riskScore: "Unknown" }
          ]
       });
       setStatus('complete');
@@ -159,8 +158,8 @@ export function FlightCriticWidget() {
                 <div className="w-16 h-16 rounded-full bg-[#00F5FF]/10 flex items-center justify-center mb-6">
                   <UploadCloud className="w-8 h-8 text-[#00F5FF]" />
                 </div>
-                <h4 className="text-xl font-black uppercase text-white tracking-tighter mb-2">Upload Telemetry / Video</h4>
-                <p className="text-white/40 text-sm font-semibold mb-6 text-center max-w-sm">Drop your raw FPV DVR footage here. Our neural engine will analyze gaps, flow, and physics.</p>
+                <h4 className="text-xl font-black uppercase text-white tracking-tighter mb-2">Upload Flight File</h4>
+                <p className="text-white/40 text-sm font-semibold mb-6 text-center max-w-sm">This beta provides a conservative rubric only. It does not claim per-frame visual analysis or official ranking.</p>
                 <Button variant="cyber" className="pointer-events-none">Select File</Button>
               </div>
             </motion.div>
@@ -205,7 +204,7 @@ export function FlightCriticWidget() {
                 {/* Glitch text */}
                 <div className="absolute bottom-10 left-0 w-full flex justify-center text-[#00F5FF]">
                    <span className="font-black text-2xl tracking-[0.3em] uppercase bg-black/40 px-4 py-1 backdrop-blur border-y border-[#00F5FF]/50 animate-pulse">
-                     Scanning Frame Data...
+                     Running Conservative Review...
                    </span>
                 </div>
 

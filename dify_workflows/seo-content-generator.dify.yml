@@ -1,0 +1,549 @@
+version: 0.6.0
+kind: app
+app:
+  name: SEO Content Generator
+  mode: workflow
+  description: 'Automated AI-native publishing: keyword → SEO research → RAG retrieval → metadata → outline → article → affiliate injection → schema → publish'
+  icon: 📝
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    nodes:
+    - id: '1746700000001'
+      type: custom
+      position:
+        x: 80
+        y: 282
+      data:
+        type: start
+        title: Start
+        desc: ''
+        variables:
+        - variable: keyword
+          label: Target Keyword
+          type: text-input
+          required: true
+          max_length: 200
+          placeholder: e.g. best 5 inch freestyle frame
+        - variable: content_type
+          label: Content Type
+          type: select
+          required: true
+          options:
+          - buying-guide
+          - comparison
+          - build-guide
+          - review
+          - tutorial
+          - news
+          default: buying-guide
+        - variable: word_count
+          label: Target Word Count
+          type: number
+          required: false
+          default: 1500
+        selected: false
+      positionAbsolute:
+        x: 80
+        y: 282
+      width: 242
+      height: 161
+    - id: '1746700001001'
+      type: custom
+      position:
+        x: 380
+        y: 282
+      data:
+        type: llm
+        title: SEO Research
+        desc: Analyze keyword intent and find related terms
+        model:
+          provider: langgenius/gemini/google
+          name: gemini-2.5-flash
+          mode: chat
+          completion_params:
+            temperature: 0.4
+        prompt_template:
+        - role: system
+          text: 'You are an FPV SEO Research specialist. Analyze the target keyword for search intent, audience profile, and related semantic terms.
+
+            Output a JSON object with:
+
+            - search_intent (informational/commercial/transactional/navigational)
+
+            - target_audience (beginner/intermediate/expert)
+
+            - related_terms (5-10 semantic keywords)
+
+            - question_themes (3-5 questions users search for)
+
+            - content_angle (suggested unique angle)
+
+            '
+          id: 1b791755-f256-4e37-9d1a-c2ef6dbeeaee
+        - role: user
+          text: 'Keyword: {{#1746700000001.keyword#}}
+
+            Content Type: {{#1746700000001.content_type#}}
+
+            '
+          id: 82d43704-6251-4ff3-a179-8587f2bd68df
+        context:
+          enabled: false
+          variable_selector: []
+        vision:
+          enabled: false
+        selected: true
+      positionAbsolute:
+        x: 380
+        y: 282
+      width: 242
+      height: 132
+      selected: true
+    - id: '1746700002001'
+      type: custom
+      position:
+        x: 680
+        y: 282
+      data:
+        type: knowledge-retrieval
+        title: RAG Retrieval
+        desc: Retrieve FPV knowledge base chunks
+        query_variable_selector:
+        - '1746700000001'
+        - keyword
+        dataset_ids:
+        - d1d5e44b-4dde-445a-a686-67a1cc0d926c
+        - a733583a-5e50-4e00-8b50-759380da59db
+        - 38bb7d60-b921-440c-b8f4-e49f9982a61f
+        - 639af5aa-d424-4d0b-9633-a7ab541afcb2
+        retrieval_mode: multiple
+        score_threshold_enabled: true
+        score_threshold: 0.5
+        top_k: 5
+        reranking_enable: true
+        reranking_mode: reranking_model
+        reranking_model:
+          reranking_provider_name: langgenius/jina/jina
+          reranking_model_name: jina-reranker-v2-base-multilingual
+        selected: false
+        multiple_retrieval_config:
+          top_k: 5
+          score_threshold: 0.5
+          reranking_mode: reranking_model
+          reranking_enable: true
+          reranking_model:
+            reranking_provider_name: langgenius/jina/jina
+            reranking_model_name: jina-reranker-v2-base-multilingual
+      positionAbsolute:
+        x: 680
+        y: 282
+      width: 242
+      height: 202
+    - id: '1746700003001'
+      type: custom
+      position:
+        x: 980
+        y: 282
+      data:
+        type: llm
+        title: Metadata Enrichment
+        desc: Generate SEO title, meta description, and tags
+        model:
+          provider: langgenius/gemini/google
+          name: gemini-2.5-flash
+          mode: chat
+          completion_params:
+            temperature: 0.3
+        prompt_template:
+        - role: system
+          text: 'You are an SEO Metadata specialist for FPV content. Based on the keyword, research, and retrieved knowledge, generate:
+
+            - seo_title (50-60 chars, include keyword)
+
+            - meta_description (140-160 chars, compelling CTA)
+
+            - primary_keywords (3-5 main keywords)
+
+            - secondary_keywords (5-8 supporting terms)
+
+            - slug (URL-friendly, hyphenated)
+
+            Output as clean JSON.
+
+            '
+          id: 322bd636-f108-43fd-9309-5fcb00ee3295
+        - role: user
+          text: 'Keyword: {{#1746700000001.keyword#}}
+
+            SEO Research: {{#1746700001001.text#}}
+
+            Retrieved Knowledge: {{#1746700002001.result#}}
+
+            '
+          id: 914b63ba-258c-42e4-93f1-0fb3afb76310
+        context:
+          enabled: false
+          variable_selector: []
+        vision:
+          enabled: false
+        selected: false
+      positionAbsolute:
+        x: 980
+        y: 282
+      width: 242
+      height: 132
+    - id: '1746700004001'
+      type: custom
+      position:
+        x: 1280
+        y: 282
+      data:
+        type: llm
+        title: Outline Generator
+        desc: Generate H2/H3 article structure
+        model:
+          provider: langgenius/gemini/google
+          name: gemini-2.5-flash
+          mode: chat
+          completion_params:
+            temperature: 0.5
+        prompt_template:
+        - role: system
+          text: 'You are an FPV content architect. Create a detailed article outline based on the SEO research, metadata, and FPV knowledge.
+
+            Generate H2 sections with 2-4 H3 subsections each. Include:
+
+            - Introduction hook
+
+            - 4-6 main sections
+
+            - Buyer''s guide section (if buying intent)
+
+            - FAQ section (3-5 common questions)
+
+            - Conclusion with CTA
+
+            Output as JSON with sections array.
+
+            '
+          id: 48c61021-8ca1-4308-86b7-5102a664b539
+        - role: user
+          text: 'Keyword: {{#1746700000001.keyword#}}
+
+            Content Type: {{#1746700000001.content_type#}}
+
+            SEO Research: {{#1746700001001.text#}}
+
+            Metadata: {{#1746700003001.text#}}
+
+            Retrieved Knowledge: {{#1746700002001.result#}}
+
+            '
+          id: 5795442e-400b-45e8-ae98-a29bb1e93b28
+        context:
+          enabled: false
+          variable_selector: []
+        vision:
+          enabled: false
+        selected: false
+      positionAbsolute:
+        x: 1280
+        y: 282
+      width: 242
+      height: 116
+    - id: '1746700005001'
+      type: custom
+      position:
+        x: 1580
+        y: 282
+      data:
+        type: llm
+        title: Article Generator
+        desc: Write full article content
+        model:
+          provider: langgenius/gemini/google
+          name: gemini-2.5-flash
+          mode: chat
+          completion_params:
+            temperature: 0.7
+        prompt_template:
+        - role: system
+          text: 'You are an expert FPV content writer for fpvlovers.com.tr. Write a comprehensive, engaging article based on the outline and FPV knowledge base.
+
+            Guidelines:
+
+            - Write in a knowledgeable but accessible tone
+
+            - Include specific product names, specs, and real-world performance notes
+
+            - Use the retrieved knowledge base facts when available
+
+            - Add practical tips from real FPV pilot experience
+
+            - Use markdown formatting (H2 ##, H3 ###, bold, lists)
+
+            - Target word count as specified
+
+            Output the full article as markdown text.
+
+            '
+          id: 7f6d2422-112d-4b24-847d-6397561b266b
+        - role: user
+          text: 'Keyword: {{#1746700000001.keyword#}}
+
+            Content Type: {{#1746700000001.content_type#}}
+
+            Word Count: {{#1746700000001.word_count#}}
+
+            SEO Research: {{#1746700001001.text#}}
+
+            Outline: {{#1746700004001.text#}}
+
+            Retrieved Knowledge: {{#1746700002001.result#}}
+
+            '
+          id: 825b2949-8325-4af7-ab25-67066aa24129
+        context:
+          enabled: false
+          variable_selector: []
+        vision:
+          enabled: false
+        selected: false
+      positionAbsolute:
+        x: 1580
+        y: 282
+      width: 242
+      height: 116
+    - id: '1746700006001'
+      type: custom
+      position:
+        x: 1880
+        y: 282
+      data:
+        type: code
+        title: Affiliate Injector
+        desc: Scan article for product mentions and insert affiliate CTAs
+        code_language: python3
+        variables:
+        - variable: article_text
+          value_selector:
+          - '1746700005001'
+          - text
+        - variable: content_type
+          value_selector:
+          - '1746700000001'
+          - content_type
+        code: "import re, json\n\ndef main(article_text: str, content_type: str) -> dict:\n    # Product detection patterns\n    product_patterns = [\n        (r'\\b(DJI|TBS|T-Motor|BetaFPV|Happymodel|Rush|Caddx|Runcam|Foxeer)\\\
+          s+([A-Za-z0-9\\s\\-]+?)(?=\\s*(?:is|for|with|,|\\.|$))', 'product'),\n        (r'\\b(\\d{4,5}KV|mAh|GHz|inch|ESC|FC|VTX|RX|TX)\\b', 'spec'),\n    ]\n    \n    products_found = []\n    for pattern,\
+          \ ptype in product_patterns:\n        matches = re.findall(pattern, article_text, re.IGNORECASE)\n        for m in matches:\n            name = m if isinstance(m, str) else ' '.join(m).strip()\n\
+          \            if name and len(name) > 2:\n                products_found.append({\"name\": name, \"type\": ptype})\n    \n    # Determine if affiliate injection needed\n    buying_types = [\"buying-guide\"\
+          , \"comparison\", \"build-guide\"]\n    should_inject = content_type in buying_types or len(products_found) >= 2\n    \n    # Placement positions\n    paragraphs = article_text.split('\\n\\n')\n\
+          \    injection_points = []\n    if should_inject and len(paragraphs) > 3:\n        # Insert after intro (paragraph 2-3)\n        injection_points.append({\"after_paragraph\": 2, \"cta_type\":\
+          \ \"top-right\"})\n        if len(paragraphs) > 6:\n            injection_points.append({\"after_paragraph\": len(paragraphs)//2, \"cta_type\": \"inline\"})\n    \n    return {\n        \"result\"\
+          : json.dumps({\n            \"products_detected\": len(products_found),\n            \"should_inject\": should_inject,\n            \"injection_points\": injection_points,\n            \"products\"\
+          : products_found[:10],\n        })\n    }\n"
+        outputs:
+          result:
+            type: string
+            children: null
+        selected: false
+      positionAbsolute:
+        x: 1880
+        y: 282
+      width: 242
+      height: 96
+    - id: '1746700007001'
+      type: custom
+      position:
+        x: 2180
+        y: 282
+      data:
+        type: llm
+        title: Schema Generator
+        desc: Generate Article and FAQ schema.org markup
+        model:
+          provider: langgenius/gemini/google
+          name: gemini-2.5-flash
+          mode: chat
+          completion_params:
+            temperature: 0.2
+        prompt_template:
+        - role: system
+          text: 'Generate valid JSON-LD schema.org markup for this FPV article:
+
+            1. Article schema (headline, description, datePublished, author)
+
+            2. FAQ schema if the article contains questions/answers
+
+            3. Product schema if specific products are reviewed
+
+            Output clean JSON-LD blocks ready for HTML injection.
+
+            '
+          id: 0cfedea2-7a3c-4f29-9451-875e8728db5e
+        - role: user
+          text: 'Article: {{#1746700005001.text#}}
+
+            Metadata: {{#1746700003001.text#}}
+
+            Affiliate Analysis: {{#1746700006001.result#}}
+
+            '
+          id: f880b9e8-e4bc-41ab-96c4-fdd5ee661ea3
+        context:
+          enabled: false
+          variable_selector: []
+        vision:
+          enabled: false
+        selected: false
+      positionAbsolute:
+        x: 2180
+        y: 282
+      width: 242
+      height: 132
+    - id: '1746700008001'
+      type: custom
+      position:
+        x: 2480
+        y: 282
+      data:
+        type: end
+        title: End
+        desc: ''
+        outputs:
+        - variable: article
+          value_selector:
+          - '1746700005001'
+          - text
+        - variable: metadata
+          value_selector:
+          - '1746700003001'
+          - text
+        - variable: outline
+          value_selector:
+          - '1746700004001'
+          - text
+        - variable: schema
+          value_selector:
+          - '1746700007001'
+          - text
+        - variable: affiliate_data
+          value_selector:
+          - '1746700006001'
+          - result
+        - variable: seo_research
+          value_selector:
+          - '1746700001001'
+          - text
+        selected: false
+      positionAbsolute:
+        x: 2480
+        y: 282
+      width: 242
+      height: 218
+    edges:
+    - id: 1746700000001-source-1746700001001-target
+      source: '1746700000001'
+      sourceHandle: source
+      target: '1746700001001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: start
+        targetType: llm
+    - id: 1746700001001-source-1746700002001-target
+      source: '1746700001001'
+      sourceHandle: source
+      target: '1746700002001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: knowledge-retrieval
+    - id: 1746700002001-source-1746700003001-target
+      source: '1746700002001'
+      sourceHandle: source
+      target: '1746700003001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: knowledge-retrieval
+        targetType: llm
+    - id: 1746700003001-source-1746700004001-target
+      source: '1746700003001'
+      sourceHandle: source
+      target: '1746700004001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: llm
+    - id: 1746700004001-source-1746700005001-target
+      source: '1746700004001'
+      sourceHandle: source
+      target: '1746700005001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: llm
+    - id: 1746700005001-source-1746700006001-target
+      source: '1746700005001'
+      sourceHandle: source
+      target: '1746700006001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: code
+    - id: 1746700006001-source-1746700007001-target
+      source: '1746700006001'
+      sourceHandle: source
+      target: '1746700007001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: code
+        targetType: llm
+    - id: 1746700007001-source-1746700008001-target
+      source: '1746700007001'
+      sourceHandle: source
+      target: '1746700008001'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+      data:
+        sourceType: llm
+        targetType: end
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

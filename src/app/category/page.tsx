@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation';
 
 export default function CategoryPage() {
-  redirect('/category/parts');
+  redirect('/tools/component-duel');
 }

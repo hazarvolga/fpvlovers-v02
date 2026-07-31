@@ -1,0 +1,287 @@
+version: "0.6.0"
+kind: app
+app:
+  name: "Drone Part Matcher"
+  mode: advanced-chat
+  icon: "\U0001F527"
+  icon_background: "#E3F2FD"
+  icon_type: emoji
+  description: "Interactive FPV component compatibility checker: input parts → AI matches compatible builds, ecosystem recommendations, upgrade suggestions, and affiliate links."
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables:
+    - id: "cv_motors"
+      name: motors
+      value_type: string
+      description: "User's motors"
+      value: ""
+    - id: "cv_esc"
+      name: esc
+      value_type: string
+      description: "User's ESC"
+      value: ""
+    - id: "cv_frame"
+      name: frame
+      value_type: string
+      description: "User's frame"
+      value: ""
+    - id: "cv_battery"
+      name: battery
+      value_type: string
+      description: "User's battery"
+      value: ""
+    - id: "cv_goggles"
+      name: goggles
+      value_type: string
+      description: "User's goggles"
+      value: ""
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: "Hello FPV pilot! Tell me what components you're considering and I'll check compatibility, suggest upgrades, and find the best deals. You can mention motors, ESCs, frames, batteries, goggles, VTX, FC, props..."
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+      - "Is the T-Motor F60 Pro compatible with a SpeedyBee F7 stack?"
+      - "What motors should I pair with DJI O3 Air Unit on a 5 inch frame?"
+      - "Recommend a complete 5 inch freestyle build under $300"
+      - "Will 6S 1300mAh work with 2207 1750KV motors?"
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+  graph:
+    edges:
+      - id: "1746810001001-source-1746810001002-target"
+        source: "1746810001001"
+        sourceHandle: source
+        target: "1746810001002"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: start
+          targetType: parameter-extractor
+          isInIteration: false
+          isInLoop: false
+      - id: "1746810001002-source-1746810001003-target"
+        source: "1746810001002"
+        sourceHandle: source
+        target: "1746810001003"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: parameter-extractor
+          targetType: knowledge-retrieval
+          isInIteration: false
+          isInLoop: false
+      - id: "1746810001003-source-1746810001004-target"
+        source: "1746810001003"
+        sourceHandle: source
+        target: "1746810001004"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: knowledge-retrieval
+          targetType: llm
+          isInIteration: false
+          isInLoop: false
+      - id: "1746810001004-source-1746810001005-target"
+        source: "1746810001004"
+        sourceHandle: source
+        target: "1746810001005"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: answer
+          isInIteration: false
+          isInLoop: false
+    nodes:
+      - id: "1746810001001"
+        type: custom
+        position:
+          x: 80
+          y: 282
+        data:
+          type: start
+          title: Start
+          desc: ""
+          variables: []
+      - id: "1746810001002"
+        type: custom
+        position:
+          x: 380
+          y: 282
+        data:
+          type: parameter-extractor
+          title: "Part Extractor"
+          desc: "Extract FPV parts from user query"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.2
+          query_variable_selector:
+            - sys
+            - query
+          parameters:
+            - name: motors
+              type: string
+              description: "Motor model mentioned"
+              required: false
+            - name: esc
+              type: string
+              description: "ESC model mentioned"
+              required: false
+            - name: frame
+              type: string
+              description: "Frame model mentioned"
+              required: false
+            - name: vtx
+              type: string
+              description: "VTX model mentioned"
+              required: false
+            - name: flight_controller
+              type: string
+              description: "Flight controller model mentioned"
+              required: false
+            - name: battery
+              type: string
+              description: "Battery mentioned"
+              required: false
+            - name: goggles
+              type: string
+              description: "Goggles model mentioned"
+              required: false
+            - name: props
+              type: string
+              description: "Propellers mentioned"
+              required: false
+            - name: receiver
+              type: string
+              description: "Receiver/Radio mentioned"
+              required: false
+          instruction: "Extract FPV drone part names and models from the user's message. Be specific with brands and model numbers."
+      - id: "1746810001003"
+        type: custom
+        position:
+          x: 680
+          y: 282
+        data:
+          type: knowledge-retrieval
+          title: "RAG Search"
+          desc: "Search FPV knowledge base for component specs and compatibility"
+          query_variable_selector:
+            - sys
+            - query
+          dataset_ids:
+            - "38bb7d60-b921-440c-b8f4-e49f9982a61f"
+            - "a733583a-5e50-4e00-8b50-759380da59db"
+            - "639af5aa-d424-4d0b-9633-a7ab541afcb2"
+          retrieval_mode: hybrid
+          score_threshold_enabled: true
+          score_threshold: 0.5
+          top_k: 6
+          reranking_enable: true
+          reranking_mode: reranking_model
+          reranking_model:
+            reranking_provider_name: "langgenius/jina/jina"
+            reranking_model_name: "jina-reranker-v2-base-multilingual"
+      - id: "1746810001004"
+        type: custom
+        position:
+          x: 980
+          y: 282
+        data:
+          type: llm
+          title: "Compatibility Analyzer"
+          desc: "Analyze part compatibility and generate recommendations"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.4
+              max_tokens: 2048
+          prompt_template:
+            - role: system
+              text: |
+                You are an expert FPV drone mechanic and compatibility specialist for fpvlovers.com.tr. 
+
+                IMPORTANT RULES:
+                1. NEVER guess specs - use the [RETRIEVED KNOWLEDGE] for accurate data
+                2. If voltage/protocol/pinout mismatches exist, WARN the user clearly
+                3. Compatibility checklist (check ALL):
+                   - Voltage: motor KV × battery cell count within safe range
+                   - Protocol: ESC protocol (DShot/BLHeli32) vs FC support
+                   - Mounting: frame arm size vs motor mount pattern, stack size vs frame
+                   - Current: ESC amp rating ≥ motor peak current × 1.2
+                   - UART: enough UART ports for VTX, RX, GPS combined
+                   - Physical: frame wheelbase vs prop size clearance
+                4. Provide upgrade suggestions with clear reasoning
+                5. Include affiliate-ready product recommendations with estimated prices
+
+                FORMAT YOUR RESPONSE:
+                ## Compatibility Analysis
+                - ✅ Compatible items (green check emoji)
+                - ⚠️ Potential issues (warning emoji)
+                - ❌ Incompatible combinations (red X emoji)
+
+                ## Recommended Setup
+                Suggest a complete matching build with rationale
+
+                ## Upgrade Suggestions
+                2-3 upgrades with price/performance justification
+
+                ## Where to Buy
+                Recommended retailers for each part (with affiliate note if applicable)
+
+                Always end with: "Double-check all specs before purchasing. Prices are estimates."
+            - role: user
+              text: |
+                User's parts: {{#1746810001002.motors#}} {{#1746810001002.esc#}} {{#1746810001002.frame#}} {{#1746810001002.vtx#}} {{#1746810001002.flight_controller#}} {{#1746810001002.battery#}} {{#1746810001002.goggles#}}
+
+                RETRIEVED KNOWLEDGE:
+                {{#context#}}
+
+                User Query: {{#sys.query#}}
+          context:
+            enabled: true
+            variable_selector:
+              - "1746810001003"
+              - result
+          vision:
+            enabled: false
+          memory:
+            role_prefix:
+              user: ""
+              assistant: ""
+            window:
+              enabled: true
+              size: 10
+      - id: "1746810001005"
+        type: custom
+        position:
+          x: 1280
+          y: 282
+        data:
+          type: answer
+          title: Answer
+          desc: ""
+          answer: "{{#1746810001004.text#}}"
+          variables: []
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

@@ -4,8 +4,18 @@ out/
 dist/
 /build/
 .env
+.env.*
+*.env
+!.env.example
 .env.local
 .env.*.local
+AffexAI-Oracle-Servers/
+servers-info.txt
+coolify-env-backup*.env
+SECRETS-MOVE-OUT-OF-REPO/
+server-info/
+dev-artifacts/AffexAI-Oracle-Servers/
+graphify-out/
 credentials.json
 gemini-apikey.md
 raceapikey.md
@@ -32,6 +42,10 @@ output/
 .kiro/
 .worktrees/
 tsc_errors.txt
+pnpm-lock.yaml
+pnpm-workspace.yaml
+fpvlovers-live-site-code/
+outputs/
 tsconfig.check-old.json
 data/content-last-auto-run.json
 data/crawl-last-auto-run.json
@@ -44,3 +58,4 @@ video/**/hook.png
 video/**/priorities.png
 video/**/system.png
 video/**/cta.png
+testfile456

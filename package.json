@@ -21,6 +21,8 @@
     "handoff:test": "node scripts/handoff-regression-test.mjs",
     "opencode:brief": "node scripts/opencode-brief.mjs",
     "security:audit": "node scripts/repository-security-audit.mjs",
+    "security:auth-config-test": "node scripts/auth-config-regression-test.mjs",
+    "crawl:idempotency-test": "node scripts/crawl-queue-idempotency-regression-test.mjs",
     "metadata:audit": "node --import tsx scripts/audit-content-metadata.ts",
     "metadata:test": "node --import tsx scripts/content-metadata-regression-test.ts",
     "seo:discoverability-test": "node --import tsx scripts/seo-discoverability-regression-test.ts",
@@ -104,9 +106,11 @@
     "recharts": "^3.8.1",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
+    "sharp": "^0.35.3",
     "tailwind-merge": "^3.3.1",
     "tsx": "^4.22.3",
-    "youtube-transcript": "^1.3.1"
+    "youtube-transcript": "^1.3.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.5.3",
@@ -119,6 +123,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/sharp": "^0.32.0",
     "eslint": "9.39.1",
     "eslint-config-next": "16.0.8",
     "husky": "^9.1.7",

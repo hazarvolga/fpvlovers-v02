@@ -1,0 +1,394 @@
+version: "0.6.0"
+kind: app
+app:
+  name: "Metadata Enrichment"
+  mode: workflow
+  description: "Semantic intelligence: raw content → entity detection → intent classification → product extraction → brand detection → category mapping → storage"
+  icon: "\U0001F4CA"
+  icon_background: "#FFEAD5"
+  icon_type: emoji
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ""
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    nodes:
+      - id: "1746730000001"
+        type: custom
+        position:
+          x: 80
+          y: 282
+        data:
+          type: start
+          title: Start
+          desc: ""
+          variables:
+            - variable: raw_content
+              label: "Raw Content (Markdown)"
+              type: paragraph
+              required: true
+              max_length: 100000
+              placeholder: "Paste raw markdown content to enrich"
+            - variable: source_url
+              label: "Source URL"
+              type: text-input
+              required: false
+              max_length: 500
+            - variable: content_type_hint
+              label: "Content Type Hint"
+              type: select
+              required: false
+              options:
+                - ""
+                - "buying-guide"
+                - "comparison"
+                - "build-guide"
+                - "review"
+                - "tutorial"
+                - "article"
+                - "news"
+              default: ""
+      - id: "1746730001001"
+        type: custom
+        position:
+          x: 380
+          y: 282
+        data:
+          type: parameter-extractor
+          title: "Entity Detector"
+          desc: "Extract named entities from content"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.2
+          query_variable_selector:
+            - "1746730000001"
+            - raw_content
+          parameters:
+            - name: fpv_products
+              type: array[object]
+              description: "Specific FPV products mentioned"
+              required: true
+            - name: fpv_brands
+              type: array[string]
+              description: "FPV brand/manufacturer names"
+              required: true
+            - name: fpv_components
+              type: array[string]
+              description: "FPV component types (motor, ESC, frame, etc)"
+              required: true
+            - name: protocols
+              type: array[string]
+              description: "FPV protocols mentioned (Betaflight, ELRS, etc)"
+              required: false
+            - name: people
+              type: array[string]
+              description: "People/pilots mentioned"
+              required: false
+          instruction: "Extract all FPV-related entities from the content."
+      - id: "1746730002001"
+        type: custom
+        position:
+          x: 680
+          y: 282
+        data:
+          type: llm
+          title: "Intent Classifier"
+          desc: "Classify content intent"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.3
+          prompt_template:
+            - role: system
+              text: |
+                Classify this FPV content into one or more intent categories:
+                - buying: Purchase-oriented (reviews with prices, comparisons, "best X")
+                - research: Educational/informational ("how to", specs, features)
+                - build: Building/assembly focused (parts lists, build logs)
+                - tuning: PID/filter tuning, blackbox analysis
+                - troubleshooting: Fixing problems, debugging
+                - news: Industry news, product releases
+                
+                Also determine:
+                - primary_intent (the dominant intent)
+                - secondary_intents (supporting intents)
+                - skill_level (beginner/intermediate/expert)
+                - monetization_compatible (yes/no/conditional)
+                
+                Output as JSON.
+            - role: user
+              text: |
+                Content: {{#1746730000001.raw_content#}}
+                Entities Detected: {{#1746730001001.fpv_products#}} {{#1746730001001.fpv_brands#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1746730003001"
+        type: custom
+        position:
+          x: 980
+          y: 282
+        data:
+          type: parameter-extractor
+          title: "Product Extractor"
+          desc: "Extract specific product details"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.2
+          query_variable_selector:
+            - "1746730000001"
+            - raw_content
+          parameters:
+            - name: products
+              type: array[object]
+              description: "Products with name, brand, price (if mentioned), specs"
+              required: true
+            - name: comparisons
+              type: array[string]
+              description: "Products being compared (product A vs product B)"
+              required: false
+            - name: recommended_choice
+              type: string
+              description: "If the content recommends a specific product, which one"
+              required: false
+          instruction: "Extract detailed product information including prices and comparisons."
+      - id: "1746730004001"
+        type: custom
+        position:
+          x: 1280
+          y: 282
+        data:
+          type: parameter-extractor
+          title: "Brand Detector"
+          desc: "Detect brand presence and sentiment"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.2
+          query_variable_selector:
+            - "1746730000001"
+            - raw_content
+          parameters:
+            - name: brands
+              type: array[object]
+              description: "Brands with name, sentiment (positive/negative/neutral), mentions count"
+              required: true
+            - name: dominant_brand
+              type: string
+              description: "Most prominently featured brand"
+              required: false
+            - name: sponsor_opportunity
+              type: boolean
+              description: "Whether this content presents a sponsorship opportunity"
+              required: false
+          instruction: "Analyze brand presence and sentiment in the content."
+      - id: "1746730005001"
+        type: custom
+        position:
+          x: 1580
+          y: 282
+        data:
+          type: code
+          title: "Category Mapper"
+          desc: "Map to content categories and store metadata"
+          code_language: python3
+          variables:
+            - variable: intent_json
+              value_selector:
+                - "1746730002001"
+                - text
+            - variable: products
+              value_selector:
+                - "1746730003001"
+                - products
+            - variable: brands
+              value_selector:
+                - "1746730004001"
+                - brands
+            - variable: source_url
+              value_selector:
+                - "1746730000001"
+                - source_url
+          code: |
+            import json
+
+            def main(intent_json: str, products: list, brands: list, source_url: str) -> dict:
+                # Category mapping
+                category_map = {
+                    "buying": "buying-guides",
+                    "research": "articles",
+                    "build": "build-guides",
+                    "tuning": "tuning-guides",
+                    "troubleshooting": "troubleshooting",
+                    "news": "news-reviews",
+                }
+
+                try:
+                    intent_data = json.loads(intent_json)
+                    primary = intent_data.get("primary_intent", "research")
+                except:
+                    primary = "research"
+
+                mapped_category = category_map.get(primary, "articles")
+
+                # Build metadata package
+                metadata = {
+                    "category": mapped_category,
+                    "primary_intent": primary,
+                    "product_count": len(products) if isinstance(products, list) else 0,
+                    "brand_count": len(brands) if isinstance(brands, list) else 0,
+                    "source_url": source_url,
+                    "has_monetization_potential": primary in ["buying", "build"],
+                    "generated_at": "auto",
+                }
+
+                return {
+                    "metadata_json": json.dumps(metadata),
+                    "category": mapped_category,
+                    "product_count": metadata["product_count"],
+                    "brand_count": metadata["brand_count"],
+                    "monetization_potential": metadata["has_monetization_potential"],
+                }
+          outputs:
+            metadata_json:
+              type: string
+              children: null
+            category:
+              type: string
+              children: null
+            product_count:
+              type: number
+              children: null
+            brand_count:
+              type: number
+              children: null
+            monetization_potential:
+              type: boolean
+              children: null
+      - id: "1746730006001"
+        type: custom
+        position:
+          x: 1880
+          y: 282
+        data:
+          type: end
+          title: End
+          desc: ""
+          outputs:
+            - variable: enriched_metadata
+              value_selector:
+                - "1746730005001"
+                - metadata_json
+            - variable: category
+              value_selector:
+                - "1746730005001"
+                - category
+            - variable: intent_analysis
+              value_selector:
+                - "1746730002001"
+                - text
+            - variable: products
+              value_selector:
+                - "1746730003001"
+                - products
+            - variable: brands
+              value_selector:
+                - "1746730004001"
+                - brands
+            - variable: entities
+              value_selector:
+                - "1746730001001"
+                - fpv_products
+    edges:
+      - id: "1746730000001-source-1746730001001-target"
+        source: "1746730000001"
+        sourceHandle: source
+        target: "1746730001001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: start
+          targetType: parameter-extractor
+      - id: "1746730001001-source-1746730002001-target"
+        source: "1746730001001"
+        sourceHandle: source
+        target: "1746730002001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: parameter-extractor
+          targetType: llm
+      - id: "1746730002001-source-1746730003001-target"
+        source: "1746730002001"
+        sourceHandle: source
+        target: "1746730003001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: parameter-extractor
+      - id: "1746730003001-source-1746730004001-target"
+        source: "1746730003001"
+        sourceHandle: source
+        target: "1746730004001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: parameter-extractor
+          targetType: parameter-extractor
+      - id: "1746730004001-source-1746730005001-target"
+        source: "1746730004001"
+        sourceHandle: source
+        target: "1746730005001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: parameter-extractor
+          targetType: code
+      - id: "1746730005001-source-1746730006001-target"
+        source: "1746730005001"
+        sourceHandle: source
+        target: "1746730006001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: end
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

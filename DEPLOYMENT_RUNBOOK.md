@@ -37,6 +37,7 @@ Required:
 - `NEXT_PUBLIC_APP_URL`
 - `ADMIN_USER`
 - `ADMIN_PASS`
+- `AUTH_SECRET` (or `NEXTAUTH_SECRET`) must be a unique high-entropy value with at least 32 characters.
 - `DIFY_BASE_URL`
 - `DIFY_API_KEY`
 - `DIFY_APP_KEY`

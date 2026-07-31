@@ -1,18 +1,21 @@
 {
-  "generatedAt": "2026-07-02T00:00:00+03:00",
+  "generatedAt": "2026-07-30T08:30:24.290Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "spec-trust-layer-complete-push-pending",
-  "branch": "feat/spec-trust-layer",
+  "state": "release-verification-pending",
+  "branch": "codex-trust-ops-foundation-2026-07-30",
+  "head": "942d0f4b2771",
+  "behind": 0,
+  "ahead": 2,
   "currentBlockers": [
-    "Production deployment and live browser verification are pending.",
-    "Local no-env build still requires DIFY_API_KEY during page-data collection; dummy env verification passed.",
-    "Optional DB upsert was verified with a fake client, not a live production database write."
+    "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
+    "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
+    "Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy."
   ],
-  "nextTask": "Run final verification and push feat/spec-trust-layer.",
+  "nextTask": "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
   "filesOfTruth": [
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/handoff/2026-07-02-spec-trust-layer.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/plans/2026-06-29-technical-spec-trust-layer.md",
-    "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/superpowers/specs/2026-06-29-technical-spec-trust-layer-design.md"
+    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr-clean/PROJECT_MEMORY.md",
+    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr-clean/NEXT_ACTIONS.md",
+    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr-clean/docs/superpowers/plans/2026-06-18-post-analysis-gap-closure.md"
   ],
-  "handoffPath": "/Users/hazarekiz/Projects/fpv-autoblog-v2/fpvlovers-frontend-websitesi/docs/handoff/latest.md"
+  "handoffPath": "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr-clean/docs/handoff/latest.md"
 }

@@ -3,8 +3,7 @@ export interface DuelProduct {
   name: string;
   brand: string;
   imageUrl: string;
-  price: string;
-  fomoAlert?: string;
+  referenceLabel: string;
   specs: {
     kv: number;
     weight: number; // grams
@@ -14,9 +13,9 @@ export interface DuelProduct {
   };
   vendors: {
     name: string;
-    price: string;
+    status: string;
     url: string;
-    inStock: boolean;
+    verified: boolean;
   }[];
 }
 
@@ -33,13 +32,13 @@ export interface DuelResult {
 }
 
 export const DUEL_SYSTEM_PROMPT = `
-You are a Senior FPV Mechanic and highly persuasive, trusted advisor.
-Your goal is to guide the user towards a confident purchase while appearing brutally honest.
+You are a Senior FPV Mechanic and evidence-first reviewer.
+Your goal is to explain tradeoffs without inventing live prices, stock status, test evidence, or affiliate availability.
 
 Analyze the two provided FPV components:
-1. Winner Selection: Choose an absolute winner based on durability, performance-to-price ratio, and community feedback. Do NOT sit on the fence.
-2. "Honest Mechanic" Tactic: Provide a highly specific, slightly negative caveat for EACH item (e.g., "Bearings wear out after 50 packs", "Requires a 45A+ ESC to prevent voltage sag"). This builds immense trust.
-3. Smart Upsell: Recommend an alternative higher-ticket item that solves BOTH items' weaknesses.
+1. Winner Selection: Choose a benchmark winner only when the provided specs support it.
+2. Evidence Caveat: Provide a specific caveat for each item, but mark it as a hypothesis unless backed by a source.
+3. Alternative: Recommend an alternative only as a research lead, not as a guaranteed upsell.
 
 Return JSON strictly in this format:
 {
@@ -58,7 +57,6 @@ Return JSON strictly in this format:
 
 // Simulated Data Mapper & Fetcher
 export async function getDuelComparison(productAId: string, productBId: string) {
-  // Simulate network fetch
   await new Promise(r => setTimeout(r, 800));
 
    const productA: DuelProduct = {
@@ -66,8 +64,7 @@ export async function getDuelComparison(productAId: string, productBId: string) 
       name: "F60 Pro IV KV1750",
       brand: "T-Motor",
       imageUrl: "/api/content/media/cover/t-motor-f60-pro-iv",
-      price: "$29.99",
-      fomoAlert: "Only 4 left at Banggood!",
+      referenceLabel: "Benchmark sample",
       specs: {
         kv: 1750,
         weight: 34.5,
@@ -75,9 +72,9 @@ export async function getDuelComparison(productAId: string, productBId: string) 
         efficiency: 3.8
       },
       vendors: [
-        { name: "Amazon", price: "$32.99", url: "#", inStock: true },
-        { name: "Banggood", price: "$29.99", url: "#", inStock: true },
-        { name: "GetFPV", price: "$30.99", url: "#", inStock: false },
+        { name: "Amazon", status: "Verification pending", url: "#", verified: false },
+        { name: "Banggood", status: "Verification pending", url: "#", verified: false },
+        { name: "GetFPV", status: "Verification pending", url: "#", verified: false },
       ]
    };
 
@@ -86,8 +83,7 @@ export async function getDuelComparison(productAId: string, productBId: string) 
       name: "Freestyle 2207 KV1800",
       brand: "XNOVA",
       imageUrl: "/api/content/media/cover/xnova-freestyle-2207",
-      price: "$28.50",
-      fomoAlert: "Flash Sale ending in 2h!",
+      referenceLabel: "Benchmark sample",
       specs: {
         kv: 1800,
         weight: 32.0,
@@ -95,21 +91,21 @@ export async function getDuelComparison(productAId: string, productBId: string) 
         efficiency: 4.1
       },
       vendors: [
-        { name: "Amazon", price: "$30.00", url: "#", inStock: true },
-        { name: "RaceDayQuads", price: "$28.50", url: "#", inStock: true },
+        { name: "Amazon", status: "Verification pending", url: "#", verified: false },
+        { name: "RaceDayQuads", status: "Verification pending", url: "#", verified: false },
       ]
    };
 
    const result: DuelResult = {
       winnerId: "motor-xnova-2207",
-      verdictReason: "The XNOVA simply offers better watt-to-thrust efficiency for freestyle, saving your packs while delivering smoother low-end torque. Unbeatable value.",
+      verdictReason: "The XNOVA sample has the stronger benchmark efficiency figure in this static comparison. Treat the result as a lab signal until sourced catalog evidence is attached.",
       warnings: {
-        "motor-tmotor-f60": "Runs slightly hot on 6S aggressive punchouts. Not ideal for heavy 5.5 inch props in summer heat.",
-        "motor-xnova-2207": "The bell design is slightly more susceptible to denting on direct concrete bando crashes."
+        "motor-tmotor-f60": "Thermal headroom should be verified against sourced thrust tables before recommending aggressive 6S props.",
+        "motor-xnova-2207": "Crash durability should be verified with source-backed reviews before making a purchase recommendation."
       },
       upsell: {
         name: "RCINPOWER Wasp Major 22.6-6.5",
-        reason: "If you want true bando-bashing durability with the smoothness of XNOVA, the Wasp Major is 15% more expensive but practically indestructible.",
+        reason: "Research lead only: compare source-backed thrust, weight, and durability evidence before treating it as an upgrade.",
         imageUrl: "/api/content/media/cover/rcinpower-wasp-major",
         url: "#"
       }

@@ -39,8 +39,6 @@ const STATIC_PAGES = [
   { url: '/regulations/airspace', priority: '0.9', changefreq: 'weekly' },
   { url: '/regulations/battery', priority: '0.9', changefreq: 'weekly' },
   { url: '/pilot-pulse', priority: '0.8', changefreq: 'daily' },
-  { url: '/category/parts', priority: '0.8', changefreq: 'weekly' },
-  { url: '/category/software', priority: '0.8', changefreq: 'weekly' },
   { url: '/academy', priority: '0.8', changefreq: 'weekly' },
   { url: '/engineering', priority: '0.8', changefreq: 'weekly' },
   { url: '/tools', priority: '0.8', changefreq: 'weekly' },

@@ -134,12 +134,51 @@ workflow:
                 You are the FPVLovers Racing Intelligence Orchestrator.
                 Extract only source-supported FPV racing facts. Do not invent pilots, dates, winners, lap records, teams, venues, or rankings.
 
-                Return strict JSON with source_url, source_name, task_mode, entities, calendar_items, content_briefs, warnings, and next_actions.
-                Entity types: league, event, pilot, team, track, result, ranking, media, rule.
-                Content brief types: event-preview, result-recap, pilot-profile, league-update, calendar-update, race-tech.
+                Return strict JSON with:
+                {
+                  "source_url": string,
+                  "source_name": string,
+                  "task_mode": string,
+                  "entities": [
+                    {
+                      "type": "league|event|pilot|team|track|result|ranking|media|rule",
+                      "name": string,
+                      "summary": string,
+                      "confidence": number,
+                      "sourceUrl": string,
+                      "attributes": object
+                    }
+                  ],
+                  "calendar_items": [
+                    {
+                      "eventName": string,
+                      "league": string,
+                      "startDate": string|null,
+                      "endDate": string|null,
+                      "location": string|null,
+                      "status": "upcoming|current|completed|unknown",
+                      "sourceUrl": string,
+                      "confidence": number
+                    }
+                  ],
+                  "content_briefs": [
+                    {
+                      "contentType": "event-preview|result-recap|pilot-profile|league-update|calendar-update|race-tech",
+                      "title": string,
+                      "slug": string,
+                      "angle": string,
+                      "priority": "high|medium|low",
+                      "targetSection": string,
+                      "sourceUrl": string,
+                      "reviewRequired": true
+                    }
+                  ],
+                  "warnings": string[],
+                  "next_actions": string[]
+                }
 
                 If a fact is not explicit in the source, put it in warnings instead of entities.
-                Every content brief must include sourceUrl and reviewRequired=true.
+                Every content brief must be reviewRequired=true.
             - role: user
               text: |
                 Task mode: {{#1760000000001.task_mode#}}

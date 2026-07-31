@@ -5,8 +5,12 @@ import { Cpu, Wind, Video } from 'lucide-react';
 import { CyberBreadcrumb } from '@/features/navigation/components/Breadcrumb';
 
 export const metadata = {
-  title: 'Flight Lab | FPVLovers',
-  description: 'Upload your FPV flight video for telemetry and physics review.',
+  title: 'Flight Review Lab | FPVLovers',
+  description: 'Conservative FPV training rubric for uploaded flight files. Per-frame visual intelligence remains disabled until the verified analysis pipeline is live.',
+  robots: {
+    index: false,
+    follow: true,
+  },
 }
 
 export default function FlightLabPage() {
@@ -32,21 +36,21 @@ export default function FlightLabPage() {
                  Flight <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00F5FF] to-blue-600 text-glow">Critic</span>
               </h1>
               <p className="text-white/50 max-w-2xl mx-auto font-semibold leading-relaxed">
-                 Upload your raw FPV flow. The neural engine will process maneuver physics, frame transitions, and gap hunting precision to assign your official Pilot Rank.
+                 Upload a flight file for a conservative training rubric. This version does not claim per-frame visual analysis or official ranking.
               </p>
 
               <div className="flex justify-center gap-8 mt-8">
                  <div className="flex flex-col items-center gap-2 text-[#00F5FF]/60 hover:text-[#00F5FF] transition-colors">
                     <Video className="w-6 h-6" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">Video Parsing</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest">File Review</span>
                  </div>
                  <div className="flex flex-col items-center gap-2 text-[#00F5FF]/60 hover:text-[#00F5FF] transition-colors">
                     <Cpu className="w-6 h-6" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">Physics Logic</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Training Logic</span>
                  </div>
                  <div className="flex flex-col items-center gap-2 text-[#00F5FF]/60 hover:text-[#00F5FF] transition-colors">
                     <Wind className="w-6 h-6" />
-                    <span className="text-[10px] font-bold uppercase tracking-widest">Aero Rating</span>
+                    <span className="text-[10px] font-bold uppercase tracking-widest">Rubric Output</span>
                  </div>
               </div>
            </div>

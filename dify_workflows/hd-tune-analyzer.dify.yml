@@ -1,0 +1,267 @@
+version: "0.6.0"
+kind: app
+app:
+  name: "HD Tune Analyzer"
+  mode: advanced-chat
+  icon: "\U0001F4C8"
+  icon_background: "#E8F5E9"
+  icon_type: emoji
+  description: "Upload blackbox logs, tune files, or config dumps for AI-powered PID tuning analysis, oscillation detection, motor heat risk, and propwash diagnosis."
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables:
+    - id: "cv_last_analysis"
+      name: last_analysis
+      value_type: string
+      description: "Previous tuning analysis result"
+      value: ""
+  features:
+    file_upload:
+      enabled: true
+      allowed_file_types:
+        - document
+      allowed_file_extensions:
+        - ".bbl"
+        - ".bfl"
+        - ".csv"
+        - ".txt"
+        - ".log"
+        - ".json"
+      allowed_file_upload_methods:
+        - local_file
+      number_limits: 5
+    opening_statement: "Upload your Betaflight/INAV/EmuFlight blackbox log (`.bbl`, `.csv`), CLI dump, or tune file. I'll analyze your PID tuning, detect oscillations, check motor heat risk, and diagnose propwash. Just drop a file and let me know your setup!"
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions:
+      - "I have oscillations on punchouts, what should I adjust?"
+      - "My motors are coming down hot after 2 minutes of freestyle"
+      - "Analyze my PID tune for propwash at 70% throttle"
+      - "What D-term filtering should I use for 5 inch 6S?"
+    suggested_questions_after_answer:
+      enabled: true
+    text_to_speech:
+      enabled: false
+  graph:
+    edges:
+      - id: "1746820001001-source-1746820001002-target"
+        source: "1746820001001"
+        sourceHandle: source
+        target: "1746820001002"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: start
+          targetType: code
+          isInIteration: false
+          isInLoop: false
+      - id: "1746820001002-source-1746820001003-target"
+        source: "1746820001002"
+        sourceHandle: source
+        target: "1746820001003"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: llm
+          isInIteration: false
+          isInLoop: false
+      - id: "1746820001003-source-1746820001004-target"
+        source: "1746820001003"
+        sourceHandle: source
+        target: "1746820001004"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: answer
+          isInIteration: false
+          isInLoop: false
+    nodes:
+      - id: "1746820001001"
+        type: custom
+        position:
+          x: 80
+          y: 282
+        data:
+          type: start
+          title: Start
+          desc: ""
+          variables: []
+      - id: "1746820001002"
+        type: custom
+        position:
+          x: 380
+          y: 282
+        data:
+          type: code
+          title: "Log Preprocessor"
+          desc: "Parse and summarize blackbox log data"
+          code_language: python3
+          variables:
+            - variable: files
+              value_selector:
+                - sys
+                - files
+          code: |
+            import json
+
+            def main(files: list) -> dict:
+                summary = {
+                    "file_count": len(files) if files else 0,
+                    "file_names": [],
+                    "content_preview": "",
+                    "suggested_analysis": "general",
+                }
+
+                if not files:
+                    return {"preprocessed": json.dumps(summary), "has_data": False}
+
+                for f in files:
+                    name = f.get("name", "unknown")
+                    summary["file_names"].append(name)
+
+                    # Detect log type from extension
+                    if name.endswith(".bbl") or name.endswith(".bfl"):
+                        summary["suggested_analysis"] = "blackbox"
+                    elif name.endswith(".csv"):
+                        summary["suggested_analysis"] = "csv-log"
+                    elif "diff" in name.lower() or "dump" in name.lower():
+                        summary["suggested_analysis"] = "config-dump"
+
+                return {
+                    "preprocessed": json.dumps(summary),
+                    "has_data": True,
+                    "analysis_type": summary["suggested_analysis"],
+                }
+          outputs:
+            preprocessed:
+              type: string
+              children: null
+            has_data:
+              type: boolean
+              children: null
+            analysis_type:
+              type: string
+              children: null
+      - id: "1746820001003"
+        type: custom
+        position:
+          x: 680
+          y: 282
+        data:
+          type: llm
+          title: "Tune Analyzer LLM"
+          desc: "AI-powered PID and blackbox analysis"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.3
+              max_tokens: 3072
+          prompt_template:
+            - role: system
+              text: |
+                You are a world-class FPV drone tuner and blackbox log analyst for fpvlovers.com.tr. You specialize in Betaflight, INAV, and EmuFlight PID tuning.
+
+                ANALYSIS FRAMEWORK:
+                
+                1. **Oscillation Detection**
+                   - Frequency analysis: low (20-40Hz = P-term), mid (40-80Hz = D-term), high (80+ Hz = noise)
+                   - Axis identification: roll vs pitch vs yaw
+                   - Trigger conditions: throttle range, maneuver type
+
+                2. **PID Tuning Assessment**
+                   - P-gain: Is it causing overshoot or slow response?
+                   - D-gain: Adequate damping without excessive noise amplification?
+                   - I-gain: Steady-state error? Accumulation issues?
+                   - FF (FeedForward): Appropriate for stick feel?
+
+                3. **Filtering Analysis**
+                   - Gyro LPF: Appropriate cutoff for RPM/ESC noise?
+                   - D-term LPF: Sufficient noise rejection without phase delay?
+                   - RPM filtering: Enabled and configured correctly?
+                   - Dynamic notch: Tracking frame resonances?
+
+                4. **Motor Health**
+                   - Per-motor temperature analysis (if available)
+                   - Current draw vs motor rating
+                   - Saturation and efficiency
+
+                5. **Propwash Diagnosis**
+                   - Signature: oscillations during descent or aggressive turns
+                   - I-term relaxation contribution
+                   - TPA (Throttle PID Attenuation) effectiveness
+
+                OUTPUT FORMAT:
+                ## Tune Analysis Report
+
+                ### Overall Health Score: X/100
+                Brief summary of tune quality
+
+                ### Critical Issues (if any)
+                Bullet points with urgency level (🔴 Critical / 🟡 Warning / 🟢 Info)
+
+                ### PID Recommendations
+                | Axis | Parameter | Current | Suggested | Reason |
+                |------|-----------|---------|-----------|--------|
+
+                ### Filter Recommendations
+                Specific gyro/d-term filter suggestions
+
+                ### Motor & Propwash
+                Heat risk assessment and propwash mitigation
+
+                ### CLI Commands to Apply
+                ```
+                set p_pitch = XX
+                set d_pitch = XX
+                ...
+                save
+                ```
+
+                Always include: "⚠️ Test changes in a safe area first. Small adjustments (5-10%) recommended per test flight."
+            - role: user
+              text: |
+                Log Preprocessing: {{#1746820001002.preprocessed#}}
+                Analysis Type: {{#1746820001002.analysis_type#}}
+
+                User Query: {{#sys.query#}}
+                User Files: {{#sys.files#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+          memory:
+            role_prefix:
+              user: ""
+              assistant: ""
+            window:
+              enabled: true
+              size: 5
+      - id: "1746820001004"
+        type: custom
+        position:
+          x: 980
+          y: 282
+        data:
+          type: answer
+          title: Answer
+          desc: ""
+          answer: "{{#1746820001003.text#}}"
+          variables: []
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

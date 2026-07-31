@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import fs from 'fs';
 import path from 'path';
 import { loadContentJobsNew, saveContentJobsNew } from '@/lib/content-automation/queue';
@@ -197,6 +198,8 @@ export async function GET(req: Request) {
           latestJob,
           prepared.content,
         );
+        revalidatePath('/');
+        revalidatePath('/sitemap.xml');
         latestJobs[index] = latestJob;
         await saveContentJobsNew(latestJobs);
         results.push({

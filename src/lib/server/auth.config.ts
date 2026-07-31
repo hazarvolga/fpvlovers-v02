@@ -3,25 +3,32 @@ import Google from "next-auth/providers/google";
 import Discord from "next-auth/providers/discord";
 import GitHub from "next-auth/providers/github";
 
-const getFallbackSecret = () => {
-  if (typeof process !== "undefined" && process.env) {
-    if (process.env.AUTH_SECRET) return process.env.AUTH_SECRET;
-    if (process.env.NEXTAUTH_SECRET) return process.env.NEXTAUTH_SECRET;
-    
-    // Construct a cryptographically robust and stable signature from sensitive env keys
-    const signature = [
-      process.env.ADMIN_PASS || "",
-      process.env.FPV_DATABASE_URL || "",
-      process.env.GEMINI_API_KEY || "fpvlovers-edge-fallback-2026"
-    ].join("::");
-    
-    return signature;
+const DEV_AUTH_SECRET = "fpvlovers-dev-only-auth-secret-change-before-production";
+
+const isProductionRuntime = () =>
+  process.env.NODE_ENV === "production" &&
+  process.env.NEXT_PHASE !== "phase-production-build" &&
+  process.env.FPV_ALLOW_INSECURE_AUTH_SECRET !== "true";
+
+const getAuthSecret = () => {
+  const secret = process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET;
+
+  if (secret) {
+    if (isProductionRuntime() && secret.length < 32) {
+      throw new Error("AUTH_SECRET/NEXTAUTH_SECRET must be at least 32 characters in production.");
+    }
+    return secret;
   }
-  return "fpvlovers-edge-fallback-2026";
+
+  if (isProductionRuntime()) {
+    throw new Error("AUTH_SECRET or NEXTAUTH_SECRET must be configured in production.");
+  }
+
+  return DEV_AUTH_SECRET;
 };
 
 export const authConfig = {
-  secret: getFallbackSecret(),
+  secret: getAuthSecret(),
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID || "dummy",

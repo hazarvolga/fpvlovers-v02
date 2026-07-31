@@ -1,0 +1,25 @@
+{
+  "skill_name": "fpvlovers-dev-assistant",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "fpv-pid-profiles dataset'i boş, nasıl doldurabilirim? Crawl4AI B'yi kullanarak gerçek PID profil verisi çekeyim ama önce dry-run yapmak istiyorum.",
+      "expected_output": "CRAWL_DRY_RUN=true kullanımını, crawl-queue.ts pattern'ini, Crawl4AI B endpoint'ini ve dataset API token'ını içeren adım adım talimat + örnek kod."
+    },
+    {
+      "id": 2,
+      "prompt": "Yeni bir 'PriceTracker' agent'ı eklemem gerekiyor — FPV parçalarının fiyatlarını izleyecek. Ne yapmalıyım?",
+      "expected_output": "src/lib/agents/priceTrackerAgent.ts yapısı, src/lib/agents/index.ts'e nasıl register edileceği, src/app/api/admin/agents/ altında route pattern'i, ve mevcut agent'lardan (örn. affiliateAgent.ts) şablon alınması talimatı."
+    },
+    {
+      "id": 3,
+      "prompt": "dify_workflows/ altındaki seo-content-generator DSL'ini API'den tetiklemek istiyorum. Şu an sadece Dify UI'dan import edilmiş ama kod tarafında bağlantı yok.",
+      "expected_output": "src/lib/dify-client.ts üzerinden wrapper fonksiyon örneği, throttle/rate limit kurallarına uyum, ve DSL'i tetikleyecek API route taslağı."
+    },
+    {
+      "id": 4,
+      "prompt": "src/app/admin/page.tsx'deki Analytics sekmesine yeni bir grafik eklemek istiyorum ama dosya büyük dosya. Nasıl güvenli bir şekilde değişiklik yapabilirim?",
+      "expected_output": "Sadece ilgili sekmeyi hedef alma talimatı, mevcut chart/card pattern'ini okuma önerisi, Tailwind + cockpit black/charcoal + cyan/orange renk dili kuralları ve değişiklik öncesi checklist."
+    }
+  ]
+}

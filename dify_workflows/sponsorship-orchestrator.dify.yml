@@ -1,0 +1,602 @@
+version: "0.6.0"
+kind: app
+app:
+  name: "Sponsorship Orchestrator"
+  mode: workflow
+  description: "AI-native sponsor management: application → AI analysis → scoring → classification → visibility strategy → placement → approval → activation"
+  icon: "\U0001F3AF"
+  icon_background: "#FFEAD5"
+  icon_type: emoji
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ""
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    nodes:
+      - id: "1746720000001"
+        type: custom
+        position:
+          x: 80
+          y: 282
+        data:
+          type: start
+          title: Start
+          desc: ""
+          variables:
+            - variable: sponsor_name
+              label: "Sponsor Name"
+              type: text-input
+              required: true
+              max_length: 100
+              placeholder: "e.g. T-Motor"
+            - variable: sponsor_url
+              label: "Sponsor URL"
+              type: text-input
+              required: true
+              max_length: 500
+              placeholder: "https://store.tmotor.com"
+            - variable: sponsor_category
+              label: "Category"
+              type: select
+              required: true
+              options:
+                - "Motors"
+                - "ESC"
+                - "Flight Controller"
+                - "Frame"
+                - "VTX"
+                - "Camera"
+                - "Goggles"
+                - "Battery"
+                - "Propellers"
+                - "Radio"
+                - "Accessories"
+                - "Other"
+              default: "Motors"
+            - variable: products_json
+              label: "Products (JSON array)"
+              type: paragraph
+              required: false
+              max_length: 5000
+              placeholder: '[{"name":"Product A","url":"https://..."}]'
+            - variable: budget
+              label: "Budget (USD)"
+              type: number
+              required: false
+              default: 1000
+      - id: "1746720001001"
+        type: custom
+        position:
+          x: 380
+          y: 282
+        data:
+          type: llm
+          title: "AI Sponsor Analysis"
+          desc: "Analyze sponsor fit for FPV ecosystem"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.4
+          prompt_template:
+            - role: system
+              text: |
+                You are an FPV ecosystem analyst. Evaluate this sponsor's fit for fpvlovers.com.tr:
+                
+                1. Ecosystem Relevance (0-100): How relevant is this brand to the FPV drone community?
+                2. Content Alignment: Which content types would this sponsor fit best? (buying-guide, comparison, build-guide, review, article, ecosystem-page)
+                3. Community Trust: How trusted is this brand in the FPV community?
+                4. Recommendation Quality: Would readers find this sponsor genuinely useful?
+                5. Red Flags: Any concerns about recommending this sponsor?
+                
+                Output as JSON.
+            - role: user
+              text: |
+                Sponsor: {{#1746720000001.sponsor_name#}}
+                URL: {{#1746720000001.sponsor_url#}}
+                Category: {{#1746720000001.sponsor_category#}}
+                Products: {{#1746720000001.products_json#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1746720002001"
+        type: custom
+        position:
+          x: 680
+          y: 282
+        data:
+          type: code
+          title: "Sponsor Scorer"
+          desc: "Calculate visibility and relevance scores"
+          code_language: python3
+          variables:
+            - variable: analysis
+              value_selector:
+                - "1746720001001"
+                - text
+            - variable: budget
+              value_selector:
+                - "1746720000001"
+                - budget
+          code: |
+            import json, re
+
+            def main(analysis: str, budget: int) -> dict:
+                try:
+                    data = json.loads(analysis)
+                except:
+                    # Extract scores using regex fallback
+                    relevance = 50
+                    trust = 50
+                else:
+                    relevance = data.get("ecosystem_relevance", data.get("Ecosystem Relevance", 50))
+                    trust = data.get("community_trust", data.get("Community Trust", 50))
+
+                # Budget tier
+                if budget >= 2000:
+                    budget_tier = "premium"
+                    budget_multiplier = 1.5
+                elif budget >= 1000:
+                    budget_tier = "standard"
+                    budget_multiplier = 1.2
+                elif budget >= 500:
+                    budget_tier = "starter"
+                    budget_multiplier = 1.0
+                else:
+                    budget_tier = "trial"
+                    budget_multiplier = 0.7
+
+                visibility_score = min(int((relevance * 0.6 + trust * 0.4) * budget_multiplier), 100)
+                approved = visibility_score >= 50
+                priority = 3 if visibility_score >= 80 else 2 if visibility_score >= 60 else 1
+
+                return {
+                    "visibility_score": visibility_score,
+                    "relevance_score": int(relevance),
+                    "trust_score": int(trust),
+                    "budget_tier": budget_tier,
+                    "approved": approved,
+                    "priority": priority,
+                }
+          outputs:
+            visibility_score:
+              type: number
+              children: null
+            relevance_score:
+              type: number
+              children: null
+            trust_score:
+              type: number
+              children: null
+            budget_tier:
+              type: string
+              children: null
+            approved:
+              type: boolean
+              children: null
+            priority:
+              type: number
+              children: null
+      - id: "1746720003001"
+        type: custom
+        position:
+          x: 980
+          y: 282
+        data:
+          type: question-classifier
+          title: "Campaign Classifier"
+          desc: "Classify sponsorship campaign type"
+          query_variable_selector:
+            - "1746720000001"
+            - sponsor_category
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.3
+          classes:
+            - id: "1"
+              name: "Brand Awareness"
+            - id: "2"
+              name: "Product Launch"
+            - id: "3"
+              name: "Content Sponsorship"
+            - id: "4"
+              name: "Event Sponsorship"
+          instruction: "Classify the sponsorship based on the brand category and context."
+          _targetBranches:
+            - id: "1"
+              name: "Brand Awareness"
+            - id: "2"
+              name: "Product Launch"
+            - id: "3"
+              name: "Content Sponsorship"
+            - id: "4"
+              name: "Event Sponsorship"
+      - id: "1746720004001"
+        type: custom
+        position:
+          x: 1280
+          y: 112
+        data:
+          type: llm
+          title: "Visibility Strategy"
+          desc: "Generate sponsor visibility strategy"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.5
+          prompt_template:
+            - role: system
+              text: |
+                You are a sponsorship strategist. Generate a visibility strategy for this FPV sponsor:
+                - Recommended content placements (which article types)
+                - Visibility frequency (how often to show)
+                - CTAs and messaging approach
+                - Competitor separation suggestions
+                - Trust preservation tactics
+                Output as JSON.
+            - role: user
+              text: |
+                Sponsor: {{#1746720000001.sponsor_name#}}
+                Category: {{#1746720000001.sponsor_category#}}
+                Analysis: {{#1746720001001.text#}}
+                Score: {{#1746720002001.visibility_score#}}
+                Tier: {{#1746720002001.budget_tier#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1746720004002"
+        type: custom
+        position:
+          x: 1280
+          y: 312
+        data:
+          type: llm
+          title: "Visibility Strategy"
+          desc: ""
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.5
+          prompt_template:
+            - role: system
+              text: "Generate visibility strategy for this FPV sponsor. Output as JSON."
+            - role: user
+              text: |
+                Sponsor: {{#1746720000001.sponsor_name#}}
+                Category: {{#1746720000001.sponsor_category#}}
+                Analysis: {{#1746720001001.text#}}
+                Score: {{#1746720002001.visibility_score#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1746720004003"
+        type: custom
+        position:
+          x: 1280
+          y: 512
+        data:
+          type: llm
+          title: "Visibility Strategy"
+          desc: ""
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.5
+          prompt_template:
+            - role: system
+              text: "Generate visibility strategy for this FPV sponsor. Output as JSON."
+            - role: user
+              text: |
+                Sponsor: {{#1746720000001.sponsor_name#}}
+                Category: {{#1746720000001.sponsor_category#}}
+                Analysis: {{#1746720001001.text#}}
+                Score: {{#1746720002001.visibility_score#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1746720004004"
+        type: custom
+        position:
+          x: 1280
+          y: 712
+        data:
+          type: llm
+          title: "Visibility Strategy"
+          desc: ""
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.5
+          prompt_template:
+            - role: system
+              text: "Generate visibility strategy for this FPV sponsor. Output as JSON."
+            - role: user
+              text: |
+                Sponsor: {{#1746720000001.sponsor_name#}}
+                Category: {{#1746720000001.sponsor_category#}}
+                Analysis: {{#1746720001001.text#}}
+                Score: {{#1746720002001.visibility_score#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1746720005001"
+        type: custom
+        position:
+          x: 1580
+          y: 282
+        data:
+          type: variable-aggregator
+          title: "Aggregate Strategies"
+          desc: ""
+          output_type: string
+          variables:
+            - - "1746720004001"
+              - text
+            - - "1746720004002"
+              - text
+            - - "1746720004003"
+              - text
+            - - "1746720004004"
+              - text
+      - id: "1746720006001"
+        type: custom
+        position:
+          x: 1880
+          y: 282
+        data:
+          type: code
+          title: "Admin Approval"
+          desc: "Auto-approve or flag for review"
+          code_language: python3
+          variables:
+            - variable: visibility_score
+              value_selector:
+                - "1746720002001"
+                - visibility_score
+            - variable: approved
+              value_selector:
+                - "1746720002001"
+                - approved
+          code: |
+            import json
+
+            def main(visibility_score: int, approved: bool) -> dict:
+                if visibility_score >= 75 and approved:
+                    status = "auto-approved"
+                    action = "activate_immediately"
+                elif visibility_score >= 50 and approved:
+                    status = "approved"
+                    action = "activate"
+                elif visibility_score >= 30:
+                    status = "review_needed"
+                    action = "manual_review"
+                else:
+                    status = "rejected"
+                    action = "decline"
+
+                return {
+                    "status": status,
+                    "action": action,
+                    "visibility_score": visibility_score,
+                    "approved": approved,
+                    "message": f"Sponsor {status}. Score: {visibility_score}/100",
+                }
+          outputs:
+            status:
+              type: string
+              children: null
+            action:
+              type: string
+              children: null
+            visibility_score:
+              type: number
+              children: null
+            approved:
+              type: boolean
+              children: null
+            message:
+              type: string
+              children: null
+      - id: "1746720007001"
+        type: custom
+        position:
+          x: 2180
+          y: 282
+        data:
+          type: end
+          title: End
+          desc: ""
+          outputs:
+            - variable: status
+              value_selector:
+                - "1746720006001"
+                - status
+            - variable: action
+              value_selector:
+                - "1746720006001"
+                - action
+            - variable: visibility_score
+              value_selector:
+                - "1746720006001"
+                - visibility_score
+            - variable: sponsor_analysis
+              value_selector:
+                - "1746720001001"
+                - text
+            - variable: approval_message
+              value_selector:
+                - "1746720006001"
+                - message
+    edges:
+      - id: "1746720000001-source-1746720001001-target"
+        source: "1746720000001"
+        sourceHandle: source
+        target: "1746720001001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: start
+          targetType: llm
+      - id: "1746720001001-source-1746720002001-target"
+        source: "1746720001001"
+        sourceHandle: source
+        target: "1746720002001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: code
+      - id: "1746720002001-source-1746720003001-target"
+        source: "1746720002001"
+        sourceHandle: source
+        target: "1746720003001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: question-classifier
+      - id: "1746720003001-1-1746720004001-target"
+        source: "1746720003001"
+        sourceHandle: "1"
+        target: "1746720004001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: question-classifier
+          targetType: llm
+      - id: "1746720003001-2-1746720004002-target"
+        source: "1746720003001"
+        sourceHandle: "2"
+        target: "1746720004002"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: question-classifier
+          targetType: llm
+      - id: "1746720003001-3-1746720004003-target"
+        source: "1746720003001"
+        sourceHandle: "3"
+        target: "1746720004003"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: question-classifier
+          targetType: llm
+      - id: "1746720003001-4-1746720004004-target"
+        source: "1746720003001"
+        sourceHandle: "4"
+        target: "1746720004004"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: question-classifier
+          targetType: llm
+      - id: "1746720004001-source-1746720005001-target"
+        source: "1746720004001"
+        sourceHandle: source
+        target: "1746720005001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: variable-aggregator
+      - id: "1746720004002-source-1746720005001-target"
+        source: "1746720004002"
+        sourceHandle: source
+        target: "1746720005001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: variable-aggregator
+      - id: "1746720004003-source-1746720005001-target"
+        source: "1746720004003"
+        sourceHandle: source
+        target: "1746720005001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: variable-aggregator
+      - id: "1746720004004-source-1746720005001-target"
+        source: "1746720004004"
+        sourceHandle: source
+        target: "1746720005001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: variable-aggregator
+      - id: "1746720005001-source-1746720006001-target"
+        source: "1746720005001"
+        sourceHandle: source
+        target: "1746720006001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: variable-aggregator
+          targetType: code
+      - id: "1746720006001-source-1746720007001-target"
+        source: "1746720006001"
+        sourceHandle: source
+        target: "1746720007001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: end
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

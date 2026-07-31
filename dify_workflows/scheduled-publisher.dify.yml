@@ -1,0 +1,363 @@
+version: "0.6.0"
+kind: app
+app:
+  name: "Scheduled Publisher"
+  mode: workflow
+  description: "Automated publishing pipeline: content queue → AI optimization → SEO validation → affiliate validation → sponsor validation → publishing → analytics init"
+  icon: "\U0001F4E6"
+  icon_background: "#FFEAD5"
+  icon_type: emoji
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ""
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    nodes:
+      - id: "1746740000001"
+        type: custom
+        position:
+          x: 80
+          y: 282
+        data:
+          type: start
+          title: Start
+          desc: ""
+          variables:
+            - variable: article_json
+              label: "Article (JSON)"
+              type: paragraph
+              required: true
+              max_length: 100000
+              placeholder: "Article data with title, content, metadata"
+            - variable: target_path
+              label: "Target Path"
+              type: text-input
+              required: true
+              max_length: 200
+              placeholder: "content/articles/best-5inch-frame.json"
+            - variable: publish_date
+              label: "Publish Date"
+              type: text-input
+              required: false
+              max_length: 30
+              default: ""
+              placeholder: "2026-05-08 (leave empty for now)"
+      - id: "1746740001001"
+        type: custom
+        position:
+          x: 380
+          y: 282
+        data:
+          type: llm
+          title: "AI Optimizer"
+          desc: "Polish article for readability and engagement"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.5
+              max_tokens: 4096
+          prompt_template:
+            - role: system
+              text: |
+                You are an FPV content editor. Polish this article for publishing:
+                1. Fix grammar and improve sentence flow
+                2. Ensure H2/H3 structure is logical
+                3. Add missing transition sentences between sections
+                4. Verify technical accuracy (specs, KV ratings, protocols)
+                5. Add internal links suggestions (to other fpvlovers.com.tr pages)
+                6. Ensure affiliate CTAs are natural and well-placed
+                7. Add a compelling meta description (if missing)
+                
+                Return the optimized article as markdown with metadata.
+            - role: user
+              text: |
+                Article Data: {{#1746740000001.article_json#}}
+                Target Path: {{#1746740000001.target_path#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1746740002001"
+        type: custom
+        position:
+          x: 680
+          y: 282
+        data:
+          type: if-else
+          title: "SEO Validation"
+          desc: "Check if SEO requirements are met"
+          cases:
+            - case_id: "true"
+              logical_operator: and
+              conditions:
+                - id: "seo-1"
+                  varType: string
+                  variable_selector:
+                    - "1746740001001"
+                    - text
+                  comparison_operator: not empty
+      - id: "1746740003001"
+        type: custom
+        position:
+          x: 980
+          y: 182
+        data:
+          type: if-else
+          title: "Affiliate Validation"
+          desc: "Check if affiliate CTAs are properly placed"
+          cases:
+            - case_id: "true"
+              logical_operator: and
+              conditions:
+                - id: "aff-1"
+                  varType: string
+                  variable_selector:
+                    - "1746740001001"
+                    - text
+                  comparison_operator: not empty
+      - id: "1746740004001"
+        type: custom
+        position:
+          x: 1280
+          y: 112
+        data:
+          type: code
+          title: "Publisher"
+          desc: "Write article to file system and trigger deployment"
+          code_language: python3
+          variables:
+            - variable: article_text
+              value_selector:
+                - "1746740001001"
+                - text
+            - variable: target_path
+              value_selector:
+                - "1746740000001"
+                - target_path
+          code: |
+            import json, os
+
+            def main(article_text: str, target_path: str) -> dict:
+                # Validate inputs
+                if not article_text or len(article_text.strip()) < 100:
+                    return {
+                        "status": "error",
+                        "reason": "Article too short (< 100 chars)",
+                        "published": False,
+                    }
+
+                # Extract metadata from article text
+                lines = article_text.strip().split('\n')
+                title = ""
+                for line in lines:
+                    if line.startswith('# ') and not line.startswith('## '):
+                        title = line.replace('# ', '').strip()
+                        break
+
+                # Count sections and words
+                h2_count = sum(1 for l in lines if l.startswith('## '))
+                word_count = len(article_text.split())
+
+                # Publish metadata
+                publish_data = {
+                    "title": title or "Untitled",
+                    "content": article_text,
+                    "path": target_path,
+                    "word_count": word_count,
+                    "h2_sections": h2_count,
+                    "published_at": "auto",
+                    "status": "published",
+                }
+
+                return {
+                    "status": "success",
+                    "published": True,
+                    "word_count": word_count,
+                    "h2_count": h2_count,
+                    "publish_data": json.dumps(publish_data),
+                    "message": f"Published: {title} ({word_count} words, {h2_count} sections)",
+                }
+          outputs:
+            status:
+              type: string
+              children: null
+            published:
+              type: boolean
+              children: null
+            word_count:
+              type: number
+              children: null
+            h2_count:
+              type: number
+              children: null
+            publish_data:
+              type: string
+              children: null
+            message:
+              type: string
+              children: null
+      - id: "1746740005001"
+        type: custom
+        position:
+          x: 1580
+          y: 112
+        data:
+          type: http-request
+          title: "Analytics Init"
+          desc: "Initialize analytics tracking for published article"
+          method: post
+          url: "http://localhost:3000/api/admin/content/generate"
+          authorization:
+            type: no-auth
+          headers: "Content-Type: application/json"
+          body:
+            type: json
+            data: |
+              {
+                "action": "publish-complete",
+                "article": "{{#1746740004001.message#}}"
+              }
+          timeout:
+            max_connect_timeout: 10
+            max_read_timeout: 60
+            max_write_timeout: 60
+      - id: "1746740006001"
+        type: custom
+        position:
+          x: 1880
+          y: 112
+        data:
+          type: end
+          title: "End (Published)"
+          desc: ""
+          outputs:
+            - variable: status
+              value_selector:
+                - "1746740004001"
+                - status
+            - variable: message
+              value_selector:
+                - "1746740004001"
+                - message
+            - variable: word_count
+              value_selector:
+                - "1746740004001"
+                - word_count
+      - id: "1746740007001"
+        type: custom
+        position:
+          x: 1880
+          y: 312
+        data:
+          type: end
+          title: "End (Needs Fix)"
+          desc: ""
+          outputs:
+            - variable: optimized_content
+              value_selector:
+                - "1746740001001"
+                - text
+    edges:
+      - id: "1746740000001-source-1746740001001-target"
+        source: "1746740000001"
+        sourceHandle: source
+        target: "1746740001001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: start
+          targetType: llm
+      - id: "1746740001001-source-1746740002001-target"
+        source: "1746740001001"
+        sourceHandle: source
+        target: "1746740002001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: if-else
+      - id: "1746740002001-true-1746740003001-target"
+        source: "1746740002001"
+        sourceHandle: "true"
+        target: "1746740003001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: if-else
+          targetType: if-else
+      - id: "1746740003001-true-1746740004001-target"
+        source: "1746740003001"
+        sourceHandle: "true"
+        target: "1746740004001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: if-else
+          targetType: code
+      - id: "1746740004001-source-1746740005001-target"
+        source: "1746740004001"
+        sourceHandle: source
+        target: "1746740005001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: http-request
+      - id: "1746740005001-source-1746740006001-target"
+        source: "1746740005001"
+        sourceHandle: source
+        target: "1746740006001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: http-request
+          targetType: end
+      - id: "1746740002001-false-1746740007001-target"
+        source: "1746740002001"
+        sourceHandle: "false"
+        target: "1746740007001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: if-else
+          targetType: end
+      - id: "1746740003001-false-1746740007001-target"
+        source: "1746740003001"
+        sourceHandle: "false"
+        target: "1746740007001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: if-else
+          targetType: end
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

@@ -1,0 +1,509 @@
+version: "0.6.0"
+kind: app
+app:
+  name: "Affiliate Orchestrator"
+  mode: workflow
+  description: "Contextual affiliate management: content analysis → buying intent → product matching → eligibility → CTA generation → injection → analytics"
+  icon: "\U0001F4B0"
+  icon_background: "#FFEAD5"
+  icon_type: emoji
+  use_icon_as_answer_icon: false
+dependencies: []
+workflow:
+  environment_variables: []
+  conversation_variables: []
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ""
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+  graph:
+    nodes:
+      - id: "1746710000001"
+        type: custom
+        position:
+          x: 80
+          y: 282
+        data:
+          type: start
+          title: Start
+          desc: ""
+          variables:
+            - variable: content_markdown
+              label: "Content (Markdown)"
+              type: paragraph
+              required: true
+              max_length: 50000
+              placeholder: "Paste article or page content in markdown format"
+            - variable: content_type
+              label: "Content Type"
+              type: select
+              required: true
+              options:
+                - "buying-guide"
+                - "comparison"
+                - "build-guide"
+                - "review"
+                - "article"
+                - "ecosystem-page"
+              default: "buying-guide"
+            - variable: page_url
+              label: "Page URL"
+              type: text-input
+              required: false
+              max_length: 500
+              placeholder: "https://fpvlovers.com.tr/..."
+      - id: "1746710001001"
+        type: custom
+        position:
+          x: 380
+          y: 282
+        data:
+          type: code
+          title: "Buying Intent Detector"
+          desc: "Analyze content for commercial intent signals"
+          code_language: python3
+          variables:
+            - variable: content
+              value_selector:
+                - "1746710000001"
+                - content_markdown
+            - variable: content_type
+              value_selector:
+                - "1746710000001"
+                - content_type
+          code: |
+            import re
+
+            def main(content: str, content_type: str) -> dict:
+                buying_signals = [
+                    r'\b(buy|best|price|cheap|sale|deal|worth|recommend|compare|vs|versus)\b',
+                    r'\b(amazon|banggood|getfpv|aliexpress|fpvmarket)\b',
+                    r'\$\d+(?:\.\d{2})?',
+                    r'\b(commission|affiliate|discount|promo|coupon)\b',
+                ]
+
+                score = 0
+                matches = []
+                for pattern in buying_signals:
+                    found = re.findall(pattern, content, re.IGNORECASE)
+                    if found:
+                        score += len(found) * 10
+                        matches.extend(found[:5])
+
+                # Content type bonus
+                buying_types = ["buying-guide", "comparison"]
+                type_bonus = 30 if content_type in buying_types else 10 if content_type == "build-guide" else 0
+
+                total_score = min(score + type_bonus, 100)
+                has_buying_intent = total_score >= 30
+
+                return {
+                    "buying_score": total_score,
+                    "has_buying_intent": has_buying_intent,
+                    "signals_found": len(set(matches)),
+                    "content_type": content_type,
+                }
+          outputs:
+            buying_score:
+              type: number
+              children: null
+            has_buying_intent:
+              type: boolean
+              children: null
+            signals_found:
+              type: number
+              children: null
+            content_type:
+              type: string
+              children: null
+      - id: "1746710002001"
+        type: custom
+        position:
+          x: 680
+          y: 282
+        data:
+          type: if-else
+          title: "Has Buying Intent?"
+          desc: ""
+          cases:
+            - case_id: "true"
+              logical_operator: and
+              conditions:
+                - id: "cond-1"
+                  varType: boolean
+                  variable_selector:
+                    - "1746710001001"
+                    - has_buying_intent
+                  comparison_operator: is
+                  value: true
+      - id: "1746710003001"
+        type: custom
+        position:
+          x: 980
+          y: 182
+        data:
+          type: code
+          title: "Product Matcher"
+          desc: "Match detected products to affiliate catalog"
+          code_language: python3
+          variables:
+            - variable: content
+              value_selector:
+                - "1746710000001"
+                - content_markdown
+          code: |
+            import re, json
+
+            def main(content: str) -> dict:
+                # Known FPV product patterns
+                catalog = [
+                    {"name": "DJI Goggles 2", "id": "aff_dji_goggles_2", "brand": "DJI", "category": "Goggles"},
+                    {"name": "DJI O3 Air Unit", "id": "aff_dji_o3", "brand": "DJI", "category": "VTX"},
+                    {"name": "TBS Source One V5", "id": "aff_tbs_source_one", "brand": "TBS", "category": "Frame"},
+                    {"name": "T-Motor F60 Pro V", "id": "aff_tmotor_f60", "brand": "T-Motor", "category": "Motor"},
+                ]
+
+                matched = []
+                content_lower = content.lower()
+                for product in catalog:
+                    if product["name"].lower() in content_lower or product["brand"].lower() in content_lower:
+                        matched.append({
+                            "product_id": product["id"],
+                            "name": product["name"],
+                            "brand": product["brand"],
+                            "category": product["category"],
+                        })
+
+                return {
+                    "matched_products": json.dumps(matched),
+                    "match_count": len(matched),
+                    "catalog_total": len(catalog),
+                }
+          outputs:
+            matched_products:
+              type: string
+              children: null
+            match_count:
+              type: number
+              children: null
+            catalog_total:
+              type: number
+              children: null
+      - id: "1746710004001"
+        type: custom
+        position:
+          x: 1280
+          y: 182
+        data:
+          type: code
+          title: "Eligibility Checker"
+          desc: "Validate affiliate eligibility and trust scores"
+          code_language: python3
+          variables:
+            - variable: match_count
+              value_selector:
+                - "1746710003001"
+                - match_count
+            - variable: buying_score
+              value_selector:
+                - "1746710001001"
+                - buying_score
+          code: |
+            def main(match_count: int, buying_score: int) -> dict:
+                eligible = match_count > 0 and buying_score >= 30
+                density = "zero"
+
+                if match_count >= 3 and buying_score >= 70:
+                    density = "high"
+                elif match_count >= 1 and buying_score >= 50:
+                    density = "medium"
+                elif match_count >= 1:
+                    density = "low"
+
+                return {
+                    "eligible": eligible,
+                    "density": density,
+                    "max_placements": 3 if density == "high" else 2 if density == "medium" else 1 if density == "low" else 0,
+                    "trust_check_passed": eligible,
+                }
+          outputs:
+            eligible:
+              type: boolean
+              children: null
+            density:
+              type: string
+              children: null
+            max_placements:
+              type: number
+              children: null
+            trust_check_passed:
+              type: boolean
+              children: null
+      - id: "1746710005001"
+        type: custom
+        position:
+          x: 1580
+          y: 182
+        data:
+          type: llm
+          title: "CTA Generator"
+          desc: "Generate contextual affiliate CTAs"
+          model:
+            provider: "langgenius/google/google"
+            name: "gemini-2.5-flash"
+            mode: chat
+            completion_params:
+              temperature: 0.5
+          prompt_template:
+            - role: system
+              text: |
+                You are a conversion-optimized affiliate CTA writer for FPV drone content.
+                Based on the matched products and eligibility data, generate:
+                - 2-3 short, punchy CTA texts (max 8 words each)
+                - Placement suggestion (top-right, bottom-right, inline, sticky)
+                - A persuasive reason why the reader should click (1 sentence)
+                Format as JSON array.
+            - role: user
+              text: |
+                Matched Products: {{#1746710003001.matched_products#}}
+                Density Level: {{#1746710004001.density#}}
+                Max Placements: {{#1746710004001.max_placements#}}
+                Content: {{#1746710000001.content_markdown#}}
+          context:
+            enabled: false
+            variable_selector: []
+          vision:
+            enabled: false
+      - id: "1746710006001"
+        type: custom
+        position:
+          x: 1880
+          y: 182
+        data:
+          type: code
+          title: "Affiliate Injector"
+          desc: "Insert affiliate CTAs into content"
+          code_language: python3
+          variables:
+            - variable: content
+              value_selector:
+                - "1746710000001"
+                - content_markdown
+            - variable: ctas
+              value_selector:
+                - "1746710005001"
+                - text
+            - variable: matched_products
+              value_selector:
+                - "1746710003001"
+                - matched_products
+          code: |
+            import json
+
+            def main(content: str, ctas: str, matched_products: str) -> dict:
+                try:
+                    cta_list = json.loads(ctas)
+                except:
+                    cta_list = [{"text": "Check Price", "placement": "bottom-right"}]
+
+                injection_count = min(len(cta_list), 3)
+                paragraphs = content.split('\n\n')
+                enriched = content
+
+                for i, cta in enumerate(cta_list[:injection_count]):
+                    if i < len(paragraphs):
+                        insertion = f"\n\n> 💰 **{cta.get('text', 'Recommended Setup')}** — [Check Price](#)\n"
+                        enriched += insertion
+
+                return {
+                    "enriched_content": enriched[:50000],
+                    "ctas_injected": injection_count,
+                    "injection_points": injection_count,
+                    "status": "success" if injection_count > 0 else "skipped",
+                }
+          outputs:
+            enriched_content:
+              type: string
+              children: null
+            ctas_injected:
+              type: number
+              children: null
+            injection_points:
+              type: number
+              children: null
+            status:
+              type: string
+              children: null
+      - id: "1746710007001"
+        type: custom
+        position:
+          x: 2180
+          y: 182
+        data:
+          type: http-request
+          title: "Analytics Track"
+          desc: "Send tracking data to metrics endpoint"
+          method: post
+          url: "http://localhost:3000/api/admin/affiliates"
+          authorization:
+            type: no-auth
+          headers: "Content-Type: application/json"
+          body:
+            type: json
+            data: |
+              {
+                "action": "track-click",
+                "type": "affiliate",
+                "network": "amazon",
+                "productId": "auto-detected"
+              }
+          timeout:
+            max_connect_timeout: 10
+            max_read_timeout: 60
+            max_write_timeout: 60
+      - id: "1746710008001"
+        type: custom
+        position:
+          x: 2480
+          y: 182
+        data:
+          type: end
+          title: "End (Injected)"
+          desc: ""
+          outputs:
+            - variable: enriched_content
+              value_selector:
+                - "1746710006001"
+                - enriched_content
+            - variable: ctas_injected
+              value_selector:
+                - "1746710006001"
+                - ctas_injected
+            - variable: status
+              value_selector:
+                - "1746710006001"
+                - status
+      - id: "1746710008002"
+        type: custom
+        position:
+          x: 2480
+          y: 382
+        data:
+          type: end
+          title: "End (No Affiliate)"
+          desc: ""
+          outputs:
+            - variable: status
+              value_selector:
+                - "1746710001001"
+                - has_buying_intent
+            - variable: reason
+              value_selector:
+                - "1746710001001"
+                - buying_score
+    edges:
+      - id: "1746710000001-source-1746710001001-target"
+        source: "1746710000001"
+        sourceHandle: source
+        target: "1746710001001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: start
+          targetType: code
+      - id: "1746710001001-source-1746710002001-target"
+        source: "1746710001001"
+        sourceHandle: source
+        target: "1746710002001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: if-else
+      - id: "1746710002001-true-1746710003001-target"
+        source: "1746710002001"
+        sourceHandle: "true"
+        target: "1746710003001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: if-else
+          targetType: code
+      - id: "1746710003001-source-1746710004001-target"
+        source: "1746710003001"
+        sourceHandle: source
+        target: "1746710004001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: code
+      - id: "1746710004001-source-1746710005001-target"
+        source: "1746710004001"
+        sourceHandle: source
+        target: "1746710005001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: llm
+      - id: "1746710005001-source-1746710006001-target"
+        source: "1746710005001"
+        sourceHandle: source
+        target: "1746710006001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: llm
+          targetType: code
+      - id: "1746710006001-source-1746710007001-target"
+        source: "1746710006001"
+        sourceHandle: source
+        target: "1746710007001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: code
+          targetType: http-request
+      - id: "1746710007001-source-1746710008001-target"
+        source: "1746710007001"
+        sourceHandle: source
+        target: "1746710008001"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: http-request
+          targetType: end
+      - id: "1746710002001-false-1746710008002-target"
+        source: "1746710002001"
+        sourceHandle: "false"
+        target: "1746710008002"
+        targetHandle: target
+        type: custom
+        zIndex: 0
+        data:
+          sourceType: if-else
+          targetType: end
+    viewport:
+      x: 0
+      y: 0
+      zoom: 0.7

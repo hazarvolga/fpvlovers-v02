@@ -54,17 +54,20 @@ async function dbEnqueueUrls(urls: string[], dataset?: string): Promise<CrawlJob
     await client.query('BEGIN');
     
     for (const url of urls) {
-      // Check if already pending/processing
+      const datasetKey = dataset || null;
       const checkRes = await client.query(
-        'SELECT id FROM fpvlovers_app.crawl_jobs WHERE url = $1 AND dataset_key = $2 AND status = $3',
-        [url, dataset || null, 'pending']
+        `SELECT id, status
+         FROM fpvlovers_app.crawl_jobs
+         WHERE url = $1 AND dataset_key IS NOT DISTINCT FROM $2
+         ORDER BY created_at DESC
+         LIMIT 1
+         FOR UPDATE`,
+        [url, datasetKey]
       );
-
-      if (checkRes.rowCount && checkRes.rowCount > 0) continue;
 
       const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
       const job: CrawlJob = {
-        id,
+        id: checkRes.rows[0]?.id || id,
         url,
         dataset,
         status: 'pending',
@@ -75,6 +78,25 @@ async function dbEnqueueUrls(urls: string[], dataset?: string): Promise<CrawlJob
         updatedAt: now.toISOString()
       };
 
+      if (checkRes.rowCount && checkRes.rowCount > 0) {
+        if (checkRes.rows[0].status === 'pending' || checkRes.rows[0].status === 'processing') continue;
+
+        await client.query(`
+          UPDATE fpvlovers_app.crawl_jobs
+          SET status = 'pending',
+              priority = $2,
+              retry_count = 0,
+              next_attempt_at = $3,
+              completed_at = NULL,
+              error_message = NULL,
+              updated_at = $4
+          WHERE id = $1
+        `, [job.id, job.priority, now, now]);
+
+        newJobs.push(job);
+        continue;
+      }
+
       await client.query(`
         INSERT INTO fpvlovers_app.crawl_jobs (
           id, url, dataset_id, dataset_key, status, priority, retry_count, next_attempt_at, created_at, updated_at
@@ -82,8 +104,8 @@ async function dbEnqueueUrls(urls: string[], dataset?: string): Promise<CrawlJob
       `, [
         job.id,
         job.url,
-        dataset || null,
-        dataset || null,
+        datasetKey,
+        datasetKey,
         job.status,
         job.priority,
         job.retries,
@@ -313,8 +335,19 @@ export async function enqueueUrlsAsync(urls: string[], dataset?: string): Promis
     const newJobs: CrawlJob[] = [];
     
     for (const url of urls) {
-      const existing = q.jobs.find(j => j.url === url && j.status === 'pending');
-      if (existing) continue;
+      const existing = q.jobs.find(j => j.url === url && j.dataset === dataset);
+      if (existing && (existing.status === 'pending' || existing.status === 'processing')) continue;
+      if (existing) {
+        Object.assign(existing, {
+          status: 'pending',
+          retries: 0,
+          error: undefined,
+          nextRetryAt: undefined,
+          updatedAt: new Date().toISOString(),
+        });
+        newJobs.push(existing);
+        continue;
+      }
 
       const job: CrawlJob = {
         id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
@@ -350,8 +383,19 @@ export async function enqueueUrlsAsync(urls: string[], dataset?: string): Promis
   const newJobs: CrawlJob[] = [];
 
   for (const url of urls) {
-    const existing = q.jobs.find(j => j.url === url && j.status === 'pending');
-    if (existing) continue;
+    const existing = q.jobs.find(j => j.url === url && j.dataset === dataset);
+    if (existing && (existing.status === 'pending' || existing.status === 'processing')) continue;
+    if (existing) {
+      Object.assign(existing, {
+        status: 'pending',
+        retries: 0,
+        error: undefined,
+        nextRetryAt: undefined,
+        updatedAt: new Date().toISOString(),
+      });
+      newJobs.push(existing);
+      continue;
+    }
 
     const job: CrawlJob = {
       id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
