@@ -127,12 +127,14 @@ function Metric({
   label,
   value,
   tone = 'cyan',
-  progress
+  progress,
+  tooltip,
 }: {
   label: string;
   value: string;
   tone?: 'cyan' | 'orange' | 'green' | 'white' | 'red';
   progress?: { value: number; max: number };
+  tooltip?: string;
 }) {
   const colors = {
     cyan: { text: 'text-[#28d7df]', border: 'border-l-[#28d7df]', bg: 'bg-[#28d7df]' },
@@ -145,9 +147,12 @@ function Metric({
   const style = colors[tone];
 
   return (
-    <div className={cn("bg-black/40 border border-white/5 p-5 relative overflow-hidden transition-colors border-l-2", style.border)}>
+    <div title={tooltip} className={cn("bg-black/40 border border-white/5 p-5 relative overflow-hidden transition-colors border-l-2", style.border)}>
       <div className="relative z-10 flex flex-col justify-between h-full">
-        <div className="text-[10px] uppercase tracking-[0.15em] text-[#8e8b86] font-mono mb-3">{label}</div>
+        <div className="text-[10px] uppercase tracking-[0.15em] text-[#8e8b86] font-mono mb-3 flex items-center gap-1">
+          {label}
+          {tooltip && <span className="text-[8px] text-zinc-600 cursor-help" aria-hidden="true">ⓘ</span>}
+        </div>
         <motion.div 
           key={value}
           initial={{ opacity: 0.5, y: -4 }}
@@ -270,7 +275,7 @@ export function BuildCalculatorWidget() {
       <div className="flex items-start justify-between gap-4 mb-6">
         <div>
           <h2 className="text-sm font-black uppercase tracking-[0.2em] text-white">Diagnostic Output</h2>
-          <p className="text-xs text-[#8e8b86] mt-2 font-mono uppercase tracking-widest">Live telemetry estimate</p>
+          <p className="text-xs text-[#8e8b86] mt-2 font-mono uppercase tracking-widest">Deterministic estimate</p>
         </div>
         <div className={cn('border px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] rounded-full', verdictTone)}>
           {result.verdict}
@@ -278,14 +283,14 @@ export function BuildCalculatorWidget() {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <Metric label="AUW" value={`${result.auw}g`} tone="white" progress={{value: result.auw, max: 2000}} />
+        <Metric label="AUW" value={`${result.auw}g`} tone="white" progress={{value: result.auw, max: 2000}} tooltip="All-Up Weight: total mass of your drone including battery. Lower AUW = better agility." />
         <Metric label="Dry Weight" value={`${result.dryWeight}g`} progress={{value: result.dryWeight, max: 1500}} />
-        <Metric label="Thrust Ratio" value={`${result.estimatedThrustRatio}:1`} tone={result.estimatedThrustRatio >= result.targetThrustRatio ? 'green' : result.estimatedThrustRatio < result.targetThrustRatio * 0.8 ? 'red' : 'orange'} progress={{value: result.estimatedThrustRatio, max: 15}} />
+        <Metric label="Thrust Ratio" value={`${result.estimatedThrustRatio}:1`} tone={result.estimatedThrustRatio >= result.targetThrustRatio ? 'green' : result.estimatedThrustRatio < result.targetThrustRatio * 0.8 ? 'red' : 'orange'} progress={{value: result.estimatedThrustRatio, max: 15}} tooltip="Total motor thrust vs AUW. Freestyle needs ~5:1, racing ~8:1, cinematic ~3.5:1." />
         <Metric label="Est. Thrust" value={`${result.estimatedThrustPerMotor}g/m`} progress={{value: result.estimatedThrustPerMotor, max: 2500}} />
         <Metric label="Hover Throt." value={`${result.estimatedHoverThrottle}%`} tone={result.estimatedHoverThrottle <= 35 ? 'green' : result.estimatedHoverThrottle > 50 ? 'red' : 'orange'} progress={{value: result.estimatedHoverThrottle, max: 100}} />
         <Metric label="Flight Time" value={`${result.estimatedFlightTimeMin}m`} tone={result.estimatedFlightTimeMin >= 5 ? 'green' : result.estimatedFlightTimeMin <= 2.5 ? 'red' : 'cyan'} progress={{value: result.estimatedFlightTimeMin, max: 15}} />
         <Metric label="Peak Current" value={`${result.estimatedPeakCurrent}A/m`} tone={result.currentMargin >= 8 ? 'green' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: result.estimatedPeakCurrent, max: 100}} />
-        <Metric label="ESC Margin" value={`${result.currentMargin > 0 ? '+' : ''}${result.currentMargin}A`} tone={result.currentMargin >= 8 ? 'cyan' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: Math.max(0, result.currentMargin), max: 30}} />
+        <Metric label="ESC Margin" value={`${result.currentMargin > 0 ? '+' : ''}${result.currentMargin}A`} tone={result.currentMargin >= 8 ? 'cyan' : result.currentMargin <= 0 ? 'red' : 'orange'} progress={{value: Math.max(0, result.currentMargin), max: 30}} tooltip="Headroom between your ESC ampere rating and peak motor draw. Negative = risk of ESC thermal shutdown." />
       </div>
     </section>
   );
@@ -304,8 +309,8 @@ export function BuildCalculatorWidget() {
           <span className="text-[#8e8b86] uppercase tracking-widest text-[10px]">Safe KV Range</span>
           <span className="text-[#28d7df]">{result.safeKvRange.min}-{result.safeKvRange.max}KV</span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-[#8e8b86] uppercase tracking-widest text-[10px]">Disc Loading</span>
+        <div className="flex items-center justify-between" title="Disc loading: AUW divided by total prop sweep area. Lower = more efficient hover; higher = more responsive.">
+          <span className="text-[#8e8b86] uppercase tracking-widest text-[10px]">Disc Loading <span className="text-zinc-700 text-[8px] cursor-help">ⓘ</span></span>
           <span className="text-white">{result.discLoading} kg/m²</span>
         </div>
       </div>
@@ -320,7 +325,7 @@ export function BuildCalculatorWidget() {
       </h2>
       <AnimatePresence mode="popLayout">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-4 border-l-2 border-yellow-300 bg-yellow-300/5 p-4 text-xs font-mono text-yellow-100 leading-relaxed">
-          <div className="mb-2 font-black uppercase tracking-widest">Engineering Safety Guardrail: educational only</div>
+          <div className="mb-2 font-black uppercase tracking-widest">Safety Note: Educational use only</div>
           {engineeringSafety.warnings[0]}
         </motion.div>
         {result.warnings.length ? (
@@ -361,6 +366,11 @@ export function BuildCalculatorWidget() {
       <Button variant="outline" className="w-full h-14 relative z-10 font-bold tracking-widest text-xs uppercase bg-[#FF5C00] text-black border-none hover:bg-[#FF5C00]/90" onClick={runBuildReview} disabled={reviewLoading}>
         <Zap className="w-4 h-4 mr-3" /> {reviewLoading ? 'ANALYZING...' : 'RUN AI REVIEW'}
       </Button>
+      {!review && !reviewLoading && (
+        <p className="text-[10px] text-zinc-600 font-mono text-center mt-3 relative z-10">
+          Enter your component weights above, then run the AI review for source-backed build guidance.
+        </p>
+      )}
 
       {reviewError && (
         <div className="mt-6 border-l-2 border-yellow-300 bg-yellow-300/5 p-4 text-xs font-mono text-yellow-100 leading-relaxed relative z-10">
@@ -442,7 +452,7 @@ export function BuildCalculatorWidget() {
         
         <div className="hidden lg:block">
            <Button variant="ghost" className="w-full h-14 border border-white/10 hover:bg-white/5 font-mono text-[10px] uppercase tracking-widest text-[#8e8b86]" onClick={copySnapshot}>
-             {copied ? 'COPIED TO CLIPBOARD' : 'COPY SNAPSHOT JSON'}
+             {copied ? 'COPIED TO CLIPBOARD' : 'SHARE BUILD SPECS'}
            </Button>
         </div>
       </div>
@@ -490,7 +500,7 @@ export function BuildCalculatorWidget() {
                 {renderSafetyNotes()}
                 {renderBuildReviewPanel()}
                 <Button variant="ghost" className="w-full h-12 border border-white/10 font-mono text-[10px] uppercase tracking-widest" onClick={copySnapshot}>
-                  {copied ? 'COPIED TO CLIPBOARD' : 'COPY SNAPSHOT JSON'}
+                  {copied ? 'COPIED TO CLIPBOARD' : 'SHARE BUILD SPECS'}
                 </Button>
               </div>
             </motion.div>

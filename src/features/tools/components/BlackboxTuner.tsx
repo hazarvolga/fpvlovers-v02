@@ -2,7 +2,7 @@
 // Blackbox tuning submits private log text to a guarded server route; no client API key is exposed.
 
 import React, { useState, useEffect } from 'react';
-import { Activity, ShieldAlert, Cpu, Radio, Send, Loader2, BarChart2, Upload } from 'lucide-react';
+import { Activity, ShieldAlert, Cpu, Radio, Send, Loader2, BarChart2, Upload, ChevronDown, Copy, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
 
@@ -75,6 +75,8 @@ export function BlackboxTunerWidget() {
   const [riskLevel, setRiskLevel] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [explainerOpen, setExplainerOpen] = useState(false);
+  const [cliCopied, setCliCopied] = useState(false);
 
   const analyzeLog = async () => {
     setLoading(true);
@@ -130,6 +132,15 @@ export function BlackboxTunerWidget() {
   };
 
   const canAnalyze = Boolean(formData.problem.trim() || formData.logData.trim() || selectedFile);
+
+  const copyCliCommands = async () => {
+    if (!result) return;
+    const match = result.match(/```text\n([\s\S]*?)```/);
+    if (!match) return;
+    await navigator.clipboard.writeText(match[1].trim());
+    setCliCopied(true);
+    window.setTimeout(() => setCliCopied(false), 1800);
+  };
   const sourceLabel = answerMode === 'dify_grounded'
     ? 'Source-backed Review'
     : answerMode === 'dify_unverified'
@@ -139,6 +150,32 @@ export function BlackboxTunerWidget() {
 
   return (
     <div className="flex flex-col gap-8 w-full">
+      {/* What is Blackbox? collapsible explainer — BBT-UX-P1-1 */}
+      <div className="border border-white/10 bg-zinc-900/50 rounded-xl overflow-hidden">
+        <button
+          type="button"
+          onClick={() => setExplainerOpen((prev) => !prev)}
+          className="w-full flex items-center justify-between px-4 py-3 text-left"
+          aria-expanded={explainerOpen}
+        >
+          <span className="text-[11px] font-bold uppercase tracking-widest text-zinc-400">What is Blackbox? How do I export a CSV?</span>
+          <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-200 ${explainerOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
+        </button>
+        {explainerOpen && (
+          <div className="px-4 pb-4 text-xs font-mono text-zinc-400 space-y-2 border-t border-white/10 pt-3">
+            <p><span className="text-[#FF5C00] font-bold">Blackbox</span> is the flight data recorder built into Betaflight/Emuflight. It logs gyro, motor, PID, and setpoint data during flight.</p>
+            <p><span className="font-bold text-zinc-300">To export a CSV:</span></p>
+            <ol className="list-decimal list-inside space-y-1 pl-2">
+              <li>Open <span className="text-white">Betaflight Blackbox Explorer</span> (desktop app or blackbox-log-viewer)</li>
+              <li>Load your <code className="text-[#FF5C00]">.bbl</code> or <code className="text-[#FF5C00]">.bfl</code> file</li>
+              <li>Click <span className="text-white">Export</span> → <span className="text-white">CSV</span></li>
+              <li>Upload the resulting <code className="text-[#FF5C00]">.csv</code> file here, or paste a short excerpt into the Log Insights field</li>
+            </ol>
+            <p className="text-zinc-500">You can also just type a description of your problem — no log file is required.</p>
+          </div>
+        )}
+      </div>
+
       <div className="flex flex-col gap-3 border border-white/10 bg-zinc-950 rounded-xl p-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-widest text-[#FF5C00]">CSV / Text Review</div>
@@ -198,7 +235,7 @@ export function BlackboxTunerWidget() {
              onChange={handleInputChange}
              className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors appearance-none rounded-lg"
            >
-             <option value="">-- SELECT SENSOR --</option>
+             <option value="">Unknown / Not sure</option>
              <option value="ICM42688P">ICM42688P (Sensitive High-Hz)</option>
              <option value="BMI270">BMI270 (Clean Low-Latency)</option>
              <option value="MPU6000">MPU6000 (Robust Classic)</option>
@@ -307,6 +344,17 @@ export function BlackboxTunerWidget() {
           <div className="flex items-center gap-2 mb-6">
             <Activity className="w-5 h-5 text-[#FF5C00]" aria-hidden="true" />
             <h2 className="text-xl font-bold tracking-tight text-zinc-100">Tuning Solution Matrix</h2>
+            {result.includes('```text') && (
+              <button
+                type="button"
+                onClick={copyCliCommands}
+                title="Copy CLI commands to clipboard"
+                className="ml-auto flex items-center gap-1.5 border border-white/10 hover:border-[#FF5C00]/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#FF5C00] transition-colors rounded"
+              >
+                {cliCopied ? <Check className="w-3 h-3" aria-hidden="true" /> : <Copy className="w-3 h-3" aria-hidden="true" />}
+                {cliCopied ? 'Copied' : 'Copy CLI'}
+              </button>
+            )}
           </div>
 
           <div className="mb-6 grid grid-cols-1 sm:grid-cols-4 gap-3">

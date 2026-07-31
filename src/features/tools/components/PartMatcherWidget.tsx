@@ -128,12 +128,20 @@ export function PartMatcherWidget({ products }: Props) {
           <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-zinc-500">Compatibility Matrix v2.1</h3>
           <p className="mt-1 text-xs text-zinc-400">Catalog-backed checks. Live catalog expansion is in progress; guided review stays behind the server gateway.</p>
         </div>
-        <button
-          onClick={fillDemo}
-          className="self-start border-b border-[#00F2FF]/20 text-[10px] font-bold uppercase tracking-widest text-[#00F2FF]/60 transition-colors hover:text-[#00F2FF]"
-        >
-          Load Example Build
-        </button>
+        <div className="flex items-center gap-4 self-start">
+          {/* Mobile progress indicator */}
+          {hasStarted && (
+            <span className="sm:hidden text-[10px] font-mono text-zinc-500 uppercase tracking-widest">
+              {SLOT_CONFIG.filter((slot) => Boolean(selection[slot.slot])).length + (selection.style ? 1 : 0)} / {SLOT_CONFIG.length + 1} slots
+            </span>
+          )}
+          <button
+            onClick={fillDemo}
+            className="border-b border-[#00F2FF]/20 text-[10px] font-bold uppercase tracking-widest text-[#00F2FF]/60 transition-colors hover:text-[#00F2FF]"
+          >
+            Load Example Build
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -221,8 +229,16 @@ export function PartMatcherWidget({ products }: Props) {
           <div>
             <h2 className="text-2xl font-black tracking-tight text-zinc-100">Diagnostic Output</h2>
             <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-              {hasStarted ? result.summary : 'Select components to begin compatibility checks.'}
+              {hasStarted ? result.summary : 'Select your frame, motor, props, FC/ESC stack, and battery above to see compatibility checks and build scores.'}
             </p>
+            {!hasStarted && (
+              <button
+                onClick={fillDemo}
+                className="mt-3 inline-flex items-center gap-2 border border-[#00F2FF]/30 px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#00F2FF] hover:bg-[#00F2FF]/10 transition-colors rounded"
+              >
+                Load Example Build to see how it works
+              </button>
+            )}
           </div>
           {hasStarted ? (
             <div className={cn('border px-3 py-2 text-xs font-black uppercase tracking-widest', verdictTone)}>

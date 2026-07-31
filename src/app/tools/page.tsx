@@ -15,51 +15,57 @@ export const metadata = {
 const tools = [
   {
     title: 'Hardware Analyzer',
-    description: 'Catalog-assisted compatibility and risk checks with optional AI review when the gateway responds.',
+    description: 'Enter your frame, motors, ESC, battery, and VTX. Get a catalog-backed compatibility check with optional AI risk notes.',
     href: '/tools/hardware-analyzer',
     icon: Cpu,
     meta: 'Compatibility',
     accent: 'cyan' as const,
+    difficulty: 'Intermediate' as const,
   },
   {
     title: 'Blackbox Tuning',
-    description: 'CSV/text-export tuning guardrail for Betaflight noise, oscillation, and filter review.',
+    description: 'Upload a CSV export or paste log notes. Get filter and PID recommendations for your gyro sensor.',
     href: '/tools/blackbox-tuning',
     icon: Activity,
     meta: 'Tuning',
     accent: 'red' as const,
+    difficulty: 'Advanced' as const,
   },
   {
     title: 'Component Duel',
-    description: 'Side-by-side FPV hardware comparisons against reference data.',
+    description: 'Pick two FPV parts from the catalog and compare specs, price, and trust score side by side.',
     href: '/tools/component-duel',
     icon: Zap,
     meta: 'Compare',
     accent: 'amber' as const,
+    difficulty: 'Beginner' as const,
   },
   {
     title: 'Build Calculator',
-    description: 'Calculate thrust, RPM, flight time, and battery draw for custom builds.',
+    description: 'Enter your component weights and motor specs. See thrust ratio, hover throttle, and flight time instantly.',
     href: '/tools/calculator',
     icon: Calculator,
     meta: 'Math',
     accent: 'green' as const,
+    difficulty: 'Beginner' as const,
   },
   {
     title: 'Part Matcher',
-    description: 'Catalog-backed compatibility checks for FPV parts, voltage, fit, and build risk.',
+    description: 'Select parts from the catalog to check voltage compatibility, motor-ESC fit, and build risk score.',
     href: '/tools/part-matcher',
     icon: Wrench,
     meta: 'Fit check',
     accent: 'cyan' as const,
+    difficulty: 'Intermediate' as const,
   },
   {
     title: 'Flight Critic',
-    description: 'Future video-analysis workspace. It is not marketed as live frame-level review yet.',
+    description: 'Beta: Upload a flight video and receive a conservative coaching rubric. Not frame-level AI analysis yet.',
     href: '/tools/flight-critic',
     icon: Crosshair,
-    meta: 'Planned',
+    meta: 'Beta',
     accent: 'red' as const,
+    difficulty: 'Beginner' as const,
   },
 ];
 
@@ -75,9 +81,9 @@ export default function ToolsHubPage() {
         imageAlt="FPV tuning dashboard and analyzer visual"
         stats={[
           { label: 'Live tools', value: '6 utilities' },
-          { label: 'Source mode', value: 'Catalog-backed' },
-          { label: 'AI claims', value: 'Guarded' },
-          { label: 'Fake certainty', value: 'Avoided' },
+          { label: 'Data source', value: 'Catalog-backed' },
+          { label: 'AI accuracy', value: 'Source-verified' },
+          { label: 'Honest limits', value: 'Always shown' },
         ]}
         actions={[
           { label: 'Open tools', href: '/tools/calculator' },

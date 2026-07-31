@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { motion, AnimatePresence } from 'motion/react';
-import { UploadCloud, Crosshair, Zap, Activity, ShieldAlert, Award, FileVideo, Share2, Play } from 'lucide-react';
+import { UploadCloud, Crosshair, Zap, Activity, ShieldAlert, Award, FileVideo, Share2, Play, RotateCcw, Link2 } from 'lucide-react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from 'recharts';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -32,7 +32,9 @@ export function FlightCriticWidget() {
   const [status, setStatus] = useState<'idle' | 'analyzing' | 'complete'>('idle');
   const [analysis, setAnalysis] = useState<AnalysisResult | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [hudData, setHudData] = useState({ speed: 120, alt: 45, gforce: 1.2 });
+  const [shareCopied, setShareCopied] = useState(false);
 
   const triggerAnalysis = async (file: File) => {
     try {
@@ -73,11 +75,37 @@ export function FlightCriticWidget() {
     }
   }, []);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, open: openFilePicker } = useDropzone({
     onDrop,
     accept: { 'video/*': ['.mp4', '.mov', '.avi'] },
     maxFiles: 1,
+    noClick: false,
   });
+
+  const handleReAnalyze = useCallback(() => {
+    if (videoUrl) URL.revokeObjectURL(videoUrl);
+    setVideoFile(null);
+    setVideoUrl(null);
+    setAnalysis(null);
+    setStatus('idle');
+  }, [videoUrl]);
+
+  const handleShare = useCallback(async () => {
+    const shareText = analysis
+      ? `My FPV flight got: ${analysis.verdict} — checked with FPVLovers Flight Critic`
+      : 'Check out FPVLovers Flight Critic';
+    if (typeof navigator.share === 'function') {
+      try {
+        await navigator.share({ title: 'Flight Critic Result', text: shareText, url: window.location.href });
+        return;
+      } catch {
+        // user cancelled or share failed — fall through to clipboard
+      }
+    }
+    await navigator.clipboard.writeText(`${shareText}\n${window.location.href}`);
+    setShareCopied(true);
+    window.setTimeout(() => setShareCopied(false), 1800);
+  }, [analysis]);
 
   // HUD Simulation Loop
   useEffect(() => {
@@ -242,11 +270,16 @@ export function FlightCriticWidget() {
                    </div>
 
                    <div className="flex items-center gap-4 mt-auto">
-                      <Button variant="cyber" className="flex-1" onClick={() => setStatus('idle')}>
-                         <Play className="w-4 h-4 mr-2" /> RE-ANALYZE
+                      <Button variant="cyber" className="flex-1" onClick={handleReAnalyze}>
+                         <RotateCcw className="w-4 h-4 mr-2" /> RE-ANALYZE
                       </Button>
-                      <Button variant="outline" className="text-white">
-                         <Share2 className="w-4 h-4" />
+                      <Button
+                        variant="outline"
+                        className="text-white"
+                        onClick={handleShare}
+                        title={shareCopied ? 'Link copied!' : 'Share result'}
+                      >
+                        {shareCopied ? <Link2 className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
                       </Button>
                    </div>
                 </div>

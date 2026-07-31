@@ -71,6 +71,12 @@ export function HardwareAnalyzerWidget() {
 
   return (
     <div className="flex flex-col gap-8 w-full">
+      {/* HA-UX-P1-1: When to use this tool */}
+      <div className="border border-white/10 bg-zinc-900/40 rounded-xl px-4 py-3 text-xs text-zinc-400 font-mono">
+        <span className="text-[#FF5C00] font-bold uppercase tracking-widest">When to use: </span>
+        Planning a build or upgrade? Enter your components to check voltage compatibility, KV range, ESC margin, and mounting fit before buying.
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
            <label className="text-[10px] font-bold tracking-widest uppercase text-zinc-400 flex items-center gap-2">
@@ -188,18 +194,18 @@ export function HardwareAnalyzerWidget() {
             <Activity className="w-5 h-5 text-[#FF5C00]" />
             <h2 className="text-xl font-bold tracking-tight text-zinc-100">Diagnostic Report</h2>
             {responseSource === 'dify' && (
-              <span className="ml-auto text-[10px] font-bold uppercase tracking-widest text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded">
-                AI-Assisted
+              <span title="AI-Assisted: The Dify gateway found matching RAG sources and grounded its answer in catalog data." className="ml-auto text-[10px] font-bold uppercase tracking-widest text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded cursor-help">
+                AI-Assisted ⓘ
               </span>
             )}
             {responseSource === 'dify_unverified' && (
-              <span className="ml-auto text-[10px] font-bold uppercase tracking-widest text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded">
-                AI — No Sources
+              <span title="AI — No Sources: The AI responded but found no catalog sources to cite. Treat as unverified reasoning." className="ml-auto text-[10px] font-bold uppercase tracking-widest text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded cursor-help">
+                AI — No Sources ⓘ
               </span>
             )}
             {responseSource === 'local' && (
-              <span className="ml-auto text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-600 px-2 py-0.5 rounded">
-                Local Guardrail
+              <span title="Local Guardrail: The AI gateway was not available. This result comes from deterministic catalog checks only." className="ml-auto text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-600 px-2 py-0.5 rounded cursor-help">
+                Local Guardrail ⓘ
               </span>
             )}
           </div>

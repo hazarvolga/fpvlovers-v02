@@ -2,6 +2,7 @@
 // Component duel needs local product selection state and instant comparison output.
 
 import React, { useMemo, useState } from 'react';
+import Link from 'next/link';
 import { ArrowUpRight, CheckCircle2, Gauge, ShieldAlert, Trophy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { compareComponents } from '@/lib/tools/component-compatibility';
@@ -131,8 +132,11 @@ export function ComponentDuelWidget({ products }: Props) {
         </svg>
         <h3 className="text-xl font-bold text-white mb-2">Insufficient Catalog Data</h3>
         <p className="text-zinc-500 max-w-md">
-          The catalog currently needs at least two products of the selected category before the Component Duel engine can run comparison metrics.
+          The catalog currently needs at least two products in this category to run the duel. Try switching to Motors or Frames, or use the Part Matcher to check individual build compatibility.
         </p>
+        <Link href="/tools/part-matcher" className="mt-4 inline-flex items-center gap-2 border border-[#00F2FF]/30 px-4 py-2 text-xs font-bold uppercase tracking-widest text-[#00F2FF] hover:bg-[#00F2FF]/10 transition-colors rounded">
+          Try Part Matcher <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
       </div>
     );
   }
@@ -163,12 +167,12 @@ export function ComponentDuelWidget({ products }: Props) {
           <div className="flex items-center gap-4 border border-white/10 bg-black/40 px-4 py-3 text-xs">
              <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-[#FF5C00] animate-pulse"></div>
-                <span className="text-white font-mono uppercase tracking-wider">Alpha</span>
+                <span className="text-white font-mono uppercase tracking-wider">Product A</span>
              </div>
              <span className="text-white/30">VS</span>
              <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-[#00F2FF] animate-pulse"></div>
-                <span className="text-white font-mono uppercase tracking-wider">Beta</span>
+                <span className="text-white font-mono uppercase tracking-wider">Product B</span>
              </div>
           </div>
         </div>
@@ -179,7 +183,7 @@ export function ComponentDuelWidget({ products }: Props) {
           <div className="space-y-3 relative z-20">
             <label className="text-[11px] font-black uppercase tracking-[0.2em] text-[#FF5C00] flex items-center gap-2">
                <span className="w-1 h-3 bg-[#FF5C00] inline-block"></span>
-               Component Alpha
+               Product A
             </label>
             <div className="relative group">
               <select 
@@ -204,7 +208,7 @@ export function ComponentDuelWidget({ products }: Props) {
           <div className="space-y-3 relative z-20">
             <label className="text-[11px] font-black uppercase tracking-[0.2em] text-[#00F2FF] flex items-center gap-2">
                <span className="w-1 h-3 bg-[#00F2FF] inline-block"></span>
-               Component Beta
+               Product B
             </label>
             <div className="relative group">
               <select 
@@ -227,6 +231,12 @@ export function ComponentDuelWidget({ products }: Props) {
       {/* Duel Cards (Split Screen) */}
       <div className="grid gap-6 lg:gap-8 md:grid-cols-2 relative">
         <ProductCard product={productA} winner={result.winnerId === productA.id} score={result.scoreA} side="left" />
+        {/* Mobile VS separator */}
+        <div className="flex md:hidden items-center justify-center gap-4 py-1">
+          <div className="h-px flex-1 bg-white/10" />
+          <span className="font-black text-xs text-white/40 tracking-widest border border-white/10 px-3 py-1 rounded-full">VS</span>
+          <div className="h-px flex-1 bg-white/10" />
+        </div>
         <ProductCard product={productB} winner={result.winnerId === productB.id} score={result.scoreB} side="right" />
       </div>
 
@@ -248,12 +258,18 @@ export function ComponentDuelWidget({ products }: Props) {
           </div>
         </section>
 
-        {/* Telemetry Matrix */}
+        {/* Specs Comparison */}
         <section className="lg:col-span-7 bg-zinc-950 rounded-xl border border-white/5 shadow-2xl p-6 lg:p-8">
-          <h3 className="mb-6 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-[#A0A0A0]">
+          <h3 className="mb-4 flex items-center gap-3 text-[11px] font-black uppercase tracking-[0.2em] text-[#A0A0A0]">
             <Gauge className="h-4 w-4 text-white" />
-            Telemetry Matchup Matrix
+            Specs Comparison
           </h3>
+          {/* Column headers */}
+          <div className="grid grid-cols-[1.5fr_1fr_1fr] gap-4 mb-3 pb-2 border-b border-white/10">
+            <span className="text-[9px] font-black uppercase tracking-widest text-zinc-600">Spec</span>
+            <span className="text-[9px] font-black uppercase tracking-widest text-[#FF5C00] text-center truncate">{productA.name}</span>
+            <span className="text-[9px] font-black uppercase tracking-widest text-[#00F2FF] text-center truncate">{productB.name}</span>
+          </div>
           <div className="space-y-3">
             {result.metrics.map((metric) => (
               <div key={metric.label} className="grid grid-cols-[1.5fr_1fr_1fr] gap-4 border-b border-white/5 bg-transparent pb-3 text-xs md:text-sm items-center">

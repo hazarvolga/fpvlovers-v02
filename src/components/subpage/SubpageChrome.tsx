@@ -129,6 +129,7 @@ export function SubpageFeatureCard({
   icon: Icon,
   meta,
   accent = 'red',
+  difficulty,
 }: {
   title: string;
   description: string;
@@ -136,6 +137,7 @@ export function SubpageFeatureCard({
   icon: SubpageIcon;
   meta?: string;
   accent?: 'red' | 'cyan' | 'green' | 'amber';
+  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
 }) {
   const accentClass = {
     red: 'text-[#ff3131] bg-[#ff3131]/[0.08] border-[#ff3131]/25 group-hover:border-[#ff3131]/45',
@@ -149,7 +151,16 @@ export function SubpageFeatureCard({
       <div className={`flex h-12 w-12 items-center justify-center rounded-[0.55rem] border ${accentClass}`}>
         <Icon className="h-5 w-5" strokeWidth={1.4} />
       </div>
-      {meta ? <div className="mt-6 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">{meta}</div> : null}
+      <div className="mt-6 flex items-center gap-2 flex-wrap">
+        {meta ? <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500">{meta}</div> : null}
+        {difficulty && (
+          <div className={`font-mono text-[9px] uppercase tracking-[0.15em] px-1.5 py-0.5 rounded border ${
+            difficulty === 'Beginner' ? 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10' :
+            difficulty === 'Intermediate' ? 'text-amber-400 border-amber-500/30 bg-amber-500/10' :
+            'text-red-400 border-red-500/30 bg-red-500/10'
+          }`}>{difficulty}</div>
+        )}
+      </div>
       <h3 className="mt-3 text-lg font-black uppercase tracking-[-0.02em] text-white">{title}</h3>
       <p className="mt-3 text-sm leading-6 text-zinc-400">{description}</p>
       <div className="mt-7 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131]">
