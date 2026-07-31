@@ -3,14 +3,64 @@ import path from 'path';
 import { createHash } from 'crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
-import { harvestImagesFromDatabase } from '@/lib/content-automation/crawl-image-harvest';
+import {
+  harvestImagesFromDatabase,
+  harvestImagesFromMarkdown,
+  type HarvestedImage,
+} from '@/lib/content-automation/crawl-image-harvest';
 import {
   classifyImageLicenses,
   isGenericStockImage,
 } from '@/lib/content-automation/crawl-image-license';
 import { pickBestRelevantImage } from '@/lib/content-automation/crawl-image-match';
+import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { upsertPublishedArtifact } from '@/lib/server/published-content-store';
 import { revalidatePath } from 'next/cache';
+
+// Crawl4AI endpoints — same priority order as the ingest route.
+const CRAWLERS = [
+  process.env.CRAWL4AI_PRIMARY_CRAWL_URL || 'http://crawler-proxy:3002/crawl',
+  process.env.CRAWL4AI_BACKUP_CRAWL_URL  || 'http://crawler-backup:3002/crawl',
+];
+
+// In-memory crawl cache keyed by URL — prevents re-crawling the same page
+// for every article during a single backfill run.
+const crawlCache = new Map<string, HarvestedImage[]>();
+
+async function crawlAndHarvest(pageUrl: string): Promise<HarvestedImage[]> {
+  if (crawlCache.has(pageUrl)) return crawlCache.get(pageUrl)!;
+
+  for (const endpoint of CRAWLERS) {
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ urls: [pageUrl], priority: 5, markdown: true }),
+        signal: AbortSignal.timeout(40_000),
+      });
+      if (!res.ok) continue;
+
+      const data = await res.json();
+      if (!data?.success || !data.results?.length) continue;
+
+      const r = data.results[0];
+      const md: string = r.markdown?.raw_markdown || r.markdown || '';
+      if (!md || md.length < 200) continue;
+
+      // Persist to raw_content so future harvests from DB work too.
+      void persistRawCrawlContent({ url: pageUrl, rawMarkdown: md, crawler: 'backfill' });
+
+      const images = harvestImagesFromMarkdown({ url: pageUrl, markdown: md });
+      crawlCache.set(pageUrl, images);
+      return images;
+    } catch {
+      // try next crawler
+    }
+  }
+
+  crawlCache.set(pageUrl, []);
+  return [];
+}
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 const SOURCE_CACHE_DIR = path.join(process.cwd(), 'public', 'images', 'source-cache');
@@ -155,22 +205,32 @@ export async function POST(req: NextRequest) {
     ];
     const allHints = [...new Set([...savedHints, ...categoryHints])];
 
-    // Harvest crawled images from DB using sourceHints.
+    // Harvest crawled images: try DB first, fall back to live Crawl4AI.
     let crawledLicensed: import('@/lib/content-automation/crawl-image-license').LicensedImage[] = [];
     try {
-      const crawledImages = await harvestImagesFromDatabase(allHints);
-      if (crawledImages?.length) {
-        crawledLicensed = classifyImageLicenses(crawledImages)
-          .filter((img) => !isGenericStockImage(img));
+      const dbImages = await harvestImagesFromDatabase(allHints);
+      if (dbImages?.length) {
+        crawledLicensed = classifyImageLicenses(dbImages).filter((img) => !isGenericStockImage(img));
       }
     } catch {
-      results.push({ slug, status: 'error', reason: 'DB harvest failed' });
-      failed++;
-      continue;
+      // DB harvest failed — will try live crawl below.
+    }
+
+    // If DB was empty, crawl the hint pages directly.
+    if (crawledLicensed.length === 0) {
+      const liveImages: HarvestedImage[] = [];
+      for (const hintUrl of allHints.slice(0, 3)) {
+        const imgs = await crawlAndHarvest(hintUrl);
+        liveImages.push(...imgs);
+        if (liveImages.length >= 20) break;
+      }
+      if (liveImages.length > 0) {
+        crawledLicensed = classifyImageLicenses(liveImages).filter((img) => !isGenericStockImage(img));
+      }
     }
 
     if (crawledLicensed.length === 0) {
-      results.push({ slug, status: 'no_images', reason: 'no crawled images found for hints' });
+      results.push({ slug, status: 'no_images', reason: 'no crawled images found (DB + live crawl)' });
       skipped++;
       continue;
     }

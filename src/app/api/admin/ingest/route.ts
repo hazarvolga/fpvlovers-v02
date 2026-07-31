@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
+import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 
 const CRAWLERS = [
   getOptionalEnv('CRAWL4AI_PRIMARY_CRAWL_URL', 'http://crawler-proxy:3002/crawl'),
@@ -171,6 +172,8 @@ export async function POST(req: NextRequest) {
 
         if (upsertResp.ok) {
           const doc = await upsertResp.json();
+          // Also persist full markdown to raw_content so image harvester can find editorial images.
+          void persistRawCrawlContent({ url, rawMarkdown: md as string, crawler: 'ingest-route' });
           results.push({ url, status: 'success', dataset: datasetName, docId: doc.document?.id?.slice(0, 16), size: (md as string).length });
         } else {
           results.push({ url, status: 'upsert_failed', dataset: datasetName, error: `HTTP ${upsertResp.status}` });
