@@ -140,7 +140,7 @@ export function FlightCriticWidget() {
                   <UploadCloud className="w-8 h-8 text-[#00F5FF]" />
                 </div>
                 <h4 className="text-xl font-black uppercase text-white tracking-tighter mb-2">Upload Flight File</h4>
-                <p className="text-white/40 text-sm font-semibold mb-6 text-center max-w-sm">This beta provides a conservative rubric only. It does not claim per-frame visual analysis or official ranking.</p>
+                <p className="text-white/70 text-sm font-semibold mb-6 text-center max-w-sm">This beta provides a conservative rubric only. It does not claim per-frame visual analysis or official ranking.</p>
                 <Button variant="cyber" className="pointer-events-none">Select File</Button>
               </div>
             </motion.div>

@@ -132,7 +132,7 @@ export function PartMatcherWidget({ products }: Props) {
           onClick={fillDemo}
           className="self-start border-b border-[#00F2FF]/20 text-[10px] font-bold uppercase tracking-widest text-[#00F2FF]/60 transition-colors hover:text-[#00F2FF]"
         >
-          [LOAD_CATALOG_BUILD]
+          Load Example Build
         </button>
       </div>
 
