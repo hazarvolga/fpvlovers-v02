@@ -221,3 +221,13 @@ bash scripts/health-all.sh               # Tüm servis sağlık raporu
 ## Canlıya Dağıtım Durumu (Kritik)
 > [!IMPORTANT]
 > 31 Temmuz 2026 itibarıyla: proje `fpvlovers-v02` reposuna taşındı, GAP raporundaki güvenlik ve trust-hardening düzeltmeleri (auth secret zorunluluğu, crawl-queue idempotency, doğrulanmamış-iddia temizliği, sitemap/cache revalidation) kod tabanına uygulandı. Canlıya deploy öncesi: (1) yeni repoya ilk push yapılmalı, (2) `AUTH_SECRET` production ortam değişkeni olarak Coolify'a eklenmeli, (3) sızıntı riski taşıyan eski SSH key'leri rotate edilmeli.
+
+## graphify
+
+This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+Rules:
+- For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
+- If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context.
+- After modifying code, run `graphify update .` to keep the graph current (AST-only, no API cost).
