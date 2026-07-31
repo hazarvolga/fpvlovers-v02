@@ -2,14 +2,33 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { FileText, ExternalLink, RefreshCw, Loader2 } from 'lucide-react';
+import { FileText, ExternalLink, RefreshCw, Loader2, ImageIcon, CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
+
+type BackfillResult = {
+  slug: string;
+  status: 'updated' | 'skipped' | 'no_images' | 'error';
+  reason?: string;
+  oldSrc?: string;
+  newSrc?: string;
+};
+
+type BackfillSummary = {
+  dryRun: boolean;
+  total: number;
+  updated: number;
+  skipped: number;
+  failed: number;
+  results: BackfillResult[];
+};
 
 export default function PublishedContentPanel() {
   const [articles, setArticles] = useState<PublishedArtifact[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState<string | null>(null);
+  const [backfilling, setBackfilling] = useState(false);
+  const [backfillSummary, setBackfillSummary] = useState<BackfillSummary | null>(null);
 
   const fetchPublished = useCallback(async () => {
     setLoading(true);
@@ -28,6 +47,24 @@ export default function PublishedContentPanel() {
 
   const selectedArticle = selected ? articles.find((a) => a.slug === selected) : null;
 
+  const handleBackfill = useCallback(async (dryRun = false) => {
+    setBackfilling(true);
+    setBackfillSummary(null);
+    try {
+      const resp = await fetch('/api/admin/content/backfill-images', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dryRun }),
+      });
+      const data = await resp.json();
+      if (data.success) {
+        setBackfillSummary(data);
+        if (!dryRun) void fetchPublished();
+      }
+    } catch {}
+    setBackfilling(false);
+  }, [fetchPublished]);
+
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="flex justify-between items-center">
@@ -39,10 +76,44 @@ export default function PublishedContentPanel() {
             {articles.length} article{articles.length !== 1 ? 's' : ''} published via content automation pipeline.
           </p>
         </div>
-        <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={fetchPublished} disabled={loading}>
-          <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} /> Refresh
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={() => handleBackfill(true)} disabled={loading || backfilling}>
+            <ImageIcon className="w-4 h-4 mr-2" /> Dry Run
+          </Button>
+          <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={() => handleBackfill(false)} disabled={loading || backfilling}>
+            {backfilling ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Backfilling...</> : <><ImageIcon className="w-4 h-4 mr-2" /> Backfill Images</>}
+          </Button>
+          <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={fetchPublished} disabled={loading}>
+            <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} /> Refresh
+          </Button>
+        </div>
       </div>
+
+      {backfillSummary && (
+        <div className="bg-[#0A0A0B] border border-[#FF5C00]/40 p-4 space-y-3">
+          <div className="flex items-center gap-2 text-sm font-mono text-white">
+            <ImageIcon className="w-4 h-4 text-[#FF5C00]" />
+            Backfill {backfillSummary.dryRun ? '(Dry Run)' : 'Complete'} — {backfillSummary.total} articles processed
+          </div>
+          <div className="flex gap-4 text-xs font-mono">
+            <span className="text-[#00FF66] flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> {backfillSummary.updated} updated</span>
+            <span className="text-[#A0A0A0] flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {backfillSummary.skipped} skipped</span>
+            <span className="text-red-400 flex items-center gap-1"><XCircle className="w-3 h-3" /> {backfillSummary.failed} failed</span>
+          </div>
+          <div className="max-h-40 overflow-y-auto space-y-1">
+            {backfillSummary.results.filter((r) => r.status === 'updated').map((r) => (
+              <div key={r.slug} className="text-[10px] font-mono text-[#00FF66]">
+                ✓ {r.slug} → {r.newSrc?.slice(0, 60)}
+              </div>
+            ))}
+            {backfillSummary.results.filter((r) => r.status === 'error').map((r) => (
+              <div key={r.slug} className="text-[10px] font-mono text-red-400">
+                ✗ {r.slug}: {r.reason}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {loading ? (
         <div className="text-[#A0A0A0] font-mono text-sm py-8 text-center flex items-center justify-center gap-2">
