@@ -5,12 +5,18 @@ import { Activity, ShieldAlert, Cpu, Battery, Video, Send, Loader2, Zap } from '
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
 
+type EngineeringSafety = {
+  isEngineeringSafe: boolean;
+  warnings: string[];
+};
+
 type HardwareApiResponse = {
   success: boolean;
-  source?: 'dify' | 'local';
+  source?: 'dify' | 'dify_unverified' | 'local';
   markdown?: string;
   warning?: string;
   error?: string;
+  engineeringSafety?: EngineeringSafety;
 };
 
 export function HardwareAnalyzerWidget() {
@@ -26,11 +32,15 @@ export function HardwareAnalyzerWidget() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [engineeringSafety, setEngineeringSafety] = useState<EngineeringSafety | null>(null);
+  const [responseSource, setResponseSource] = useState<HardwareApiResponse['source'] | null>(null);
 
   const analyzeHardware = async () => {
     setLoading(true);
     setError(null);
     setResult(null);
+    setEngineeringSafety(null);
+    setResponseSource(null);
 
     try {
       const response = await fetch('/api/tools/hardware-analyzer', {
@@ -44,9 +54,10 @@ export function HardwareAnalyzerWidget() {
       }
 
       setResult(data.markdown);
+      setEngineeringSafety(data.engineeringSafety ?? null);
+      setResponseSource(data.source ?? null);
       if (data.warning) setError(data.warning);
     } catch (err) {
-      console.error(err);
       setError(err instanceof Error ? err.message : 'An unknown error occurred during analysis.');
     } finally {
       setLoading(false);
@@ -173,10 +184,50 @@ export function HardwareAnalyzerWidget() {
 
       {result && (
         <div className="mt-8 pt-8 border-t border-white/10">
-          <div className="flex items-center gap-2 mb-6">
+          <div className="flex items-center gap-2 mb-4">
             <Activity className="w-5 h-5 text-[#FF5C00]" />
             <h2 className="text-xl font-bold tracking-tight text-zinc-100">Diagnostic Report</h2>
+            {responseSource === 'dify' && (
+              <span className="ml-auto text-[10px] font-bold uppercase tracking-widest text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded">
+                AI-Assisted
+              </span>
+            )}
+            {responseSource === 'dify_unverified' && (
+              <span className="ml-auto text-[10px] font-bold uppercase tracking-widest text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded">
+                AI — No Sources
+              </span>
+            )}
+            {responseSource === 'local' && (
+              <span className="ml-auto text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-600 px-2 py-0.5 rounded">
+                Local Guardrail
+              </span>
+            )}
           </div>
+
+          {engineeringSafety && (
+            <div className={`mb-6 p-4 border rounded-lg font-mono text-sm ${
+              engineeringSafety.isEngineeringSafe
+                ? 'border-emerald-500/30 bg-emerald-500/5 text-emerald-400'
+                : 'border-amber-500/40 bg-amber-500/10 text-amber-400'
+            }`}>
+              <div className="flex items-center gap-2 mb-2">
+                <ShieldAlert className="w-4 h-4 flex-shrink-0" />
+                <span className="font-bold uppercase tracking-widest text-[10px]">
+                  Engineering Safety Guardrail — {engineeringSafety.isEngineeringSafe ? 'PASSED' : 'WARNINGS DETECTED'}
+                </span>
+              </div>
+              {engineeringSafety.warnings.length > 0 && (
+                <ul className="space-y-1 mt-2">
+                  {engineeringSafety.warnings.map((w, i) => (
+                    <li key={i} className="text-xs">⚠ {w}</li>
+                  ))}
+                </ul>
+              )}
+              {engineeringSafety.warnings.length === 0 && (
+                <p className="text-xs mt-1">No critical safety concerns detected from verified catalog data.</p>
+              )}
+            </div>
+          )}
 
           <div className="prose prose-invert prose-p:text-sm prose-p:text-zinc-400 prose-headings:font-bold prose-headings:text-zinc-100 prose-li:text-sm max-w-none">
             <ReactMarkdown>{result}</ReactMarkdown>

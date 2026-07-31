@@ -15,7 +15,7 @@ const BLACKBOX_DIFY_APP_NAME = 'Blackbox Tuning Advisor';
 const TOOL_DIFY_TIMEOUT_MS = 15000;
 
 type RequestPayload = BlackboxTuningInput;
-type BlackboxAnswerMode = 'local_guardrail' | 'dify_grounded';
+type BlackboxAnswerMode = 'local_guardrail' | 'dify_grounded' | 'dify_unverified';
 type BlackboxGatewayStatus = 'dry_run' | 'dify_ok' | 'dify_empty' | 'dify_error' | 'not_configured';
 
 type BlackboxSource = {
@@ -254,7 +254,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({
         success: true,
         source: 'dify',
-        answerMode: 'dify_grounded' satisfies BlackboxAnswerMode,
+        answerMode: (sources.length > 0 ? 'dify_grounded' : 'dify_unverified') satisfies BlackboxAnswerMode,
         gatewayStatus: 'dify_ok' satisfies BlackboxGatewayStatus,
         sources,
         retrievalConfidence: retrievalConfidenceFromSources(sources, local.confidence),

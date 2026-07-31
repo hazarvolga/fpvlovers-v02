@@ -208,6 +208,8 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
     checks.push({ label: 'Motor / battery cells', status: 'warn', detail: `${selected.battery.name} is missing explicit cell count data; confirm battery cell count manually.` });
   } else if (motorCells.length && !motorCells.includes(batteryCellCount)) {
     checks.push({ label: 'Motor / battery cells', status: 'fail', detail: `${selected.motor.name} is tagged for ${motorCells.join('/')}S, but battery is ${batteryCellCount}S.` });
+  } else if (!motorCells.length) {
+    checks.push({ label: 'Motor / battery cells', status: 'warn', detail: `${selected.motor.name} has no verified cell count data; confirm voltage compatibility manually.` });
   } else {
     checks.push({ label: 'Motor / battery cells', status: 'pass', detail: `${batteryCellCount}S battery matches motor voltage tags.` });
   }

@@ -190,14 +190,14 @@ export function FlightCriticWidget() {
                    <div className="absolute h-[120%] w-[1px] bg-[#00F5FF]/20" />
                 </div>
 
-                {/* HUD Overlay - Telemetry Items */}
+                {/* HUD Overlay - Telemetry Items (simulated values — not from actual video) */}
                 <div className="absolute top-4 left-4 flex flex-col gap-1 font-mono text-[10px] text-[#00F5FF] font-bold">
-                   <div className="bg-black/50 px-2 py-1 border border-[#00F5FF]/30 rounded backdrop-blur">SPD: {hudData.speed} KM/H</div>
-                   <div className="bg-black/50 px-2 py-1 border border-[#00F5FF]/30 rounded backdrop-blur text-[#FFB800]">ALT: {hudData.alt} M</div>
+                   <div className="bg-black/50 px-2 py-1 border border-[#00F5FF]/30 rounded backdrop-blur">SPD: {hudData.speed} KM/H <span className="text-[8px] opacity-40 font-normal">SIM</span></div>
+                   <div className="bg-black/50 px-2 py-1 border border-[#00F5FF]/30 rounded backdrop-blur text-[#FFB800]">ALT: {hudData.alt} M <span className="text-[8px] opacity-40 font-normal">SIM</span></div>
                 </div>
                 <div className="absolute top-4 right-4 flex flex-col items-end gap-1 font-mono text-[10px] text-red-400 font-bold">
                    <div className="bg-black/50 px-2 py-1 border border-red-500/30 rounded backdrop-blur flex items-center gap-2">
-                     <ShieldAlert className="w-3 h-3"/> G-FORCE: {hudData.gforce} G
+                     <ShieldAlert className="w-3 h-3"/> G-FORCE: {hudData.gforce} G <span className="text-[8px] opacity-40 font-normal">SIM</span>
                    </div>
                 </div>
 
