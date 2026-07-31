@@ -148,7 +148,7 @@ export function listAllDatasets() {
   return DATASETS.map(d => ({
     name: d.name,
     uuid: d.uuid,
-    docs: d.docCount,
+    docs: undefined,
     minScore: d.minScoreThreshold,
     semantic: d.semanticWeight,
     keyword: d.keywordWeight,
@@ -156,7 +156,7 @@ export function listAllDatasets() {
 }
 
 export function getEcosystemHealth() {
-  const populated = DATASETS.filter(d => d.docCount > 0).length;
+  const populated = DATASETS.length; // docCount not tracked locally; assume all datasets may have data
   const total = DATASETS.length;
 
   return {

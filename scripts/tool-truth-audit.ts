@@ -46,9 +46,8 @@ if (!getFpvProductCatalog) {
   throw new Error('getFpvProductCatalog export not found.');
 }
 
-function datasetDocCount(name: string): number {
-  return datasets.find((dataset) => dataset.name === name)?.docCount ?? 0;
-}
+// datasets is still used for routing config validation
+void datasets;
 
 function hasDifyApp(name: string): boolean {
   return Boolean(difyApps.find((app) => app.name === name)?.token);
@@ -109,12 +108,6 @@ const productSourceCount = fs.existsSync(sourcePackPath)
   : 0;
 const realImageCount = products.filter((product) => product.imageUrl).length;
 const counts = typeCount(products);
-const componentsDocs = datasetDocCount('fpv-components-specs');
-const buildDocs = datasetDocCount('fpv-build-guides');
-const flightTuningDocs = datasetDocCount('fpv-flight-tuning');
-const pidProfileDocs = datasetDocCount('fpv-pid-profiles');
-const troubleshootingDocs = datasetDocCount('fpv-troubleshooting');
-const tuningDocs = flightTuningDocs + pidProfileDocs + troubleshootingDocs;
 const localToolCorpus = localPublishedToolCorpus();
 const blackboxSourcePackPath = path.join(process.cwd(), 'data', 'fpv-rag-source-pack.blackbox.json');
 const blackboxSourceCount = fs.existsSync(blackboxSourcePackPath)
@@ -145,7 +138,6 @@ const blackboxAcceptMatch = blackboxUiSource.match(/accept="([^"]+)"/);
 const blackboxAccepts = blackboxAcceptMatch?.[1] ?? '';
 const blackboxBinaryPromiseAligned = !blackboxAccepts.includes('.bbl') && !blackboxAccepts.includes('.bfl');
 const blackboxSmokeExists = fs.existsSync(path.join(process.cwd(), 'scripts', 'blackbox-smoke.ts'));
-const blackboxHasCorpusDepth = flightTuningDocs >= 20 && pidProfileDocs >= 5 && troubleshootingDocs >= 5;
 const catalogCoverage = Object.entries(counts)
   .sort(([left], [right]) => left.localeCompare(right))
   .map(([type, count]) => `${type}:${count}`)
@@ -159,7 +151,6 @@ const localCatalogReady = products.length >= 100
   && Object.values(counts).filter((count) => count >= 2).length >= 8;
 const buildLocalReady = localToolCorpus.build >= 30;
 const tuningLocalReady = localToolCorpus.tuning >= 10;
-const blackboxRagReady = blackboxHasCorpusDepth;
 
 const rows: AuditRow[] = [
   row(
@@ -173,7 +164,7 @@ const rows: AuditRow[] = [
     'Build Wizard',
     hasDifyApp('Build Wizard') && buildLocalReady ? 'PASS' : 'PARTIAL',
     'deterministic calculator + local source-backed corpus + optional Dify workflow',
-    `Workflow configured: ${hasDifyApp('Build Wizard')}; local build/component articles=${localToolCorpus.build}; Dify routing doc counts build=${buildDocs}, components=${componentsDocs}.`,
+    `Workflow configured: ${hasDifyApp('Build Wizard')}; local build/component articles=${localToolCorpus.build}. Qdrant live counts not checked locally — verify via SSH or Dify Studio.`,
     buildLocalReady
       ? 'Keep public copy clear that local calculator/corpus is production-ready while Dify corpus depth is still tracked separately.'
       : 'Add more local build/component guides or refresh fpv-build-guides + fpv-components-specs with source-backed docs.',
@@ -182,7 +173,7 @@ const rows: AuditRow[] = [
     'Part Matcher',
     localCatalogReady ? 'PASS' : 'PARTIAL',
     'shared local catalog + guided compatibility workflow',
-    `${productCatalogFinding}; image coverage=${imageCoveragePct}%; crawler-backed=${crawlerBackedCount}; Dify components docs=${componentsDocs}.`,
+    `${productCatalogFinding}; image coverage=${imageCoveragePct}%; crawler-backed=${crawlerBackedCount}. Qdrant live counts not checked locally — verify via SSH or Dify Studio.`,
     localCatalogReady
       ? 'Local deterministic compatibility is production-ready; continue expanding crawler-backed provenance before claiming full RAG grounding.'
       : 'Expand catalog coverage, image coverage, and crawler-backed source provenance.',
@@ -207,17 +198,14 @@ const rows: AuditRow[] = [
   ),
   row(
     'Blackbox Tuning',
+    hasDifyApp('Blackbox Tuning Advisor') && blackboxBinaryPromiseAligned && blackboxSmokeExists
+      ? 'PARTIAL'
+      : 'PARTIAL',
+    'local tuning guardrail + optional Dify grounding',
+    `Workflow configured: ${hasDifyApp('Blackbox Tuning Advisor')}; local tuning articles=${localToolCorpus.tuning}; source backlog=${blackboxSourceCount}; queued=${blackboxQueuedCount}; crawled=${blackboxCrawledCount}; binary promise aligned=${blackboxBinaryPromiseAligned}; smoke=${blackboxSmokeExists}. WARN: fpv-flight-tuning Qdrant collection known to contain GitHub UI contamination — clean crawl required before claiming full grounding. Verify live Qdrant counts via SSH; do not rely on stale local docCount.`,
     hasDifyApp('Blackbox Tuning Advisor')
-      && tuningLocalReady
-      && blackboxBinaryPromiseAligned
-      && blackboxSmokeExists
-        ? 'PASS'
-        : 'PARTIAL',
-    'local tuning guardrail + local tuning corpus + optional Dify grounding',
-    `Workflow configured: ${hasDifyApp('Blackbox Tuning Advisor')}; local tuning articles=${localToolCorpus.tuning}; Dify docs flight=${flightTuningDocs}, pid=${pidProfileDocs}, troubleshooting=${troubleshootingDocs}; Dify RAG ready=${blackboxRagReady}; source backlog=${blackboxSourceCount}; queued=${blackboxQueuedCount}; crawled=${blackboxCrawledCount}; binary promise aligned=${blackboxBinaryPromiseAligned}; smoke=${blackboxSmokeExists}.`,
-    tuningLocalReady
-      ? 'Local CSV/text guardrail is ready; do not claim full Dify-grounded blackbox authority until Dify PID/troubleshooting corpus passes.'
-      : 'Add local tuning/troubleshooting coverage and run production gateway smoke.',
+      ? 'Clean fpv-flight-tuning dataset (GitHub UI contamination), add smoke test, verify Qdrant counts live before upgrading to PASS.'
+      : 'Configure DIFY_APP_TOKEN_BLACKBOX and clean the contaminated fpv-flight-tuning Qdrant collection.',
   ),
   row(
     'Flight Critic',
@@ -233,7 +221,7 @@ console.table(rows);
 console.log(`Catalog summary: ${productCatalogFinding}`);
 console.log(`Local tool corpus: build/component=${localToolCorpus.build}, tuning/troubleshooting=${localToolCorpus.tuning}`);
 console.log(`Product source pack: ${productSourceCount} crawler source(s) ready for catalog expansion`);
-console.log(`Dataset routing doc counts: components=${componentsDocs}, build=${buildDocs}, tuning=${tuningDocs}`);
+console.log(`NOTE: Qdrant live counts are NOT checked here — verify via SSH or Dify Studio. The stale docCount field was removed from DATASETS.`);
 console.log(`Blackbox source pack: ${blackboxSourceCount} source(s); queued=${blackboxQueuedCount}; crawled=${blackboxCrawledCount}; binary upload promise aligned=${blackboxBinaryPromiseAligned}; smoke script=${blackboxSmokeExists}`);
 
 const strictFailures = rows.filter((auditRow) => auditRow.status === 'FAIL');

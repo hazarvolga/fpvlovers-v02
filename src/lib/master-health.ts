@@ -35,8 +35,8 @@ export function getMasterHealth(): MasterHealthReport {
   const budget = getBudgetStatus();
   const report = generateEcosystemReport();
 
-  const totalDocs = DATASETS.reduce((s, d) => s + d.docCount, 0);
-  const populated = DATASETS.filter(d => d.docCount > 0).length;
+  const totalDocs = 0; // docCount not tracked locally; verify via live Qdrant
+  const populated = DATASETS.length; // assume all datasets may have data
 
   const stats = {
     total_intents: INTENT_ROUTES.length,

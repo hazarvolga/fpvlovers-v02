@@ -55,63 +55,77 @@ Return JSON strictly in this format:
 }
 `;
 
-// Simulated Data Mapper & Fetcher
+import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
+import type { FpvCatalogProduct } from '@/lib/tools/fpv-product-types';
+
+function toNum(val: unknown): number {
+  return typeof val === 'number' ? val : 0;
+}
+
+function catalogToDuelProduct(product: FpvCatalogProduct): DuelProduct {
+  const kv = toNum(product.specs?.['kv'] ?? product.evidenceSpecs?.['kv']?.value);
+  const weight = toNum(product.specs?.['weight'] ?? product.evidenceSpecs?.['weight']?.value);
+  return {
+    id: product.id,
+    name: product.name,
+    brand: product.brand,
+    imageUrl: product.imageUrl ?? '/images/placeholder-product.jpg',
+    referenceLabel: product.trustStatus === 'VERIFIED' ? 'Catalog verified' : 'Catalog — unverified',
+    specs: { kv, weight, thrust: 0, efficiency: 0 },
+    vendors: [
+      { name: product.sourceNetwork, status: 'Verification pending', url: product.url ?? '#', verified: product.trustStatus === 'VERIFIED' },
+    ],
+  };
+}
+
+function notFoundDuelProduct(id: string): DuelProduct {
+  return {
+    id,
+    name: id,
+    brand: 'Unknown',
+    imageUrl: '/images/placeholder-product.jpg',
+    referenceLabel: 'Not in catalog',
+    specs: { kv: 0, weight: 0, thrust: 0, efficiency: 0 },
+    vendors: [],
+  };
+}
+
 export async function getDuelComparison(productAId: string, productBId: string) {
-  await new Promise(r => setTimeout(r, 800));
+  await new Promise(r => setTimeout(r, 200));
 
-   const productA: DuelProduct = {
-      id: "motor-tmotor-f60",
-      name: "F60 Pro IV KV1750",
-      brand: "T-Motor",
-      imageUrl: "/api/content/media/cover/t-motor-f60-pro-iv",
-      referenceLabel: "Benchmark sample",
-      specs: {
-        kv: 1750,
-        weight: 34.5,
-        thrust: 1850,
-        efficiency: 3.8
-      },
-      vendors: [
-        { name: "Amazon", status: "Verification pending", url: "#", verified: false },
-        { name: "Banggood", status: "Verification pending", url: "#", verified: false },
-        { name: "GetFPV", status: "Verification pending", url: "#", verified: false },
-      ]
-   };
+  const catalog = getFpvProductCatalog();
+  const rawA = catalog.find((p) => p.id === productAId);
+  const rawB = catalog.find((p) => p.id === productBId);
 
-   const productB: DuelProduct = {
-      id: "motor-xnova-2207",
-      name: "Freestyle 2207 KV1800",
-      brand: "XNOVA",
-      imageUrl: "/api/content/media/cover/xnova-freestyle-2207",
-      referenceLabel: "Benchmark sample",
-      specs: {
-        kv: 1800,
-        weight: 32.0,
-        thrust: 1780,
-        efficiency: 4.1
-      },
-      vendors: [
-        { name: "Amazon", status: "Verification pending", url: "#", verified: false },
-        { name: "RaceDayQuads", status: "Verification pending", url: "#", verified: false },
-      ]
-   };
+  const productA = rawA ? catalogToDuelProduct(rawA) : notFoundDuelProduct(productAId);
+  const productB = rawB ? catalogToDuelProduct(rawB) : notFoundDuelProduct(productBId);
 
-   const result: DuelResult = {
-      winnerId: "motor-xnova-2207",
-      verdictReason: "The XNOVA sample has the stronger benchmark efficiency figure in this static comparison. Treat the result as a lab signal until sourced catalog evidence is attached.",
-      warnings: {
-        "motor-tmotor-f60": "Thermal headroom should be verified against sourced thrust tables before recommending aggressive 6S props.",
-        "motor-xnova-2207": "Crash durability should be verified with source-backed reviews before making a purchase recommendation."
-      },
-      upsell: {
-        name: "RCINPOWER Wasp Major 22.6-6.5",
-        reason: "Research lead only: compare source-backed thrust, weight, and durability evidence before treating it as an upgrade.",
-        imageUrl: "/api/content/media/cover/rcinpower-wasp-major",
-        url: "#"
-      }
-   };
+  const bothFound = Boolean(rawA && rawB);
+  const winnerId = bothFound
+    ? ((rawA?.trustScore ?? 0) >= (rawB?.trustScore ?? 0) ? productA.id : productB.id)
+    : productA.id;
 
-   return { productA, productB, result };
+  const result: DuelResult = {
+    winnerId,
+    verdictReason: bothFound
+      ? `Catalog trust score comparison only — no live thrust-table or verified test data available. Source-backed evidence is required before treating this as a purchase recommendation.`
+      : `One or both products were not found in the verified catalog. No comparison can be made without sourced catalog evidence.`,
+    warnings: {
+      [productA.id]: rawA
+        ? (rawA.trustStatus !== 'VERIFIED' ? 'Unverified catalog entry — specs not confirmed by crawler.' : 'Catalog-verified, but no live thrust or thermal data available.')
+        : 'Product ID not found in catalog. Cannot compare.',
+      [productB.id]: rawB
+        ? (rawB.trustStatus !== 'VERIFIED' ? 'Unverified catalog entry — specs not confirmed by crawler.' : 'Catalog-verified, but no live thrust or thermal data available.')
+        : 'Product ID not found in catalog. Cannot compare.',
+    },
+    upsell: {
+      name: 'Use the Part Matcher tool',
+      reason: 'For spec-backed component selection, the Part Matcher provides catalog-sourced compatibility scoring.',
+      url: '/tools/part-matcher',
+    },
+  };
+
+  return { productA, productB, result };
 }
 
 export function getSpecWinner(valA: number, valB: number, specKey: string): "A" | "B" | "TIE" {

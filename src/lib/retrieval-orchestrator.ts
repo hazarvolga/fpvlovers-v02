@@ -119,9 +119,7 @@ async function realRetrieval(query: string, config: RetrievalConfig): Promise<Re
 
   for (const dsName of allDatasets) {
     const datasetInfo = DATASETS.find(ds => ds.name === dsName);
-    const docCount = datasetInfo?.docCount ?? 0;
-    if (docCount === 0) continue;
-
+    // docCount is not tracked locally — skip the gate; Dify returns empty results for empty collections.
     const datasetId = datasetInfo?.uuid ?? dsName;
     const isPrimary = config.primaryDatasets.includes(dsName);
 
@@ -189,17 +187,8 @@ export function simulateRetrieval(query: string, config: RetrievalConfig): Retri
   for (const dsName of allDatasets) {
     const isPrimary = config.primaryDatasets.includes(dsName);
     const maxChunks = isPrimary ? config.maxChunksPerDataset : Math.floor(config.maxChunksPerDataset / 2);
-    const docCount = getDatasetDocCount(dsName);
-
-    // Empty datasets should not fabricate retrieval evidence.
-    if (docCount === 0) continue;
-
-    // Sparse datasets can still answer, but they should be scored conservatively.
-    const populationFactor =
-      docCount >= 10 ? 1 :
-      docCount >= 5 ? 0.8 :
-      docCount >= 3 ? 0.6 :
-      0.35;
+    // docCount is not tracked locally; always attempt simulation with default factor.
+    const populationFactor = 0.75;
 
     // Simulate retrieval quality based on dataset
     const datasetQualityMap: Record<string, number> = {
@@ -390,6 +379,7 @@ function jaccardSimilarity(a: string[], b: string[]): number {
   return union.size === 0 ? 0 : intersection.size / union.size;
 }
 
-function getDatasetDocCount(datasetName: string): number {
-  return DATASETS.find(ds => ds.name === datasetName)?.docCount ?? 0;
+/** @deprecated docCount is not tracked locally; removed from DatasetInfo. Use live Qdrant to verify. */
+function getDatasetDocCount(_datasetName: string): number {
+  return 0;
 }

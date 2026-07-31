@@ -42,7 +42,8 @@ export interface DatasetInfo {
   id: string;
   name: string;
   uuid: string;
-  docCount: number;
+  /** @deprecated Live Qdrant points_count is not tracked here; verify via SSH or Dify Studio. Always undefined in production. */
+  docCount?: number;
   minScoreThreshold: number;
   chunkTokens: number;
   overlapTokens: number;
@@ -198,15 +199,15 @@ export const DIFY_APPS: DifyAppInfo[] = [
 // ─── DATASETS ───
 
 export const DATASETS: DatasetInfo[] = [
-  { id: 'd1d5e44b-4dde-445a-a686-67a1cc0d926c', name: 'fpv-flight-tuning', uuid: 'd1d5e44b-4dde-445a-a686-67a1cc0d926c', docCount: 11, minScoreThreshold: 0.60, chunkTokens: 512, overlapTokens: 50, semanticWeight: 0.7, keywordWeight: 0.3 },
-  { id: '3eacd19f-ccd8-49ec-8482-51120918f0e0', name: 'fpv-pid-profiles', uuid: '3eacd19f-ccd8-49ec-8482-51120918f0e0', docCount: 0, minScoreThreshold: 0.65, chunkTokens: 400, overlapTokens: 30, semanticWeight: 0.5, keywordWeight: 0.5 },
-  { id: '9b380b45-1be1-4ba6-b685-72e279e09ccc', name: 'fpv-troubleshooting', uuid: '9b380b45-1be1-4ba6-b685-72e279e09ccc', docCount: 0, minScoreThreshold: 0.55, chunkTokens: 600, overlapTokens: 80, semanticWeight: 0.6, keywordWeight: 0.4 },
-  { id: '38bb7d60-b921-440c-b8f4-e49f9982a61f', name: 'fpv-components-specs', uuid: '38bb7d60-b921-440c-b8f4-e49f9982a61f', docCount: 0, minScoreThreshold: 0.60, chunkTokens: 500, overlapTokens: 40, semanticWeight: 0.4, keywordWeight: 0.6 },
-  { id: 'a733583a-5e50-4e00-8b50-759380da59db', name: 'fpv-build-guides', uuid: 'a733583a-5e50-4e00-8b50-759380da59db', docCount: 0, minScoreThreshold: 0.50, chunkTokens: 800, overlapTokens: 120, semanticWeight: 0.7, keywordWeight: 0.3 },
-  { id: '6a8a84c8-46ca-43f0-a3ea-3c19f32f5a17', name: 'fpv-news-reviews', uuid: '6a8a84c8-46ca-43f0-a3ea-3c19f32f5a17', docCount: 1, minScoreThreshold: 0.45, chunkTokens: 1000, overlapTokens: 100, semanticWeight: 0.8, keywordWeight: 0.2 },
-  { id: 'cd17b1ea-a852-4d31-87d7-1b4c0bd46e7f', name: 'fpv-racing-events', uuid: 'cd17b1ea-a852-4d31-87d7-1b4c0bd46e7f', docCount: 0, minScoreThreshold: 0.50, chunkTokens: 750, overlapTokens: 75, semanticWeight: 0.6, keywordWeight: 0.4 },
-  { id: '639af5aa-d424-4d0b-9633-a7ab541afcb2', name: 'fpv-community-knowledge', uuid: '639af5aa-d424-4d0b-9633-a7ab541afcb2', docCount: 3, minScoreThreshold: 0.55, chunkTokens: 600, overlapTokens: 60, semanticWeight: 0.7, keywordWeight: 0.3 },
-  { id: '229be183-217b-4f93-ba48-9cdabbd1e37f', name: 'fpv-regulations', uuid: '229be183-217b-4f93-ba48-9cdabbd1e37f', docCount: 5, minScoreThreshold: 0.70, chunkTokens: 400, overlapTokens: 30, semanticWeight: 0.3, keywordWeight: 0.7 },
+  { id: 'd1d5e44b-4dde-445a-a686-67a1cc0d926c', name: 'fpv-flight-tuning', uuid: 'd1d5e44b-4dde-445a-a686-67a1cc0d926c', minScoreThreshold: 0.60, chunkTokens: 512, overlapTokens: 50, semanticWeight: 0.7, keywordWeight: 0.3 },
+  { id: '3eacd19f-ccd8-49ec-8482-51120918f0e0', name: 'fpv-pid-profiles', uuid: '3eacd19f-ccd8-49ec-8482-51120918f0e0', minScoreThreshold: 0.65, chunkTokens: 400, overlapTokens: 30, semanticWeight: 0.5, keywordWeight: 0.5 },
+  { id: '9b380b45-1be1-4ba6-b685-72e279e09ccc', name: 'fpv-troubleshooting', uuid: '9b380b45-1be1-4ba6-b685-72e279e09ccc', minScoreThreshold: 0.55, chunkTokens: 600, overlapTokens: 80, semanticWeight: 0.6, keywordWeight: 0.4 },
+  { id: '38bb7d60-b921-440c-b8f4-e49f9982a61f', name: 'fpv-components-specs', uuid: '38bb7d60-b921-440c-b8f4-e49f9982a61f', minScoreThreshold: 0.60, chunkTokens: 500, overlapTokens: 40, semanticWeight: 0.4, keywordWeight: 0.6 },
+  { id: 'a733583a-5e50-4e00-8b50-759380da59db', name: 'fpv-build-guides', uuid: 'a733583a-5e50-4e00-8b50-759380da59db', minScoreThreshold: 0.50, chunkTokens: 800, overlapTokens: 120, semanticWeight: 0.7, keywordWeight: 0.3 },
+  { id: '6a8a84c8-46ca-43f0-a3ea-3c19f32f5a17', name: 'fpv-news-reviews', uuid: '6a8a84c8-46ca-43f0-a3ea-3c19f32f5a17', minScoreThreshold: 0.45, chunkTokens: 1000, overlapTokens: 100, semanticWeight: 0.8, keywordWeight: 0.2 },
+  { id: 'cd17b1ea-a852-4d31-87d7-1b4c0bd46e7f', name: 'fpv-racing-events', uuid: 'cd17b1ea-a852-4d31-87d7-1b4c0bd46e7f', minScoreThreshold: 0.50, chunkTokens: 750, overlapTokens: 75, semanticWeight: 0.6, keywordWeight: 0.4 },
+  { id: '639af5aa-d424-4d0b-9633-a7ab541afcb2', name: 'fpv-community-knowledge', uuid: '639af5aa-d424-4d0b-9633-a7ab541afcb2', minScoreThreshold: 0.55, chunkTokens: 600, overlapTokens: 60, semanticWeight: 0.7, keywordWeight: 0.3 },
+  { id: '229be183-217b-4f93-ba48-9cdabbd1e37f', name: 'fpv-regulations', uuid: '229be183-217b-4f93-ba48-9cdabbd1e37f', minScoreThreshold: 0.70, chunkTokens: 400, overlapTokens: 30, semanticWeight: 0.3, keywordWeight: 0.7 },
 ];
 
 // ─── FILE-BASED ROUTING ───

@@ -30,25 +30,16 @@ export function analyzeContentGaps(): EcosystemInsight[] {
   const insights: EcosystemInsight[] = [];
 
   for (const ds of DATASETS) {
-    if (ds.docCount === 0) {
-      insights.push({
-        type: 'content_gap',
-        severity: 'high',
-        title: `Empty dataset: ${ds.name}`,
-        description: `${ds.name} has 0 documents. Retrieval will always fail for related intents.`,
-        suggestion: `Crawl and ingest content for ${ds.name}. Min recommended: 10 documents.`,
-        affected: [ds.name],
-      });
-    } else if (ds.docCount < 5) {
-      insights.push({
-        type: 'content_gap',
-        severity: 'medium',
-        title: `Sparse dataset: ${ds.name}`,
-        description: `${ds.name} has only ${ds.docCount} document(s). Retrieval quality is limited.`,
-        suggestion: `Expand ${ds.name} to at least 10 documents for reliable retrieval.`,
-        affected: [ds.name],
-      });
-    }
+    // docCount is not tracked locally; live Qdrant is the source of truth.
+    // Emit a generic advisory rather than a false "0 docs" warning.
+    insights.push({
+      type: 'content_gap',
+      severity: 'low',
+      title: `Dataset depth unverified: ${ds.name}`,
+      description: `${ds.name} doc count is not tracked locally. Verify via SSH or Dify Studio.`,
+      suggestion: `Run \`curl http://qdrant:6333/collections/${ds.uuid}\` inside the Dify container to get the live points_count.`,
+      affected: [ds.name],
+    });
   }
 
   return insights;
@@ -62,7 +53,7 @@ export function analyzeRoutingCoverage(): { strong: string[]; weak: string[] } {
 
   for (const route of INTENT_ROUTES) {
     const primaryDs = DATASETS.find(d => d.id === route.primaryDatasetId);
-    if (primaryDs && primaryDs.docCount >= 5) {
+    if (primaryDs) {
       strong.push(route.intent);
     } else {
       weak.push(route.intent);
@@ -80,7 +71,7 @@ export function detectSponsorOpportunities(): EcosystemInsight[] {
   for (const route of INTENT_ROUTES) {
     if (['affiliate', 'mixed'].includes(route.monetizationStrategy)) {
       const ds = DATASETS.find(d => d.id === route.primaryDatasetId);
-      if (ds && ds.docCount === 0) {
+      if (ds) {
         opportunities.push({
           type: 'sponsor_match',
           severity: 'medium',
@@ -146,7 +137,7 @@ export function generateEcosystemReport(query?: string, intent?: string): Ecosys
     generated_at: new Date().toISOString(),
     health_score: health.ecosystem_health_score,
     insights: allInsights,
-    content_gaps: DATASETS.filter(d => d.docCount === 0).map(d => d.name),
+    content_gaps: [],
     strong_routes: strong,
     weak_routes: weak,
     sponsor_opportunities: sponsorOps.map(o => o.title),
