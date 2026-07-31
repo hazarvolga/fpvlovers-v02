@@ -305,7 +305,8 @@ export function analyzeBlackboxTuning(input: BlackboxTuningInput): BlackboxTunin
 
   if (cliCommands) {
     markdownParts.push(
-      '### Betaflight CLI Injection Commands',
+      `### Betaflight CLI Injection Commands (${gModel} Model Preset)`,
+      '> **Note:** These commands are a static preset for the selected gyro model. They are NOT derived from your actual blackbox log. Verify against your own RPM noise trace before applying.',
       '> [!CAUTION]',
       '> Applying manual CLI filter parameters can lead to motor heat if your build has severe frame arm vibrations. Run a short 30-second hover test and verify that motor bells remain warm/cool before committing to hard flight.',
       '```text',

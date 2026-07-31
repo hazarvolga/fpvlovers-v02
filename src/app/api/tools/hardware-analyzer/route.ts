@@ -65,7 +65,7 @@ function matchCatalogProduct(query: string, types: FpvProductType[], catalog: Fp
         .length;
       return { product, score: (nameHit ? 10 : 0) + keywordHits + product.trustScore / 100 };
     })
-    .filter((candidate) => candidate.score >= 2)
+    .filter((candidate) => candidate.score >= 3)
     .sort((left, right) => right.score - left.score)[0]?.product;
 }
 

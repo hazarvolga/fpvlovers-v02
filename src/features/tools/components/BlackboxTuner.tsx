@@ -295,6 +295,15 @@ export function BlackboxTunerWidget() {
 
       {result && (
         <div className="mt-8 pt-8 border-t border-white/10">
+          {answerMode === 'dify_unverified' && (
+            <div className="mb-4 p-3 border border-amber-500/30 bg-amber-500/5 rounded-lg flex items-start gap-3">
+              <ShieldAlert className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+              <p className="text-amber-400 text-xs font-mono leading-relaxed">
+                <span className="font-bold">NO RETRIEVAL SOURCES — </span>
+                The AI returned a response but cited no RAG documents. Treat this output as unverified AI reasoning, not as catalog-backed analysis.
+              </p>
+            </div>
+          )}
           <div className="flex items-center gap-2 mb-6">
             <Activity className="w-5 h-5 text-[#FF5C00]" aria-hidden="true" />
             <h2 className="text-xl font-bold tracking-tight text-zinc-100">Tuning Solution Matrix</h2>
