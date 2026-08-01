@@ -90,46 +90,50 @@ const mockHotspots: Hotspot[] = [
   { id: '5', location: 'Coastal Range Cliffs', windSpeed: 31, temp: 16, gpsRescueReady: true, status: 'CLEAR' }
 ];
 
+// Illustrative example profiles for a "what a reliability tracker could show"
+// demo — deliberately fictional brand/product names (Class A/B/C, matching
+// the fictional drone/pilot naming used elsewhere on this page) so nothing
+// here reads as a real measured claim about a real manufacturer's product.
 const mockReliabilityMatrix: ComponentReliability[] = [
   {
     id: 'c1',
-    brand: 'RadioMaster',
-    name: 'Boxer ELRS Transmitter',
+    brand: 'Class A',
+    name: 'Long-Range Transmitter (example)',
     category: 'Transmitter',
     mtbfHours: 1200,
     failureIndex: 0.4,
     rating: 'EXCELLENT',
-    notes: 'Flawless RF link stability. Low gimbals mechanical drift over 100+ hours.'
+    notes: 'Illustrative profile: stable RF link, minimal gimbal drift over extended use.'
   },
   {
     id: 'c2',
-    brand: 'Happymodel',
-    name: 'EP1 Nano Receiver',
+    brand: 'Class B',
+    name: 'Nano Receiver (example)',
     category: 'Receiver',
     mtbfHours: 950,
     failureIndex: 0.8,
     rating: 'EXCELLENT',
-    notes: 'Outstanding receiver sensitivity. Solder pads are small, handle thermal stress carefully.'
+    notes: 'Illustrative profile: strong sensitivity; small parts warrant careful soldering.'
   },
   {
     id: 'c3',
-    brand: 'DJI',
-    name: 'O3 Air Unit',
+    brand: 'Class C',
+    name: 'Digital VTX Air Unit (example)',
     category: 'VTX System',
     mtbfHours: 600,
     failureIndex: 2.5,
     rating: 'STABLE',
-    notes: 'Demands high-amp BEC power supply. Weak FC 5V rails will black out this VTX.'
+    notes: 'Illustrative profile: sensitive to power delivery; a clean, adequately-rated BEC matters.'
   },
   {
     id: 'c4',
-    brand: 'Generic',
-    name: 'F405 Stack 50A ESC',
+    brand: 'Class D',
+    name: 'Budget 4-in-1 Stack (example)',
     category: 'Electronics Stack',
     mtbfHours: 180,
     failureIndex: 7.2,
     rating: 'RISKY',
-    notes: 'Contains weak 5V onboard regulator. Running high voltage 6S builds risks ESC MOSFET thermal blowout.'
+    notes: 'Illustrative profile: thin power regulation stresses high-voltage builds — verify real specs before buying.'
   }
 ];
 
@@ -235,7 +239,7 @@ export default function PilotPulsePage() {
            Pilot <span className="text-[#00F2FF]">Pulse</span> HUD
          </h1>
          <p className="text-xs font-mono text-[#00F2FF] max-w-2xl leading-relaxed uppercase tracking-widest text-center relative z-10">
-           {"// GLOBAL FPV TELEMETRY ACTIVE. STREAMING EMPIRICAL FIELD DATA AND RELIABILITY MATRIX."}
+           {"// ILLUSTRATIVE FPV TELEMETRY DEMO. SIMULATED FIELD DATA AND SAMPLE RELIABILITY PROFILES — NOT MEASURED DATA."}
          </p>
       </div>
 
@@ -285,7 +289,7 @@ export default function PilotPulsePage() {
            <div className="flex items-center justify-between border-b border-[#333333] pb-4 mb-4">
               <div className="flex items-center gap-2">
                  <Gauge className="w-5 h-5 text-[#00F2FF]" />
-                 <h2 className="text-sm font-black uppercase text-white tracking-widest">Empirical Telemetry Signal Terminal</h2>
+                 <h2 className="text-sm font-black uppercase text-white tracking-widest">Simulated Telemetry Signal Terminal</h2>
               </div>
               <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#00F2FF]">
                  <span className="w-2 h-2 rounded-full bg-[#00F2FF] animate-ping" /> LIVE FEEDS ACTIVE
@@ -405,9 +409,14 @@ export default function PilotPulsePage() {
 
       {/* Component Reliability Matrix Section */}
       <div className="bg-[#050505] border border-[#333333] p-6 relative shadow-[inset_0_0_40px_rgba(0,0,0,0.8)] hex-panel w-full">
-         <div className="flex items-center gap-2 border-b border-[#333333] pb-4 mb-6">
-            <Cpu className="w-5 h-5 text-[#FF5C00]" />
-            <h2 className="text-sm font-black uppercase text-white tracking-widest">Empirical Component Reliability Matrix</h2>
+         <div className="flex items-center justify-between gap-2 border-b border-[#333333] pb-4 mb-6 flex-wrap">
+            <div className="flex items-center gap-2">
+              <Cpu className="w-5 h-5 text-[#FF5C00]" />
+              <h2 className="text-sm font-black uppercase text-white tracking-widest">Illustrative Component Reliability Matrix</h2>
+            </div>
+            <span className="text-[9px] font-mono uppercase tracking-widest text-[#FF5C00] border border-[#FF5C00]/40 bg-[#FF5C00]/10 px-2 py-1 rounded">
+              Example data — not measured, not tied to real products
+            </span>
          </div>
 
          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -447,7 +456,7 @@ export default function PilotPulsePage() {
                      <div>
                         <div className="text-[8px] text-[#666]">Suitability</div>
                         <div className="font-black text-white">
-                           {item.rating === 'RISKY' ? 'CAUTION GATED' : 'CERTIFIED'}
+                           {item.rating === 'RISKY' ? 'CAUTION GATED' : 'EXAMPLE PROFILE'}
                         </div>
                      </div>
                   </div>
