@@ -54,7 +54,13 @@ You must output a raw JSON array of content briefs and nothing else. No explanat
       for (const q of queries) {
         const res = await orchestrateRetrieval(q, 'default');
         if (res?.chunks) {
-          contextChunks.push(...res.chunks.slice(0, 3).map(c => `[Dataset: ${c.datasetName}] ${c.content}`));
+          // orchestrateRetrieval() falls back to simulateRetrieval() (templated
+          // placeholder text, no real information) whenever ENABLE_REAL_RAG
+          // isn't set — those chunks were previously fed into this prompt
+          // indistinguishably from real retrieval, so the model had no way to
+          // know "Context from FPV community & datasets" was actually empty.
+          const realChunks = res.chunks.filter((c) => !c.metadata?.simulation);
+          contextChunks.push(...realChunks.slice(0, 3).map(c => `[Dataset: ${c.datasetName}] ${c.content}`));
         }
       }
     } catch (err) {
@@ -63,7 +69,7 @@ You must output a raw JSON array of content briefs and nothing else. No explanat
 
     const contextText = contextChunks.length > 0
       ? contextChunks.join('\n\n')
-      : 'No real-time RAG context available. Fall back to emerging 2026 FPV drone technology (DJI O4, ELRS Gemini, 10-inch long-range, Walksnail Moonlight, etc.)';
+      : 'No real-time RAG context available (retrieval is disabled or returned no real results — do not invent specific "community" facts). Fall back to general, well-established 2026 FPV drone knowledge (DJI O4, ELRS Gemini, 10-inch long-range, Walksnail Moonlight, etc.) and mark anything uncertain as such.';
 
     // 2. Prepare Prompt
     const prompt = `You are the FPV Content Ideation Agent for fpvlovers.com.tr.
