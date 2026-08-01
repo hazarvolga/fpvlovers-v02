@@ -191,7 +191,12 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
   if (!selected.motor || !selected.battery || !selected.prop) {
     checks.push({ label: 'KV / voltage window', status: 'warn', detail: 'Select motor, battery, and propeller to verify KV safety window.' });
   } else if (!batteryCellCount || !motorKv || !propDiameter) {
-    checks.push({ label: 'KV / voltage window', status: 'warn', detail: `${selected.battery.name} is missing explicit cell count data; verify pack voltage before buying.` });
+    const missingEvidence = [
+      !batteryCellCount ? `${selected.battery.name} cell count` : null,
+      !motorKv ? `${selected.motor.name} verified KV` : null,
+      !propDiameter ? 'verified propeller diameter' : null,
+    ].filter((value): value is string => Boolean(value)).join(', ');
+    checks.push({ label: 'KV / voltage window', status: 'warn', detail: `Missing verified evidence for: ${missingEvidence}; confirm the voltage window manually before buying.` });
   } else {
     const safeKvRange = getSafeKvRange(batteryCellCount, propDiameter || 5);
     if (motorKv < safeKvRange.min || motorKv > safeKvRange.max) {
@@ -255,9 +260,14 @@ export function analyzeBuildCompatibility(selection: BuildSelection, catalog: Fp
     checks.push({ label: 'Calculator evidence', status: 'warn', detail: 'Calculator deferred: one or more required numeric specifications are not verified by source evidence.' });
   }
 
+  // "Not verified" is a caution signal (confirm before buying), not the same
+  // claim as "blocked" (a real, detected conflict). Every other hard-fail
+  // check above only fires once verified evidence exists, so today — with no
+  // catalog product carrying evidenceSpecs — this was the one 'fail' that
+  // fired unconditionally, capping every result at verdict "blocked".
   const engineeringSafety = evaluateBuildEngineeringSafety(selected);
   if (!engineeringSafety.isEngineeringSafe) {
-    checks.push({ label: 'Engineering evidence', status: 'fail', detail: 'Critical compatibility fields are not fully verified; this output is educational only and cannot be used as a build-ready recommendation.' });
+    checks.push({ label: 'Engineering evidence', status: 'warn', detail: 'Critical compatibility fields are not fully verified; this output is educational only and cannot be used as a build-ready recommendation.' });
   }
 
   const failCount = checks.filter((check) => check.status === 'fail').length;

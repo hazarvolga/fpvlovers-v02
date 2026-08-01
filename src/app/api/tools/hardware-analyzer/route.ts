@@ -12,6 +12,7 @@ const TOOL_DIFY_TIMEOUT_MS = 15000;
 type HardwarePayload = {
   frame: string;
   motor: string;
+  prop: string;
   esc: string;
   battery: string;
   fc: string;
@@ -35,6 +36,7 @@ function parsePayload(value: unknown): HardwarePayload {
   return {
     frame: cleanText(record.frame) || 'Unknown frame',
     motor: cleanText(record.motor) || 'Unknown motor',
+    prop: cleanText(record.prop) || 'Unknown propeller',
     esc: cleanText(record.esc) || 'Unknown ESC',
     battery: cleanText(record.battery) || 'Unknown battery',
     fc: cleanText(record.fc) || 'Unknown flight controller',
@@ -72,6 +74,7 @@ function matchCatalogProduct(query: string, types: FpvProductType[], catalog: Fp
 function matchHardware(input: HardwarePayload, catalog: FpvCatalogProduct[]): MatchedHardware {
   const frame = matchCatalogProduct(input.frame, ['frame', 'kit'], catalog);
   const motor = matchCatalogProduct(input.motor, ['motor'], catalog);
+  const prop = matchCatalogProduct(input.prop, ['prop'], catalog);
   const stackFromEsc = matchCatalogProduct(input.esc, ['stack'], catalog);
   const stackFromFc = matchCatalogProduct(input.fc, ['stack'], catalog);
   const battery = matchCatalogProduct(input.battery, ['battery'], catalog);
@@ -80,17 +83,24 @@ function matchHardware(input: HardwarePayload, catalog: FpvCatalogProduct[]): Ma
   return {
     ...(frame ? { frame } : {}),
     ...(motor ? { motor } : {}),
+    ...(prop ? { prop } : {}),
     ...(stackFromEsc || stackFromFc ? { stack: stackFromEsc || stackFromFc } : {}),
     ...(battery ? { battery } : {}),
     ...(video ? { video } : {}),
   };
 }
 
+// GAP #1 fix: `prop` is a required slot in analyzeBuildCompatibility's
+// "Required components" check. Hardware Analyzer never collected a propeller
+// before, so that check failed unconditionally whenever >=2 other slots
+// matched — capping every result at verdict "blocked" regardless of how good
+// the actual match was. Matching a propeller here closes that gap.
 function selectionFromMatches(matches: MatchedHardware): BuildSelection {
   return {
     style: 'freestyle',
     ...(matches.frame ? { frame: matches.frame.id } : {}),
     ...(matches.motor ? { motor: matches.motor.id } : {}),
+    ...(matches.prop ? { prop: matches.prop.id } : {}),
     ...(matches.stack ? { stack: matches.stack.id } : {}),
     ...(matches.battery ? { battery: matches.battery.id } : {}),
     ...(matches.video ? { video: matches.video.id } : {}),
@@ -117,6 +127,7 @@ function localHardwareMarkdown(input: HardwarePayload): string {
     '### Compatibility Matrix',
     `- Frame: ${input.frame}`,
     `- Motor: ${input.motor}`,
+    `- Propeller: ${input.prop}`,
     `- ESC: ${input.esc}`,
     `- Battery: ${input.battery}`,
     `- FC: ${input.fc}`,
@@ -128,7 +139,7 @@ function localHardwareMarkdown(input: HardwarePayload): string {
     '- Verify stack mounting pattern, UART availability, camera/VTX connector compatibility, and prop clearance before buying parts.',
     '',
     '### Recommended Next Step',
-    '- Route this build through the guided compatibility workflow once production credentials are enabled for deeper source-backed recommendations.',
+    '- Use exact product names (as sold by the manufacturer) for every field to get the most accurate catalog-backed compatibility check.',
   ].join('\n');
 }
 
@@ -191,6 +202,7 @@ function buildDifyPrompt(input: HardwarePayload, guardrail: string): string {
     '',
     `Frame: ${input.frame}`,
     `Motor: ${input.motor}`,
+    `Propeller: ${input.prop}`,
     `ESC: ${input.esc}`,
     `Battery: ${input.battery}`,
     `Flight controller: ${input.fc}`,

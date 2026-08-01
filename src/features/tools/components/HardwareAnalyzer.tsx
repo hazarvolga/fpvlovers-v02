@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Activity, ShieldAlert, Cpu, Battery, Video, Send, Loader2, Zap } from 'lucide-react';
+import { Activity, ShieldAlert, Info, Cpu, Battery, Video, Disc, Send, Loader2, Zap, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import ReactMarkdown from 'react-markdown';
 
@@ -19,28 +19,37 @@ type HardwareApiResponse = {
   engineeringSafety?: EngineeringSafety;
 };
 
+// GAP #1 fix: defaults are exact catalog product names, so the tool's own
+// showcased example reliably matches instead of scoring under the threshold.
+const DEFAULT_FORM_DATA = {
+  frame: 'ImpulseRC Apex EVO 5" Freestyle Frame',
+  motor: 'iFlight XING2 2207 1850KV Brushless Motor',
+  prop: 'HQProp Ethix S3 Watermelon 5" Propellers',
+  esc: '50A BLHeli32 4-in-1',
+  battery: 'CNHL 6S 1300mAh LiPo',
+  fc: 'SpeedyBee F405 V4 50A 30x30 Stack',
+  vtx: 'DJI O3 Air Unit',
+};
+
 export function HardwareAnalyzerWidget() {
-  const [formData, setFormData] = useState({
-    frame: 'Apex 5" Freestyle',
-    motor: '2207 2400KV',
-    esc: '45A 4-in-1',
-    battery: '6S 1300mAh LiPo',
-    fc: 'SpeedyBee F405 V3 30.5x30.5',
-    vtx: 'DJI O3 Air Unit'
-  });
+  const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
 
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [infoNotice, setInfoNotice] = useState<string | null>(null);
   const [engineeringSafety, setEngineeringSafety] = useState<EngineeringSafety | null>(null);
   const [responseSource, setResponseSource] = useState<HardwareApiResponse['source'] | null>(null);
+  const [retryAfterSeconds, setRetryAfterSeconds] = useState<number | null>(null);
 
   const analyzeHardware = async () => {
     setLoading(true);
     setError(null);
+    setInfoNotice(null);
     setResult(null);
     setEngineeringSafety(null);
     setResponseSource(null);
+    setRetryAfterSeconds(null);
 
     try {
       const response = await fetch('/api/tools/hardware-analyzer', {
@@ -48,6 +57,14 @@ export function HardwareAnalyzerWidget() {
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(formData),
       });
+
+      if (response.status === 429) {
+        const resetHeader = response.headers.get('X-RateLimit-Reset');
+        const resetMs = resetHeader ? Number(resetHeader) : NaN;
+        const secondsLeft = Number.isFinite(resetMs) ? Math.max(1, Math.ceil((resetMs - Date.now()) / 1000)) : 60;
+        setRetryAfterSeconds(secondsLeft);
+      }
+
       const data = await response.json() as HardwareApiResponse;
       if (!response.ok || !data.success || !data.markdown) {
         throw new Error(data.error || 'Hardware analysis failed.');
@@ -56,7 +73,9 @@ export function HardwareAnalyzerWidget() {
       setResult(data.markdown);
       setEngineeringSafety(data.engineeringSafety ?? null);
       setResponseSource(data.source ?? null);
-      if (data.warning) setError(data.warning);
+      // GAP #3 fix: an expected fallback (gateway unavailable) is an
+      // informational notice, not an error — keep it out of the red error box.
+      if (data.warning) setInfoNotice(data.warning);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred during analysis.');
     } finally {
@@ -87,7 +106,7 @@ export function HardwareAnalyzerWidget() {
              name="frame"
              value={formData.frame}
              onChange={handleInputChange}
-             placeholder='e.g., Apex 5"'
+             placeholder='e.g., ImpulseRC Apex EVO 5"'
              className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
@@ -101,7 +120,21 @@ export function HardwareAnalyzerWidget() {
              name="motor"
              value={formData.motor}
              onChange={handleInputChange}
-             placeholder="e.g., 2207 2400KV"
+             placeholder="e.g., iFlight XING2 2207 1850KV"
+             className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
+           />
+        </div>
+
+        <div className="space-y-2">
+           <label className="text-[10px] font-bold tracking-widest uppercase text-zinc-400 flex items-center gap-2">
+             <Disc className="w-3 h-3" /> Propeller
+           </label>
+           <input
+             type="text"
+             name="prop"
+             value={formData.prop}
+             onChange={handleInputChange}
+             placeholder='e.g., HQProp Ethix S3 5"'
              className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
@@ -115,7 +148,7 @@ export function HardwareAnalyzerWidget() {
              name="esc"
              value={formData.esc}
              onChange={handleInputChange}
-             placeholder="e.g., 45A 4-in-1"
+             placeholder="e.g., 50A BLHeli32 4-in-1"
              className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
@@ -129,7 +162,7 @@ export function HardwareAnalyzerWidget() {
              name="battery"
              value={formData.battery}
              onChange={handleInputChange}
-             placeholder="e.g., 6S 1300mAh"
+             placeholder="e.g., CNHL 6S 1300mAh LiPo"
              className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
@@ -143,7 +176,7 @@ export function HardwareAnalyzerWidget() {
              name="fc"
              value={formData.fc}
              onChange={handleInputChange}
-             placeholder="e.g., SpeedyBee F405 V3"
+             placeholder="e.g., SpeedyBee F405 V4 50A"
              className="w-full bg-zinc-950 border border-white/10 px-4 py-3 font-mono text-sm text-white focus:outline-none focus:border-[#FF5C00] transition-colors rounded-lg"
            />
         </div>
@@ -182,9 +215,26 @@ export function HardwareAnalyzerWidget() {
         )}
       </Button>
 
-      {error && (
+      {/* GAP #7 fix: rate-limit responses get an actionable countdown instead of a bare error string. */}
+      {retryAfterSeconds !== null && (
+        <div className="p-4 border border-red-500/50 bg-red-500/10 text-red-400 font-mono text-sm flex items-center gap-2">
+          <Clock className="w-5 h-5 flex-shrink-0" />
+          Too many requests. Try again in {retryAfterSeconds}s.
+        </div>
+      )}
+
+      {/* GAP #3 fix: a real error (request failed) is visually distinct from an
+          informational notice (gateway unavailable, local check returned instead). */}
+      {error && retryAfterSeconds === null && (
         <div className="p-4 border border-red-500/50 bg-red-500/10 text-red-400 font-mono text-sm">
           <ShieldAlert className="w-5 h-5 mb-2 inline-block" /> {error}
+        </div>
+      )}
+
+      {infoNotice && (
+        <div className="p-4 border border-amber-500/40 bg-amber-500/10 text-amber-400 font-mono text-sm flex items-start gap-2">
+          <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
+          <span>{infoNotice}</span>
         </div>
       )}
 
@@ -193,21 +243,7 @@ export function HardwareAnalyzerWidget() {
           <div className="flex items-center gap-2 mb-4">
             <Activity className="w-5 h-5 text-[#FF5C00]" />
             <h2 className="text-xl font-bold tracking-tight text-zinc-100">Diagnostic Report</h2>
-            {responseSource === 'dify' && (
-              <span title="AI-Assisted: The Dify gateway found matching RAG sources and grounded its answer in catalog data." className="ml-auto text-[10px] font-bold uppercase tracking-widest text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded cursor-help">
-                AI-Assisted ⓘ
-              </span>
-            )}
-            {responseSource === 'dify_unverified' && (
-              <span title="AI — No Sources: The AI responded but found no catalog sources to cite. Treat as unverified reasoning." className="ml-auto text-[10px] font-bold uppercase tracking-widest text-amber-400 border border-amber-500/40 px-2 py-0.5 rounded cursor-help">
-                AI — No Sources ⓘ
-              </span>
-            )}
-            {responseSource === 'local' && (
-              <span title="Local Guardrail: The AI gateway was not available. This result comes from deterministic catalog checks only." className="ml-auto text-[10px] font-bold uppercase tracking-widest text-zinc-400 border border-zinc-600 px-2 py-0.5 rounded cursor-help">
-                Local Guardrail ⓘ
-              </span>
-            )}
+            <ResponseSourceBadge source={responseSource} />
           </div>
 
           {engineeringSafety && (
@@ -238,6 +274,58 @@ export function HardwareAnalyzerWidget() {
           <div className="prose prose-invert prose-p:text-sm prose-p:text-zinc-400 prose-headings:font-bold prose-headings:text-zinc-100 prose-li:text-sm max-w-none">
             <ReactMarkdown>{result}</ReactMarkdown>
           </div>
+
+          {/* GAP #5 fix: the score/verdict scale is explained instead of leaving
+              a bare number ("14/100") for the reader to interpret on their own. */}
+          <div className="mt-6 rounded-lg border border-white/10 bg-zinc-900/40 px-4 py-3 text-xs text-zinc-500 font-mono">
+            <span className="text-zinc-400 font-bold uppercase tracking-widest">Score guide: </span>
+            Ready (no unresolved checks) · Caution (real parts, but some specs are not manufacturer-verified in our catalog yet — confirm them before buying) · Blocked (a hard mismatch, e.g. wrong prop size for the frame). Most builds land in Caution until every spec carries verified evidence.
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// GAP #6 fix: the source badge's explanation is reachable by tap, not only
+// hover — mobile users get the same trust signal desktop users do.
+function ResponseSourceBadge({ source }: { source: HardwareApiResponse['source'] | null }) {
+  const [expanded, setExpanded] = useState(false);
+
+  const copy: Record<NonNullable<HardwareApiResponse['source']>, { label: string; color: string; detail: string }> = {
+    dify: {
+      label: 'AI-Assisted',
+      color: 'text-emerald-400 border-emerald-500/40',
+      detail: 'The Dify gateway found matching catalog sources and grounded its answer in them.',
+    },
+    dify_unverified: {
+      label: 'AI — No Sources',
+      color: 'text-amber-400 border-amber-500/40',
+      detail: 'The AI responded but found no catalog sources to cite. Treat as unverified reasoning.',
+    },
+    local: {
+      label: 'Local Guardrail',
+      color: 'text-zinc-400 border-zinc-600',
+      detail: 'The AI gateway was not available. This result comes from deterministic catalog checks only.',
+    },
+  };
+
+  if (!source) return null;
+  const entry = copy[source];
+
+  return (
+    <div className="ml-auto relative">
+      <button
+        type="button"
+        onClick={() => setExpanded((v) => !v)}
+        title={entry.detail}
+        className={`text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded border cursor-help ${entry.color}`}
+      >
+        {entry.label} ⓘ
+      </button>
+      {expanded && (
+        <div className="absolute right-0 top-full mt-2 w-56 z-10 rounded-lg border border-white/10 bg-zinc-950 p-3 text-[11px] leading-relaxed text-zinc-300 shadow-xl">
+          {entry.detail}
         </div>
       )}
     </div>
