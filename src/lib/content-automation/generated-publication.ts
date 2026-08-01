@@ -9,6 +9,7 @@ import {
   evaluatePublicationReadiness,
   type PublicationReadinessDecision,
 } from '@/lib/content-automation/editorial-governance';
+import { computeSeoScore } from '@/lib/content-automation/seo-score';
 
 const AFFILIATE_DISCLOSURE = 'Disclosure: FPVLovers may earn a commission from qualifying purchases made through affiliate links, at no additional cost to the reader.';
 const UNSUPPORTED_EXPERIENCE_PATTERNS = [
@@ -152,6 +153,7 @@ export function prepareGeneratedPublication(
     linksValid: linksAreValid(content),
     disclosurePresent: !isCommercial(job)
       || content.publishNotes.some((note) => /affiliate|commission|disclosure/i.test(note)),
+    seoScore: computeSeoScore(content).score,
   };
   const editorial: AutonomousEditorialRecord = {
     contentClass: 'autonomous',
@@ -161,6 +163,7 @@ export function prepareGeneratedPublication(
   const decision = evaluatePublicationReadiness({
     classification,
     autonomousQuality: quality,
+    classificationInput: { category: job.category, template: job.template },
   });
 
   return {

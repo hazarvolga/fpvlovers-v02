@@ -28,12 +28,30 @@ export type AutonomousQualityGate = {
   metadataComplete: boolean;
   linksValid: boolean;
   disclosurePresent: boolean;
+  seoScore: number;
 };
+
+// Regulatory/legal content (SHY/SHGM etc.) carries higher hallucination
+// stakes than a build guide — CLAUDE.md's own YASAK list singles it out.
+// Nothing previously enforced a stricter bar for it than any other
+// category; this requires more corroborating sources before it can
+// autonomously publish.
+const REGULATION_MIN_SOURCE_COUNT = 2;
+export function isRegulationContent(input: EditorialClassificationInput): boolean {
+  const normalizedCategory = input.category?.trim().toLowerCase();
+  return input.template === 'regulation-guide'
+    || normalizedCategory === 'regulations'
+    || normalizedCategory === 'yasal';
+}
 
 export type PublicationReadinessInput = {
   classification: EditorialClassification;
   review?: EditorialReviewRecord;
   autonomousQuality?: AutonomousQualityGate;
+  // Needed (in addition to `classification`) to detect regulation/legal
+  // content, since EditorialClassification itself only carries
+  // contentClass/requiresHumanApproval/reason, not category/template.
+  classificationInput?: EditorialClassificationInput;
 };
 
 export type PublicationReadinessDecision = {
@@ -106,16 +124,31 @@ function reviewBlockers(review: EditorialReviewRecord | undefined): string[] {
   return blockers;
 }
 
-function autonomousBlockers(quality: AutonomousQualityGate | undefined): string[] {
+function autonomousBlockers(
+  quality: AutonomousQualityGate | undefined,
+  classificationInput: EditorialClassificationInput | undefined,
+): string[] {
   if (!quality) return ['Autonomous content requires a quality-gate record.'];
 
+  const isRegulation = classificationInput ? isRegulationContent(classificationInput) : false;
+  const minSourceCount = isRegulation ? REGULATION_MIN_SOURCE_COUNT : 1;
+
   const blockers: string[] = [];
-  if (quality.sourceCount < 1) blockers.push('Autonomous content requires at least one source.');
+  if (quality.sourceCount < minSourceCount) {
+    blockers.push(
+      isRegulation
+        ? `Regulation/legal content requires at least ${REGULATION_MIN_SOURCE_COUNT} corroborating sources (found ${quality.sourceCount}).`
+        : 'Autonomous content requires at least one source.',
+    );
+  }
   if (quality.unsupportedClaimCount > 0) blockers.push('Unsupported claims must be resolved.');
   if (quality.duplicateScore > 0.8) blockers.push('Duplicate-content score exceeds the allowed threshold.');
   if (!quality.metadataComplete) blockers.push('Required metadata is incomplete.');
   if (!quality.linksValid) blockers.push('Internal or CTA links are invalid.');
   if (!quality.disclosurePresent) blockers.push('Required disclosure is missing.');
+  // CLAUDE.md: "SEO skoru >= 80 olmadan yayın yasak" — previously
+  // undocumented in code (no score was ever computed). See seo-score.ts.
+  if (quality.seoScore < 80) blockers.push(`SEO score ${quality.seoScore} is below the required 80.`);
   return blockers;
 }
 
@@ -124,7 +157,7 @@ export function evaluatePublicationReadiness(
 ): PublicationReadinessDecision {
   const blockers = input.classification.contentClass === 'product-review'
     ? reviewBlockers(input.review)
-    : autonomousBlockers(input.autonomousQuality);
+    : autonomousBlockers(input.autonomousQuality, input.classificationInput);
   const canPublish = blockers.length === 0;
 
   return {

@@ -117,6 +117,7 @@ const autonomousDecision = evaluatePublicationReadiness({
     metadataComplete: true,
     linksValid: true,
     disclosurePresent: true,
+    seoScore: 85,
   },
 });
 assert.equal(autonomousDecision.canPublish, true);
@@ -130,10 +131,66 @@ const weakAutonomousDecision = evaluatePublicationReadiness({
     metadataComplete: false,
     linksValid: false,
     disclosurePresent: false,
+    seoScore: 40,
   },
 });
 assert.equal(weakAutonomousDecision.canPublish, false);
-assert.ok(weakAutonomousDecision.blockers.length >= 5);
+assert.ok(weakAutonomousDecision.blockers.length >= 6);
+
+// CLAUDE.md: "SEO skoru >= 80 olmadan yayın yasak" — this must block on its
+// own even when every other quality signal passes.
+const lowSeoScoreDecision = evaluatePublicationReadiness({
+  classification: autonomousClassification,
+  autonomousQuality: {
+    sourceCount: 3,
+    unsupportedClaimCount: 0,
+    duplicateScore: 0.18,
+    metadataComplete: true,
+    linksValid: true,
+    disclosurePresent: true,
+    seoScore: 79,
+  },
+});
+assert.equal(lowSeoScoreDecision.canPublish, false);
+assert.ok(lowSeoScoreDecision.blockers.some((b) => /SEO score/.test(b)));
+
+// Regulation/legal content needs 2+ sources even though everything else
+// about the draft is otherwise publication-ready with only 1 source.
+const regulationClassification = classifyEditorialContent({
+  category: 'Regulations',
+  contentType: 'guide',
+  template: 'regulation-guide',
+});
+const regulationDecision = evaluatePublicationReadiness({
+  classification: regulationClassification,
+  autonomousQuality: {
+    sourceCount: 1,
+    unsupportedClaimCount: 0,
+    duplicateScore: 0.1,
+    metadataComplete: true,
+    linksValid: true,
+    disclosurePresent: true,
+    seoScore: 90,
+  },
+  classificationInput: { category: 'Regulations', template: 'regulation-guide' },
+});
+assert.equal(regulationDecision.canPublish, false);
+assert.ok(regulationDecision.blockers.some((b) => /Regulation\/legal content requires at least 2/.test(b)));
+
+const regulationWithEnoughSources = evaluatePublicationReadiness({
+  classification: regulationClassification,
+  autonomousQuality: {
+    sourceCount: 2,
+    unsupportedClaimCount: 0,
+    duplicateScore: 0.1,
+    metadataComplete: true,
+    linksValid: true,
+    disclosurePresent: true,
+    seoScore: 90,
+  },
+  classificationInput: { category: 'Regulations', template: 'regulation-guide' },
+});
+assert.equal(regulationWithEnoughSources.canPublish, true);
 
 const now = '2026-06-19T12:00:00.000Z';
 const baseJob: ContentJob = {
@@ -151,11 +208,30 @@ const baseJob: ContentJob = {
   createdAt: now,
   updatedAt: now,
 };
+// Long enough, with a controlled keyword rate, to clear the SEO-score gate
+// on its own merits — see seo-score.ts. Each section uses a distinct index
+// so sections don't collide with the duplicate-content check.
+function buildLongBody(sectionCount: number, wordsPerSection: number, keyword: string, keywordEvery: number) {
+  const sections: GeneratedContent['bodySections'] = [];
+  for (let s = 0; s < sectionCount; s += 1) {
+    const words: string[] = [];
+    for (let w = 0; w < wordsPerSection; w += 1) {
+      words.push(w % keywordEvery === 0 ? keyword : `detail${s}_${w}`);
+    }
+    sections.push({ id: `sec-${s}`, title: `FPV section ${s}`, content: words.join(' ') });
+  }
+  return sections;
+}
+
 const baseContent: GeneratedContent = {
-  title: 'Source-backed guide',
-  seo: { slug: 'source-backed-guide', metaDescription: 'Useful description', keywords: ['fpv'] },
+  title: 'Source-backed FPV guide',
+  seo: {
+    slug: 'source-backed-guide',
+    metaDescription: 'A practical, source-backed FPV guide covering setup, tuning, and safety basics for pilots at every level.',
+    keywords: ['fpv'],
+  },
   excerpt: 'Useful source-backed guidance.',
-  bodySections: [{ id: 'one', title: 'What matters', content: 'A specific, sourced explanation for FPV pilots.' }],
+  bodySections: buildLongBody(5, 400, 'fpv', 50),
   internalLinks: ['/academy/roadmap'],
   publishNotes: [],
 };
@@ -183,6 +259,11 @@ assert.equal(reviewPreparation.editorial.approvalStatus, 'pending');
 
 const baseArtifact: PublishedArtifact = {
   ...baseContent,
+  // Short on purpose — the indexability assertions below test the
+  // word-count threshold for commercial content types, independent of
+  // baseContent's now-long body (which exists to satisfy the SEO-score
+  // gate in the prepareGeneratedPublication tests above).
+  bodySections: [{ id: 'one', title: 'What matters', content: 'A specific, sourced explanation for FPV pilots.' }],
   slug: 'legacy-review',
   jobId: 'legacy-review',
   category: 'Reviews',

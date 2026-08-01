@@ -73,6 +73,7 @@ export type AutonomousEditorialRecord = {
   metadataComplete?: boolean;
   linksValid?: boolean;
   disclosurePresent?: boolean;
+  seoScore?: number;
 };
 
 export type EditorialRecord = EditorialReviewRecord | AutonomousEditorialRecord;
