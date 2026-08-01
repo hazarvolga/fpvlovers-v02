@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
+import { isPublicHttpUrl } from '@/lib/server/url-safety';
 
 const CRAWLERS = [
   getOptionalEnv('CRAWL4AI_PRIMARY_CRAWL_URL', 'http://crawler-proxy:3002/crawl'),
@@ -56,22 +57,8 @@ const ALLOWED_DOMAINS = [
 
 function isValidUrl(url: string): boolean {
   try {
-    const parsed = new URL(url);
-    if (!['http:', 'https:'].includes(parsed.protocol)) return false;
-    const h = parsed.hostname;
-    // Block IPv4 loopback & link-local
-    if (h === 'localhost' || h === '127.0.0.1' || h === '0.0.0.0') return false;
-    // Block IPv6 loopback and mapped IPv4 loopback
-    if (h === '::1' || h === '[::1]' || h.startsWith('::ffff:127.')) return false;
-    // Block RFC-1918 private ranges (10.x, 172.16–31.x, 192.168.x)
-    const ipv4Match = h.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.\d{1,3}$/);
-    if (ipv4Match) {
-      const [, a, b] = ipv4Match.map(Number);
-      if (a === 10) return false;
-      if (a === 172 && b >= 16 && b <= 31) return false;
-      if (a === 192 && b === 168) return false;
-      if (a === 169 && b === 254) return false; // link-local
-    }
+    if (!isPublicHttpUrl(url)) return false;
+    const h = new URL(url).hostname.toLowerCase();
     return ALLOWED_DOMAINS.some(d => h === d || h.endsWith('.' + d));
   } catch (err: unknown) {
     console.error('[Ingest] URL routing error:', err instanceof Error ? err.message : String(err));

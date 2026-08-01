@@ -15,6 +15,7 @@ import {
   classifyEditorialContent,
   evaluatePublicationReadiness,
 } from './editorial-governance';
+import { isPublicHttpUrl } from '@/lib/server/url-safety';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 const SOURCE_CACHE_DIR = path.join(process.cwd(), 'public', 'images', 'source-cache');
@@ -58,17 +59,24 @@ function slugHash8(slug: string, suffix: string): string {
  * This eliminates hotlink failures, CORS blocks, and next.config.ts remotePatterns
  * restrictions for editorial images.
  */
+const MAX_IMAGE_BYTES = 15 * 1024 * 1024; // 15MB — generous for an editorial cover/gallery image.
+
 async function downloadToSourceCache(
   externalUrl: string,
   slug: string,
   label: 'cover' | 'gallery',
   index: number,
 ): Promise<string | null> {
+  // SSRF guard: block loopback/private/link-local targets, and refuse to
+  // follow redirects — crawled image URLs should be direct CDN links.
+  if (!isPublicHttpUrl(externalUrl)) return null;
+
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 12_000);
     const res = await fetch(externalUrl, {
       signal: controller.signal,
+      redirect: 'error',
       headers: { 'User-Agent': 'FPVLovers-MediaBot/1.0 (editorial image cache)' },
     });
     clearTimeout(timer);
@@ -77,13 +85,19 @@ async function downloadToSourceCache(
     const contentType = res.headers.get('content-type') || '';
     if (!contentType.startsWith('image/')) return null;
 
+    const declaredLength = Number(res.headers.get('content-length') || 0);
+    if (declaredLength > MAX_IMAGE_BYTES) return null;
+
+    const arrayBuffer = await res.arrayBuffer();
+    if (arrayBuffer.byteLength > MAX_IMAGE_BYTES) return null;
+
     const ext = contentType.includes('webp') ? 'webp' : contentType.includes('png') ? 'png' : imageExtFromUrl(externalUrl);
     const hash = slugHash8(slug, externalUrl);
     const filename = `${slug}-${label}-${index}-${hash}.${ext}`;
 
     ensureDir(SOURCE_CACHE_DIR);
     const destPath = path.join(SOURCE_CACHE_DIR, filename);
-    const buffer = Buffer.from(await res.arrayBuffer());
+    const buffer = Buffer.from(arrayBuffer);
     fs.writeFileSync(destPath, buffer);
 
     return `/api/images/source-cache/${filename}`;

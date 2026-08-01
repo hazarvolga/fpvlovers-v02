@@ -15,6 +15,7 @@ import {
 import { pickBestRelevantImage } from '@/lib/content-automation/crawl-image-match';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { upsertPublishedArtifact } from '@/lib/server/published-content-store';
+import { isPublicHttpUrl } from '@/lib/server/url-safety';
 import { revalidatePath } from 'next/cache';
 
 // Crawl4AI endpoints — same priority order as the ingest route.
@@ -100,17 +101,26 @@ function slugHash8(slug: string, suffix: string): string {
   return createHash('sha1').update(`${slug}:${suffix}`).digest('hex').slice(0, 8);
 }
 
+const MAX_IMAGE_BYTES = 15 * 1024 * 1024; // 15MB — generous for an editorial cover/gallery image.
+
 async function downloadToSourceCache(
   externalUrl: string,
   slug: string,
   label: 'cover' | 'gallery',
   index: number,
 ): Promise<string | null> {
+  // SSRF guard: block loopback/private/link-local targets, and refuse to
+  // follow redirects (harvested image URLs from crawled markdown should be
+  // direct CDN links; a 3xx here is treated as a failed download, not
+  // silently followed to wherever it points).
+  if (!isPublicHttpUrl(externalUrl)) return null;
+
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 12_000);
     const res = await fetch(externalUrl, {
       signal: controller.signal,
+      redirect: 'error',
       headers: { 'User-Agent': 'FPVLovers-MediaBot/1.0 (editorial image cache)' },
     });
     clearTimeout(timer);
@@ -118,6 +128,12 @@ async function downloadToSourceCache(
     if (!res.ok) return null;
     const contentType = res.headers.get('content-type') || '';
     if (!contentType.startsWith('image/')) return null;
+
+    const declaredLength = Number(res.headers.get('content-length') || 0);
+    if (declaredLength > MAX_IMAGE_BYTES) return null;
+
+    const arrayBuffer = await res.arrayBuffer();
+    if (arrayBuffer.byteLength > MAX_IMAGE_BYTES) return null;
 
     const ext = contentType.includes('webp') ? 'webp'
       : contentType.includes('png') ? 'png'
@@ -131,7 +147,7 @@ async function downloadToSourceCache(
     }
 
     const destPath = path.join(SOURCE_CACHE_DIR, filename);
-    const buffer = Buffer.from(await res.arrayBuffer());
+    const buffer = Buffer.from(arrayBuffer);
     fs.writeFileSync(destPath, buffer);
 
     // Serve via API route — static /public/ path is unreliable in Docker standalone.

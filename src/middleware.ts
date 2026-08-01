@@ -1,6 +1,8 @@
 import NextAuth from "next-auth";
 import { authConfig } from "@/lib/server/auth.config";
 import { NextResponse } from "next/server";
+import { timingSafeEqualString } from "@/lib/server/timing-safe-equal";
+import { rateLimit } from "@/lib/server/rate-limit";
 
 const { auth } = NextAuth(authConfig);
 
@@ -65,6 +67,17 @@ export default auth((req) => {
       });
     }
 
+    // Throttle Basic-Auth attempts per IP before checking credentials, so a
+    // brute-force script can't cycle through passwords unbounded — the
+    // previous version had no lockout at all.
+    const authAttemptLimit = rateLimit(req, 20, 15 * 60 * 1000, "admin-basic-auth");
+    if (!authAttemptLimit.success) {
+      return new NextResponse("Too many authentication attempts. Try again later.", {
+        status: 429,
+        headers: { "WWW-Authenticate": 'Basic realm="Admin"' },
+      });
+    }
+
     let providedUser = "";
     let providedPass = "";
     try {
@@ -76,7 +89,7 @@ export default auth((req) => {
       });
     }
 
-    if (providedUser !== user || providedPass !== pass) {
+    if (!timingSafeEqualString(providedUser, user) || !timingSafeEqualString(providedPass, pass)) {
       return new NextResponse("Invalid credentials", {
         status: 401,
         headers: { "WWW-Authenticate": 'Basic realm="Admin"' },

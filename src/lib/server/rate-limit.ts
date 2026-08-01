@@ -25,14 +25,23 @@ if (typeof global !== 'undefined') {
 }
 
 function getClientIp(req: NextRequest): string {
-  // Check common proxy headers
-  const xff = req.headers.get('x-forwarded-for');
-  if (xff) {
-    return xff.split(',')[0].trim();
-  }
+  // X-Real-IP is normally set by the immediate reverse proxy (Traefik/nginx
+  // in front of the Coolify deployment) from the actual TCP peer, so it
+  // can't be forged by the client the way a raw request header can.
   const realIp = req.headers.get('x-real-ip');
   if (realIp) return realIp.trim();
-  
+
+  // X-Forwarded-For is a comma-separated hop chain: "client, proxy1, proxy2...".
+  // The FIRST entry is whatever the original client claimed (client-supplied,
+  // trivially spoofable to defeat per-IP rate limiting). The LAST entry is
+  // what our own trusted reverse proxy actually observed as its peer, so use
+  // that instead.
+  const xff = req.headers.get('x-forwarded-for');
+  if (xff) {
+    const hops = xff.split(',').map((hop) => hop.trim()).filter(Boolean);
+    if (hops.length) return hops[hops.length - 1];
+  }
+
   return '127.0.0.1';
 }
 

@@ -1,5 +1,9 @@
+import { NextRequest, NextResponse } from 'next/server';
 import { difyRequest } from '@/lib/dify-client';
 import { findApp } from '@/lib/master-routing-tables';
+import { rateLimit } from '@/lib/server/rate-limit';
+
+const MAX_UPLOAD_BYTES = 100 * 1024 * 1024; // 100MB — only metadata is read, but formData() still buffers the body.
 
 type FlightAnalysis = {
   scores: {
@@ -117,7 +121,27 @@ function buildDifyPrompt(meta: UploadedVideoMeta): string {
   ].join('\n');
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
+  const limitRes = rateLimit(req, 5, 60 * 1000, 'analyze-flight');
+  if (!limitRes.success) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again in a minute.' },
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': String(limitRes.limit),
+          'X-RateLimit-Remaining': String(limitRes.remaining),
+          'X-RateLimit-Reset': String(limitRes.reset),
+        },
+      },
+    );
+  }
+
+  const contentLength = Number(req.headers.get('content-length') || 0);
+  if (contentLength > MAX_UPLOAD_BYTES) {
+    return Response.json({ error: 'Video is too large (100MB limit).' }, { status: 413 });
+  }
+
   try {
     const formData = await req.formData();
     const video = formData.get('video');

@@ -1,6 +1,7 @@
 import { auth } from '@/lib/server/auth';
 import { NextResponse } from 'next/server';
 import { headers } from 'next/headers';
+import { timingSafeEqualString } from '@/lib/server/timing-safe-equal';
 
 export async function requireAdmin() {
   // 1. Check NextAuth Session first
@@ -21,7 +22,7 @@ export async function requireAdmin() {
       const pass = process.env.ADMIN_PASS;
       if (user && pass) {
         const credentials = atob(authHeader.slice(6)).split(':');
-        if (credentials[0] === user && credentials[1] === pass) {
+        if (timingSafeEqualString(credentials[0] ?? '', user) && timingSafeEqualString(credentials[1] ?? '', pass)) {
           return null; // Authorized via Basic Auth
         }
       }
