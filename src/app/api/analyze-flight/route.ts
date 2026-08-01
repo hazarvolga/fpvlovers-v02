@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { difyRequest } from '@/lib/dify-client';
 import { findApp } from '@/lib/master-routing-tables';
 import { rateLimit } from '@/lib/server/rate-limit';
+import { getGroundingContext, type GroundingContext, type GroundingSource } from '@/lib/tools/retrieval-grounding';
 
 const MAX_UPLOAD_BYTES = 100 * 1024 * 1024; // 100MB — only metadata is read, but formData() still buffers the body.
 
@@ -22,6 +23,8 @@ type FlightAnalysis = {
   }>;
   source?: 'dify' | 'local';
   warning?: string;
+  sources?: GroundingSource[];
+  retrievalConfidence?: number;
 };
 
 type UploadedVideoMeta = {
@@ -59,7 +62,7 @@ function stripJsonFence(value: string): string {
     .trim();
 }
 
-function parseDifyAnalysis(markdownOrJson: string): FlightAnalysis | undefined {
+function parseDifyAnalysis(markdownOrJson: string, grounding: GroundingContext): FlightAnalysis | undefined {
   try {
     const parsed = JSON.parse(stripJsonFence(markdownOrJson)) as unknown;
     const record = asRecord(parsed);
@@ -87,13 +90,15 @@ function parseDifyAnalysis(markdownOrJson: string): FlightAnalysis | undefined {
         })
         : [{ timestamp: '00:00', event: 'Flight style review', riskScore: 'Medium' }],
       source: 'dify',
+      sources: grounding.sources,
+      retrievalConfidence: grounding.confidence,
     };
   } catch {
     return undefined;
   }
 }
 
-function buildFallback(meta: UploadedVideoMeta, warning: string): FlightAnalysis {
+function buildFallback(meta: UploadedVideoMeta, warning: string, grounding: GroundingContext): FlightAnalysis {
   return {
     scores: { flow: 70, speed: 70, proximity: 70, acro: 70, stability: 70 },
     verdict: 'C-Trainee',
@@ -104,20 +109,29 @@ function buildFallback(meta: UploadedVideoMeta, warning: string): FlightAnalysis
     ],
     source: 'local',
     warning,
+    sources: grounding.sources,
+    retrievalConfidence: grounding.confidence,
   };
 }
 
-function buildDifyPrompt(meta: UploadedVideoMeta): string {
+function groundingQuery(meta: UploadedVideoMeta): string {
+  const fileTerms = meta.name.replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' ');
+  return `FPV freestyle flying technique review: ${fileTerms}`;
+}
+
+function buildDifyPrompt(meta: UploadedVideoMeta, grounding: GroundingContext): string {
   return [
     'You are the FPVLovers Flight Critic.',
     'Important: the Next.js app is not sending video frames in this request. Do not claim you inspected exact frames.',
-    'Use FPV training knowledge to return a conservative coaching rubric based on upload metadata and common freestyle/racing review criteria.',
+    'Use FPV training knowledge and the verified RAG context below to return a conservative coaching rubric based on upload metadata and common freestyle/racing review criteria.',
     'Return raw JSON only, matching this exact shape:',
     '{"scores":{"flow":number,"speed":number,"proximity":number,"acro":number,"stability":number},"verdict":"S1-Elite Pilot|A-Proximity God|B-Rookie Hunter|C-Trainee","summary":"two honest sentences","telemetrySimulation":[{"timestamp":"00:05","event":"string","riskScore":"Low|Medium|High|Extreme"}]}',
     '',
     `Video file: ${meta.name}`,
     `MIME type: ${meta.type}`,
     `Size: ${meta.sizeMb.toFixed(2)} MB`,
+    '',
+    `### Verified RAG Context (confidence: ${grounding.grade})\n${grounding.contextBlock}`,
   ].join('\n');
 }
 
@@ -156,9 +170,11 @@ export async function POST(req: NextRequest) {
       sizeMb: video.size / 1024 / 1024,
     };
 
+    const grounding = await getGroundingContext(groundingQuery(meta), 'default');
+
     const app = findApp('FPV Expert Assistant');
     if (!app?.token) {
-      return Response.json(buildFallback(meta, 'Flight review gateway is not configured.'));
+      return Response.json(buildFallback(meta, 'Flight review gateway is not configured.', grounding));
     }
 
     const response = await difyRequest('/chat-messages', {
@@ -168,14 +184,14 @@ export async function POST(req: NextRequest) {
       timeout: 45000,
       body: {
         inputs: {},
-        query: buildDifyPrompt(meta),
+        query: buildDifyPrompt(meta, grounding),
         response_mode: 'blocking',
         user: 'fpvlovers-flight-critic',
       },
     });
 
     const answer = extractDifyAnswer(response.data);
-    const analysis = answer ? parseDifyAnalysis(answer) : undefined;
+    const analysis = answer ? parseDifyAnalysis(answer, grounding) : undefined;
 
     if (!response.ok || !analysis) {
       return Response.json(buildFallback(
@@ -183,6 +199,7 @@ export async function POST(req: NextRequest) {
         response.dryRun
           ? 'Dry-run is active locally; returned deterministic training rubric.'
           : 'Flight review gateway did not return usable JSON; returned deterministic training rubric.',
+        grounding,
       ));
     }
 

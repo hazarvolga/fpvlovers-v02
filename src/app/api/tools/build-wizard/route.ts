@@ -4,6 +4,7 @@ import { extractDifyMarkdown } from '@/lib/dify-response';
 import { findApp } from '@/lib/master-routing-tables';
 import { calculateBuild, type BuildCalculatorInput, type BuildStyle } from '@/lib/tools/build-calculator';
 import { customInputEngineeringSafetyWarning, type EngineeringSafetyReport } from '@/lib/tools/engineering-safety';
+import { getGroundingContext, type GroundingContext } from '@/lib/tools/retrieval-grounding';
 
 const BUILD_STYLES: BuildStyle[] = ['freestyle', 'racing', 'cinematic', 'longRange', 'whoop'];
 const TOOL_DIFY_TIMEOUT_MS = 25000;
@@ -77,22 +78,29 @@ function buildLocalMarkdown(
   ].join('\n');
 }
 
+function groundingQuery(input: BuildCalculatorInput): string {
+  return `FPV ${input.style} build: ${input.cellCount}S ${input.batteryCapacityMah}mAh battery, ${input.motorKv}KV motors, ${input.propDiameter}x${input.propPitch} props, ${input.escAmpRating}A ESC`;
+}
+
 function buildDifyPrompt(
   input: BuildCalculatorInput,
   result: ReturnType<typeof calculateBuild>,
   engineeringSafety: EngineeringSafetyReport,
   localMarkdown: string,
+  grounding: GroundingContext,
 ): string {
   return [
     'You are the FPVLovers Build Wizard.',
-    'Use the project RAG datasets for FPV build guidance when available.',
+    'Use the verified RAG context below for FPV build guidance.',
     'Do not replace the deterministic calculator numbers; explain them and give practical build recommendations.',
-    'CRITICAL: Only make claims supported by the calculator result JSON or RAG context provided below. If a spec is absent, say "unverified — confirm manually" rather than inventing a value.',
+    'CRITICAL: Only make claims supported by the calculator result JSON or the RAG context provided below. If a spec is absent from both, say "unverified — confirm manually" rather than inventing a value.',
     'Return concise Markdown with headings: Build Verdict, Risk Notes, Recommended Adjustments, Shopping/Validation Checklist.',
     '',
     `Build input JSON:\n${JSON.stringify(input)}`,
     `Calculator result JSON:\n${JSON.stringify(result)}`,
     `Engineering safety JSON:\n${JSON.stringify(engineeringSafety)}`,
+    '',
+    `### Verified RAG Context (confidence: ${grounding.grade})\n${grounding.contextBlock}`,
     '',
     `Local guardrail:\n${localMarkdown}`,
   ].join('\n');
@@ -122,6 +130,7 @@ export async function POST(req: NextRequest) {
     const result = calculateBuild(input);
     const engineeringSafety = customInputEngineeringSafetyWarning();
     const localMarkdown = buildLocalMarkdown(input, result, engineeringSafety);
+    const grounding = await getGroundingContext(groundingQuery(input), 'build');
     const app = findApp('Build Wizard');
 
     if (!app?.token) {
@@ -131,6 +140,9 @@ export async function POST(req: NextRequest) {
         result,
         engineeringSafety,
         markdown: localMarkdown,
+        sources: grounding.sources,
+        retrievalConfidence: grounding.confidence,
+        retrievalGrade: grounding.grade,
         warning: 'Build review gateway is not configured; returned deterministic build review.',
       });
     }
@@ -142,7 +154,7 @@ export async function POST(req: NextRequest) {
       timeout: TOOL_DIFY_TIMEOUT_MS,
       body: {
         inputs: {},
-        query: buildDifyPrompt(input, result, engineeringSafety, localMarkdown),
+        query: buildDifyPrompt(input, result, engineeringSafety, localMarkdown, grounding),
         response_mode: 'blocking',
         user: 'fpvlovers-build-wizard',
       },
@@ -156,6 +168,9 @@ export async function POST(req: NextRequest) {
         result,
         engineeringSafety,
         markdown: localMarkdown,
+        sources: grounding.sources,
+        retrievalConfidence: grounding.confidence,
+        retrievalGrade: grounding.grade,
         warning: response.dryRun
           ? 'Dry-run is active locally; returned deterministic build review.'
           : 'Build review gateway did not return usable Markdown; returned deterministic build review.',
@@ -168,6 +183,9 @@ export async function POST(req: NextRequest) {
       result,
       engineeringSafety,
       markdown,
+      sources: grounding.sources,
+      retrievalConfidence: grounding.confidence,
+      retrievalGrade: grounding.grade,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Build Wizard analysis failed.';

@@ -8,6 +8,7 @@ import {
   summarizeBlackboxText,
   type BlackboxTuningInput,
 } from '@/lib/tools/blackbox-tuning';
+import { getGroundingContext, type GroundingContext } from '@/lib/tools/retrieval-grounding';
 
 const MAX_TEXT_CHARS = 60000;
 const MAX_FILE_BYTES = 256 * 1024;
@@ -92,13 +93,18 @@ async function parseRequest(req: NextRequest): Promise<RequestPayload> {
   };
 }
 
-function buildDifyPrompt(input: RequestPayload, localMarkdown: string): string {
+function groundingQuery(input: RequestPayload): string {
+  return [input.problem, input.parsedTelemetrySummary, input.gyroModel].filter(Boolean).join(' — ')
+    || `${input.droneType} PID tuning`;
+}
+
+function buildDifyPrompt(input: RequestPayload, localMarkdown: string, grounding: GroundingContext): string {
   return [
-    'Analyze this FPV blackbox tuning request using the project RAG knowledge base when available.',
+    'Analyze this FPV blackbox tuning request using the verified RAG context below.',
     'Write strictly in English.',
     'Be practical, conservative, and motor-heat aware. Do not invent exact blackbox channels that are not present in the user data.',
     'Return concise Markdown with these headings: Diagnostic Report, Proposed Settings, Why, Next Steps.',
-    'Cite source titles or URLs when retrieval context is available. If sources are weak, say so explicitly.',
+    'Cite source titles or URLs from the RAG context when you rely on them. If the RAG context is empty or weak, say so explicitly instead of inventing sources.',
     'Use the local deterministic analysis as a guardrail, not as something to blindly repeat.',
     '',
     `Drone type: ${input.droneType}`,
@@ -110,6 +116,8 @@ function buildDifyPrompt(input: RequestPayload, localMarkdown: string): string {
     input.parsedTelemetrySummary ? `Parsed telemetry summary: ${input.parsedTelemetrySummary}` : '',
     input.fileName ? `Uploaded file: ${input.fileName}` : '',
     input.fileText ? `File excerpt:\n${input.fileText.slice(0, 12000)}` : '',
+    '',
+    `### Verified RAG Context (confidence: ${grounding.grade})\n${grounding.contextBlock}`,
     '',
     `Local guardrail analysis:\n${localMarkdown}`,
   ].filter(Boolean).join('\n');
@@ -168,18 +176,30 @@ function retrievalConfidenceFromSources(sources: BlackboxSource[], localConfiden
   return Math.round(Math.max(0, Math.min(100, average <= 1 ? average * 100 : average)));
 }
 
+function mergeSources(difySources: BlackboxSource[], grounding: GroundingContext): BlackboxSource[] {
+  const merged = [...difySources];
+  const seenTitles = new Set(difySources.map((s) => s.title.toLowerCase()));
+  for (const source of grounding.sources) {
+    if (seenTitles.has(source.title.toLowerCase())) continue;
+    seenTitles.add(source.title.toLowerCase());
+    merged.push({ title: source.title, url: source.url, dataset: source.dataset, score: source.score });
+  }
+  return merged.slice(0, 8);
+}
+
 function localResponse(
   local: ReturnType<typeof analyzeBlackboxTuning>,
   warning: string,
   gatewayStatus: BlackboxGatewayStatus,
+  grounding: GroundingContext,
 ) {
   return NextResponse.json({
     success: true,
     source: 'local',
-    answerMode: 'local_guardrail' satisfies BlackboxAnswerMode,
+    answerMode: (grounding.sources.length > 0 ? 'dify_grounded' : 'local_guardrail') satisfies BlackboxAnswerMode,
     gatewayStatus,
-    sources: [] satisfies BlackboxSource[],
-    retrievalConfidence: 0,
+    sources: grounding.sources,
+    retrievalConfidence: grounding.confidence,
     result: local,
     warning,
   });
@@ -214,6 +234,7 @@ export async function POST(req: NextRequest) {
     }
 
     const local = analyzeBlackboxTuning(input);
+    const grounding = await getGroundingContext(groundingQuery(input), 'tuning');
     const blackboxApp = findApp(BLACKBOX_DIFY_APP_NAME);
 
     if (!blackboxApp?.token) {
@@ -221,6 +242,7 @@ export async function POST(req: NextRequest) {
         local,
         'Blackbox review gateway is not configured; returned deterministic local analysis.',
         'not_configured',
+        grounding,
       );
     }
 
@@ -232,14 +254,15 @@ export async function POST(req: NextRequest) {
         timeout: TOOL_DIFY_TIMEOUT_MS,
         body: {
           inputs: {},
-          query: buildDifyPrompt(input, local.markdown),
+          query: buildDifyPrompt(input, local.markdown, grounding),
           response_mode: 'blocking',
           user: 'fpvlovers-blackbox-tool',
         },
       });
 
       const markdown = extractDifyMarkdown(response.data);
-      const sources = extractDifySources(response.data);
+      const difySources = extractDifySources(response.data);
+      const sources = mergeSources(difySources, grounding);
 
       if (!response.ok || !markdown) {
         return localResponse(
@@ -248,6 +271,7 @@ export async function POST(req: NextRequest) {
             ? 'Dry-run is active in this environment; returned deterministic local analysis.'
             : 'Blackbox review gateway did not return usable Markdown; returned deterministic local analysis.',
           response.dryRun ? 'dry_run' : 'dify_empty',
+          grounding,
         );
       }
 
@@ -257,11 +281,11 @@ export async function POST(req: NextRequest) {
         answerMode: (sources.length > 0 ? 'dify_grounded' : 'dify_unverified') satisfies BlackboxAnswerMode,
         gatewayStatus: 'dify_ok' satisfies BlackboxGatewayStatus,
         sources,
-        retrievalConfidence: retrievalConfidenceFromSources(sources, local.confidence),
+        retrievalConfidence: Math.max(retrievalConfidenceFromSources(difySources, local.confidence), grounding.confidence),
         result: { ...local, markdown },
       });
     } catch {
-      return localResponse(local, 'Blackbox review gateway failed; returned deterministic local analysis.', 'dify_error');
+      return localResponse(local, 'Blackbox review gateway failed; returned deterministic local analysis.', 'dify_error', grounding);
     }
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Blackbox analysis failed.';

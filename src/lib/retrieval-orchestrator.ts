@@ -100,14 +100,18 @@ export const DEFAULT_CONFIGS: Record<string, RetrievalConfig> = {
 };
 
 // ─── REAL RETRIEVAL (Dify Dataset API) ───
+// Uses the Dify Knowledge Base "hit testing" endpoint: POST /datasets/{id}/retrieve.
+// Requires a Dataset-scoped API key (Dify Studio → Knowledge → API Access), NOT a
+// chat-app key — DIFY_DATASET_API_KEY takes priority, falling back to DIFY_API_KEY
+// for environments that only have the general-purpose key configured.
 
 async function realRetrieval(query: string, config: RetrievalConfig): Promise<RetrievalChunk[]> {
   const allDatasets = [...config.primaryDatasets, ...config.fallbackDatasets];
   const chunks: RetrievalChunk[] = [];
 
-  const apiKey = process.env.DIFY_API_KEY?.trim();
+  const apiKey = (process.env.DIFY_DATASET_API_KEY || process.env.DIFY_API_KEY)?.trim();
   if (!apiKey) {
-    console.error('[Retrieval] DIFY_API_KEY not set — cannot call Dataset API');
+    console.error('[Retrieval] DIFY_DATASET_API_KEY / DIFY_API_KEY not set — cannot call Dataset API');
     return [];
   }
 
@@ -124,7 +128,7 @@ async function realRetrieval(query: string, config: RetrievalConfig): Promise<Re
     const isPrimary = config.primaryDatasets.includes(dsName);
 
     try {
-      const response = await fetch(`${baseUrl}/datasets/${datasetId}/document/search`, {
+      const response = await fetch(`${baseUrl}/datasets/${datasetId}/retrieve`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${apiKey}`,
@@ -132,36 +136,47 @@ async function realRetrieval(query: string, config: RetrievalConfig): Promise<Re
         },
         body: JSON.stringify({
           query,
-          top_k: Math.min(config.maxChunksPerDataset, 10),
-          score_threshold: config.scoreThreshold,
-          keyword_weight: config.keywordWeight,
+          retrieval_model: {
+            search_method: config.retrievalMode === 'keyword' ? 'keyword_search'
+              : config.retrievalMode === 'semantic' ? 'semantic_search'
+              : 'hybrid_search',
+            reranking_enable: false,
+            reranking_mode: null,
+            reranking_model: { reranking_provider_name: '', reranking_model_name: '' },
+            weights: null,
+            top_k: Math.min(config.maxChunksPerDataset, 10),
+            score_threshold_enabled: true,
+            score_threshold: config.scoreThreshold,
+          },
         }),
         signal: AbortSignal.timeout(15000),
       });
 
       if (!response.ok) {
-        console.error(`[Retrieval] Dify API error for dataset ${dsName}: HTTP ${response.status}`);
+        const body = await response.text().catch(() => '');
+        console.error(`[Retrieval] Dify API error for dataset ${dsName}: HTTP ${response.status} ${body.slice(0, 200)}`);
         continue;
       }
 
       const result = await response.json();
-      const documents: Record<string, unknown>[] = result?.data ?? [];
+      const records: Record<string, unknown>[] = Array.isArray(result?.records) ? result.records : [];
 
-      for (let i = 0; i < documents.length; i++) {
-        const doc = documents[i];
-        const document = (doc.document ?? {}) as Record<string, unknown>;
+      for (let i = 0; i < records.length; i++) {
+        const record = records[i];
+        const segment = (record.segment ?? {}) as Record<string, unknown>;
+        const document = (segment.document ?? {}) as Record<string, unknown>;
         const chunk: RetrievalChunk = {
-          id: String(doc.id ?? `chunk-${dsName}-${idCounter}`),
-          content: String(doc.content ?? document.name ?? ''),
+          id: String(segment.id ?? `chunk-${dsName}-${idCounter}`),
+          content: String(segment.content ?? ''),
           datasetName: dsName,
           datasetId,
           documentName: String(document.name ?? `doc-${dsName}`),
-          score: Number(doc.score ?? 0),
+          score: Number(record.score ?? 0),
           position: i + 1,
           metadata: {
             is_primary: isPrimary,
             data_source_type: document.data_source_type,
-            data_source_info: document.data_source_info,
+            doc_metadata: document.doc_metadata,
           },
         };
         chunks.push(chunk);

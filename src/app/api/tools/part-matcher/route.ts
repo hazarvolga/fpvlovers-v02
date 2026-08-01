@@ -5,6 +5,7 @@ import { findApp } from '@/lib/master-routing-tables';
 import { analyzeBuildCompatibility } from '@/lib/tools/component-compatibility';
 import { getFpvProductCatalog } from '@/lib/tools/fpv-product-catalog';
 import type { BuildSelection, BuildSlot } from '@/lib/tools/fpv-product-types';
+import { getGroundingContext, type GroundingContext } from '@/lib/tools/retrieval-grounding';
 
 const BUILD_SLOTS: BuildSlot[] = ['frame', 'motor', 'prop', 'stack', 'battery', 'video', 'receiver'];
 const BUILD_STYLES: BuildSelection['style'][] = ['freestyle', 'racing', 'cinematic', 'longRange', 'whoop'];
@@ -64,7 +65,19 @@ function buildLocalMarkdown(result: ReturnType<typeof analyzeBuildCompatibility>
   ].filter(Boolean).join('\n');
 }
 
-function buildDifyPrompt(selection: BuildSelection, result: ReturnType<typeof analyzeBuildCompatibility>, localMarkdown: string): string {
+function groundingQuery(selection: BuildSelection, result: ReturnType<typeof analyzeBuildCompatibility>): string {
+  const parts = Object.values(result.selected)
+    .filter((product): product is NonNullable<typeof product> => Boolean(product))
+    .map((product) => `${product.brand} ${product.name} (${product.type})`);
+  return `FPV ${selection.style} build compatibility: ${parts.join(', ') || 'no parts selected yet'}`;
+}
+
+function buildDifyPrompt(
+  selection: BuildSelection,
+  result: ReturnType<typeof analyzeBuildCompatibility>,
+  localMarkdown: string,
+  grounding: GroundingContext,
+): string {
   const selectedProducts = Object.entries(result.selected)
     .filter((entry): entry is [BuildSlot, NonNullable<typeof result.selected[BuildSlot]>] => Boolean(entry[1]))
     .map(([slot, product]) => ({
@@ -81,14 +94,16 @@ function buildDifyPrompt(selection: BuildSelection, result: ReturnType<typeof an
 
   return [
     'You are the FPVLovers Part Matcher.',
-    'Use the project RAG datasets for FPV component compatibility and buying guidance when available.',
+    'Use the verified RAG context below for FPV component compatibility and buying guidance.',
     'Do not override deterministic checks unless you explain why. Be conservative about voltage, KV, ESC current, prop clearance, and mounting.',
-    'CRITICAL: Only cite facts supported by the deterministic result JSON or RAG context below. If information is missing, say "unverified — confirm manually" instead of inventing specs.',
+    'CRITICAL: Only cite facts supported by the deterministic result JSON or the RAG context below — never the local guardrail markdown\'s own wording as if it were a source. If information is missing from both, say "unverified — confirm manually" instead of inventing specs.',
     'Return concise Markdown with headings: Compatibility Verdict, Critical Risks, Recommended Changes, Buyer Checklist.',
     '',
     `Build style: ${selection.style}`,
     `Selected products JSON:\n${JSON.stringify(selectedProducts)}`,
     `Deterministic result JSON:\n${JSON.stringify({ score: result.score, verdict: result.verdict, checks: result.checks, calculator: result.calculator, engineeringSafety: result.engineeringSafety })}`,
+    '',
+    `### Verified RAG Context (confidence: ${grounding.grade})\n${grounding.contextBlock}`,
     '',
     `Local guardrail:\n${localMarkdown}`,
   ].join('\n');
@@ -118,6 +133,7 @@ export async function POST(req: NextRequest) {
     const catalog = getFpvProductCatalog();
     const result = analyzeBuildCompatibility(selection, catalog);
     const localMarkdown = buildLocalMarkdown(result);
+    const grounding = await getGroundingContext(groundingQuery(selection, result), 'parts');
     const app = findApp('Part Matcher');
 
     if (!app?.token) {
@@ -126,6 +142,9 @@ export async function POST(req: NextRequest) {
         source: 'local',
         result,
         markdown: localMarkdown,
+        sources: grounding.sources,
+        retrievalConfidence: grounding.confidence,
+        retrievalGrade: grounding.grade,
         warning: 'Compatibility review gateway is not configured; returned deterministic compatibility review.',
       });
     }
@@ -137,7 +156,7 @@ export async function POST(req: NextRequest) {
       timeout: TOOL_DIFY_TIMEOUT_MS,
       body: {
         inputs: {},
-        query: buildDifyPrompt(selection, result, localMarkdown),
+        query: buildDifyPrompt(selection, result, localMarkdown, grounding),
         response_mode: 'blocking',
         user: 'fpvlovers-part-matcher',
       },
@@ -150,6 +169,9 @@ export async function POST(req: NextRequest) {
         source: 'local',
         result,
         markdown: localMarkdown,
+        sources: grounding.sources,
+        retrievalConfidence: grounding.confidence,
+        retrievalGrade: grounding.grade,
         warning: response.dryRun
           ? 'Dry-run is active locally; returned deterministic compatibility review.'
           : 'Compatibility review gateway did not return usable Markdown; returned deterministic compatibility review.',
@@ -161,6 +183,9 @@ export async function POST(req: NextRequest) {
       source: 'dify',
       result,
       markdown,
+      sources: grounding.sources,
+      retrievalConfidence: grounding.confidence,
+      retrievalGrade: grounding.grade,
     });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Part Matcher analysis failed.';
