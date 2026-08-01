@@ -3,11 +3,14 @@ import { isIndexablePublishedArtifact, listPublishedContentAsync } from '@/lib/c
 import { BuyersGuidesHubClient } from './BuyersGuidesHubClient';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
 import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
+import { generateSeoMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
+export const metadata = generateSeoMetadata({
   title: 'FPV Buyer Guides & Product Roundups | FPVLovers',
   description: 'Evidence-aware hardware selection guides, component roundups, and buying handbooks for FPV goggles, controllers, batteries, and frame styles.',
-};
+  path: '/buyers-guides',
+  type: 'website',
+});
 
 export default async function BuyersGuidesPage() {
   const allContent = await listPublishedContentAsync();

@@ -105,6 +105,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${insight.title} | AFFEXAI FPV ORACLE`,
     description: insight.summary,
     category: insight.category,
+    alternates: { canonical: `/article/${resolvedParams.slug}` },
+    // Legacy insight fallback — not a fully-governed published artifact,
+    // so it shouldn't compete for indexing with real published articles.
+    robots: { index: false, follow: true },
     openGraph: {
       title: insight.title,
       description: insight.summary,

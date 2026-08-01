@@ -6,11 +6,14 @@ import {
   SubpageShell,
 } from '@/components/subpage/SubpageChrome';
 import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
+import { generateSeoMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
+export const metadata = generateSeoMetadata({
   title: 'FPV Academy | FPVLovers',
   description: 'Beginner-first FPV learning paths, starter kits, simulator guidance, and glossary references.',
-};
+  path: '/academy',
+  type: 'website',
+});
 
 const levels = [
   {

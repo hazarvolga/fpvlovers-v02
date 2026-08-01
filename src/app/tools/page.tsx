@@ -6,11 +6,14 @@ import {
   SubpageShell,
 } from '@/components/subpage/SubpageChrome';
 import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
+import { generateSeoMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
+export const metadata = generateSeoMetadata({
   title: 'FPV Tools Hub | FPVLovers',
   description: 'Catalog-backed FPV calculators, compatibility checks, and guarded tuning tools for pilots.',
-};
+  path: '/tools',
+  type: 'website',
+});
 
 const tools = [
   {

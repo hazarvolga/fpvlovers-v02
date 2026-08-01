@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { cache } from 'react';
 import type { GeneratedContent } from './parse-generated-content';
 import type { ContentMedia } from './content-media';
 import { buildContentMedia, buildCoverImageUrl } from './content-media';
@@ -406,7 +407,13 @@ export function getPublishedSlugs(): string[] {
   return listPublishedContent().map((a) => a.slug);
 }
 
-export async function listPublishedContentAsync(): Promise<PublishedArtifact[]> {
+// Wrapped with React's cache() below: a single page render (e.g. an article
+// page + its related-content and next-steps sections) previously ran this
+// full file-scan-plus-DB-query 2-3 times independently per request. cache()
+// deduplicates repeated calls with the same arguments within one render
+// pass — it does not persist across requests, so content freshness is
+// unaffected, it just stops redoing the same work multiple times per view.
+async function listPublishedContentAsyncUncached(): Promise<PublishedArtifact[]> {
   const files = listPublishedContent();
 
   try {
@@ -434,8 +441,9 @@ export async function listPublishedContentAsync(): Promise<PublishedArtifact[]> 
     return files;
   }
 }
+export const listPublishedContentAsync = cache(listPublishedContentAsyncUncached);
 
-export async function getPublishedContentBySlugAsync(slug: string): Promise<PublishedArtifact | null> {
+async function getPublishedContentBySlugAsyncUncached(slug: string): Promise<PublishedArtifact | null> {
   try {
     const { getPublishedArtifact } = await import('@/lib/server/published-content-store');
     const database = await getPublishedArtifact(slug);
@@ -447,6 +455,7 @@ export async function getPublishedContentBySlugAsync(slug: string): Promise<Publ
 
   return getPublishedContentBySlug(slug);
 }
+export const getPublishedContentBySlugAsync = cache(getPublishedContentBySlugAsyncUncached);
 
 export async function getPublishedSlugsAsync(): Promise<string[]> {
   return (await listPublishedContentAsync()).map((artifact) => artifact.slug);

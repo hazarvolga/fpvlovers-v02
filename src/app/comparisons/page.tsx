@@ -3,11 +3,14 @@ import { isIndexablePublishedArtifact, listPublishedContentAsync } from '@/lib/c
 import { ComparisonsHubClient } from './ComparisonsHubClient';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
 import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
+import { generateSeoMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
+export const metadata = generateSeoMetadata({
   title: 'Product Comparisons | FPVLovers',
   description: 'Evidence-aware side-by-side FPV product comparisons covering specifications, compatibility, use cases, and practical tradeoffs.',
-};
+  path: '/comparisons',
+  type: 'website',
+});
 
 export default async function ComparisonsPage() {
   const allContent = await listPublishedContentAsync();

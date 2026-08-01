@@ -4,11 +4,14 @@ import { ReviewsHubClient } from './ReviewsHubClient';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
 import { isApprovedHandsOnReview } from '@/lib/content-automation/editorial-governance';
 import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
+import { generateSeoMetadata } from '@/lib/seo/metadata';
 
-export const metadata = {
+export const metadata = generateSeoMetadata({
   title: 'Hardware Reviews and Assessments | FPVLovers',
   description: 'FPV hardware assessments with explicit testing status, sourced specifications, tradeoffs, and human approval for hands-on product reviews.',
-};
+  path: '/reviews',
+  type: 'website',
+});
 
 export default async function ReviewsPage() {
   const allContent = await listPublishedContentAsync();
