@@ -1,0 +1,85 @@
+name: Content Pipeline Cron
+
+# Replaces an undocumented host crontab as the trigger for the content
+# pipeline (crawl -> ideate -> generate). GitHub Actions gives this a
+# version-controlled schedule, a visible run history, and a failure
+# notification — all three were missing from the previous host-crontab
+# setup, which is documented (PROJECT_MEMORY.md) to have silently stopped
+# firing for weeks at least once before.
+#
+# Setup required (cannot be done from this workflow file):
+#   1. Repo secret CRON_SECRET — must match the production CRON_SECRET env var.
+#      Settings -> Secrets and variables -> Actions -> New repository secret.
+#   2. Optional repo variable SITE_BASE_URL if the production origin is not
+#      https://fpvlovers.com.tr. Settings -> Secrets and variables -> Actions -> Variables.
+#   3. Once this workflow has run successfully a few times, remove the old
+#      host crontab entry that calls these same endpoints, to avoid double
+#      execution and doubled Dify/LLM spend.
+
+on:
+  schedule:
+    - cron: '15 2,8,14,20 * * *'  # generate: 4x/day, matches the 4/day publish target
+    - cron: '45 4,16 * * *'       # crawl: 2x/day
+    - cron: '30 3 * * *'          # ideate: 1x/day, replenishes the brief backlog
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'Cron endpoint to call'
+        required: true
+        default: 'status'
+        type: choice
+        options: [crawl, generate, ideate, status]
+
+concurrency:
+  group: fpvlovers-content-cron
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Determine action
+        id: action
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "action=${{ github.event.inputs.action }}" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "45 4,16 * * *" ]; then
+            echo "action=crawl" >> "$GITHUB_OUTPUT"
+          elif [ "${{ github.event.schedule }}" = "30 3 * * *" ]; then
+            echo "action=ideate" >> "$GITHUB_OUTPUT"
+          else
+            echo "action=generate" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Call cron endpoint
+        id: call
+        env:
+          CRON_SECRET: ${{ secrets.CRON_SECRET }}
+          BASE_URL: ${{ vars.SITE_BASE_URL || 'https://fpvlovers.com.tr' }}
+        run: |
+          if [ -z "$CRON_SECRET" ]; then
+            echo "::error::CRON_SECRET repo secret is not set — see setup notes at the top of this workflow file."
+            exit 1
+          fi
+          URL="$BASE_URL/api/admin/cron/${{ steps.action.outputs.action }}"
+          echo "Calling $URL"
+          HTTP_CODE=$(curl -s -o response.json -w "%{http_code}" \
+            -H "Authorization: Bearer $CRON_SECRET" \
+            "$URL")
+          echo "HTTP $HTTP_CODE"
+          cat response.json || true
+          if [ "$HTTP_CODE" -ge 300 ]; then
+            exit 1
+          fi
+
+      - name: Notify ntfy.sh on failure
+        if: failure()
+        run: |
+          curl -s -X POST "https://ntfy.sh/fpv-rag-alerts" \
+            -H "Title: FPVLovers cron failed: ${{ steps.action.outputs.action }}" \
+            -H "Priority: high" \
+            -H "Tags: warning" \
+            -d "GitHub Actions cron '${{ steps.action.outputs.action }}' failed. Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            || true
