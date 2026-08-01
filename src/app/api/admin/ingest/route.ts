@@ -3,11 +3,8 @@ import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
+import { crawlUrlToMarkdown } from '@/lib/server/crawl4ai-client';
 
-const CRAWLERS = [
-  getOptionalEnv('CRAWL4AI_PRIMARY_CRAWL_URL', 'http://crawler-proxy:3002/crawl'),
-  getOptionalEnv('CRAWL4AI_BACKUP_CRAWL_URL', 'http://crawler-backup:3002/crawl'),
-];
 const DIFY_BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 
 const DOMAIN_MAP: Record<string, string> = {
@@ -106,32 +103,17 @@ export async function POST(req: NextRequest) {
       }
 
       try {
-        // Crawl
-        let crawlData: any = null;
-        for (const ep of CRAWLERS) {
-          try {
-            const cr = await fetch(ep, {
-              method: 'POST', headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ urls: [url], priority: 10, markdown: true }),
-              signal: AbortSignal.timeout(40000),
-            });
-            if (cr.ok) { crawlData = await cr.json(); break; }
-          } catch (err: unknown) {
-            console.error('[Ingest] Crawler request error:', err instanceof Error ? err.message : String(err));
-          }
-        }
-
-        if (!crawlData?.success || !crawlData.results?.length) {
+        // Crawl — /md (fit filter) returns Readability-style clean content,
+        // stripping nav/header/footer boilerplate that raw /crawl markdown
+        // did not.
+        const crawled = await crawlUrlToMarkdown(url, { timeoutMs: 40000 });
+        if (!crawled.ok) {
+          console.error('[Ingest] Crawl failed:', crawled.errors.join('; '));
           results.push({ url, status: 'crawl_failed', dataset: '', error: 'Crawl failed or empty' });
           continue;
         }
 
-        const r = crawlData.results[0];
-        const md = r.markdown?.raw_markdown || r.markdown || '';
-        if (typeof md !== 'string' || md.length < 200) {
-          results.push({ url, status: 'too_short', dataset: '', size: md.length, error: `Content too short (${md.length} chars)` });
-          continue;
-        }
+        const md = crawled.markdown;
 
         // Route
         const datasetName = forceDataset || routeUrl(url);
@@ -149,7 +131,7 @@ export async function POST(req: NextRequest) {
           method: 'POST', headers,
           body: JSON.stringify({
             name: hashHex.slice(0, 32),
-            text: (md as string).slice(0, 8000),
+            text: md.slice(0, 8000),
             doc_metadata: { source_url: url, url_hash: hashHex },
             indexing_technique: 'high_quality',
             process_rule: { mode: 'automatic' },
@@ -160,8 +142,8 @@ export async function POST(req: NextRequest) {
         if (upsertResp.ok) {
           const doc = await upsertResp.json();
           // Also persist full markdown to raw_content so image harvester can find editorial images.
-          void persistRawCrawlContent({ url, rawMarkdown: md as string, crawler: 'ingest-route' });
-          results.push({ url, status: 'success', dataset: datasetName, docId: doc.document?.id?.slice(0, 16), size: (md as string).length });
+          void persistRawCrawlContent({ url, rawMarkdown: md, crawler: 'ingest-route' });
+          results.push({ url, status: 'success', dataset: datasetName, docId: doc.document?.id?.slice(0, 16), size: md.length });
         } else {
           results.push({ url, status: 'upsert_failed', dataset: datasetName, error: `HTTP ${upsertResp.status}` });
         }

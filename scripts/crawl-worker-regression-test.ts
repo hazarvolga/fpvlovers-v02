@@ -40,8 +40,10 @@ const dryRun = await processCrawlQueueBatch({
 assert.equal(dryRun.items[0]?.action, 'would_process');
 assert.equal(dryRunUpdates.length, 0);
 
+// Happy path: primary's /md (fit filter) succeeds on the first call —
+// confirms the flat {markdown: "..."} /md response shape is read correctly.
 const updates: Array<Partial<CrawlJob>> = [];
-let crawlerCalls = 0;
+let mdCalls = 0;
 let uploadEndpoint = '';
 let uploadTokens = 0;
 let uploadTextLength = 0;
@@ -51,13 +53,11 @@ const success = await processCrawlQueueBatch({
   dependencies: {
     getNextBatch: async () => [job],
     updateJob: async (_id, update) => { updates.push(update); },
-    fetchCrawler: async () => {
-      crawlerCalls += 1;
-      if (crawlerCalls === 1) return new Response(null, { status: 503 });
-      return Response.json({
-        success: true,
-        results: [{ markdown: { raw_markdown: '# PID tuning\n'.repeat(1_000) } }],
-      });
+    fetchCrawler: async (_input, init) => {
+      const body = JSON.parse(String((init as RequestInit)?.body || '{}'));
+      assert.equal(body.f, 'fit'); // must request Readability-style extraction, not raw
+      mdCalls += 1;
+      return Response.json({ url: body.url, filter: 'fit', markdown: '# PID tuning\n'.repeat(1_000), success: true });
     },
     persistRawContent: async () => true,
     uploadToDify: async (endpoint, options) => {
@@ -69,12 +69,64 @@ const success = await processCrawlQueueBatch({
   },
 });
 assert.equal(success.items[0]?.action, 'completed');
-assert.equal(success.items[0]?.crawler, 'backup');
+assert.equal(success.items[0]?.crawler, 'primary');
+assert.equal(mdCalls, 1);
 assert.match(uploadEndpoint, /3eacd19f-ccd8-49ec-8482-51120918f0e0/);
 assert.equal(uploadTextLength, 1_500);
 assert.equal(uploadTokens, Math.ceil(uploadTextLength / 3));
 assert.equal(updates.at(-1)?.tokens, uploadTokens);
 assert.deepEqual(updates.map((update) => update.status), ['processing', 'completed']);
+
+// /md unreachable at the infra layer (e.g. a reverse-proxy route that only
+// forwards /crawl) must fall back to legacy /crawl + raw_markdown for the
+// SAME role, not skip straight to the backup crawler.
+const legacyFallbackUpdates: Array<Partial<CrawlJob>> = [];
+const legacyFallback = await processCrawlQueueBatch({
+  enabled: true,
+  dryRun: false,
+  dependencies: {
+    getNextBatch: async () => [{ ...job, id: 'legacy-fallback', retries: 0 }],
+    updateJob: async (_id, update) => { legacyFallbackUpdates.push(update); },
+    fetchCrawler: async (_input, init) => {
+      const body = JSON.parse(String((init as RequestInit)?.body || '{}'));
+      if ('url' in body) return new Response('Forbidden', { status: 403 }); // /md blocked upstream
+      return Response.json({
+        success: true,
+        results: [{ markdown: { raw_markdown: '# legacy source\n'.repeat(100) } }],
+      });
+    },
+    persistRawContent: async () => true,
+    uploadToDify: async () => ({ ok: true, status: 'success', data: { document: { id: 'doc-legacy' } } }),
+  },
+});
+assert.equal(legacyFallback.items[0]?.action, 'completed');
+assert.equal(legacyFallback.items[0]?.crawler, 'primary');
+
+// Both primary attempts (/md and legacy /crawl fallback) fail -> only then
+// does it move on to the backup crawler role.
+const backupFailoverUpdates: Array<Partial<CrawlJob>> = [];
+let backupCalls = 0;
+const backupFailover = await processCrawlQueueBatch({
+  enabled: true,
+  dryRun: false,
+  dependencies: {
+    getNextBatch: async () => [{ ...job, id: 'backup-failover', retries: 0 }],
+    updateJob: async (_id, update) => { backupFailoverUpdates.push(update); },
+    fetchCrawler: async (input, init) => {
+      const isPrimary = String(input).includes('crawler-proxy');
+      if (isPrimary) return new Response(null, { status: 503 });
+      backupCalls += 1;
+      const body = JSON.parse(String((init as RequestInit)?.body || '{}'));
+      assert.equal(body.f, 'fit');
+      return Response.json({ url: body.url, filter: 'fit', markdown: '# backup source\n'.repeat(100), success: true });
+    },
+    persistRawContent: async () => true,
+    uploadToDify: async () => ({ ok: true, status: 'success', data: { document: { id: 'doc-backup' } } }),
+  },
+});
+assert.equal(backupFailover.items[0]?.action, 'completed');
+assert.equal(backupFailover.items[0]?.crawler, 'backup');
+assert.equal(backupCalls, 1);
 
 let uploadAfterRawFailure = false;
 const rawFailureUpdates: Array<Partial<CrawlJob>> = [];
@@ -84,7 +136,10 @@ const rawFailure = await processCrawlQueueBatch({
   dependencies: {
     getNextBatch: async () => [{ ...job, id: 'raw-failure', retries: 0 }],
     updateJob: async (_id, update) => { rawFailureUpdates.push(update); },
-    fetchCrawler: async () => Response.json({ results: [{ markdown: { raw_markdown: '# source\\n'.repeat(100) } }] }),
+    fetchCrawler: async (_input, init) => {
+      const body = JSON.parse(String((init as RequestInit)?.body || '{}'));
+      return Response.json({ url: body.url, filter: 'fit', markdown: '# source\n'.repeat(100), success: true });
+    },
     persistRawContent: async () => false,
     uploadToDify: async () => {
       uploadAfterRawFailure = true;

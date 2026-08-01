@@ -16,13 +16,8 @@ import { pickBestRelevantImage } from '@/lib/content-automation/crawl-image-matc
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { upsertPublishedArtifact } from '@/lib/server/published-content-store';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
+import { crawlUrlToMarkdown } from '@/lib/server/crawl4ai-client';
 import { revalidatePath } from 'next/cache';
-
-// Crawl4AI endpoints — same priority order as the ingest route.
-const CRAWLERS = [
-  process.env.CRAWL4AI_PRIMARY_CRAWL_URL || 'http://crawler-proxy:3002/crawl',
-  process.env.CRAWL4AI_BACKUP_CRAWL_URL  || 'http://crawler-backup:3002/crawl',
-];
 
 // In-memory crawl cache keyed by URL — prevents re-crawling the same page
 // for every article during a single backfill run.
@@ -31,36 +26,24 @@ const crawlCache = new Map<string, HarvestedImage[]>();
 async function crawlAndHarvest(pageUrl: string): Promise<HarvestedImage[]> {
   if (crawlCache.has(pageUrl)) return crawlCache.get(pageUrl)!;
 
-  for (const endpoint of CRAWLERS) {
-    try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ urls: [pageUrl], priority: 5, markdown: true }),
-        signal: AbortSignal.timeout(40_000),
-      });
-      if (!res.ok) continue;
-
-      const data = await res.json();
-      if (!data?.success || !data.results?.length) continue;
-
-      const r = data.results[0];
-      const md: string = r.markdown?.raw_markdown || r.markdown || '';
-      if (!md || md.length < 200) continue;
-
-      // Persist to raw_content so future harvests from DB work too.
-      void persistRawCrawlContent({ url: pageUrl, rawMarkdown: md, crawler: 'backfill' });
-
-      const images = harvestImagesFromMarkdown({ url: pageUrl, markdown: md });
-      crawlCache.set(pageUrl, images);
-      return images;
-    } catch {
-      // try next crawler
-    }
+  // /md (fit filter) also benefits image harvesting: Readability-style
+  // extraction drops nav/header/footer images (site logos, category
+  // thumbnails) along with the boilerplate text, leaving mostly in-article
+  // images as candidates instead of flooding harvestImagesFromMarkdown with
+  // irrelevant site-chrome images.
+  const crawled = await crawlUrlToMarkdown(pageUrl, { timeoutMs: 40_000 });
+  if (!crawled.ok) {
+    crawlCache.set(pageUrl, []);
+    return [];
   }
 
-  crawlCache.set(pageUrl, []);
-  return [];
+  const md = crawled.markdown;
+  // Persist to raw_content so future harvests from DB work too.
+  void persistRawCrawlContent({ url: pageUrl, rawMarkdown: md, crawler: 'backfill' });
+
+  const images = harvestImagesFromMarkdown({ url: pageUrl, markdown: md });
+  crawlCache.set(pageUrl, images);
+  return images;
 }
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');

@@ -1,8 +1,8 @@
-import { getOptionalEnv } from '@/lib/env';
 import { difyRequest } from '@/lib/dify-client';
 import { getNextBatchNew, updateJobNew, type CrawlJob } from '@/lib/crawl-queue';
 import { findDataset } from '@/lib/master-routing-tables';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
+import { crawlUrlToMarkdown } from '@/lib/server/crawl4ai-client';
 
 type QueueUpdate = Partial<CrawlJob>;
 
@@ -65,31 +65,10 @@ function asRecord(value: unknown): Record<string, unknown> | undefined {
     : undefined;
 }
 
-function readMarkdown(payload: unknown): string {
-  const root = asRecord(payload);
-  const results = Array.isArray(root?.results) ? root.results : [];
-  const first = asRecord(results[0]);
-  const markdown = first?.markdown;
-  if (typeof markdown === 'string') return markdown;
-  const markdownRecord = asRecord(markdown);
-  return typeof markdownRecord?.raw_markdown === 'string'
-    ? markdownRecord.raw_markdown
-    : '';
-}
-
 function readDocumentId(payload: unknown): string | undefined {
   const root = asRecord(payload);
   const document = asRecord(root?.document);
   return typeof document?.id === 'string' ? document.id : undefined;
-}
-
-function readErrorDetail(payload: unknown, rawBody: string): string {
-  const record = asRecord(payload);
-  for (const key of ['detail', 'error', 'message']) {
-    const value = record?.[key];
-    if (typeof value === 'string' && value.trim()) return value.trim().slice(0, 240);
-  }
-  return rawBody.replace(/\s+/g, ' ').trim().slice(0, 240);
 }
 
 export function isPermanentCrawlBlock(message: string): boolean {
@@ -121,58 +100,15 @@ function assertPublicHttpUrl(value: string): void {
   }
 }
 
-function crawlerEndpoints(): Array<{ role: 'primary' | 'backup'; url: string }> {
-  return [
-    {
-      role: 'primary',
-      url: getOptionalEnv('CRAWL4AI_PRIMARY_CRAWL_URL', 'http://crawler-proxy:3002/crawl'),
-    },
-    {
-      role: 'backup',
-      url: getOptionalEnv('CRAWL4AI_BACKUP_CRAWL_URL', 'http://crawler-backup:3002/crawl'),
-    },
-  ];
-}
-
 async function crawlUrl(
   url: string,
   dependencies: CrawlWorkerDependencies,
 ): Promise<{ markdown: string; crawler: 'primary' | 'backup' }> {
-  const errors: string[] = [];
-  for (const endpoint of crawlerEndpoints()) {
-    try {
-      const response = await dependencies.fetchCrawler(endpoint.url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ urls: [url], priority: 10, markdown: true }),
-        signal: AbortSignal.timeout(45_000),
-      });
-      const rawBody = await response.text();
-      let payload: unknown;
-      try {
-        payload = JSON.parse(rawBody) as unknown;
-      } catch {
-        payload = undefined;
-      }
-
-      if (!response.ok) {
-        const detail = readErrorDetail(payload, rawBody);
-        errors.push(`${endpoint.role}: HTTP ${response.status}${detail ? ` (${detail})` : ''}`);
-        continue;
-      }
-
-      const markdown = readMarkdown(payload);
-      if (markdown.length < 200) {
-        errors.push(`${endpoint.role}: content too short (${markdown.length})`);
-        continue;
-      }
-      return { markdown, crawler: endpoint.role };
-    } catch (error: unknown) {
-      errors.push(`${endpoint.role}: ${error instanceof Error ? error.message : 'request failed'}`);
-    }
+  const outcome = await crawlUrlToMarkdown(url, { fetchImpl: dependencies.fetchCrawler });
+  if (!outcome.ok) {
+    throw new Error(`All crawler providers failed. ${outcome.errors.join('; ')}`);
   }
-
-  throw new Error(`All crawler providers failed. ${errors.join('; ')}`);
+  return { markdown: outcome.markdown, crawler: outcome.crawler };
 }
 
 function failureStatus(job: CrawlJob): 'throttled' | 'failed' {
