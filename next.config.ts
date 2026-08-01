@@ -74,6 +74,18 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
+  async redirects() {
+    return [
+      {
+        // Hardware Analyzer was retired — Part Matcher is the same
+        // catalog-backed compatibility engine (analyzeBuildCompatibility)
+        // with a more reliable dropdown-based selection instead of free text.
+        source: '/tools/hardware-analyzer',
+        destination: '/tools/part-matcher',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

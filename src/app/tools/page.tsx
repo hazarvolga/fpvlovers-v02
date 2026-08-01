@@ -1,4 +1,4 @@
-import { Activity, Calculator, Cpu, Crosshair, Wrench, Zap } from 'lucide-react';
+import { Activity, Calculator, Crosshair, Wrench, Zap } from 'lucide-react';
 import {
   SubpageFeatureCard,
   SubpageHero,
@@ -13,15 +13,6 @@ export const metadata = {
 };
 
 const tools = [
-  {
-    title: 'Hardware Analyzer',
-    description: 'Enter your frame, motors, ESC, battery, and VTX. Get a catalog-backed compatibility check with optional AI risk notes.',
-    href: '/tools/hardware-analyzer',
-    icon: Cpu,
-    meta: 'Compatibility',
-    accent: 'cyan' as const,
-    difficulty: 'Intermediate' as const,
-  },
   {
     title: 'Blackbox Tuning',
     description: 'Upload a CSV export or paste log notes. Get filter and PID recommendations for your gyro sensor.',
@@ -80,7 +71,7 @@ export default function ToolsHubPage() {
         image={HUB_COVER_IMAGES.tools}
         imageAlt="FPV tuning dashboard and analyzer visual"
         stats={[
-          { label: 'Live tools', value: '6 utilities' },
+          { label: 'Live tools', value: `${tools.length} utilities` },
           { label: 'Data source', value: 'Catalog-backed' },
           { label: 'AI accuracy', value: 'Source-verified' },
           { label: 'Honest limits', value: 'Always shown' },
