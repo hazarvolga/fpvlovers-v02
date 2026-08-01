@@ -16,6 +16,29 @@
 
 ---
 
+## 0B. EK — SSH ile canlı RAG veri temizliği (2026-08-01, aynı oturum devamı)
+
+Kullanıcının izniyle Dify/Qdrant sunucusuna (80.225.231.62) ve her iki Crawl4AI sunucusuna (161.118.171.201, 141.148.206.187) SSH ile bağlanıp §1 ve §3'teki bulguları canlı doğruladım, kök nedeni buldum ve düzelttim:
+
+**Kök neden:** Her crawl çağrı noktası Crawl4AI'ın `/crawl` endpoint'inden `raw_markdown` (sayfanın TAMAMI — nav menüsü, footer, GitHub arayüzü dahil) okuyordu. `/md` endpoint'i `f=fit` (Readability tabanlı) ile test edildi, temiz sonuç doğrulandı. Üç çağrı noktası (`ingest/route.ts`, `crawl-worker.ts`, `backfill-images/route.ts`) `src/lib/server/crawl4ai-client.ts` adlı paylaşılan modülde birleştirilip düzeltildi (commit `1e734ae`).
+
+**Canlı veri temizliği:** 3 kirli dataset'te (fpv-flight-tuning, fpv-community-knowledge, fpv-components-specs) toplam **119 eski/opak doküman** (`doc_metadata` hiç kaydedilmemiş — dataset'lerde metadata şeması hiç kurulmamıştı) bulunup silindi. Örnekleme (19-21 nokta/dataset) kirlilik oranının %60-90 arası olduğunu doğruladı: GitHub arayüz metni, satılık/süresi dolmuş bir domain sayfası (HugeDomains), alakasız bir B2B yazılım şirketi (Jaggaer), Amazon/Google/GitHub genel sayfaları.
+
+Yerine: (1) kullanıcının sağladığı 29 URL'lik "FPV'ye başlangıç" listesi (18'i başarıyla crawl edildi → community-knowledge), (2) kendi curated teknik URL listem (betaflight.com/docs, edgetx.org, ardupilot.org vb.), (3) kullanıcının yüklediği "FPV Drone Kaynak Rehberi.md" araştırma raporunun 70 atıflı kaynağı (44'ü başarıyla crawl edildi → flight-tuning + components-specs) yüklendi. Her yeni doküman artık gerçek `source_url` metadata'sı taşıyor (Dify dataset'lerine yeni bir `source_url` metadata alanı eklendi — bu sorunun bir daha yaşanmaması için).
+
+**Final durum (doküman sayısı):**
+| Dataset | Önce | Sonra |
+|---|---|---|
+| fpv-flight-tuning | 23 (çoğu kirli) | 40 (tamamı temiz, kaynak-etiketli) |
+| fpv-community-knowledge | 84 (çoğu kirli) | 17 (tamamı temiz, kaynak-etiketli) |
+| fpv-components-specs | 39 (çoğu kirli) | 13 (tamamı temiz, kaynak-etiketli) |
+
+**Doğrulama:** Raw Qdrant scroll sorgusu bazı eski vektörlerin fiziksel olarak hâlâ paylaşılan koleksiyonda durduğunu gösterdi (Dify'ın DELETE API'si eski shared-collection kayıtlarını temizlemiyor olabilir) — ama **Dify'ın gerçek retrieval API'si** (canlı araçların kullandığı mekanizma) ile 3 dataset'te de gerçek sorgular test edildi, sonuçlar tamamen temiz ve alakalı çıktı (skor 0.78-0.91 aralığında). Yani kullanıcı deneyimi (canlı araçların ürettiği cevaplar) artık temiz — orfan Qdrant vektörleri retrieval'a yansımıyor.
+
+**Bilinen küçük kalıntı sorun:** Bazı blog.uavmodel.com sayfalarında "fit" filtresi sosyal medya paylaş-butonu metnini (Pinterest/LinkedIn share linkleri) tam temizleyemedi — gerçek içerikle karışık düşük hacimde gürültü. Önceki GitHub/domain-parking kirliliğine kıyasla önemsiz, ayrı bir iyileştirme konusu.
+
+---
+
 ## 1. Veri Kazıma Sistemi — "Düzgün çalışıyor mu?"
 
 **Cevap: Kodun kendisi sağlam, ama tetikleme mekanizması repo dışında ve kanıtlanmış şekilde kırılgan.**
