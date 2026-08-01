@@ -13,13 +13,13 @@ Vektör DB:    Qdrant
 ## API Token'ları
 
 ```
-Dataset API:   dataset-57xGhkCvaQKR2YoSljA94NVu
+Dataset API:   <REDACTED — see .env.local, never commit real keys here>
 
-App Expert:    app-C7zocan03yFGIbGtJCQG0iUs   → FPV Expert Assistant (9 dataset)
-App Build:     app-JH8Fu38ezY8sUyhHb8ykHIWq   → Build Wizard
-App Part:      app-fHeOtuCMfHNujevKEXaTEDJn   → Part Matcher
-App Blackbox:  app-4mCgiWoe3bYOxNYQbspqNhyh   → Blackbox Tuning Advisor
-App Community: app-1Oil9DvSgUHj9Yf8eEtTuShF   → Community Hub
+App Expert:    <REDACTED>   → FPV Expert Assistant (9 dataset)
+App Build:     <REDACTED>   → Build Wizard
+App Part:      <REDACTED>   → Part Matcher
+App Blackbox:  <REDACTED>   → Blackbox Tuning Advisor
+App Community: <REDACTED>   → Community Hub
 ```
 
 ## src/lib/dify-client.ts Kullanımı

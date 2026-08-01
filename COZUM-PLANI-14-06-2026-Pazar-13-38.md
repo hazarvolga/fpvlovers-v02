@@ -181,7 +181,7 @@ Amacı: Platformun temel değer önermesini ("RAG-güvenceli FPV bilgisi") çal�
 **Efor:** Düşük | **Risk:** Düşük
 
 #### [MANUAL] Dify UI Kontrol
-- `app-XJogXujRpHH3Ri8dOU9F` token'ını Dify UI'dan kontrol et
+- SEO content generator workflow token'ını Dify UI'dan kontrol et (bkz. `.env.local` — bu dosyada asla gerçek token yazma)
 - Geçersizse: yeni token oluştur → `.env.local`'a ekle
 - `WORKFLOW_TOKENS.seoContentGenerator` referansını env var'a dönüştür (Görev 1.1'de yapılacak)
 

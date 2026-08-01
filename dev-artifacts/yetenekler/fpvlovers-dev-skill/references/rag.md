@@ -200,5 +200,5 @@ Belirti: TopK=5 alınıyor ama en iyi sonuç 4. sırada
 
 # Veya API
 curl -X POST https://dify.affexai.tr/v1/datasets/{dataset_id}/indexing-estimate \
-  -H "Authorization: Bearer dataset-57xGhkCvaQKR2YoSljA94NVu"
+  -H "Authorization: Bearer $DIFY_DATASET_API_KEY"
 ```
