@@ -139,37 +139,38 @@ Bu, CLAUDE.md'nin kendi YASAK listesindeki AffexDuelEngine olayının (commit 73
 
 ---
 
-## Birleşik Öncelik Matrisi
+## Birleşik Öncelik Matrisi — Kapanış Durumu (2026-08-01 sonu)
 
-| # | Bulgu | Öncelik | Efor |
+| # | Bulgu | Öncelik | Durum |
 |---|---|---|---|
-| 0 | ~~Public repoda 7 canlı Dify anahtarı~~ — dosyalar düzeltildi | **✅ Yapıldı, ANAHTAR ROTASYONU SENDE KALDI** | Acil |
-| 1 | `pilot-pulse`'daki gerçek-marka uydurma güvenilirlik istatistikleri | **CRITICAL** | S |
-| 2 | Production cron'un repo dışında/denetlenemez olması + kanıtlanmış 20 günlük sessizlik geçmişi | **HIGH** | M-L (altyapı kararı) |
-| 3 | Makale gövdesi için kod-içi grounding/atıf zorunluluğu yok | **HIGH** | M |
-| 4 | `/api/analyze-flight` auth/rate-limit/boyut sınırı yok | **HIGH** | S |
-| 5 | Rate limiter sahte X-Forwarded-For'a güveniyor | **HIGH** | S |
-| 6 | Admin auth sabit-zamanlı değil, brute-force korumasız | **HIGH** | S |
-| 7 | "SEO ≥ 80" ve benzeri yayın kalite kapıları kod tarafında yok | Orta | M |
-| 8 | Yasal/regülasyon içeriği için ekstra doğrulama yok | Orta | M |
-| 9 | Site genelinde canonical tag eksikliği | Orta | S-M |
-| 10 | Makale sayfası başına 2× önbelleksiz tam katalog taraması | Orta | S (memoization eklemek) |
-| 11 | SSRF: backfill-images allowlist yok, ingest redirect-safe değil | Orta | S |
-| 12 | CSP header yok | Orta | S |
-| 13 | `retrieval-orchestrator.ts` hiçbir canlı aracı korumuyor (ölü sofistike kod) | Düşük-Orta | M |
-| 14 | 7/9 Dify workflow DSL'i tamamen bağlı değil (`TODO-import-to-dify-first`) | Düşük | Bilgi amaçlı |
-| 15 | ~%50 makale kapak görseli optimize edilmemiş | Düşük-Orta | S (backfill'i genişlet) |
+| 0 | Public repoda 7 canlı Dify anahtarı | CRITICAL | ✅ Dosyalar redakte edildi (`1a2a7ba`). **Anahtar rotasyonu senin yapman gereken tek manuel adım — Dify Studio'dan.** |
+| 1 | `pilot-pulse`'daki gerçek-marka uydurma güvenilirlik istatistikleri | CRITICAL | ✅ Kapatıldı (`9a8f65a`) — gerçek marka isimleri kaldırıldı, "Example data" etiketi eklendi, görsel olarak doğrulandı. |
+| 2 | Production cron'un repo dışında/denetlenemez olması + kanıtlanmış 20 günlük sessizlik geçmişi | HIGH | ✅ Versiyon kontrollü GitHub Actions cron eklendi (`7f6cbe6`). **Senin yapman gereken: repo secret `CRON_SECRET` ekle (workflow dosyasında talimat var), sonra eski host crontab'ını kapat.** |
+| 3 | Makale gövdesi için kod-içi grounding/atıf zorunluluğu yok | HIGH | 🟡 Kısmen kapatıldı (`0adfd42`) — ideation brief'lerindeki sahte-retrieval artık gerçek bağlam gibi kullanılmıyor. Asıl makale-gövdesi üretim prompt'u **Dify Studio'da yaşıyor, bu repodan değiştirilemez** — Dify workflow'una "sadece verilen context'ten alıntı yap" kuralı eklemek ayrı, Dify tarafında yapılması gereken bir iş. |
+| 4 | `/api/analyze-flight` auth/rate-limit/boyut sınırı yok | HIGH | ✅ Kapatıldı (`3ae313d`) — rate limit (5/dk) + 100MB sınırı eklendi. |
+| 5 | Rate limiter sahte X-Forwarded-For'a güveniyor | HIGH | ✅ Kapatıldı (`3ae313d`) — X-Real-IP önceliklendirildi, XFF'nin son hop'u kullanılıyor. |
+| 6 | Admin auth sabit-zamanlı değil, brute-force korumasız | HIGH | ✅ Kapatıldı (`3ae313d`) — sabit-zamanlı karşılaştırma + 20 deneme/15dk limit eklendi (middleware.ts + admin-auth-guard.ts). |
+| 7 | "SEO ≥ 80" yayın kalite kapısı kod tarafında yoktu | Orta | ✅ Kapatıldı (`0eebebb`) — gerçek `computeSeoScore()` eklendi, otomatik yayın yolu artık bunu zorunlu kılıyor. |
+| 8 | Yasal/regülasyon içeriği için ekstra doğrulama yoktu | Orta | ✅ Kapatıldı (`0eebebb`) — regülasyon içeriği artık ≥2 kaynak gerektiriyor (önceden ≥1). |
+| 9 | Site genelinde canonical tag eksikliği | Orta | ✅ Kapatıldı (`f533332`) — 5 hub sayfası + ana sayfa + makale fallback dalı. |
+| 10 | Makale sayfası başına 2× önbelleksiz tam katalog taraması | Orta | ✅ Kapatıldı (`f533332`) — React `cache()` ile memoize edildi. |
+| 11 | SSRF: backfill-images allowlist yok, ingest redirect-safe değil | Orta | ✅ Kapatıldı (`3ae313d`) — paylaşılan `isPublicHttpUrl()` guard'ı + redirect engelleme + 15MB sınırı. İngest'in kendisindeki (harici Crawl4AI servisi tarafında yönetilen) redirect-SSRF riski **bu repo dışında kalan bir kalıntı risk**. |
+| 12 | CSP header yok | Orta | ✅ Kapatıldı (`3ae313d`) — `next.config.ts`'e eklendi, canlıda CSP-ihlali yok olarak doğrulandı. |
+| 13 | `retrieval-orchestrator.ts` hiçbir canlı aracı korumuyor | Düşük-Orta | 📋 **Mimari karar gerektiriyor, kod bug'ı değil** — dosya admin/içerik-üretim hattında gerçekten kullanılıyor (silinemez), ama 6 canlı `/tools/*` widget'ı onu hiç çağırmıyor. Onları buna bağlamak yeni bir özellik eklemek kadar risk taşır; şimdilik dokümante edildi, senin kararına bırakıldı. |
+| 14 | 7/9 Dify workflow DSL'i tamamen bağlı değil | Düşük | 📋 **Dify Studio'da elle import gerektiriyor** — bu repodan yapılamaz. `master-routing-tables.ts`'deki `WORKFLOW_IDS` değerleri hâlâ `'TODO-import-to-dify-first'`. |
+| 15 | ~%50 makale kapak görseli optimize edilmemiş | Düşük-Orta | 🟡 Bu oturumun başında 87/163 makale için zaten düzeltilmişti (image backfill). Kalanlar için daha fazla `raw_content` verisi/editöryal kaynak URL'si gerekiyor — operasyonel, tekrarlayan bir görev (backfill'i tekrar çalıştırmak), tek seferlik kod fix'i değil. |
 
 **Efor:** S = saatler, M = 1 gün, L = birden fazla gün / altyapı kararı gerektirir.
 
 ---
 
-## Sonuç
+## Sonuç (güncellendi — 2026-08-01 sonu)
 
-Platformun **deterministik çekirdekleri** (katalog eşleştirme, ücretsiz fiziksel hesaplayıcılar, güvenlik guardrail'leri) bu oturumda daha önce düzeltilenlerle birlikte dürüst çalışıyor. Ama üç ayrı katmanda gerçek risk var:
+**15 bulgunun 11'i tamamen kapatıldı, 1'i kısmen kapatıldı (kalan kısmı bu reponun dışında), 3'ü mimari karar/Dify Studio aksiyonu gerektirdiği için sadece dokümante edildi.** Tüm kod değişiklikleri commit edildi, push edildi, typecheck+lint+ilgili regresyon testleri (part-matcher, editorial-governance, content-smoke, content-audit) yeşil.
 
-1. **Operasyonel kırılganlık** — içerik boru hattının kalbi (zamanlama) repo dışında, denetlenemez, ve daha önce 3 hafta sessiz kalmış. "Yeni içerik ekleniyor mu?" sorusunun cevabı: *bazen, düzensiz aralıklarla, ve bunu izleyen hiçbir otomatik alarm yok.*
-2. **İçerik güvenilirliği** — makale gövdesi opak bir LLM workflow'undan geliyor, kod içinde zorunlu bir "sadece verilen kaynaktan alıntı yap" kuralı yok, ve **`pilot-pulse` sayfası şu anda gerçek marka isimleriyle uydurma istatistik yayınlıyor** — bu, projenin kendi geçmiş hatasının (AffexDuelEngine) tekrarı ve en hızlı kapatılması gereken madde.
-3. **Güvenlik** — en kritik madde (sızmış API anahtarları) bu oturumda kapatıldı ama **anahtar rotasyonu hâlâ sende**; ikinci sırada `/api/analyze-flight`'ın tamamen açık olması geliyor.
+**Hâlâ senin yapman gereken 3 manuel adım:**
+1. **Dify Studio'dan 7 API anahtarını rotate et** (§0) — en acil, kodla çözülemez.
+2. **GitHub repo secret `CRON_SECRET` ekle** ve yeni Actions cron'unu doğruladıktan sonra eski host crontab'ını kapat (§2) — `.github/workflows/content-pipeline-cron.yml` dosyasının başındaki talimatları takip et.
+3. **7 bağlı-olmayan Dify workflow'unu Dify Studio'dan import et** (istersen — düşük öncelik) (§14).
 
-**Önerilen sıra:** (1) Dify anahtarlarını hemen rotate et, (2) `pilot-pulse`'daki sahte marka istatistiklerini kaldır ya da "simüle edilmiştir" etiketiyle işaretle, (3) `/api/analyze-flight`'a auth+rate-limit ekle, (4) production cron'u versiyon kontrollü bir mekanizmaya taşımayı değerlendir (ör. Coolify'ın kendi scheduled task özelliği + repo içinde dokümante edilmiş bir tanım).
+Platformun deterministik çekirdekleri (katalog eşleştirme, güvenlik guardrail'leri, yayın kalite kapıları) artık hem doğru hem de gerçekten kod-tarafında zorunlu kılınıyor — daha önce sadece dokümante edilmiş, hiç uygulanmamış kurallardı.
