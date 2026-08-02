@@ -1,16 +1,15 @@
 {
-  "generatedAt": "2026-08-02T09:55:48.213Z",
+  "generatedAt": "2026-08-02T10:06:38.068Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "release-verification-pending",
   "branch": "main",
-  "head": "887907dd03c5",
+  "head": "85e797e10d86",
   "behind": 0,
-  "ahead": 0,
+  "ahead": 2,
   "currentBlockers": [
     "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
     "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
-    "Add a Coolify persistent volume for the app (`r0c44ok0cskc800gs0c8o8wk`): Source `/data/coolify/applications/r0c44ok0cskc800gs0c8o8wk/source-cache`, Destination `/app/public/images/source-cache`. Redeploy, then re-run **Backfill Images** (real run) from the admin panel and re-verify file existence on disk, not just the DB `src` field — see 2026-08-02 priority section above for the full root-cause evidence.",
-    "Wire `src/app/admin/page.tsx`'s \"Pilot Registry\" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`).",
+    "**PAUSED HERE (2026-08-02) — resume point:** Wire `src/app/admin/page.tsx`'s \"Pilot Registry\" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`). This is the next open task; nothing is mid-flight/broken. Everything else from the 2026-08-02 session is closed and deployed.",
     "Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy."
   ],
   "nextTask": "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
