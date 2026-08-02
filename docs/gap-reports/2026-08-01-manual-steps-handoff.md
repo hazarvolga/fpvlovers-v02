@@ -20,13 +20,19 @@ Yani **RAG orchestrator düzeltmesi şu an canlıda değil**, sadece GitHub'da.
 ---
 
 ## 1. 7 sızdırılmış Dify API anahtarını rotate et
-**Öncelik: CRITICAL — en acil.**
+**Öncelik: CRITICAL — en acil. Yarı tamamlandı, senin bir adımın kaldı.**
 
 31 Temmuz 2026 GAP denetiminde, public `hazarvolga/fpvlovers-v02` reposunda 7 canlı Dify API anahtarının düz metin commit edildiği tespit edildi (1 dataset key + 6 app key: Expert, Build Wizard, Part Matcher, Blackbox, Community, SEO workflow). Dosyalar redakte edildi (`1a2a7ba`) ama **anahtarların kendisi hâlâ geçerli** — repo bir süre public'ti, herkes kopyalamış olabilir.
 
-**Nasıl:** Dify Studio → Settings → API Access (her app için ayrı ayrı) → mevcut anahtarı revoke et → yeni anahtar oluştur → Coolify'daki ilgili `DIFY_APP_TOKEN_*` env değişkenlerini güncelle.
+**2026-08-02 güncelleme — Dify tarafı benim tarafımdan yapıldı:** Dify Studio'da (browser oturumu, hesabına giriş yapılmış haldeydi) her 7 uygulama/dataset için suffix eşleştirmesiyle doğru app doğrulandı ve **yeni bir anahtar oluşturuldu** (eskiler bilerek SİLİNMEDİ — Dify birden fazla eşzamanlı anahtara izin veriyor, bu yüzden şu an hiçbir kesinti yok). Yeni değerler `SECRETS-MOVE-OUT-OF-REPO/canli-environtmens-degerleri.md` dosyasına yazıldı (bu dosya `.gitignore`'da, repoya hiç girmedi).
 
-**Durum: Doğrulanamadı** (SSH yok) — muhtemelen hâlâ yapılmadı.
+**Senin yapman gereken (dosyanın başındaki not da aynısını söylüyor):**
+1. Coolify → fpvlovers app → Environment Variables → `canli-environtmens-degerleri.md`'deki 7 yeni değeri (DIFY_API_KEY, DIFY_APP_KEY, DIFY_APP_TOKEN_BLACKBOX/BUILD_WIZARD/COMMUNITY/EXPERT/PART_MATCHER, DIFY_WORKFLOW_TOKEN_SEO) gir.
+2. Madde 0'daki auto-deploy sorunu yüzünden Coolify panelinden ELLE "Redeploy" et.
+3. Tüm araçları (Part Matcher, Blackbox, Build Wizard, vb.) canlıda test et, çalışıyorsa haber ver.
+4. Ben ancak o zaman Dify Studio'daki ESKİ (sızdırılmış) anahtarları silerim — önce silersem ve sen henüz redeploy etmediysen 6+ araç anlık kırılır.
+
+**Durum: 🟡 Yarı tamamlandı** — yeni anahtarlar hazır, Coolify+redeploy+eski-anahtar-silme adımları bekliyor.
 
 ---
 
@@ -63,14 +69,17 @@ Yani production'daki `DIFY_API_KEY` **zaten geçerli bir Dataset/Knowledge API a
 
 ---
 
-## 5. Dify workflow'una "sadece verilen context'ten alıntı yap" kuralı ekle
-**Öncelik: MEDIUM.**
+## 5. ~~Dify workflow'una "sadece verilen context'ten alıntı yap" kuralı ekle~~ — ÇÖZÜLDÜ VE YAYINDA
+**Durum: ✅ Tamamlandı ve publish edildi (2026-08-02).**
 
-Makale gövdesi üretim prompt'u Dify Studio'da yaşıyor, bu repodan değiştirilemez. İdeation brief'lerindeki sahte-retrieval sorunu koddan düzeltildi (`0adfd42`), ama asıl makale-gövdesi workflow'unun system prompt'una "sana verilen RAG context dışında bilgi/kaynak uydurma" kuralını eklemek Dify Studio tarafında elle yapılması gereken ayrı bir iş.
+Makale gövdesi üretim workflow'u **"SEO Content Generator"** (Dify Studio → Workflow) olarak bulundu — node zinciri: Start → SEO Research → RAG Retrieval → Metadata Enrichment → Outline Generator → **Article Generator** → Affiliate Injection → Schema Generator → End. Grounding kuralı eksik olan node `Article Generator`'ın system prompt'uydu — "Include specific product names, specs, and real performance notes" gibi talimatlar var ama RAG bağlamı boş/zayıf olduğunda uydurmayı engelleyen açık bir kısıtlama yoktu (tam olarak bu turda kapatılan tools-hallucination sorununun içerik-üretim tarafındaki eşleniği).
 
-**Nasıl:** Dify Studio → ilgili content-generation workflow/chatflow → System Prompt düzenle → grounding kısıtlamasını ekle → test et.
+Eklenen kural (Article Generator system prompt'unun sonuna):
+> "CRITICAL grounding rule: only state product names, specs, prices, or performance figures that appear in the retrieved knowledge base content above. If the retrieved knowledge is empty or does not cover a detail the outline calls for, write general non-specific guidance instead and do not invent a source, statistic, or spec to fill the gap."
 
-**Durum: Yapılmadı.**
+**Yan bulgu + düzeltme:** Publish sırasında ilgisiz, önceden var olan bir engel bulundu — `RAG Retrieval` node'unun rerank ayarı "Rerank Model" seçiliydi ama yapılandırılmış model artık "Incompatible" (muhtemelen bir plugin kaldırılmış/güncellenmiş). Bu, yeni bir Dify sürüm doğrulama kuralı yüzünden yayınlamayı tamamen engelliyordu (workflow zaten 2 aydır bu haliyle canlıydı, yani sorun yeni değil, sadece publish'i şimdi engelliyordu). Model gerektirmeyen **"Weighted Score"** moduna geçirerek çözüldü (semantic 0.7 / keyword 0.3 — Dify'ın standart varsayılanı). Bunu ayrıca doğrulaman gerekmiyor, düşük riskli bir ayar değişikliği.
+
+**Durum: ✅ Yayında, doğrulama gerekmiyor** — bir sonraki içerik üretiminde otomatik devreye girer.
 
 ---
 
@@ -86,11 +95,11 @@ Makale gövdesi üretim prompt'u Dify Studio'da yaşıyor, bu repodan değiştir
 | # | Adım | Öncelik | Nerede | Durum |
 |---|------|---------|--------|-------|
 | 0 | Coolify auto-deploy webhook'unu düzelt | CRITICAL | Coolify + GitHub | **Açık — yeni bulundu** |
-| 1 | 7 API anahtarını rotate et | CRITICAL | Dify Studio | Doğrulanamadı, muhtemelen hâlâ açık |
+| 1 | 7 API anahtarını rotate et | CRITICAL | Dify Studio + Coolify | 🟡 Yarı tamamlandı — yeni anahtarlar hazır (`canli-environtmens-degerleri.md`), Coolify+redeploy senden bekleniyor |
 | 2 | Dataset API key | — | — | ✅ Çözüldü — aksiyon gerekmiyor |
 | 3 | `ENABLE_REAL_RAG=true` prod'da teyit | — | — | ✅ Çözüldü — canlıda `true` |
 | 4 | `CRON_SECRET` ekle + eski crontab kapat | HIGH | GitHub + sunucu | Doğrulanamadı |
-| 5 | Dify workflow grounding kuralı | Orta | Dify Studio | Yapılmadı |
+| 5 | Dify workflow grounding kuralı | — | — | ✅ Çözüldü — yayında |
 | 6 | 7 workflow DSL import (opsiyonel) | Düşük | Dify Studio | Yapılmadı |
 
 SSH artık çalışıyor (`SECRETS-MOVE-OUT-OF-REPO/server-info/` altındaki `ubuntu@<ip>` + `.key` kombinasyonlarıyla), bir sonraki oturumda tekrar kullanılabilir.
