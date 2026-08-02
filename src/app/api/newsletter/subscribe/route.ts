@@ -1,20 +1,38 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { query } from '@/lib/server/db';
 import { z } from 'zod';
+import { rateLimit } from '@/lib/server/rate-limit';
 
 const subscribeSchema = z.object({
-  email: z.string().email('Geçerli bir e-posta adresi giriniz'),
+  email: z.string().email('Please provide a valid email address.'),
   source: z.string().optional().default('footer_form'),
 });
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  // Writes to the subscriber table on every call; rate-limit to stop
+  // automated sign-up spam and email-enumeration probing.
+  const limitRes = rateLimit(request, 5, 60 * 1000, 'newsletter-subscribe');
+  if (!limitRes.success) {
+    return NextResponse.json(
+      { error: 'Too many requests. Please try again in a minute.' },
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': String(limitRes.limit),
+          'X-RateLimit-Remaining': String(limitRes.remaining),
+          'X-RateLimit-Reset': String(limitRes.reset),
+        },
+      }
+    );
+  }
+
   try {
     const body = await request.json();
     const result = subscribeSchema.safeParse(body);
 
     if (!result.success) {
       return NextResponse.json(
-        { error: 'Geçersiz veri formatı', details: result.error.format() },
+        { error: 'Invalid submission data.', details: result.error.format() },
         { status: 400 }
       );
     }
@@ -35,9 +53,9 @@ export async function POST(request: Request) {
           'UPDATE fpvlovers_app.newsletter_subscribers SET is_active = true, unsubscribed_at = NULL WHERE id = $1',
           [subscriber.id]
         );
-        return NextResponse.json({ message: 'Abonelik yeniden aktifleştirildi.', status: 'reactivated' });
+        return NextResponse.json({ message: 'Subscription reactivated.', status: 'reactivated' });
       }
-      return NextResponse.json({ message: 'Bu e-posta adresi zaten bültene kayıtlı.', status: 'exists' });
+      return NextResponse.json({ message: 'This email address is already subscribed.', status: 'exists' });
     }
 
     // Insert new subscriber
@@ -47,11 +65,11 @@ export async function POST(request: Request) {
       [email, source || 'website']
     );
 
-    return NextResponse.json({ message: 'Bültene başarıyla kayıt oldunuz!', status: 'created' }, { status: 201 });
+    return NextResponse.json({ message: 'You are subscribed!', status: 'created' }, { status: 201 });
   } catch (error) {
     console.error('Newsletter subscribe error:', error);
     return NextResponse.json(
-      { error: 'Kayıt sırasında bir hata oluştu' },
+      { error: 'Something went wrong while subscribing.' },
       { status: 500 }
     );
   }

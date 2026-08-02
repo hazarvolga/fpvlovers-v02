@@ -28,10 +28,7 @@ export async function GET() {
     return NextResponse.json(res.rows[0]);
   } catch (error) {
     console.error("Failed to retrieve pilot progress", error);
-    return NextResponse.json(
-      { error: "Internal Server Error", details: error instanceof Error ? error.message : String(error) },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
@@ -110,9 +107,6 @@ export async function POST(req: Request) {
     }
   } catch (error) {
     console.error("Failed to upsert/merge pilot progress", error);
-    return NextResponse.json(
-      { error: "Internal Server Error", details: error instanceof Error ? error.message : String(error) },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

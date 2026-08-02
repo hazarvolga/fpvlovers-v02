@@ -15,22 +15,22 @@ export async function GET(req: Request) {
     const campaignId = await NewsletterOrchestrator.generateDraftCampaign();
     
     if (campaignId) {
-      return NextResponse.json({ 
-        success: true, 
-        message: 'Haftalık bülten taslağı başarıyla oluşturuldu.',
-        campaignId 
+      return NextResponse.json({
+        success: true,
+        message: 'Weekly newsletter draft campaign created successfully.',
+        campaignId
       });
     } else {
-      return NextResponse.json({ 
-        success: false, 
-        message: 'Bülten oluşturulamadı.'
+      return NextResponse.json({
+        success: false,
+        message: 'Failed to create newsletter draft campaign.'
       }, { status: 500 });
     }
-  } catch (error: any) {
+  } catch (error) {
     console.error('CRON Newsletter Error:', error);
-    return NextResponse.json({ 
-      success: false, 
-      error: error.message 
+    return NextResponse.json({
+      success: false,
+      error: 'Internal Server Error'
     }, { status: 500 });
   }
 }

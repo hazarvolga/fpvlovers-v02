@@ -6,7 +6,23 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import rehypeSanitize, { defaultSchema } from 'rehype-sanitize';
 import { ChevronDown, BookOpen } from 'lucide-react';
+
+// Published articles can contain crawled or LLM-generated raw HTML (details/summary
+// blocks, knowledge-content divs). rehypeRaw parses that HTML into the tree, so it
+// must run through a strict allow-list before rendering — otherwise a compromised or
+// malicious source document could inject <script>/<iframe>/event-handler XSS.
+const markdownSanitizeSchema = {
+  ...defaultSchema,
+  tagNames: [...new Set([...(defaultSchema.tagNames ?? []), 'details', 'summary', 'div', 'span'])],
+  attributes: {
+    ...defaultSchema.attributes,
+    div: [...(defaultSchema.attributes?.div ?? []), 'className'],
+    span: [...(defaultSchema.attributes?.span ?? []), 'className'],
+    img: [...(defaultSchema.attributes?.img ?? []), 'loading', 'referrerPolicy'],
+  },
+};
 
 interface GalleryAsset {
   src: string;
@@ -44,7 +60,7 @@ export function MarkdownRenderer({ content, gallery = [], injectImageAtSections 
     ">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
+        rehypePlugins={[rehypeRaw, [rehypeSanitize, markdownSanitizeSchema]]}
         components={{
           // Custom image renderer with FPV premium styling
           img: ({ src, alt }) => (

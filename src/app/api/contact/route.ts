@@ -1,9 +1,27 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { rateLimit } from '@/lib/server/rate-limit';
 
 const INQUIRY_TYPES = ['Affiliate', 'Partnership', 'Vendor', 'Content Correction', 'General'];
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  // This endpoint sends an outbound email per request; rate-limit to stop it
+  // being used as a spam relay or mail bomb.
+  const limitRes = rateLimit(request, 5, 60 * 1000, 'contact');
+  if (!limitRes.success) {
+    return NextResponse.json(
+      { success: false, errors: ['Too many requests. Please try again in a minute.'] },
+      {
+        status: 429,
+        headers: {
+          'X-RateLimit-Limit': String(limitRes.limit),
+          'X-RateLimit-Remaining': String(limitRes.remaining),
+          'X-RateLimit-Reset': String(limitRes.reset),
+        },
+      }
+    );
+  }
+
   try {
     const body = await request.json();
     const { name, email, inquiryType, message } = body;
@@ -30,15 +48,6 @@ export async function POST(request: Request) {
     if (errors.length > 0) {
       return NextResponse.json({ success: false, errors }, { status: 400 });
     }
-
-    // Securely log submission payload to server console/stdout (no PII leakage to third-parties)
-    console.log('[ContactFormSubmit] New Inquiry received:', {
-      name: name.trim(),
-      email: email.trim(),
-      inquiryType,
-      messageLength: message.trim().length,
-      timestamp: new Date().toISOString()
-    });
 
     // SMTP Mailer configuration
     const smtpHost = process.env.SMTP_HOST;
