@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 import { Navbar } from '@/features/layout/components/Navbar';
-import { SearchSection } from '@/features/layout/components/SearchSection';
 import { SiteFooter } from '@/features/layout/components/SiteFooter';
 import { MobileUtilityBar } from '@/features/layout/components/MobileUtilityBar';
 import { CookieBanner } from '@/features/layout/components/CookieBanner';
@@ -11,7 +10,36 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 import { SessionProvider } from 'next-auth/react';
 import { buildCoverImageUrl } from '@/lib/content-automation/content-media';
 
+const SITE_URL = process.env.APP_URL || 'https://fpvlovers.com.tr';
 const DEFAULT_SITE_COVER = buildCoverImageUrl('site-default');
+
+// Baseline Organization/WebSite structured data for every page. Article pages layer
+// their own Article/BreadcrumbList/Review schema on top of this via their own script tag.
+const siteJsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: 'FPVLovers',
+      url: SITE_URL,
+      logo: `${SITE_URL}/logo-type.png`,
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      name: 'FPVLovers',
+      url: SITE_URL,
+      publisher: { '@id': `${SITE_URL}/#organization` },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: `${SITE_URL}/search?q={search_term_string}`,
+        'query-input': 'required name=search_term_string',
+      },
+    },
+  ],
+};
+const safeSiteJsonLd = JSON.stringify(siteJsonLd).replace(/</g, '\\u003c');
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.APP_URL || 'https://fpvlovers.com.tr'),
@@ -40,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="dark">
       <body className="font-sans min-h-screen antialiased selection:bg-[#ff5a1f]/30 selection:text-white relative" suppressHydrationWarning>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeSiteJsonLd }} />
         <SessionProvider>
           {/* Subtle global atmosphere. Tool pages can opt into heavier cockpit UI locally. */}
           <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -48,7 +77,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
 
           <Navbar />
-          <SearchSection />
           <main className="relative z-10 pb-16 lg:pb-0">{children}</main>
           <MobileUtilityBar />
           <CookieBanner />

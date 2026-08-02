@@ -62,7 +62,7 @@ export function AdBanner({ className, title = "SPONSOR SLOT", product }: { class
             </Link>
           </Button>
         ) : (
-          <span className="border border-white/10 px-3 py-2 text-center text-[9px] font-black uppercase tracking-widest text-white/40">Editorial slot reserved</span>
+          <span className="border border-white/10 px-3 py-2 text-center text-[9px] font-black uppercase tracking-widest text-white/60">Editorial slot reserved</span>
         )}
       </div>
 
@@ -101,7 +101,7 @@ export function AdInFeed({ className, product }: { className?: string; product?:
              </Link>
            </Button>
          ) : (
-           <span className="w-full border border-white/10 px-3 py-2 text-center text-[9px] font-black uppercase tracking-widest text-white/40">Editorial slot reserved</span>
+           <span className="w-full border border-white/10 px-3 py-2 text-center text-[9px] font-black uppercase tracking-widest text-white/60">Editorial slot reserved</span>
          )}
       </div>
     </div>
@@ -115,7 +115,7 @@ export function AdStickySidebar({ className, product }: { className?: string; pr
 
   return (
     <div className={cn("fpv-public-panel sticky top-24 flex flex-col rounded-xl p-4 bg-[#0A0A0B]/90", className)}>
-       <div className="mb-4 text-center text-[10px] font-bold uppercase tracking-widest text-white/45">Reader-supported gear reference</div>
+       <div className="mb-4 text-center text-[10px] font-bold uppercase tracking-widest text-white/60">Reader-supported gear reference</div>
        <div className="flex flex-col gap-4">
          <div
            className={cn('group relative rounded-lg border border-white/10 bg-[#050505] p-3 transition-colors', hasProductLink && 'cursor-pointer hover:border-[#FF5C00]/50')}
@@ -126,7 +126,7 @@ export function AdStickySidebar({ className, product }: { className?: string; pr
                <span className="z-10 border border-[#FF5C00]/30 bg-black/50 px-2 py-1 text-[10px] font-black uppercase tracking-widest text-[#FF5C00] backdrop-blur-sm">Editorial pick</span>
             </div>
             <div className="mb-1 text-xs font-black uppercase tracking-tight text-zinc-300">{displayName}</div>
-            <p className="mb-3 text-[10px] leading-4 text-zinc-500">
+            <p className="mb-3 text-[10px] leading-4 text-zinc-400">
               Commercial links are disclosed and do not change editorial verdicts.
             </p>
             <div className="flex items-center justify-between">
@@ -136,7 +136,7 @@ export function AdStickySidebar({ className, product }: { className?: string; pr
                   <span className="text-[8px] text-[#FF5C00]">↗</span>
                 </Link>
               ) : (
-                <span className="text-[9px] uppercase tracking-widest text-white/35">Reference only</span>
+                <span className="text-[9px] uppercase tracking-widest text-white/60">Reference only</span>
               )}
             </div>
          </div>

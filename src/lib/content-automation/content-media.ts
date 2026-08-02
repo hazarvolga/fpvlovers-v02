@@ -64,22 +64,36 @@ function pickPalette(category: string, slug: string): [string, string, string] {
   ];
 }
 
+// The cover card reserves a fixed 190px band for title + excerpt (buildCoverImageSvg
+// below), so the title must never exceed 2 rendered lines — a 3rd line collides with
+// the excerpt text, which sits at a fixed y position under the title block.
+const COVER_TITLE_MAX_LINES = 2;
+const COVER_TITLE_MAX_CHARS_PER_LINE = 28;
+
 function splitTitle(value: string): string[] {
-  const words = truncate(value, 72).split(/\s+/).filter(Boolean);
+  const words = truncate(value, 96).split(/\s+/).filter(Boolean);
   const lines: string[] = [];
   for (const word of words) {
     const current = lines[lines.length - 1] || '';
     const next = current ? `${current} ${word}` : word;
-    if (next.length > 28 && current) {
+    if (next.length > COVER_TITLE_MAX_CHARS_PER_LINE && current) {
       lines.push(word);
     } else if (lines.length === 0) {
       lines.push(next);
     } else {
       lines[lines.length - 1] = next;
     }
-    if (lines.length === 3) break;
   }
-  return lines.length ? lines : ['FPVLovers field guide'];
+
+  if (lines.length <= COVER_TITLE_MAX_LINES) {
+    return lines.length ? lines : ['FPVLovers field guide'];
+  }
+
+  // More words than fit — keep the first N lines and mark the cut visibly
+  // instead of silently dropping the remainder of the title.
+  const kept = lines.slice(0, COVER_TITLE_MAX_LINES);
+  kept[COVER_TITLE_MAX_LINES - 1] = `${kept[COVER_TITLE_MAX_LINES - 1].replace(/[,.:;]+$/, '')}…`;
+  return kept;
 }
 
 function buildTitleLinesSvg(title: string): string {

@@ -26,12 +26,54 @@ function formatLabel(value: string | undefined): string {
   return (value || 'unclassified').replace(/-/g, ' ');
 }
 
-function articleSearchText(article: SearchDocument): string {
-  return article.searchText;
-}
-
 function isCommercialArticle(article: SearchDocument): boolean {
   return COMMERCIAL_TYPES.has(article.metadata?.contentType || '');
+}
+
+const MAX_TEXT_RESULTS = 30;
+
+// Split into words instead of matching the query as one exact phrase — "beginner drone"
+// would otherwise miss a title like "FPV Drones for Beginners" (different word order,
+// pluralized). Every token must appear somewhere in the article for it to match at all.
+function tokenize(query: string): string[] {
+  return query.toLowerCase().split(/\s+/).map((t) => t.trim()).filter((t) => t.length > 1);
+}
+
+function matchesAllTokens(article: SearchDocument, tokens: string[]): boolean {
+  return tokens.every((token) => article.searchText.includes(token));
+}
+
+function metadataText(article: SearchDocument): string {
+  return [
+    article.category,
+    article.metadata?.contentType,
+    article.metadata?.difficulty,
+    ...(article.metadata?.topics || []),
+    ...(article.metadata?.discipline || []),
+    ...(article.metadata?.audience || []),
+    ...(article.metadata?.components || []),
+  ].filter(Boolean).join(' ').toLowerCase();
+}
+
+// searchText blends title, excerpt, metadata, and full article body into one blob so
+// nothing is unsearchable — but that means a token match deep in an unrelated article's
+// body counts the same as a title match. Score by where each token appears (title beats
+// excerpt beats metadata beats body-only) plus a bonus for the exact phrase in the title,
+// so genuinely on-topic articles outrank a coincidental body-text mention.
+function relevanceScore(article: SearchDocument, tokens: string[], phrase: string): number {
+  if (!tokens.length) return 0;
+  const title = article.title.toLowerCase();
+  const excerpt = (article.excerpt || '').toLowerCase();
+  const metaText = metadataText(article);
+  let score = 0;
+  for (const token of tokens) {
+    if (title.includes(token)) score += 20;
+    if (excerpt.includes(token)) score += 8;
+    if (metaText.includes(token)) score += 5;
+    if (article.searchText.includes(token)) score += 1;
+  }
+  if (title.includes(phrase)) score += 50;
+  return score;
 }
 
 export function SearchClient({ initialContent, initialQuery }: SearchClientProps) {
@@ -69,11 +111,10 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
 
   const filteredContent = useMemo(() => {
     const q = query.trim().toLowerCase();
-    return initialContent.filter(a => {
-      // Text search
-      if (q) {
-        if (!articleSearchText(a).includes(q)) return false;
-      }
+    const tokens = tokenize(q);
+    const matched = initialContent.filter(a => {
+      // Text search — every query word must appear somewhere in the article
+      if (tokens.length && !matchesAllTokens(a, tokens)) return false;
 
       // Metadata filters
       if (topicFilter && !a.metadata?.topics?.includes(topicFilter)) return false;
@@ -84,10 +125,18 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
 
       return true;
     });
+
+    if (!tokens.length) return matched;
+
+    // Rank by relevance so title/excerpt/metadata matches surface above a coincidental
+    // body-text mention; Array.sort is stable, so equal scores keep their original order.
+    return [...matched].sort((a, b) => relevanceScore(b, tokens, q) - relevanceScore(a, tokens, q));
   }, [initialContent, query, topicFilter, disciplineFilter, difficultyFilter, audienceFilter, contentTypeFilter]);
   const activeFilterCount = [topicFilter, disciplineFilter, difficultyFilter, audienceFilter, contentTypeFilter]
     .filter(Boolean).length + (query.trim() ? 1 : 0);
   const commercialResultCount = filteredContent.filter(isCommercialArticle).length;
+  const isTextSearch = query.trim().length > 0;
+  const displayedContent = isTextSearch ? filteredContent.slice(0, MAX_TEXT_RESULTS) : filteredContent;
   const resetFilters = () => {
     setQuery('');
     setTopicFilter('');
@@ -126,7 +175,8 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Search title, topic, body..."
-            className="w-full rounded border border-white/10 bg-black/60 py-2 pl-9 pr-3 font-mono text-xs uppercase text-white placeholder:text-white/25 focus:border-[#FF5C00] focus:outline-none"
+            aria-label="Search title, topic, body"
+            className="w-full rounded border border-white/10 bg-black/60 py-3 pl-9 pr-3 font-mono text-base sm:text-xs uppercase text-white placeholder:text-white/25 focus:border-[#FF5C00] focus:outline-none"
           />
         </div>
 
@@ -204,7 +254,9 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-[10px] font-black uppercase tracking-widest text-[#FF5C00]">
-                {filteredContent.length} results / {initialContent.length} indexed
+                {displayedContent.length < filteredContent.length
+                  ? `Showing top ${displayedContent.length} of ${filteredContent.length} results / ${initialContent.length} indexed`
+                  : `${filteredContent.length} results / ${initialContent.length} indexed`}
               </p>
               <p className="mt-1 text-sm text-[#A0A0A0]">
                 Full-text scan covers titles, excerpts, metadata, topics, components, and article body sections.
@@ -220,13 +272,13 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
         </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-        {filteredContent.length === 0 ? (
+        {displayedContent.length === 0 ? (
           <div className="col-span-full p-12 text-center text-[#A0A0A0] border border-dashed border-white/10 rounded">
             <p className="text-lg font-bold text-white">No results found.</p>
             <p className="mt-2 text-sm">Try clearing one filter or searching by component names like ELRS, O3, goggles, LiPo, PID, or racing.</p>
           </div>
         ) : (
-          filteredContent.map(a => {
+          displayedContent.map(a => {
             const commercial = isCommercialArticle(a);
             return (
               <DiscoveryLink

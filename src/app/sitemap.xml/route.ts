@@ -12,9 +12,9 @@ const STATIC_PAGES = [
   { url: '/academy/starter-kits', priority: '0.8', changefreq: 'weekly' },
   { url: '/academy/simulators', priority: '0.8', changefreq: 'weekly' },
   { url: '/academy/glossary', priority: '0.8', changefreq: 'weekly' },
-  { url: '/engineering/hardware', priority: '0.9', changefreq: 'daily' },
-  { url: '/engineering/firmware', priority: '0.9', changefreq: 'daily' },
-  { url: '/engineering/workshop', priority: '0.8', changefreq: 'weekly' },
+  // /engineering/hardware, /engineering/firmware, /engineering/workshop are intentionally
+  // excluded: they permanentRedirect() to propulsion/flight-control/systems and should not
+  // be advertised as crawlable destinations in their own right.
   { url: '/racing', priority: '0.9', changefreq: 'daily' },
   { url: '/racing/calendar', priority: '0.9', changefreq: 'daily' },
   { url: '/racing/events', priority: '0.9', changefreq: 'daily' },

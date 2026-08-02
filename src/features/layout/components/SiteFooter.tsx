@@ -74,7 +74,7 @@ export function SiteFooter() {
                 </div>
                 <div className="leading-none">
                   <div className="text-lg font-bold tracking-tight text-zinc-100 uppercase">FPVLovers</div>
-                  <div className="mt-1 text-[9px] font-mono uppercase tracking-[0.2em] text-zinc-500">Knowledge System</div>
+                  <div className="mt-1 text-[9px] font-mono uppercase tracking-[0.2em] text-zinc-400">Knowledge System</div>
                 </div>
               </Link>
 
@@ -103,7 +103,7 @@ export function SiteFooter() {
                 <div key={group.href} className="min-w-0">
                   <Link
                     href={group.href}
-                    className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500 transition-colors hover:text-white"
+                    className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 transition-colors hover:text-white"
                   >
                     {group.title}
                   </Link>
@@ -111,10 +111,9 @@ export function SiteFooter() {
                     <ul className="mt-4 space-y-1">
                       {group.items.map((item) => (
                         <li key={item.href}>
-                          {/* GAP #1: py-2 block gives minimum 44px tap target height */}
                           <Link
                             href={item.href}
-                            className="block py-2 text-xs font-bold uppercase tracking-wider text-zinc-400 transition-colors hover:text-zinc-100"
+                            className="flex min-h-11 items-center py-2 text-xs font-bold uppercase tracking-wider text-zinc-400 transition-colors hover:text-zinc-100"
                           >
                             {item.title}
                           </Link>
@@ -128,7 +127,7 @@ export function SiteFooter() {
           </div>
 
           {/* Info strip */}
-          <div className="mt-12 grid gap-4 border-y border-white/10 py-5 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-500 md:grid-cols-3">
+          <div className="mt-12 grid gap-4 border-y border-white/10 py-5 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400 md:grid-cols-3">
             <div className="flex items-center gap-2">
               <Radio className="h-3 w-3 text-[#ff3131]" />
               <span className="text-zinc-300">Editorial archive</span>

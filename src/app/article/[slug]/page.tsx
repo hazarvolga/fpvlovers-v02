@@ -126,6 +126,10 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
     ? a.editorial.evidenceSources.filter((source) => /^https?:\/\//i.test(source))
     : [];
   const sourceReferences = (a.sourceReferences || evidenceSources).filter((source) => /^https?:\/\//i.test(source));
+  const coverImageSrc = a.media?.coverImage?.src || `/api/content/media/cover/${encodeURIComponent(a.slug)}`;
+  // schema.org Article.image expects an absolute URL — our cover generator returns a
+  // site-relative path, so resolve it against baseUrl before it reaches JSON-LD.
+  const absoluteCoverImage = /^https?:\/\//i.test(coverImageSrc) ? coverImageSrc : `${baseUrl}${coverImageSrc}`;
   const articleSchema = {
     ...generateArticleSchema({
       title: a.title,
@@ -133,7 +137,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
       url: articleUrl,
       datePublished: a.publishedAt,
       dateModified: a.publishedAt,
-      image: a.media?.coverImage?.src || `${baseUrl}/api/content/media/cover/${encodeURIComponent(a.slug)}`,
+      image: absoluteCoverImage,
       section: a.category,
       wordCount: getArtifactWordCount(a),
       citations: sourceReferences,
@@ -188,7 +192,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
   return (
     <div className="fpv-public-shell mx-auto max-w-7xl px-4 py-12 pt-28 sm:px-6 lg:px-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd }} />
-      <CyberBreadcrumb items={breadcrumbs} className="mb-8" />
+      <CyberBreadcrumb items={breadcrumbs} className="mb-8" includeSchema={false} />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 col-span-1 flex flex-col gap-8 min-w-0">

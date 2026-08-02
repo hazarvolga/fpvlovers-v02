@@ -66,10 +66,11 @@ export function NewsletterWidget({ className }: { className?: string }) {
                   <input
                      type="email"
                      placeholder="Email address"
+                     aria-label="Email address"
                      value={email}
                      onChange={(e) => setEmail(e.target.value)}
                      className={cn(
-                        "w-full bg-black/50 border border-white/20 rounded-lg py-3 pl-4 pr-32 text-sm font-mono text-[#00F5FF] placeholder:text-white/20 focus:outline-none focus:border-[#00F5FF]/60 transition-colors",
+                        "w-full bg-black/50 border border-white/20 rounded-lg py-3 pl-4 pr-32 text-base sm:text-sm font-mono text-[#00F5FF] placeholder:text-white/20 focus:outline-none focus:border-[#00F5FF]/60 transition-colors",
                         status === 'error' && "border-red-500/50 text-red-400 focus:border-red-500"
                      )}
                   />

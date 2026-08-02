@@ -50,7 +50,7 @@ export function ResilientArticleCover({
           </span>
         </div>
       </div>
-      <div className="flex items-center justify-between px-8 pt-4 font-mono text-[10px] italic text-white/30">
+      <div className="flex items-center justify-between px-8 pt-4 font-mono text-[10px] italic text-white/60">
         <span>{usesFallback ? 'FPVLovers fallback after media load failure' : asset.credit}</span>
         {!usesFallback && asset.sourceUrl && (
           <a

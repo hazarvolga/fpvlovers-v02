@@ -37,7 +37,10 @@ async function fetchDocs(datasetId: string): Promise<DifyDocument[]> {
   const headers = getDifyHeaders();
   if (!headers) return [];
   try {
-    const resp = await fetch(`${DIFY_BASE}/datasets/${datasetId}/documents?limit=20`, { headers, signal: AbortSignal.timeout(10000) });
+    // Without a revalidate window, Next.js caches this fetch indefinitely on a
+    // statically-rendered page — so a dataset that finishes indexing after the last
+    // deploy would show as permanently empty until the next build.
+    const resp = await fetch(`${DIFY_BASE}/datasets/${datasetId}/documents?limit=20`, { headers, signal: AbortSignal.timeout(10000), next: { revalidate: 3600 } });
     if (!resp.ok) return [];
     const { data } = await resp.json() as { data?: DifyDocument[] };
     return data || [];
@@ -50,7 +53,7 @@ async function fetchSegments(datasetId: string, docId: string, limit = 1): Promi
   const headers = getDifyHeaders();
   if (!headers) return "";
   try {
-    const resp = await fetch(`${DIFY_BASE}/datasets/${datasetId}/documents/${docId}/segments?limit=${limit}`, { headers, signal: AbortSignal.timeout(8000) });
+    const resp = await fetch(`${DIFY_BASE}/datasets/${datasetId}/documents/${docId}/segments?limit=${limit}`, { headers, signal: AbortSignal.timeout(8000), next: { revalidate: 3600 } });
     if (!resp.ok) return "";
     const { data } = await resp.json() as { data?: DifySegment[] };
     return data?.map((segment) => segment.content || "").join(" ").slice(0, 500) || "";
@@ -176,7 +179,9 @@ export async function getPageData(pageSlug: string): Promise<PageContent> {
 
     if (completed.length === 0) {
       return {
-        summary: `${docs.length} documents indexing in the FPV reference library. Ready soon.`,
+        summary: docs.length > 0
+          ? `${docs.length} documents indexing in the FPV reference library. Ready soon.`
+          : 'Knowledge base sources for this page are not available yet.',
         items: docs.slice(0, 3).map((document) => ({
           title: (document.doc_metadata?.source_url || document.name || 'FPV Entry').slice(0, 60),
           description: `${document.tokens || 0} tokens from ${document.doc_metadata?.source_url || 'reference source'}`,

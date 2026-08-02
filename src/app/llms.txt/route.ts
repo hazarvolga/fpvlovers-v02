@@ -1,8 +1,28 @@
+import {
+  isIndexablePublishedArtifact,
+  listPublishedContentAsync,
+} from '@/lib/content-automation/content-reader';
+
 const BASE_URL = process.env.APP_URL || 'https://fpvlovers.com.tr';
 
+export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
 
-export function GET() {
+export async function GET() {
+  let articleIndex = '';
+  try {
+    const articles = await listPublishedContentAsync();
+    const indexable = articles
+      .filter((article) => article.slug && isIndexablePublishedArtifact(article))
+      .sort((a, b) => (b.publishedAt || '').localeCompare(a.publishedAt || ''));
+    if (indexable.length > 0) {
+      const lines = indexable.map((a) => `- ${a.title}: ${BASE_URL}/article/${a.slug}`);
+      articleIndex = `\n## Published articles (${indexable.length})\n${lines.join('\n')}\n`;
+    }
+  } catch (err) {
+    console.error('[llms.txt] Failed to load published content:', err);
+  }
+
   const body = `# FPVLovers
 
 FPVLovers is an English-first FPV drone knowledge platform for beginners, builders, racers, and cinematic pilots.
@@ -17,7 +37,7 @@ FPVLovers is an English-first FPV drone knowledge platform for beginners, builde
 - Regulations: ${BASE_URL}/regulations
 - Editorial policy: ${BASE_URL}/editorial-policy
 - Affiliate disclosure: ${BASE_URL}/disclosure
-
+${articleIndex}
 ## Editorial and evidence boundary
 - Autonomous content is published only after deterministic language, metadata, link, and disclosure checks.
 - Product reviews are a separate editorial class and require editor approval by Hazar Volga Ekiz plus evidence sources.

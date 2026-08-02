@@ -13,8 +13,6 @@ import {
   GraduationCap,
   Heart,
   Mail,
-  RadioTower,
-  ShieldCheck,
   ShoppingBag,
   Trophy,
   Users,
@@ -141,32 +139,6 @@ const communityStats: {
   { label: 'Editorial owner', value: 'HVE', icon: Users },
 ];
 
-const editorialProofCards: {
-  title: string;
-  text: string;
-  detail: string;
-  icon: IconComponent;
-}[] = [
-  {
-    title: 'No fake scale',
-    text: 'FPVLovers does not invent traffic, user counts, awards, or sponsorship claims for marketing polish.',
-    detail: 'Startup-stage honest positioning',
-    icon: ShieldCheck,
-  },
-  {
-    title: 'Review evidence boundary',
-    text: 'Hands-on product reviews can be marked only when a real sample, test notes, or editor evidence exists.',
-    detail: 'Hazar Volga Ekiz review line',
-    icon: Eye,
-  },
-  {
-    title: 'Automation with oversight',
-    text: 'Autonomous content can support guides and research, while commercial product claims require stricter editorial control.',
-    detail: 'AI workflow, human accountability',
-    icon: RadioTower,
-  },
-];
-
 const coveredBrands = [
   'BetaFPV',
   'Gemfan',
@@ -190,7 +162,7 @@ function formatDisplayDate(card: HomepageSectionCard): string {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="border-l border-white/10 pl-4">
-      <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-zinc-600">{label}</div>
+      <div className="font-mono text-[9px] uppercase tracking-[0.24em] text-zinc-400">{label}</div>
       <div className="mt-2 text-sm font-semibold uppercase tracking-[0.12em] text-zinc-200">{value}</div>
     </div>
   );
@@ -203,7 +175,7 @@ function CommunityStat({ label, value, icon: Icon }: { label: string; value: str
         <ThinIcon icon={Icon} className="h-5 w-5" />
       </div>
       <div className="mt-4 text-2xl font-black tracking-[-0.04em] text-white">{value}</div>
-      <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-500">{label}</div>
+      <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.14em] text-zinc-400">{label}</div>
     </div>
   );
 }
@@ -300,7 +272,7 @@ function LatestContentItem({ card, featured = false }: { card: HomepageSectionCa
           {card.title}
         </h3>
         {featured ? <p className="mt-4 line-clamp-3 text-sm leading-6 text-zinc-400">{card.excerpt}</p> : null}
-        <div className="mt-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-500">
+        <div className="mt-5 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.12em] text-zinc-400">
           <span>{card.readingTime}</span>
           {(card.views !== undefined && card.views > 0) ? (
             <>
@@ -451,7 +423,7 @@ export default async function HomePage() {
               ))}
             </div>
           ) : (
-            <div className="rounded-[0.6rem] border border-dashed border-white/[0.12] py-12 text-center text-sm text-zinc-500">
+            <div className="rounded-[0.6rem] border border-dashed border-white/[0.12] py-12 text-center text-sm text-zinc-400">
               Articles will appear here as they are published.
             </div>
           )}
@@ -493,49 +465,24 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto grid max-w-[112rem] gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[0.85fr_1.15fr] lg:px-16">
-        <div className="space-y-5">
-          <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-[#ff3131]">Editorial trust layer</p>
-          <h2 className="text-3xl font-black uppercase tracking-[-0.04em] text-white md:text-5xl">
-            Affiliate-ready without pretending to be bigger than we are.
-          </h2>
-          <p className="max-w-xl text-sm leading-7 text-zinc-400">
-            Reviews and buying guides are structured around disclosure, source quality, product evidence and editor accountability. Product review samples can be accepted, but conclusions stay independent.
+      <section className="mx-auto max-w-[112rem] px-5 py-10 sm:px-8 lg:px-16">
+        <div className="flex flex-col items-center gap-3 rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.7] px-6 py-5 text-center sm:flex-row sm:justify-between sm:text-left">
+          <p className="text-xs leading-6 text-zinc-400">
+            Reviews and buying guides disclose sourcing, evidence, and editor accountability — see the{' '}
+            <Link href="/editorial-policy" className="text-[#ff3131] hover:underline">editorial policy</Link>
+            {' '}and{' '}
+            <Link href="/disclosure" className="text-[#ff3131] hover:underline">affiliate disclosure</Link>.
           </p>
-          <div className="flex flex-wrap gap-3">
-            <EditorialButton href="/reviews" tone="ghost">Read Reviews</EditorialButton>
-            <EditorialButton href="/disclosure" tone="ghost">Disclosure</EditorialButton>
-          </div>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-3">
-          {[
-            { title: 'Affiliate Disclosure', text: 'Commercial links are disclosed and separated from editorial judgment.', href: '/disclosure', icon: ShieldCheck },
-            { title: 'Product Reviews', text: 'Hands-on review paths can be marked and editor-approved by Hazar Volga Ekiz.', href: '/reviews', icon: Eye },
-            { title: 'Buying Intent', text: 'Buyer guides, comparisons and starter kits are surfaced for affiliate readiness.', href: '/buyers-guides', icon: ShoppingBag },
-          ].map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="group rounded-[0.7rem] border border-white/10 bg-white/[0.035] p-6 transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] hover:-translate-y-1 hover:border-[#ff3131]/40 hover:bg-white/[0.055]"
-            >
-              <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#ff3131]/10 text-[#ff3131]">
-                <ThinIcon icon={item.icon} />
-              </span>
-              <h3 className="mt-7 text-base font-black uppercase tracking-[-0.01em] text-white">{item.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-zinc-400">{item.text}</p>
-              <div className="mt-7 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131]">
-                Open <ArrowRight className="h-3.5 w-3.5 transition-transform duration-700 group-hover:translate-x-1" strokeWidth={1.5} />
-              </div>
-            </Link>
-          ))}
+          <Link href="/reviews" className="inline-flex shrink-0 items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white">
+            Read reviews <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+          </Link>
         </div>
       </section>
 
       <section className="mx-auto max-w-[112rem] px-5 sm:px-8 lg:px-16">
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">Featured Guides</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400">Featured Guides</p>
             <SectionTitle>Pilot Knowledge Feed</SectionTitle>
           </div>
           <Link href="/academy/roadmap" className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
@@ -569,7 +516,7 @@ export default async function HomePage() {
                     <Badge variant="outline" className="rounded-[0.3rem] border-white/10 bg-white/[0.03] text-[10px] uppercase tracking-[0.14em] text-zinc-300">
                       {card.category}
                     </Badge>
-                    <span className="font-mono text-[10px] text-zinc-500">{card.readingTime}</span>
+                    <span className="font-mono text-[10px] text-zinc-400">{card.readingTime}</span>
                   </div>
                   <h3 className="line-clamp-2 text-lg font-black leading-tight text-white transition-colors duration-500 group-hover:text-[#ff3131]">
                     {card.title}
@@ -580,7 +527,7 @@ export default async function HomePage() {
             ))}
           </div>
         ) : (
-          <div className="rounded-[0.7rem] border border-dashed border-white/[0.12] py-16 text-center text-zinc-500">
+          <div className="rounded-[0.7rem] border border-dashed border-white/[0.12] py-16 text-center text-zinc-400">
             Featured guides will appear here as content is published.
           </div>
         )}
@@ -599,31 +546,6 @@ export default async function HomePage() {
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
             {dynamicCommunityStats.map((stat) => (
               <CommunityStat key={stat.label} {...stat} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto mt-8 max-w-[112rem] px-5 sm:px-8 lg:px-16">
-        <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-10">
-          <div className="text-center">
-            <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">Trusted by process, not claims</p>
-            <h2 className="mt-3 text-2xl font-black uppercase tracking-[-0.03em] text-white md:text-3xl">
-              Editorial standards pilots can audit
-            </h2>
-          </div>
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {editorialProofCards.map((card) => (
-              <div key={card.title} className="rounded-[0.7rem] border border-white/10 bg-white/[0.035] p-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#ff3131]/10 text-[#ff3131]">
-                  <ThinIcon icon={card.icon} />
-                </div>
-                <h3 className="mt-8 text-lg font-black uppercase tracking-[-0.02em] text-white">{card.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-zinc-400">{card.text}</p>
-                <div className="mt-6 border-t border-white/10 pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-[#ff8a8d]">
-                  {card.detail}
-                </div>
-              </div>
             ))}
           </div>
         </div>
@@ -650,7 +572,7 @@ export default async function HomePage() {
 
           <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
             <div className="text-center">
-              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-500">Brands covered in FPV guides</p>
+              <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400">Brands covered in FPV guides</p>
               <h2 className="mt-3 text-2xl font-black uppercase tracking-[-0.03em] text-white">Tracked, not claimed as partners</h2>
               <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
                 FPVLovers can cover products from these FPV ecosystem brands. This is not a partnership claim unless a sponsor agreement is explicitly published.

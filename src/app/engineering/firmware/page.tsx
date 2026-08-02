@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 
 export default function FirmwarePage() {
-  redirect('/engineering/flight-control');
+  permanentRedirect('/engineering/flight-control');
 }

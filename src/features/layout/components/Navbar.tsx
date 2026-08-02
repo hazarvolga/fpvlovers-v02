@@ -68,7 +68,7 @@ export function Navbar() {
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3 group" aria-label="FPVLovers home" onClick={closeNavigation}>
-          <div className="relative h-[72px] w-[300px] -ml-2">
+          <div className="relative h-[72px] w-[180px] -ml-2 overflow-hidden sm:w-[300px]">
             <Image
               src="/logo-type.png"
               alt="FPVLovers Logo"
@@ -147,7 +147,7 @@ export function Navbar() {
                                   <span>{subItem.title}</span>
                                   <ChevronRight className="h-3 w-3 opacity-0 transition group-hover:translate-x-0.5 group-hover:opacity-70" />
                                 </div>
-                                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-zinc-500">{subItem.description}</p>
+                                <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-zinc-400">{subItem.description}</p>
                               </div>
                             </Link>
                           );
@@ -271,7 +271,7 @@ export function Navbar() {
         <Button
           variant="ghost"
           size="icon"
-          className="lg:hidden"
+          className="h-11 w-11 lg:hidden"
           onClick={() => setMobileMenuOpen((open) => !open)}
           aria-label={mobileMenuOpen ? 'Close navigation' : 'Open navigation'}
         >
@@ -289,7 +289,7 @@ export function Navbar() {
                   <Link
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-3 rounded-sm px-3 py-3 text-[11px] font-bold uppercase tracking-wider text-zinc-400 transition-colors',
+                      'flex min-h-11 items-center gap-3 rounded-sm px-3 py-3 text-[11px] font-bold uppercase tracking-wider text-zinc-400 transition-colors',
                       isActive && 'bg-white/5 text-zinc-100',
                     )}
                     onClick={closeNavigation}
@@ -307,7 +307,7 @@ export function Navbar() {
                             key={subItem.href}
                             href={subItem.href}
                             className={cn(
-                              'flex items-center gap-2 rounded-sm px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 transition-colors hover:bg-white/5 hover:text-zinc-300',
+                              'flex min-h-11 items-center gap-2 rounded-sm px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 transition-colors hover:bg-white/5 hover:text-zinc-300',
                               subActive && 'bg-white/5 text-zinc-300',
                             )}
                             onClick={closeNavigation}
@@ -333,7 +333,7 @@ export function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="rounded-sm border border-white/10 bg-white/[0.03] px-3 py-3 text-center text-[10px] font-mono font-black uppercase tracking-widest text-zinc-300 transition-colors hover:border-[#ff3131]/40 hover:text-white"
+                  className="flex min-h-11 items-center justify-center rounded-sm border border-white/10 bg-white/[0.03] px-3 py-3 text-center text-[10px] font-mono font-black uppercase tracking-widest text-zinc-300 transition-colors hover:border-[#ff3131]/40 hover:text-white"
                   onClick={closeNavigation}
                 >
                   {item.title}

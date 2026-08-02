@@ -60,7 +60,7 @@ export function EditorialTrustPanel({ article }: { article: PublishedArtifact })
 
       {sourceReferences.length > 0 && (
         <div className="mt-3 border-t border-white/10 pt-3 leading-5 text-zinc-400">
-          <p className="font-mono text-[10px] font-black uppercase tracking-widest text-zinc-500">
+          <p className="font-mono text-[10px] font-black uppercase tracking-widest text-zinc-400">
             Source trail · {sourceReferences.length} recorded reference{sourceReferences.length === 1 ? '' : 's'}
           </p>
           <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1">

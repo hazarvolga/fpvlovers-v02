@@ -9,7 +9,7 @@ interface AISummaryBoxProps {
   latency?: string;
 }
 
-export function AISummaryBox({ content, title = "SYS.FIELD_SUMMARY", className, latency = "12ms" }: AISummaryBoxProps) {
+export function AISummaryBox({ content, title = "SYS.FIELD_SUMMARY", className, latency }: AISummaryBoxProps) {
   return (
     <div className={cn("glass-panel hex-panel p-6 relative border-l-2 border-[#00F2FF] group", className)}>
       <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />
@@ -18,9 +18,11 @@ export function AISummaryBox({ content, title = "SYS.FIELD_SUMMARY", className, 
             <Cpu className="w-4 h-4 animate-pulse" />
             <span className="text-[10px] font-black uppercase tracking-widest">{title}</span>
          </div>
-         <div className="text-[9px] text-[#A0A0A0] font-mono tracking-widest bg-black/50 px-2 py-0.5 border border-[#333333]">
-           LATENCY: {latency}
-         </div>
+         {latency && (
+           <div className="text-[9px] text-[#A0A0A0] font-mono tracking-widest bg-black/50 px-2 py-0.5 border border-[#333333]">
+             LATENCY: {latency}
+           </div>
+         )}
       </div>
       <p className="relative z-10 text-sm font-mono text-[#A0A0A0] leading-relaxed">
          {content}

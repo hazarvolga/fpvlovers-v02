@@ -31,7 +31,7 @@ export function MobileUtilityBar() {
               href={item.href}
               className={cn(
                 'flex flex-col items-center justify-center gap-1 w-16 h-full transition-colors',
-                isActive ? 'text-[#00F2FF]' : 'text-zinc-500 hover:text-zinc-300'
+                isActive ? 'text-[#00F2FF]' : 'text-zinc-400 hover:text-zinc-300'
               )}
             >
               <item.icon className={cn("h-5 w-5", isActive && "drop-shadow-[0_0_8px_rgba(0,242,255,0.6)]")} />
