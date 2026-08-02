@@ -8,7 +8,7 @@ import type { PublishedArtifact } from '@/lib/content-automation/content-reader'
 
 type BackfillResult = {
   slug: string;
-  status: 'updated' | 'skipped' | 'no_images' | 'error';
+  status: 'updated' | 'updated_hotlink_fallback' | 'skipped' | 'no_images' | 'error';
   reason?: string;
   oldSrc?: string;
   newSrc?: string;
@@ -104,6 +104,11 @@ export default function PublishedContentPanel() {
             {backfillSummary.results.filter((r) => r.status === 'updated').map((r) => (
               <div key={r.slug} className="text-[10px] font-mono text-[#00FF66]">
                 ✓ {r.slug} → {r.newSrc?.slice(0, 60)}
+              </div>
+            ))}
+            {backfillSummary.results.filter((r) => r.status === 'updated_hotlink_fallback').map((r) => (
+              <div key={r.slug} className="text-[10px] font-mono text-[#FFB800]" title={r.reason}>
+                ⚠ {r.slug} → hotlink only (local cache write failed) → {r.newSrc?.slice(0, 60)}
               </div>
             ))}
             {backfillSummary.results.filter((r) => r.status === 'error').map((r) => (

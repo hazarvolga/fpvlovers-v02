@@ -135,14 +135,18 @@ async function downloadToSourceCache(
 
     // Serve via API route — static /public/ path is unreliable in Docker standalone.
     return `/api/images/source-cache/${filename}`;
-  } catch {
+  } catch (err) {
+    // Caller falls back to hotlinking the external URL directly when this
+    // returns null — log so a permission/disk issue on SOURCE_CACHE_DIR
+    // doesn't silently degrade every "updated" article to a hotlink.
+    console.error(`[backfill-images] local cache write failed for ${externalUrl}:`, err);
     return null;
   }
 }
 
 type ArticleResult = {
   slug: string;
-  status: 'updated' | 'skipped' | 'no_images' | 'error';
+  status: 'updated' | 'updated_hotlink_fallback' | 'skipped' | 'no_images' | 'error';
   reason?: string;
   oldSrc?: string;
   newSrc?: string;
@@ -284,7 +288,13 @@ export async function POST(req: NextRequest) {
     try {
       fs.writeFileSync(jsonPath, JSON.stringify(patched, null, 2) + '\n', 'utf-8');
       await upsertPublishedArtifact(patched as any);
-      results.push({ slug, status: 'updated', oldSrc: coverSrc, newSrc: finalSrc });
+      results.push({
+        slug,
+        status: localSrc ? 'updated' : 'updated_hotlink_fallback',
+        reason: localSrc ? undefined : 'local source-cache write failed (permissions or disk) — using external hotlink instead',
+        oldSrc: coverSrc,
+        newSrc: finalSrc,
+      });
       updated++;
     } catch {
       results.push({ slug, status: 'error', reason: 'Failed to write JSON or upsert DB' });
