@@ -1,37 +1,23 @@
 {
-  "generatedAt": "2026-07-31T18:00:00.000Z",
+  "generatedAt": "2026-08-02T09:55:48.213Z",
   "project": "fpvlovers-frontend-websitesi",
-  "state": "committed-locally-push-pending",
+  "state": "release-verification-pending",
   "branch": "main",
-  "head": "9680a54",
-  "remote": "git@github.com:hazarvolga/fpvlovers-v02.git",
-  "previousRemote": "git@github.com:hazarvolga/fpvlovers.com.tr.git (now private, no longer used)",
+  "head": "887907dd03c5",
   "behind": 0,
-  "ahead": "unknown until first push — new repo fpvlovers-v02 is currently empty on GitHub",
+  "ahead": 0,
   "currentBlockers": [
-    "Local commit 9680a54 has not been pushed yet. Run: git push -u origin main (from the user's own terminal — the automation sandbox has no GitHub credentials and cannot push).",
-    "SECRETS-MOVE-OUT-OF-REPO/ still physically exists inside the project folder (contains SSH private keys and Coolify env backups moved out of dev-artifacts/AffexAI-Oracle-Servers/ and server-info/). It is gitignored so it cannot be committed, but it must be manually deleted from disk (Finder/Terminal) and the exposed SSH keys/Coolify credentials should be rotated.",
-    "AUTH_SECRET must be added as a Coolify production environment variable before next deploy (code now requires it; no more fallback-secret derivation).",
-    "8 CLAUDE.md-documented convenience scripts (dify-trigger.sh, dify-health.sh, crawl4ai-run.sh, crawl4ai-fallback.sh, affiliate-sync.sh, sponsor-check.sh, ntfy-alert.sh, health-all.sh) do not exist in the repo — pre-existing doc/reality mismatch, not part of this migration."
+    "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
+    "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
+    "Add a Coolify persistent volume for the app (`r0c44ok0cskc800gs0c8o8wk`): Source `/data/coolify/applications/r0c44ok0cskc800gs0c8o8wk/source-cache`, Destination `/app/public/images/source-cache`. Redeploy, then re-run **Backfill Images** (real run) from the admin panel and re-verify file existence on disk, not just the DB `src` field — see 2026-08-02 priority section above for the full root-cause evidence.",
+    "Wire `src/app/admin/page.tsx`'s \"Pilot Registry\" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`).",
+    "Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy."
   ],
-  "nextTask": "git push -u origin main to publish commit 9680a54 to the new fpvlovers-v02 repo, then delete SECRETS-MOVE-OUT-OF-REPO/ and rotate the exposed SSH keys/Coolify env values.",
-  "whatHappened20260731": [
-    "User migrated to a new computer; some project files were lost. Restored last-known-good state from GitHub into a sibling folder fpvlovers-live-site-code for comparison.",
-    "Full GAP analysis performed (see GAP-RAPORU-2026-07-31.docx in project root): root repo was 8 commits behind a local branch codex-trust-ops-foundation-2026-07-30 (auth hardening, crawl-queue idempotency, unverified-claim cleanup, sitemap/cache revalidation).",
-    "Found exposed SSH private keys and Coolify env backups in dev-artifacts/AffexAI-Oracle-Servers/ and server-info/, both untracked but not gitignored — moved to SECRETS-MOVE-OUT-OF-REPO/ and hardened .gitignore (AffexAI-Oracle-Servers/, servers-info.txt, coolify-env-backup*.env, *.env).",
-    "Applied the 8 missing commits' content by direct file sync from fpvlovers-live-site-code (auth.config.ts, crawl-queue-store.ts, cron revalidation, sitemap, category pages, AffexDuelEngine/FlightCriticWidget/duelEngine, .env.example AUTH_SECRET, 2 regression tests).",
-    "Merged the two divergent CLAUDE.md variants (GitNexus/architecture + business/ops) into one file. Restored PROJECT_MEMORY.md to the full 600-line operational log (root's working copy had been locally truncated to 133 lines, uncommitted).",
-    "Synced 26 missing content/published articles and 8 untracked dify_workflows/*.dify.yml files from the reference clone.",
-    "Old remote (fpvlovers.com.tr) was made private by the user; created new empty repo fpvlovers-v02 and pointed origin at it. Committed everything as 9680a54 (--no-verify, since husky/lint-staged's internal git stash fails in this sandbox — see note below).",
-    "npx tsc --noEmit passes clean on the final state.",
-    "Push could not be completed by the agent — no GitHub credentials in the automation sandbox. User must run `git push -u origin main` from their own terminal."
-  ],
-  "environmentNote": "The Cowork automation sandbox used for this migration does not allow file deletion (unlink) anywhere in its filesystem, including the mounted project folder — only rename/overwrite works. This blocked `git stash` and husky pre-commit hooks (both rely on removing lock/temp files) until the commit was made with --no-verify. If a future agent hits 'unable to unlink .git/index.lock' or similar, this is why — plain `git add`/`git commit --no-verify` still work, but rely less on stash-based tooling in this specific environment.",
+  "nextTask": "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
   "filesOfTruth": [
     "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/PROJECT_MEMORY.md",
-    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/CLAUDE.md",
     "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/NEXT_ACTIONS.md",
-    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/GAP-RAPORU-2026-07-31.docx"
+    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/docs/superpowers/plans/2026-06-18-post-analysis-gap-closure.md"
   ],
   "handoffPath": "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/docs/handoff/latest.md"
 }
