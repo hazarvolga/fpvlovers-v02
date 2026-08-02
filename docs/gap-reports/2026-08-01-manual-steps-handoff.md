@@ -2,7 +2,20 @@
 
 Bu doküman, `2026-08-01-comprehensive-platform-audit.md` denetiminden çıkan ve **koddan çözülemeyen, sadece senin Dify Studio / GitHub / Coolify üzerinden yapabileceğin** adımların tek listesidir. Her madde: ne, neden, nasıl, öncelik.
 
-> **Not:** Bu oturumda SSH ile production sunucularına bağlanmayı denedim ama başarısız oldu (agent'taki anahtar `161.118.171.201` ve `80.225.231.62`'de `Permission denied (publickey)` verdi, port 2222 de zaman aşımına uğradı). Önceki oturumda kullanılan bağlantı bilgileri bu oturuma taşınmadı. Bu yüzden aşağıdaki "unconfirmed" işaretli maddeler canlıda tekrar doğrulanamadı — sadece kod/dokümantasyon üzerinden biliniyor.
+> **Güncelleme (2026-08-02, aynı gün ikinci geçiş):** SSH bağlantısı `SECRETS-MOVE-OUT-OF-REPO/server-info/` altındaki doğru anahtarlarla (`ubuntu@<ip>` + ilgili `.key` dosyası) başarıyla kuruldu, üç sunucuya da bağlanıldı. Aşağıdaki liste buna göre güncellendi — 2 ve 3 numaralı maddeler **canlıda doğrulanıp kapatıldı**, ama yeni ve daha acil bir sorun bulundu: **Coolify auto-deploy webhook'u çalışmıyor görünüyor** (bkz. madde 0).
+
+---
+
+## 0. YENİ — Coolify auto-deploy webhook'u çalışmıyor
+**Öncelik: CRITICAL — bugün pushlanan RAG entegrasyonu (ve gelecekteki her push) canlıya çıkmıyor.**
+
+`161.118.171.201` üzerinde çalışan app container'ı hâlâ `925e4e2` commit'inin build'i (dün 08:05 UTC'de deploy edilmiş, 20+ saattir "Up"). Bugün push edilen `3229124` ve `6ef6465` commit'leri için **hiçbir Coolify deployment job'ı tetiklenmemiş** (`docker logs coolify --since 2h` boş döndü — normalde her push'tan ~4 dakika sonra bir `ApplicationDeploymentJob RUNNING/DONE` çifti görünüyordu, bu oturumdan önceki tüm pushlar için böyleydi).
+
+Yani **RAG orchestrator düzeltmesi şu an canlıda değil**, sadece GitHub'da.
+
+**Nasıl:** Coolify paneli (`coolify.fpvlovers.com.tr`) → ilgili application → Deployments/Webhooks ayarına bak, GitHub webhook'unun hâlâ kayıtlı ve doğru secret'a sahip olduğunu doğrula (GitHub repo → Settings → Webhooks → son delivery'lerin durumuna bak, muhtemelen 404/401 dönüyordur). Sorunu bulana kadar geçici çözüm: Coolify panelinden ilgili application'ı elle "Redeploy" et.
+
+**Durum: Doğrulandı, açık, çözülmedi.**
 
 ---
 
@@ -17,40 +30,22 @@ Bu doküman, `2026-08-01-comprehensive-platform-audit.md` denetiminden çıkan v
 
 ---
 
-## 2. Dedicated Dataset/Knowledge API key oluştur → `DIFY_DATASET_API_KEY`
-**Öncelik: HIGH — bugün bağlanan RAG grounding özelliğini fiilen çalıştırıyor.**
+## 2. ~~Dedicated Dataset/Knowledge API key oluştur~~ — ÇÖZÜLDÜ, aksiyon gerekmiyor
+**Durum: ✅ Canlıda doğrulandı, ek işlem gerekmiyor.**
 
-Bu oturumda `retrieval-orchestrator.ts` içindeki `realRetrieval()` fonksiyonunun yanlış endpoint'e istek attığı bulundu ve düzeltildi (`/document/search` → doğru endpoint `/datasets/{id}/retrieve`), ardından bu katman Part Matcher, Build Wizard, Blackbox Tuning ve Flight Critic'e bağlandı (bkz. commit `3229124`). Yerel testte doğrulandı: düzeltmeden sonra Dify artık 404 değil, temiz bir `401 unauthorized` JSON'u dönüyor — yani **endpoint doğru**, ama `.env.local`'deki `DIFY_API_KEY` bir chat-app anahtarı, Dataset/Knowledge API anahtarı değil (bu iki anahtar türü Dify'da farklıdır).
-
-**Nasıl:**
-1. Dify Studio → Knowledge (sol menü) → herhangi bir dataset'e gir → **API Access** sekmesi → yeni bir Knowledge API anahtarı oluştur (bu anahtar hesap/workspace seviyesinde tüm dataset'lere erişebilir, tek anahtar yeterli).
-2. `.env.local`'e ekle: `DIFY_DATASET_API_KEY=<yeni-anahtar>`
-3. Coolify → fpvlovers-frontend app → Environment Variables → aynı değişkeni ekle → redeploy (Coolify otomatik yapar, push'a gerek yok).
-
-**Kendi kendine doğrulama (anahtarı ekledikten sonra çalıştır):**
-```bash
-node -e '
-const apiKey = process.env.DIFY_DATASET_API_KEY;
-fetch("https://dify.affexai.tr/v1/datasets/d1d5e44b-4dde-445a-a686-67a1cc0d926c/retrieve", {
-  method: "POST",
-  headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-  body: JSON.stringify({ query: "PID tuning oscillation", retrieval_model: { search_method: "hybrid_search", reranking_enable: false, top_k: 2, score_threshold_enabled: true, score_threshold: 0.3 } }),
-}).then(r => r.json()).then(d => console.log(JSON.stringify(d).slice(0, 500)))'
+SSH ile production container'ının (`161.118.171.201`) mevcut `DIFY_API_KEY` env değişkeni sunucu üzerinden (değeri hiç ekrana yazdırılmadan) doğrudan test edildi:
 ```
-Başarılıysa `records` alanı dolu bir JSON dönmeli (401/404 değil).
-
-**Durum: Yapılmadı** — bu madde bu oturumda ilk kez tespit edildi.
+POST https://dify.affexai.tr/v1/datasets/d1d5e44b-4dde-445a-a686-67a1cc0d926c/retrieve
+→ HTTP 200, gerçek Betaflight PID Tuning Guide içeriği döndü.
+```
+Yani production'daki `DIFY_API_KEY` **zaten geçerli bir Dataset/Knowledge API anahtarı** — chat-app anahtarı değil, endişe edilen tür farkı sorun değilmiş. Kod tarafında eklediğim `DIFY_DATASET_API_KEY` fallback'i (`retrieval-orchestrator.ts`) zaten `DIFY_API_KEY`'e düşecek şekilde yazılmıştı, yeni bir anahtar oluşturmaya gerek yok. (Yerelde `.env.local`'deki anahtarın 401 vermesi ayrı bir konu — muhtemelen eski/farklı bir anahtar, production'ı etkilemiyor.)
 
 ---
 
-## 3. Production'da `ENABLE_REAL_RAG=true` olduğunu Coolify'dan teyit et
-**Öncelik: HIGH — madde 2 ile birlikte RAG grounding'in canlıda çalışıp çalışmadığını belirliyor.**
+## 3. ~~`ENABLE_REAL_RAG=true` prod'da teyit~~ — ÇÖZÜLDÜ
+**Durum: ✅ Canlıda doğrulandı.** `161.118.171.201` üzerindeki app container'ının env'inde `ENABLE_REAL_RAG=true` olduğu SSH ile doğrudan teyit edildi.
 
-`.env.local`'de bu bayrak `true`, ama production ortamında aynı olup olmadığı önceki denetimde de doğrulanamamıştı, bu oturumda SSH erişimi olmadığı için yine doğrulanamadı. **Eğer production'da bu bayrak yoksa veya `false` ise**, `retrieval-orchestrator.ts` sessizce simüle edilmiş (sahte/`Math.random()`) veriye düşer — ama merak etme, bugün eklenen `retrieval-grounding.ts` katmanı bu sahte veriyi kesin olarak filtreliyor, yani kullanıcıya asla sahte kaynak gösterilmez; sadece gerçek grounding hiç devreye girmez.
-
-**Nasıl:** Coolify → fpvlovers-frontend app → Environment Variables → `ENABLE_REAL_RAG` değerini kontrol et, yoksa `true` olarak ekle.
-
-**Durum: Doğrulanamadı.**
+**Tek kalan blokaj artık madde 0'daki deploy sorunu** — anahtar ve bayrak doğru, ama düzeltilmiş kod henüz canlıda çalışmıyor çünkü yeni build hiç tetiklenmedi.
 
 ---
 
@@ -90,11 +85,12 @@ Makale gövdesi üretim prompt'u Dify Studio'da yaşıyor, bu repodan değiştir
 
 | # | Adım | Öncelik | Nerede | Durum |
 |---|------|---------|--------|-------|
-| 1 | 7 API anahtarını rotate et | CRITICAL | Dify Studio | Doğrulanamadı |
-| 2 | `DIFY_DATASET_API_KEY` oluştur + ekle | HIGH | Dify Studio + Coolify + `.env.local` | Yapılmadı |
-| 3 | `ENABLE_REAL_RAG=true` prod'da teyit | HIGH | Coolify | Doğrulanamadı |
+| 0 | Coolify auto-deploy webhook'unu düzelt | CRITICAL | Coolify + GitHub | **Açık — yeni bulundu** |
+| 1 | 7 API anahtarını rotate et | CRITICAL | Dify Studio | Doğrulanamadı, muhtemelen hâlâ açık |
+| 2 | Dataset API key | — | — | ✅ Çözüldü — aksiyon gerekmiyor |
+| 3 | `ENABLE_REAL_RAG=true` prod'da teyit | — | — | ✅ Çözüldü — canlıda `true` |
 | 4 | `CRON_SECRET` ekle + eski crontab kapat | HIGH | GitHub + sunucu | Doğrulanamadı |
 | 5 | Dify workflow grounding kuralı | Orta | Dify Studio | Yapılmadı |
 | 6 | 7 workflow DSL import (opsiyonel) | Düşük | Dify Studio | Yapılmadı |
 
-**Bir sonraki oturumda SSH ile devam etmek istersen:** doğru kullanıcı adı, port ve/veya kullanılacak private key yolunu paylaşman yeterli — bu oturumdaki agent'taki anahtar bu sunucularda yetkili değil.
+SSH artık çalışıyor (`SECRETS-MOVE-OUT-OF-REPO/server-info/` altındaki `ubuntu@<ip>` + `.key` kombinasyonlarıyla), bir sonraki oturumda tekrar kullanılabilir.
