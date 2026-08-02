@@ -19,20 +19,18 @@ Yani **RAG orchestrator düzeltmesi şu an canlıda değil**, sadece GitHub'da.
 
 ---
 
-## 1. 7 sızdırılmış Dify API anahtarını rotate et
-**Öncelik: CRITICAL — en acil. Yarı tamamlandı, senin bir adımın kaldı.**
+## 1. ~~7 sızdırılmış Dify API anahtarını rotate et~~ — TAMAMEN KAPANDI
+**Durum: ✅ Tamamlandı (2026-08-02).**
 
-31 Temmuz 2026 GAP denetiminde, public `hazarvolga/fpvlovers-v02` reposunda 7 canlı Dify API anahtarının düz metin commit edildiği tespit edildi (1 dataset key + 6 app key: Expert, Build Wizard, Part Matcher, Blackbox, Community, SEO workflow). Dosyalar redakte edildi (`1a2a7ba`) ama **anahtarların kendisi hâlâ geçerli** — repo bir süre public'ti, herkes kopyalamış olabilir.
+31 Temmuz 2026 GAP denetiminde, public `hazarvolga/fpvlovers-v02` reposunda 7 canlı Dify API anahtarının düz metin commit edildiği tespit edilmişti (1 dataset key + 6 app key: Expert, Build Wizard, Part Matcher, Blackbox, Community, SEO workflow). Dosyalar redakte edildi (`1a2a7ba`), sonra bu turda tam rotasyon tamamlandı:
 
-**2026-08-02 güncelleme — Dify tarafı benim tarafımdan yapıldı:** Dify Studio'da (browser oturumu, hesabına giriş yapılmış haldeydi) her 7 uygulama/dataset için suffix eşleştirmesiyle doğru app doğrulandı ve **yeni bir anahtar oluşturuldu** (eskiler bilerek SİLİNMEDİ — Dify birden fazla eşzamanlı anahtara izin veriyor, bu yüzden şu an hiçbir kesinti yok). Yeni değerler `SECRETS-MOVE-OUT-OF-REPO/canli-environtmens-degerleri.md` dosyasına yazıldı (bu dosya `.gitignore`'da, repoya hiç girmedi).
+1. Dify Studio'da her 7 uygulama/dataset için suffix eşleştirmesiyle doğru app doğrulandı, yeni anahtar oluşturuldu (eskiler o an silinmedi — kesintisiz geçiş için).
+2. Yeni değerler `SECRETS-MOVE-OUT-OF-REPO/canli-environtmens-degerleri.md`'ye yazıldı.
+3. Sen Coolify'a girip 7 env değişkenini güncelleyip redeploy ettin.
+4. SSH ile production container'ının (`48c9921` image) gerçekten yeni anahtarları kullandığı fingerprint eşleştirmesiyle doğrulandı; Part Matcher ve Blackbox Tuning canlıda gerçek RAG kaynaklarıyla (`retrievalGrade: medium/high`, dataset'ten gerçek chunk'lar) test edildi, çalıştı.
+5. Ben Dify Studio'ya dönüp **7 ESKİ (sızdırılmış) anahtarın hepsini sildim** — Blackbox, Part Matcher, Build Wizard, FPV Expert Assistant, Community Hub, SEO Content Generator workflow, Dataset API key. Her birinde 1'den fazla eski anahtar VARSA (dataset key'de 4 tane daha eski, bu denetimin kapsamı dışındaki anahtar vardı) onlara dokunulmadı — sadece bu denetimde işaretlenen 7 tanesi silindi.
 
-**Senin yapman gereken (dosyanın başındaki not da aynısını söylüyor):**
-1. Coolify → fpvlovers app → Environment Variables → `canli-environtmens-degerleri.md`'deki 7 yeni değeri (DIFY_API_KEY, DIFY_APP_KEY, DIFY_APP_TOKEN_BLACKBOX/BUILD_WIZARD/COMMUNITY/EXPERT/PART_MATCHER, DIFY_WORKFLOW_TOKEN_SEO) gir.
-2. Madde 0'daki auto-deploy sorunu yüzünden Coolify panelinden ELLE "Redeploy" et.
-3. Tüm araçları (Part Matcher, Blackbox, Build Wizard, vb.) canlıda test et, çalışıyorsa haber ver.
-4. Ben ancak o zaman Dify Studio'daki ESKİ (sızdırılmış) anahtarları silerim — önce silersem ve sen henüz redeploy etmediysen 6+ araç anlık kırılır.
-
-**Durum: 🟡 Yarı tamamlandı** — yeni anahtarlar hazır, Coolify+redeploy+eski-anahtar-silme adımları bekliyor.
+Artık sadece yeni anahtarlar aktif, sızıntı riski kapandı.
 
 ---
 
@@ -95,7 +93,7 @@ Eklenen kural (Article Generator system prompt'unun sonuna):
 | # | Adım | Öncelik | Nerede | Durum |
 |---|------|---------|--------|-------|
 | 0 | Coolify auto-deploy webhook'unu düzelt | CRITICAL | Coolify + GitHub | **Açık — yeni bulundu** |
-| 1 | 7 API anahtarını rotate et | CRITICAL | Dify Studio + Coolify | 🟡 Yarı tamamlandı — yeni anahtarlar hazır (`canli-environtmens-degerleri.md`), Coolify+redeploy senden bekleniyor |
+| 1 | 7 API anahtarını rotate et | — | — | ✅ Tamamen kapandı — eski anahtarlar silindi |
 | 2 | Dataset API key | — | — | ✅ Çözüldü — aksiyon gerekmiyor |
 | 3 | `ENABLE_REAL_RAG=true` prod'da teyit | — | — | ✅ Çözüldü — canlıda `true` |
 | 4 | `CRON_SECRET` ekle + eski crontab kapat | HIGH | GitHub + sunucu | Doğrulanamadı |

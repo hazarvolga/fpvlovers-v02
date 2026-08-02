@@ -25,28 +25,29 @@ Hepsi typecheck + lint + ilgili regresyon testleri (blackbox, part-matcher, buil
 
 ---
 
-## ŞU AN SEN NE YAPIYORSUN
+## Deploy sonrası doğrulama — TAMAMLANDI (2026-08-02)
 
-Coolify'a `canli-environtmens-degerleri.md`'deki 7 yeni Dify anahtarını girip redeploy ediyorsun (auto-deploy webhook'u çalışmadığı için elle tetikleniyor — bkz. aşağıdaki "Açık kalan" madde 0).
+Deploy bitti, ben de doğruladım:
 
-## Deploy sonrası kontrol listesi (senin doğrulaman gerekenler)
+- [x] Container yeni commit'in image'ını çalıştırıyor — `r0c44ok0cskc800gs0c8o8wk:48c9921...`, "Up 6 minutes" (redeploy'dan hemen sonra kontrol edildi).
+- [x] Production env'inde 7 yeni Dify anahtarının hepsi doğru (fingerprint eşleştirmesiyle SSH üzerinden teyit edildi).
+- [x] Part Matcher canlıda test edildi: `retrievalGrade: medium`, `retrievalConfidence: 71`, 4 gerçek kaynak (fpv-components-specs, fpv-build-guides) — orchestrator gerçekten çalışıyor.
+- [x] Blackbox Tuning canlıda test edildi: `answerMode: dify_grounded`, `retrievalConfidence: 78`, 5 kaynak — aynı şekilde doğrulandı.
+- [x] Dify Studio'ya dönüp **7 ESKİ (sızdırılmış) anahtarın hepsi silindi** (Blackbox, Part Matcher, Build Wizard, FPV Expert Assistant, Community Hub, SEO Content Generator workflow, Dataset API key). Sadece yeni anahtarlar aktif.
 
-- [ ] Container yeni commit'in (`48c9921` veya sonrası) image'ını çalıştırıyor mu? (`docker ps` → image tag'i kontrol et)
-- [ ] Part Matcher, Build Wizard, Blackbox Tuning, Flight Critic canlıda hatasız çalışıyor mu?
-- [ ] Bana haber ver — ancak o zaman Dify Studio'daki 7 ESKİ (sızdırılmış) anahtarı silerim.
+**Not:** Part Matcher'ın Dify chat çağrısı (grounding değil, LLM yanıtı) o testte "local" fallback'e düştü — bunun anahtar sorunu OLMADIĞI, sadece Dify'ın yanıt süresinin (basit "ping" testinde bile ~6.5sn) 15sn timeout'a yakın olmasından kaynaklandığı ayrıca doğrulandı (yeni anahtarla düz bir "ping" isteği HTTP 200 döndü). Tasarım gereği güvenli degrade oluyor — kaynak/grounding verisi yine de doğru gösteriliyor.
 
 ---
 
-## Açık kalan maddeler (öncelik sırasıyla)
+## Kalan açık maddeler (öncelik sırasıyla)
 
 | # | Madde | Öncelik | Durum |
 |---|---|---|---|
-| 0 | Coolify auto-deploy webhook'u çalışmıyor (GitHub push → otomatik deploy tetiklenmiyor) | CRITICAL | Açık — kök neden araştırılmadı, şimdilik elle redeploy ile aşılıyoruz |
-| 1 | 7 sızdırılmış anahtarın ESKİ halini Dify'dan sil | CRITICAL | Deploy doğrulamasını bekliyor (yukarıya bak) |
+| 0 | Coolify auto-deploy webhook'u çalışmıyor (GitHub push → otomatik deploy tetiklenmiyor) | CRITICAL | **Hâlâ açık** — kök neden araştırılmadı, elle redeploy ile aşıldı ama bir sonraki push'ta yine elle tetiklemen gerekecek |
 | 4 | GitHub repo secret `CRON_SECRET` ekle + eski host crontab'ını kapat | HIGH | Doğrulanamadı |
 | 6 | 7 bağlı olmayan Dify workflow DSL'ini import et (opsiyonel) | Düşük | Yapılmadı |
 
-Madde 2, 3, 5 tamamen kapandı (bkz. `2026-08-01-manual-steps-handoff.md`).
+Madde 1, 2, 3, 5 tamamen kapandı.
 
 ---
 
