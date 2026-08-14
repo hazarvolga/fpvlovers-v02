@@ -26,7 +26,10 @@ import { revalidatePath } from 'next/cache';
 // for every article during a single backfill run.
 const crawlCache = new Map<string, HarvestedImage[]>();
 
-async function crawlAndHarvest(pageUrl: string): Promise<HarvestedImage[]> {
+async function crawlAndHarvest(
+  pageUrl: string,
+  options: { persist: boolean } = { persist: true },
+): Promise<HarvestedImage[]> {
   if (crawlCache.has(pageUrl)) return crawlCache.get(pageUrl)!;
 
   // /md (fit filter) also benefits image harvesting: Readability-style
@@ -41,8 +44,11 @@ async function crawlAndHarvest(pageUrl: string): Promise<HarvestedImage[]> {
   }
 
   const md = crawled.markdown;
-  // Persist to raw_content so future harvests from DB work too.
-  void persistRawCrawlContent({ url: pageUrl, rawMarkdown: md, crawler: 'backfill' });
+  // A dry-run must remain read-only. Normal backfills persist the crawl so
+  // future harvests can reuse it, while previews only evaluate in memory.
+  if (options.persist) {
+    void persistRawCrawlContent({ url: pageUrl, rawMarkdown: md, crawler: 'backfill' });
+  }
 
   const images = harvestImagesFromMarkdown({ url: pageUrl, markdown: md });
   crawlCache.set(pageUrl, images);
@@ -231,7 +237,7 @@ export async function POST(req: NextRequest) {
     if (crawledLicensed.length === 0) {
       const liveImages: HarvestedImage[] = [];
       for (const hintUrl of allHints.slice(0, 3)) {
-        const imgs = await crawlAndHarvest(hintUrl);
+        const imgs = await crawlAndHarvest(hintUrl, { persist: !dryRun });
         liveImages.push(...imgs);
         if (liveImages.length >= 20) break;
       }
