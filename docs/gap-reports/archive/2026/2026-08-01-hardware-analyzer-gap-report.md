@@ -4,7 +4,7 @@
 
 **Yöntem:** Kod okuma (widget → API route → lib → veri) + canlı sayfa doğrulaması (masaüstü + mobil) + `matchCatalogProduct` eşleştirme algoritmasının gerçek katalog verisiyle (`data/fpv-products.catalog.json` + `data/affiliates.json`, birleşik 104 ürün) birebir Python replikasyonu. Aşağıdaki her bulgu ya doğrudan dosya/satır kanıtına ya da canlı sitede gözlemlenen davranışa dayanıyor.
 
-**Önceki ilgili rapor:** `docs/gap-reports/2026-07-31-tools-hallucination-gap-report.md` — bu rapor Hardware Analyzer için HA-P0-1 ve HA-P1-1 (güvenlik uyarısının istemciye ulaşmaması) buluyordu. **Bu ikisi artık kapalı** — canlı testte `engineeringSafety` JSON'dan istemciye taşınıyor ve UI'da her zaman render ediliyor (`HardwareAnalyzer.tsx:213-236`, canlı ekran görüntüsüyle doğrulandı). Bu rapor o ikisini tekrar açmıyor; sayfanın **fonksiyon ve tasarım** katmanında kalan, o raporun kapsamadığı yeni bulgulara odaklanıyor.
+**Önceki ilgili rapor:** `docs/gap-reports/archive/2026/2026-07-31-tools-hallucination-gap-report.md` — bu rapor Hardware Analyzer için HA-P0-1 ve HA-P1-1 (güvenlik uyarısının istemciye ulaşmaması) buluyordu. **Bu ikisi artık kapalı** — canlı testte `engineeringSafety` JSON'dan istemciye taşınıyor ve UI'da her zaman render ediliyor (`HardwareAnalyzer.tsx:213-236`, canlı ekran görüntüsüyle doğrulandı). Bu rapor o ikisini tekrar açmıyor; sayfanın **fonksiyon ve tasarım** katmanında kalan, o raporun kapsamadığı yeni bulgulara odaklanıyor.
 
 ---
 

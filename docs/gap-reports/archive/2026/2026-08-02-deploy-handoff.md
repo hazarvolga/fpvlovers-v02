@@ -52,6 +52,6 @@ Madde 1, 2, 3, 5 tamamen kapandı.
 ---
 
 ## Referanslar
-- Kapsamlı denetim: `docs/gap-reports/2026-08-01-comprehensive-platform-audit.md`
-- Önceki oturum handoff'u: `docs/gap-reports/2026-08-01-manual-steps-handoff.md`
+- Kapsamlı denetim: `docs/gap-reports/archive/2026/2026-08-01-comprehensive-platform-audit.md`
+- Önceki oturum handoff'u: `docs/gap-reports/archive/2026/2026-08-01-manual-steps-handoff.md`
 - Yeni anahtarlar + talimatlar: `SECRETS-MOVE-OUT-OF-REPO/canli-environtmens-degerleri.md` (repo dışı, gitignored)

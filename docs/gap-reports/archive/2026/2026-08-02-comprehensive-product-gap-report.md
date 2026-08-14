@@ -80,7 +80,7 @@ Sarmalayıcı 300×72, ancak `fill` görsele `scale-[1.6]` uygulanıyor ve sarma
 
 **Sonuç:** Mobilde LEARN / BUILD / FLY / TOOLS / NEWS / REGULATIONS menü ağacının tamamı erişilemez. Kullanıcı yalnızca alt tab bar'daki 5 hedefe (HOME, ACADEMY, SEARCH, TOOLS, DOSSIER) ulaşabiliyor.
 
-**Regresyon uyarısı:** `docs/gap-reports/2026-06-25-active-gap-closure-register.md` bu alanı *"Mobile trust navigation — Closed"* olarak işaretliyor. Bu madde **yeniden açılmalıdır**.
+**Regresyon uyarısı:** `docs/gap-reports/archive/2026/2026-06-25-active-gap-closure-register.md` bu alanı *"Mobile trust navigation — Closed"* olarak işaretliyor. Bu madde **yeniden açılmalıdır**.
 
 **Beklenen:** Sarmalayıcıya `overflow-hidden` eklenmesi veya `scale-[1.6]` yerine sarmalayıcının doğrudan büyütülmesi; ayrıca logo `<a>` üzerinde `pointer-events` alanının 300×72 ile sınırlı kalması.
 

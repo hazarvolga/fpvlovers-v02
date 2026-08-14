@@ -15,7 +15,10 @@ coolify-env-backup*.env
 SECRETS-MOVE-OUT-OF-REPO/
 server-info/
 dev-artifacts/AffexAI-Oracle-Servers/
+docs/research-local/
 graphify-out/
+.codex/
+.agents/skills/graphify/
 credentials.json
 gemini-apikey.md
 raceapikey.md
@@ -23,6 +26,14 @@ raceapikey.md
 *.pem
 *.p12
 *.crt
+*.cer
+*.der
+*.ppk
+*.jks
+*.keystore
+*.kdbx
+id_rsa*
+id_ed25519*
 cookies.txt
 *secret*
 *credential*
@@ -58,4 +69,4 @@ video/**/hook.png
 video/**/priorities.png
 video/**/system.png
 video/**/cta.png
-testfile456
+reports/retrieval-eval-*.json

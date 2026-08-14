@@ -2,7 +2,7 @@
 
 **Tarih:** 2026-07-31 · **Branch:** `main` (HEAD `f3b942b`) · **Kapsam:** `/tools/` altındaki 6 AI aracı (Part Matcher, Build Calculator/Build Wizard, Hardware Analyzer, Flight Critic, Component Duel, Blackbox Tuning) ve bunların gerçek/canlı veri kaynaklarıyla (Dify, Qdrant, crawler kataloğu) ilişkisi.
 
-**Önceki ilgili raporlar:** `docs/gap-reports/2026-07-26-hallucination-gap-report.md` (⚠️ bu dosyanın büyük bölümü bozuk/anlamsız metin — bkz. §0), `docs/tool-gap-reports/2026-06-01-blackbox-tuning-gap-raporu.md` (tutarlı, büyük ölçüde hâlâ geçerli).
+**Önceki ilgili raporlar:** `docs/gap-reports/archive/2026/2026-07-26-hallucination-gap-report.md` (⚠️ bu dosyanın büyük bölümü bozuk/anlamsız metin — bkz. §0), `docs/gap-reports/archive/tool/2026-06-01-blackbox-tuning-gap-raporu.md` (tutarlı, büyük ölçüde hâlâ geçerli).
 
 **Yöntem:** Statik kod okuma + canlı altyapı doğrulaması. Üç sunucudaki (Dify/Qdrant, web/crawler, crawler-backup) SSH erişimiyle **Qdrant vektör veritabanı doğrudan sorgulandı** (read-only), projenin kendi `scripts/tool-truth-audit.ts` denetim scripti yerel olarak çalıştırıldı, ve 6 aracın her biri için kod izi (widget → API route → lib → veri kaynağı) 6 paralel ajanla çıkarılıp, P0/P1 seviyesindeki her iddia ayrı bir "çürütmeye çalış" ajanıyla dosyalar tekrar okunarak bağımsızca doğrulandı. **7/7 P0-P1 iddia CONFIRMED** döndü — hiçbiri çürütülmedi.
 
@@ -10,7 +10,7 @@
 
 ## 0. Önce bir itiraf: önceki "halüsinasyon raporu" da halüsinasyon içeriyordu
 
-`docs/gap-reports/2026-07-26-hallucination-gap-report.md` dosyasını bu denetimin girdisi olarak okuduk. Dosyanın önemli bir kısmı **bozuk, anlamsız, kelime karışımı metin** içeriyor (örnek, dosyadan birebir: *"PID tuning talebindeki: Arac Bilgi al packaging dataset boş Çalışma sıfır. Model ezberi aktif — eğitim verisindeki JP FPV/Delta E Vikisinden. her generic cevap NIC, specific NV data crafting hatalıdrone % handle thisink=ok ❌."*). Bu, muhtemelen bir LLM çıktısının doğrulanmadan commit edilmesinin sonucu — yani platformun "AI çıktısı doğrulanmadan yayınlanabiliyor mu?" sorusuna, kendi GAP raporlarından biri zaten kanıt teşkil ediyor. Bu raporda o dosyanın hiçbir iddiası doğrudan kaynak olarak kullanılmadı; sadece "kontrol edilecek" ipucu olarak alındı ve kodun güncel hâline karşı yeniden doğrulandı.
+`docs/gap-reports/archive/2026/2026-07-26-hallucination-gap-report.md` dosyasını bu denetimin girdisi olarak okuduk. Dosyanın önemli bir kısmı **bozuk, anlamsız, kelime karışımı metin** içeriyor (örnek, dosyadan birebir: *"PID tuning talebindeki: Arac Bilgi al packaging dataset boş Çalışma sıfır. Model ezberi aktif — eğitim verisindeki JP FPV/Delta E Vikisinden. her generic cevap NIC, specific NV data crafting hatalıdrone % handle thisink=ok ❌."*). Bu, muhtemelen bir LLM çıktısının doğrulanmadan commit edilmesinin sonucu — yani platformun "AI çıktısı doğrulanmadan yayınlanabiliyor mu?" sorusuna, kendi GAP raporlarından biri zaten kanıt teşkil ediyor. Bu raporda o dosyanın hiçbir iddiası doğrudan kaynak olarak kullanılmadı; sadece "kontrol edilecek" ipucu olarak alındı ve kodun güncel hâline karşı yeniden doğrulandı.
 
 ---
 
