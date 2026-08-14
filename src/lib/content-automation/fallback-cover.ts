@@ -32,7 +32,27 @@ export const FALLBACK_COVER_PATHS: Record<FallbackCoverFamily, string> = {
   generic: '/images/fallbacks/fpv-generic.webp',
 };
 
-const STATIC_FALLBACK_SOURCES = new Set(Object.values(FALLBACK_COVER_PATHS));
+export const FALLBACK_COVER_VARIANTS: Partial<Record<FallbackCoverFamily, readonly string[]>> = {
+  'academy-beginner': [
+    '/images/fallbacks/fpv-academy-stick-control.webp',
+    '/images/fallbacks/fpv-academy-simulator.webp',
+  ],
+  'build-workshop': ['/images/fallbacks/fpv-build-soldering.webp'],
+  'tuning-betaflight': [
+    '/images/fallbacks/fpv-tuning-blackbox.webp',
+    '/images/fallbacks/fpv-tuning-pid-filter.webp',
+  ],
+  'video-goggles-vtx': [
+    '/images/fallbacks/fpv-video-vtx-bench.webp',
+    '/images/fallbacks/fpv-video-goggles-camera.webp',
+  ],
+  'radio-elrs-gps': ['/images/fallbacks/fpv-radio-elrs-gps-alt.webp'],
+};
+
+const STATIC_FALLBACK_SOURCES = new Set([
+  ...Object.values(FALLBACK_COVER_PATHS),
+  ...Object.values(FALLBACK_COVER_VARIANTS).flatMap((paths) => paths ?? []),
+]);
 
 export function resolveDisplayCover(
   source: string | undefined,
@@ -169,6 +189,45 @@ function resolveTextFamily(input: FallbackCoverInput | undefined): RoutedFallbac
   return undefined;
 }
 
+function stableIndex(value: string, length: number): number {
+  let hash = 0;
+  for (let index = 0; index < value.length; index += 1) {
+    hash = (hash * 31 + value.charCodeAt(index)) >>> 0;
+  }
+  return length > 0 ? hash % length : 0;
+}
+
+function resolveFamilyCover(
+  family: FallbackCoverFamily,
+  input: FallbackCoverInput | undefined,
+): string {
+  const primary = FALLBACK_COVER_PATHS[family];
+  const variants = FALLBACK_COVER_VARIANTS[family] ?? [];
+  if (variants.length === 0) return primary;
+  const identity = input?.slug || input?.title;
+  if (!identity) return primary;
+
+  const signal = `${input?.title || ''} ${input?.slug || ''}`.toLowerCase();
+  if (family === 'academy-beginner') {
+    if (/(simulator|sim training|virtual flight)/.test(signal)) return variants[1] ?? variants[0];
+    if (/(acro|stick|control drill|beginner)/.test(signal)) return variants[0];
+  }
+  if (family === 'tuning-betaflight') {
+    if (/blackbox|spectral densit|gyro trace/.test(signal)) return variants[0];
+    if (/(pid|filter|step response)/.test(signal)) return variants[1] ?? variants[0];
+  }
+  if (family === 'video-goggles-vtx') {
+    if (/(vtx|video transmitter|rf power)/.test(signal)) return variants[0];
+    if (/(goggle|camera|video link)/.test(signal)) return variants[1] ?? variants[0];
+  }
+  if (family === 'build-workshop' && /(solder|wiring|assembly)/.test(signal)) {
+    return variants[0];
+  }
+
+  const choices = [primary, ...variants];
+  return choices[stableIndex(identity, choices.length)];
+}
+
 export function resolveFallbackCover(
   input?: ContentMetadata | FallbackCoverInput,
 ): string {
@@ -202,7 +261,7 @@ export function resolveFallbackCover(
     ?? resolveTextFamily(wrappedInput);
 
   if (family) {
-    return FALLBACK_COVER_PATHS[family];
+    return resolveFamilyCover(family, wrappedInput);
   }
 
   return FALLBACK_COVER_PATHS.generic;

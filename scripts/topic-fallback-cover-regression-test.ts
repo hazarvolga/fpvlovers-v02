@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { ensureMediaArtifact } from '@/lib/content-automation/content-reader';
 import {
   FALLBACK_COVER_PATHS,
+  FALLBACK_COVER_VARIANTS,
   resolveDisplayCover,
   resolveFallbackCover,
 } from '@/lib/content-automation/fallback-cover';
@@ -40,7 +41,7 @@ assert.equal(
     title: 'Blackbox Analysis Masterclass',
     metadata: { topics: ['tuning'], discipline: ['racing'] },
   }),
-  FALLBACK_COVER_PATHS['tuning-betaflight'],
+  FALLBACK_COVER_VARIANTS['tuning-betaflight']?.[0],
   'A specific tuning topic must outrank a broad racing discipline',
 );
 assert.equal(
@@ -49,7 +50,7 @@ assert.equal(
     slug: 'acro-stick-control-drills-for-fpv-beginners',
     category: 'Flight Guides',
   }),
-  FALLBACK_COVER_PATHS['academy-beginner'],
+  FALLBACK_COVER_VARIANTS['academy-beginner']?.[0],
   'Title signals should classify legacy articles with missing metadata',
 );
 assert.equal(
@@ -204,7 +205,11 @@ assert.equal(
   '/api/content/media/cover/legacy-commercial-cover',
 );
 
-for (const coverPath of Object.values(FALLBACK_COVER_PATHS)) {
+const allFallbackPaths = [
+  ...Object.values(FALLBACK_COVER_PATHS),
+  ...Object.values(FALLBACK_COVER_VARIANTS).flatMap((paths) => paths ?? []),
+];
+for (const coverPath of allFallbackPaths) {
   assert.ok(fs.existsSync(`public${coverPath}`), `Missing fallback cover asset: ${coverPath}`);
 }
 

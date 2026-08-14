@@ -6,7 +6,7 @@
 
 ## Objective
 
-Replace the single repeated fallback cover with a deterministic set of twelve premium, photorealistic FPVLovers fallback covers. The system must retain a valid article-specific cover and use a local topic cover only when the original is missing or fails to load.
+Replace the single repeated fallback cover with deterministic premium, photorealistic FPVLovers topic families and article-stable variants. The system must retain a valid article-specific cover and use a local topic cover only when the original is missing or fails to load.
 
 This is a resilience and visual-quality improvement. It does not add a route, section, service, or new content system.
 
@@ -15,6 +15,7 @@ This is a resilience and visual-quality improvement. It does not add a route, se
 In scope:
 
 - Twelve locally stored topic-family images.
+- Eight locally stored high-frequency topic variants selected semantically, then by stable slug hash.
 - One generic local FPVLovers cover as the final safety net.
 - One shared resolver for homepage cards and article covers.
 - Metadata-driven topic selection.
@@ -140,6 +141,14 @@ public/images/fallbacks/
   fpv-radio-elrs-gps.webp
   fpv-commercial.webp
   fpv-safety-regulations.webp
+  fpv-academy-stick-control.webp
+  fpv-academy-simulator.webp
+  fpv-build-soldering.webp
+  fpv-tuning-blackbox.webp
+  fpv-tuning-pid-filter.webp
+  fpv-video-vtx-bench.webp
+  fpv-video-goggles-camera.webp
+  fpv-radio-elrs-gps-alt.webp
 ```
 
 Masters may be retained as PNG source files outside the public runtime path if needed, but production-delivered files are optimized WebP assets.
