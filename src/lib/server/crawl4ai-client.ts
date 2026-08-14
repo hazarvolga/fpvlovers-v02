@@ -17,6 +17,10 @@ export type CrawlOutcome =
   | { ok: true; markdown: string; crawler: CrawlRole }
   | { ok: false; errors: string[] };
 
+export type CrawlMediaOutcome =
+  | { ok: true; markdown: string; mediaMarkup: string; crawler: CrawlRole }
+  | { ok: false; errors: string[] };
+
 function asRecord(value: unknown): Record<string, unknown> | undefined {
   return value && typeof value === 'object' && !Array.isArray(value)
     ? value as Record<string, unknown>
@@ -39,6 +43,47 @@ function readLegacyMarkdown(payload: unknown): string {
   if (typeof markdown === 'string') return markdown;
   const markdownRecord = asRecord(markdown);
   return typeof markdownRecord?.raw_markdown === 'string' ? markdownRecord.raw_markdown : '';
+}
+
+function htmlAttributeValue(value: unknown): string {
+  return typeof value === 'string'
+    ? value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+    : '';
+}
+
+/**
+ * Convert Crawl4AI's rich /crawl response into markup understood by the
+ * existing image harvester. Synthetic tags are placed before page HTML so
+ * media/metadata survive the bounded payload even on very large pages.
+ */
+export function readLegacyMediaMarkup(payload: unknown): string {
+  const root = asRecord(payload);
+  const results = Array.isArray(root?.results) ? root.results : [];
+  const first = asRecord(results[0]);
+  if (!first) return '';
+
+  const media = asRecord(first.media);
+  const images = Array.isArray(media?.images) ? media.images : [];
+  const imageTags = images.slice(0, 100).flatMap((value) => {
+    const image = asRecord(value);
+    const src = htmlAttributeValue(image?.src ?? image?.url);
+    if (!src) return [];
+    const alt = htmlAttributeValue(image?.alt ?? image?.desc);
+    const srcset = htmlAttributeValue(image?.srcset);
+    return [`<img src="${src}" alt="${alt}"${srcset ? ` srcset="${srcset}"` : ''}>`];
+  });
+
+  const metadata = asRecord(first.metadata);
+  const metadataTags = Object.entries(metadata ?? {}).flatMap(([key, value]) => {
+    if (!key.toLowerCase().includes('image')) return [];
+    const content = htmlAttributeValue(value);
+    return content ? [`<meta property="${htmlAttributeValue(key)}" content="${content}">`] : [];
+  });
+
+  const html = [first.cleaned_html, first.fit_html, first.html]
+    .find((value): value is string => typeof value === 'string' && value.length > 0) ?? '';
+
+  return [...imageTags, ...metadataTags, html].join('\n').slice(0, 2_000_000);
 }
 
 function readErrorDetail(payload: unknown, rawBody: string): string {
@@ -67,7 +112,13 @@ export function crawlerEndpoints(): Array<{ role: CrawlRole; mdUrl: string; lega
   ];
 }
 
-type FetchResult = { ok: boolean; markdown: string; status?: number; detail?: string };
+type FetchResult = {
+  ok: boolean;
+  markdown: string;
+  mediaMarkup?: string;
+  status?: number;
+  detail?: string;
+};
 
 async function fetchMd(
   fetchImpl: typeof fetch,
@@ -117,7 +168,55 @@ async function fetchLegacyCrawl(
   if (!response.ok) {
     return { ok: false, markdown: '', status: response.status, detail: readErrorDetail(payload, rawBody) };
   }
-  return { ok: true, markdown: readLegacyMarkdown(payload) };
+  return {
+    ok: true,
+    markdown: readLegacyMarkdown(payload),
+    mediaMarkup: readLegacyMediaMarkup(payload),
+  };
+}
+
+/**
+ * Crawl specifically for editorial media. Unlike crawlUrlToMarkdown, this
+ * intentionally uses the rich self-hosted /crawl response so image metadata
+ * and HTML attributes are retained. RAG and ingest callers remain on /md.
+ */
+export async function crawlUrlForMedia(
+  url: string,
+  options: { fetchImpl?: typeof fetch; timeoutMs?: number; minLength?: number } = {},
+): Promise<CrawlMediaOutcome> {
+  const fetchImpl = options.fetchImpl ?? fetch;
+  const timeoutMs = options.timeoutMs ?? 45_000;
+  const minLength = options.minLength ?? 200;
+  const errors: string[] = [];
+
+  for (const endpoint of crawlerEndpoints()) {
+    try {
+      const result = await fetchLegacyCrawl(
+        fetchImpl,
+        endpoint.legacyCrawlUrl,
+        url,
+        timeoutMs,
+      );
+      const mediaMarkup = result.mediaMarkup ?? '';
+      if (result.ok && (result.markdown.length >= minLength || mediaMarkup.length > 0)) {
+        return {
+          ok: true,
+          markdown: result.markdown,
+          mediaMarkup,
+          crawler: endpoint.role,
+        };
+      }
+      if (!result.ok) {
+        errors.push(`${endpoint.role}: /crawl HTTP ${result.status}${result.detail ? ` (${result.detail})` : ''}`);
+      } else {
+        errors.push(`${endpoint.role}: /crawl content too short (${result.markdown.length})`);
+      }
+    } catch (error: unknown) {
+      errors.push(`${endpoint.role}: ${error instanceof Error ? error.message : 'request failed'}`);
+    }
+  }
+
+  return { ok: false, errors };
 }
 
 /**

@@ -24,7 +24,7 @@ import { rerankImagesWithVision } from '@/lib/content-automation/vision-image-re
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { upsertPublishedArtifact } from '@/lib/server/published-content-store';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
-import { crawlUrlToMarkdown } from '@/lib/server/crawl4ai-client';
+import { crawlUrlForMedia } from '@/lib/server/crawl4ai-client';
 import { revalidatePath } from 'next/cache';
 
 // In-memory crawl cache keyed by URL — prevents re-crawling the same page
@@ -42,7 +42,7 @@ async function crawlAndHarvest(
   // thumbnails) along with the boilerplate text, leaving mostly in-article
   // images as candidates instead of flooding harvestImagesFromMarkdown with
   // irrelevant site-chrome images.
-  const crawled = await crawlUrlToMarkdown(pageUrl, { timeoutMs: 40_000 });
+  const crawled = await crawlUrlForMedia(pageUrl, { timeoutMs: 40_000 });
   if (!crawled.ok) {
     crawlCache.set(pageUrl, []);
     return [];
@@ -55,7 +55,10 @@ async function crawlAndHarvest(
     void persistRawCrawlContent({ url: pageUrl, rawMarkdown: md, crawler: 'backfill' });
   }
 
-  const images = harvestImagesFromMarkdown({ url: pageUrl, markdown: md });
+  const images = harvestImagesFromMarkdown({
+    url: pageUrl,
+    markdown: `${md}\n${crawled.mediaMarkup}`,
+  });
   crawlCache.set(pageUrl, images);
   return images;
 }
@@ -69,7 +72,7 @@ async function discoverRelevantPages(
 
   for (const sourceHint of sourceHints.slice(0, 3)) {
     for (const searchUrl of buildSourceSearchUrls(sourceHint, query)) {
-      const crawled = await crawlUrlToMarkdown(searchUrl, { timeoutMs: 40_000 });
+      const crawled = await crawlUrlForMedia(searchUrl, { timeoutMs: 40_000 });
       if (!crawled.ok) continue;
 
       if (options.persist) {
@@ -81,7 +84,7 @@ async function discoverRelevantPages(
       }
 
       const pages = extractRelevantSourcePages({
-        markdown: crawled.markdown,
+        markdown: `${crawled.markdown}\n${crawled.mediaMarkup}`,
         sourceUrl: searchUrl,
         query,
         maxResults: 2,

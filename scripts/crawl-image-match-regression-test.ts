@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import type { LicensedImage } from '@/lib/content-automation/crawl-image-license';
 import { harvestImagesFromMarkdown } from '@/lib/content-automation/crawl-image-harvest';
+import { readLegacyMediaMarkup } from '@/lib/server/crawl4ai-client';
 import {
   MEDIA_MATCHER_VERSION,
   pickBestRelevantImageMatch,
@@ -135,6 +136,33 @@ assert.deepEqual(
     'https://example.com/media/vtx-diagram.webp',
   ],
   'Harvest should prefer the largest srcset asset and retain social/JSON-LD covers',
+);
+
+const legacyMediaMarkup = readLegacyMediaMarkup({
+  results: [{
+    cleaned_html: '<main><img data-src="/media/inline-vtx.webp" alt="VTX antenna"></main>',
+    media: {
+      images: [{
+        src: 'https://example.com/media/crawl4ai-vtx-cover.webp',
+        alt: 'VTX power output test bench',
+      }],
+    },
+    metadata: {
+      'og:image': 'https://example.com/media/social-vtx-cover.jpg',
+    },
+  }],
+});
+assert.deepEqual(
+  harvestImagesFromMarkdown({
+    url: 'https://example.com/vtx-power-guide/',
+    markdown: legacyMediaMarkup,
+  }).map((candidate) => candidate.src).sort(),
+  [
+    'https://example.com/media/crawl4ai-vtx-cover.webp',
+    'https://example.com/media/inline-vtx.webp',
+    'https://example.com/media/social-vtx-cover.jpg',
+  ],
+  'Rich Crawl4AI responses should retain media, social metadata and lazy HTML images',
 );
 
 assert.deepEqual(
