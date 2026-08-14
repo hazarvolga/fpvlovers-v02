@@ -198,6 +198,19 @@ function resolveTextFamily(input: FallbackCoverInput | undefined): RoutedFallbac
   return undefined;
 }
 
+function resolveStrongTextFamily(
+  input: FallbackCoverInput | undefined,
+): RoutedFallbackCoverFamily | undefined {
+  const signal = `${input?.title || ''} ${input?.slug || ''}`.toLowerCase();
+  if (/(expresslrs|\belrs\b|binding phrase|edgetx|radio link)/.test(signal)) {
+    return 'radio-elrs-gps';
+  }
+  if (/(blackbox|pid[- ]?tuning|spectral densit|gyro trace)/.test(signal)) {
+    return 'tuning-betaflight';
+  }
+  return undefined;
+}
+
 function stableIndex(value: string, length: number): number {
   let hash = 0;
   for (let index = 0; index < value.length; index += 1) {
@@ -255,7 +268,8 @@ export function resolveFallbackCover(
   }
 
   const family =
-    resolveSignalTier([
+    resolveStrongTextFamily(wrappedInput)
+    ?? resolveSignalTier([
       { values: metadata?.components ?? [], rules: COMPONENT_RULES },
     ])
     ?? resolveSignalTier([

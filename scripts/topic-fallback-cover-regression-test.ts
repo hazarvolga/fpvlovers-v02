@@ -73,6 +73,7 @@ const expressLrsCover = resolveFallbackCover({
   title: 'ExpressLRS Binding and Flashing Guide for EdgeTX and Betaflight',
   slug: 'expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight',
   category: 'Flight Guides',
+  metadata: { topics: ['betaflight', 'tuning'] },
 });
 assert.ok(
   [
