@@ -5,6 +5,10 @@ import {
   pickBestRelevantImageMatch,
   type SectionInput,
 } from '@/lib/content-automation/crawl-image-match';
+import {
+  buildSourceSearchUrl,
+  extractRelevantSourcePages,
+} from '@/lib/content-automation/source-page-discovery';
 
 const sections: SectionInput[] = [
   {
@@ -71,5 +75,39 @@ const validMatch = pickBestRelevantImageMatch([
 assert.ok(validMatch, 'A strongly identified VTX image should remain eligible');
 assert.equal(validMatch.image.id, 'vtx-chart');
 assert.match(validMatch.reason, /media-v3 strong-cover/);
+
+assert.equal(
+  buildSourceSearchUrl(
+    'https://oscarliang.com/',
+    'VTX Power Levels Explained for FPV Range and Heat',
+  ),
+  'https://oscarliang.com/?s=vtx+power+levels+range+heat',
+);
+
+assert.deepEqual(
+  extractRelevantSourcePages({
+    sourceUrl: 'https://oscarliang.com/?s=vtx+power+levels',
+    query: 'VTX Power Levels for FPV Range and Heat',
+    markdown: [
+      '[Understanding VTX Power Levels](https://oscarliang.com/vtx-power-levels-range/)',
+      '[Blackbox PID Tuning](https://oscarliang.com/blackbox-pid-tuning/)',
+      '[VTX logo](https://oscarliang.com/wp-content/uploads/vtx-logo.svg)',
+      '[External VTX article](https://example.com/vtx-power-levels/)',
+      '[Category](https://oscarliang.com/category/fpv/)',
+    ].join('\n'),
+  }),
+  ['https://oscarliang.com/vtx-power-levels-range/'],
+  'Discovery must keep only relevant same-host article pages',
+);
+
+assert.deepEqual(
+  extractRelevantSourcePages({
+    sourceUrl: 'https://www.fpvknowitall.com/?s=blackbox',
+    query: 'Blackbox Analysis Masterclass',
+    markdown: '[How to Read Blackbox Logs](/blackbox-log-analysis/)',
+  }),
+  ['https://www.fpvknowitall.com/blackbox-log-analysis/'],
+  'A single strong technical term should be enough to discover a focused article',
+);
 
 console.log('crawl image matcher regression checks passed');

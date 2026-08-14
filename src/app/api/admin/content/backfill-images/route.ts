@@ -16,6 +16,10 @@ import {
   MEDIA_MATCHER_VERSION,
   pickBestRelevantImageMatch,
 } from '@/lib/content-automation/crawl-image-match';
+import {
+  buildSourceSearchUrl,
+  extractRelevantSourcePages,
+} from '@/lib/content-automation/source-page-discovery';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { upsertPublishedArtifact } from '@/lib/server/published-content-store';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
@@ -53,6 +57,41 @@ async function crawlAndHarvest(
   const images = harvestImagesFromMarkdown({ url: pageUrl, markdown: md });
   crawlCache.set(pageUrl, images);
   return images;
+}
+
+async function discoverRelevantPages(
+  sourceHints: ReadonlyArray<string>,
+  query: string,
+  options: { persist: boolean },
+): Promise<string[]> {
+  const discovered = new Set<string>();
+
+  for (const sourceHint of sourceHints.slice(0, 3)) {
+    const searchUrl = buildSourceSearchUrl(sourceHint, query);
+    if (!searchUrl) continue;
+
+    const crawled = await crawlUrlToMarkdown(searchUrl, { timeoutMs: 40_000 });
+    if (!crawled.ok) continue;
+
+    if (options.persist) {
+      void persistRawCrawlContent({
+        url: searchUrl,
+        rawMarkdown: crawled.markdown,
+        crawler: 'backfill-discovery',
+      });
+    }
+
+    const pages = extractRelevantSourcePages({
+      markdown: crawled.markdown,
+      sourceUrl: searchUrl,
+      query,
+      maxResults: 2,
+    });
+    for (const page of pages) discovered.add(page);
+    if (discovered.size >= 4) break;
+  }
+
+  return [...discovered].slice(0, 4);
 }
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
@@ -246,12 +285,6 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    if (crawledLicensed.length === 0) {
-      results.push({ slug, status: 'no_images', reason: 'no crawled images found (DB + live crawl)' });
-      skipped++;
-      continue;
-    }
-
     // Pick best cover image via semantic matching.
     const bodySections: Array<{ id: string; title: string; content: string }> =
       ((artifact as any)?.bodySections || []).map((s: any, i: number) => ({
@@ -260,10 +293,41 @@ export async function POST(req: NextRequest) {
         content: s.content || '',
       }));
 
-    const bestCoverMatch = pickBestRelevantImageMatch(crawledLicensed, bodySections);
+    let bestCoverMatch = pickBestRelevantImageMatch(crawledLicensed, bodySections);
+
+    // Broad category pages often yield generic images. If none passes the
+    // strict cover gate, discover article-specific pages through each source's
+    // own search results and crawl only the strongest same-host matches.
+    if (!bestCoverMatch) {
+      const articleTitle = typeof (artifact as any)?.title === 'string'
+        ? (artifact as any).title
+        : slug.replace(/-/g, ' ');
+      const discoveredPages = await discoverRelevantPages(allHints, articleTitle, {
+        persist: !dryRun,
+      });
+      const discoveredImages: HarvestedImage[] = [];
+      for (const pageUrl of discoveredPages) {
+        discoveredImages.push(...await crawlAndHarvest(pageUrl, { persist: !dryRun }));
+      }
+
+      const additionalLicensed = classifyImageLicenses(discoveredImages)
+        .filter((image) => !isGenericStockImage(image));
+      const uniqueLicensed = new Map(
+        [...crawledLicensed, ...additionalLicensed].map((image) => [image.src, image]),
+      );
+      crawledLicensed = [...uniqueLicensed.values()];
+      bestCoverMatch = pickBestRelevantImageMatch(crawledLicensed, bodySections);
+    }
+
     const bestCover = bestCoverMatch?.image;
     if (!bestCover || !bestCoverMatch) {
-      results.push({ slug, status: 'no_images', reason: 'no image passed relevance threshold' });
+      results.push({
+        slug,
+        status: 'no_images',
+        reason: crawledLicensed.length === 0
+          ? 'no crawled images found (DB + live discovery)'
+          : 'no image passed relevance threshold after source-page discovery',
+      });
       skipped++;
       continue;
     }
