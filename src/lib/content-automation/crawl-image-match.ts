@@ -49,8 +49,14 @@ export type MatchResult = {
  * shared distinctive tokens — better than 0.18 which excluded everything when
  * alt was empty (common on oscarliang.com, rotorriot.com, multigp.com).
  */
-export const MEDIA_MATCHER_VERSION = 'media-v2';
+export const MEDIA_MATCHER_VERSION = 'media-v3';
 const MATCH_THRESHOLD = 0.12;
+const COVER_MATCH_THRESHOLD = 0.16;
+
+const NON_EDITORIAL_PATH_HINTS = [
+  '.svg', 'logo', 'icon', 'favicon', 'sprite', 'avatar', 'badge',
+  'button', 'placeholder', 'spinner', 'loading', 'emoji', 'emoticon',
+];
 
 const RACING_HOSTS = new Set([
   'dronechampionsleague.com',
@@ -83,6 +89,21 @@ function tokenize(value: string): string[] {
 
 function tokenSet(value: string): Set<string> {
   return new Set(tokenize(value));
+}
+
+function imageIdentityTokens(image: LicensedImage): Set<string> {
+  let pathname = '';
+  try {
+    pathname = new URL(image.src).pathname;
+  } catch {
+    pathname = image.src;
+  }
+  return tokenSet(`${image.alt} ${pathname}`);
+}
+
+function isEditorialImageCandidate(image: LicensedImage): boolean {
+  const identity = `${image.src} ${image.alt}`.toLowerCase();
+  return !NON_EDITORIAL_PATH_HINTS.some((hint) => identity.includes(hint));
 }
 
 /**
@@ -150,6 +171,7 @@ export function matchImagesToSections(
   const candidates: Candidate[] = [];
 
   for (const image of images) {
+    if (!isEditorialImageCandidate(image)) continue;
     for (const section of sections) {
       const score = scoreImageAgainstSection(
         image,
@@ -209,6 +231,33 @@ export function pickBestRelevantImageMatch(
   sections: ReadonlyArray<SectionInput>,
 ): SectionImageMatch | undefined {
   const { matches } = matchImagesToSections(images, sections);
-  if (matches.length === 0) return undefined;
-  return matches.reduce((best, current) => (current.score > best.score ? current : best));
+  const sectionById = new Map(sections.map((section) => [section.id, section]));
+  const strongCoverMatches = matches.filter((match) => {
+    if (match.score < COVER_MATCH_THRESHOLD) return false;
+
+    const section = sectionById.get(match.sectionId);
+    if (!section) return false;
+
+    // Context is useful for placing figures inside an article, but it is too
+    // broad to promote a cover by itself. Covers require a direct identity
+    // match in the source alt text or image filename/path.
+    const identityTokens = imageIdentityTokens(match.image);
+    const titleTokens = tokenSet(section.title);
+    const sectionTokens = tokenSet(`${section.title} ${section.content}`);
+    const directTitleMatch = hasAny(identityTokens, titleTokens);
+    const technicalIdentityMatch = [...TECHNICAL_TERMS].some(
+      (term) => identityTokens.has(term) && sectionTokens.has(term),
+    );
+
+    return directTitleMatch || technicalIdentityMatch;
+  });
+
+  if (strongCoverMatches.length === 0) return undefined;
+  const best = strongCoverMatches.reduce(
+    (currentBest, current) => (current.score > currentBest.score ? current : currentBest),
+  );
+  return {
+    ...best,
+    reason: `${MEDIA_MATCHER_VERSION} strong-cover ${best.score.toFixed(3)}`,
+  };
 }

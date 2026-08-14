@@ -77,6 +77,7 @@
     "db:backfill:published": "node --import tsx scripts/db-backfill-published-content.ts",
     "media:audit": "node --import tsx scripts/media-policy-audit.ts",
     "media:selection-audit": "node --import tsx scripts/media-selection-audit.ts",
+    "media:matcher-test": "node --import tsx scripts/crawl-image-match-regression-test.ts",
     "media:source-cache": "node --import tsx scripts/source-cache-commercial-media.ts",
     "media:backfill-catalog": "node --import tsx scripts/backfill-catalog-media.ts",
     "db:inject-images": "node --import tsx scripts/db-inject-images-to-published.ts",
