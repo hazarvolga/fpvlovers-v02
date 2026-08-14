@@ -70,3 +70,5 @@ video/**/priorities.png
 video/**/system.png
 video/**/cta.png
 reports/retrieval-eval-*.json
+
+/data/embedding-usage.json
