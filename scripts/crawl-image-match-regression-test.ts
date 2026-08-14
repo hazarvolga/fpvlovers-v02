@@ -134,8 +134,8 @@ assert.deepEqual(
       context: 'VTX power chart.',
     }),
   ], 'VTX Power Levels for Range and Heat').map((candidate) => candidate.image.id),
-  ['generic-file-relevant-context'],
-  'Vision prefilter should recover generic filenames without admitting irrelevant or SVG media',
+  ['generic-file-relevant-context', 'irrelevant'],
+  'Vision prefilter should rank metadata matches first, retain raster fallbacks and reject SVG media',
 );
 
 assert.deepEqual(

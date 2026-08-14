@@ -81,7 +81,6 @@ export function rankVisionCandidates(
         metadataScore: identityHits * 3 + contextHits + technicalHits * 3,
       };
     })
-    .filter((candidate) => candidate.metadataScore > 0)
     .sort((a, b) => b.metadataScore - a.metadataScore || a.image.src.localeCompare(b.image.src))
     .slice(0, Math.max(0, maxCandidates));
 }
