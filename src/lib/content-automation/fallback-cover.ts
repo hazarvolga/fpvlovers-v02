@@ -33,6 +33,12 @@ export const FALLBACK_COVER_PATHS: Record<FallbackCoverFamily, string> = {
 };
 
 export const FALLBACK_COVER_VARIANTS: Partial<Record<FallbackCoverFamily, readonly string[]>> = {
+  racing: [
+    '/images/fallbacks/fpv-racing-action.webp',
+    '/images/fallbacks/fpv-racing-pit.webp',
+    '/images/fallbacks/fpv-racing-operations.webp',
+    '/images/fallbacks/fpv-racing-esports.webp',
+  ],
   'academy-beginner': [
     '/images/fallbacks/fpv-academy-stick-control.webp',
     '/images/fallbacks/fpv-academy-simulator.webp',
@@ -178,6 +184,9 @@ function resolveTextFamily(input: FallbackCoverInput | undefined): RoutedFallbac
   const signal = `${input?.title || ''} ${input?.slug || ''}`.toLowerCase();
   if (!signal.trim()) return undefined;
 
+  if (/(expresslrs|\belrs\b|binding phrase|edgetx|radio link)/.test(signal)) {
+    return 'radio-elrs-gps';
+  }
   if (/(blackbox|betaflight|pid[- ]?tuning|gyro|spectral densit|filter tuning)/.test(signal)) {
     return 'tuning-betaflight';
   }

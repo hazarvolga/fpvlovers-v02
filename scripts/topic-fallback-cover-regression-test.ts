@@ -69,6 +69,18 @@ assert.equal(
   resolveFallbackCover({ metadata: { components: ['elrs'] } }),
   FALLBACK_COVER_PATHS['radio-elrs-gps'],
 );
+const expressLrsCover = resolveFallbackCover({
+  title: 'ExpressLRS Binding and Flashing Guide for EdgeTX and Betaflight',
+  slug: 'expresslrs-binding-and-flashing-guide-step-by-step-for-edgetx-betaflight',
+  category: 'Flight Guides',
+});
+assert.ok(
+  [
+    FALLBACK_COVER_PATHS['radio-elrs-gps'],
+    ...(FALLBACK_COVER_VARIANTS['radio-elrs-gps'] ?? []),
+  ].includes(expressLrsCover),
+  'ExpressLRS must outrank the incidental Betaflight keyword',
+);
 assert.equal(
   resolveFallbackCover({ metadata: { topics: ['safety'] } }),
   FALLBACK_COVER_PATHS['safety-regulations'],
@@ -147,6 +159,15 @@ assert.equal(
 );
 assert.equal(resolveFallbackCover(undefined), FALLBACK_COVER_PATHS.generic);
 assert.equal(resolveFallbackCover({}), FALLBACK_COVER_PATHS.generic);
+
+const racingCovers = new Set([
+  'multigp-global-qualifier-schedule',
+  'drone-champions-league-standings',
+  'fpv-racing-for-beginners',
+  'multigp-esport-series',
+  'race-operations-and-rules',
+].map((slug) => resolveFallbackCover({ category: 'Racing', slug })));
+assert.ok(racingCovers.size > 1, 'Racing articles must distribute across multiple covers');
 
 assert.equal(
   resolveDisplayCover(
