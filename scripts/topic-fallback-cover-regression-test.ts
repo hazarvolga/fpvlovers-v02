@@ -14,7 +14,7 @@ assert.equal(
 );
 assert.equal(
   resolveFallbackCover({ contentType: 'review', components: ['radio'] }),
-  FALLBACK_COVER_PATHS.commercial,
+  FALLBACK_COVER_PATHS['radio-elrs-gps'],
 );
 assert.equal(
   resolveFallbackCover({ metadata: { discipline: ['freestyle'] } }),
@@ -112,7 +112,19 @@ assert.equal(
     category: 'Racing',
     metadata: { contentType: 'review', components: ['battery'] },
   }),
-  FALLBACK_COVER_PATHS.commercial,
+  FALLBACK_COVER_PATHS['power-battery-esc'],
+);
+const commercialVideoCover = resolveFallbackCover({
+  title: 'Best FPV Goggles: Analog vs Digital Buyer Guide',
+  slug: 'best-fpv-goggles-analog-vs-digital',
+  metadata: { contentType: 'buyer-guide' },
+});
+assert.ok(
+  [
+    FALLBACK_COVER_PATHS['video-goggles-vtx'],
+    ...(FALLBACK_COVER_VARIANTS['video-goggles-vtx'] ?? []),
+  ].includes(commercialVideoCover),
+  'Commercial video content must use the video cover family',
 );
 assert.equal(
   resolveFallbackCover({ metadata: { difficulty: 'beginner' } }),

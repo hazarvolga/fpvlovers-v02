@@ -48,11 +48,17 @@ export const FALLBACK_COVER_VARIANTS: Partial<Record<FallbackCoverFamily, readon
     '/images/fallbacks/fpv-tuning-blackbox.webp',
     '/images/fallbacks/fpv-tuning-pid-filter.webp',
   ],
+  'motors-propulsion': ['/images/fallbacks/fpv-motors-prop-selection.webp'],
+  'power-battery-esc': [
+    '/images/fallbacks/fpv-power-charging.webp',
+    '/images/fallbacks/fpv-power-lipo-selection.webp',
+  ],
   'video-goggles-vtx': [
     '/images/fallbacks/fpv-video-vtx-bench.webp',
     '/images/fallbacks/fpv-video-goggles-camera.webp',
   ],
   'radio-elrs-gps': ['/images/fallbacks/fpv-radio-elrs-gps-alt.webp'],
+  commercial: ['/images/fallbacks/fpv-commercial-starter-kit.webp'],
 };
 
 // Only legacy family-primary paths are normalized back to the per-slug SVG.
@@ -211,6 +217,39 @@ function resolveStrongTextFamily(
   return undefined;
 }
 
+function resolveCommercialFamily(
+  input: FallbackCoverInput | undefined,
+  metadata: ContentMetadata,
+): FallbackCoverFamily {
+  const signal = `${input?.title || ''} ${input?.slug || ''}`.toLowerCase();
+  if (/(goggle|dji o[234]|walksnail|hdzero|analog|digital|video system)/.test(signal)) {
+    return 'video-goggles-vtx';
+  }
+  if (/(expresslrs|\belrs\b|radio|transmitter|boxer|tx16s)/.test(signal)) {
+    return 'radio-elrs-gps';
+  }
+  if (/(lipo|lihv|battery|batteries|charger|charging|\besc\b)/.test(signal)) {
+    return 'power-battery-esc';
+  }
+  if (/(motor|propeller|prop size|blade count|\bkv\b|stator)/.test(signal)) {
+    return 'motors-propulsion';
+  }
+  if (/(flight controller|betaflight|pid|filter tuning)/.test(signal)) {
+    return 'tuning-betaflight';
+  }
+  if (/(simulator|virtual flight|training software)/.test(signal)) {
+    return 'academy-beginner';
+  }
+  if (/(racing gear|race kit|first event)/.test(signal)) return 'racing';
+  if (/(frame|cinewhoop|toolkit|repair checklist|build kit)/.test(signal)) {
+    return 'build-workshop';
+  }
+
+  return resolveSignalTier([
+    { values: metadata.components ?? [], rules: COMPONENT_RULES },
+  ]) ?? 'commercial';
+}
+
 function stableIndex(value: string, length: number): number {
   let hash = 0;
   for (let index = 0; index < value.length; index += 1) {
@@ -238,11 +277,24 @@ function resolveFamilyCover(
     if (/blackbox|spectral densit|gyro trace/.test(signal)) return variants[0];
     if (/(pid|filter|step response)/.test(signal)) return variants[1] ?? variants[0];
   }
+  if (family === 'power-battery-esc') {
+    if (/(charger|charging|charge safety)/.test(signal)) return variants[0];
+    if (/(lipo|lihv|battery|batteries|cell count)/.test(signal)) return variants[1] ?? variants[0];
+  }
+  if (family === 'motors-propulsion' && /(motor|prop|kv|stator)/.test(signal)) {
+    return variants[0];
+  }
   if (family === 'video-goggles-vtx') {
     if (/(vtx|video transmitter|rf power)/.test(signal)) return variants[0];
     if (/(goggle|camera|video link)/.test(signal)) return variants[1] ?? variants[0];
   }
   if (family === 'build-workshop' && /(solder|wiring|assembly)/.test(signal)) {
+    return variants[0];
+  }
+  if (family === 'build-workshop' && /(frame|toolkit|repair|cinewhoop|build kit)/.test(signal)) {
+    return primary;
+  }
+  if (family === 'commercial' && /(starter|kit|tiny whoop|first drone)/.test(signal)) {
     return variants[0];
   }
 
@@ -264,7 +316,7 @@ export function resolveFallbackCover(
   }
 
   if (metadata?.contentType && COMMERCIAL_CONTENT_TYPES.has(metadata.contentType)) {
-    return FALLBACK_COVER_PATHS.commercial;
+    return resolveFamilyCover(resolveCommercialFamily(wrappedInput, metadata), wrappedInput);
   }
 
   const family =
