@@ -105,8 +105,29 @@ function htmlAttribute(tag: string, name: string): string {
   return cleanText(match?.[1] || match?.[2] || '');
 }
 
-function firstSrcsetUrl(value: string): string {
-  return value.split(',')[0]?.trim().split(/\s+/)[0] || '';
+function bestSrcsetUrl(value: string): string {
+  return value
+    .split(',')
+    .map((entry, index) => {
+      const [url = '', descriptor = ''] = entry.trim().split(/\s+/);
+      const width = descriptor.endsWith('w') ? Number.parseFloat(descriptor) : 0;
+      const density = descriptor.endsWith('x') ? Number.parseFloat(descriptor) * 1000 : 0;
+      return { url, score: width || density || index + 1 };
+    })
+    .filter((candidate) => candidate.url)
+    .sort((a, b) => b.score - a.score)[0]?.url || '';
+}
+
+function firstHtmlAttribute(tag: string, names: ReadonlyArray<string>): string {
+  for (const name of names) {
+    const value = htmlAttribute(tag, name);
+    if (value) return value;
+  }
+  return '';
+}
+
+function unescapeEmbeddedUrl(value: string): string {
+  return value.replace(/\\\//g, '/').replace(/&amp;/gi, '&');
 }
 
 function isLikelyEditorialImage(src: string): boolean {
@@ -134,6 +155,20 @@ export function harvestImagesFromMarkdown(input: HarvestInput): HarvestedImage[]
   const harvested: HarvestedImage[] = [];
   const seen = new Set<string>();
 
+  const addCandidate = (rawSrc: string, alt: string, context: string): void => {
+    const src = absoluteUrl(unescapeEmbeddedUrl(rawSrc), input.url);
+    if (!src || !isLikelyEditorialImage(src) || seen.has(src)) return;
+    seen.add(src);
+    harvested.push({
+      id: hashId(src),
+      src,
+      alt: cleanText(alt),
+      sourceUrl: input.url,
+      hostname: inferHostname(input.url),
+      context: cleanText(context),
+    });
+  };
+
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index] || '';
     let match: RegExpExecArray | null;
@@ -141,11 +176,6 @@ export function harvestImagesFromMarkdown(input: HarvestInput): HarvestedImage[]
 
     while ((match = imageRegex.exec(line)) !== null) {
       const alt = cleanText(match[1] || '');
-      const src = absoluteUrl(match[2] || '', input.url);
-      if (!src || !isLikelyEditorialImage(src)) continue;
-      if (seen.has(src)) continue;
-      seen.add(src);
-
       const context = cleanText(
         [
           lines[index - 2] || '',
@@ -156,43 +186,57 @@ export function harvestImagesFromMarkdown(input: HarvestInput): HarvestedImage[]
         ].join(' '),
       );
 
-      harvested.push({
-        id: hashId(src),
-        src,
-        alt,
-        sourceUrl: input.url,
-        hostname: inferHostname(input.url),
-        context,
-      });
+      addCandidate(match[2] || '', alt, context);
     }
   }
 
   // Crawl4AI may preserve HTML/lazy-loaded images instead of Markdown image
   // syntax. Capture those candidates too so a valid source page does not
   // incorrectly collapse to generated fallback media.
-  const htmlImageRegex = /<img\b[^>]*>/gi;
+  const htmlImageRegex = /<(?:img|source)\b[^>]*>/gi;
   let htmlMatch: RegExpExecArray | null;
   while ((htmlMatch = htmlImageRegex.exec(input.markdown)) !== null) {
     const tag = htmlMatch[0];
-    const rawSrc = htmlAttribute(tag, 'src')
-      || htmlAttribute(tag, 'data-src')
-      || htmlAttribute(tag, 'data-lazy-src')
-      || firstSrcsetUrl(htmlAttribute(tag, 'srcset') || htmlAttribute(tag, 'data-srcset'));
-    const src = absoluteUrl(rawSrc, input.url);
-    if (!src || !isLikelyEditorialImage(src) || seen.has(src)) continue;
-    seen.add(src);
+    const srcset = firstHtmlAttribute(tag, ['srcset', 'data-srcset', 'data-lazy-srcset']);
+    const rawSrc = bestSrcsetUrl(srcset) || firstHtmlAttribute(tag, [
+      'src',
+      'data-src',
+      'data-lazy-src',
+      'data-original',
+      'data-orig-file',
+      'data-flickity-lazyload',
+    ]);
     const context = cleanText(input.markdown.slice(
       Math.max(0, htmlMatch.index - 320),
       Math.min(input.markdown.length, htmlMatch.index + tag.length + 320),
     ));
-    harvested.push({
-      id: hashId(src),
-      src,
-      alt: htmlAttribute(tag, 'alt'),
-      sourceUrl: input.url,
-      hostname: inferHostname(input.url),
-      context,
-    });
+    addCandidate(rawSrc, htmlAttribute(tag, 'alt'), context);
+  }
+
+  // Crawlers may omit body images but retain social metadata. These are often
+  // the source article's highest-resolution editorial cover.
+  const metadataContext = cleanText(input.markdown.slice(0, 1200));
+  const metaRegex = /<meta\b[^>]*>/gi;
+  let metaMatch: RegExpExecArray | null;
+  while ((metaMatch = metaRegex.exec(input.markdown)) !== null) {
+    const tag = metaMatch[0];
+    const identity = firstHtmlAttribute(tag, ['property', 'name']).toLowerCase();
+    if (!['og:image', 'og:image:url', 'twitter:image', 'twitter:image:src'].includes(identity)) continue;
+    addCandidate(htmlAttribute(tag, 'content'), '', metadataContext);
+  }
+
+  // Preserve JSON-LD image/contentUrl values when Crawl4AI keeps structured
+  // data but strips the corresponding <img> element.
+  const jsonImagePatterns = [
+    /"(?:image|contentUrl)"\s*:\s*"((?:\\.|[^"\\])*)"/gi,
+    /"image"\s*:\s*\{[\s\S]{0,400}?"url"\s*:\s*"((?:\\.|[^"\\])*)"/gi,
+  ];
+  for (const pattern of jsonImagePatterns) {
+    for (const match of input.markdown.matchAll(pattern)) {
+      if (/^https?:\\?\/\\?\//i.test(match[1])) {
+        addCandidate(match[1], '', metadataContext);
+      }
+    }
   }
 
   return harvested;

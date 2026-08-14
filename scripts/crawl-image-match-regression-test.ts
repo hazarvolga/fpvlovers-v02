@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import type { LicensedImage } from '@/lib/content-automation/crawl-image-license';
+import { harvestImagesFromMarkdown } from '@/lib/content-automation/crawl-image-harvest';
 import {
   MEDIA_MATCHER_VERSION,
   pickBestRelevantImageMatch,
@@ -7,6 +8,7 @@ import {
 } from '@/lib/content-automation/crawl-image-match';
 import {
   buildSourceSearchUrl,
+  buildSourceSearchUrls,
   extractRelevantSourcePages,
 } from '@/lib/content-automation/source-page-discovery';
 import {
@@ -49,6 +51,18 @@ assert.equal(
   ], sections),
   undefined,
   'Context-only overlap must not promote an unrelated product kit as the cover',
+);
+
+assert.deepEqual(
+  buildSourceSearchUrls(
+    'https://oscarliang.com/',
+    'Acro Stick Control Drills for FPV Beginners',
+  ),
+  [
+    'https://oscarliang.com/?s=acro+stick+control+drills+beginners',
+    'https://oscarliang.com/?s=acro+stick+control+drills',
+  ],
+  'Discovery should retain a focused fallback query for long article titles',
 );
 
 assert.equal(
@@ -103,6 +117,24 @@ assert.deepEqual(
   }),
   ['https://oscarliang.com/vtx-power-levels-range/'],
   'Discovery must keep only relevant same-host article pages',
+);
+
+const richHarvest = harvestImagesFromMarkdown({
+  url: 'https://example.com/vtx-power-guide/',
+  markdown: [
+    '<meta property="og:image" content="/media/vtx-cover.jpg">',
+    '<picture><source srcset="/media/vtx-small.jpg 320w, /media/vtx-large.webp 1600w"></picture>',
+    '<script type="application/ld+json">{"image":{"url":"https:\\/\\/example.com\\/media\\/vtx-diagram.webp"}}</script>',
+  ].join('\n'),
+});
+assert.deepEqual(
+  richHarvest.map((candidate) => candidate.src),
+  [
+    'https://example.com/media/vtx-large.webp',
+    'https://example.com/media/vtx-cover.jpg',
+    'https://example.com/media/vtx-diagram.webp',
+  ],
+  'Harvest should prefer the largest srcset asset and retain social/JSON-LD covers',
 );
 
 assert.deepEqual(

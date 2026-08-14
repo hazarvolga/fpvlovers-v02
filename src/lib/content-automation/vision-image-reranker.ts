@@ -6,7 +6,7 @@ import { getCached, hashInput, setCached } from '@/lib/llm-cache';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
 
 export const VISION_RERANKER_VERSION = 'vision-v1';
-const DEFAULT_MODEL = 'gemini-2.5-flash-lite';
+const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
 const MAX_CANDIDATES = 3;
 const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 const ACCEPTANCE_THRESHOLD = 0.78;

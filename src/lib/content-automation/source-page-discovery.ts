@@ -36,37 +36,67 @@ function compactQuery(query: string): string {
   return [...new Set(tokenize(query))].slice(0, 8).join(' ');
 }
 
-export function buildSourceSearchUrl(sourceUrl: string, query: string): string | undefined {
+function focusedQuery(query: string): string {
+  const tokens = [...new Set(tokenize(query))];
+  const strong = tokens.filter((token) => STRONG_TOPIC_TERMS.has(token));
+  const supporting = tokens.filter((token) => !STRONG_TOPIC_TERMS.has(token)).slice(0, 3);
+  return [...strong, ...supporting].slice(0, 5).join(' ');
+}
+
+export function buildSourceSearchUrls(sourceUrl: string, query: string): string[] {
   try {
     const source = new URL(sourceUrl);
-    if (!/^https?:$/.test(source.protocol)) return undefined;
+    if (!/^https?:$/.test(source.protocol)) return [];
 
-    const searchQuery = compactQuery(query);
-    if (!searchQuery) return undefined;
+    const queries = [...new Set([compactQuery(query), focusedQuery(query)].filter(Boolean))];
+    if (queries.length === 0) return [];
 
     const host = normalizedHost(source);
-    source.hash = '';
-    source.pathname = host === 'rotorriot.com' || host === 'pyrodrone.com'
-      ? '/search'
-      : '/';
-    source.search = '';
-    source.searchParams.set(host === 'rotorriot.com' || host === 'pyrodrone.com' ? 'q' : 's', searchQuery);
-    return source.toString();
+    return queries.map((searchQuery) => {
+      const search = new URL(source);
+      search.hash = '';
+      search.pathname = host === 'rotorriot.com' || host === 'pyrodrone.com'
+        ? '/search'
+        : '/';
+      search.search = '';
+      search.searchParams.set(
+        host === 'rotorriot.com' || host === 'pyrodrone.com' ? 'q' : 's',
+        searchQuery,
+      );
+      return search.toString();
+    });
   } catch {
-    return undefined;
+    return [];
   }
+}
+
+export function buildSourceSearchUrl(sourceUrl: string, query: string): string | undefined {
+  return buildSourceSearchUrls(sourceUrl, query)[0];
+}
+
+function cleanLabel(value: string): string {
+  return value
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&(?:nbsp|amp|quot|#39);/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function extractLinks(markdown: string): LinkCandidate[] {
   const links: LinkCandidate[] = [];
   const markdownLink = /\[([^\]]{1,240})\]\(([^\s)]+)(?:\s+"[^"]*")?\)/g;
-  const htmlLink = /<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>([^<]{1,240})<\/a>/gi;
+  const htmlLink = /<a\b[^>]*\bhref=["']([^"']+)["'][^>]*>([\s\S]{0,500}?)<\/a>/gi;
+  const jsonUrl = /"url"\s*:\s*"((?:\\.|[^"\\])*)"/gi;
 
   for (const match of markdown.matchAll(markdownLink)) {
     links.push({ label: match[1], url: match[2] });
   }
   for (const match of markdown.matchAll(htmlLink)) {
-    links.push({ label: match[2], url: match[1] });
+    links.push({ label: cleanLabel(match[2]), url: match[1] });
+  }
+  for (const match of markdown.matchAll(jsonUrl)) {
+    const url = match[1].replace(/\\\//g, '/');
+    if (/^https?:\/\//i.test(url)) links.push({ label: '', url });
   }
   return links;
 }

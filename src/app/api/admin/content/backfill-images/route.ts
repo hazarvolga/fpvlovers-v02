@@ -17,7 +17,7 @@ import {
   pickBestRelevantImageMatch,
 } from '@/lib/content-automation/crawl-image-match';
 import {
-  buildSourceSearchUrl,
+  buildSourceSearchUrls,
   extractRelevantSourcePages,
 } from '@/lib/content-automation/source-page-discovery';
 import { rerankImagesWithVision } from '@/lib/content-automation/vision-image-reranker';
@@ -68,27 +68,27 @@ async function discoverRelevantPages(
   const discovered = new Set<string>();
 
   for (const sourceHint of sourceHints.slice(0, 3)) {
-    const searchUrl = buildSourceSearchUrl(sourceHint, query);
-    if (!searchUrl) continue;
+    for (const searchUrl of buildSourceSearchUrls(sourceHint, query)) {
+      const crawled = await crawlUrlToMarkdown(searchUrl, { timeoutMs: 40_000 });
+      if (!crawled.ok) continue;
 
-    const crawled = await crawlUrlToMarkdown(searchUrl, { timeoutMs: 40_000 });
-    if (!crawled.ok) continue;
+      if (options.persist) {
+        void persistRawCrawlContent({
+          url: searchUrl,
+          rawMarkdown: crawled.markdown,
+          crawler: 'backfill-discovery',
+        });
+      }
 
-    if (options.persist) {
-      void persistRawCrawlContent({
-        url: searchUrl,
-        rawMarkdown: crawled.markdown,
-        crawler: 'backfill-discovery',
+      const pages = extractRelevantSourcePages({
+        markdown: crawled.markdown,
+        sourceUrl: searchUrl,
+        query,
+        maxResults: 2,
       });
+      for (const page of pages) discovered.add(page);
+      if (pages.length > 0 || discovered.size >= 4) break;
     }
-
-    const pages = extractRelevantSourcePages({
-      markdown: crawled.markdown,
-      sourceUrl: searchUrl,
-      query,
-      maxResults: 2,
-    });
-    for (const page of pages) discovered.add(page);
     if (discovered.size >= 4) break;
   }
 
