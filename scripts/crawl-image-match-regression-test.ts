@@ -9,6 +9,11 @@ import {
   buildSourceSearchUrl,
   extractRelevantSourcePages,
 } from '@/lib/content-automation/source-page-discovery';
+import {
+  parseVisionDecision,
+  rankVisionCandidates,
+  VISION_RERANKER_VERSION,
+} from '@/lib/content-automation/vision-image-reranker';
 
 const sections: SectionInput[] = [
   {
@@ -109,5 +114,44 @@ assert.deepEqual(
   ['https://www.fpvknowitall.com/blackbox-log-analysis/'],
   'A single strong technical term should be enough to discover a focused article',
 );
+
+assert.equal(VISION_RERANKER_VERSION, 'vision-v1');
+assert.deepEqual(
+  rankVisionCandidates([
+    image({
+      id: 'generic-file-relevant-context',
+      src: 'https://example.com/media/IMG_4821.webp',
+      context: 'A chart comparing VTX output at 25 mW, 200 mW and 800 mW.',
+    }),
+    image({
+      id: 'irrelevant',
+      src: 'https://example.com/media/motor.jpg',
+      context: 'A motor bell and propeller.',
+    }),
+    image({
+      id: 'svg',
+      src: 'https://example.com/media/vtx-power.svg',
+      context: 'VTX power chart.',
+    }),
+  ], 'VTX Power Levels for Range and Heat').map((candidate) => candidate.image.id),
+  ['generic-file-relevant-context'],
+  'Vision prefilter should recover generic filenames without admitting irrelevant or SVG media',
+);
+
+assert.deepEqual(
+  parseVisionDecision({
+    score: 1.4,
+    directlyRelevant: true,
+    visibleSubject: 'VTX output power chart',
+    reason: 'The chart directly compares transmitter power levels.',
+  }),
+  {
+    score: 1,
+    directlyRelevant: true,
+    visibleSubject: 'VTX output power chart',
+    reason: 'The chart directly compares transmitter power levels.',
+  },
+);
+assert.equal(parseVisionDecision('not-json'), undefined);
 
 console.log('crawl image matcher regression checks passed');

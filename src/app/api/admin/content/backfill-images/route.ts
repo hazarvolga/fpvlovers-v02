@@ -20,6 +20,7 @@ import {
   buildSourceSearchUrl,
   extractRelevantSourcePages,
 } from '@/lib/content-automation/source-page-discovery';
+import { rerankImagesWithVision } from '@/lib/content-automation/vision-image-reranker';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { upsertPublishedArtifact } from '@/lib/server/published-content-store';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
@@ -199,6 +200,7 @@ type ArticleResult = {
   reason?: string;
   oldSrc?: string;
   newSrc?: string;
+  visionStatus?: string;
 };
 
 export async function POST(req: NextRequest) {
@@ -293,15 +295,16 @@ export async function POST(req: NextRequest) {
         content: s.content || '',
       }));
 
+    const articleTitle = typeof (artifact as any)?.title === 'string'
+      ? (artifact as any).title
+      : slug.replace(/-/g, ' ');
+    let visionStatus = 'not-needed';
     let bestCoverMatch = pickBestRelevantImageMatch(crawledLicensed, bodySections);
 
     // Broad category pages often yield generic images. If none passes the
     // strict cover gate, discover article-specific pages through each source's
     // own search results and crawl only the strongest same-host matches.
     if (!bestCoverMatch) {
-      const articleTitle = typeof (artifact as any)?.title === 'string'
-        ? (artifact as any).title
-        : slug.replace(/-/g, ' ');
       const discoveredPages = await discoverRelevantPages(allHints, articleTitle, {
         persist: !dryRun,
       });
@@ -319,6 +322,24 @@ export async function POST(req: NextRequest) {
       bestCoverMatch = pickBestRelevantImageMatch(crawledLicensed, bodySections);
     }
 
+    if (!bestCoverMatch) {
+      const visionResult = await rerankImagesWithVision({
+        images: crawledLicensed,
+        articleTitle,
+        sectionTitles: bodySections.map((section) => section.title),
+        persistCache: !dryRun,
+      });
+      visionStatus = `${visionResult.status}:${visionResult.evaluated}`;
+      if (visionResult.match) {
+        bestCoverMatch = {
+          sectionId: bodySections[0]?.id || 'vision-cover',
+          image: visionResult.match.image,
+          score: visionResult.match.score,
+          reason: visionResult.match.reason,
+        };
+      }
+    }
+
     const bestCover = bestCoverMatch?.image;
     if (!bestCover || !bestCoverMatch) {
       results.push({
@@ -327,13 +348,21 @@ export async function POST(req: NextRequest) {
         reason: crawledLicensed.length === 0
           ? 'no crawled images found (DB + live discovery)'
           : 'no image passed relevance threshold after source-page discovery',
+        visionStatus,
       });
       skipped++;
       continue;
     }
 
     if (dryRun) {
-      results.push({ slug, status: 'updated', reason: 'dry-run', oldSrc: coverSrc, newSrc: bestCover.src });
+      results.push({
+        slug,
+        status: 'updated',
+        reason: 'dry-run',
+        oldSrc: coverSrc,
+        newSrc: bestCover.src,
+        visionStatus,
+      });
       updated++;
       continue;
     }
