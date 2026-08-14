@@ -17,6 +17,7 @@ import {
   pickBestRelevantImageMatch,
 } from '@/lib/content-automation/crawl-image-match';
 import { buildContentMedia } from '@/lib/content-automation/content-media';
+import { resolveFallbackCover } from '@/lib/content-automation/fallback-cover';
 import {
   buildSourceSearchUrls,
   extractRelevantSourcePages,
@@ -354,7 +355,19 @@ export async function POST(req: NextRequest) {
           category,
           excerpt: typeof (artifact as any)?.excerpt === 'string' ? (artifact as any).excerpt : '',
         });
-        const localCover = localMedia.coverImage;
+        const localCover = {
+          ...localMedia.coverImage,
+          src: resolveFallbackCover({
+            category,
+            metadata: (artifact as any)?.metadata,
+            title: articleTitle,
+            slug,
+          }),
+          alt: `${articleTitle} topic cover`,
+          source: 'FPVLovers topic fallback library',
+          credit: 'FPVLovers generated editorial artwork',
+          kind: 'fallback' as const,
+        };
 
         if (coverSrc === localCover.src && coverKind === localCover.kind) {
           results.push({

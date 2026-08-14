@@ -160,6 +160,15 @@ assert.equal(
   resolveDisplayCover('https://example.com/real-race-cover.jpg', FALLBACK_COVER_PATHS.racing),
   'https://example.com/real-race-cover.jpg',
 );
+assert.equal(
+  resolveDisplayCover(
+    FALLBACK_COVER_VARIANTS['tuning-betaflight']?.[0],
+    FALLBACK_COVER_PATHS['tuning-betaflight'],
+    'blackbox-analysis-masterclass',
+  ),
+  FALLBACK_COVER_VARIANTS['tuning-betaflight']?.[0],
+  'Semantic variants must remain valid primary article artwork',
+);
 
 const explicitCover = 'https://example.com/racing-cover.jpg';
 const artifact = ensureMediaArtifact({

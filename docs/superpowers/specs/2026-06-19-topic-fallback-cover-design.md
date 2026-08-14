@@ -16,6 +16,7 @@ In scope:
 
 - Twelve locally stored topic-family images.
 - Eight locally stored high-frequency topic variants selected semantically, then by stable slug hash.
+- Explicit admin remediation may promote a semantic variant to the article-primary cover after all source candidates are rejected.
 - One generic local FPVLovers cover as the final safety net.
 - One shared resolver for homepage cards and article covers.
 - Metadata-driven topic selection.

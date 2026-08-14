@@ -49,10 +49,10 @@ export const FALLBACK_COVER_VARIANTS: Partial<Record<FallbackCoverFamily, readon
   'radio-elrs-gps': ['/images/fallbacks/fpv-radio-elrs-gps-alt.webp'],
 };
 
-const STATIC_FALLBACK_SOURCES = new Set([
-  ...Object.values(FALLBACK_COVER_PATHS),
-  ...Object.values(FALLBACK_COVER_VARIANTS).flatMap((paths) => paths ?? []),
-]);
+// Only legacy family-primary paths are normalized back to the per-slug SVG.
+// New semantic variants are valid article-primary artwork when an admin
+// explicitly restores a rejected source cover through fallbackToLocal.
+const STATIC_FALLBACK_SOURCES = new Set(Object.values(FALLBACK_COVER_PATHS));
 
 export function resolveDisplayCover(
   source: string | undefined,
