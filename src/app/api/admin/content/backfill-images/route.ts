@@ -216,6 +216,7 @@ export async function POST(req: NextRequest) {
   const targetSlugs: string[] | undefined = Array.isArray(body?.slugs) ? body.slugs : undefined;
   const dryRun: boolean = body?.dryRun === true;
   const fallbackToLocal: boolean = body?.fallbackToLocal === true;
+  const localOnly: boolean = body?.localOnly === true;
 
   // Load all published JSON files.
   if (!fs.existsSync(PUBLISHED_DIR)) {
@@ -250,6 +251,78 @@ export async function POST(req: NextRequest) {
     const coverSrc = (artifact as any)?.media?.coverImage?.src || '';
     const coverKind = (artifact as any)?.media?.coverImage?.kind;
     const coverMatcherVersion = (artifact as any)?.media?.coverImage?.matcherVersion;
+
+    if (localOnly) {
+      const articleTitle = String((artifact as any)?.title || slug);
+      const category = String((artifact as any)?.category || '');
+      const localMedia = buildContentMedia({
+        slug,
+        title: articleTitle,
+        category,
+        excerpt: typeof (artifact as any)?.excerpt === 'string' ? (artifact as any).excerpt : '',
+      });
+      const localCover = {
+        ...localMedia.coverImage,
+        src: resolveFallbackCover({
+          category,
+          metadata: (artifact as any)?.metadata,
+          title: articleTitle,
+          slug,
+        }),
+        alt: `${articleTitle} topic cover`,
+        source: 'FPVLovers topic fallback library',
+        credit: 'FPVLovers generated editorial artwork',
+        kind: 'fallback' as const,
+        matcherVersion: MEDIA_MATCHER_VERSION,
+      };
+
+      if (
+        coverSrc === localCover.src
+        && coverKind === localCover.kind
+        && coverMatcherVersion === MEDIA_MATCHER_VERSION
+      ) {
+        results.push({ slug, status: 'skipped', reason: 'already using current semantic local artwork' });
+        skipped++;
+        continue;
+      }
+
+      if (dryRun) {
+        results.push({
+          slug,
+          status: 'updated',
+          reason: 'dry-run local-only semantic fallback',
+          oldSrc: coverSrc,
+          newSrc: localCover.src,
+        });
+        updated++;
+        continue;
+      }
+
+      const patched = {
+        ...(artifact as any),
+        media: {
+          ...(artifact as any).media,
+          coverImage: localCover,
+        },
+      };
+
+      try {
+        fs.writeFileSync(jsonPath, JSON.stringify(patched, null, 2) + '\n', 'utf-8');
+        await upsertPublishedArtifact(patched as any);
+        results.push({
+          slug,
+          status: 'updated',
+          reason: 'replaced with semantic local artwork without external API calls',
+          oldSrc: coverSrc,
+          newSrc: localCover.src,
+        });
+        updated++;
+      } catch {
+        results.push({ slug, status: 'error', reason: 'Failed to persist semantic local artwork' });
+        failed++;
+      }
+      continue;
+    }
 
     // Skip articles that already have a local source-backed-cache cover.
     if (!needsMediaRefresh(coverSrc, coverKind, coverMatcherVersion)) {
@@ -367,9 +440,14 @@ export async function POST(req: NextRequest) {
           source: 'FPVLovers topic fallback library',
           credit: 'FPVLovers generated editorial artwork',
           kind: 'fallback' as const,
+          matcherVersion: MEDIA_MATCHER_VERSION,
         };
 
-        if (coverSrc === localCover.src && coverKind === localCover.kind) {
+        if (
+          coverSrc === localCover.src
+          && coverKind === localCover.kind
+          && coverMatcherVersion === MEDIA_MATCHER_VERSION
+        ) {
           results.push({
             slug,
             status: 'skipped',

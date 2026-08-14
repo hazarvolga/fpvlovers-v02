@@ -222,4 +222,12 @@ for (const coverPath of allFallbackPaths) {
   assert.ok(fs.existsSync(`public${coverPath}`), `Missing fallback cover asset: ${coverPath}`);
 }
 
+const backfillRouteSource = fs.readFileSync(
+  'src/app/api/admin/content/backfill-images/route.ts',
+  'utf8',
+);
+assert.match(backfillRouteSource, /const localOnly: boolean = body\?\.localOnly === true/);
+assert.match(backfillRouteSource, /dry-run local-only semantic fallback/);
+assert.match(backfillRouteSource, /matcherVersion: MEDIA_MATCHER_VERSION/);
+
 console.log('topic fallback cover regression checks passed');
