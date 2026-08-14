@@ -227,11 +227,14 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
     // If already has a matched image from upstream, keep it
     if (section.imageMatch) return section;
 
-    const haystack = `${section.title} ${section.content}`.toLowerCase();
+    const articleSubject = title.toLowerCase();
+    const sectionSubject = section.title.toLowerCase();
+    const isDeclaredSubject = (productName: string) =>
+      articleSubject.includes(productName) || sectionSubject.includes(productName);
     
     // First, check explicit high-fidelity overrides
     for (const [key, ovr] of Object.entries(HARDWARE_IMAGE_OVERRIDES)) {
-      if (haystack.includes(key)) {
+      if (isDeclaredSubject(key)) {
         return {
           ...section,
           imageMatch: {
@@ -257,7 +260,7 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
         const prodNameLower = prod.name.toLowerCase();
         
         // Exact product name matching with clean word boundary checks or direct inclusion
-        if (haystack.includes(prodNameLower)) {
+        if (isDeclaredSubject(prodNameLower)) {
           // If this matched product has a known override key, resolve to override instead!
           let finalSrc = prod.imageUrl;
           let finalCaption = `${prod.name} - ${prod.brand} FPV Hardware`;
@@ -288,9 +291,14 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
   });
 
   // Runtime Fallback matching logic: if bodySections has no imageMatch, calculate it dynamically!
-  const hasMatchedImages = bodySections.some(s => s.imageMatch);
-  if (!hasMatchedImages && bodySections.length > 0 && media.gallery && media.gallery.length > 0) {
-    const licensedImages = media.gallery.map((asset, index) => ({
+  const unmatchedSections = bodySections.filter((section) => !section.imageMatch);
+  if (unmatchedSections.length > 0 && media.gallery && media.gallery.length > 0) {
+    const usedSources = new Set(
+      bodySections.map((section) => section.imageMatch?.src).filter(Boolean),
+    );
+    const licensedImages = media.gallery
+      .filter((asset) => !usedSources.has(asset.src))
+      .map((asset, index) => ({
       id: `gallery_${index}`,
       src: asset.src,
       alt: asset.alt,
@@ -302,12 +310,12 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
       licenseReason: 'Gallery asset',
     }));
 
-    const matchResult = matchImagesToSections(licensedImages, bodySections);
+    const matchResult = matchImagesToSections(licensedImages, unmatchedSections);
     const matchesMap = new Map(matchResult.matches.map(m => [m.sectionId, m.image]));
 
     bodySections = bodySections.map((section) => {
       const matched = matchesMap.get(section.id);
-      if (matched) {
+      if (!section.imageMatch && matched) {
         const originalAsset = media.gallery.find(g => g.src === matched.src);
         if (originalAsset) {
           return {

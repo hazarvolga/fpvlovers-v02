@@ -10,6 +10,9 @@ export type ContentMediaAsset = {
   kind?: 'source-backed' | 'source-backed-cache' | 'generated-artwork' | 'fallback';
   /** Crawled context retained for deterministic section matching. */
   context?: string;
+  matcherVersion?: string;
+  selectionScore?: number;
+  selectionReason?: string;
 };
 
 export type ContentMedia = {

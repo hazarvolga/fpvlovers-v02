@@ -12,7 +12,10 @@ import {
   classifyImageLicenses,
   isGenericStockImage,
 } from '@/lib/content-automation/crawl-image-license';
-import { pickBestRelevantImage } from '@/lib/content-automation/crawl-image-match';
+import {
+  MEDIA_MATCHER_VERSION,
+  pickBestRelevantImageMatch,
+} from '@/lib/content-automation/crawl-image-match';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { upsertPublishedArtifact } from '@/lib/server/published-content-store';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
@@ -60,7 +63,8 @@ const CATEGORY_SOURCE_HINTS: Record<string, string[]> = {
   'News and Reviews': ['https://www.rotorriot.com/', 'https://oscarliang.com/'],
 };
 
-function isFallbackOrHotlink(src: string, kind?: string): boolean {
+function needsMediaRefresh(src: string, kind?: string, matcherVersion?: string): boolean {
+  if (matcherVersion !== MEDIA_MATCHER_VERSION) return true;
   if (!src) return true;
   if (src.startsWith('/images/fallbacks/')) return true;
   if (src.startsWith('/api/content/media/cover/')) return true;
@@ -192,10 +196,11 @@ export async function POST(req: NextRequest) {
 
     const coverSrc = (artifact as any)?.media?.coverImage?.src || '';
     const coverKind = (artifact as any)?.media?.coverImage?.kind;
+    const coverMatcherVersion = (artifact as any)?.media?.coverImage?.matcherVersion;
 
     // Skip articles that already have a local source-backed-cache cover.
-    if (!isFallbackOrHotlink(coverSrc, coverKind)) {
-      results.push({ slug, status: 'skipped', reason: 'already source-backed-cache' });
+    if (!needsMediaRefresh(coverSrc, coverKind, coverMatcherVersion)) {
+      results.push({ slug, status: 'skipped', reason: `already evaluated by ${MEDIA_MATCHER_VERSION}` });
       skipped++;
       continue;
     }
@@ -249,8 +254,9 @@ export async function POST(req: NextRequest) {
         content: s.content || '',
       }));
 
-    const bestCover = pickBestRelevantImage(crawledLicensed, bodySections);
-    if (!bestCover) {
+    const bestCoverMatch = pickBestRelevantImageMatch(crawledLicensed, bodySections);
+    const bestCover = bestCoverMatch?.image;
+    if (!bestCover || !bestCoverMatch) {
       results.push({ slug, status: 'no_images', reason: 'no image passed relevance threshold' });
       skipped++;
       continue;
@@ -263,7 +269,9 @@ export async function POST(req: NextRequest) {
     }
 
     // Download to local source-cache.
-    const localSrc = await downloadToSourceCache(bestCover.src, slug, 'cover', 1);
+    const localSrc = bestCover.canSelfHost
+      ? await downloadToSourceCache(bestCover.src, slug, 'cover', 1)
+      : null;
     const finalSrc = localSrc || bestCover.src;
     const finalKind = localSrc ? 'source-backed-cache' : 'source-backed';
 
@@ -281,6 +289,9 @@ export async function POST(req: NextRequest) {
           credit: `Source: ${bestCover.hostname} (${bestCover.licenseReason})`,
           license: bestCover.license,
           kind: finalKind,
+          matcherVersion: MEDIA_MATCHER_VERSION,
+          selectionScore: bestCoverMatch.score,
+          selectionReason: bestCoverMatch.reason,
         },
       },
     };
@@ -291,7 +302,11 @@ export async function POST(req: NextRequest) {
       results.push({
         slug,
         status: localSrc ? 'updated' : 'updated_hotlink_fallback',
-        reason: localSrc ? undefined : 'local source-cache write failed (permissions or disk) — using external hotlink instead',
+        reason: localSrc
+          ? undefined
+          : bestCover.canSelfHost
+            ? 'local source-cache write failed (permissions or disk) - using external hotlink instead'
+            : 'license policy forbids self-hosting - using attributed external source',
         oldSrc: coverSrc,
         newSrc: finalSrc,
       });

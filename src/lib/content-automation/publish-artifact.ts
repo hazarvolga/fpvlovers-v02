@@ -4,7 +4,11 @@ import { createHash } from 'crypto';
 import type { GeneratedContent } from './parse-generated-content';
 import { buildContentMedia } from './content-media';
 import type { ContentJob } from './types';
-import { matchImagesToSections, pickBestRelevantImage } from './crawl-image-match';
+import {
+  MEDIA_MATCHER_VERSION,
+  matchImagesToSections,
+  pickBestRelevantImageMatch,
+} from './crawl-image-match';
 import { harvestImagesFromDatabase } from './crawl-image-harvest';
 import {
   classifyImageLicenses,
@@ -151,10 +155,20 @@ export async function publishGeneratedContentArtifact(
 
   // 3. Prioritize relevant crawled FPV source images over the local fallback.
   if (crawledLicensed.length > 0) {
-    // Download gallery candidates to source-cache (resolves CORS + hotlink blocks).
+    const rankedMatches = matchImagesToSections(crawledLicensed, content.bodySections).matches
+      .sort((a, b) => b.score - a.score);
+    const relevantImages = [...new Map(
+      rankedMatches.map((match) => [match.image.id, match]),
+    ).values()].slice(0, 6);
+
+    // Only semantically accepted candidates enter the gallery. Copying to the
+    // local cache additionally requires explicit self-host permission.
     const crawledAssets = await Promise.all(
-      crawledLicensed.slice(0, 6).map(async (img, i) => {
-        const localSrc = await downloadToSourceCache(img.src, slug, 'gallery', i + 1);
+      relevantImages.map(async (match, i) => {
+        const img = match.image;
+        const localSrc = img.canSelfHost
+          ? await downloadToSourceCache(img.src, slug, 'gallery', i + 1)
+          : null;
         return {
           src: localSrc || img.src,
           alt: img.alt || `FPV image from ${img.hostname}`,
@@ -165,6 +179,9 @@ export async function publishGeneratedContentArtifact(
           license: img.license,
           context: img.context,
           kind: localSrc ? ('source-backed-cache' as const) : ('source-backed' as const),
+          matcherVersion: MEDIA_MATCHER_VERSION,
+          selectionScore: match.score,
+          selectionReason: match.reason,
         };
       }),
     );
@@ -175,13 +192,16 @@ export async function publishGeneratedContentArtifact(
     // Promote only a semantically matched source image. A generated cover is
     // retained when no image clears the relevance threshold; we never pick a
     // random crawler image merely to make the page look less empty.
-    const bestCover = pickBestRelevantImage(crawledLicensed, content.bodySections);
+    const bestCoverMatch = pickBestRelevantImageMatch(crawledLicensed, content.bodySections);
+    const bestCover = bestCoverMatch?.image;
     const hasGeneratedCover =
       media.coverImage.src.startsWith('/api/content/media/cover/') ||
       media.coverImage.src.startsWith('/images/fallbacks/');
-    if (bestCover && hasGeneratedCover) {
+    if (bestCover && bestCoverMatch && hasGeneratedCover) {
       // Download cover to source-cache — eliminates next.config.ts remotePattern blocks.
-      const localCoverSrc = await downloadToSourceCache(bestCover.src, slug, 'cover', 1);
+      const localCoverSrc = bestCover.canSelfHost
+        ? await downloadToSourceCache(bestCover.src, slug, 'cover', 1)
+        : null;
       media.coverImage = {
         src: localCoverSrc || bestCover.src,
         alt: bestCover.alt || `FPV source image from ${bestCover.hostname}`,
@@ -191,6 +211,9 @@ export async function publishGeneratedContentArtifact(
         credit: `Source: ${bestCover.hostname} (${bestCover.licenseReason})`,
         license: bestCover.license,
         kind: localCoverSrc ? 'source-backed-cache' : 'source-backed',
+        matcherVersion: MEDIA_MATCHER_VERSION,
+        selectionScore: bestCoverMatch.score,
+        selectionReason: bestCoverMatch.reason,
       };
     }
   }

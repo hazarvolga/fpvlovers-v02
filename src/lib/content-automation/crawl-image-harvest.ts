@@ -99,6 +99,16 @@ function hashId(url: string): string {
   return `img_${createHash('sha1').update(url).digest('hex').slice(0, 16)}`;
 }
 
+function htmlAttribute(tag: string, name: string): string {
+  const pattern = new RegExp(`\\b${name}\\s*=\\s*(?:["']([^"']*)["']|([^\\s>]+))`, 'i');
+  const match = tag.match(pattern);
+  return cleanText(match?.[1] || match?.[2] || '');
+}
+
+function firstSrcsetUrl(value: string): string {
+  return value.split(',')[0]?.trim().split(/\s+/)[0] || '';
+}
+
 function isLikelyEditorialImage(src: string): boolean {
   const lower = src.toLowerCase();
   if (lower.startsWith('data:')) return false;
@@ -155,6 +165,34 @@ export function harvestImagesFromMarkdown(input: HarvestInput): HarvestedImage[]
         context,
       });
     }
+  }
+
+  // Crawl4AI may preserve HTML/lazy-loaded images instead of Markdown image
+  // syntax. Capture those candidates too so a valid source page does not
+  // incorrectly collapse to generated fallback media.
+  const htmlImageRegex = /<img\b[^>]*>/gi;
+  let htmlMatch: RegExpExecArray | null;
+  while ((htmlMatch = htmlImageRegex.exec(input.markdown)) !== null) {
+    const tag = htmlMatch[0];
+    const rawSrc = htmlAttribute(tag, 'src')
+      || htmlAttribute(tag, 'data-src')
+      || htmlAttribute(tag, 'data-lazy-src')
+      || firstSrcsetUrl(htmlAttribute(tag, 'srcset') || htmlAttribute(tag, 'data-srcset'));
+    const src = absoluteUrl(rawSrc, input.url);
+    if (!src || !isLikelyEditorialImage(src) || seen.has(src)) continue;
+    seen.add(src);
+    const context = cleanText(input.markdown.slice(
+      Math.max(0, htmlMatch.index - 320),
+      Math.min(input.markdown.length, htmlMatch.index + tag.length + 320),
+    ));
+    harvested.push({
+      id: hashId(src),
+      src,
+      alt: htmlAttribute(tag, 'alt'),
+      sourceUrl: input.url,
+      hostname: inferHostname(input.url),
+      context,
+    });
   }
 
   return harvested;
@@ -228,12 +266,10 @@ export async function harvestImagesFromDatabase(hints: string[]): Promise<Harves
   const keywords = hints.filter((h) => extractDomain(h) === null);
   const domains = [...new Set(urls.map((u) => extractDomain(u)).filter(Boolean) as string[])];
 
-  if (urls.length === 0 && domains.length === 0) return [];
-
   try {
     let rows: Array<{ url: string; raw_markdown: string }> = [];
 
-    // Step 1: Try exact URL matches first
+    // Step 1: Try exact URL matches first.
     if (urls.length > 0) {
       const exactResult = await query<{ url: string; raw_markdown: string }>(
         `SELECT url, raw_markdown
@@ -244,8 +280,10 @@ export async function harvestImagesFromDatabase(hints: string[]): Promise<Harves
       rows = exactResult.rows;
     }
 
-    // Step 2: If no exact matches, fall back to domain-level matching
-    if (rows.length === 0 && domains.length > 0) {
+    // Step 2: If exact rows contain no usable images, fall back to broader
+    // domain records instead of treating an image-less exact page as success.
+    const exactImageCount = rows.length > 0 ? harvestImagesFromCrawlRecords(rows).images.length : 0;
+    if (exactImageCount === 0 && domains.length > 0) {
       const domainPatterns = domains.map((d) => `%${d}%`);
       // Build OR conditions for each domain
       const conditions = domainPatterns.map((_, i) => `url LIKE $${i + 1}`).join(' OR ');
@@ -258,6 +296,22 @@ export async function harvestImagesFromDatabase(hints: string[]): Promise<Harves
         domainPatterns,
       );
       rows = domainResult.rows;
+    }
+
+    // Keyword-only briefs used to return early and could never harvest media.
+    // Search the stored crawl text with bounded, parameterized patterns.
+    if (rows.length === 0 && keywords.length > 0) {
+      const keywordPatterns = keywords.slice(0, 5).map((keyword) => `%${keyword}%`);
+      const conditions = keywordPatterns.map((_, index) => `raw_markdown ILIKE $${index + 1}`).join(' OR ');
+      const keywordResult = await query<{ url: string; raw_markdown: string }>(
+        `SELECT url, raw_markdown
+         FROM content_engine.raw_content
+         WHERE (${conditions}) AND is_active = true
+         ORDER BY crawled_at DESC NULLS LAST
+         LIMIT 60`,
+        keywordPatterns,
+      );
+      rows = keywordResult.rows;
     }
 
     if (rows.length === 0) return [];

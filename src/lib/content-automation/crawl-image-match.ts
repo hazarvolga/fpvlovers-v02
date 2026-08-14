@@ -30,6 +30,8 @@ export type SectionImageMatch = {
   image: LicensedImage;
   /** Normalized 0–1 confidence the image belongs to this section. */
   score: number;
+  /** Human-readable reason persisted for media selection audits. */
+  reason: string;
 };
 
 export type MatchResult = {
@@ -47,7 +49,19 @@ export type MatchResult = {
  * shared distinctive tokens — better than 0.18 which excluded everything when
  * alt was empty (common on oscarliang.com, rotorriot.com, multigp.com).
  */
-const MATCH_THRESHOLD = 0.08;
+export const MEDIA_MATCHER_VERSION = 'media-v2';
+const MATCH_THRESHOLD = 0.12;
+
+const RACING_HOSTS = new Set([
+  'dronechampionsleague.com',
+  'droneracing.fai.org',
+  'multigp.com',
+]);
+
+const TECHNICAL_TERMS = new Set([
+  'blackbox', 'betaflight', 'pid', 'gyro', 'filter', 'filters', 'tuning',
+  'firmware', 'telemetry', 'vtx', 'esc', 'motor', 'battery', 'elrs',
+]);
 
 /** Generic FPV/web words that carry little discriminative signal. */
 const STOPWORDS = new Set([
@@ -78,28 +92,41 @@ function tokenSet(value: string): Set<string> {
  * sites like oscarliang.com), context carries full weight (1.0) so those
  * images are not systematically excluded.
  */
-function scoreImageAgainstSection(image: LicensedImage, sectionTokens: Set<string>): number {
+function hasAny(tokens: Set<string>, candidates: Set<string>): boolean {
+  for (const token of candidates) {
+    if (tokens.has(token)) return true;
+  }
+  return false;
+}
+
+function scoreImageAgainstSection(
+  image: LicensedImage,
+  titleTokens: Set<string>,
+  sectionTokens: Set<string>,
+): number {
   if (sectionTokens.size === 0) return 0;
 
   const altTokens = tokenSet(image.alt);
   const contextTokens = tokenSet(image.context);
+  const imageTokens = new Set([...altTokens, ...contextTokens]);
+  if (imageTokens.size === 0) return 0;
 
-  let altHits = 0;
-  for (const token of altTokens) {
-    if (sectionTokens.has(token)) altHits += 1;
-  }
+  const normalizedHost = image.hostname.toLowerCase().replace(/^www\./, '');
+  const racingHost = [...RACING_HOSTS].some(
+    (host) => normalizedHost === host || normalizedHost.endsWith(`.${host}`),
+  );
+  if (racingHost && hasAny(sectionTokens, TECHNICAL_TERMS)) return 0;
 
-  let contextHits = 0;
-  for (const token of contextTokens) {
-    if (sectionTokens.has(token)) contextHits += 1;
-  }
+  const shared = [...imageTokens].filter((token) => sectionTokens.has(token));
+  const titleHits = shared.filter((token) => titleTokens.has(token)).length;
+  const technicalHits = shared.filter((token) => TECHNICAL_TERMS.has(token)).length;
+  if (shared.length < 2 && titleHits === 0 && technicalHits === 0) return 0;
 
-  const altSignal = altTokens.size ? altHits / altTokens.size : 0;
-  const contextSignal = contextTokens.size ? contextHits / contextTokens.size : 0;
-
-  // If alt is empty, give context full weight so images aren't auto-excluded.
-  if (altTokens.size === 0) return contextSignal;
-  return altSignal * 0.7 + contextSignal * 0.3;
+  const precision = shared.length / Math.min(imageTokens.size, 24);
+  const coverage = shared.length / Math.min(sectionTokens.size, 24);
+  const titleSignal = titleTokens.size > 0 ? titleHits / Math.min(titleTokens.size, 8) : 0;
+  const technicalSignal = technicalHits > 0 ? 0.18 : 0;
+  return Math.min(1, precision * 0.45 + coverage * 0.2 + titleSignal * 0.35 + technicalSignal);
 }
 
 /**
@@ -113,7 +140,9 @@ export function matchImagesToSections(
   sections: ReadonlyArray<SectionInput>,
 ): MatchResult {
   const sectionTokens = new Map<string, Set<string>>();
+  const sectionTitleTokens = new Map<string, Set<string>>();
   for (const section of sections) {
+    sectionTitleTokens.set(section.id, tokenSet(section.title));
     sectionTokens.set(section.id, tokenSet(`${section.title} ${section.content}`));
   }
 
@@ -122,7 +151,11 @@ export function matchImagesToSections(
 
   for (const image of images) {
     for (const section of sections) {
-      const score = scoreImageAgainstSection(image, sectionTokens.get(section.id)!);
+      const score = scoreImageAgainstSection(
+        image,
+        sectionTitleTokens.get(section.id)!,
+        sectionTokens.get(section.id)!,
+      );
       if (score >= MATCH_THRESHOLD) {
         candidates.push({ sectionId: section.id, image, score });
       }
@@ -144,6 +177,7 @@ export function matchImagesToSections(
       sectionId: candidate.sectionId,
       image: candidate.image,
       score: candidate.score,
+      reason: `media-v2 lexical-topic score ${candidate.score.toFixed(3)}`,
     });
   }
 
@@ -168,4 +202,13 @@ export function pickBestRelevantImage(
   const { matches } = matchImagesToSections(images, sections);
   if (matches.length === 0) return undefined;
   return matches.reduce((best, current) => (current.score > best.score ? current : best)).image;
+}
+
+export function pickBestRelevantImageMatch(
+  images: ReadonlyArray<LicensedImage>,
+  sections: ReadonlyArray<SectionInput>,
+): SectionImageMatch | undefined {
+  const { matches } = matchImagesToSections(images, sections);
+  if (matches.length === 0) return undefined;
+  return matches.reduce((best, current) => (current.score > best.score ? current : best));
 }

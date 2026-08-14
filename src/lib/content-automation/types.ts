@@ -36,6 +36,9 @@ export type ContentMediaAsset = {
   license?: string;
   kind?: 'source-backed' | 'source-backed-cache' | 'generated-artwork' | 'fallback';
   context?: string;
+  matcherVersion?: string;
+  selectionScore?: number;
+  selectionReason?: string;
 };
 
 export type ContentMedia = {
