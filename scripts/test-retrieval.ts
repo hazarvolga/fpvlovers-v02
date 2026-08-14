@@ -1,93 +1,144 @@
+import fs from 'node:fs';
 import { DATASETS } from '../src/lib/master-routing-tables';
-import { difyRequest } from '../src/lib/dify-client';
-import fs from 'fs';
+import {
+  buildDifyRetrievalModel,
+  DEFAULT_CONFIGS,
+  resolveDifyDatasetId,
+} from '../src/lib/retrieval-orchestrator';
+import {
+  evaluateRetrievalCase,
+  summarizeRetrievalEval,
+  type RetrievalEvalCase,
+  type RetrievalEvalRecord,
+} from '../src/lib/retrieval-evaluation';
 
-interface RetrievalRecord {
-  score?: number;
+const currentYear = new Date().getUTCFullYear();
+
+const TEST_CASES: RetrievalEvalCase[] = [
+  { id: 'tuning-propwash', dataset: 'fpv-flight-tuning', query: 'Betaflight propwash reduction and PID filtering', expectedAnyTerms: ['propwash', 'pid', 'filter'], minResults: 1, minTopScore: 0.2 },
+  { id: 'pid-cinewhoop', dataset: 'fpv-pid-profiles', query: 'cinewhoop PID profile and filter setup', expectedAnyTerms: ['cinewhoop', 'pid', 'filter'], minResults: 1, minTopScore: 0.2 },
+  { id: 'troubleshooting-flip', dataset: 'fpv-troubleshooting', query: 'FPV drone flips on takeoff troubleshooting', expectedAnyTerms: ['motor', 'prop', 'orientation'], minResults: 1, minTopScore: 0.2 },
+  { id: 'components-f405', dataset: 'fpv-components-specs', query: 'SpeedyBee F405 flight controller specifications', expectedAnyTerms: ['speedybee', 'f405'], minResults: 1, minTopScore: 0.2 },
+  { id: 'build-five-inch', dataset: 'fpv-build-guides', query: 'how to build and solder a five inch FPV drone', expectedAnyTerms: ['solder', 'flight controller', 'esc'], minResults: 1, minTopScore: 0.2 },
+  { id: 'reviews-current', dataset: 'fpv-news-reviews', query: `DJI O4 Air Unit review ${currentYear}`, expectedAnyTerms: ['dji', 'o4'], minResults: 1, minTopScore: 0.2 },
+  { id: 'racing-current', dataset: 'fpv-racing-events', query: `MultiGP FPV racing events ${currentYear}`, expectedAnyTerms: ['multigp', 'race', 'racing'], minResults: 1, minTopScore: 0.2 },
+  { id: 'community-beginner', dataset: 'fpv-community-knowledge', query: 'best FPV simulator practice plan for beginners', expectedAnyTerms: ['simulator', 'beginner', 'practice'], minResults: 1, minTopScore: 0.2 },
+  { id: 'regulations-current', dataset: 'fpv-regulations', query: `SHGM IHA kayit kurallari ${currentYear}`, expectedAnyTerms: ['shgm', 'kayit', 'iha'], minResults: 1, minTopScore: 0.2 },
+];
+
+function metadataValue(metadata: unknown, key: string): string | undefined {
+  if (Array.isArray(metadata)) {
+    const item = metadata.find((entry) => entry && typeof entry === 'object' && (entry as Record<string, unknown>).name === key);
+    const value = item && typeof item === 'object' ? (item as Record<string, unknown>).value : undefined;
+    return typeof value === 'string' ? value : undefined;
+  }
+  if (metadata && typeof metadata === 'object') {
+    const value = (metadata as Record<string, unknown>)[key];
+    return typeof value === 'string' ? value : undefined;
+  }
+  return undefined;
 }
 
-interface RetrievalQueryResult {
-  count?: number;
-  topScore?: number;
-  error?: string;
-  status?: string;
-}
-
-type RetrievalResults = Record<string, { queries: Record<string, RetrievalQueryResult> }>;
-
-function readRecords(value: unknown): RetrievalRecord[] {
+function readRecords(value: unknown): RetrievalEvalRecord[] {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return [];
   const records = (value as Record<string, unknown>).records;
   if (!Array.isArray(records)) return [];
-  return records.filter((record): record is RetrievalRecord => (
-    Boolean(record) && typeof record === 'object' && !Array.isArray(record)
-  ));
+
+  return records.flatMap((entry): RetrievalEvalRecord[] => {
+    if (!entry || typeof entry !== 'object' || Array.isArray(entry)) return [];
+    const record = entry as Record<string, unknown>;
+    const segment = record.segment && typeof record.segment === 'object' && !Array.isArray(record.segment)
+      ? record.segment as Record<string, unknown>
+      : {};
+    const document = segment.document && typeof segment.document === 'object' && !Array.isArray(segment.document)
+      ? segment.document as Record<string, unknown>
+      : {};
+    return [{
+      score: Number(record.score ?? 0),
+      content: String(segment.content ?? ''),
+      documentName: String(document.name ?? 'unknown-document'),
+      sourceUrl: metadataValue(document.doc_metadata, 'source_url'),
+    }];
+  });
 }
 
-const TEST_QUERIES: Record<string, string[]> = {
-  'fpv-flight-tuning': ['pid tuning best practices', 'propwash fix', 'blackbox analysis guide'],
-  'fpv-pid-profiles': ['betaflight 4.4 pid profile', 'cinewhoop pid tune'],
-  'fpv-troubleshooting': ['drone flipping on takeoff', 'video loss mid flight', 'esc desync'],
-  'fpv-components-specs': ['speedybee f405 v3 specs', 'gemfan 51466 weight', 'tbs crossfire micro tx power'],
-  'fpv-build-guides': ['how to build a 5 inch drone', 'soldering esc to flight controller'],
-  'fpv-news-reviews': ['dji o4 air unit review', 'new fatshark goggles 2025'],
-  'fpv-racing-events': ['fai drone racing world cup 2025', 'multigp global qualifier tracks'],
-  'fpv-community-knowledge': ['how to practice in liftoff', 'best drone for beginners'],
-  'fpv-regulations': ['faa remote id rules', 'shgm iha kayit 2025', 'easa open category drones']
-};
-
-async function testRetrieval() {
-  console.log('--- STARTING RETRIEVAL QUALITY TEST ---');
-  
-  const results: RetrievalResults = {};
-  
-  for (const ds of DATASETS) {
-    console.log(`\nTesting Dataset: ${ds.name} (${ds.id})`);
-    const queries = TEST_QUERIES[ds.name] || ['fpv drone'];
-    
-    results[ds.name] = { queries: {} };
-    
-    for (const query of queries) {
-      console.log(`  Query: "${query}"`);
-      try {
-        const response = await difyRequest(`/datasets/${ds.uuid}/retrieve`, {
-          method: 'POST',
-          body: { query },
-          taskType: 'rag_query',
-        });
-        
-        if (!response.ok) {
-          const error = response.error || 'Unknown Dify retrieval error';
-          console.log(`    Error: ${response.status} - ${error}`);
-          results[ds.name].queries[query] = { error, status: response.status };
-          continue;
-        }
-        
-        const records = readRecords(response.data);
-        
-        console.log(`    Results: ${records.length} records retrieved.`);
-        
-        if (records.length > 0) {
-          const topScore = records[0].score || 0;
-          console.log(`    Top Score: ${topScore.toFixed(3)}`);
-        }
-        
-        results[ds.name].queries[query] = {
-          count: records.length,
-          topScore: records.length > 0 ? records[0].score : 0,
-        };
-      } catch (error: unknown) {
-        console.log(`    Exception: ${error instanceof Error ? error.message : String(error)}`);
-      }
-      
-      // Delay to respect rate limit (1.5s interval)
-      await new Promise(r => setTimeout(r, 1500));
-    }
+async function main(): Promise<void> {
+  if (process.env.RETRIEVAL_EVAL_LIVE !== 'true') {
+    throw new Error('Live retrieval eval is disabled. Set RETRIEVAL_EVAL_LIVE=true to run read-only Dify queries.');
   }
-  
-  fs.writeFileSync('reports/retrieval-test-results.json', JSON.stringify(results, null, 2));
-  console.log('\n--- RETRIEVAL TEST COMPLETE ---');
-  console.log('Results saved to reports/retrieval-test-results.json');
+
+  const selectedCaseId = process.env.RETRIEVAL_EVAL_CASE_ID?.trim();
+  const selectedCases = selectedCaseId
+    ? TEST_CASES.filter((testCase) => testCase.id === selectedCaseId)
+    : TEST_CASES;
+  if (selectedCases.length === 0) throw new Error(`Unknown retrieval eval case: ${selectedCaseId}`);
+
+  const apiKey = (process.env.DIFY_DATASET_API_KEY || process.env.DIFY_API_KEY)?.trim();
+  if (!apiKey) throw new Error('DIFY_DATASET_API_KEY / DIFY_API_KEY is required for live retrieval eval.');
+  const baseUrl = process.env.DIFY_BASE_URL?.trim()
+    || process.env.DIFY_API_URL?.trim()
+    || process.env.APP_API_URL?.trim()
+    || 'https://dify.affexai.tr/v1';
+
+  const results = [];
+  for (const testCase of selectedCases) {
+    const dataset = DATASETS.find((candidate) => candidate.name === testCase.dataset);
+    if (!dataset) throw new Error(`Unknown eval dataset: ${testCase.dataset}`);
+    const datasetId = await resolveDifyDatasetId(testCase.dataset, {
+      apiKey,
+      baseUrl,
+      fallbackId: dataset.uuid,
+    });
+    const response = await fetch(`${baseUrl.replace(/\/$/, '')}/datasets/${encodeURIComponent(datasetId)}/retrieve`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: testCase.query,
+        retrieval_model: buildDifyRetrievalModel({ ...DEFAULT_CONFIGS.default, topK: 5, maxChunksPerDataset: 5 }),
+      }),
+      signal: AbortSignal.timeout(15_000),
+    });
+    const responseBody = await response.text();
+    let responseData: unknown;
+    try {
+      responseData = responseBody ? JSON.parse(responseBody) : undefined;
+    } catch {
+      responseData = undefined;
+    }
+    const records = response.ok ? readRecords(responseData) : [];
+    const result = evaluateRetrievalCase(testCase, records);
+    if (!response.ok) {
+      const safeError = `HTTP ${response.status}: ${responseBody}`
+        .replace(/Bearer\s+\S+/gi, 'Bearer [redacted]')
+        .slice(0, 240);
+      result.failures.push(`Dify request failed: ${safeError}`);
+    }
+    result.passed = result.failures.length === 0;
+    results.push(result);
+    await new Promise((resolve) => setTimeout(resolve, 1_500));
+  }
+
+  const summary = summarizeRetrievalEval(results);
+  const minimumPassRate = Number(process.env.RETRIEVAL_EVAL_MIN_PASS_RATE || 0.75);
+  const report = {
+    generatedAt: new Date().toISOString(),
+    mode: 'live-read-only',
+    currentYear,
+    minimumPassRate,
+    summary,
+    results,
+  };
+
+  fs.mkdirSync('reports', { recursive: true });
+  fs.writeFileSync('reports/retrieval-eval-latest.json', `${JSON.stringify(report, null, 2)}\n`);
+  console.log(JSON.stringify(summary, null, 2));
+  if (summary.passRate < minimumPassRate) process.exitCode = 1;
 }
 
-testRetrieval();
+main().catch((error: unknown) => {
+  console.error(error instanceof Error ? error.message : error);
+  process.exitCode = 1;
+});

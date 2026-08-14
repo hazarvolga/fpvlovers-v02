@@ -122,16 +122,21 @@ export function prepareGeneratedPublication(
     template: job.template,
   });
   const content = withCommercialDisclosure(job, generatedContent);
+  const verifiedGenerationSources = Array.from(new Set(
+    generationSources
+      .map((source) => source.source)
+      .filter(isSourceReference),
+  ));
 
   if (classification.contentClass === 'product-review') {
     const editorial: EditorialReviewRecord = {
       contentClass: 'product-review',
       approvalStatus: 'pending',
       compensationReceived: false,
-      evidenceSources: [
-        ...job.sourceHints,
-        ...generationSources.map((source) => source.source),
-      ].filter(isSourceReference),
+      // Prompt/source hints describe generation intent, not proof that the
+      // model retrieved or used a source. Only returned generation evidence
+      // may satisfy the editorial evidence requirement.
+      evidenceSources: verifiedGenerationSources,
     };
     return {
       action: 'await-product-editor',
@@ -141,10 +146,7 @@ export function prepareGeneratedPublication(
     };
   }
 
-  const sourceCount = new Set([
-    ...job.sourceHints,
-    ...generationSources.map((source) => source.source),
-  ].filter(isSourceReference)).size;
+  const sourceCount = verifiedGenerationSources.length;
   const quality = {
     sourceCount,
     unsupportedClaimCount: unsupportedClaimCount(content),

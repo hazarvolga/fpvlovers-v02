@@ -292,6 +292,7 @@ export async function difyRequest(
   );
   const KEY = apiKey || getRequiredEnv('DIFY_API_KEY');
   const url = `${BASE}${endpoint}`;
+  const keyIdentity = createHash('sha256').update(KEY).digest('hex').slice(0, 16);
 
   const startTime = Date.now();
   const estTokens = knownTokens ?? estimateTokens(body);
@@ -315,8 +316,19 @@ export async function difyRequest(
 
   // ─── CACHE CHECK ───
   const modelName = taskType ? (shouldRouteToGroq(taskType) ? GROQ_MODEL : 'gemini-2.5-flash') : 'gemini-2.5-flash';
-  const cacheHash = hashInput(modelName, body || endpoint);
-  if (method === 'POST' && taskType) {
+  const knowledgeRevision = process.env.DIFY_KNOWLEDGE_REVISION?.trim();
+  const isKnowledgeRequest = taskType === 'rag_query' || endpoint.includes('/retrieve');
+  const cacheEligible = method === 'POST' && Boolean(taskType) && (!isKnowledgeRequest || Boolean(knowledgeRevision));
+  const cacheHash = hashInput({
+    model: modelName,
+    endpoint,
+    method,
+    baseUrl: BASE,
+    appIdentity: keyIdentity,
+    knowledgeRevision,
+    body: body ?? null,
+  });
+  if (cacheEligible) {
     const cached = await getCached(cacheHash);
     if (cached) {
       logBudget({ ts: new Date().toISOString(), endpoint: `${endpoint}(cached)`, method, status: 'success', duration_ms: Date.now() - startTime, tokens: 0 });
@@ -357,7 +369,7 @@ export async function difyRequest(
       saveBudget(budget);
 
       // ─── CACHE WRITE ───
-      if (method === 'POST' && taskType) {
+      if (cacheEligible && taskType) {
         setCached(cacheHash, data, modelName, taskType).catch(() => {});
       }
 
@@ -454,3 +466,4 @@ export async function runWorkflow(
 
   return normalizeWorkflowResponse(response);
 }
+import { createHash } from 'crypto';

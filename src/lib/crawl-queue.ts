@@ -94,11 +94,27 @@ function save(q: CrawlQueue) {
 
 export function enqueueUrls(urls: string[], dataset?: string): CrawlJob[] {
   const q = load();
+  let jobs = [...q.jobs];
   const newJobs: CrawlJob[] = [];
 
   for (const url of urls) {
-    const existing = q.jobs.find(j => j.url === url && j.status === 'pending');
-    if (existing) continue;
+    const existing = jobs.find(j => j.url === url && j.dataset === dataset);
+    if (existing && (existing.status === 'pending' || existing.status === 'processing')) continue;
+
+    if (existing) {
+      const refreshed: CrawlJob = {
+        ...existing,
+        status: 'pending',
+        priority: 0,
+        retries: 0,
+        nextRetryAt: undefined,
+        error: undefined,
+        updatedAt: new Date().toISOString(),
+      };
+      jobs = [refreshed, ...jobs.filter((job) => job.id !== existing.id)];
+      newJobs.push(refreshed);
+      continue;
+    }
 
     const job: CrawlJob = {
       id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
@@ -111,11 +127,11 @@ export function enqueueUrls(urls: string[], dataset?: string): CrawlJob[] {
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    q.jobs.unshift(job);
+    jobs = [job, ...jobs];
     newJobs.push(job);
   }
 
-  save(q);
+  save({ ...q, jobs });
   return newJobs;
 }
 

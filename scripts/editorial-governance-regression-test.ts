@@ -236,9 +236,18 @@ const baseContent: GeneratedContent = {
   publishNotes: [],
 };
 
-const autonomousPreparation = prepareGeneratedPublication(baseJob, baseContent, now);
+const autonomousPreparation = prepareGeneratedPublication(
+  baseJob,
+  baseContent,
+  now,
+  [{ source: 'https://manufacturer.example/source' }],
+);
 assert.equal(autonomousPreparation.action, 'publish');
 assert.equal(autonomousPreparation.editorial.contentClass, 'autonomous');
+
+const sourceHintOnlyPreparation = prepareGeneratedPublication(baseJob, baseContent, now);
+assert.equal(sourceHintOnlyPreparation.action, 'hold-for-quality');
+assert.ok(sourceHintOnlyPreparation.decision.blockers.includes('Autonomous content requires at least one source.'));
 
 const unsourcedPreparation = prepareGeneratedPublication(
   { ...baseJob, sourceHints: ['Editorial outline only'] },
@@ -256,6 +265,18 @@ const reviewPreparation = prepareGeneratedPublication(
 assert.equal(reviewPreparation.action, 'await-product-editor');
 assert.equal(reviewPreparation.editorial.contentClass, 'product-review');
 assert.equal(reviewPreparation.editorial.approvalStatus, 'pending');
+assert.deepEqual(reviewPreparation.editorial.evidenceSources, []);
+
+const sourcedReviewPreparation = prepareGeneratedPublication(
+  { ...baseJob, category: 'Reviews', template: 'product-review' },
+  baseContent,
+  now,
+  [{ source: 'https://manufacturer.example/source' }],
+);
+assert.deepEqual(
+  sourcedReviewPreparation.editorial.evidenceSources,
+  ['https://manufacturer.example/source'],
+);
 
 const baseArtifact: PublishedArtifact = {
   ...baseContent,

@@ -4,6 +4,7 @@ import { requireAdmin } from '@/lib/server/admin-auth-guard';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
 import { crawlUrlToMarkdown } from '@/lib/server/crawl4ai-client';
+import { buildDifyDocumentProcessRule } from '@/lib/content-automation/dify-document-process';
 
 const DIFY_BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
 
@@ -127,15 +128,45 @@ export async function POST(req: NextRequest) {
         const hash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(url));
         const hashHex = Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
 
-        const upsertResp = await fetch(`${DIFY_BASE}/datasets/${dsId}/document/create-by-text`, {
+        const documentName = hashHex.slice(0, 32);
+        const lookupResp = await fetch(
+          `${DIFY_BASE}/datasets/${dsId}/documents?page=1&limit=20&keyword=${encodeURIComponent(documentName)}`,
+          { headers, signal: AbortSignal.timeout(30000) },
+        );
+        if (!lookupResp.ok) {
+          results.push({ url, status: 'lookup_failed', dataset: datasetName, error: `HTTP ${lookupResp.status}` });
+          continue;
+        }
+        const lookup = await lookupResp.json();
+        const existingDocument = Array.isArray(lookup?.data)
+          ? lookup.data.find((document: unknown) => (
+              Boolean(document)
+              && typeof document === 'object'
+              && (document as Record<string, unknown>).name === documentName
+            )) as Record<string, unknown> | undefined
+          : undefined;
+        const existingDocumentId = typeof existingDocument?.id === 'string' ? existingDocument.id : undefined;
+        const processRule = buildDifyDocumentProcessRule(datasetName);
+        const writeEndpoint = existingDocumentId
+          ? `${DIFY_BASE}/datasets/${dsId}/documents/${existingDocumentId}/update-by-text`
+          : `${DIFY_BASE}/datasets/${dsId}/document/create-by-text`;
+        const writeBody = existingDocumentId ? {
+          name: documentName,
+          text: md,
+          process_rule: processRule,
+        } : {
+          name: documentName,
+          // Send the complete source document; Dify applies its configured
+          // indexing/chunking rules server-side.
+          text: md,
+          doc_metadata: { source_url: url, url_hash: hashHex },
+          indexing_technique: 'high_quality',
+          process_rule: processRule,
+        };
+
+        const upsertResp = await fetch(writeEndpoint, {
           method: 'POST', headers,
-          body: JSON.stringify({
-            name: hashHex.slice(0, 32),
-            text: md.slice(0, 8000),
-            doc_metadata: { source_url: url, url_hash: hashHex },
-            indexing_technique: 'high_quality',
-            process_rule: { mode: 'automatic' },
-          }),
+          body: JSON.stringify(writeBody),
           signal: AbortSignal.timeout(30000),
         });
 
@@ -143,7 +174,13 @@ export async function POST(req: NextRequest) {
           const doc = await upsertResp.json();
           // Also persist full markdown to raw_content so image harvester can find editorial images.
           void persistRawCrawlContent({ url, rawMarkdown: md, crawler: 'ingest-route' });
-          results.push({ url, status: 'success', dataset: datasetName, docId: doc.document?.id?.slice(0, 16), size: md.length });
+          results.push({
+            url,
+            status: existingDocumentId ? 'updated' : 'success',
+            dataset: datasetName,
+            docId: String(doc.document?.id || existingDocumentId || '').slice(0, 16),
+            size: md.length,
+          });
         } else {
           results.push({ url, status: 'upsert_failed', dataset: datasetName, error: `HTTP ${upsertResp.status}` });
         }

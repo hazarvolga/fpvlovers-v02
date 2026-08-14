@@ -8,8 +8,18 @@ const CACHE_ENABLED = process.env.LLM_CACHE_ENABLED !== 'false';
 
 // ─── HASHING ───
 
-export function hashInput(model: string, prompt: any): string {
-  const input = `${model}::${JSON.stringify(prompt)}`;
+export type LlmCacheIdentity = {
+  model: string;
+  endpoint: string;
+  method: string;
+  baseUrl: string;
+  appIdentity: string;
+  knowledgeRevision?: string;
+  body: unknown;
+};
+
+export function hashInput(identity: LlmCacheIdentity): string {
+  const input = JSON.stringify(identity);
   return createHash('sha256').update(input).digest('hex').slice(0, 64);
 }
 

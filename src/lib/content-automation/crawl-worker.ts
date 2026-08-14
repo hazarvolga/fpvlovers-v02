@@ -1,4 +1,5 @@
 import { difyRequest } from '@/lib/dify-client';
+import { buildDifyDocumentProcessRule } from '@/lib/content-automation/dify-document-process';
 import { getNextBatchNew, updateJobNew, type CrawlJob } from '@/lib/crawl-queue';
 import { findDataset } from '@/lib/master-routing-tables';
 import { persistRawCrawlContent } from '@/lib/server/raw-content-store';
@@ -57,8 +58,6 @@ const DEFAULT_DEPENDENCIES: CrawlWorkerDependencies = {
   persistRawContent: persistRawCrawlContent,
 };
 
-const MAX_DIFY_UPLOAD_CHARACTERS = 1_500;
-
 function asRecord(value: unknown): Record<string, unknown> | undefined {
   return value && typeof value === 'object' && !Array.isArray(value)
     ? value as Record<string, unknown>
@@ -69,6 +68,10 @@ function readDocumentId(payload: unknown): string | undefined {
   const root = asRecord(payload);
   const document = asRecord(root?.document);
   return typeof document?.id === 'string' ? document.id : undefined;
+}
+
+function isDifyDocumentId(value: string | undefined): value is string {
+  return Boolean(value && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value));
 }
 
 export function isPermanentCrawlBlock(message: string): boolean {
@@ -163,26 +166,40 @@ export async function processCrawlQueueBatch(options: {
         );
         throw error;
       }
-      const uploadText = crawled.markdown.slice(0, MAX_DIFY_UPLOAD_CHARACTERS);
+      // Dify owns document chunking. Silently truncating here creates an
+      // incomplete vector document while the raw-content store retains a
+      // different, full source of truth.
+      const uploadText = crawled.markdown;
       const uploadTokens = Math.ceil(uploadText.length / 3);
       const urlHash = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(job.url));
       const hashHex = Array.from(new Uint8Array(urlHash))
         .map((byte) => byte.toString(16).padStart(2, '0'))
         .join('');
 
+      const existingDocumentId = isDifyDocumentId(job.docId) ? job.docId : undefined;
+      const processRule = buildDifyDocumentProcessRule(dataset);
+      const documentEndpoint = existingDocumentId
+        ? `/datasets/${datasetInfo.uuid}/documents/${existingDocumentId}/update-by-text`
+        : `/datasets/${datasetInfo.uuid}/document/create-by-text`;
+      const documentBody = existingDocumentId ? {
+        name: hashHex.slice(0, 32),
+        text: uploadText,
+        process_rule: processRule,
+      } : {
+        name: hashHex.slice(0, 32),
+        text: uploadText,
+        doc_metadata: { source_url: job.url, url_hash: hashHex },
+        indexing_technique: 'high_quality',
+        process_rule: processRule,
+      };
+
       const upload = await dependencies.uploadToDify(
-        `/datasets/${datasetInfo.uuid}/document/create-by-text`,
+        documentEndpoint,
         {
           method: 'POST',
           timeout: 30_000,
           tokens: uploadTokens,
-          body: {
-            name: hashHex.slice(0, 32),
-            text: uploadText,
-            doc_metadata: { source_url: job.url, url_hash: hashHex },
-            indexing_technique: 'high_quality',
-            process_rule: { mode: 'automatic' },
-          },
+          body: documentBody,
         },
       );
 
@@ -193,7 +210,7 @@ export async function processCrawlQueueBatch(options: {
         throw Object.assign(new Error(upload.error || `Dify upload ${upload.status}`), { queueStatus: status });
       }
 
-      const documentId = readDocumentId(upload.data);
+      const documentId = readDocumentId(upload.data) || existingDocumentId;
       await dependencies.updateJob(job.id, {
         status: 'completed',
         docId: documentId,

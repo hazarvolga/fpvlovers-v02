@@ -3,7 +3,12 @@
 // merge/dedup/rerank so every tool gets the same pre-fetch grounding context, source
 // list, and trust signal instead of calling Dify blind.
 
-import { getRetrievalConfidence, orchestrateRetrieval, type RetrievalChunk } from '@/lib/retrieval-orchestrator';
+import {
+  getRetrievalConfidence,
+  orchestrateRetrieval,
+  RETRIEVAL_GROUNDING_TIMEOUT_MS,
+  type RetrievalChunk,
+} from '@/lib/retrieval-orchestrator';
 
 export type RetrievalGrade = 'high' | 'medium' | 'low' | 'insufficient';
 
@@ -24,8 +29,7 @@ export type GroundingContext = {
   recommendation: string;
 };
 
-const GROUNDING_TIMEOUT_MS = 8000;
-const NO_CONTEXT_NOTICE = 'No verified RAG context was retrieved for this query. Answer only from general FPV expertise and clearly label unverified claims as such — do not invent sources.';
+const NO_CONTEXT_NOTICE = 'No verified RAG context was retrieved for this query. Do not generate new technical recommendations or factual claims from general model knowledge. Return only deterministic local checks, state that verified-source guidance is unavailable, and ask for a retry or additional evidence.';
 
 function docMetadataValue(doc_metadata: unknown, key: string): string | undefined {
   if (!doc_metadata) return undefined;
@@ -84,22 +88,23 @@ function emptyContext(recommendation: string): GroundingContext {
  * to an empty, explicitly-labeled context rather than hallucinated grounding.
  */
 export async function getGroundingContext(query: string, intent: string): Promise<GroundingContext> {
+  let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
   try {
     const timeout = new Promise<null>((resolve) => {
-      setTimeout(() => resolve(null), GROUNDING_TIMEOUT_MS);
+      timeoutHandle = setTimeout(() => resolve(null), RETRIEVAL_GROUNDING_TIMEOUT_MS);
     });
     const retrieval = await Promise.race([orchestrateRetrieval(query, intent), timeout]);
 
     if (!retrieval) {
-      return emptyContext('Retrieval timed out; answered from general expertise only.');
+      return emptyContext('Retrieval timed out; verified-source guidance is unavailable.');
     }
 
     const realChunks = retrieval.chunks.filter((chunk) => !chunk.metadata?.simulation);
     if (!realChunks.length) {
       return emptyContext(
         retrieval.chunks.length > 0
-          ? 'Only simulated retrieval was available (ENABLE_REAL_RAG is off); answered from general expertise only.'
-          : 'No matching sources found; answered from general expertise only.',
+          ? 'Only simulated retrieval was available; verified-source guidance is unavailable.'
+          : 'No matching verified sources were found; source-dependent guidance is unavailable.',
       );
     }
 
@@ -114,6 +119,8 @@ export async function getGroundingContext(query: string, intent: string): Promis
     };
   } catch (error) {
     console.error('[retrieval-grounding] getGroundingContext failed:', error instanceof Error ? error.message : error);
-    return emptyContext('Retrieval failed; answered from general expertise only.');
+    return emptyContext('Retrieval failed; verified-source guidance is unavailable.');
+  } finally {
+    if (timeoutHandle) clearTimeout(timeoutHandle);
   }
 }

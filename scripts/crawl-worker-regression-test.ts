@@ -72,10 +72,37 @@ assert.equal(success.items[0]?.action, 'completed');
 assert.equal(success.items[0]?.crawler, 'primary');
 assert.equal(mdCalls, 1);
 assert.match(uploadEndpoint, /3eacd19f-ccd8-49ec-8482-51120918f0e0/);
-assert.equal(uploadTextLength, 1_500);
+assert.equal(uploadTextLength, '# PID tuning\n'.repeat(1_000).length);
 assert.equal(uploadTokens, Math.ceil(uploadTextLength / 3));
 assert.equal(updates.at(-1)?.tokens, uploadTokens);
 assert.deepEqual(updates.map((update) => update.status), ['processing', 'completed']);
+
+let refreshEndpoint = '';
+let refreshBody: Record<string, unknown> = {};
+const refreshDocumentId = '12345678-1234-4123-8123-123456789abc';
+const refresh = await processCrawlQueueBatch({
+  enabled: true,
+  dryRun: false,
+  dependencies: {
+    getNextBatch: async () => [{ ...job, id: 'refresh-existing', docId: refreshDocumentId }],
+    updateJob: async () => undefined,
+    fetchCrawler: async (_input, init) => {
+      const body = JSON.parse(String((init as RequestInit)?.body || '{}'));
+      return Response.json({ url: body.url, filter: 'fit', markdown: '# refreshed source\n'.repeat(100), success: true });
+    },
+    persistRawContent: async () => true,
+    uploadToDify: async (endpoint, options) => {
+      refreshEndpoint = endpoint;
+      refreshBody = options.body;
+      return { ok: true, status: 'success', data: { document: { id: refreshDocumentId } } };
+    },
+  },
+});
+assert.equal(refresh.items[0]?.action, 'completed');
+assert.match(refreshEndpoint, new RegExp(`/documents/${refreshDocumentId}/update-by-text$`));
+assert.equal(refreshBody.text, '# refreshed source\n'.repeat(100));
+assert.equal('doc_metadata' in refreshBody, false);
+assert.equal('indexing_technique' in refreshBody, false);
 
 // /md unreachable at the infra layer (e.g. a reverse-proxy route that only
 // forwards /crawl) must fall back to legacy /crawl + raw_markdown for the

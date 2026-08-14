@@ -231,20 +231,33 @@ async function processQueue() {
         job.tokens = markdown.length;
         job.error = undefined;
       } else {
-        console.log(`- Uploading to Dify: ${DIFY_BASE}/datasets/${dsId}/document/create-by-text`);
+        const existingDocumentId = job.docId && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(job.docId)
+          ? job.docId
+          : undefined;
+        const processRule = buildDifyDocumentProcessRule(datasetName);
+        const documentEndpoint = existingDocumentId
+          ? `${DIFY_BASE}/datasets/${dsId}/documents/${existingDocumentId}/update-by-text`
+          : `${DIFY_BASE}/datasets/${dsId}/document/create-by-text`;
+        console.log(`- ${existingDocumentId ? 'Refreshing' : 'Uploading'} Dify document: ${documentEndpoint}`);
         
-        const difyResp = await fetch(`${DIFY_BASE}/datasets/${dsId}/document/create-by-text`, {
+        const difyResp = await fetch(documentEndpoint, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${DIFY_API_KEY}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
+          body: JSON.stringify(existingDocumentId ? {
             name: urlHash.slice(0, 32),
-            text: markdown.slice(0, 8000), // safe Dify chunk size
+            text: markdown,
+            process_rule: processRule,
+          } : {
+            name: urlHash.slice(0, 32),
+            // Preserve the complete source document. Dify performs the
+            // configured indexing and chunking after upload.
+            text: markdown,
             doc_metadata: { source_url: job.url, url_hash: urlHash },
             indexing_technique: 'high_quality',
-            process_rule: { mode: 'automatic' },
+            process_rule: processRule,
           }),
           signal: AbortSignal.timeout(30000),
         });
@@ -255,12 +268,12 @@ async function processQueue() {
         }
 
         const doc = await difyResp.json();
-        const docId = doc.document?.id || 'unknown';
+        const docId = doc.document?.id || existingDocumentId || 'unknown';
         console.log(`- Success! Ingested into Dify. Document ID: ${docId}`);
 
         // Update job to completed
         job.status = 'completed';
-        job.docId = docId.slice(0, 16);
+        job.docId = docId;
         job.tokens = markdown.length;
         job.error = undefined;
       }
@@ -280,3 +293,4 @@ async function processQueue() {
 }
 
 processQueue();
+import { buildDifyDocumentProcessRule } from '../src/lib/content-automation/dify-document-process';
