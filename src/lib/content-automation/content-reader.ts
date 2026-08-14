@@ -351,7 +351,12 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
     };
   }
 
-  const fallbackCover = resolveFallbackCover({ category, metadata: parsed.metadata });
+  const fallbackCover = resolveFallbackCover({
+    category,
+    metadata: parsed.metadata,
+    title,
+    slug: parsed.slug,
+  });
   const displayCoverSrc = resolveDisplayCover(finalCoverImage.src, fallbackCover, parsed.slug);
   if (displayCoverSrc !== finalCoverImage.src) {
     finalCoverImage = {

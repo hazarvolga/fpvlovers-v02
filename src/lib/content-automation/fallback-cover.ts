@@ -53,6 +53,8 @@ export function resolveDisplayCover(
 interface FallbackCoverInput {
   category?: string;
   metadata?: ContentMetadata;
+  title?: string;
+  slug?: string;
 }
 
 const COMMERCIAL_CONTENT_TYPES = new Set([
@@ -152,6 +154,21 @@ function resolveSignalTier(
   return undefined;
 }
 
+function resolveTextFamily(input: FallbackCoverInput | undefined): RoutedFallbackCoverFamily | undefined {
+  const signal = `${input?.title || ''} ${input?.slug || ''}`.toLowerCase();
+  if (!signal.trim()) return undefined;
+
+  if (/(blackbox|betaflight|pid[- ]?tuning|gyro|spectral densit|filter tuning)/.test(signal)) {
+    return 'tuning-betaflight';
+  }
+  if (/(beginner|new pilot|simulator|stick control drill|acro stick)/.test(signal)) {
+    return 'academy-beginner';
+  }
+  if (/(freestyle|acro mode|acro flight)/.test(signal)) return 'freestyle';
+  if (/(long[- ]?range|cinematic)/.test(signal)) return 'cinematic-long-range';
+  return undefined;
+}
+
 export function resolveFallbackCover(
   input?: ContentMetadata | FallbackCoverInput,
 ): string {
@@ -175,11 +192,14 @@ export function resolveFallbackCover(
     ])
     ?? resolveSignalTier([
       { values: metadata?.topics ?? [], rules: TOPIC_RULES },
+    ])
+    ?? resolveSignalTier([
       { values: metadata?.discipline ?? [], rules: DISCIPLINE_RULES },
     ])
     ?? resolveSignalTier([
       { values: wrappedInput?.category ? [wrappedInput.category] : [], rules: CATEGORY_RULES },
-    ]);
+    ])
+    ?? resolveTextFamily(wrappedInput);
 
   if (family) {
     return FALLBACK_COVER_PATHS[family];

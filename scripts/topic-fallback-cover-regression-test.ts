@@ -36,6 +36,23 @@ assert.equal(
   FALLBACK_COVER_PATHS['tuning-betaflight'],
 );
 assert.equal(
+  resolveFallbackCover({
+    title: 'Blackbox Analysis Masterclass',
+    metadata: { topics: ['tuning'], discipline: ['racing'] },
+  }),
+  FALLBACK_COVER_PATHS['tuning-betaflight'],
+  'A specific tuning topic must outrank a broad racing discipline',
+);
+assert.equal(
+  resolveFallbackCover({
+    title: 'Acro Stick Control Drills for FPV Beginners',
+    slug: 'acro-stick-control-drills-for-fpv-beginners',
+    category: 'Flight Guides',
+  }),
+  FALLBACK_COVER_PATHS['academy-beginner'],
+  'Title signals should classify legacy articles with missing metadata',
+);
+assert.equal(
   resolveFallbackCover({ metadata: { components: ['propeller'] } }),
   FALLBACK_COVER_PATHS['motors-propulsion'],
 );

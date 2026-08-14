@@ -119,7 +119,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { article: PublishedArtifact, relatedContent?: PublishedArtifact[], nextSteps?: PublishedArtifact[] }) {
   const a = article;
-  const fallbackCover = resolveFallbackCover({ category: a.category, metadata: a.metadata });
+  const fallbackCover = resolveFallbackCover({
+    category: a.category,
+    metadata: a.metadata,
+    title: a.title,
+    slug: a.slug,
+  });
   const baseUrl = process.env.APP_URL || 'https://fpvlovers.com.tr';
   const articleUrl = `${baseUrl}/article/${a.slug}`;
   const evidenceSources = a.editorial?.contentClass === 'product-review'

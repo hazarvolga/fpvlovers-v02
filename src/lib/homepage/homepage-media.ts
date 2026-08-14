@@ -16,6 +16,8 @@ export function resolveHomepageFallbackCover(item: HomepageMediaInput): string {
   const base = resolveFallbackCover({
     category: item.category,
     metadata: item.metadata,
+    title: item.title,
+    slug: item.slug,
   });
   const signal = `${item.slug} ${item.title} ${item.category || ''}`.toLowerCase();
 

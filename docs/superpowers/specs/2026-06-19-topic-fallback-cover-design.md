@@ -2,7 +2,7 @@
 
 **Date:** 2026-06-19
 
-**Status:** Approved design; implementation not started
+**Status:** Implemented; routing refinement active as of 2026-08-14
 
 ## Objective
 

@@ -16,6 +16,7 @@ import {
   MEDIA_MATCHER_VERSION,
   pickBestRelevantImageMatch,
 } from '@/lib/content-automation/crawl-image-match';
+import { buildContentMedia } from '@/lib/content-automation/content-media';
 import {
   buildSourceSearchUrls,
   extractRelevantSourcePages,
@@ -213,6 +214,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => ({}));
   const targetSlugs: string[] | undefined = Array.isArray(body?.slugs) ? body.slugs : undefined;
   const dryRun: boolean = body?.dryRun === true;
+  const fallbackToLocal: boolean = body?.fallbackToLocal === true;
 
   // Load all published JSON files.
   if (!fs.existsSync(PUBLISHED_DIR)) {
@@ -345,6 +347,66 @@ export async function POST(req: NextRequest) {
 
     const bestCover = bestCoverMatch?.image;
     if (!bestCover || !bestCoverMatch) {
+      if (fallbackToLocal) {
+        const localMedia = buildContentMedia({
+          slug,
+          title: articleTitle,
+          category,
+          excerpt: typeof (artifact as any)?.excerpt === 'string' ? (artifact as any).excerpt : '',
+        });
+        const localCover = localMedia.coverImage;
+
+        if (coverSrc === localCover.src && coverKind === localCover.kind) {
+          results.push({
+            slug,
+            status: 'skipped',
+            reason: 'already using deterministic local artwork',
+            visionStatus,
+          });
+          skipped++;
+          continue;
+        }
+
+        if (dryRun) {
+          results.push({
+            slug,
+            status: 'updated',
+            reason: 'dry-run local fallback after source rejection',
+            oldSrc: coverSrc,
+            newSrc: localCover.src,
+            visionStatus,
+          });
+          updated++;
+          continue;
+        }
+
+        const patched = {
+          ...(artifact as any),
+          media: {
+            ...(artifact as any).media,
+            coverImage: localCover,
+          },
+        };
+
+        try {
+          fs.writeFileSync(jsonPath, JSON.stringify(patched, null, 2) + '\n', 'utf-8');
+          await upsertPublishedArtifact(patched as any);
+          results.push({
+            slug,
+            status: 'updated',
+            reason: 'source candidates rejected; restored deterministic local artwork',
+            oldSrc: coverSrc,
+            newSrc: localCover.src,
+            visionStatus,
+          });
+          updated++;
+        } catch {
+          results.push({ slug, status: 'error', reason: 'Failed to restore local artwork' });
+          failed++;
+        }
+        continue;
+      }
+
       results.push({
         slug,
         status: 'no_images',
