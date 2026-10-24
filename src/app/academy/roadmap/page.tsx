@@ -38,7 +38,7 @@ interface PhaseNode {
 }
 
 const ARTICLE_TITLES: Record<string, string> = {
-  "fpv-beginner-setup-guide-the-easiest-way-to-get-flying": "Beginner FQP Setup Guide",
+  "fpv-beginner-setup-guide-the-easiest-way-to-get-flying": "Beginner FPV Setup Guide",
   "the-best-fpv-simulators-in-2026-save-cash-and-log-hours-virtually": "The Best FPV Simulators in 2026",
   "acro-mode-mental-model-for-fpv-beginners": "Acro Mode Mental Model",
   "first-hover-training": "First Hover Training",
@@ -283,21 +283,21 @@ export default function RoadmapPage() {
   return (
     <SubpageShell className="text-zinc-300 font-sans">
       <SubpageHero
-        label="Academy / Pilot Roadmap"
-        title="BUILD A REAL"
-        accent="FPV SKILL PATH."
-        description="A guided progression matrix for simulator hours, first flights, hardware knowledge, safety gates, and self-certified readiness. Guests can browse the path; signed-in pilots can sync dossier progress."
+        label="Start Here / Progress Tracker"
+        title="Track your"
+        accent="FPV progress."
+        description="Optional: check off the skills you've practiced and see what to learn next. Every module and its reading list stays open without an account. New to FPV? Start with the six-step guide first."
         image={HUB_COVER_IMAGES.roadmap}
         imageAlt="FPV beginner pilot training route over a dark tactical interface"
         stats={[
-          { label: "Training Mode", value: dossier ? "Dossier Active" : "Guest Browse" },
-          { label: "Cleared Nodes", value: String(qualifiedIds.length) },
-          { label: "Sync State", value: isOffline ? "Offline Cache" : syncing ? "Syncing" : "Ready" },
-          { label: "Review Boundary", value: "Self-Certified" },
+          { label: "Mode", value: dossier ? "Tracking on" : "Browsing" },
+          { label: "Modules done", value: String(qualifiedIds.length) },
+          { label: "Sync", value: isOffline ? "Saved on device" : syncing ? "Saving" : "Up to date" },
+          { label: "Account", value: "Optional" },
         ]}
         actions={[
-          { label: "Start Assessment", href: "/academy/assessment" },
-          { label: "Open Dossier", href: "/academy/dossier" },
+          { label: "New to FPV? Start here", href: "/academy" },
+          { label: "Start tracking", href: "/academy/assessment" },
         ]}
       />
 
@@ -354,7 +354,7 @@ export default function RoadmapPage() {
                     onClick={() => signOut()}
                     className="self-start rounded border border-red-500/20 bg-red-500/5 px-3 py-2 text-[10px] font-bold uppercase tracking-wider text-red-500 transition-colors hover:text-red-400 sm:self-center"
                   >
-                    De-authorize Session
+                    Sign Out
                   </button>
                 )}
               </div>
@@ -363,15 +363,15 @@ export default function RoadmapPage() {
             <div className="rounded-xl border border-white/10 bg-zinc-950 p-5">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Guest Training Mode</p>
-                  <p className="mt-2 text-sm leading-6 text-zinc-400">Browse every training node, then initialize a pilot dossier when you are ready to track progress.</p>
+                  <p className="text-xs font-black uppercase tracking-widest text-[#FF5C00]">Browsing without tracking</p>
+                  <p className="mt-2 text-sm leading-6 text-zinc-400">Every module below is open to read. Sign in or take the assessment only if you want to save your progress.</p>
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <a href="/academy/assessment" className="inline-flex items-center justify-center gap-2 rounded bg-transparent px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white transition-all duration-200 hover:bg-white/5">
                     <Play className="w-3.5 h-3.5" /> Assessment
                   </a>
                   <a href="/auth/signin" className="inline-flex items-center justify-center gap-2 rounded bg-[#FF5C00] px-4 py-2.5 text-xs font-black uppercase tracking-wider text-white transition-colors duration-200 hover:bg-[#FF5C00]/80">
-                    Authorize Session
+                    Sign In
                   </a>
                 </div>
               </div>
@@ -381,10 +381,10 @@ export default function RoadmapPage() {
           <AISummaryBox
             content={
               dossier
-                ? `Active pilot dossier detected: ${dossier.callsign}. You have unlocked ${qualifiedIds.length} operational qualification nodes. Follow the visual matrix below to qualify for active missions.`
-                : "Operational checklist loaded. You are currently browsing in read-only guest mode. Authorize your session or complete pilot archetype assessment to start tracking your flight ratings."
+                ? `Tracking progress for ${dossier.callsign}. You've completed ${qualifiedIds.length} modules. Follow the path below to see what to learn next.`
+                : "You're browsing without tracking. Every module and its reading list is open. Sign in or take the short assessment if you want to save your progress."
             }
-            title="SYS.DOSSIER_TELEMETRY"
+            title="Your progress"
           />
 
           {/* Active Flight Objective HUD / Guest Mode Activation CTA */}
@@ -433,19 +433,19 @@ export default function RoadmapPage() {
           ) : (
             <div className="relative p-8 border border-white/10 bg-zinc-950 rounded-xl shadow-2xl overflow-hidden">
               <div className="absolute top-0 right-0 bg-zinc-800 text-zinc-300 text-[10px] uppercase font-bold px-4 py-1 tracking-widest">
-                Dossier Offline
+                Optional
               </div>
               
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mt-2">
                 <div className="space-y-2">
                   <p className="text-xs uppercase text-[#FF5C00] font-bold tracking-widest">
-                    Telemetry Inactive // Guest Onboarding
+                    Progress tracking
                   </p>
                   <h4 className="text-xl font-bold uppercase text-zinc-100 tracking-tight">
-                    Initialize Flight Credentials
+                    Want to save your progress?
                   </h4>
                   <p className="text-sm text-zinc-400 leading-relaxed max-w-xl font-sans">
-                    Welcome, Guest Operator. To unlock non-linear flight paths, access dynamic compatibility critics, and track your operational readiness, you must establish your Pilot Dossier profile.
+                    Take a short assessment to get a suggested path and keep track of the skills you&apos;ve practiced. Everything on this page stays readable without it.
                   </p>
                 </div>
                 
@@ -454,7 +454,7 @@ export default function RoadmapPage() {
                     href="/academy/assessment"
                     className="block text-center bg-[#FF5C00] hover:bg-[#FF5C00]/90 text-white font-black py-3.5 px-8 rounded text-xs uppercase tracking-wider transition-colors duration-200 border-b-4 border-[#9E3900]"
                   >
-                    Start Pilot Assessment
+                    Take the Assessment
                   </Link>
                 </div>
               </div>
@@ -498,7 +498,7 @@ export default function RoadmapPage() {
             <div className="flex items-center gap-2 border-b border-white/10 pb-2 mt-4">
               <Flag className="w-5 h-5 text-[#00F2FF]" />
               <h3 className="text-lg font-bold uppercase text-zinc-100 tracking-widest">
-                Qualification Nodes
+                Modules
               </h3>
             </div>
 
@@ -517,7 +517,8 @@ export default function RoadmapPage() {
                       .filter((mod) => !mod.targetClass || !dossier || mod.targetClass === dossier.assignedClass)
                       .map((mod) => {
                         const isCompleted = qualifiedIds.includes(mod.id);
-                        const isLocked = isPhaseLocked(i);
+                        // Gating only applies once a pilot opts into tracking; guests can read every module.
+                        const isLocked = dossier ? isPhaseLocked(i) : false;
                         return (
                           <div
                             key={mod.id}
@@ -555,7 +556,7 @@ export default function RoadmapPage() {
                                   </span>
                                 ) : (
                                   <span className="inline-flex items-center gap-1 text-[10px] uppercase text-zinc-400 bg-zinc-800 px-2 py-1 rounded border border-white/10">
-                                    <Shield className="w-3.5 h-3.5" /> QUALIFYING
+                                    <Shield className="w-3.5 h-3.5" /> {dossier ? "IN PROGRESS" : "OPEN"}
                                   </span>
                                 )}
                               </div>
@@ -770,7 +771,7 @@ export default function RoadmapPage() {
                     2. Milestone Progression (SYS.FPM)
                   </h4>
                   <p className="text-sm text-zinc-400 leading-relaxed font-sans">
-                    Follow the locked branches. Unlocking active sorties requires you to read study modules, complete objective criteria, and digitally self-certify physical/simulated skill readiness.
+                    Once you start tracking, modules open in order. Read the study material, check off the objectives, and self-certify when you feel ready.
                   </p>
                 </div>
                 

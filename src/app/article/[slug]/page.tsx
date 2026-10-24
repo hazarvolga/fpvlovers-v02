@@ -1,3 +1,5 @@
+import { LevelBadge } from '@/components/ui/level-badge';
+import { getGuideGroup } from '@/lib/content-taxonomy';
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -27,6 +29,7 @@ import { generateArticleSchema } from '@/lib/seo/metadata';
 
 function categoryHref(category: string | undefined) {
   const normalized = (category || 'article').toLowerCase().trim().replace(/\s+/g, '-');
+  // Categories with a dedicated hub keep linking there.
   const routeMap: Record<string, string> = {
     reviews: '/reviews',
     review: '/reviews',
@@ -37,19 +40,12 @@ function categoryHref(category: string | undefined) {
     racing: '/racing',
     regulations: '/regulations',
     regulation: '/regulations',
-    tutorial: '/academy/roadmap',
-    tutorials: '/academy/roadmap',
-    guide: '/academy/roadmap',
-    guides: '/academy/roadmap',
-    troubleshooting: '/academy/roadmap',
-    parts: '/tools/component-duel',
-    components: '/tools/component-duel',
-    software: '/tools/flight-critic',
-    engineering: '/engineering',
-    'build-guides': '/engineering',
   };
+  if (routeMap[normalized]) return routeMap[normalized];
 
-  return routeMap[normalized] || '/#latest';
+  // Everything else lands on the matching Guides topic filter.
+  const group = getGuideGroup(category);
+  return group ? `/guides?topic=${group.id}` : '/guides';
 }
 
 function isHttpUrl(value: string | undefined): value is string {
@@ -216,9 +212,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
               <span className="rounded border border-white/10 bg-black/80 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-zinc-300">
                 {a.category || 'Article'}
               </span>
-              <span className="flex items-center gap-1.5 rounded border border-[#FF5C00]/25 bg-[#FF5C00]/10 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-[#FF5C00]">
-                <Shield className="w-3 h-3" /> PUBLISHED
-              </span>
+              <LevelBadge difficulty={a.metadata?.difficulty} className="bg-black/80" />
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-white mb-6 leading-tight">

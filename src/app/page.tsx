@@ -61,7 +61,7 @@ const heroShortcuts: {
   {
     title: 'Guides',
     description: 'Setup, fixes, and skills for every level',
-    href: '/search',
+    href: '/guides',
     icon: BookOpen,
   },
   {
@@ -93,7 +93,7 @@ const pillars: HomePillar[] = [
     eyebrow: 'I just got my first drone',
     title: 'Fly with confidence',
     description: 'Beginner setup, common fixes, and practice drills for your first months in the air.',
-    href: '/topics/beginner-fpv',
+    href: '/guides?level=beginner',
     image: HUB_COVER_IMAGES.archive,
     icon: Gauge,
   },
@@ -101,7 +101,7 @@ const pillars: HomePillar[] = [
     eyebrow: 'I build and tune',
     title: 'Go deeper',
     description: 'Advanced guides on Betaflight tuning, power systems, and radio and video links.',
-    href: '/engineering',
+    href: '/guides?level=advanced',
     image: HUB_COVER_IMAGES.tools,
     icon: Wrench,
   },
@@ -456,7 +456,7 @@ export default async function HomePage() {
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400">Featured Guides</p>
             <SectionTitle>Recommended Reading</SectionTitle>
           </div>
-          <Link href="/search" className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
+          <Link href="/guides" className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
             Browse all guides <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
           </Link>
         </div>

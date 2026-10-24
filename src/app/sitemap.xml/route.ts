@@ -44,6 +44,7 @@ const STATIC_PAGES = [
   { url: '/buyers-guides', priority: '0.9', changefreq: 'weekly' },
   { url: '/comparisons', priority: '0.9', changefreq: 'weekly' },
   { url: '/reviews', priority: '0.9', changefreq: 'weekly' },
+  { url: '/guides', priority: '0.9', changefreq: 'daily' },
   { url: '/archive', priority: '0.7', changefreq: 'weekly' },
   { url: '/about', priority: '0.6', changefreq: 'monthly' },
   { url: '/contact', priority: '0.6', changefreq: 'monthly' },

@@ -1,7 +1,5 @@
 import {
-  Rocket, BookOpen, Wrench, Cpu, Radio, Video, Battery,
-  Crosshair, ShieldAlert, MonitorPlay, Activity, Zap, Layers, Map, Target, Trophy,
-  ShoppingBag, Star, Scale, Plane, Compass, LifeBuoy, Calendar, Newspaper,
+  Rocket, BookOpen, Wrench, Cpu, Video, Battery, Crosshair, ShieldAlert, MonitorPlay, Activity, Zap, Map, Target, Trophy, ShoppingBag, Star, Scale, Plane, Compass, LifeBuoy, Calendar, Newspaper,
 } from 'lucide-react';
 
 /**
@@ -20,8 +18,8 @@ export const navigationData = [
     href: "/academy",
     items: [
       {
-        title: "First Flight Roadmap",
-        href: "/academy/roadmap",
+        title: "Six Steps to First Flight",
+        href: "/academy",
         description: "The step-by-step path from zero to your first real flight.",
         icon: MonitorPlay
       },
@@ -42,6 +40,12 @@ export const navigationData = [
         href: "/academy/glossary",
         description: "Plain-English answers for every acronym you'll meet.",
         icon: BookOpen
+      },
+      {
+        title: "Progress Tracker",
+        href: "/academy/roadmap",
+        description: "Optional: track the skills you've practiced.",
+        icon: Target
       }
     ]
   },
@@ -87,43 +91,37 @@ export const navigationData = [
     title: "Guides",
     label: "Learn, fix, and improve",
     icon: Wrench,
-    href: "/search",
+    href: "/guides",
     items: [
       {
         title: "Beginner Guides",
-        href: "/topics/beginner-fpv",
+        href: "/guides?level=beginner",
         description: "Setup and first-flight guides written for new pilots.",
         icon: Rocket
       },
       {
-        title: "Troubleshooting",
-        href: "/topics/troubleshooting",
-        description: "Fix common problems: no video, no arm, failsafes, jello.",
-        icon: LifeBuoy
+        title: "Flying Skills",
+        href: "/guides?topic=flying",
+        description: "Practice plans, setup, and flying technique.",
+        icon: Crosshair
       },
       {
-        title: "Betaflight & Tuning",
-        href: "/engineering/flight-control",
-        description: "Advanced: PID tuning, filters, and Blackbox analysis.",
-        icon: Activity
-      },
-      {
-        title: "Power & Propulsion",
-        href: "/engineering/propulsion",
-        description: "Advanced: motors, ESCs, LiPo behavior, and propellers.",
+        title: "Building & Parts",
+        href: "/guides?topic=building",
+        description: "Components, builds, power, and radio links.",
         icon: Battery
       },
       {
-        title: "Radio & Video Link",
-        href: "/engineering/communication",
-        description: "Advanced: ELRS, video latency, antennas, and range.",
-        icon: Radio
+        title: "Troubleshooting",
+        href: "/guides?topic=troubleshooting",
+        description: "Fix no video, no arm, failsafes, and more.",
+        icon: LifeBuoy
       },
       {
-        title: "Aircraft Systems",
-        href: "/engineering/systems",
-        description: "Advanced: frames, GPS rescue, and system integration.",
-        icon: Layers
+        title: "Engineering Deep Dives",
+        href: "/engineering",
+        description: "Advanced: PID tuning, propulsion, RF, and systems research.",
+        icon: Activity
       }
     ]
   },

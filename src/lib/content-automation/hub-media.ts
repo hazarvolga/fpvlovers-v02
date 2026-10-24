@@ -16,6 +16,7 @@ export const HUB_COVER_IMAGES = {
   search: buildCoverImageUrl('hub-search'),
   glossary: buildCoverImageUrl('hub-glossary'),
   roadmap: buildCoverImageUrl('hub-roadmap'),
+  guides: buildCoverImageUrl('hub-guides'),
 } as const;
 
 export function buildTopicHubCover(topic: string): string {
