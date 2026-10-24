@@ -16,6 +16,8 @@ import { resolveHomepageContent, type HomepageSectionCard } from '@/lib/homepage
 import { Badge } from '@/components/ui/badge';
 import { NewsletterWidget } from '@/features/tools/components/NewsletterWidget';
 import { ResilientCoverImage } from '@/components/ResilientCoverImage';
+import { LevelBadge } from '@/components/ui/level-badge';
+import { listPublishedContentAsync } from '@/lib/content-automation/content-reader';
 import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 import type { Metadata } from 'next';
 
@@ -219,7 +221,7 @@ function PillarCard({ pillar }: { pillar: HomePillar }) {
   );
 }
 
-function LatestContentItem({ card, featured = false }: { card: HomepageSectionCard; featured?: boolean }) {
+function LatestContentItem({ card, featured = false, difficulty }: { card: HomepageSectionCard; featured?: boolean; difficulty?: string }) {
   return (
     <Link
       href={card.href}
@@ -245,6 +247,7 @@ function LatestContentItem({ card, featured = false }: { card: HomepageSectionCa
       <div className={featured ? 'flex flex-col justify-center p-6 md:p-8' : 'p-5'}>
         <div className="flex flex-wrap items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-zinc-400">
           <span className="rounded-full border border-[#ff3131]/30 bg-[#ff3131]/[0.08] px-2.5 py-1 text-[#ff8a8d]">{card.category}</span>
+          <LevelBadge difficulty={difficulty} className="rounded-full px-2.5 py-1 text-[9px]" />
           <span>{formatDisplayDate(card)}</span>
         </div>
         <h3 className={`${featured ? 'mt-5 text-xl md:text-2xl' : 'mt-4 text-base'} line-clamp-3 font-black leading-tight tracking-[-0.02em] text-white transition-colors duration-500 group-hover:text-[#ff3131]`}>
@@ -276,6 +279,10 @@ function SectionTitle({ children }: { children: ReactNode }) {
 
 export default async function HomePage() {
   const content = await resolveHomepageContent();
+  // Level badges come from article metadata; looked up by slug so the homepage
+  // card model (toHomepageCard) stays untouched. The list call is request-cached.
+  const publishedContent = await listPublishedContentAsync();
+  const difficultyBySlug = new Map(publishedContent.map((article) => [article.slug, article.metadata?.difficulty]));
   const recentPostCards = content.recentPosts;
   const dynamicCommunityStats = communityStats.map((stat) => (
     stat.label === 'Published guides'
@@ -398,7 +405,7 @@ export default async function HomePage() {
           {recentPostCards.length > 0 ? (
             <div className="grid gap-4 md:grid-cols-2">
               {recentPostCards.map((card, index) => (
-                <LatestContentItem key={card.slug} card={card} featured={index === 0} />
+                <LatestContentItem key={card.slug} card={card} featured={index === 0} difficulty={difficultyBySlug.get(card.slug)} />
               ))}
             </div>
           ) : (
@@ -484,9 +491,12 @@ export default async function HomePage() {
                 </div>
                 <div className="p-6">
                   <div className="mb-4 flex items-center justify-between gap-3">
-                    <Badge variant="outline" className="rounded-[0.3rem] border-white/10 bg-white/[0.03] text-[10px] uppercase tracking-[0.14em] text-zinc-300">
-                      {card.category}
-                    </Badge>
+                    <span className="flex flex-wrap items-center gap-2">
+                      <Badge variant="outline" className="rounded-[0.3rem] border-white/10 bg-white/[0.03] text-[10px] uppercase tracking-[0.14em] text-zinc-300">
+                        {card.category}
+                      </Badge>
+                      <LevelBadge difficulty={difficultyBySlug.get(card.slug)} />
+                    </span>
                     <span className="font-mono text-[10px] text-zinc-400">{card.readingTime}</span>
                   </div>
                   <h3 className="line-clamp-2 text-lg font-black leading-tight text-white transition-colors duration-500 group-hover:text-[#ff3131]">

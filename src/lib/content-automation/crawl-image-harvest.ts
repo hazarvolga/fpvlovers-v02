@@ -49,6 +49,9 @@ const HOST_DENYLIST = [
   'gravatar.com', 'placeholder.com', 'placehold.it', 'doubleclick.net',
   'staticflickr.com', 'googlesyndication.com', 'googletagmanager.com',
   'facebook.com', 'twitter.com', 'instagram.com',
+  // Store review widgets: customer-uploaded photos, unrelated to the article
+  // topic and not licensed for editorial reuse.
+  'judgeme.imgix.net', 'judge.me', 'stamped.io', 'yotpo.com', 'loox.io', 'okendo.io',
 ];
 
 /**

@@ -161,7 +161,8 @@ export function buildCoverImageSvg(input: {
   const [bgA, accentA, accentB] = pickPalette(input.category, input.slug);
   const title = escapeXml(truncate(input.title, 72));
   const category = escapeXml(input.category.toUpperCase());
-  const excerpt = escapeXml(truncate(input.excerpt || '', 112));
+  // One 22px line inside a 720px card: ~52 characters fits the server font (DejaVu Sans).
+  const excerpt = escapeXml(truncate(input.excerpt || '', 52));
   const seed = hashString(`${input.slug}:${input.title}`);
   const titleLines = buildTitleLinesSvg(input.title);
   const droneScene = buildDroneSceneSvg(accentA, accentB, seed);

@@ -207,7 +207,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
               title={a.title}
             />
           )}
-          <div className={`p-8 md:p-12 lg:p-16 ${!a.media?.coverImage?.src ? 'pt-12' : 'relative z-10 -mt-20'} relative z-10`}>
+          <div className={`p-8 md:p-12 lg:p-16 ${!a.media?.coverImage?.src ? 'pt-12' : 'pt-6 md:pt-8 lg:pt-10'} relative z-10`}>
             <div className="flex items-center gap-2 mb-6">
               <span className="rounded border border-white/10 bg-black/80 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-zinc-300">
                 {a.category || 'Article'}
