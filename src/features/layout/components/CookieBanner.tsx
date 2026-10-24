@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ShieldCheck, Info } from 'lucide-react';
 
 export function CookieBanner() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,43 +29,37 @@ export function CookieBanner() {
 
   if (!isOpen) return null;
 
+  // Compact strip: sits just above the mobile utility bar and never covers
+  // the primary hero call-to-action.
   return (
-    <div className="fixed bottom-20 md:bottom-6 right-4 left-4 md:left-auto md:w-96 z-50 animate-bounce-short">
-      <div className="relative overflow-hidden rounded-lg border border-[#ff3131]/25 bg-[#050810]/95 p-5 shadow-[0_0_30px_rgba(225,34,39,0.12)] backdrop-blur-md">
-        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#ff3131] to-transparent" />
-        <div className="absolute inset-0 carbon-grid opacity-10 pointer-events-none" />
-
-        <div className="relative z-10 flex flex-col gap-4">
-          <div className="flex items-center gap-2 border-b border-white/5 pb-2">
-            <ShieldCheck className="w-4 h-4 text-[#ff3131]" />
-            <span className="text-[10px] font-mono font-black uppercase text-white tracking-widest">
-              Cookie Notice
-            </span>
-          </div>
-
-          <p className="text-[11px] font-sans text-zinc-400 leading-normal">
-            FPVLovers uses necessary cookies and affiliate referral cookies to keep the site working and support future gear guides. Review our{' '}
-            <Link href="/privacy" className="text-[#ff8a8d] hover:underline font-mono">
-              Privacy Policy
-            </Link>.
-          </p>
-
-          <div className="flex items-center gap-2 pt-2">
-            <Button
-              variant="amber"
-              size="sm"
-              onClick={handleAccept}
-              className="flex-1 uppercase font-mono font-black text-[9px] py-1.5"
-            >
-              Accept Cookies
-            </Button>
-            <button
-              onClick={handleDecline}
-              className="px-3 py-1.5 border border-white/10 hover:border-white/20 rounded text-[9px] font-mono uppercase text-zinc-400 hover:text-white transition-colors"
-            >
-              Decline
-            </button>
-          </div>
+    <div
+      role="region"
+      aria-label="Cookie notice"
+      className="fixed inset-x-0 bottom-16 z-40 border-t border-white/10 bg-[#050810]/95 backdrop-blur-md lg:bottom-0"
+    >
+      <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2.5 sm:flex-row sm:items-center sm:gap-4">
+        <p className="flex-1 text-[11px] leading-snug text-zinc-400">
+          We use necessary and affiliate referral cookies.{' '}
+          <Link href="/privacy" className="text-[#ff8a8d] hover:underline">
+            Privacy Policy
+          </Link>
+        </p>
+        <div className="flex shrink-0 items-center gap-2">
+          <button
+            type="button"
+            onClick={handleDecline}
+            className="min-h-9 rounded border border-white/10 px-3 text-[10px] font-mono uppercase tracking-wider text-zinc-400 transition-colors hover:border-white/20 hover:text-white"
+          >
+            Decline
+          </button>
+          <Button
+            variant="amber"
+            size="sm"
+            onClick={handleAccept}
+            className="min-h-9 px-4 font-mono text-[10px] font-black uppercase"
+          >
+            Accept
+          </Button>
         </div>
       </div>
     </div>

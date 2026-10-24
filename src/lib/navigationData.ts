@@ -1,174 +1,193 @@
 import {
   Rocket, BookOpen, Wrench, Cpu, Radio, Video, Battery,
-  Crosshair, ShieldAlert, MonitorPlay, Activity, Zap, Layers, Map, Target, Trophy
+  Crosshair, ShieldAlert, MonitorPlay, Activity, Zap, Layers, Map, Target, Trophy,
+  ShoppingBag, Star, Scale, Plane, Compass, LifeBuoy, Calendar, Newspaper,
 } from 'lucide-react';
 
+/**
+ * Primary site navigation — beginner-first information architecture.
+ *
+ * Five top-level groups follow the visitor's journey rather than the internal
+ * system structure: Start Here -> Gear -> Guides -> Tools -> Racing & News.
+ * `label` is a plain-language helper line shown in dropdown headers, never an
+ * alternate name for the group.
+ */
 export const navigationData = [
   {
-    title: "Learn",
-    label: "Get Started",
+    title: "Start Here",
+    label: "New to FPV? Begin here",
     icon: Rocket,
     href: "/academy",
     items: [
       {
-        title: "Roadmap & Guide",
+        title: "First Flight Roadmap",
         href: "/academy/roadmap",
-        description: "Step-by-step guide from zero to hero.",
+        description: "The step-by-step path from zero to your first real flight.",
         icon: MonitorPlay
       },
       {
-        title: "Starter Kits",
-        href: "/academy/starter-kits",
-        description: "Whoops, RTF bundles, and your first gear.",
-        icon: Zap
+        title: "Simulator Training",
+        href: "/academy/simulators",
+        description: "Learn stick control safely before you buy a drone.",
+        icon: Crosshair
+      },
+      {
+        title: "Rules & Safety",
+        href: "/regulations",
+        description: "Where you can fly, registration, and battery safety.",
+        icon: ShieldAlert
       },
       {
         title: "FPV Glossary",
         href: "/academy/glossary",
-        description: "Decode the technical jargon and acronyms.",
+        description: "Plain-English answers for every acronym you'll meet.",
         icon: BookOpen
       }
     ]
   },
   {
-    title: "Build",
-    label: "Research & Systems",
-    icon: Wrench,
-    href: "/engineering",
+    title: "Gear",
+    label: "What should I buy?",
+    icon: ShoppingBag,
+    href: "/buyers-guides",
     items: [
       {
-        title: "Flight Control Research",
+        title: "Starter Kits",
+        href: "/academy/starter-kits",
+        description: "Your first drone, radio, and goggles — ready-to-fly options.",
+        icon: Zap
+      },
+      {
+        title: "Buyer Guides",
+        href: "/buyers-guides",
+        description: "Choose gear by budget and flying style, without the hype.",
+        icon: Compass
+      },
+      {
+        title: "Reviews",
+        href: "/reviews",
+        description: "Hands-on hardware reviews with clear evidence limits.",
+        icon: Star
+      },
+      {
+        title: "Comparisons",
+        href: "/comparisons",
+        description: "Side-by-side trade-offs between popular options.",
+        icon: Scale
+      },
+      {
+        title: "Drone Types",
+        href: "/archive",
+        description: "Whoops, freestyle, cinematic, racing, and long-range explained.",
+        icon: Plane
+      }
+    ]
+  },
+  {
+    title: "Guides",
+    label: "Learn, fix, and improve",
+    icon: Wrench,
+    href: "/search",
+    items: [
+      {
+        title: "Beginner Guides",
+        href: "/topics/beginner-fpv",
+        description: "Setup and first-flight guides written for new pilots.",
+        icon: Rocket
+      },
+      {
+        title: "Troubleshooting",
+        href: "/topics/troubleshooting",
+        description: "Fix common problems: no video, no arm, failsafes, jello.",
+        icon: LifeBuoy
+      },
+      {
+        title: "Betaflight & Tuning",
         href: "/engineering/flight-control",
-        description: "Blackbox, PID Tuning, and Betaflight Filter architectures.",
-        icon: Cpu
+        description: "Advanced: PID tuning, filters, and Blackbox analysis.",
+        icon: Activity
       },
       {
-        title: "Propulsion & Power",
+        title: "Power & Propulsion",
         href: "/engineering/propulsion",
-        description: "Motor efficiency, ESC protocols, LiPo science, and propellers.",
-        icon: Target
+        description: "Advanced: motors, ESCs, LiPo behavior, and propellers.",
+        icon: Battery
       },
       {
-        title: "RF & Video Link",
+        title: "Radio & Video Link",
         href: "/engineering/communication",
-        description: "ELRS packet rates, video latency engineering, and propagation.",
+        description: "Advanced: ELRS, video latency, antennas, and range.",
         icon: Radio
       },
       {
         title: "Aircraft Systems",
         href: "/engineering/systems",
-        description: "Frame resonance, GPS rescue reliability, and system integration.",
-        icon: Activity
-      }
-    ]
-  },
-  {
-    title: "Race",
-    label: "Competition Grid",
-    icon: Trophy,
-    href: "/racing",
-    items: []
-  },
-  {
-    title: "Fly",
-    label: "Types & Classes",
-    icon: Layers,
-    href: "/archive",
-    items: [
-      {
-        title: "Whoops",
-        href: "/archive/whoops",
-        description: "Tiny acrobats for indoor and proximity flying.",
-        icon: Target
-      },
-      {
-        title: "Freestyle",
-        href: "/archive/freestyle",
-        description: "High-G physics and raw freestyle maneuvers.",
-        icon: Video
-      },
-      {
-        title: "Cinematic",
-        href: "/archive/cinematic",
-        description: "Smooth HD capture and cinewhoop platforms.",
-        icon: Video
-      },
-      {
-        title: "Racing",
-        href: "/archive/racing",
-        description: "Pure speed, tight tracks, maximum voltage.",
-        icon: Crosshair
-      },
-      {
-        title: "Long-Range",
-        href: "/archive/long-range",
-        description: "Mountain surfing and endurance flights.",
-        icon: Crosshair
+        description: "Advanced: frames, GPS rescue, and system integration.",
+        icon: Layers
       }
     ]
   },
   {
     title: "Tools",
-    label: "The Powerhouses",
+    label: "Calculators and analyzers",
     icon: Cpu,
     href: "/tools",
     items: [
       {
-        title: "Component Duel",
-        href: "/tools/component-duel",
-        description: "Side-by-Side FPV Hardware Comparisons.",
-        icon: Zap
-      },
-      {
         title: "Build Calculator",
         href: "/tools/calculator",
-        description: "Weight, Thrust, and Efficiency estimations.",
-        icon: Activity
+        description: "Estimate weight, thrust, and flight time for a build.",
+        icon: Target
       },
       {
         title: "Part Matcher",
         href: "/tools/part-matcher",
-        description: "Catalog-backed FPV component compatibility checks.",
-        icon: Target
+        description: "Check whether your components are compatible.",
+        icon: Map
+      },
+      {
+        title: "Component Duel",
+        href: "/tools/component-duel",
+        description: "Compare two FPV parts side by side.",
+        icon: Scale
       },
       {
         title: "Blackbox Tuning",
         href: "/tools/blackbox-tuning",
-        description: "Analyze flight logs to optimize PID and filters.",
-        icon: Radio
+        description: "Advanced: analyze flight logs to tune PIDs and filters.",
+        icon: Activity
       },
       {
         title: "Flight Critic",
         href: "/tools/flight-critic",
-        description: "AI-driven cinematic flight footage analysis.",
+        description: "Advanced: AI feedback on your cinematic flight footage.",
         icon: Video
       }
     ]
   },
   {
-    title: "News",
-    label: "Live Radar",
-    icon: Radio,
-    href: "/pilot-pulse",
-    items: []
-  },
-  {
-    title: "Regulations",
-    label: "Safety First",
-    icon: ShieldAlert,
-    href: "/regulations",
+    title: "Racing & News",
+    label: "Events, results, and updates",
+    icon: Trophy,
+    href: "/racing",
     items: [
       {
-        title: "Airspace & Remote ID",
-        href: "/regulations/airspace",
-        description: "Global airspace maps and compliance standards.",
-        icon: Map
+        title: "Race Calendar",
+        href: "/racing/calendar",
+        description: "Verified upcoming FPV race events.",
+        icon: Calendar
       },
       {
-        title: "Battery Safety",
-        href: "/regulations/battery",
-        description: "LiPo charging, storage, and fire prevention.",
-        icon: Battery
+        title: "Racing News",
+        href: "/racing/news",
+        description: "Latest updates from the FPV racing world.",
+        icon: Newspaper
+      },
+      {
+        title: "Results & Rankings",
+        href: "/racing/rankings",
+        description: "World rankings and recent race results.",
+        icon: Trophy
       }
     ]
   }

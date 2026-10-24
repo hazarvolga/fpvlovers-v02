@@ -84,6 +84,28 @@ const nextConfig: NextConfig = {
         destination: '/tools/part-matcher',
         permanent: true,
       },
+      {
+        // Pilot Pulse (simulated telemetry demo) was retired from the public IA.
+        source: '/pilot-pulse',
+        destination: '/racing/news',
+        permanent: true,
+      },
+      {
+        // Legacy /category taxonomy duplicated Tools and Guides.
+        source: '/category',
+        destination: '/buyers-guides',
+        permanent: true,
+      },
+      {
+        source: '/category/parts',
+        destination: '/tools/component-duel',
+        permanent: true,
+      },
+      {
+        source: '/category/software',
+        destination: '/tools/flight-critic',
+        permanent: true,
+      },
     ];
   },
   async headers() {

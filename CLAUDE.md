@@ -111,7 +111,7 @@ Tüm kaynak kod `src/` altında yaşar:
 | `src/features/layout/components/` | Navbar, SystemHUD |
 | `src/features/monetization/components/` | AdZone, AffiliateButton, AffiliateCard, NativeAds, SponsorDashboard |
 | `src/features/navigation/components/` | Breadcrumb |
-| `src/features/tools/components/` | Etkileşimli tool widget'ları (AffexDuelEngine, BlackboxTuner, BuildCalculatorWidget, FlightCriticWidget, HardwareAnalyzer, NewsletterWidget, PartMatcherWidget, PilotPulseWidget) |
+| `src/features/tools/components/` | Etkileşimli tool widget'ları (AffexDuelEngine, BlackboxTuner, BuildCalculatorWidget, FlightCriticWidget, HardwareAnalyzer, NewsletterWidget, PartMatcherWidget) |
 
 **Path Alias**: `@/*` → `src/*` (tsconfig.json). Örnek: `@/lib/utils` → `src/lib/utils.ts`
 

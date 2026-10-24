@@ -3,20 +3,20 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Rocket, BookOpen, Cpu, Search, Activity } from 'lucide-react';
+import { Home, Rocket, ShoppingBag, Cpu, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useSession } from 'next-auth/react';
 
 export function MobileUtilityBar() {
   const pathname = usePathname();
-  const { status } = useSession();
 
+  // Mirrors the primary navigation journey: Start Here -> Gear -> Tools.
+  // Account/progress lives in the header menu, not in the thumb bar.
   const utilities = [
-    { name: 'Home', href: '/', icon: Rocket },
-    { name: 'Academy', href: '/academy', icon: BookOpen },
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Start', href: '/academy', icon: Rocket },
+    { name: 'Gear', href: '/buyers-guides', icon: ShoppingBag },
     { name: 'Search', href: '/search', icon: Search },
     { name: 'Tools', href: '/tools', icon: Cpu },
-    { name: 'Dossier', href: status === 'authenticated' ? '/academy/dossier' : '/auth/signin', icon: Activity },
   ];
 
   return (

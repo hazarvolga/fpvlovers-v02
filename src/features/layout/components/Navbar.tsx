@@ -27,12 +27,14 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const pathname = usePathname();
 
   const closeNavigation = () => {
     setMobileMenuOpen(false);
     setActiveMenu(null);
     setUserMenuOpen(false);
+    setMobileExpanded(null);
   };
 
   useEffect(() => {
@@ -184,7 +186,7 @@ export function Navbar() {
               {userMenuOpen && (
                 <div className="absolute right-0 mt-2 w-56 rounded-sm border border-white/5 bg-[#18181b] p-2 shadow-2xl z-50 text-[10px] font-mono uppercase tracking-widest">
                   <div className="px-3 py-2 border-b border-white/5 mb-1.5 bg-[#09090b] rounded-sm">
-                    <span className="text-zinc-600 block text-[9px]">Authorized Operator</span>
+                    <span className="text-zinc-600 block text-[9px]">Signed in as</span>
                     <span className="text-zinc-300 font-bold block truncate mt-1">{session.user?.email}</span>
                   </div>
                   <Link
@@ -192,14 +194,14 @@ export function Navbar() {
                     onClick={() => setUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
                   >
-                    Dossier Profile
+                    My Progress
                   </Link>
                   <Link
                     href="/academy/roadmap"
                     onClick={() => setUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
                   >
-                    Flight Roadmap
+                    First Flight Roadmap
                   </Link>
                   <button
                     onClick={() => {
@@ -208,7 +210,7 @@ export function Navbar() {
                     }}
                     className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md text-[#FF5C00] hover:bg-[#FF5C00]/5 transition-colors uppercase text-[10px] cursor-pointer mt-1 border-t border-white/5 pt-2"
                   >
-                    Logout Session
+                    Sign Out
                   </button>
                 </div>
               )}
@@ -226,7 +228,7 @@ export function Navbar() {
               {userMenuOpen && (
                 <div className="absolute right-0 mt-2 w-56 rounded-md border border-white/10 bg-[#0b0b0c] p-2 shadow-2xl z-50 text-xs font-mono">
                   <div className="px-3 py-2 border-b border-white/5 mb-1.5">
-                    <span className="text-[#888] uppercase block text-[9px]">Offline Callsign</span>
+                    <span className="text-[#888] uppercase block text-[9px]">Saved on this device</span>
                     <span className="text-white font-bold block truncate">{localDossier.assignedClass}</span>
                   </div>
                   <Link
@@ -234,26 +236,26 @@ export function Navbar() {
                     onClick={() => setUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
                   >
-                    Dossier Profile
+                    My Progress
                   </Link>
                   <Link
                     href="/academy/roadmap"
                     onClick={() => setUserMenuOpen(false)}
                     className="flex items-center gap-2 px-3 py-2 rounded-md text-[#A0A0A0] hover:text-white hover:bg-white/[0.04] transition-colors uppercase block text-[10px]"
                   >
-                    Flight Roadmap
+                    First Flight Roadmap
                   </Link>
                   <button
                     onClick={() => {
                       setUserMenuOpen(false);
-                      if (confirm("WARNING: Are you sure you want to decommission this pilot dossier?")) {
+                      if (confirm("Delete the progress saved on this device? This cannot be undone.")) {
                         document.cookie = "fpv_dossier_v1=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict; Secure";
                         window.location.reload();
                       }
                     }}
                     className="w-full text-left flex items-center gap-2 px-3 py-2 rounded-md text-[#FF5C00] hover:bg-[#FF5C00]/5 transition-colors uppercase text-[10px] cursor-pointer mt-1 border-t border-white/5 pt-2"
                   >
-                    Decommission Call
+                    Delete Local Progress
                   </button>
                 </div>
               )}
@@ -284,22 +286,37 @@ export function Navbar() {
           <div className="mx-auto flex max-w-7xl flex-col gap-2">
             {navLinks.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+              const isExpanded = mobileExpanded === item.href;
+              const submenuId = `mobile-submenu-${item.href.replace(/\//g, '') || 'home'}`;
               return (
                 <div key={item.href} className="rounded-sm border border-white/10 bg-[#111419]/60 p-2">
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      'flex min-h-11 items-center gap-3 rounded-sm px-3 py-3 text-[11px] font-bold uppercase tracking-wider text-zinc-400 transition-colors',
-                      isActive && 'bg-white/5 text-zinc-100',
+                  <div className="flex items-center gap-1">
+                    <Link
+                      href={item.href}
+                      className={cn(
+                        'flex min-h-11 flex-1 items-center gap-3 rounded-sm px-3 py-3 text-[11px] font-bold uppercase tracking-wider text-zinc-300 transition-colors',
+                        isActive && 'bg-white/5 text-zinc-100',
+                      )}
+                      onClick={closeNavigation}
+                    >
+                      <item.icon className={cn('h-3.5 w-3.5', isActive ? 'text-[#ff3131]' : 'text-zinc-500')} />
+                      <span className="flex-1">{item.title}</span>
+                    </Link>
+                    {item.items.length > 0 && (
+                      <button
+                        type="button"
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-sm text-zinc-400 transition-colors hover:bg-white/5 hover:text-zinc-100"
+                        aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${item.title}`}
+                        aria-expanded={isExpanded}
+                        aria-controls={submenuId}
+                        onClick={() => setMobileExpanded(isExpanded ? null : item.href)}
+                      >
+                        <ChevronDown className={cn('h-4 w-4 transition-transform', isExpanded && 'rotate-180')} />
+                      </button>
                     )}
-                    onClick={closeNavigation}
-                  >
-                    <item.icon className={cn('h-3.5 w-3.5', isActive ? 'text-[#ff3131]' : 'text-zinc-500')} />
-                    <span className="flex-1">{item.title}</span>
-                    <ChevronRight className="h-4 w-4 text-[#77736d]" />
-                  </Link>
-                  {item.items.length > 0 && (
-                    <div className="mt-1 grid gap-1 pl-7">
+                  </div>
+                  {item.items.length > 0 && isExpanded && (
+                    <div id={submenuId} className="mt-1 grid gap-1 pl-7">
                       {item.items.map((subItem) => {
                         const subActive = pathname === subItem.href;
                         return (
@@ -307,8 +324,8 @@ export function Navbar() {
                             key={subItem.href}
                             href={subItem.href}
                             className={cn(
-                              'flex min-h-11 items-center gap-2 rounded-sm px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-zinc-500 transition-colors hover:bg-white/5 hover:text-zinc-300',
-                              subActive && 'bg-white/5 text-zinc-300',
+                              'flex min-h-11 items-center gap-2 rounded-sm px-3 py-2 text-[10px] font-bold uppercase tracking-widest text-zinc-400 transition-colors hover:bg-white/5 hover:text-zinc-200',
+                              subActive && 'bg-white/5 text-zinc-200',
                             )}
                             onClick={closeNavigation}
                           >
@@ -323,17 +340,15 @@ export function Navbar() {
               );
             })}
 
-            <div className="mt-2 grid grid-cols-2 gap-2 border-t border-white/10 pt-4">
+            <div className="mt-2 flex items-center justify-center gap-6 border-t border-white/10 pt-4">
               {[
-                { title: 'Buyer Guides', href: '/buyers-guides' },
-                { title: 'Reviews', href: '/reviews' },
-                { title: 'Disclosure', href: '/disclosure' },
+                { title: 'Affiliate Disclosure', href: '/disclosure' },
                 { title: 'Editorial Policy', href: '/editorial-policy' },
               ].map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="flex min-h-11 items-center justify-center rounded-sm border border-white/10 bg-white/[0.03] px-3 py-3 text-center text-[10px] font-mono font-black uppercase tracking-widest text-zinc-300 transition-colors hover:border-[#ff3131]/40 hover:text-white"
+                  className="flex min-h-11 items-center text-[10px] font-mono uppercase tracking-widest text-zinc-500 transition-colors hover:text-white"
                   onClick={closeNavigation}
                 >
                   {item.title}
@@ -350,7 +365,7 @@ export function Navbar() {
                   onClick={closeNavigation}
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-[#00FF66]" />
-                  Pilot: {session.user?.name || 'Authorized'}
+                  Pilot: {session.user?.name || 'Signed in'}
                 </Link>
               ) : localDossier ? (
                 <Link

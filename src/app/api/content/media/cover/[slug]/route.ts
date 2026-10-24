@@ -33,7 +33,10 @@ export async function GET(
     registry?.summary ||
     'Copyright-safe media generated locally for the FPVLovers content engine.';
 
-  const svg = buildCoverImageSvg({ slug, title, category, excerpt });
+  // Hub covers are page/card backgrounds with their own overlaid text, so
+  // they render as artwork only to avoid a second, competing title.
+  const artworkOnly = slug.startsWith('hub-');
+  const svg = buildCoverImageSvg({ slug, title, category, excerpt, artworkOnly });
   const png = await sharp(Buffer.from(svg))
     .png({ compressionLevel: 9, adaptiveFiltering: true })
     .toBuffer();

@@ -17,6 +17,9 @@ RUN npx next build
 FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
+# sharp renders generated cover SVGs (with <text>) to PNG at runtime.
+# Alpine ships no fonts, so cover text rendered as empty tofu boxes.
+RUN apk add --no-cache fontconfig ttf-dejavu
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public

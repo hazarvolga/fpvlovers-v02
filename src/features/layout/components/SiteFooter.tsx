@@ -19,7 +19,7 @@ const featuredLinks = [
   { title: 'Build Calculator', href: '/tools/calculator', icon: Zap },
   { title: 'Part Matcher', href: '/tools/part-matcher', icon: Radio },
   { title: 'Battery Safety', href: '/regulations/battery', icon: Battery },
-  { title: 'News', href: '/pilot-pulse', icon: ArrowUpRight },
+  { title: 'Racing News', href: '/racing/news', icon: ArrowUpRight },
 ];
 
 // GAP #2: Semantic grouping for legal / platform / connect links.

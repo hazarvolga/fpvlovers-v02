@@ -64,7 +64,7 @@ RULES:
     const meta = metaDescriptions[content_type] || `Discover everything about ${keyword} at fpvlovers.com.tr — the FPV community's trusted resource.`;
 
     const relatedTerms = keyword.split(' ').filter((w: string) => w.length > 2).concat(['fpv', 'drone', 'review', 'guide']);
-    const internalLinks = ['/engineering/hardware', '/academy/roadmap', '/tools/component-duel', '/category/parts', '/category/software'];
+    const internalLinks = ['/engineering/hardware', '/academy/roadmap', '/tools/component-duel', '/tools/flight-critic'];
 
     const schemaType = content_type === 'buying-guide' || content_type === 'review' ? 'Product' : content_type === 'tutorial' ? 'HowTo' : 'Article';
     const schema = {

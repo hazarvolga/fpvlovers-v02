@@ -2,20 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { ComponentType, ReactNode } from 'react';
 import {
-  Archive,
   ArrowRight,
   BookOpen,
-  Calculator,
-  CheckCircle2,
   Eye,
   Gauge,
-  Globe2,
   GraduationCap,
-  Heart,
   Mail,
   ShoppingBag,
   Trophy,
-  Users,
   Wrench,
 } from 'lucide-react';
 import { resolveHomepageContent, type HomepageSectionCard } from '@/lib/homepage/homepage-content';
@@ -53,77 +47,63 @@ const heroShortcuts: {
   icon: IconComponent;
 }[] = [
   {
-    title: 'Academy',
-    description: 'Step-by-step learning for every level',
-    href: '/academy/roadmap',
+    title: 'Start Here',
+    description: 'New to FPV? Your first steps, in order',
+    href: '/academy',
     icon: GraduationCap,
   },
   {
-    title: 'Glossary',
-    description: 'Understand every FPV concept',
-    href: '/academy/glossary',
-    icon: BookOpen,
-  },
-  {
-    title: 'Buyer Guides',
-    description: 'Gear choices with commercial intent',
+    title: 'Gear',
+    description: 'What to buy, by budget and flying style',
     href: '/buyers-guides',
     icon: ShoppingBag,
   },
   {
+    title: 'Guides',
+    description: 'Setup, fixes, and skills for every level',
+    href: '/search',
+    icon: BookOpen,
+  },
+  {
     title: 'Tools',
-    description: 'Calculators and analyzers',
+    description: 'Calculators and compatibility checks',
     href: '/tools',
     icon: Wrench,
   },
   {
-    title: 'Racing',
-    description: 'Events, pilots, teams and formats',
+    title: 'Racing & News',
+    description: 'Events, results, and updates',
     href: '/racing',
     icon: Trophy,
   },
 ];
 
+// "Where are you in your FPV journey?" — lets visitors self-select a stage
+// instead of decoding the site's section structure.
 const pillars: HomePillar[] = [
   {
-    eyebrow: 'Academy',
-    title: 'Learn FPV',
-    description: 'Courses, roadmaps and beginner-safe paths designed for real pilot progress.',
-    href: '/academy/roadmap',
+    eyebrow: "I've never flown",
+    title: 'Start from zero',
+    description: 'Simulator, first radio, first drone, the rules, and your first flight — in the right order.',
+    href: '/academy',
     image: HUB_COVER_IMAGES.academy,
     icon: GraduationCap,
   },
   {
-    eyebrow: 'Buyer Guides',
-    title: 'Choose Gear',
-    description: 'Editorial buying guides for drones, goggles, radios, chargers and starter kits.',
-    href: '/buyers-guides',
-    image: HUB_COVER_IMAGES.buyersGuides,
-    icon: ShoppingBag,
-  },
-  {
-    eyebrow: 'Tools',
-    title: 'Improve FPV',
-    description: 'Calculators, blackbox analysis and practical setup tools for cleaner decisions.',
-    href: '/tools',
-    image: HUB_COVER_IMAGES.tools,
+    eyebrow: 'I just got my first drone',
+    title: 'Fly with confidence',
+    description: 'Beginner setup, common fixes, and practice drills for your first months in the air.',
+    href: '/topics/beginner-fpv',
+    image: HUB_COVER_IMAGES.archive,
     icon: Gauge,
   },
   {
-    eyebrow: 'Drone Archive',
-    title: 'Explore FPV',
-    description: 'Drone categories, build styles and platform references for every mission type.',
-    href: '/archive',
-    image: HUB_COVER_IMAGES.archive,
-    icon: Archive,
-  },
-  {
-    eyebrow: 'Racing',
-    title: 'Compete FPV',
-    description: 'Race formats, pilot development, league coverage and event intelligence.',
-    href: '/racing',
-    image: HUB_COVER_IMAGES.racing,
-    icon: Trophy,
+    eyebrow: 'I build and tune',
+    title: 'Go deeper',
+    description: 'Advanced guides on Betaflight tuning, power systems, and radio and video links.',
+    href: '/engineering',
+    image: HUB_COVER_IMAGES.tools,
+    icon: Wrench,
   },
 ];
 
@@ -132,11 +112,10 @@ const communityStats: {
   value: string;
   icon: IconComponent;
 }[] = [
-  { label: 'Published artifacts', value: '117+', icon: BookOpen },
-  { label: 'Pilot tools', value: '6', icon: Wrench },
-  { label: 'Core hubs', value: '5', icon: Globe2 },
-  { label: 'Fake event dates', value: '0', icon: CheckCircle2 },
-  { label: 'Editorial owner', value: 'HVE', icon: Users },
+  { label: 'Published guides', value: '160+', icon: BookOpen },
+  { label: 'Free pilot tools', value: '5', icon: Wrench },
+  { label: 'Skill levels covered', value: '3', icon: Gauge },
+  { label: 'Brands covered', value: '8', icon: ShoppingBag },
 ];
 
 const coveredBrands = [
@@ -299,7 +278,7 @@ export default async function HomePage() {
   const content = await resolveHomepageContent();
   const recentPostCards = content.recentPosts;
   const dynamicCommunityStats = communityStats.map((stat) => (
-    stat.label === 'Published artifacts'
+    stat.label === 'Published guides'
       ? { ...stat, value: `${content.archiveCount}+` }
       : stat
   ));
@@ -345,18 +324,18 @@ export default async function HomePage() {
               The Ultimate FPV Knowledge <span className="text-[#e12227]">Hub</span>
             </h1>
             <p className="mt-7 max-w-xl text-base leading-7 text-zinc-300 md:text-lg">
-              Everything FPV pilots need in one place. Tutorials, buyer guides, product reviews, tools, racing coverage and real-world performance education.
+              Clear, evidence-first FPV guides for every stage — from your first simulator session to your own custom build.
             </p>
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
-              <EditorialButton href="/academy/roadmap">Start Learning</EditorialButton>
-              <EditorialButton href="/archive" tone="ghost">Explore Archive</EditorialButton>
+              <EditorialButton href="/academy">New to FPV? Start Here</EditorialButton>
+              <EditorialButton href="/buyers-guides" tone="ghost">Choose Your Gear</EditorialButton>
             </div>
 
             <div className="mt-10 grid max-w-2xl grid-cols-3 gap-4">
-              <Metric label="Content" value={`${content.archiveCount}+ Articles`} />
+              <Metric label="Content" value={`${content.archiveCount}+ Guides`} />
+              <Metric label="Levels" value="Beginner to Pro" />
               <Metric label="Reviews" value="Evidence First" />
-              <Metric label="Editor" value="Hazar Volga Ekiz" />
             </div>
           </div>
 
@@ -387,14 +366,14 @@ export default async function HomePage() {
       <section className="relative mx-auto max-w-[112rem] px-5 py-20 sm:px-8 lg:px-16">
         <div className="mb-10 text-center">
           <h2 className="text-2xl font-black uppercase tracking-[-0.03em] text-white md:text-3xl">
-            Built for <span className="text-[#ff3131]">pilots.</span> By pilots.
+            Where are you in your <span className="text-[#ff3131]">FPV journey?</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-zinc-400">
-            FPVLovers is not an internal telemetry dashboard. It is a public FPV media and knowledge system for beginners, builders, racers and cinematic pilots.
+            Pick your stage and we&apos;ll point you to the guides that matter right now.
           </p>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <div className="grid gap-4 md:grid-cols-3">
           {pillars.map((pillar) => (
             <PillarCard key={pillar.href} pillar={pillar} />
           ))}
@@ -434,7 +413,7 @@ export default async function HomePage() {
           <div className="rounded-[calc(2rem-0.5rem)] bg-[#0b0d10]/[0.96] p-6 md:p-8">
           <div className="mb-6 flex items-center justify-between gap-4">
             <SectionTitle>Upcoming Races</SectionTitle>
-            <Link href="/racing" className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white">
+            <Link href="/racing/calendar" className="flex items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white">
               View Calendar <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
             </Link>
           </div>
@@ -442,22 +421,14 @@ export default async function HomePage() {
           <div className="rounded-[1.25rem] border border-[#ff3131]/20 bg-black/[0.28] p-5">
             <div className="grid gap-5 sm:grid-cols-[4.25rem_1fr] sm:items-center">
               <div className="rounded-[0.45rem] border border-[#ff3131]/[0.24] bg-[#ff3131]/[0.08] px-3 py-4 text-center">
-                <div className="font-mono text-[10px] font-black uppercase tracking-[0.22em] text-[#ff3131]">Live</div>
-                <div className="mt-1 text-2xl font-black text-white">QA</div>
+                <div className="font-mono text-[10px] font-black uppercase tracking-[0.22em] text-[#ff3131]">Next</div>
+                <div className="mt-1 text-2xl font-black text-white">TBA</div>
               </div>
               <div>
-                <h3 className="text-lg font-black text-white">Current race calendar only</h3>
+                <h3 className="text-lg font-black text-white">Confirmed events only</h3>
                 <p className="mt-2 text-sm leading-6 text-zinc-400">
-                  FPVLovers will publish upcoming race dates only after they are current and verified. No past-dated fixture data is hard-coded into the homepage.
+                  Race dates appear here once the organizer has confirmed them. See the full calendar for verified events and leagues.
                 </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Badge variant="outline" className="rounded-[0.3rem] border-white/10 bg-white/[0.03] text-[10px] uppercase tracking-[0.14em] text-zinc-300">
-                    Racing workflow monitored
-                  </Badge>
-                  <Badge variant="outline" className="rounded-[0.3rem] border-[#ff3131]/30 bg-[#ff3131]/[0.08] text-[10px] uppercase tracking-[0.14em] text-[#ff8a8d]">
-                    No fake event dates
-                  </Badge>
-                </div>
               </div>
             </div>
           </div>
@@ -483,10 +454,10 @@ export default async function HomePage() {
         <div className="mb-8 flex items-end justify-between gap-4">
           <div>
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400">Featured Guides</p>
-            <SectionTitle>Pilot Knowledge Feed</SectionTitle>
+            <SectionTitle>Recommended Reading</SectionTitle>
           </div>
-          <Link href="/academy/roadmap" className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
-            View academy <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+          <Link href="/search" className="hidden items-center gap-2 text-xs font-black uppercase tracking-[0.12em] text-[#ff3131] transition-colors hover:text-white sm:flex">
+            Browse all guides <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
           </Link>
         </div>
 
@@ -537,13 +508,13 @@ export default async function HomePage() {
         <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] md:p-10">
           <div className="text-center">
             <h2 className="text-2xl font-black uppercase tracking-[-0.03em] text-white md:text-3xl">
-              Join a global community of <span className="text-[#ff3131]">FPV pilots</span>
+              Free FPV knowledge, <span className="text-[#ff3131]">without the hype</span>
             </h2>
             <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
-              Community growth is earned, not inflated. These homepage signals show what FPVLovers can honestly stand behind today.
+              Independent guides, reviews, and tools — updated as new content is published.
             </p>
           </div>
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {dynamicCommunityStats.map((stat) => (
               <CommunityStat key={stat.label} {...stat} />
             ))}
@@ -573,9 +544,9 @@ export default async function HomePage() {
           <div className="rounded-[0.8rem] border border-white/10 bg-[#0b0d10]/[0.92] p-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
             <div className="text-center">
               <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-zinc-400">Brands covered in FPV guides</p>
-              <h2 className="mt-3 text-2xl font-black uppercase tracking-[-0.03em] text-white">Tracked, not claimed as partners</h2>
+              <h2 className="mt-3 text-2xl font-black uppercase tracking-[-0.03em] text-white">Brands we cover</h2>
               <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-zinc-400">
-                FPVLovers can cover products from these FPV ecosystem brands. This is not a partnership claim unless a sponsor agreement is explicitly published.
+                We review and compare gear from across the FPV ecosystem. Listing a brand here does not imply a partnership.
               </p>
             </div>
             <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">

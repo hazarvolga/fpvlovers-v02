@@ -155,6 +155,8 @@ export function buildCoverImageSvg(input: {
   title: string;
   category: string;
   excerpt?: string;
+  /** Render the illustration only — used for hub backgrounds that sit behind page text. */
+  artworkOnly?: boolean;
 }): string {
   const [bgA, accentA, accentB] = pickPalette(input.category, input.slug);
   const title = escapeXml(truncate(input.title, 72));
@@ -192,7 +194,7 @@ export function buildCoverImageSvg(input: {
   <circle cx="190" cy="455" r="210" fill="${accentA}" opacity="0.15" filter="url(#glow)" />
   <path d="M0 515C210 455 292 612 482 532C670 452 772 494 1200 388V675H0Z" fill="#020408" opacity="0.58" />
   ${droneScene}
-  <g opacity="0.96">
+${input.artworkOnly ? '' : `  <g opacity="0.96">
     <rect x="58" y="58" width="262" height="48" rx="24" fill="rgba(5,7,13,0.62)" stroke="rgba(255,255,255,0.12)" />
     <circle cx="86" cy="82" r="7" fill="${accentA}" />
     <text x="104" y="88" fill="rgba(255,255,255,0.72)" font-family="Inter, Arial, sans-serif" font-size="17" letter-spacing="3">${category}</text>
@@ -207,6 +209,7 @@ export function buildCoverImageSvg(input: {
     <text x="24" y="34" fill="${accentA}" font-family="Inter, Arial, sans-serif" font-size="16" letter-spacing="3">FPV LOVERS</text>
     <text x="24" y="60" fill="rgba(255,255,255,0.7)" font-family="Inter, Arial, sans-serif" font-size="16">copyright-safe artwork</text>
   </g>
+`}
 </svg>`.trim();
 }
 

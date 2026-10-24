@@ -42,9 +42,9 @@ function categoryHref(category: string | undefined) {
     guide: '/academy/roadmap',
     guides: '/academy/roadmap',
     troubleshooting: '/academy/roadmap',
-    parts: '/category/parts',
-    components: '/category/parts',
-    software: '/category/software',
+    parts: '/tools/component-duel',
+    components: '/tools/component-duel',
+    software: '/tools/flight-critic',
     engineering: '/engineering',
     'build-guides': '/engineering',
   };
