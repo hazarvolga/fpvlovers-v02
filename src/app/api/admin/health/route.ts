@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { checkCrawlerHealth } from '@/lib/crawler-health';
+import { checkGeminiModelsHealth } from '@/lib/llm-models';
 import { healthCheck } from '@/lib/server/db';
 import { getStorageMode } from '@/lib/server/storage-mode';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
@@ -63,6 +64,16 @@ export async function GET() {
     status: dbHealth.ok ? 'up' : (storageMode === 'files' ? 'up' : 'down'),
     latency: dbHealth.latencyMs || 0,
     detail: dbHealth.error ? `DB Error: ${dbHealth.error}` : `Connection active`,
+  });
+
+  // 4. Check Gemini Model Lifecycle & Deprecation Guard
+  const modelHealth = await checkGeminiModelsHealth();
+  services.push({
+    name: 'Gemini Model Lifecycle',
+    status: modelHealth.status,
+    latency: modelHealth.latencyMs,
+    version: modelHealth.configuredModels.vision,
+    detail: modelHealth.detail,
   });
 
   const totalLatency = Date.now() - startedAt;

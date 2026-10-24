@@ -3,10 +3,16 @@ import { isIP } from 'node:net';
 import type { LicensedImage } from './crawl-image-license';
 import { getOptionalEnv } from '@/lib/env';
 import { getCached, hashInput, setCached } from '@/lib/llm-cache';
+import {
+  DEFAULT_GEMINI_VISION_MODEL,
+  getGeminiFlashFallbackChain,
+  isModelDeprecationError,
+  reportModelDeprecationError,
+} from '@/lib/llm-models';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
 
 export const VISION_RERANKER_VERSION = 'vision-v1';
-const DEFAULT_MODEL = 'gemini-3.1-flash-lite';
+const DEFAULT_MODEL = DEFAULT_GEMINI_VISION_MODEL;
 const MAX_CANDIDATES = 3;
 const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 const ACCEPTANCE_THRESHOLD = 0.78;
@@ -200,40 +206,60 @@ async function requestVisionDecision(input: {
     'Return JSON only with: score (0 to 1), directlyRelevant (boolean), visibleSubject (short string), reason (short string).',
   ].join('\n');
 
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 25_000);
-  try {
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(input.model)}:generateContent`,
-      {
-        method: 'POST',
-        signal: controller.signal,
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': input.apiKey,
-        },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: prompt },
-              { inlineData: { mimeType: image.mimeType, data: image.data } },
-            ],
-          }],
-          generationConfig: {
-            temperature: 0,
-            responseMimeType: 'application/json',
+  const modelChain = getGeminiFlashFallbackChain(input.model);
+
+  for (let idx = 0; idx < modelChain.length; idx += 1) {
+    const candidateModel = modelChain[idx];
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 25_000);
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(candidateModel)}:generateContent`,
+        {
+          method: 'POST',
+          signal: controller.signal,
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': input.apiKey,
           },
-        }),
-      },
-    );
-    if (!response.ok) return undefined;
-    const payload = await response.json().catch(() => undefined);
-    return parseVisionDecision(responseText(payload));
-  } catch {
-    return undefined;
-  } finally {
-    clearTimeout(timer);
+          body: JSON.stringify({
+            contents: [{
+              parts: [
+                { text: prompt },
+                { inlineData: { mimeType: image.mimeType, data: image.data } },
+              ],
+            }],
+            generationConfig: {
+              temperature: 0,
+              responseMimeType: 'application/json',
+            },
+          }),
+        },
+      );
+      if (!response.ok) {
+        const errBody = await response.text().catch(() => '');
+        if (isModelDeprecationError(response.status, errBody)) {
+          const nextModel = modelChain[idx + 1];
+          await reportModelDeprecationError({
+            model: candidateModel,
+            httpStatus: response.status,
+            detail: errBody.slice(0, 200),
+            fallbackModel: nextModel,
+            source: 'vision-image-reranker',
+          });
+          if (nextModel) continue;
+        }
+        return undefined;
+      }
+      const payload = await response.json().catch(() => undefined);
+      return parseVisionDecision(responseText(payload));
+    } catch {
+      return undefined;
+    } finally {
+      clearTimeout(timer);
+    }
   }
+  return undefined;
 }
 
 export async function rerankImagesWithVision(input: {

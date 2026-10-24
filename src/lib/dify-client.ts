@@ -3,6 +3,11 @@ import fs from 'fs';
 import path from 'path';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
 import { getCached, setCached, hashInput } from '@/lib/llm-cache';
+import {
+  getGeminiPrimaryModel,
+  isModelDeprecationError,
+  reportModelDeprecationError,
+} from '@/lib/llm-models';
 import { safeReadJson } from '@/lib/utils/json';
 
 const USAGE_FILE = path.join(process.cwd(), 'data', 'embedding-usage.json');
@@ -315,7 +320,8 @@ export async function difyRequest(
   }
 
   // ─── CACHE CHECK ───
-  const modelName = taskType ? (shouldRouteToGroq(taskType) ? GROQ_MODEL : 'gemini-2.5-flash') : 'gemini-2.5-flash';
+  const primaryModel = getGeminiPrimaryModel();
+  const modelName = taskType ? (shouldRouteToGroq(taskType) ? GROQ_MODEL : primaryModel) : primaryModel;
   const knowledgeRevision = process.env.DIFY_KNOWLEDGE_REVISION?.trim();
   const isKnowledgeRequest = taskType === 'rag_query' || endpoint.includes('/retrieve');
   const cacheEligible = method === 'POST' && Boolean(taskType) && (!isKnowledgeRequest || Boolean(knowledgeRevision));
@@ -380,6 +386,15 @@ export async function difyRequest(
     } else {
       const errText = await resp.text().catch(() => 'Unknown');
       logBudget({ ts: new Date().toISOString(), endpoint, method, status: 'error', duration_ms: duration, error: errText.slice(0, 200) });
+
+      if (isModelDeprecationError(resp.status, errText)) {
+        void reportModelDeprecationError({
+          model: modelName,
+          httpStatus: resp.status,
+          detail: errText.slice(0, 200),
+          source: `dify:${endpoint}`,
+        });
+      }
 
       const budget = loadBudget();
       budget.errors_today++;

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getOptionalEnv, getRequiredEnv } from '@/lib/env';
+import { getGeminiEmbeddingModel } from '@/lib/llm-models';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 const BASE = getOptionalEnv('DIFY_BASE_URL', 'https://dify.affexai.tr/v1');
@@ -68,7 +69,7 @@ export async function GET() {
         completed,
         errors,
         tokens,
-        embeddingModel: ds.embedding_model || 'gemini-embedding-001',
+        embeddingModel: ds.embedding_model || getGeminiEmbeddingModel(),
         chunkSize: ds.retrieval_model?.weights ? 'custom' : 'default',
         scoreThreshold: ds.retrieval_model?.score_threshold || '-',
       });
