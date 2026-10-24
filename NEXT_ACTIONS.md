@@ -2,6 +2,21 @@
 
 Last updated: 2026-10-24
 
+## Beginner-First IA Redesign (2026-10-24) - Phases A + B Committed, NOT Yet Pushed
+
+Decision: English is the primary language (global market); Turkish follows gradually. No v03 rewrite: the redesign happens inside v02, page by page.
+
+1. **DONE (commit `19f0843`) - Phase A, navigation and homepage:** nav reduced from 7 to 5 journey groups (Start Here, Gear, Guides, Tools, Racing & News); Buyer Guides/Reviews/Comparisons surfaced under Gear; Pilot Pulse simulated-telemetry page removed (301 -> `/racing/news`); legacy `/category*` routes removed (301s in `next.config.ts`); homepage beginner CTAs + "Where are you in your FPV journey?" cards; defensive/internal copy removed; mobile utility bar mirrors nav; compact cookie strip; Dockerfile installs `fontconfig ttf-dejavu` so sharp-rendered cover text no longer shows as tofu boxes; `hub-*` covers render artwork-only.
+2. **DONE (commit `be064a2`) - Phase B, Start Here + Guides:** `/academy` is a linear six-step path (no account, no gates); new `/guides` hub with level/topic filters; `src/lib/content-taxonomy.ts` maps 14 source categories to 7 reader groups at display level (no data migration); `LevelBadge` on guides, steps, and article headers; article breadcrumbs -> Guides topic; roadmap repositioned as optional Progress Tracker (guests see all modules open).
+3. **NEXT - Push + deploy (needs owner go-ahead):** push `main` to `hazarvolga/fpvlovers-v02`; Coolify rebuilds `fpvlovers-web`. After deploy verify: `/`, `/academy`, `/guides?level=beginner`, `/pilot-pulse` -> 308/301 to `/racing/news`, `/category` -> `/buyers-guides`, and `/api/content/media/cover/<article-slug>` shows readable text (fonts). Hub/cover images may stay cached in browsers for up to 1 day.
+4. **OPEN - Homepage level badges:** skipped on purpose; requires `toHomepageCard` (GitNexus impact HIGH: feeds homepage + `scripts/content-integrity-audit.ts`).
+5. **OPEN - Duplicate published articles:** same-topic pairs exist (e.g. `lipo-battery-safety-guide` vs `fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer`, `no-video-troubleshooting-guide` vs `no-video-in-fpv-a-beginner-troubleshooting-checklist`, two "first FPV radio" guides). Pick canonicals + 301 the rest.
+6. **OPEN - Racing News is empty:** `/racing/news` has 0 articles; feed it from the content pipeline (phase C).
+7. **OPEN - Pre-existing layout bug:** on article pages the cover "Source" caption overlaps the category/level badge row (also on live before this work).
+8. **OPEN - Wrong cover on `first-hover-training`** (shows a helicopter/flying wing); include in the media audit backlog.
+9. **NEXT (phase C) - Content + language:** Turkish UI layer, translate top beginner guides, Turkey-specific (SHGM) regulations content, real news feed.
+10. **NEXT - Admin panel review** (owner asked; deferred until public-site phases ship).
+
 ## Current State (2026-10-24) - Contabo Single-Node Consolidation & Nightly Crawler Active
 
 1. **DONE - Consolidated Single-Node Infrastructure on Contabo (`169.58.96.15` / `https://coolify.affexai.tr`):** All 5 Coolify resources under `FPV Lovers` (`whqhxcqeyjvps3pdurplad1c`) -> `production` (`1iqv0jce7xaocip7s52356vb`) are live and healthy:
