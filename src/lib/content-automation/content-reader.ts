@@ -1,3 +1,4 @@
+import retiredArticles from './retired-articles.json';
 import fs from 'fs';
 import path from 'path';
 import { cache } from 'react';
@@ -48,7 +49,12 @@ export function hasTurkishLanguageLeak(article: PublishedArtifact): boolean {
   return markerHits >= 2 || specificCharHits >= 12;
 }
 
+const RETIRED_ARTICLE_SLUGS = new Set(Object.keys(retiredArticles));
+
 function shouldExposePublishedArtifact(article: PublishedArtifact): boolean {
+  // Retired duplicates stay hidden everywhere (lists, search, sitemap, slug
+  // lookups); next.config.ts 301-redirects their URLs to the canonical article.
+  if (RETIRED_ARTICLE_SLUGS.has(article.slug)) return false;
   if (process.env.ALLOW_NON_ENGLISH_PUBLISHED === 'true') return true;
   return !hasTurkishLanguageLeak(article);
 }

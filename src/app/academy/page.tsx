@@ -79,7 +79,6 @@ const steps: StartStep[] = [
     todo: ['Check the drone rules where you live', 'Learn safe LiPo charging and storage'],
     articleSlugs: [
       'fpv-regulations-for-beginners-in-the-united-states',
-      'lipo-battery-safety-guide',
       'fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer',
     ],
     maxArticles: 2,
@@ -92,7 +91,6 @@ const steps: StartStep[] = [
     articleSlugs: [
       'first-hover-training',
       'no-video-in-fpv-a-beginner-troubleshooting-checklist',
-      'no-video-troubleshooting-guide',
       'fpv-drone-won-t-arm-betaflight-troubleshooting-checklist',
     ],
     maxArticles: 3,

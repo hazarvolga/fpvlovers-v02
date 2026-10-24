@@ -62,7 +62,7 @@ const STATIC_REFERENCE_BUILDS: Record<string, ReferenceBuild> = {
     ],
     qualifyingArticles: [
       { title: "Betaflight PID Basics for Beginners", slug: "betaflight-pid-basics-for-beginners", moduleName: "FPM Module 6.1: PID Tuning Basics" },
-      { title: "How to Choose Your First FPV Radio", slug: "how-to-choose-your-first-fpv-radio", moduleName: "FPM Module 2.1: Radio Selection" }
+      { title: "How to Choose Your First FPV Radio", slug: "how-to-choose-your-first-fpv-radio-without-buying-twice", moduleName: "FPM Module 2.1: Radio Selection" }
     ]
   },
   "longrange-7": {

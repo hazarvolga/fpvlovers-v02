@@ -1,4 +1,5 @@
 import type {NextConfig} from 'next';
+import retiredArticles from './src/lib/content-automation/retired-articles.json';
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
@@ -76,6 +77,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Retired duplicate articles -> the richer canonical version.
+      ...Object.entries(retiredArticles as Record<string, string>).map(([retired, canonical]) => ({
+        source: `/article/${retired}`,
+        destination: `/article/${canonical}`,
+        permanent: true,
+      })),
       {
         // Hardware Analyzer was retired — Part Matcher is the same
         // catalog-backed compatibility engine (analyzeBuildCompatibility)
