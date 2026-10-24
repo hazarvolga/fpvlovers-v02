@@ -2,7 +2,18 @@
 
 Last updated: 2026-10-24
 
-## Beginner-First IA Redesign (2026-10-24) - Phases A + B Committed, NOT Yet Pushed
+## PAUSED HERE (2026-10-24 ~16:10) - Resume Order
+
+Read `docs/handoff/2026-10-24-beginner-first-ia-handoff.md` first. Everything below is deployed and verified live; nothing is in progress.
+
+1. Owner: submit `https://fpvlovers.com.tr/sitemap.xml` (196 URLs) in Google Search Console.
+2. With the owner (admin session needed): localOnly cover repair **dry-run** for the 12 review-widget covers + the paused 38 source-cache records; explicit approval before `dryRun: false`.
+3. Fill `metadata.difficulty/audience` for recent articles (`metadata:test` lists them).
+4. Owner: initialize Dify (`/install`, Gemini key, datasets, workflow DSLs), then update Dify keys in Coolify so nightly generation and the news feed work.
+5. Admin panel review (hardcoded Pilot Registry/usage data).
+6. Phase C: Turkish UI layer, SHGM content, real news feed.
+
+## Beginner-First IA Redesign (2026-10-24) - Phases A + B + Cleanup Deployed
 
 Decision: English is the primary language (global market); Turkish follows gradually. No v03 rewrite: the redesign happens inside v02, page by page.
 
