@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-08-02T10:06:38.068Z",
+  "generatedAt": "2026-10-24T11:34:25.952Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "release-verification-pending",
   "branch": "main",
-  "head": "85e797e10d86",
+  "head": "5ab8980d2a8c",
   "behind": 0,
-  "ahead": 2,
+  "ahead": 0,
   "currentBlockers": [
     "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
     "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
-    "**PAUSED HERE (2026-08-02) — resume point:** Wire `src/app/admin/page.tsx`'s \"Pilot Registry\" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`). This is the next open task; nothing is mid-flight/broken. Everything else from the 2026-08-02 session is closed and deployed.",
+    "**HISTORICAL PAUSE (2026-08-02, superseded by the 2026-08-14 pause above):** Wire `src/app/admin/page.tsx`'s \"Pilot Registry\" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`). This remains an open lower-priority task; it is not the current resume point.",
     "Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy."
   ],
   "nextTask": "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",

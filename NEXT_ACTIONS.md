@@ -1,6 +1,39 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-08-02
+Last updated: 2026-10-24
+
+## Current State (2026-10-24) - Contabo Single-Node Consolidation & Nightly Crawler Active
+
+1. **DONE - Consolidated Single-Node Infrastructure on Contabo (`169.58.96.15` / `https://coolify.affexai.tr`):** All 5 Coolify resources under `FPV Lovers` (`whqhxcqeyjvps3pdurplad1c`) -> `production` (`1iqv0jce7xaocip7s52356vb`) are live and healthy:
+   - `fpvlovers-postgres` (`gkmzgwnnirofcgpw2yh0bnlh`) — 9 migrations + `llm_cache` applied; `163` published articles, `159` crawl jobs, `90` content jobs, `17` raw crawl records backfilled.
+   - `fpvlovers-redis` (`erzatjqls2op2wuz3fxav1kf`) — healthy (`512M` limit).
+   - `fpvlovers-crawl4ai` (`bgm2kq7nnehl1yx8myffsz1i`) — healthy (`2560m` RAM / `2.0` CPU limit, internal URL `http://crawl4ai-bgm2kq7nnehl1yx8myffsz1i:11235`).
+   - `dify-ai` (`ta4t6npg4cc65ua7rwhdixjk`) — all 10 containers healthy (`dify-api`, `dify-web`, `dify-worker` x2, `dify-worker-beat`, `dify-sandbox`, `dify-plugin-daemon`, `qdrant`, `dify-db`, `dify-redis`, `dify-gateway`) at `https://dify.affexai.tr`.
+   - `fpvlovers-web` (`jnlhgqmjnqwpdgefsoskew5n`) — deployed from `hazarvolga/fpvlovers-v02:main` (`5ab8980`), live at `https://fpvlovers.com.tr` (`HTTP 200`), `/api/health` (`HTTP 200`), `/robots.txt` (`HTTP 200`), `/sitemap.xml` (`HTTP 200`, `206` URLs).
+2. **DONE - Nightly Crawler & Early Morning Content Gen Scheduled in Coolify UI:**
+   - Added and enabled two native Coolify Scheduled Tasks on `fpvlovers-web` (`Europe/Istanbul`, UTC+3) chosen from 24-hour `sysstat/sar` low-load windows (`01:15–02:00` and `03:45–05:30`) to avoid `00:00` system timers, `02:17` Stalwart TLS reload, and `03:00` Bimmetraj PostgreSQL backup:
+     - `FPVLovers Nightly Crawler` (`uuid: xbkzuu5evfrwn7shmk3gf4fx`, cron `15,45 1,3,4 * * *`) -> calls `/api/admin/cron/crawl`
+     - `FPVLovers Early Morning Content Gen` (`uuid: defc7nrm3galrd5nzoauprcr`, cron `30 5 * * *`) -> calls `/api/admin/cron/generate`
+   - Verified `/api/admin/cron/status` and `/api/admin/cron/crawl?dry_run=true` (`HTTP 200`) inside the running `fpvlovers-web` container.
+3. **NEXT - Initialize Fresh Dify Instance (`https://dify.affexai.tr`):**
+   - Complete initial admin setup at `https://dify.affexai.tr/install`.
+   - Configure Gemini 2.5 Flash model provider, create the 9 RAG datasets, and import the 7 workflow DSL files from `dify_workflows/*.yml`.
+   - Replace placeholder `DIFY_API_KEY` and `DIFY_APP_KEY` values in Coolify UI (`fpvlovers-web` -> Environment Variables).
+4. **NEXT - Submit Sitemap in Google Search Console:**
+   - Property `sc-domain:fpvlovers.com.tr` is registered; submit `https://fpvlovers.com.tr/sitemap.xml` (`206` active URLs).
+5. **See Full Consolidation Handoff:** `docs/handoff/2026-10-24-contabo-single-node-consolidation-handoff.md`.
+
+## PAUSED HERE (2026-08-14) - Media Persistence and Source-Cache Repair
+
+1. **Current production state:** `hazarvolga/fpvlovers-v02:main` commit `5ab8980d2a8c3636aed5d63cfa974a9eda27f3a2` is deployed and healthy. Persistent mounts for `/app/content/published` and `/app/public/images/source-cache` are active and writable; published content is `163/163`.
+2. **Completed:** 27 high-confidence bad/missing covers were repaired using cost-free `localOnly` semantic assets and verified on live article pages and asset URLs with HTTP 200.
+3. **Paused before mutation:** 38 records still reference missing source-cache files. Their final read-only dry run returned `38/38 updated`, zero errors, and 15 semantic cover targets. No real update was run.
+4. **First resume action:** repeat the exact 38-slug run with `localOnly: true, dryRun: true` as a freshness check. If the result and distribution are unchanged, request explicit approval before `dryRun: false`.
+5. **Acceptance after approval:** verify all 38 persisted JSON records, all unique asset URLs with HTTP 200, and all 38 live article HTML pages against expected covers.
+6. **Next media audit:** classify the remaining 56 external and 42 dynamic-local covers read-only. Do not enable paid runtime image generation or paid crawler/model work without separate approval.
+7. **Deferred server housekeeping:** run a read-only Coolify/Docker disk inventory. Preserve active containers, persistent volumes, and the latest two successful images; never use broad `docker system prune -a`. Any deletion requires explicit approval.
+
+No code, production data, deployment, or Docker cleanup is currently in progress.
 
 ## Current Priority After 2026-08-02 Comprehensive Audit + Image Persistence Root Cause
 
@@ -138,7 +171,7 @@ Canonical documents:
 ## Deployment Tasks
 
 0. ✅ Coolify persistent volume for `/app/public/images/source-cache` is live, host-directory ownership matches the app's uid 1001, and Backfill Images was re-run and verified end-to-end on 2026-08-02 (87/87 files present on the persistent host path, live `curl` returned `image/png`). See the 2026-08-02 priority section above for full evidence.
-0. **PAUSED HERE (2026-08-02) — resume point:** Wire `src/app/admin/page.tsx`'s "Pilot Registry" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`). This is the next open task; nothing is mid-flight/broken. Everything else from the 2026-08-02 session is closed and deployed.
+0. **HISTORICAL PAUSE (2026-08-02, superseded by the 2026-08-14 pause above):** Wire `src/app/admin/page.tsx`'s "Pilot Registry" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`). This remains an open lower-priority task; it is not the current resume point.
 1. ✅ Production read-only verification completed on 2026-06-19: the healthy Coolify container and `origin/main` both run `061f0f705a415046b7ba5e07df77ece3f41c56e8`.
 2. ✅ Complete local release gate passed after the affiliate/social reconciliation commits.
 3. ✅ Replaced the broken Cloudflare Pages action with repository-root CI validation; Coolify remains the only production deploy path.

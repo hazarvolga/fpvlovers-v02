@@ -1,6 +1,6 @@
 # FPVLovers Project Memory
 
-Last updated: 2026-07-23
+Last updated: 2026-10-24
 
 ## Current Product Direction
 
@@ -20,13 +20,28 @@ n8n is not part of the active MVP flow. It can stay available as an optional aut
 
 ## Active Deployment Target
 
-- Primary hosting target: Coolify on Oracle Cloud Free Tier VPS.
-- Active frontend repo: `hazarvolga/fpvlovers.com.tr`
-- Coolify app target: the existing FPVLovers frontend application on the `fpv-lovers-web-sitesi` project.
+- Primary hosting target: **Coolify (`https://coolify.affexai.tr`) on Contabo Cloud VPS 8 NVMe (`169.58.96.15` / `affexai-prod-01`, 8 vCPU, 24 GB RAM, 150 GB NVMe, Ubuntu 24.04 LTS, Timezone `Europe/Istanbul`)**.
+- Legacy 3 Oracle Free Tier servers (`80.225.231.62`, `161.118.171.201`, `141.148.206.187`) were terminated by Oracle and have been permanently decommissioned.
+- Active frontend repo: `hazarvolga/fpvlovers-v02` (`main`)
+- Coolify project & environment: `FPV Lovers` (`uuid: whqhxcqeyjvps3pdurplad1c`) -> `production` (`uuid: 1iqv0jce7xaocip7s52356vb`)
+- Coolify resources (all native Coolify-managed):
+  - `fpvlovers-web` (`uuid: jnlhgqmjnqwpdgefsoskew5n`, `https://fpvlovers.com.tr`)
+  - `fpvlovers-postgres` (`uuid: gkmzgwnnirofcgpw2yh0bnlh`, `postgres:17-alpine`)
+  - `fpvlovers-redis` (`uuid: erzatjqls2op2wuz3fxav1kf`, `redis:7-alpine`)
+  - `fpvlovers-crawl4ai` (`uuid: bgm2kq7nnehl1yx8myffsz1i`, `unclecode/crawl4ai:latest`)
+  - `dify-ai` (`uuid: ta4t6npg4cc65ua7rwhdixjk`, 10-container Dify v1.14.0 + Qdrant v1.8.3 at `https://dify.affexai.tr`)
 - Runtime port: `3000`.
 - Preferred app root: repository root with `Dockerfile`.
+- **Strict Operational Constraint:** All resources, environment variables, and scheduled tasks MUST be managed through Coolify UI / Coolify API so the owner can track everything from `https://coolify.affexai.tr` (no custom unmanaged setups on disk).
 
 ## Current Known State
+
+- **2026-10-24 Contabo Single-Node Consolidation & Coolify Scheduled Tasks — LIVE & HEALTHY:** After Oracle terminated the 3 Free Tier servers, the entire FPVLovers stack (`fpvlovers-postgres`, `fpvlovers-redis`, `fpvlovers-crawl4ai`, 10-container `dify-ai` + Qdrant, and `fpvlovers-web`) was provisioned natively inside Coolify (`https://coolify.affexai.tr/project/whqhxcqeyjvps3pdurplad1c/environment/1iqv0jce7xaocip7s52356vb`) on `169.58.96.15` (`affexai-prod-01`). Reclaimed `~67 GB` of stale Docker build cache/images first (`101 GB` free disk, `17 GiB` available RAM with all 25 containers running across `FPV Lovers`, `AffeXAI Cortex`, and `Bimmetraj`). Applied all 9 DB migrations (`0001`..`0009`) + `llm_cache`, and backfilled `163/163` published articles, `159/159` crawl jobs, `90/90` content jobs, and `17/17` racing raw_content records into `fpvlovers-postgres`. Verified live `https://fpvlovers.com.tr` (`HTTP 200`), `/api/health` (`HTTP 200`), `/robots.txt` (`HTTP 200`), and `/sitemap.xml` (`HTTP 200`, `206` URLs ready for Google Search Console `sc-domain:fpvlovers.com.tr`). Configured two Coolify Scheduled Tasks on `fpvlovers-web` for conflict-free nighttime execution (`Europe/Istanbul`): `FPVLovers Nightly Crawler` (`uuid: xbkzuu5evfrwn7shmk3gf4fx`, `15,45 1,3,4 * * *`) and `FPVLovers Early Morning Content Gen` (`uuid: defc7nrm3galrd5nzoauprcr`, `30 5 * * *`). Full handoff details are recorded in `docs/handoff/2026-10-24-contabo-single-node-consolidation-handoff.md`.
+- **PAUSED HERE - 2026-08-14 media persistence and cover repair:** Production is healthy on deployed commit `5ab8980d2a8c3636aed5d63cfa974a9eda27f3a2` from `hazarvolga/fpvlovers-v02:main`. Coolify mounts `/app/content/published` and `/app/public/images/source-cache` are active and writable; published content was seeded and verified at `163/163` JSON artifacts. The pre-volume backup is `/data/coolify/applications/r0c44ok0cskc800gs0c8o8wk/content-backups/published-before-volume-20260814T133444Z.tar.gz`.
+- **Completed before pause:** 27 high-confidence missing or incorrect covers were permanently repaired with cost-free `localOnly` semantic assets. All 27 live article pages and referenced assets returned HTTP 200.
+- **Not yet applied:** 38 records still reference missing source-cache files. Their final read-only run returned `38/38 updated`, zero errors, and 15 semantic cover targets. The earlier single-image commercial collapse was rejected; commit `5ab8980` added four commercial/power/motor variants and corrected the dry-run distribution. No real 38-record mutation was run.
+- **Exact resume gate:** repeat the same 38-slug request with `localOnly: true, dryRun: true`. If it still reports 38/38, zero errors, and an unchanged distribution, ask Hazar for explicit approval before `dryRun: false`. Then verify all 38 persisted JSON records, every unique asset with HTTP 200, and all 38 live article pages against expected covers. Do not apply this mutation automatically.
+- **Later work:** classify the remaining 56 external and 42 dynamic-local covers read-only, continuing to prefer the cost-free semantic pool. Paid Gemini/Crawl4AI media work requires separate approval. After media repair, perform a read-only Coolify/Docker disk audit; preserve active containers, both persistent volumes, and the latest two successful images. Never run broad `docker system prune -a`; any deletion requires explicit approval.
 
 - **2026-08-02 image-cache persistence — RESOLVED, two-layer root cause:** `backfill-images/route.ts` and `publish-artifact.ts` write harvested images to `public/images/source-cache/` on the container's own disk; `docker inspect` originally showed `Mounts: []`. Cross-referencing the DB against actually-existing files proved all 87 `published_articles_shadow` rows pointing at `/api/images/source-cache/...` were phantom (file missing both on disk and in git) — every redeploy silently wiped newly-harvested real photos, from both manual backfill and the normal autonomous publish pipeline. **Layer 1:** user added a Coolify persistent volume (Source `/data/coolify/applications/r0c44ok0cskc800gs0c8o8wk/source-cache`, Destination `/app/public/images/source-cache`) and redeployed; confirmed live via `docker inspect`. **Layer 2 (found right after):** the host directory Coolify created was `root:root` 0755; the app runs as `nextjs` uid 1001/gid 65533, so every write threw `EACCES`, and the route silently fell back to hotlinking while still reporting `status: 'updated'` — first post-volume backfill claimed "87 updated" with zero files actually written. Fixed with `chown -R 1001:65533` + `chmod -R 755` on the host directory, verified with a real `touch` as uid 1001 before trusting it. Also fixed in code (`85e797e`): the route now reports a distinct `updated_hotlink_fallback` status instead of silently degrading to `'updated'`, and logs the underlying fs error. **Final verification after re-running Backfill Images:** container-side and host-side file counts both = 87 (proves the persistent mount is doing its job), and a live `curl https://fpvlovers.com.tr/api/images/source-cache/acro-stick-control-drills-for-fpv-beginners-cover-1-5fad8bf2.png` returned `HTTP 200, 32943 bytes, image/png`. Lesson for future agents: this DB/UI "success" was wrong twice in one day for two different reasons — never trust an "N updated" backfill summary without independently checking file existence on disk.
 - **2026-08-02 admin panel fake-data finding:** `src/app/admin/page.tsx`'s "Pilot Registry" table (`subscribersData`) and usage-growth chart (`usageVsGrowthData`) are hardcoded demo arrays (`alex@example.com` etc.), never wired to the database — not yet fixed. Real counts verified via direct Postgres query: `fpvlovers_app.users`=1 (owner's own admin account only), `newsletter_subscribers`=2, `pilot_progress`=0. `affiliateData` in the same file is also hardcoded and additionally unused (dead code).
