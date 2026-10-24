@@ -124,7 +124,7 @@ workflow:
           desc: "Extract source-backed racing entities"
           model:
             provider: langgenius/gemini/google
-            name: gemini-2.5-flash
+            name: gemini-flash-latest
             mode: chat
             completion_params:
               temperature: 0.15

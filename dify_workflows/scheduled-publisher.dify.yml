@@ -68,8 +68,8 @@ workflow:
           title: "AI Optimizer"
           desc: "Polish article for readability and engagement"
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.5

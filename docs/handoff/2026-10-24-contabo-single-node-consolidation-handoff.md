@@ -86,20 +86,27 @@ Two **Coolify Scheduled Tasks** are configured and active on `fpvlovers-web` (`h
 3. **Dify v1.14.0 Coolify Service (`ta4t6npg4cc65ua7rwhdixjk`) Nuances:**
    - `dify-gateway` inline nginx config requires escaped `$$host`, `$$remote_addr`, `$$proxy_add_x_forwarded_for` in Docker Compose YAML so Compose does not interpolate them to empty strings.
    - `dify-plugin-daemon` requires the `dify_plugin` PostgreSQL database inside `dify-db` (created on 2026-10-24) plus explicit `REDIS_HOST: dify-redis`, `REDIS_PORT: '6379'`, and `REDIS_PASSWORD`.
-4. **Crawler Failover Unified to Local Internal Network:**
+   - `dify-api` requires `/app/api/storage` to be owned by `1001:1001 (dify:dify)` (`chmod 775`) so `opendal` can write workspace RSA private keys (`privkeys/<tenant_id>/private.pem`) during `/install`.
+   - `dify-web` MUST have `CONSOLE_API_URL: 'https://dify.affexai.tr'` and `APP_API_URL: 'https://dify.affexai.tr'` set in its environment (persisted in both `docker-compose.yml` and Coolify's `services` table) so `NEXT_PUBLIC_API_PREFIX` starts with `https://` and reads the `__Host-csrf_token` cookie set by `dify-api`.
+4. **Crawler Failover Unified to Local Internal Network (`crawl4ai:0.9.5`):**
    - Both `CRAWL4AI_PRIMARY_*` and `CRAWL4AI_BACKUP_*` environment variables on `fpvlovers-web` point to `http://crawl4ai-bgm2kq7nnehl1yx8myffsz1i:11235` (`/health` and `/crawl`) over the internal `coolify` Docker bridge network (`<1ms` latency, zero public port exposure).
+   - In `unclecode/crawl4ai:0.9.5`, `entrypoint.sh` defaults `GUNICORN_BIND` to `127.0.0.1:11235` unless configured for internal network binding; `GUNICORN_BIND` was updated to `0.0.0.0:11235` with internal-network public prefixes enabled so `fpvlovers-web` reaches `/health` and `/crawl` cleanly.
+5. **Gemini Model Deprecation Guard (`gemini-flash-latest`):**
+   - New Google AI Studio API keys return `404 NOT_FOUND` on static legacy model names (`models/gemini-2.5-flash` and `models/gemini-2.5-flash-lite` are no longer available to new users).
+   - Added `src/lib/llm-models.ts` (centralized model lifecycle registry, fallback chain, `ntfy.sh/fpv-rag-alerts` alerting, and `/api/admin/health` lifecycle check) and migrated all 9 Dify workflows, 2 Dify chat apps, and `GEMINI_PRIMARY_MODEL` to the rolling alias **`gemini-flash-latest`** (with `gemini-embedding-001` for embeddings).
 
 ---
 
-## 7. Next Operational Steps (For Next Agent / Owner)
+## 7. Completed Post-Consolidation Verification (2026-10-24 Evening)
 
-1. **Google Search Console Sitemap Submission:**
-   - Property `sc-domain:fpvlovers.com.tr` is added by the owner.
-   - `https://fpvlovers.com.tr/robots.txt` (`HTTP 200`) and `https://fpvlovers.com.tr/sitemap.xml` (`HTTP 200`, `206` active URLs) are verified live. Submit `https://fpvlovers.com.tr/sitemap.xml` in Search Console → Sitemaps.
-2. **Initialize Fresh Dify Instance (`https://dify.affexai.tr`):**
-   - Complete the initial admin account setup at `https://dify.affexai.tr/install`.
-   - Configure the Gemini API provider inside Dify Settings → Model Providers.
-   - Create the 9 RAG datasets in Dify and import the 7 workflow DSL files from `dify_workflows/*.yml`.
-   - Update `DIFY_API_KEY` (Dataset API key) and `DIFY_APP_KEY` / workflow tokens in Coolify UI (`fpvlovers-web` → Environment Variables) once generated in Dify.
-3. **Media Cover Dry-Run & Verification (Resuming from 2026-08-14 Pause):**
-   - Repeat the 38-slug missing source-cache cover check with `localOnly: true, dryRun: true` before requesting owner approval for `dryRun: false`.
+1. **[x] Article Media Cover & Metadata Repair (`ee41128`, `48e2e5e`):**
+   - Repaired all broken `judgeme.imgix.net` covers, empty covers, and 18 bad external logo/portrait covers across `content/published/*.json`; backfilled catalog media into `public/images/source-cache/` (`pnpm media:audit` → `146 unique primary covers`, `0` violations).
+   - Backfilled `metadata.difficulty` and `metadata.audience` across all `153/153` published articles (`36 beginner`, `108 intermediate`, `9 advanced`).
+   - Removed mock data (`subscribersData`, `usageVsGrowthData`, `affiliateData`) and duplicate Sponsors form from `src/app/admin/page.tsx`.
+2. **[x] Google Search Console Sitemap Submission:**
+   - `https://fpvlovers.com.tr/sitemap.xml` submitted in Google Search Console by owner.
+3. **[x] Dify v1.14.0 Full Initialization, 9 RAG Datasets & 9 Workflows Published:**
+   - Initialized `https://dify.affexai.tr` workspace (`hazarvolga's Workspace`) and configured `langgenius/gemini/google` (`FPV Lovers`).
+   - Created all 9 RAG datasets with canonical UUIDs (`fpv-flight-tuning`, `fpv-pid-profiles`, `fpv-troubleshooting`, `fpv-components-specs`, `fpv-build-guides`, `fpv-news-reviews`, `fpv-racing-events`, `fpv-community-knowledge`, `fpv-regulations`) and seeded 33 foundational documents (`indexing_status = completed` in Qdrant).
+   - Imported and published all 9 Dify workflows + 2 Chat Agent apps (`FPV Expert Assistant`, `Community Hub`), generated all 23 `DIFY_*` tokens, and synced them to Coolify (`fpvlovers-web`).
+   - Verified live readiness (`https://fpvlovers.com.tr/api/ready` → `status: "ready"`, 4/4 checks `pass`), live 9-dataset RAG evaluation (`9/9 PASS — 100%`), and live `POST /v1/chat-messages` LLM agent inference (`HTTP 200`).

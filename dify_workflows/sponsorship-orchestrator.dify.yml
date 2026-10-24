@@ -90,8 +90,8 @@ workflow:
           title: "AI Sponsor Analysis"
           desc: "Analyze sponsor fit for FPV ecosystem"
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.4
@@ -209,8 +209,8 @@ workflow:
             - "1746720000001"
             - sponsor_category
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.3
@@ -243,8 +243,8 @@ workflow:
           title: "Visibility Strategy"
           desc: "Generate sponsor visibility strategy"
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.5
@@ -280,8 +280,8 @@ workflow:
           title: "Visibility Strategy"
           desc: ""
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.5
@@ -309,8 +309,8 @@ workflow:
           title: "Visibility Strategy"
           desc: ""
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.5
@@ -338,8 +338,8 @@ workflow:
           title: "Visibility Strategy"
           desc: ""
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.5

@@ -74,8 +74,8 @@ workflow:
           title: "Entity Detector"
           desc: "Extract named entities from content"
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.2
@@ -114,8 +114,8 @@ workflow:
           title: "Intent Classifier"
           desc: "Classify content intent"
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.3
@@ -156,8 +156,8 @@ workflow:
           title: "Product Extractor"
           desc: "Extract specific product details"
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.2
@@ -188,8 +188,8 @@ workflow:
           title: "Brand Detector"
           desc: "Detect brand presence and sentiment"
           model:
-            provider: "langgenius/google/google"
-            name: "gemini-2.5-flash"
+            provider: "langgenius/gemini/google"
+            name: "gemini-flash-latest"
             mode: chat
             completion_params:
               temperature: 0.2
