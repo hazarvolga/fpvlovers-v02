@@ -63,5 +63,21 @@
   "sourceReferences": [
     "https://betaflight.com/docs/wiki",
     "https://oscarliang.com/"
-  ]
+  ],
+  "metadata": {
+    "topics": [
+      "betaflight"
+    ],
+    "components": [
+      "goggles"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

@@ -8,7 +8,7 @@ import type { PublishedArtifact } from '@/lib/content-automation/content-reader'
 
 type BackfillResult = {
   slug: string;
-  status: 'updated' | 'updated_hotlink_fallback' | 'skipped' | 'no_images' | 'error';
+  status: 'updated' | 'updated_hotlink_fallback' | 'replaced_with_fallback' | 'skipped' | 'no_images' | 'error';
   reason?: string;
   oldSrc?: string;
   newSrc?: string;
@@ -16,8 +16,10 @@ type BackfillResult = {
 
 type BackfillSummary = {
   dryRun: boolean;
+  localOnly?: boolean;
   total: number;
   updated: number;
+  replacedWithFallback?: number;
   skipped: number;
   failed: number;
   results: BackfillResult[];
@@ -47,14 +49,14 @@ export default function PublishedContentPanel() {
 
   const selectedArticle = selected ? articles.find((a) => a.slug === selected) : null;
 
-  const handleBackfill = useCallback(async (dryRun = false) => {
+  const handleBackfill = useCallback(async (dryRun = false, localOnly = false) => {
     setBackfilling(true);
     setBackfillSummary(null);
     try {
       const resp = await fetch('/api/admin/content/backfill-images', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ dryRun }),
+        body: JSON.stringify({ dryRun, localOnly }),
       });
       const data = await resp.json();
       if (data.success) {
@@ -76,11 +78,17 @@ export default function PublishedContentPanel() {
             {articles.length} article{articles.length !== 1 ? 's' : ''} published via content automation pipeline.
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={() => handleBackfill(true)} disabled={loading || backfilling}>
-            <ImageIcon className="w-4 h-4 mr-2" /> Dry Run
+        <div className="flex items-center gap-2 flex-wrap justify-end">
+          <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={() => handleBackfill(true, true)} disabled={loading || backfilling}>
+            <ImageIcon className="w-4 h-4 mr-2" /> Local Dry Run
           </Button>
-          <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={() => handleBackfill(false)} disabled={loading || backfilling}>
+          <Button variant="outline" size="sm" className="border-[#00FF66] text-[#00FF66] hover:bg-[#00FF66]/10" onClick={() => handleBackfill(false, true)} disabled={loading || backfilling}>
+            <ImageIcon className="w-4 h-4 mr-2" /> Local Cover Repair
+          </Button>
+          <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={() => handleBackfill(true, false)} disabled={loading || backfilling}>
+            <ImageIcon className="w-4 h-4 mr-2" /> DB Dry Run
+          </Button>
+          <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={() => handleBackfill(false, false)} disabled={loading || backfilling}>
             {backfilling ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Backfilling...</> : <><ImageIcon className="w-4 h-4 mr-2" /> Backfill Images</>}
           </Button>
           <Button variant="outline" size="sm" className="border-[#333] text-[#A0A0A0]" onClick={fetchPublished} disabled={loading}>
@@ -93,17 +101,20 @@ export default function PublishedContentPanel() {
         <div className="bg-[#0A0A0B] border border-[#FF5C00]/40 p-4 space-y-3">
           <div className="flex items-center gap-2 text-sm font-mono text-white">
             <ImageIcon className="w-4 h-4 text-[#FF5C00]" />
-            Backfill {backfillSummary.dryRun ? '(Dry Run)' : 'Complete'} — {backfillSummary.total} articles processed
+            Backfill {backfillSummary.localOnly ? '(Local Only) ' : ''}{backfillSummary.dryRun ? '(Dry Run)' : 'Complete'} — {backfillSummary.total} articles processed
           </div>
           <div className="flex gap-4 text-xs font-mono">
             <span className="text-[#00FF66] flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> {backfillSummary.updated} updated</span>
+            {typeof backfillSummary.replacedWithFallback === 'number' && backfillSummary.replacedWithFallback > 0 && (
+              <span className="text-[#00F2FF] flex items-center gap-1"><CheckCircle2 className="w-3 h-3" /> {backfillSummary.replacedWithFallback} fallback repaired</span>
+            )}
             <span className="text-[#A0A0A0] flex items-center gap-1"><AlertCircle className="w-3 h-3" /> {backfillSummary.skipped} skipped</span>
             <span className="text-red-400 flex items-center gap-1"><XCircle className="w-3 h-3" /> {backfillSummary.failed} failed</span>
           </div>
           <div className="max-h-40 overflow-y-auto space-y-1">
-            {backfillSummary.results.filter((r) => r.status === 'updated').map((r) => (
+            {backfillSummary.results.filter((r) => r.status === 'updated' || r.status === 'replaced_with_fallback').map((r) => (
               <div key={r.slug} className="text-[10px] font-mono text-[#00FF66]">
-                ✓ {r.slug} → {r.newSrc?.slice(0, 60)}
+                ✓ {r.slug} ({r.status}) → {r.newSrc?.slice(0, 60)}
               </div>
             ))}
             {backfillSummary.results.filter((r) => r.status === 'updated_hotlink_fallback').map((r) => (

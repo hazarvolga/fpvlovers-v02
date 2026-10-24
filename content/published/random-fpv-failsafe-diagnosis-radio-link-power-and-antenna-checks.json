@@ -63,5 +63,21 @@
   "sourceReferences": [
     "https://betaflight.com/docs/wiki",
     "https://oscarliang.com/"
-  ]
+  ],
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "radio"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

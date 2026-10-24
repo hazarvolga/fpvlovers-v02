@@ -23,36 +23,29 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://pub.mdpi-res.com/announcement/16816.jpg?1780917841?v=1780657082",
-      "alt": "FPV image from pub.mdpi-res.com",
-      "caption": "Source: pub.mdpi-res.com",
-      "source": "pub.mdpi-res.com",
-      "sourceUrl": "https://www.mdpi.com/journal/drones",
-      "credit": "Source: pub.mdpi-res.com",
-      "license": "attribution"
+      "src": "/api/content/media/cover/path-to-glory-how-to-qualify-for-the-multigp-cdrc-2026-championship",
+      "alt": "Path to Glory: How to Qualify for the MultiGP CDRC 2026 Championship cover illustration",
+      "caption": "An in-depth look at the qualification process for the Collegiate Drone Racing Championship (CDRC) 2026, detailing how t…",
+      "source": "FPVLovers local media layer",
+      "credit": "FPVLovers generated artwork",
+      "kind": "generated-artwork"
     },
-    "gallery": [
-      {
-        "src": "https://pub.mdpi-res.com/announcement/16816.jpg?1780917841?v=1780657082",
-        "alt": "FPV image from pub.mdpi-res.com",
-        "caption": "Source: pub.mdpi-res.com",
-        "source": "pub.mdpi-res.com",
-        "sourceUrl": "https://www.mdpi.com/journal/drones",
-        "credit": "Source: pub.mdpi-res.com",
-        "license": "attribution"
-      }
-    ],
+    "gallery": [],
     "figureCaptions": [
       "FPV racing gates and high-visibility track flags outdoors",
       "Long-exposure light trails from FPV racing drones on a night track"
     ],
-    "imageSources": [],
-    "attribution": []
+    "imageSources": [
+      "Local SVG illustration generated from published content metadata"
+    ],
+    "attribution": [
+      "Copyright-safe media generated locally by FPVLovers"
+    ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:04:12.604Z",
   "promptVersion": "v2",
-  "coverImage": "https://pub.mdpi-res.com/announcement/16816.jpg?1780917841?v=1780657082",
+  "coverImage": "/api/content/media/cover/path-to-glory-how-to-qualify-for-the-multigp-cdrc-2026-championship",
   "metadata": {
     "topics": [
       "general-knowledge"

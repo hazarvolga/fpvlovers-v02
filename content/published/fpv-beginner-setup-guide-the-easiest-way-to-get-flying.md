@@ -237,6 +237,4 @@ Starting FPV doesn't have to be overwhelming. By understanding the core componen
 
 Ready to take the plunge? Explore our recommended FPV beginner setup kits and start your immersive FPV adventure today!
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1771717145__1000015088__original.jpg?auto=format&w=1024)
-_Source: judgeme.imgix.net_
 

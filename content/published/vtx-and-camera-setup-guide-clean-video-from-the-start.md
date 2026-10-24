@@ -279,6 +279,4 @@ Now, go forth and fly with the confidence that your view will always be crystal-
 
 Ready to take your FPV piloting to the next level? Share your setup tips or ask questions in the comments below, and don't forget to check out our other FPV build guides!
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1779983389__1779983385708-1000009536__original.jpg?auto=format&w=1024)
-_Source: judgeme.imgix.net_
 

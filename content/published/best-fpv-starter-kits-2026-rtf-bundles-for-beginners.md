@@ -198,5 +198,5 @@ Remember to consider your learning style, your budget, and your future FPV aspir
 
 Ready to take the plunge? Don't wait! Explore the **BetaFPV Cetus Pro**, **EMAX Tinyhawk III Plus**, and **Eachine Novice IV** kits. Read reviews, watch some flight videos, and choose the kit that calls to your inner pilot. The skies are waiting!
 
-![FPV image from droneracing.fai.org](/images/source-cache/best-fpv-starter-kits-2026-rtf-bundles-for-beginners-section-1-c68c423e.jpg)
-_Source: droneracing.fai.org_
+![BETAFPV Cetus Pro Brushless Tiny Whoop Kit](/images/source-cache/best-fpv-starter-kits-2026-rtf-bundles-for-beginners-section-1-5f0f8381.jpg)
+_BETAFPV Cetus Pro Brushless Tiny Whoop Kit catalog image used as source-backed visual context for Best FPV Starter Kits 2026: RTF Bundles for Beginners._

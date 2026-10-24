@@ -23,36 +23,29 @@
   ],
   "media": {
     "coverImage": {
-      "src": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-author-images/Daniel_Ulises_Campos-Delgado.png",
-      "alt": "Picture of Author Daniel Ulises Campos-Delgado",
-      "caption": "Picture of Author Daniel Ulises Campos-Delgado",
-      "source": "ieeexplore.ieee.org",
-      "sourceUrl": "https://ieeexplore.ieee.org/",
-      "credit": "Source: ieeexplore.ieee.org",
-      "license": "attribution"
+      "src": "/api/content/media/cover/path-to-the-podium-multigp-cdra-2026-championship-qualification",
+      "alt": "Path to the Podium: MultiGP CDRA 2026 Championship Qualification cover illustration",
+      "caption": "An explanation of the qualification process for the MultiGP CDRA 2026 Championship, highlighting the roles of the IRL L…",
+      "source": "FPVLovers local media layer",
+      "credit": "FPVLovers generated artwork",
+      "kind": "generated-artwork"
     },
-    "gallery": [
-      {
-        "src": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-author-images/Daniel_Ulises_Campos-Delgado.png",
-        "alt": "Picture of Author Daniel Ulises Campos-Delgado",
-        "caption": "Picture of Author Daniel Ulises Campos-Delgado",
-        "source": "ieeexplore.ieee.org",
-        "sourceUrl": "https://ieeexplore.ieee.org/",
-        "credit": "Source: ieeexplore.ieee.org",
-        "license": "attribution"
-      }
-    ],
+    "gallery": [],
     "figureCaptions": [
       "FPV racing gates and high-visibility track flags outdoors",
       "Long-exposure light trails from FPV racing drones on a night track"
     ],
-    "imageSources": [],
-    "attribution": []
+    "imageSources": [
+      "Local SVG illustration generated from published content metadata"
+    ],
+    "attribution": [
+      "Copyright-safe media generated locally by FPVLovers"
+    ]
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:23:54.270Z",
   "promptVersion": "v2",
-  "coverImage": "https://ieeexplore.ieee.org/Xplorehelp/cfg/featured-author-images/Daniel_Ulises_Campos-Delgado.png",
+  "coverImage": "/api/content/media/cover/path-to-the-podium-multigp-cdra-2026-championship-qualification",
   "metadata": {
     "topics": [
       "general-knowledge"

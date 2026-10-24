@@ -76,16 +76,7 @@
     {
       "id": "elrs-safety-guidelines",
       "title": "ExpressLRS Safety Guidelines & Telemetry Auditing",
-      "content": "To maintain operational safety, you must monitor your FPV link health in real-time. In your FPV goggles, customize your Betaflight OSD to display the following telemetry parameters:\n\n*   **Link Quality (LQ):** Displayed as a percentage or ratio (e.g., `9:100` representing RF Mode 9 and 100% packet delivery). **This is your most critical safety metric.** If your LQ falls below 70%, turn around immediately; if it drops below 50%, the drone is about to failsafe.\n*   **RSSI dBm:** Measures the physical power of the received radio signal (e.g., `-60dBm` is excellent, `-105dBm` is the physical limit of the LoRa receiver before signal loss).\n\n> [!CAUTION]\n> **TRANSMITTER ANTENNA SAFETY**\n> Never power on your radio transmitter (TX) module or internal RF module without the transmitter antenna securely attached. Powering on an RF transmitter without a load (antenna) causes the outgoing high-frequency energy to bounce back into the amplifier circuitry, destroying the RF chip in seconds due to thermal overload. Always attach the antenna first.",
-      "imageMatch": {
-        "src": "https://judgeme.imgix.net/rotor-riot/1779983389__1779983385708-1000009536__original.jpg?auto=format&w=1024",
-        "alt": "FPV image from judgeme.imgix.net",
-        "caption": "Source: judgeme.imgix.net",
-        "source": "judgeme.imgix.net",
-        "sourceUrl": "https://rotorriot.com/",
-        "credit": "Source: judgeme.imgix.net",
-        "license": "attribution"
-      }
+      "content": "To maintain operational safety, you must monitor your FPV link health in real-time. In your FPV goggles, customize your Betaflight OSD to display the following telemetry parameters:\n\n*   **Link Quality (LQ):** Displayed as a percentage or ratio (e.g., `9:100` representing RF Mode 9 and 100% packet delivery). **This is your most critical safety metric.** If your LQ falls below 70%, turn around immediately; if it drops below 50%, the drone is about to failsafe.\n*   **RSSI dBm:** Measures the physical power of the received radio signal (e.g., `-60dBm` is excellent, `-105dBm` is the physical limit of the LoRa receiver before signal loss).\n\n> [!CAUTION]\n> **TRANSMITTER ANTENNA SAFETY**\n> Never power on your radio transmitter (TX) module or internal RF module without the transmitter antenna securely attached. Powering on an RF transmitter without a load (antenna) causes the outgoing high-frequency energy to bounce back into the amplifier circuitry, destroying the RF chip in seconds due to thermal overload. Always attach the antenna first."
     }
   ],
   "internalLinks": [

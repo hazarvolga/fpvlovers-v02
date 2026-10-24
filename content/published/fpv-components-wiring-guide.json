@@ -60,16 +60,7 @@
     {
       "id": "wiring",
       "title": "Wiring Best Practices",
-      "content": "- **Use the right gauge wire**: 14-16AWG for battery leads, 20-22AWG for motor wires, 26-28AWG for signal wires\n- **Twist signal and ground** wires together to reduce electrical noise\n- **Secure wires** with zip ties away from spinning props\n- **Use a smoke stopper** on first power-up — it can save your entire build\n- **Label your UARTs**: know which UART is for VTX, which for receiver, which for GPS\n- Common mistake: RX pad on FC goes to TX on peripheral, TX goes to RX",
-      "imageMatch": {
-        "src": "https://judgeme.imgix.net/rotor-riot/1779742367__17453__original.jpg?auto=format&w=1024",
-        "alt": "FPV image from judgeme.imgix.net",
-        "caption": "Source: judgeme.imgix.net",
-        "source": "judgeme.imgix.net",
-        "sourceUrl": "https://rotorriot.com/",
-        "credit": "Source: judgeme.imgix.net",
-        "license": "attribution"
-      }
+      "content": "- **Use the right gauge wire**: 14-16AWG for battery leads, 20-22AWG for motor wires, 26-28AWG for signal wires\n- **Twist signal and ground** wires together to reduce electrical noise\n- **Secure wires** with zip ties away from spinning props\n- **Use a smoke stopper** on first power-up — it can save your entire build\n- **Label your UARTs**: know which UART is for VTX, which for receiver, which for GPS\n- Common mistake: RX pad on FC goes to TX on peripheral, TX goes to RX"
     },
     {
       "id": "compatibility",
@@ -133,15 +124,6 @@
         "source": "rotorriot.com",
         "sourceUrl": "https://rotorriot.com/",
         "credit": "Source: rotorriot.com",
-        "license": "attribution"
-      },
-      {
-        "src": "https://judgeme.imgix.net/rotor-riot/1779742367__17453__original.jpg?auto=format&w=1024",
-        "alt": "FPV image from judgeme.imgix.net",
-        "caption": "Source: judgeme.imgix.net",
-        "source": "judgeme.imgix.net",
-        "sourceUrl": "https://rotorriot.com/",
-        "credit": "Source: judgeme.imgix.net",
         "license": "attribution"
       }
     ],

@@ -23,6 +23,7 @@ export default function NewsletterPanel() {
       if (res.ok) {
         const data = await res.json();
         setCampaigns(data.campaigns || []);
+        setSubscribers(data.subscribers || []);
       }
     } catch (e) {
       console.error(e);
@@ -32,7 +33,7 @@ export default function NewsletterPanel() {
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (activeSubTab === 'campaigns') fetchCampaigns();
+    if (activeSubTab === 'campaigns' || activeSubTab === 'subscribers') fetchCampaigns();
   }, [activeSubTab]);
 
   const handleGenerateDraft = async () => {
@@ -41,8 +42,8 @@ export default function NewsletterPanel() {
     setSuccess(null);
     try {
       const res = await fetch('/api/admin/newsletter/generate-draft', { method: 'POST' });
-      if (!res.ok) throw new Error('Taslak oluşturulamadı.');
-      setSuccess('Haftalık taslak bülten başarıyla oluşturuldu.');
+      if (!res.ok) throw new Error('Failed to generate weekly draft.');
+      setSuccess('Weekly newsletter draft generated.');
       fetchCampaigns();
     } catch (err: any) {
       setError(err.message);
@@ -51,15 +52,15 @@ export default function NewsletterPanel() {
   };
 
   const handleDispatch = async (id: string) => {
-    if (!confirm('Bu bülteni tüm aktif abonelere göndermek istediğinize emin misiniz?')) return;
+    if (!confirm('Are you sure you want to dispatch this newsletter to all active subscribers?')) return;
     
     setLoading(true);
     setError(null);
     try {
       const res = await fetch(`/api/admin/newsletter/campaigns/${id}/dispatch`, { method: 'POST' });
-      if (!res.ok) throw new Error('Gönderim sırasında hata oluştu.');
+      if (!res.ok) throw new Error('Failed to dispatch newsletter campaign.');
       const data = await res.json();
-      setSuccess(`${data.sentCount} kişiye başarıyla gönderildi!`);
+      setSuccess(`Dispatched to ${data.sentCount} subscriber(s).`);
       fetchCampaigns();
     } catch (err: any) {
       setError(err.message);
@@ -69,7 +70,7 @@ export default function NewsletterPanel() {
 
   const handleCreateCustom = async () => {
     if (!subject || !content) {
-      setError('Konu ve içerik zorunludur.');
+      setError('Subject and content are required.');
       return;
     }
     setSending(true);
@@ -80,8 +81,8 @@ export default function NewsletterPanel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subject, content_html: content })
       });
-      if (!res.ok) throw new Error('Özel bülten oluşturulamadı.');
-      setSuccess('Özel bülten başarıyla oluşturuldu.');
+      if (!res.ok) throw new Error('Failed to create custom campaign.');
+      setSuccess('Custom campaign saved as draft.');
       setSubject('');
       setContent('');
       setActiveSubTab('campaigns');
@@ -132,7 +133,7 @@ export default function NewsletterPanel() {
           className={`font-mono uppercase text-xs tracking-widest px-4 py-2 transition-colors ${activeSubTab === 'subscribers' ? 'text-[#FF5C00] border-b-2 border-[#FF5C00]' : 'text-[#666] hover:text-[#A0A0A0]'}`}
         >
           <Users className="w-3.5 h-3.5 inline mr-2" />
-          Subscribers
+          Subscribers ({subscribers.length})
         </button>
       </div>
 
@@ -150,7 +151,7 @@ export default function NewsletterPanel() {
 
           <div className="grid grid-cols-1 gap-4">
             {campaigns.length === 0 && !loading && (
-              <div className="text-[#666] font-mono text-sm text-center py-8">Henüz kampanya bulunmuyor.</div>
+              <div className="text-[#666] font-mono text-sm text-center py-8">No newsletter campaigns yet.</div>
             )}
             {campaigns.map(camp => (
               <div key={camp.id} className="bg-[#0A0A0B] border border-[#333] p-5 relative overflow-hidden flex flex-col md:flex-row gap-4 items-start md:items-center justify-between group">
@@ -162,8 +163,8 @@ export default function NewsletterPanel() {
                     <span className="text-white font-mono text-sm">{camp.subject}</span>
                   </div>
                   <div className="text-[#A0A0A0] text-xs font-mono">
-                    Created: {new Date(camp.created_at).toLocaleString('tr-TR')}
-                    {camp.sent_at && ` | Sent: ${new Date(camp.sent_at).toLocaleString('tr-TR')} | Delivered: ${camp.recipient_count}`}
+                    Created: {new Date(camp.created_at).toLocaleString('en-US')}
+                    {camp.sent_at && ` | Sent: ${new Date(camp.sent_at).toLocaleString('en-US')} | Delivered: ${camp.recipient_count}`}
                   </div>
                 </div>
                 
@@ -181,33 +182,64 @@ export default function NewsletterPanel() {
       {activeSubTab === 'compose' && (
         <div className="bg-[#0A0A0B] border border-[#333] p-6 space-y-4">
           <div>
-            <label className="block text-[#A0A0A0] text-[10px] uppercase font-mono tracking-widest mb-2">Konu (Subject)</label>
+            <label className="block text-[#A0A0A0] text-[10px] uppercase font-mono tracking-widest mb-2">Subject</label>
             <input 
               value={subject} 
               onChange={e => setSubject(e.target.value)} 
               className="w-full bg-black border border-[#333] p-3 text-white focus:border-[#FF5C00] outline-none font-mono text-sm"
-              placeholder="Örn: FPV Dünyasında Bu Hafta %50 İndirim!"
+              placeholder="e.g., Weekly FPV Build & Tuning Digest"
             />
           </div>
           <div>
-            <label className="block text-[#A0A0A0] text-[10px] uppercase font-mono tracking-widest mb-2">İçerik (HTML veya Text)</label>
+            <label className="block text-[#A0A0A0] text-[10px] uppercase font-mono tracking-widest mb-2">Content (HTML or Text)</label>
             <textarea 
               value={content} 
               onChange={e => setContent(e.target.value)} 
               rows={12}
               className="w-full bg-black border border-[#333] p-3 text-white focus:border-[#FF5C00] outline-none font-mono text-sm"
-              placeholder="<h1>Merhaba Pilot...</h1>"
+              placeholder="<h1>Hello Pilot...</h1>"
             />
           </div>
           <Button variant="cyber" onClick={handleCreateCustom} disabled={sending} className="w-full border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white">
-            {sending ? 'Oluşturuluyor...' : 'Draft Olarak Kaydet'}
+            {sending ? 'Saving...' : 'Save as Draft'}
           </Button>
         </div>
       )}
 
       {activeSubTab === 'subscribers' && (
-        <div className="bg-[#0A0A0B] border border-[#333] p-6 text-center text-[#666] font-mono text-sm">
-          Abonelik listesi görünümü yakında eklenecek.
+        <div className="bg-[#0A0A0B] border border-[#333] overflow-hidden">
+          {subscribers.length === 0 ? (
+            <div className="p-6 text-center text-[#666] font-mono text-sm">
+              No newsletter subscribers recorded yet.
+            </div>
+          ) : (
+            <table className="w-full text-left font-mono text-xs">
+              <thead className="bg-[#111] border-b border-[#333] text-[#888]">
+                <tr>
+                  <th className="p-3">EMAIL</th>
+                  <th className="p-3">SOURCE</th>
+                  <th className="p-3">SUBSCRIBED AT</th>
+                  <th className="p-3 text-right">STATUS</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#222]">
+                {subscribers.map((sub) => (
+                  <tr key={sub.id} className="hover:bg-[#151518]">
+                    <td className="p-3 text-white">{sub.email}</td>
+                    <td className="p-3 text-[#888]">{sub.source || 'website'}</td>
+                    <td className="p-3 text-[#888]">
+                      {sub.subscribed_at ? new Date(sub.subscribed_at).toLocaleString('en-US') : '—'}
+                    </td>
+                    <td className="p-3 text-right">
+                      <span className={`px-2 py-0.5 text-[10px] uppercase ${sub.is_active ? 'bg-[#00FF66]/10 text-[#00FF66]' : 'bg-red-500/10 text-red-400'}`}>
+                        {sub.is_active ? 'active' : 'unsubscribed'}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       )}
 

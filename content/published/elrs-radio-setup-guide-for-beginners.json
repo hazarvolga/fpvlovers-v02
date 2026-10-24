@@ -114,11 +114,13 @@
     "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "guide",
     "topics": [
       "beginner-fpv",
       "elrs"
+    ],
+    "components": [
+      "radio-link",
+      "radio"
     ],
     "audience": [
       "new-pilot"
@@ -126,9 +128,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "radio-link",
-      "radio"
-    ]
+    "difficulty": "beginner",
+    "contentType": "guide"
   }
 }

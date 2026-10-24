@@ -63,5 +63,22 @@
   "sourceReferences": [
     "https://betaflight.com/docs/wiki",
     "https://oscarliang.com/"
-  ]
+  ],
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [
+      "vtx",
+      "camera"
+    ],
+    "audience": [
+      "cinematographer"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

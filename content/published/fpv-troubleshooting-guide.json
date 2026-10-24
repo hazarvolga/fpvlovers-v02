@@ -46,16 +46,7 @@
     {
       "id": "no-arm",
       "title": "Won't Arm? Read the Flags",
-      "content": "Connect to Betaflight and check the **Arming Disable Flags** in the Setup tab. Common causes:\n- **Throttle not at zero** (adjust endpoints)\n- **Accelerometer not calibrated** (calibrate on level surface)\n- **RX loss** (check receiver binding and protocol)\n- **GPS not locked** (if GPS rescue is enabled)\n\nThe arming flags tell you exactly what's wrong.",
-      "imageMatch": {
-        "src": "https://judgeme.imgix.net/rotor-riot-store/1767380059__1000002620__original.jpg?auto=format&w=1024",
-        "alt": "FPV image from judgeme.imgix.net",
-        "caption": "Source: judgeme.imgix.net",
-        "source": "judgeme.imgix.net",
-        "sourceUrl": "https://rotorriot.com/",
-        "credit": "Source: judgeme.imgix.net",
-        "license": "attribution"
-      }
+      "content": "Connect to Betaflight and check the **Arming Disable Flags** in the Setup tab. Common causes:\n- **Throttle not at zero** (adjust endpoints)\n- **Accelerometer not calibrated** (calibrate on level surface)\n- **RX loss** (check receiver binding and protocol)\n- **GPS not locked** (if GPS rescue is enabled)\n\nThe arming flags tell you exactly what's wrong."
     },
     {
       "id": "bench-testing",
@@ -74,16 +65,7 @@
     {
       "id": "prevention",
       "title": "Prevention and Maintenance",
-      "content": "Most FPV problems are preventable with regular maintenance:\n- **Conformal coat** your electronics for moisture protection\n- Check **antenna connections** after every crash\n- Inspect **frame screws** for tightness\n- Clean **motor bearings** periodically\n- Keep **spare antennas, props, and standoffs** in your field kit",
-      "imageMatch": {
-        "src": "https://judgeme.imgix.net/rotor-riot/1773700959__1000002728__original.jpg?auto=format&w=1024",
-        "alt": "FPV image from judgeme.imgix.net",
-        "caption": "Source: judgeme.imgix.net",
-        "source": "judgeme.imgix.net",
-        "sourceUrl": "https://rotorriot.com/",
-        "credit": "Source: judgeme.imgix.net",
-        "license": "attribution"
-      }
+      "content": "Most FPV problems are preventable with regular maintenance:\n- **Conformal coat** your electronics for moisture protection\n- Check **antenna connections** after every crash\n- Inspect **frame screws** for tightness\n- Clean **motor bearings** periodically\n- Keep **spare antennas, props, and standoffs** in your field kit"
     }
   ],
   "internalLinks": [
@@ -124,15 +106,6 @@
         "source": "rotorriot.com",
         "sourceUrl": "https://rotorriot.com/",
         "credit": "Source: rotorriot.com",
-        "license": "attribution"
-      },
-      {
-        "src": "https://judgeme.imgix.net/rotor-riot-store/1767380059__1000002620__original.jpg?auto=format&w=1024",
-        "alt": "FPV image from judgeme.imgix.net",
-        "caption": "Source: judgeme.imgix.net",
-        "source": "judgeme.imgix.net",
-        "sourceUrl": "https://rotorriot.com/",
-        "credit": "Source: judgeme.imgix.net",
         "license": "attribution"
       },
       {

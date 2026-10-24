@@ -62,6 +62,4 @@ To maintain operational safety, you must monitor your FPV link health in real-ti
 > **TRANSMITTER ANTENNA SAFETY**
 > Never power on your radio transmitter (TX) module or internal RF module without the transmitter antenna securely attached. Powering on an RF transmitter without a load (antenna) causes the outgoing high-frequency energy to bounce back into the amplifier circuitry, destroying the RF chip in seconds due to thermal overload. Always attach the antenna first.
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1779983389__1779983385708-1000009536__original.jpg?auto=format&w=1024)
-_Source: judgeme.imgix.net_
 

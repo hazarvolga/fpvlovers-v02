@@ -281,6 +281,5 @@ Don't let the fear of 'magic smoke' deter your building ambitions. Equip yoursel
 
 Have a smoke stopper tip or a 'magic smoke' story to share? Drop it in the comments below, and check out our other FPV safety guides to further fortify your workbench!
 
-![Cnet Logo](https://static2.manualslib.com/public/img/cnet.png)
 _Cnet Logo_
 

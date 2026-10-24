@@ -63,5 +63,19 @@
   "sourceReferences": [
     "https://betaflight.com/docs/wiki",
     "https://www.expresslrs.org/"
-  ]
+  ],
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "beginner",
+    "contentType": "guide"
+  }
 }

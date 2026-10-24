@@ -157,12 +157,13 @@
     "https://radiomasterrc.com/cdn/shop/files/BOXER-001_1024x1024.jpg?v=1750061786"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "beginner-fpv",
       "buying-decision",
       "fpv-racing"
+    ],
+    "components": [
+      "race-gear"
     ],
     "audience": [
       "new-pilot",
@@ -171,9 +172,8 @@
     "discipline": [
       "racing"
     ],
-    "components": [
-      "race-gear"
-    ],
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
     "buyerGuide": {
       "products": [
         "FPV racing gear"

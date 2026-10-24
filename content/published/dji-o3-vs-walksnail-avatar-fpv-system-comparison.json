@@ -146,11 +146,12 @@
   ],
   "coverImage": "/images/source-cache/dji-o3-vs-walksnail-avatar-fpv-system-comparison-cover-1-f8c1954f.jpg",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "comparison",
     "topics": [
       "product-comparison",
       "fpv-video"
+    ],
+    "components": [
+      "video-system"
     ],
     "audience": [
       "buyer"
@@ -158,9 +159,8 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "video-system"
-    ],
+    "difficulty": "beginner",
+    "contentType": "comparison",
     "comparison": {
       "productA": "DJI O3",
       "productB": "Walksnail Avatar",

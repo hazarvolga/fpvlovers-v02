@@ -63,5 +63,19 @@
   "sourceReferences": [
     "https://betaflight.com/docs/wiki",
     "https://www.fpvknowitall.com/"
-  ]
+  ],
+  "metadata": {
+    "topics": [
+      "general-knowledge"
+    ],
+    "components": [],
+    "audience": [
+      "builder"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

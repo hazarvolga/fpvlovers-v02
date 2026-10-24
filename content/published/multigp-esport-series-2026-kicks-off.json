@@ -27,8 +27,20 @@
       "Action photography of sports gear outdoor on a race track",
       "Close-up of a racing pilot looking through goggles with absolute focus"
     ],
-    "imageSources": [],
-    "attribution": []
+    "imageSources": [
+      "Local SVG illustration generated from published content metadata"
+    ],
+    "attribution": [
+      "Copyright-safe media generated locally by FPVLovers"
+    ],
+    "coverImage": {
+      "src": "/api/content/media/cover/multigp-esport-series-2026-kicks-off",
+      "alt": "MultiGP eSport Series 2026 Kicks Off cover illustration",
+      "caption": "Announcing the start of the 2026 eSport Series and participation details.",
+      "source": "FPVLovers local media layer",
+      "credit": "FPVLovers generated artwork",
+      "kind": "generated-artwork"
+    }
   },
   "jobStatus": "published",
   "publishedAt": "2026-06-06T17:18:53.513Z",
@@ -46,5 +58,6 @@
     ],
     "difficulty": "intermediate",
     "contentType": "news"
-  }
+  },
+  "coverImage": "/api/content/media/cover/multigp-esport-series-2026-kicks-off"
 }

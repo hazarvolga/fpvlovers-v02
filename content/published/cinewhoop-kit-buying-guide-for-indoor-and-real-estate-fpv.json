@@ -168,11 +168,12 @@
   ],
   "coverImage": "/images/source-cache/cinewhoop-kit-buying-guide-for-indoor-and-real-estate-fpv-cover-1-64dde62b.webp",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "buying-decision",
       "cinewhoop"
+    ],
+    "components": [
+      "build-kit"
     ],
     "audience": [
       "buyer",
@@ -183,9 +184,8 @@
       "cinematic",
       "whoop"
     ],
-    "components": [
-      "build-kit"
-    ],
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
     "buyerGuide": {
       "products": [
         "beginner FPV drone kits",

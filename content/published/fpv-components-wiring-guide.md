@@ -54,8 +54,6 @@ _Rotor Riot_
 - **Label your UARTs**: know which UART is for VTX, which for receiver, which for GPS
 - Common mistake: RX pad on FC goes to TX on peripheral, TX goes to RX
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1779742367__17453__original.jpg?auto=format&w=1024)
-_Source: judgeme.imgix.net_
 
 ## Compatibility Checks
 

@@ -135,13 +135,14 @@
     "https://www.rotorama.com/assets/images/bc134dbdc6f7bfe8956e145024f4e715/17630-fill-600_400.jpg"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "buying-decision",
       "product-comparison",
       "safety",
       "components"
+    ],
+    "components": [
+      "battery"
     ],
     "audience": [
       "buyer",
@@ -150,8 +151,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "battery"
-    ]
+    "difficulty": "beginner",
+    "contentType": "buyer-guide"
   }
 }

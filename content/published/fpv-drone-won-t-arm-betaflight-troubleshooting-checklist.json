@@ -65,12 +65,13 @@
     "https://oscarliang.com/"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "tutorial",
     "topics": [
       "buying-decision",
       "troubleshooting",
       "betaflight"
+    ],
+    "components": [
+      "flight-controller"
     ],
     "audience": [
       "builder"
@@ -78,8 +79,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "flight-controller"
-    ]
+    "difficulty": "beginner",
+    "contentType": "tutorial"
   }
 }

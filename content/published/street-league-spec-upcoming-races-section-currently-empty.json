@@ -51,10 +51,11 @@
   "promptVersion": "v2",
   "updatedAt": "2026-06-22T17:01:18.705Z",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "news",
     "topics": [
       "fpv-racing"
+    ],
+    "components": [
+      "race-gear"
     ],
     "audience": [
       "racer"
@@ -62,8 +63,7 @@
     "discipline": [
       "racing"
     ],
-    "components": [
-      "race-gear"
-    ]
+    "difficulty": "beginner",
+    "contentType": "news"
   }
 }

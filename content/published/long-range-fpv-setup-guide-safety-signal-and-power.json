@@ -167,11 +167,14 @@
   ],
   "coverImage": "/images/source-cache/long-range-fpv-setup-guide-safety-signal-and-power-cover-1-739591c1.jpg",
   "metadata": {
-    "difficulty": "intermediate",
-    "contentType": "guide",
     "topics": [
       "safety",
       "long-range-fpv"
+    ],
+    "components": [
+      "radio-link",
+      "battery",
+      "build-kit"
     ],
     "audience": [
       "new-pilot",
@@ -181,10 +184,7 @@
     "discipline": [
       "long-range"
     ],
-    "components": [
-      "radio-link",
-      "battery",
-      "build-kit"
-    ]
+    "difficulty": "intermediate",
+    "contentType": "guide"
   }
 }

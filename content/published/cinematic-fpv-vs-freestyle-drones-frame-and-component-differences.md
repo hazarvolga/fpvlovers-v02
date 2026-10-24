@@ -239,5 +239,5 @@ Cinematic FPV focuses on smooth, storytelling footage with stable builds and pre
 
 Whether your passion lies in crafting visually stunning narratives or pushing the limits of aerial acrobatics, the world of FPV offers endless possibilities. By understanding the nuances of cinematic vs. freestyle FPV, you can make informed decisions about your gear, practice, and ultimately, your flight style. So, which path will you choose, or will you dare to master both? Grab your goggles, hit the sticks, and start your FPV journey today!
 
-![FPV image from droneracing.fai.org](/images/source-cache/cinematic-fpv-vs-freestyle-drones-frame-and-component-differences-section-1-c68c423e.jpg)
-_Source: droneracing.fai.org_
+![T-Motor F7 HD + F55A Pro II 30x30 Stack](/images/source-cache/cinematic-fpv-vs-freestyle-drones-frame-and-component-differences-section-1-656931d1.jpg)
+_T-Motor F7 HD + F55A Pro II 30x30 Stack catalog image used as source-backed visual context for Cinematic FPV vs Freestyle Drones: Frame and Component Differences._

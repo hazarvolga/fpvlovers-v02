@@ -150,12 +150,14 @@
   ],
   "coverImage": "/images/source-cache/fpv-esc-buying-guide-current-rating-firmware-and-stack-fit-cover-1-5f0f8381.jpg",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "buying-decision",
       "product-comparison",
       "components"
+    ],
+    "components": [
+      "propulsion",
+      "esc"
     ],
     "audience": [
       "buyer",
@@ -164,9 +166,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "propulsion",
-      "esc"
-    ]
+    "difficulty": "beginner",
+    "contentType": "buyer-guide"
   }
 }

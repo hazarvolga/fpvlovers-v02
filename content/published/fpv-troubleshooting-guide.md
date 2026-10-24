@@ -32,8 +32,6 @@ Connect to Betaflight and check the **Arming Disable Flags** in the Setup tab. C
 
 The arming flags tell you exactly what's wrong.
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot-store/1767380059__1000002620__original.jpg?auto=format&w=1024)
-_Source: judgeme.imgix.net_
 
 ## Bench Testing Checklist
 
@@ -57,6 +55,4 @@ Most FPV problems are preventable with regular maintenance:
 - Clean **motor bearings** periodically
 - Keep **spare antennas, props, and standoffs** in your field kit
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot/1773700959__1000002728__original.jpg?auto=format&w=1024)
-_Source: judgeme.imgix.net_
 

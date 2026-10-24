@@ -22,32 +22,6 @@ import {
 
 
 
-// --- MOCK DATA (non-RAG data) ---
-const subscribersData = [
-  { id: '1', email: 'alex@example.com', joined: '2026-05-01', source: 'Tool: Calculator' },
-  { id: '2', email: 'fpvracerX@gmail.com', joined: '2026-05-01', source: 'Newsletter Widget' },
-  { id: '3', email: 'sarah.j.fpv@outlook.com', joined: '2026-04-30', source: 'Article: Cinewhoops' },
-  { id: '4', email: 'mike_fpv@yahoo.com', joined: '2026-04-29', source: 'Tool: Component Duel' },
-  { id: '5', email: 'dronemaster99@protonmail.com', joined: '2026-04-28', source: 'Newsletter Widget' },
-];
-
-const usageVsGrowthData = [
-  { name: 'Mon', 'Oracle Usage': 840, 'New Users': 120 },
-  { name: 'Tue', 'Oracle Usage': 660, 'New Users': 132 },
-  { name: 'Wed', 'Oracle Usage': 1409, 'New Users': 145 },
-  { name: 'Thu', 'Oracle Usage': 868, 'New Users': 160 },
-  { name: 'Fri', 'Oracle Usage': 887, 'New Users': 184 },
-  { name: 'Sat', 'Oracle Usage': 869, 'New Users': 210 },
-  { name: 'Sun', 'Oracle Usage': 989, 'New Users': 250 },
-];
-
-const affiliateData = [
-  { tool: 'Part Matcher', clicks: 1240, ctr: '14.2%', revenue: '$340.50' },
-  { tool: 'Blackbox Tuning', clicks: 890, ctr: '8.4%', revenue: '$120.00' },
-  { tool: 'Thrust Calc', clicks: 450, ctr: '5.1%', revenue: '$45.20' },
-  { tool: 'Flight Critic', clicks: 1100, ctr: '11.8%', revenue: '$210.80' },
-];
-
 type DatasetInfo = {
   id: string;
   name: string;
@@ -193,6 +167,7 @@ export default function AdminDashboard() {
   const [rawFilter, setRawFilter] = useState('');
   const [health, setHealth] = useState<any>(null);
   const [healthLoading, setHealthLoading] = useState(false);
+  const [subscribers, setSubscribers] = useState<any[]>([]);
   const [catalogSources, setCatalogSources] = useState<CatalogSourcesResponse | null>(null);
   const [catalogLoading, setCatalogLoading] = useState(false);
   const [catalogActionLoading, setCatalogActionLoading] = useState(false);
@@ -290,14 +265,37 @@ export default function AdminDashboard() {
     setCatalogLoading(false);
   }, []);
 
+  const fetchHealth = useCallback(async () => {
+    setHealthLoading(true);
+    try {
+      const resp = await fetch('/api/admin/health');
+      if (resp.ok) {
+        setHealth(await resp.json());
+      }
+    } catch {}
+    setHealthLoading(false);
+  }, []);
+
+  const fetchSubscribers = useCallback(async () => {
+    try {
+      const resp = await fetch('/api/admin/newsletter/campaigns');
+      if (resp.ok) {
+        const data = await resp.json();
+        setSubscribers(data.subscribers || []);
+      }
+    } catch {}
+  }, []);
+
   useEffect(() => {
     queueMicrotask(() => {
       void fetchData();
       void fetchLogs();
       void fetchBudget();
       void fetchCatalogSources();
+      void fetchHealth();
+      void fetchSubscribers();
     });
-  }, [fetchData, fetchLogs, fetchBudget, fetchCatalogSources]);
+  }, [fetchData, fetchLogs, fetchBudget, fetchCatalogSources, fetchHealth, fetchSubscribers]);
 
   const handleRetrievalTest = async () => {
     if (!retrievalQuery.trim()) return;
@@ -496,11 +494,25 @@ export default function AdminDashboard() {
               <div className="space-y-3 font-mono text-xs">
                  <div className="flex justify-between items-center group cursor-default">
                     <span className="text-[#A0A0A0] flex items-center gap-2 group-hover:text-white transition-colors"><Server className="w-3 h-3"/> API</span>
-                    <span className="text-[#00FF66] flex items-center gap-1"><span className="w-1.5 h-1.5 bg-[#00FF66] rounded-full animate-pulse"/> Online</span>
+                    {loading ? (
+                      <span className="text-[#A0A0A0] flex items-center gap-1">Checking...</span>
+                    ) : (
+                      <span className="text-[#00FF66] flex items-center gap-1"><span className="w-1.5 h-1.5 bg-[#00FF66] rounded-full animate-pulse"/> Online</span>
+                    )}
                  </div>
                  <div className="flex justify-between items-center group cursor-default">
                     <span className="text-[#A0A0A0] flex items-center gap-2 group-hover:text-white transition-colors"><Database className="w-3 h-3"/> DB</span>
-                    <span className="text-[#00FF66] flex items-center gap-1"><span className="w-1.5 h-1.5 bg-[#00FF66] rounded-full animate-pulse"/> Online</span>
+                    {(() => {
+                      const dbService = health?.services?.find((s: any) => /postgres|db|database/i.test(String(s.name)));
+                      const dbDown = dbService && dbService.status !== 'up';
+                      if (healthLoading && !health) {
+                        return <span className="text-[#A0A0A0] flex items-center gap-1">Checking...</span>;
+                      }
+                      if (dbDown) {
+                        return <span className="text-red-400 flex items-center gap-1"><span className="w-1.5 h-1.5 bg-red-400 rounded-full"/> Degraded</span>;
+                      }
+                      return <span className="text-[#00FF66] flex items-center gap-1"><span className="w-1.5 h-1.5 bg-[#00FF66] rounded-full animate-pulse"/> Online</span>;
+                    })()}
                  </div>
                <div className="flex justify-between items-center group cursor-default">
                      <span className="text-[#A0A0A0] flex items-center gap-2 group-hover:text-white transition-colors"><Workflow className="w-3 h-3"/> Crawlers</span>
@@ -518,14 +530,15 @@ export default function AdminDashboard() {
             const group = tabGroups.find(g => g.tabs.some(t => t.id === activeTab));
             const tab = tabs.find(t => t.id === activeTab);
             const ctaMap: Record<string, { label: string; icon: React.ElementType; action: () => void }> = {
-              hub:          { label: 'Sync Datasets',  icon: RefreshCw,  action: fetchData },
-              ingest:       { label: 'Ingest Now',     icon: Send,        action: handleIngest },
-              content:      { label: 'Generate',       icon: Sparkles,    action: handleContentGen },
-              logs:         { label: 'Refresh Logs',   icon: RefreshCw,  action: fetchLogs },
-              catalog:      { label: 'Refresh Catalog', icon: RefreshCw,  action: fetchCatalogSources },
-              affiliates:   { label: 'Add Affiliate',  icon: Plus,        action: fetchAffiliates },
-              sponsors:     { label: 'Add Sponsor',    icon: Plus,        action: fetchSponsors },
-              health:       { label: 'Check Health',   icon: RefreshCw,  action: fetchData },
+              hub:          { label: 'Sync Datasets',       icon: RefreshCw, action: fetchData },
+              ingest:       { label: 'Ingest Now',          icon: Send,      action: handleIngest },
+              content:      { label: 'Generate',            icon: Sparkles,  action: handleContentGen },
+              logs:         { label: 'Refresh Logs',        icon: RefreshCw, action: fetchLogs },
+              catalog:      { label: 'Refresh Catalog',     icon: RefreshCw, action: fetchCatalogSources },
+              affiliates:   { label: 'Refresh Affiliates',  icon: RefreshCw, action: fetchAffiliates },
+              sponsors:     { label: 'Refresh Sponsors',    icon: RefreshCw, action: fetchSponsors },
+              health:       { label: 'Check Health',        icon: RefreshCw, action: fetchHealth },
+              registry:     { label: 'Refresh Subscribers', icon: RefreshCw, action: fetchSubscribers },
             };
             const cta = ctaMap[activeTab];
             if (!group || !tab) return null;
@@ -567,16 +580,9 @@ export default function AdminDashboard() {
                  </div>
                  <div className="flex items-end justify-between">
                    <div className="text-4xl font-black tracking-tighter">{loading ? '...' : totalDocs}</div>
-                   <span className="text-[10px] font-mono text-[#00F2FF] bg-[#00F2FF]/10 px-1.5 py-0.5 mb-1">+12% ↑</span>
+                   <span className="text-[10px] font-mono text-[#00F2FF] bg-[#00F2FF]/10 px-1.5 py-0.5 mb-1">Live RAG</span>
                  </div>
-                 <svg viewBox="0 0 80 20" className="w-full h-5 mt-3" preserveAspectRatio="none">
-                   <polyline
-                     points={usageVsGrowthData.map((d, i) => `${(i / 6) * 80},${20 - (d['New Users'] / 260) * 18}`).join(' ')}
-                     fill="none" stroke="#00F2FF" strokeWidth="1.5"
-                     strokeLinecap="round" strokeLinejoin="round" opacity="0.6"
-                   />
-                 </svg>
-                 <div className="text-[#A0A0A0] font-mono text-[10px] mt-1">{datasets.length} active datasets · 7-day trend</div>
+                 <div className="text-[#A0A0A0] font-mono text-[10px] mt-4">{datasets.length} active datasets</div>
               </div>
 
               {/* KPI: Total Tokens */}
@@ -587,16 +593,9 @@ export default function AdminDashboard() {
                  </div>
                  <div className="flex items-end justify-between">
                    <div className="text-4xl font-black tracking-tighter">{loading ? '...' : (totalTokens / 1000).toFixed(1) + 'K'}</div>
-                   <span className="text-[10px] font-mono text-[#FF5C00] bg-[#FF5C00]/10 px-1.5 py-0.5 mb-1">+8% ↑</span>
+                   <span className="text-[10px] font-mono text-[#FF5C00] bg-[#FF5C00]/10 px-1.5 py-0.5 mb-1">Indexed</span>
                  </div>
-                 <svg viewBox="0 0 80 20" className="w-full h-5 mt-3" preserveAspectRatio="none">
-                   <polyline
-                     points={usageVsGrowthData.map((d, i) => `${(i / 6) * 80},${20 - (d['Oracle Usage'] / 1500) * 18}`).join(' ')}
-                     fill="none" stroke="#FF5C00" strokeWidth="1.5"
-                     strokeLinecap="round" strokeLinejoin="round" opacity="0.6"
-                   />
-                 </svg>
-                 <div className="font-mono text-[10px] mt-1">
+                 <div className="font-mono text-[10px] mt-4">
                    {errorDocs > 0 ? (
                      <button
                        onClick={(e) => { e.stopPropagation(); setActiveTab('hub'); }}
@@ -739,14 +738,14 @@ export default function AdminDashboard() {
                     <div className="flex gap-3 flex-wrap">
                       <select value={contentPage} onChange={(e) => setContentPage(e.target.value)} className="bg-black border border-[#333] text-white font-mono text-sm px-4 py-3 focus:border-[#FF5C00] focus:outline-none">
                         <option value="">Select content type...</option>
-                        <option value="youtube-journalist">YouTube Muhabiri (URL)</option>
+                        <option value="youtube-journalist">YouTube Journalist (URL)</option>
                         <option value="roadmap">Pilot Roadmap</option><option value="glossary">FPV Glossary</option>
                         <option value="workshop">Workshop Masterclass</option><option value="tech-article">Technical Article</option>
                         <option value="product-review">Product Review</option><option value="build-guide">Build Guide</option>
                         <option value="comparison">Comparison Page</option><option value="troubleshooting">Troubleshooting</option>
                         <option value="regulation-guide">Regulation Guide</option><option value="community-roundup">Community Roundup</option>
                       </select>
-                      <input value={contentPrompt} onChange={(e) => setContentPrompt(e.target.value)} placeholder={contentPage === 'youtube-journalist' ? "YouTube URL (zorunlu)" : "Custom prompt (optional)"} className="flex-1 bg-black border border-[#333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none" />
+                      <input value={contentPrompt} onChange={(e) => setContentPrompt(e.target.value)} placeholder={contentPage === 'youtube-journalist' ? "YouTube URL (required)" : "Custom prompt (optional)"} className="flex-1 bg-black border border-[#333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none" />
                       <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={handleContentGen} disabled={contentLoading || !contentPage || (contentPage === 'youtube-journalist' && !contentPrompt)}>
                         {contentLoading ? <><Loader2 className="w-4 h-4 mr-2 animate-spin" /> Generating...</> : <><Sparkles className="w-4 h-4 mr-2" /> Generate</>}
                       </Button>
@@ -1376,8 +1375,8 @@ export default function AdminDashboard() {
                       </h2>
                       <p className="text-[#A0A0A0] font-mono text-xs mt-1">Real-time service status across all servers.</p>
                     </div>
-                    <Button variant="cyber" size="sm" className="border-[#00FF66] text-[#00FF66] hover:bg-[#00FF66] hover:text-white" onClick={async () => { setHealthLoading(true); const r = await fetch('/api/admin/health'); setHealth(await r.json()); setHealthLoading(false); }}>
-                      <RefreshCw className="w-4 h-4 mr-2" /> Scan
+                    <Button variant="cyber" size="sm" className="border-[#00FF66] text-[#00FF66] hover:bg-[#00FF66] hover:text-white" onClick={fetchHealth} disabled={healthLoading}>
+                      <RefreshCw className={`w-4 h-4 mr-2 ${healthLoading ? 'animate-spin' : ''}`} /> Scan
                     </Button>
                   </div>
 
@@ -1451,64 +1450,66 @@ export default function AdminDashboard() {
                        <h2 className="text-2xl font-black uppercase text-white tracking-tight flex items-center gap-2">
                          <Users className="text-white" /> Pilot Registry
                        </h2>
-                       <p className="text-[#A0A0A0] font-mono text-xs mt-1">CRM for community tracking and newsletter management.</p>
+                       <p className="text-[#A0A0A0] font-mono text-xs mt-1">CRM for community tracking and newsletter subscribers ({subscribers.length} total).</p>
                     </div>
-                    <Button variant="outline" size="sm" className="border-[#333333] text-white hover:bg-[#FF5C00] hover:text-white hover:border-[#FF5C00] transition-colors rounded-none">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled={subscribers.length === 0}
+                      onClick={() => {
+                        const header = 'id,email,subscribed_at,source,is_active\n';
+                        const rows = subscribers
+                          .map((s) => `${s.id},${s.email},${s.subscribed_at || ''},${s.source || 'website'},${Boolean(s.is_active)}`)
+                          .join('\n');
+                        const blob = new Blob([header + rows], { type: 'text/csv;charset=utf-8;' });
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `fpvlovers-subscribers-${new Date().toISOString().slice(0, 10)}.csv`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                      }}
+                      className="border-[#333333] text-white hover:bg-[#FF5C00] hover:text-white hover:border-[#FF5C00] transition-colors rounded-none"
+                    >
                       <Download className="w-4 h-4 mr-2" /> Export CSV (Beehiiv/ConvertKit)
                     </Button>
                  </div>
 
                  <div className="overflow-x-auto border border-[#333333] bg-[#0A0A0B]">
-                    <table className="w-full text-left font-mono text-sm">
-                       <thead>
-                          <tr className="border-b border-[#333333] text-[#A0A0A0] text-[10px] uppercase tracking-widest bg-[#111]">
-                             <th className="p-4 font-normal">ID</th>
-                             <th className="p-4 font-normal">Email Address</th>
-                             <th className="p-4 font-normal">Join Date</th>
-                             <th className="p-4 font-normal">Acquisition Source</th>
-                             <th className="p-4 font-normal text-right">Action</th>
-                          </tr>
-                       </thead>
-                       <tbody className="divide-y divide-[#1A1A1A]">
-                          {subscribersData.map((sub) => (
-                             <tr key={sub.id} className="hover:bg-[#111] transition-colors group">
-                                <td className="p-4 text-[#A0A0A0]">#{sub.id.padStart(4, '0')}</td>
-                                <td className="p-4 text-white group-hover:text-[#00F2FF] transition-colors">{sub.email}</td>
-                                <td className="p-4 text-[#A0A0A0]">{sub.joined}</td>
-                                <td className="p-4 text-[#00F2FF] text-xs">{sub.source}</td>
-                                <td className="p-4 text-right">
-                                  <button className="text-[#A0A0A0] hover:text-white transition-colors"><ChevronRight className="w-4 h-4 inline" /></button>
-                                </td>
-                             </tr>
-                          ))}
-                       </tbody>
-                    </table>
-                  </div>
-
-                  {/* Sponsors */}
-                  <div className="space-y-3">
-                    <h3 className="text-xs font-mono uppercase text-[#A0A0A0] tracking-widest border-b border-[#333333] pb-2 flex justify-between">
-                      Sponsors
-                      <button onClick={fetchSponsors} className="text-[#00F2FF] hover:text-white"><RefreshCw className="w-3 h-3" /></button>
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                      <input value={spName} onChange={(e) => setSpName(e.target.value)} placeholder="Sponsor name" className="bg-[#0A0A0B] border border-[#333333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none" />
-                      <input value={spUrl} onChange={(e) => setSpUrl(e.target.value)} placeholder="URL" className="bg-[#0A0A0B] border border-[#333333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none" />
-                      <input value={spBudget} onChange={(e) => setSpBudget(e.target.value)} placeholder="Budget" className="bg-[#0A0A0B] border border-[#333333] text-white font-mono text-sm p-3 focus:border-[#FF5C00] focus:outline-none" />
-                      <Button variant="cyber" size="sm" className="border-[#FF5C00] text-[#FF5C00] hover:bg-[#FF5C00] hover:text-white" onClick={addSponsor}><Plus className="w-4 h-4 mr-2" /> Add Sponsor</Button>
-                    </div>
-                    {sponsors.map((s: any) => (
-                      <div key={s.id} className="bg-[#0A0A0B] border border-[#333333] p-3 flex justify-between items-center">
-                        <div>
-                          <span className="text-white text-sm">{s.name}</span>
-                          <span className="text-[#A0A0A0] text-[10px] ml-2">{s.category} &middot; {s.budget}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className={`text-[10px] font-mono ${s.active ? 'text-[#00FF66]' : 'text-red-500'}`}>{s.active ? 'LIVE' : 'OFF'}</span>
-                          <button onClick={() => deleteSponsor(s.id)} className="text-red-500 hover:text-white"><Trash2 className="w-3 h-3" /></button>
-                        </div>
+                    {subscribers.length === 0 ? (
+                      <div className="p-8 text-center font-mono text-sm text-[#A0A0A0]">
+                        No newsletter subscribers recorded yet.
                       </div>
-                    ))}
+                    ) : (
+                      <table className="w-full text-left font-mono text-sm">
+                         <thead>
+                            <tr className="border-b border-[#333333] text-[#A0A0A0] text-[10px] uppercase tracking-widest bg-[#111]">
+                               <th className="p-4 font-normal">ID</th>
+                               <th className="p-4 font-normal">Email Address</th>
+                               <th className="p-4 font-normal">Subscribed At</th>
+                               <th className="p-4 font-normal">Acquisition Source</th>
+                               <th className="p-4 font-normal text-right">Status</th>
+                            </tr>
+                         </thead>
+                         <tbody className="divide-y divide-[#1A1A1A]">
+                            {subscribers.map((sub, idx) => (
+                               <tr key={sub.id || idx} className="hover:bg-[#111] transition-colors group">
+                                  <td className="p-4 text-[#A0A0A0]">#{String(idx + 1).padStart(4, '0')}</td>
+                                  <td className="p-4 text-white group-hover:text-[#00F2FF] transition-colors">{sub.email}</td>
+                                  <td className="p-4 text-[#A0A0A0]">
+                                    {sub.subscribed_at ? new Date(sub.subscribed_at).toLocaleDateString('en-US') : '—'}
+                                  </td>
+                                  <td className="p-4 text-[#00F2FF] text-xs">{sub.source || 'website'}</td>
+                                  <td className="p-4 text-right">
+                                    <span className={`text-[10px] uppercase px-2 py-0.5 ${sub.is_active ? 'bg-[#00FF66]/10 text-[#00FF66]' : 'bg-red-500/10 text-red-400'}`}>
+                                      {sub.is_active ? 'ACTIVE' : 'INACTIVE'}
+                                    </span>
+                                  </td>
+                               </tr>
+                            ))}
+                         </tbody>
+                      </table>
+                    )}
                   </div>
                </div>
              )}
@@ -1605,7 +1606,7 @@ function OrchestratorTab() {
     });
   }, [fetchHealth]);
 
-  if (loading || !health) return <div className="p-4 text-gray-400">Yükleniyor…</div>;
+  if (loading || !health) return <div className="p-4 text-gray-400">Loading...</div>;
 
   const statusColor = (s: string) =>
     s === 'ok' ? 'text-green-400' : s === 'degraded' ? 'text-yellow-400' : 'text-red-400';

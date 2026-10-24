@@ -63,5 +63,22 @@
   "sourceReferences": [
     "https://betaflight.com/docs/wiki",
     "https://oscarliang.com/"
-  ]
+  ],
+  "metadata": {
+    "topics": [
+      "troubleshooting"
+    ],
+    "components": [
+      "esc",
+      "gps"
+    ],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "long-range"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "guide"
+  }
 }

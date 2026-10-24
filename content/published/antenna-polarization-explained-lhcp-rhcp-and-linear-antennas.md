@@ -182,5 +182,5 @@ Understanding and correctly implementing antenna polarization is not just an adv
 
 Take a moment to check your FPV gear right now – are all your antennas perfectly matched? Share your polarization tips and experiences in the comments below!
 
-![FPV image from judgeme.imgix.net](/images/source-cache/antenna-polarization-explained-lhcp-rhcp-and-linear-antennas-section-1-f14eca90.jpg)
-_Source: judgeme.imgix.net_
+![Happymodel EP1 RX 2.4GHz ExpressLRS Receiver](/images/source-cache/antenna-polarization-explained-lhcp-rhcp-and-linear-antennas-section-1-739591c1.jpg)
+_Happymodel EP1 RX 2.4GHz ExpressLRS Receiver catalog image used as source-backed visual context for Antenna Polarization Explained: LHCP, RHCP, and Linear Antennas._

@@ -157,11 +157,12 @@
     "https://www.happymodel.cn/wp-content/uploads/2021/04/overall-appearance.jpg"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "beginner-fpv",
       "buying-decision"
+    ],
+    "components": [
+      "build-kit"
     ],
     "audience": [
       "new-pilot",
@@ -171,9 +172,8 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "build-kit"
-    ],
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
     "buyerGuide": {
       "products": [
         "beginner FPV drone kits",

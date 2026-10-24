@@ -146,13 +146,14 @@
   ],
   "coverImage": "/images/source-cache/best-lipo-chargers-for-fpv-safety-first-buying-guide-cover-1-75cf324e.jpg",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "beginner-fpv",
       "buying-decision",
       "product-comparison",
       "safety"
+    ],
+    "components": [
+      "battery"
     ],
     "audience": [
       "new-pilot",
@@ -161,8 +162,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "battery"
-    ]
+    "difficulty": "beginner",
+    "contentType": "buyer-guide"
   }
 }

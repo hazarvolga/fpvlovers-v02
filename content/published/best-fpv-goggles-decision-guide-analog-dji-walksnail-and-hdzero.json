@@ -107,12 +107,14 @@
   ],
   "coverImage": "/images/source-cache/best-fpv-goggles-decision-guide-analog-dji-walksnail-and-hdzero-cover-1-f8c1954f.jpg",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "buying-decision",
       "product-comparison",
       "fpv-video"
+    ],
+    "components": [
+      "video-system",
+      "goggles"
     ],
     "audience": [
       "buyer"
@@ -120,9 +122,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "video-system",
-      "goggles"
-    ]
+    "difficulty": "beginner",
+    "contentType": "buyer-guide"
   }
 }

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { query } from '@/lib/server/db';
-import type { NewsletterCampaignRow } from '@/lib/server/db-types';
+import type { NewsletterCampaignRow, NewsletterSubscriberRow } from '@/lib/server/db-types';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
 export async function GET() {
@@ -8,10 +8,26 @@ export async function GET() {
   if (denied) return denied;
 
   try {
-    const result = await query<NewsletterCampaignRow>(
-      `SELECT * FROM fpvlovers_app.newsletter_campaigns ORDER BY created_at DESC LIMIT 50`
-    );
-    return NextResponse.json({ campaigns: result.rows });
+    const [campaignsResult, subscribersResult] = await Promise.all([
+      query<NewsletterCampaignRow>(
+        `SELECT * FROM fpvlovers_app.newsletter_campaigns ORDER BY created_at DESC LIMIT 50`
+      ),
+      query<NewsletterSubscriberRow>(
+        `SELECT id, email, is_active, subscribed_at, unsubscribed_at, source
+         FROM fpvlovers_app.newsletter_subscribers
+         ORDER BY subscribed_at DESC NULLS LAST
+         LIMIT 200`
+      ).catch(() => ({ rows: [] as NewsletterSubscriberRow[] })),
+    ]);
+
+    const subscribers = subscribersResult.rows ?? [];
+    const activeSubscriberCount = subscribers.filter((row) => row.is_active).length;
+
+    return NextResponse.json({
+      campaigns: campaignsResult.rows,
+      subscribers,
+      activeSubscriberCount,
+    });
   } catch (error) {
     console.error('[GET /api/admin/newsletter/campaigns] Error:', error);
     return NextResponse.json({ error: 'Failed to fetch campaigns' }, { status: 500 });

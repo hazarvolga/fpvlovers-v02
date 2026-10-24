@@ -8,8 +8,6 @@ Mountain surfing is one of the most breathtaking yet demanding disciplines in FP
 
 Before flying, pilots must conduct extensive topography mapping using tools like Google Earth 3D and local aeronautical charts to identify ridge lines, launch locations, and potential emergency landing spots. Launching from the correct altitude is critical: flying *up* a mountain drains battery power exponentially due to lower air density and gravity resistance, while launching from the peak and surfing *down* allows you to leverage gravity, conserving battery voltage for the climb back up. Always secure a clear line-of-sight path from your ground station to the entire flight path to prevent RF signal blocks by rock massives.
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024)
-_Source: judgeme.imgix.net_
 
 ## Understanding Wind Shadows, Thermal Drafts, and Rotors
 
@@ -32,8 +30,6 @@ RF propagation in high-altitude alpine environments is governed by unforgiving p
 - **Multipathing**: Solid rock walls reflect RF signals, creating signal echoes (multipathing) that degrade analog video and induce digital packet latency. High-gain directional patch antennas on your goggles are mandatory for maintaining clear video feeds.
 - **Diffraction**: When flying behind a ridge line, the RF signal does not penetrate the rock. It diffracts slightly over the edge, creating a rapid signal drop-off. If your LQ drops below 90% (on ELRS 250Hz), immediately climb in altitude to restore clean line-of-sight before a critical failsafe is triggered.
 
-![FPV image from pub.mdpi-res.com](https://pub.mdpi-res.com/announcement/16821.jpeg?1780917841?v=1780886311)
-_Source: pub.mdpi-res.com_
 
 ## Li-Ion Battery Builds for High-Altitude Endurance
 

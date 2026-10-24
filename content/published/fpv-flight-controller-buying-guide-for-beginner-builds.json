@@ -150,13 +150,16 @@
   ],
   "coverImage": "/images/source-cache/fpv-flight-controller-buying-guide-for-beginner-builds-cover-1-5f0f8381.jpg",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "beginner-fpv",
       "buying-decision",
       "product-comparison",
       "components"
+    ],
+    "components": [
+      "propulsion",
+      "build-kit",
+      "flight-controller"
     ],
     "audience": [
       "new-pilot",
@@ -166,10 +169,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "propulsion",
-      "build-kit",
-      "flight-controller"
-    ]
+    "difficulty": "beginner",
+    "contentType": "buyer-guide"
   }
 }

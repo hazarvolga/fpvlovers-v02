@@ -65,12 +65,15 @@
     "https://oscarliang.com/"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "tutorial",
     "topics": [
       "buying-decision",
       "troubleshooting",
       "components"
+    ],
+    "components": [
+      "propulsion",
+      "flight-controller",
+      "motor"
     ],
     "audience": [
       "builder"
@@ -78,10 +81,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "propulsion",
-      "flight-controller",
-      "motor"
-    ]
+    "difficulty": "beginner",
+    "contentType": "tutorial"
   }
 }

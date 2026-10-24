@@ -63,5 +63,19 @@
   "sourceReferences": [
     "https://betaflight.com/docs/wiki",
     "https://www.expresslrs.org/"
-  ]
+  ],
+  "metadata": {
+    "topics": [
+      "batteries"
+    ],
+    "components": [],
+    "audience": [
+      "pilot"
+    ],
+    "discipline": [
+      "general"
+    ],
+    "difficulty": "intermediate",
+    "contentType": "tutorial"
+  }
 }

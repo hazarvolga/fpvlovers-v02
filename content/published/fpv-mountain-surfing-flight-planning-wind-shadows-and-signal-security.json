@@ -21,16 +21,7 @@
     {
       "id": "overview",
       "title": "Alpine Flight Planning and Topography Research",
-      "content": "Mountain surfing is one of the most breathtaking yet demanding disciplines in FPV flight. Success in high-altitude alpine environments requires meticulous flight planning and deep understanding of topography before your drone ever leaves the ground. Unlike flat-ground flying, mountain environments present rapid altitude shifts, severe temperature gradients, and unpredictable micro-climates.\n\nBefore flying, pilots must conduct extensive topography mapping using tools like Google Earth 3D and local aeronautical charts to identify ridge lines, launch locations, and potential emergency landing spots. Launching from the correct altitude is critical: flying *up* a mountain drains battery power exponentially due to lower air density and gravity resistance, while launching from the peak and surfing *down* allows you to leverage gravity, conserving battery voltage for the climb back up. Always secure a clear line-of-sight path from your ground station to the entire flight path to prevent RF signal blocks by rock massives.",
-      "imageMatch": {
-        "src": "https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024",
-        "alt": "FPV image from judgeme.imgix.net",
-        "caption": "Source: judgeme.imgix.net",
-        "source": "judgeme.imgix.net",
-        "sourceUrl": "https://rotorriot.com/",
-        "credit": "Source: judgeme.imgix.net",
-        "license": "attribution"
-      }
+      "content": "Mountain surfing is one of the most breathtaking yet demanding disciplines in FPV flight. Success in high-altitude alpine environments requires meticulous flight planning and deep understanding of topography before your drone ever leaves the ground. Unlike flat-ground flying, mountain environments present rapid altitude shifts, severe temperature gradients, and unpredictable micro-climates.\n\nBefore flying, pilots must conduct extensive topography mapping using tools like Google Earth 3D and local aeronautical charts to identify ridge lines, launch locations, and potential emergency landing spots. Launching from the correct altitude is critical: flying *up* a mountain drains battery power exponentially due to lower air density and gravity resistance, while launching from the peak and surfing *down* allows you to leverage gravity, conserving battery voltage for the climb back up. Always secure a clear line-of-sight path from your ground station to the entire flight path to prevent RF signal blocks by rock massives."
     },
     {
       "id": "wind-shadows",
@@ -49,16 +40,7 @@
     {
       "id": "signal-security",
       "title": "Signal Security: RF Penetration and Line-of-Sight",
-      "content": "RF propagation in high-altitude alpine environments is governed by unforgiving physical laws. 2.4GHz (ExpressLRS) control links and 5.8GHz video systems require an absolute, unobstructed Line-of-Sight (LOS) between the transmitter antenna and the drone receiver antenna.\n\n- **Fresnel Zone**: To maintain link quality (LQ), the space between your transmitter and drone must be free of obstacles. Even skimming too close to a pine forest or a rocky ridge can clip the Fresnel zone, causing sudden packets drops and failsafes.\n- **Multipathing**: Solid rock walls reflect RF signals, creating signal echoes (multipathing) that degrade analog video and induce digital packet latency. High-gain directional patch antennas on your goggles are mandatory for maintaining clear video feeds.\n- **Diffraction**: When flying behind a ridge line, the RF signal does not penetrate the rock. It diffracts slightly over the edge, creating a rapid signal drop-off. If your LQ drops below 90% (on ELRS 250Hz), immediately climb in altitude to restore clean line-of-sight before a critical failsafe is triggered.",
-      "imageMatch": {
-        "src": "https://pub.mdpi-res.com/announcement/16821.jpeg?1780917841?v=1780886311",
-        "alt": "FPV image from pub.mdpi-res.com",
-        "caption": "Source: pub.mdpi-res.com",
-        "source": "pub.mdpi-res.com",
-        "sourceUrl": "https://www.mdpi.com/journal/drones",
-        "credit": "Source: pub.mdpi-res.com",
-        "license": "attribution"
-      }
+      "content": "RF propagation in high-altitude alpine environments is governed by unforgiving physical laws. 2.4GHz (ExpressLRS) control links and 5.8GHz video systems require an absolute, unobstructed Line-of-Sight (LOS) between the transmitter antenna and the drone receiver antenna.\n\n- **Fresnel Zone**: To maintain link quality (LQ), the space between your transmitter and drone must be free of obstacles. Even skimming too close to a pine forest or a rocky ridge can clip the Fresnel zone, causing sudden packets drops and failsafes.\n- **Multipathing**: Solid rock walls reflect RF signals, creating signal echoes (multipathing) that degrade analog video and induce digital packet latency. High-gain directional patch antennas on your goggles are mandatory for maintaining clear video feeds.\n- **Diffraction**: When flying behind a ridge line, the RF signal does not penetrate the rock. It diffracts slightly over the edge, creating a rapid signal drop-off. If your LQ drops below 90% (on ELRS 250Hz), immediately climb in altitude to restore clean line-of-sight before a critical failsafe is triggered."
     },
     {
       "id": "custom-packs",
@@ -102,24 +84,14 @@
   "promptVersion": "v2",
   "media": {
     "coverImage": {
-      "src": "https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024",
-      "alt": "FPV image from judgeme.imgix.net",
-      "caption": "Source: judgeme.imgix.net",
-      "source": "judgeme.imgix.net",
-      "sourceUrl": "https://rotorriot.com/",
-      "credit": "Source: judgeme.imgix.net",
-      "license": "attribution"
+      "src": "/api/content/media/cover/fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
+      "alt": "FPV Mountain Surfing: Flight Planning, Wind Shadows, and Signal Security cover illustration",
+      "caption": "An advanced tactical guide for high-altitude ridge surfing. Explores mountain thermal flows and wind shadows, RF line-o…",
+      "source": "FPVLovers local media layer",
+      "credit": "FPVLovers generated artwork",
+      "kind": "generated-artwork"
     },
     "gallery": [
-      {
-        "src": "https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024",
-        "alt": "FPV image from judgeme.imgix.net",
-        "caption": "Source: judgeme.imgix.net",
-        "source": "judgeme.imgix.net",
-        "sourceUrl": "https://rotorriot.com/",
-        "credit": "Source: judgeme.imgix.net",
-        "license": "attribution"
-      },
       {
         "src": "https://dronechampionsleague.com/wp-content/uploads/2025/12/DSC_8363-scaled.jpg",
         "alt": "FPV image from dronechampionsleague.com",
@@ -127,15 +99,6 @@
         "source": "dronechampionsleague.com",
         "sourceUrl": "https://dronechampionsleague.com/dcl25-konigssee-superfinal/",
         "credit": "Source: dronechampionsleague.com",
-        "license": "attribution"
-      },
-      {
-        "src": "https://pub.mdpi-res.com/announcement/16821.jpeg?1780917841?v=1780886311",
-        "alt": "FPV image from pub.mdpi-res.com",
-        "caption": "Source: pub.mdpi-res.com",
-        "source": "pub.mdpi-res.com",
-        "sourceUrl": "https://www.mdpi.com/journal/drones",
-        "credit": "Source: pub.mdpi-res.com",
         "license": "attribution"
       },
       {
@@ -156,7 +119,7 @@
       "Copyright-safe media generated locally by FPVLovers"
     ]
   },
-  "coverImage": "https://judgeme.imgix.net/rotor-riot-store/1767333177__1000011390__original.jpg?auto=format&w=1024",
+  "coverImage": "/api/content/media/cover/fpv-mountain-surfing-flight-planning-wind-shadows-and-signal-security",
   "metadata": {
     "topics": [
       "general-knowledge"

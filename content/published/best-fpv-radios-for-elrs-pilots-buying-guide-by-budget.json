@@ -130,12 +130,14 @@
   ],
   "coverImage": "/images/source-cache/best-fpv-radios-for-elrs-pilots-buying-guide-by-budget-cover-1-cbde45d7.webp",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "buying-decision",
       "product-comparison",
       "elrs"
+    ],
+    "components": [
+      "radio-link",
+      "radio"
     ],
     "audience": [
       "buyer"
@@ -143,9 +145,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "radio-link",
-      "radio"
-    ]
+    "difficulty": "beginner",
+    "contentType": "buyer-guide"
   }
 }

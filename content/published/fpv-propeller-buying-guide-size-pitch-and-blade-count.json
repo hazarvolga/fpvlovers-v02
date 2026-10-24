@@ -148,12 +148,14 @@
   ],
   "coverImage": "/images/source-cache/fpv-propeller-buying-guide-size-pitch-and-blade-count-cover-1-b0807ca5.png",
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "buying-decision",
       "product-comparison",
       "components"
+    ],
+    "components": [
+      "propulsion",
+      "propeller"
     ],
     "audience": [
       "buyer"
@@ -161,9 +163,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "propulsion",
-      "propeller"
-    ]
+    "difficulty": "beginner",
+    "contentType": "buyer-guide"
   }
 }

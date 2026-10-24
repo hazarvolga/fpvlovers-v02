@@ -65,12 +65,16 @@
     "https://oscarliang.com/"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "tutorial",
     "topics": [
       "troubleshooting",
       "betaflight",
       "elrs"
+    ],
+    "components": [
+      "radio-link",
+      "flight-controller",
+      "radio",
+      "receiver"
     ],
     "audience": [
       "builder"
@@ -78,11 +82,7 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "radio-link",
-      "flight-controller",
-      "radio",
-      "receiver"
-    ]
+    "difficulty": "beginner",
+    "contentType": "tutorial"
   }
 }

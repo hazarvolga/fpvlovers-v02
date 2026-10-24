@@ -153,11 +153,12 @@
     "https://betafpv.com/cdn/shop/products/dc3ebdb3ce4965130693f4d92cc0cf72_8dbfe3d8-a802-491c-a82f-eb130808b51d_1200x630.jpg?v=1675236594"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "beginner-fpv",
       "buying-decision"
+    ],
+    "components": [
+      "build-kit"
     ],
     "audience": [
       "new-pilot",
@@ -167,9 +168,8 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "build-kit"
-    ],
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
     "buyerGuide": {
       "products": [
         "beginner FPV drone kits",

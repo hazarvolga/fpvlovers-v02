@@ -157,11 +157,12 @@
     "https://www.hobbyrc.co.uk/images/thumbs/0013358_tbs-source-one-v5-5-frame_550.jpeg"
   ],
   "metadata": {
-    "difficulty": "beginner",
-    "contentType": "buyer-guide",
     "topics": [
       "beginner-fpv",
       "buying-decision"
+    ],
+    "components": [
+      "fpv-system"
     ],
     "audience": [
       "new-pilot",
@@ -170,9 +171,8 @@
     "discipline": [
       "general"
     ],
-    "components": [
-      "fpv-system"
-    ],
+    "difficulty": "beginner",
+    "contentType": "buyer-guide",
     "buyerGuide": {
       "products": [
         "beginner FPV drone kits",

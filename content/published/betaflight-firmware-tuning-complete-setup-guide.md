@@ -203,6 +203,4 @@ Congratulations, FPV pilot! You've just armed yourself with the knowledge to tra
 
 Ready to take your FPV flying to the next level? Grab your drone, connect to Betaflight, and start applying these tuning principles today. Share your tuning journey and 'before & after' flight videos in the comments below, or join our community forum for personalized advice! Happy flying!
 
-![FPV image from judgeme.imgix.net](https://judgeme.imgix.net/rotor-riot-store/1767477640__image_2026-01-03_170134848__original.png?auto=format&w=1024)
-_Source: judgeme.imgix.net_
 
