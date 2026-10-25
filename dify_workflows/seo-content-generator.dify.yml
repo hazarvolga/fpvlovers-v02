@@ -3,7 +3,8 @@ kind: app
 app:
   name: SEO Content Generator
   mode: workflow
-  description: 'Automated AI-native publishing: keyword → SEO research → RAG retrieval → metadata → outline → article → affiliate injection → schema → publish'
+  description: 'Automated AI-native publishing: keyword → SEO research → RAG retrieval
+    → metadata → outline → article → affiliate injection → schema → publish'
   icon: 📝
   icon_background: '#FFEAD5'
   icon_type: emoji
@@ -85,7 +86,8 @@ workflow:
             temperature: 0.4
         prompt_template:
         - role: system
-          text: 'You are an FPV SEO Research specialist. Analyze the target keyword for search intent, audience profile, and related semantic terms.
+          text: 'You are an FPV SEO Research specialist. Analyze the target keyword
+            for search intent, audience profile, and related semantic terms.
 
             Output a JSON object with:
 
@@ -141,20 +143,22 @@ workflow:
         score_threshold_enabled: true
         score_threshold: 0.5
         top_k: 5
-        reranking_enable: true
-        reranking_mode: reranking_model
-        reranking_model:
-          reranking_provider_name: langgenius/jina/jina
-          reranking_model_name: jina-reranker-v2-base-multilingual
+        reranking_enable: false
+        reranking_mode: weighted_score
         selected: false
         multiple_retrieval_config:
           top_k: 5
           score_threshold: 0.5
-          reranking_mode: reranking_model
-          reranking_enable: true
-          reranking_model:
-            reranking_provider_name: langgenius/jina/jina
-            reranking_model_name: jina-reranker-v2-base-multilingual
+          reranking_mode: weighted_score
+          reranking_enable: false
+          weights:
+            weight_type: customized
+            vector_setting:
+              vector_weight: 0.7
+              embedding_provider_name: langgenius/gemini/google
+              embedding_model_name: gemini-embedding-001
+            keyword_setting:
+              keyword_weight: 0.3
       positionAbsolute:
         x: 680
         y: 282
@@ -177,7 +181,8 @@ workflow:
             temperature: 0.3
         prompt_template:
         - role: system
-          text: 'You are an SEO Metadata specialist for FPV content. Based on the keyword, research, and retrieved knowledge, generate:
+          text: 'You are an SEO Metadata specialist for FPV content. Based on the
+            keyword, research, and retrieved knowledge, generate:
 
             - seo_title (50-60 chars, include keyword)
 
@@ -230,7 +235,8 @@ workflow:
             temperature: 0.5
         prompt_template:
         - role: system
-          text: 'You are an FPV content architect. Create a detailed article outline based on the SEO research, metadata, and FPV knowledge.
+          text: 'You are an FPV content architect. Create a detailed article outline
+            based on the SEO research, metadata, and FPV knowledge.
 
             Generate H2 sections with 2-4 H3 subsections each. Include:
 
@@ -289,7 +295,9 @@ workflow:
             temperature: 0.7
         prompt_template:
         - role: system
-          text: 'You are an expert FPV content writer for fpvlovers.com.tr. Write a comprehensive, engaging article based on the outline and FPV knowledge base.
+          text: 'You are an expert FPV content writer for fpvlovers.com.tr. Write
+            a comprehensive, engaging article based on the outline and FPV knowledge
+            base.
 
             Guidelines:
 
@@ -354,15 +362,28 @@ workflow:
           value_selector:
           - '1746700000001'
           - content_type
-        code: "import re, json\n\ndef main(article_text: str, content_type: str) -> dict:\n    # Product detection patterns\n    product_patterns = [\n        (r'\\b(DJI|TBS|T-Motor|BetaFPV|Happymodel|Rush|Caddx|Runcam|Foxeer)\\\
-          s+([A-Za-z0-9\\s\\-]+?)(?=\\s*(?:is|for|with|,|\\.|$))', 'product'),\n        (r'\\b(\\d{4,5}KV|mAh|GHz|inch|ESC|FC|VTX|RX|TX)\\b', 'spec'),\n    ]\n    \n    products_found = []\n    for pattern,\
-          \ ptype in product_patterns:\n        matches = re.findall(pattern, article_text, re.IGNORECASE)\n        for m in matches:\n            name = m if isinstance(m, str) else ' '.join(m).strip()\n\
-          \            if name and len(name) > 2:\n                products_found.append({\"name\": name, \"type\": ptype})\n    \n    # Determine if affiliate injection needed\n    buying_types = [\"buying-guide\"\
-          , \"comparison\", \"build-guide\"]\n    should_inject = content_type in buying_types or len(products_found) >= 2\n    \n    # Placement positions\n    paragraphs = article_text.split('\\n\\n')\n\
-          \    injection_points = []\n    if should_inject and len(paragraphs) > 3:\n        # Insert after intro (paragraph 2-3)\n        injection_points.append({\"after_paragraph\": 2, \"cta_type\":\
-          \ \"top-right\"})\n        if len(paragraphs) > 6:\n            injection_points.append({\"after_paragraph\": len(paragraphs)//2, \"cta_type\": \"inline\"})\n    \n    return {\n        \"result\"\
-          : json.dumps({\n            \"products_detected\": len(products_found),\n            \"should_inject\": should_inject,\n            \"injection_points\": injection_points,\n            \"products\"\
-          : products_found[:10],\n        })\n    }\n"
+        code: "import re, json\n\ndef main(article_text: str, content_type: str) ->\
+          \ dict:\n    # Product detection patterns\n    product_patterns = [\n  \
+          \      (r'\\b(DJI|TBS|T-Motor|BetaFPV|Happymodel|Rush|Caddx|Runcam|Foxeer)\\\
+          s+([A-Za-z0-9\\s\\-]+?)(?=\\s*(?:is|for|with|,|\\.|$))', 'product'),\n \
+          \       (r'\\b(\\d{4,5}KV|mAh|GHz|inch|ESC|FC|VTX|RX|TX)\\b', 'spec'),\n\
+          \    ]\n    \n    products_found = []\n    for pattern, ptype in product_patterns:\n\
+          \        matches = re.findall(pattern, article_text, re.IGNORECASE)\n  \
+          \      for m in matches:\n            name = m if isinstance(m, str) else\
+          \ ' '.join(m).strip()\n            if name and len(name) > 2:\n        \
+          \        products_found.append({\"name\": name, \"type\": ptype})\n    \n\
+          \    # Determine if affiliate injection needed\n    buying_types = [\"buying-guide\"\
+          , \"comparison\", \"build-guide\"]\n    should_inject = content_type in\
+          \ buying_types or len(products_found) >= 2\n    \n    # Placement positions\n\
+          \    paragraphs = article_text.split('\\n\\n')\n    injection_points = []\n\
+          \    if should_inject and len(paragraphs) > 3:\n        # Insert after intro\
+          \ (paragraph 2-3)\n        injection_points.append({\"after_paragraph\"\
+          : 2, \"cta_type\": \"top-right\"})\n        if len(paragraphs) > 6:\n  \
+          \          injection_points.append({\"after_paragraph\": len(paragraphs)//2,\
+          \ \"cta_type\": \"inline\"})\n    \n    return {\n        \"result\": json.dumps({\n\
+          \            \"products_detected\": len(products_found),\n            \"\
+          should_inject\": should_inject,\n            \"injection_points\": injection_points,\n\
+          \            \"products\": products_found[:10],\n        })\n    }\n"
         outputs:
           result:
             type: string
