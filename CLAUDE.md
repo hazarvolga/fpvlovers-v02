@@ -53,20 +53,24 @@ Next.js 15 tabanlı, Dify v1.14.0 destekli, 7 AI Agent'li FPV drone içerik, RAG
 - **Aktif remote**: `https://github.com/hazarvolga/fpvlovers-v02` — tüm push/pull işlemleri bundan sonra bu repoya yapılır.
 - Eski repo (`fpvlovers.com.tr`) kullanıcı tarafından **private** yapılmıştır ve artık aktif olarak kullanılmamaktadır.
 
-## Sunucu Yapısı
-| Sunucu   | IP / Port                    | Görev                                              |
-|----------|------------------------------|----------------------------------------------------|
-| Sunucu A | 80.225.231.62                | Dify v1.14.0 · PostgreSQL · Redis · Qdrant         |
-| Sunucu B | 161.118.171.201:3002         | Crawl4AI Primary                                   |
-| Sunucu C | 141.148.206.187/c4ai         | Crawl4AI Backup                                    |
+## Sunucu Yapısı (24 Ekim 2026 İtibarıyla — Contabo Tekil Sunucu & Coolify)
+> Eski 3'lü Oracle Free Tier sunucu yapısı (`80.225.231.62`, `161.118.171.201`, `141.148.206.187`) Oracle limit kesintisi nedeniyle devre dışı kalmış ve tüm mimari Contabo (`169.58.96.15` / `https://coolify.affexai.tr`) üzerindeki `FPV Lovers` (`whqhxcqeyjvps3pdurplad1c`) projesinde konsolide edilmiştir. Detaylı handoff: `docs/handoff/2026-10-24-contabo-single-node-consolidation-handoff.md`.
+
+| Coolify Kaynağı | Coolify UUID | Görev / İç Ağ Adresi |
+|-----------------|--------------|----------------------|
+| `fpvlovers-web` | `jnlhgqmjnqwpdgefsoskew5n` | Next.js 15 (`https://fpvlovers.com.tr`) + Gece Scheduled Tasks (`15,45 1,3,4 * * *` Crawl, `30 5 * * *` Generate) |
+| `fpvlovers-postgres` | `gkmzgwnnirofcgpw2yh0bnlh` | PostgreSQL 17 (`gkmzgwnnirofcgpw2yh0bnlh:5432/fpvlovers`) |
+| `fpvlovers-redis` | `erzatjqls2op2wuz3fxav1kf` | Redis 7 (`erzatjqls2op2wuz3fxav1kf:6379`) |
+| `fpvlovers-crawl4ai` | `bgm2kq7nnehl1yx8myffsz1i` | Crawl4AI Unified (`crawl4ai-bgm2kq7nnehl1yx8myffsz1i:11235`) |
+| `dify-ai` | `ta4t6npg4cc65ua7rwhdixjk` | Dify v1.14.0 (10 konteyner) + Qdrant v1.8.3 (`https://dify.affexai.tr`) |
 
 ## Stack
 | Katman      | Teknoloji                                              |
 |-------------|--------------------------------------------------------|
 | Frontend    | Next.js 15 Standalone · React 19 · TypeScript · Tailwind CSS 4 |
-| AI/ML       | Gemini 2.5 Flash · Dify v1.14.0 · Qdrant              |
+| AI/ML       | Gemini (`gemini-flash-latest` + `llm-models.ts` Deprecation Guard) · Dify v1.14.0 · Qdrant |
 | Database    | PostgreSQL · Redis                                     |
-| Crawler     | Crawl4AI (Sunucu B & C)                                |
+| Crawler     | Crawl4AI (`0.9.5` — Contabo Tekil Sunucu)              |
 | Deployment  | Coolify · Docker                                       |
 | Monitoring  | ntfy.sh/fpv-rag-alerts                                 |
 | LLM Cache   | PostgreSQL tabanlı response cache                      |
@@ -74,14 +78,15 @@ Next.js 15 tabanlı, Dify v1.14.0 destekli, 7 AI Agent'li FPV drone içerik, RAG
 ## Dify Backend
 - **URL**: https://dify.affexai.tr
 - **Versiyon**: v1.14.0
-- **LLM**: Gemini 2.5 Flash
+- **LLM**: `gemini-flash-latest` (`src/lib/llm-models.ts` fallback zinciri ile)
+- **Embedding**: `gemini-embedding-001`
 - **Vektör DB**: Qdrant
 
 ## FPV Web Sitesi
 - **URL**: http://fpvlovers.com.tr/
 - **Uzak Repo**: https://github.com/hazarvolga/fpvlovers-v02
 
-## 8 RAG Dataset
+## 9 RAG Dataset
 | Dataset ID              | Konu                         |
 |--------------------------|------------------------------|
 | fpv-flight-tuning        | Uçuş ayarları & tuning       |
@@ -92,6 +97,7 @@ Next.js 15 tabanlı, Dify v1.14.0 destekli, 7 AI Agent'li FPV drone içerik, RAG
 | fpv-news-reviews          | Haberler & incelemeler       |
 | fpv-racing-events         | Yarış takvimi & sonuçlar     |
 | fpv-community-knowledge   | Topluluk bilgi tabanı        |
+| fpv-regulations           | SHGM, EASA ve ucus mevzuati  |
 
 ## Kod Mimarisi (src/)
 
@@ -218,9 +224,9 @@ bash scripts/health-all.sh               # Tüm servis sağlık raporu
 - SSH key'leri ve Coolify env yedekleri repo dışında, güvenli bir secrets yöneticisinde tutulmalı — asla `dev-artifacts/`, `server-info/` gibi repo-içi klasörlere konulmamalı. `.gitignore` bu tür klasörleri (`AffexAI-Oracle-Servers/`, `servers-info.txt`, `coolify-env-backup*.env`, `*.env` hariç `.env.example`) hariç tutar.
 - `crawl-queue-store.ts` artık `FOR UPDATE` satır kilidi ile idempotent — race condition riski giderildi.
 
-## Canlıya Dağıtım Durumu (Kritik)
+## Canlıya Dağıtım Durumu (Kritik — 25 Ekim 2026 İtibarıyla Tamamlandı)
 > [!IMPORTANT]
-> 31 Temmuz 2026 itibarıyla: proje `fpvlovers-v02` reposuna taşındı, GAP raporundaki güvenlik ve trust-hardening düzeltmeleri (auth secret zorunluluğu, crawl-queue idempotency, doğrulanmamış-iddia temizliği, sitemap/cache revalidation) kod tabanına uygulandı. Canlıya deploy öncesi: (1) yeni repoya ilk push yapılmalı, (2) `AUTH_SECRET` production ortam değişkeni olarak Coolify'a eklenmeli, (3) sızıntı riski taşıyan eski SSH key'leri rotate edilmeli.
+> 25 Ekim 2026 itibarıyla: tüm mimari Contabo (`169.58.96.15` / `https://coolify.affexai.tr`) üzerinde konsolide edilmiş, 153 makalenin kapak görselleri (`146 unique primary covers`) ve metadata (`difficulty`/`audience`) alanları onarılmış, Admin paneldeki sahte veriler kaldırılmış, `llm-models.ts` Model Deprecation Guard (`gemini-flash-latest`) devreye alınmış, Dify v1.14.0 üzerinde 9 RAG Dataset (`33 doküman`, `%100 PASS` canlı vektör testi) + 9 Workflow (`126/126` node şeması doğrulandı) + 2 Chat Agent yayınlanmış ve `https://fpvlovers.com.tr/api/ready` (`status: "ready"`) canlıda doğrulanmıştır.
 
 ## graphify
 

@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-10-24T13:13:03.920Z",
+  "generatedAt": "2026-10-25T01:22:45.146Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "release-verification-pending",
   "branch": "main",
-  "head": "6e26bd563bb2",
+  "head": "bf78ca88599b",
   "behind": 0,
   "ahead": 0,
   "currentBlockers": [
@@ -14,9 +14,9 @@
   ],
   "nextTask": "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
   "filesOfTruth": [
-    "/sessions/rcw-0192vpo4s228owjrrbdgargw/mnt/fpvlovers.com.tr/PROJECT_MEMORY.md",
-    "/sessions/rcw-0192vpo4s228owjrrbdgargw/mnt/fpvlovers.com.tr/NEXT_ACTIONS.md",
-    "/sessions/rcw-0192vpo4s228owjrrbdgargw/mnt/fpvlovers.com.tr/docs/superpowers/plans/2026-06-18-post-analysis-gap-closure.md"
+    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/PROJECT_MEMORY.md",
+    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/NEXT_ACTIONS.md",
+    "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/docs/superpowers/plans/2026-06-18-post-analysis-gap-closure.md"
   ],
-  "handoffPath": "/sessions/rcw-0192vpo4s228owjrrbdgargw/mnt/fpvlovers.com.tr/docs/handoff/latest.md"
+  "handoffPath": "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/docs/handoff/latest.md"
 }

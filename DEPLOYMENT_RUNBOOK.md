@@ -1,113 +1,74 @@
 # FPVLovers Deployment Runbook
 
-Last updated: 2026-05-17
+Last updated: 2026-10-25
 
 ## Target
 
-- Repository: `hazarvolga/fpvlovers.com.tr`
+- Repository: `hazarvolga/fpvlovers-v02`
 - Branch: `main`
-- Platform: Coolify
-- Runtime: Dockerfile / Next.js standalone
+- Platform: Coolify (`https://coolify.affexai.tr`) on Contabo Single-Node VPS (`169.58.96.15` / `affexai-prod-01`)
+- Coolify Project: `FPV Lovers` (`uuid: whqhxcqeyjvps3pdurplad1c`) -> `production` (`uuid: 1iqv0jce7xaocip7s52356vb`)
+- Application Resource: `fpvlovers-web` (`uuid: jnlhgqmjnqwpdgefsoskew5n`)
+- Runtime: Dockerfile / Next.js 15 standalone
 - Port: `3000`
-- Health endpoint: `/api/health`
+- Healthcheck: `http://127.0.0.1:3000/api/health` (`health_check_host` MUST stay `127.0.0.1`, not `localhost`)
+- Readiness endpoint: `/api/ready`
 - Production domain: `https://fpvlovers.com.tr`
+- Dify Console domain: `https://dify.affexai.tr` (`uuid: ta4t6npg4cc65ua7rwhdixjk`)
 
 ## Pre-Deploy Checks
 
-Run from the frontend repository root:
+Run from the repository root:
 
 ```bash
-npm run build
-npx tsc --noEmit --pretty false
+pnpm media:audit
+pnpm metadata:test
+pnpm security:audit
 ```
 
-Known note:
-`npx tsc --noEmit` can depend on generated `.next/types`, so run `npm run build` first if `.next` is stale.
+## Required Coolify Env Vars (`fpvlovers-web`)
 
-Lint is currently a known debt area. Build and typecheck are the deployment blockers; lint cleanup should follow before CI is made strict.
+Use Coolify environment variables (`is_buildtime=false` on `NODE_ENV` and `CRON_SECRET`). Do not commit real secret values.
 
-## Required Coolify Env Vars
+Core:
+- `NODE_ENV=production` (`is_buildtime=false`)
+- `APP_URL=https://fpvlovers.com.tr`
+- `NEXT_PUBLIC_APP_URL=https://fpvlovers.com.tr`
+- `AUTH_SECRET` (required in production; minimum 32 chars)
+- `CRON_SECRET` (`is_buildtime=false`)
+- `FPV_DATABASE_URL` / `DATABASE_URL` -> `postgresql://fpvlovers:<pass>@gkmzgwnnirofcgpw2yh0bnlh:5432/fpvlovers`
+- `REDIS_URL` -> `redis://:<pass>@erzatjqls2op2wuz3fxav1kf:6379`
 
-Use Coolify environment variables. Do not commit real values.
-
-Required:
-
-- `NODE_ENV=production`
-- `APP_URL`
-- `NEXT_PUBLIC_APP_URL`
-- `ADMIN_USER`
-- `ADMIN_PASS`
-- `AUTH_SECRET` (or `NEXTAUTH_SECRET`) must be a unique high-entropy value with at least 32 characters.
-- `DIFY_BASE_URL`
-- `DIFY_API_KEY`
-- `DIFY_APP_KEY`
-
-Feature-dependent:
-
-- `GROQ_API_KEY`
-- `GROQ_MODEL`
-- `DB_HOST`
-- `DB_PORT`
-- `DB_USERNAME`
-- `DB_PASSWORD`
-- `DB_DATABASE`
-- `LLM_CACHE_ENABLED`
-- `CRAWL_DRY_RUN`
-
-## Current Coolify Findings
-
-From live SSH inspection on 2026-05-17:
-
-- Coolify application exists for `hazarvolga/fpvlovers.com.tr`.
-- Application UUID: recorded in private operations notes.
-- Build pack: `dockerfile`.
-- Exposed port: `3000`.
-- Production deploy succeeded from commit `b4055de`.
-- Current container is healthy on port `3000`.
-- Active FQDNs are `https://fpvlovers.com.tr` and `https://www.fpvlovers.com.tr`.
-- Earlier failures were caused by a stale remote TSX build error, missing `/app/public` during Docker copy, and Next standalone binding to container hostname instead of `0.0.0.0`.
-- Domain routing was blocked by stale Coolify `custom_labels` containing old `sslip.io` Traefik labels. Clear `custom_labels` if FQDN changes do not affect container labels.
+AI / Dify / Crawler:
+- `GEMINI_API_KEY`
+- `GEMINI_PRIMARY_MODEL=gemini-flash-latest`
+- `DIFY_BASE_URL=https://dify.affexai.tr/v1`
+- `DIFY_API_KEY` (Dataset API token)
+- `DIFY_DATASET_TOKEN_*` (9 dataset tokens)
+- `DIFY_WORKFLOW_*_TOKEN` & `DIFY_*_APP_TOKEN` (9 workflow + 2 chat app tokens)
+- `CRAWL4AI_PRIMARY_URL=http://crawl4ai-bgm2kq7nnehl1yx8myffsz1i:11235/crawl`
+- `CRAWL4AI_PRIMARY_HEALTH_URL=http://crawl4ai-bgm2kq7nnehl1yx8myffsz1i:11235/health`
+- `CRAWL4AI_BACKUP_URL=http://crawl4ai-bgm2kq7nnehl1yx8myffsz1i:11235/crawl`
+- `CRAWL4AI_BACKUP_HEALTH_URL=http://crawl4ai-bgm2kq7nnehl1yx8myffsz1i:11235/health`
 
 ## Deployment Steps
 
-1. Ensure local build and typecheck pass.
-2. Commit and push frontend fixes to `hazarvolga/fpvlovers.com.tr:main`.
-3. In Coolify, redeploy the existing application.
-4. Set or verify FQDN:
-
-```text
-https://fpvlovers.com.tr
-```
-
-5. Ensure health check points to:
-
-```text
-/api/health
-```
-
-6. Verify after deploy:
+1. Commit and push changes to `hazarvolga/fpvlovers-v02:main`.
+2. Trigger a deployment in Coolify UI (`fpvlovers-web` -> **Deploy**) or via the Coolify deployment queue on `affexai-prod`.
+3. Verify after deploy:
 
 ```bash
 curl -I https://fpvlovers.com.tr
 curl -fsS https://fpvlovers.com.tr/api/health
+curl -fsS https://fpvlovers.com.tr/api/ready
 ```
 
-If `fpvlovers.com.tr` still returns Traefik `404` after a successful deploy, inspect container labels. The labels must contain `Host(\`fpvlovers.com.tr\`)`, not the old `sslip.io` host.
-
-7. Verify admin route is protected:
+4. Verify `/admin` authentication guard:
 
 ```bash
 curl -I https://fpvlovers.com.tr/admin
 ```
 
-Expected unauthenticated result should be `401` or protected equivalent.
-
 ## Rollback
 
-Use Coolify rollback to the last successful image if available. If no successful image exists, push a revert/fix commit and redeploy.
-
-## Server Notes
-
-Private server details, SSH key locations, Coolify IDs, and live audit results live outside the frontend repo under `sunucular/`.
-
-Do not duplicate secrets in this file.
+Use Coolify rollback to the previous image tag (`jnlhgqmjnqwpdgefsoskew5n:<commit-sha>`) or push a revert commit and redeploy.

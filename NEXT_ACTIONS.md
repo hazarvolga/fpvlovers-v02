@@ -1,17 +1,20 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-10-24
+Last updated: 2026-10-25
 
-## PAUSED HERE (2026-10-24 ~16:10) - Resume Order
+## PAUSED HERE (2026-10-25) - Resume Order (Phase C)
 
-Read `docs/handoff/2026-10-24-beginner-first-ia-handoff.md` first. Everything below is deployed and verified live; nothing is in progress.
+Read `docs/handoff/2026-10-24-contabo-single-node-consolidation-handoff.md` and `docs/handoff/2026-10-24-beginner-first-ia-handoff.md` first. Everything below is deployed and verified live (`https://fpvlovers.com.tr/api/ready` -> `status: "ready"`, 4/4 checks `pass`); nothing is in progress.
 
-1. Owner: submit `https://fpvlovers.com.tr/sitemap.xml` (196 URLs) in Google Search Console.
-2. With the owner (admin session needed): localOnly cover repair **dry-run** for the 12 review-widget covers + the paused 38 source-cache records; explicit approval before `dryRun: false`.
-3. Fill `metadata.difficulty/audience` for recent articles (`metadata:test` lists them).
-4. Owner: initialize Dify (`/install`, Gemini key, datasets, workflow DSLs), then update Dify keys in Coolify so nightly generation and the news feed work.
-5. Admin panel review (hardcoded Pilot Registry/usage data).
-6. Phase C: Turkish UI layer, SHGM content, real news feed.
+1. ✅ **DONE:** `https://fpvlovers.com.tr/sitemap.xml` (196 URLs) submitted in Google Search Console by owner.
+2. ✅ **DONE (commit `ee41128`):** Repaired all broken `judgeme.imgix.net`, empty, and logo/portrait covers across all 153 articles (`pnpm media:audit` passes with `146 unique primary covers`, `0` violations) and synced to production PostgreSQL + volume.
+3. ✅ **DONE (commit `ee41128`):** Backfilled `metadata.difficulty` and `metadata.audience` across all `153/153` published articles (`36 beginner`, `108 intermediate`, `9 advanced`); `pnpm metadata:test` passes.
+4. ✅ **DONE (commits `48e2e5e`, `ae85c54`, `bf78ca8`):** Added Gemini Model Deprecation Guard (`src/lib/llm-models.ts`, primary `gemini-flash-latest`), initialized Dify v1.14.0 (`https://dify.affexai.tr`), created and seeded all 9 RAG datasets (`33` documents in Qdrant, `9/9 PASS` live retrieval), imported and published all 9 workflows + 2 chat apps (`126/126` nodes validated, `11/11` Explore apps returning `HTTP 200`), and wired all 23 `DIFY_*` tokens into Coolify (`fpvlovers-web`).
+5. ✅ **DONE (commit `ee41128`):** Removed hardcoded mock data (`subscribersData`, `usageVsGrowthData`, `affiliateData`), duplicate Sponsors form, and remaining Turkish UI strings from `src/app/admin/page.tsx`.
+6. **NEXT (Phase C — when resuming after break):**
+   - Inspect the output of the Coolify nightly scheduled tasks (`FPVLovers Nightly Crawler` `xbkzuu5evfrwn7shmk3gf4fx` and `FPVLovers Early Morning Content Gen` `defc7nrm3galrd5nzoauprcr`) via `/api/admin/automation/status` and verify `/racing/news` feed population.
+   - Plan and implement the secondary Turkish UI layer (`i18n` route/SEO strategy first), translate top beginner guides, and add source-backed SHGM regulations content.
+   - When ready for monetization activation, submit affiliate applications (`100/100` application-ready) and verify destination URLs.
 
 ## Beginner-First IA Redesign (2026-10-24) - Phases A + B + Cleanup Deployed
 

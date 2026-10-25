@@ -97,16 +97,26 @@ Two **Coolify Scheduled Tasks** are configured and active on `fpvlovers-web` (`h
 
 ---
 
-## 7. Completed Post-Consolidation Verification (2026-10-24 Evening)
+## 7. Completed Post-Consolidation Verification (2026-10-25)
 
 1. **[x] Article Media Cover & Metadata Repair (`ee41128`, `48e2e5e`):**
    - Repaired all broken `judgeme.imgix.net` covers, empty covers, and 18 bad external logo/portrait covers across `content/published/*.json`; backfilled catalog media into `public/images/source-cache/` (`pnpm media:audit` → `146 unique primary covers`, `0` violations).
    - Backfilled `metadata.difficulty` and `metadata.audience` across all `153/153` published articles (`36 beginner`, `108 intermediate`, `9 advanced`).
    - Removed mock data (`subscribersData`, `usageVsGrowthData`, `affiliateData`) and duplicate Sponsors form from `src/app/admin/page.tsx`.
 2. **[x] Google Search Console Sitemap Submission:**
-   - `https://fpvlovers.com.tr/sitemap.xml` submitted in Google Search Console by owner.
-3. **[x] Dify v1.14.0 Full Initialization, 9 RAG Datasets & 9 Workflows Published:**
+   - `https://fpvlovers.com.tr/sitemap.xml` (`196` canonical URLs) submitted in Google Search Console by owner.
+3. **[x] Dify v1.14.0 Full Initialization, 9 RAG Datasets & 9 Workflows Published (`ae85c54`, `bf78ca8`):**
    - Initialized `https://dify.affexai.tr` workspace (`hazarvolga's Workspace`) and configured `langgenius/gemini/google` (`FPV Lovers`).
-   - Created all 9 RAG datasets with canonical UUIDs (`fpv-flight-tuning`, `fpv-pid-profiles`, `fpv-troubleshooting`, `fpv-components-specs`, `fpv-build-guides`, `fpv-news-reviews`, `fpv-racing-events`, `fpv-community-knowledge`, `fpv-regulations`) and seeded 33 foundational documents (`indexing_status = completed` in Qdrant).
-   - Imported and published all 9 Dify workflows + 2 Chat Agent apps (`FPV Expert Assistant`, `Community Hub`), generated all 23 `DIFY_*` tokens, and synced them to Coolify (`fpvlovers-web`).
-   - Verified live readiness (`https://fpvlovers.com.tr/api/ready` → `status: "ready"`, 4/4 checks `pass`), live 9-dataset RAG evaluation (`9/9 PASS — 100%`), and live `POST /v1/chat-messages` LLM agent inference (`HTTP 200`).
+   - Created all 9 RAG datasets with canonical UUIDs (`fpv-flight-tuning`, `fpv-pid-profiles`, `fpv-troubleshooting`, `fpv-components-specs`, `fpv-build-guides`, `fpv-news-reviews`, `fpv-racing-events`, `fpv-community-knowledge`, `fpv-regulations`) and seeded 33 foundational documents (`indexing_status = completed` in Qdrant) with `source_url` metadata bindings.
+   - Imported and published all 9 Dify workflows + 2 Chat Agent apps (`FPV Expert Assistant`, `Community Hub`), linked `apps.workflow_id` for all 9 workflow/advanced-chat apps, normalized all 126 workflow nodes to Dify v1.14.0 Pydantic schemas (`0` validation errors), generated all 23 `DIFY_*` tokens, and synced them to Coolify (`fpvlovers-web`).
+   - Verified live readiness (`https://fpvlovers.com.tr/api/ready` → `status: "ready"`, 4/4 checks `pass`), live 9-dataset RAG evaluation (`9/9 PASS — 100%`), live Dify Explore parameters (`11/11 HTTP 200`), and live `POST /v1/chat-messages` LLM + RAG execution (`Drone Build Recommender` & `FPV Expert Assistant` → `HTTP 200`).
+
+---
+
+## 8. Resume Point After Break (Phase C)
+
+All infrastructure consolidation, media/metadata repairs, admin cleanup, Gemini model deprecation guards, and Dify RAG/Workflow initialization steps are **100% complete and live**. When resuming:
+
+1. **Verify Nightly Scheduled Task Output:** Check `GET /api/admin/automation/status` (or Admin Panel → Crawl Logs / Content Gen) to review output from the Coolify nightly tasks (`FPVLovers Nightly Crawler` at `01:15, 01:45, 03:45, 04:15, 04:45 TSİ` and `FPVLovers Early Morning Content Gen` at `05:30 TSİ`).
+2. **Phase C (Content & Localization):** Plan and implement the secondary Turkish UI/content layer (`i18n` route strategy, translated beginner guides, source-backed SHGM regulations) and monitor `/racing/news` feed population.
+3. **Monetization Activation (When Ready):** Apply to affiliate programs (`100/100` application-ready) and verify real destination URLs before unlocking commercial CTAs.

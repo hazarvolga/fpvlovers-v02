@@ -1,76 +1,45 @@
-# FPVLovers Sunucu ve Altyapı Mimarisi (Canlı Canlı Doğrulanmış Durum)
+# FPVLovers Sunucu ve Altyapı Mimarisi (Canlı Doğrulanmış Durum)
 
-**Son Canlı Envanter & Denetim (SSH Live Audit):** 26 Temmuz 2026  
-**Proje:** `fpvlovers.com.tr`  
+**Son Canlı Envanter & Denetim (SSH Live Audit):** 25 Ekim 2026  
+**Proje:** `fpvlovers.com.tr` (`https://github.com/hazarvolga/fpvlovers-v02`)  
+**Coolify Panel:** `https://coolify.affexai.tr/project/whqhxcqeyjvps3pdurplad1c/environment/1iqv0jce7xaocip7s52356vb`
 
 ---
 
-## 📌 Sunucu Sağlık ve Kaynak Haritası
+## 📌 Sunucu Sağlık ve Kaynak Haritası (Contabo Tekil Sunucu Konsolidasyonu)
 
-Tüm erişilebilir Oracle Free Tier sunucularına SSH ile bağlanılarak çalışan Docker konteynerları, uygulama isimleri, imajları ve sistem kaynakları canlı olarak çıkarılmıştır.
+> **Not:** Eski 3'lü Oracle Cloud Free Tier sunucu mimarisi (`161.118.171.201`, `80.225.231.62`, `141.148.206.187`) Oracle limit kesintisi nedeniyle kalıcı olarak devre dışı bırakılmış ve tüm FPVLovers mimarisi **Contabo Cloud VPS 8 NVMe (`169.58.96.15` / `affexai-prod-01`)** üzerinde Coolify-native olarak konsolide edilmiştir. Detaylı handoff: `docs/handoff/2026-10-24-contabo-single-node-consolidation-handoff.md`.
 
-| Sunucu Adı | Public IP | Çalışan Ana Servisler & Konteynerlar | Sistem Kaynakları | Durum |
+| Sunucu Adı | Public IP | Donanım & OS | Sistem Kaynakları (25 Konteyner Aktif) | Durum |
 | :--- | :--- | :--- | :--- | :--- |
-| **`instance-hulyaekiz`** | `161.118.171.201` | 🚀 **FPVLovers Web App**<br>🕷 **Crawl4AI Web Scraper**<br>⚙️ **n8n Workflow Automation**<br>🐘 **PostgreSQL 17 & 16**<br>🌐 **Cloudflare Tunnel** & Traefik | **RAM:** 23 GB (3 GB kullanımda)<br>**Disk:** 78 GB (**%52 dolu, 38 GB boş**)<br>**Uptime:** 305 Gün | ✅ **%100 SAĞLIKLI & CANLI** |
-| **`instance-aluplan-one`** | `80.225.231.62` | 🤖 **Dify AI Platform (v1.14.0)**<br>• Dify API, Web, Workers & Beat<br>• Qdrant Vector DB (v1.8.3)<br>• Dify Code Sandbox & Nginx<br>• Dify Postgres & Redis | **RAM:** 23 GB (4.5 GB kullanımda)<br>**Disk:** 78 GB (**%55 dolu, 36 GB boş**)<br>**Uptime:** 305 Gün | ✅ **%100 SAĞLIKLI & CANLI** |
-| **`instance-orko`** | `141.148.206.187` | 🕷 **Crawl4AI Backup Node**<br>🧠 **Ollama AI Engine**<br>🛠 Coolify Base & Proxy Services | **RAM:** 23 GB (2.4 GB kullanımda)<br>**Disk:** 45 GB (**%50 dolu, 23 GB boş**)<br>**Uptime:** 139 Gün | ✅ **%100 SAĞLIKLI & TEMİZLENDİ** |
+| **`affexai-prod-01`** | `169.58.96.15` | Contabo Cloud VPS 8 NVMe (`8 vCPU`, `24 GB RAM`, `150 GB NVMe`, Ubuntu 24.04 LTS, `Europe/Istanbul`) | **RAM:** 23.5 GiB (~6.2 GiB kullanımda, ~17 GiB boş)<br>**Disk:** 145 GB (**%41 dolu, ~85 GB boş**) | ✅ **%100 SAĞLIKLI & CANLI** |
 
 ---
 
-## 📦 SUNUCU BAZLI DETAYLI UYGULAMA VE KONTEYNER ENVANTERİ
+## 📦 COOLIFY (`FPV Lovers` → `production`) KAYNAK VE KONTEYNER ENVANTERİ
 
-### 1. `instance-hulyaekiz` (`161.118.171.201`) — Web & Otomasyon Sunucusu
+- **Coolify Proje UUID:** `whqhxcqeyjvps3pdurplad1c`
+- **Coolify Ortam UUID:** `1iqv0jce7xaocip7s52356vb`
 
-Bu sunucu ana web sitesini, içerik otomasyonunu ve veri tarayıcılarını barındırır:
+| Coolify Kaynağı | Tür & İmaj | Coolify UUID | İç Ağ Adresi / Public Alan Adı | Kaynak Limitleri | Durum & Görev |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **`fpvlovers-web`** | `Application` (`Dockerfile` — Next.js 15 Standalone) | `jnlhgqmjnqwpdgefsoskew5n` | `https://fpvlovers.com.tr` (`Port 3000`, Healthcheck: `127.0.0.1:3000/api/health`) | `1536M` RAM / `2.0` CPU | 🟢 Canlı Web & Admin + Gece Scheduled Tasks (`01:15–04:45` Crawl, `05:30` Generate) |
+| **`fpvlovers-postgres`** | `StandalonePostgresql` (`postgres:17-alpine`) | `gkmzgwnnirofcgpw2yh0bnlh` | `gkmzgwnnirofcgpw2yh0bnlh:5432` (`DB: fpvlovers`, `User: fpvlovers`) | `1024M` RAM / `1.0` CPU | 🟢 Ana PostgreSQL 17 (`fpvlovers_app`, `content_engine`, `public.llm_cache`) |
+| **`fpvlovers-redis`** | `StandaloneRedis` (`redis:7-alpine`) | `erzatjqls2op2wuz3fxav1kf` | `erzatjqls2op2wuz3fxav1kf:6379` | `512M` RAM / `1.0` CPU | 🟢 Önbellek ve kuyruk yönetimi |
+| **`fpvlovers-crawl4ai`** | `Service` (`unclecode/crawl4ai:0.9.5`) | `bgm2kq7nnehl1yx8myffsz1i` | `http://crawl4ai-bgm2kq7nnehl1yx8myffsz1i:11235` (`0.0.0.0:11235` internal) | `2560m` RAM / `2.0` CPU (`shm_size: 1gb`) | 🟢 Birleşik Primary/Backup Web Tarayıcı (Gece pencerelerinde aktif) |
+| **`dify-ai`** | `Service` (10 Konteyner: Dify `v1.14.0` + Qdrant `v1.8.3`) | `ta4t6npg4cc65ua7rwhdixjk` | Public: `https://dify.affexai.tr`<br>Internal: `dify-gateway-ta4t6npg4cc65ua7rwhdixjk:80` | `CELERY_WORKER_AMOUNT=2`, Qdrant `1536m`, DB `1024m` | 🟢 9 RAG Dataset (`33 doküman`), 9 Workflow, 2 Chat Agent (`gemini-flash-latest` + `gemini-embedding-001`) |
 
-| Uygulama / Servis Adı | Konteyner İsmi / Img | Docker İmajı | Portlar / Protokol | Görev & İşlevi |
+---
+
+## ⏰ Coolify Zamanlanmış Görevler (`fpvlovers-web`)
+
+| Görev Adı | Coolify Task UUID | Cron (`Europe/Istanbul`) | Çalıştırılan Komut | Durum |
 | :--- | :--- | :--- | :--- | :--- |
-| **FPVLovers Web App** | `r0c44ok0cskc800gs...` | `r0c44ok0cskc800gs...:latest` | `3000/tcp` (Internal) | `fpvlovers.com.tr` canlı Next.js 15 Standalone web uygulaması. |
-| **Crawl4AI Scraper** | `kkoswgkwcocc88kk...` | `unclecode/crawl4ai:latest` | `80/tcp`, `6379/tcp` | FPV içerikleri ve web tarama (scraping) motoru. |
-| **Crawler Proxy** | `crawler-proxy` | `alpine/socat` | `3002:3002/tcp` | Tarayıcı trafiği yönlendirici proxy. |
-| **n8n Automation** | `n8n-tow48sswo4ck...` | `n8nio/n8n:2.10.2` | `5678/tcp` | İçerik ve iş akışı otomasyon platformu. |
-| **n8n Task Runners** | `task-runners-tow...` | `n8nio/runners:2.10.2` | `5680/tcp` | n8n arka plan görev işleyicileri. |
-| **App PostgreSQL** | `yo4kkoc08kgw080k...` | `postgres:17-alpine` | `5432/tcp` | FPVLovers ana PostgreSQL 17 veritabanı. |
-| **n8n PostgreSQL** | `postgresql-tow48...` | `postgres:16-alpine` | `5432/tcp` | n8n otomasyon veritabanı. |
-| **Redis Cache** | `m0cs4gs4c8ks4c00...` | `redis:7.2` | `6379:6379/tcp` | Önbellek ve kuyruk veritabanı. |
-| **Cloudflare Tunnel** | `cloudflared-uoo4...` | `cloudflare/cloudflared:latest` | Outbound Tunnel | Güvenli Cloudflare ağ tüneli. |
-| **Coolify Core** | `coolify`, `coolify-proxy`, `coolify-db`, `coolify-redis` | `traefik:v3.1`, `postgres:15-alpine` | `80`, `443`, `8000`, `6001` | Coolify PaaS yönetim ve Traefik reverse proxy katmanı. |
+| **`FPVLovers Nightly Crawler`** | `xbkzuu5evfrwn7shmk3gf4fx` | `15,45 1,3,4 * * *` | `wget -qO- --header="x-cron-secret: $CRON_SECRET" http://127.0.0.1:3000/api/admin/cron/crawl` | ✅ Aktif |
+| **`FPVLovers Early Morning Content Gen`** | `defc7nrm3galrd5nzoauprcr` | `30 5 * * *` | `wget -qO- --header="x-cron-secret: $CRON_SECRET" http://127.0.0.1:3000/api/admin/cron/generate` | ✅ Aktif |
 
 ---
 
-### 2. `instance-aluplan-one` (`80.225.231.62`) — Yapay Zeka (Dify & Qdrant) Sunucusu
-
-Bu sunucu Dify platformunu ve AI vektör veritabanlarını çalıştırır:
-
-| Uygulama / Servis Adı | Konteyner İsmi | Docker İmajı | Portlar / Protokol | Görev & İşlevi |
-| :--- | :--- | :--- | :--- | :--- |
-| **Dify Web UI** | `web-mw8g48wcsc840...` | `langgenius/dify-web:1.14.0` | `3000/tcp` | Dify yönetim ve grafik arayüzü (`dify.affexai.tr`). |
-| **Dify API Core** | `api-mw8g48wcsc840...` | `langgenius/dify-api:1.14.0` | `5001/tcp` | Dify REST API servis motoru. |
-| **Dify Worker** | `worker-mw8g48wcsc...` | `langgenius/dify-api:1.14.0` | Internal | Dify Celery kuyruk işleyicisi (SEO, RAG, Video Director). |
-| **Dify Beat** | `worker_beat-mw8g...` | `langgenius/dify-api:1.14.0` | Internal | Dify periyodik zamanlanmış görev motoru. |
-| **Qdrant Vector DB** | `qdrant-mw8g48wcsc...` | `langgenius/qdrant:v1.8.3` | `6333-6334/tcp` | Vektör arama ve RAG bilgi havuzu veritabanı. |
-| **Dify Code Sandbox** | `sandbox-mw8g48w...` | `langgenius/dify-sandbox:0.2.14` | Internal | Güvenli Python/JS kod çalıştırma alanı. |
-| **Dify Plugin Daemon** | `plugin_daemon-mw...` | `langgenius/dify-plugin-daemon` | Internal | Dify eklenti yönetim servisi. |
-| **Dify SSRF Proxy** | `ssrf_proxy-mw8g...` | `ubuntu/squid:latest` | `3128/tcp` | Dify dış istek güvenlik proxy'si (Squid). |
-| **Dify Nginx Gateway** | `nginx-mw8g48wcsc...` | `nginx:latest` | `80/tcp` | Dify iç ağ HTTP ağ geçidi. |
-| **Dify PostgreSQL** | `db-mw8g48wcsc840...` | `postgres:15-alpine` | `5432/tcp` | Dify uygulama veritabanı. |
-| **Dify Redis** | `redis-mw8g48wcsc...` | `redis:7-alpine` | `6379/tcp` | Dify önbellek veritabanı. |
-| **Coolify Core** | `coolify`, `coolify-proxy`, `coolify-db`, `coolify-redis` | `traefik:v3.6`, `postgres:15-alpine` | `80`, `443`, `8000`, `6001` | Coolify PaaS yönetim ve Traefik v3.6 reverse proxy katmanı. |
-
----
-
-### 3. `instance-orko` (`141.148.206.187`) — Tarama & LLM Sunucusu
-
-Bu sunucu ikincil tarayıcıyı ve yerel LLM servislerini barındırır:
-
-| Uygulama / Servis Adı | Konteyner / Servis İsmi | İmaj / Servis Türü | Portlar / Protokol | Görev & İşlevi |
-| :--- | :--- | :--- | :--- | :--- |
-| **Crawl4AI Backup** | `crawl4ai-backup` | `unclecode/crawl4ai:latest` | `6379/tcp` | İkincil web tarama ve bilgi toplama botu. |
-| **Ollama AI Engine** | `ollama serve` | Linux Service (Systemd) | `11434/tcp` | Yerel LLM çalıştırıcı (Llama3.2, Nomic-Embed-Text vb.). |
-| **Coolify Core** | `coolify`, `coolify-proxy`, `coolify-db`, `coolify-redis` | `traefik:v3.1`, `postgres:15-alpine` | `80`, `443`, `8000`, `6001` | Coolify PaaS yönetim ve Traefik v3.1 reverse proxy katmanı. |
-
----
-
-## 🔒 Ağ Yapılandırması ve Güvenlik
-- **Proxy Engine:** Coolify Traefik Proxy (Port 80 / 443 / 8080).
-- **SSL / TLS:** Let's Encrypt / Traefik üzerinden otomatik yönetilmektedir.
+## 🔒 Ağ Yapılandırması ve Operasyonel Kurallar
+- **Coolify-Native Kuralı:** Tüm servisler, ortam değişkenleri ve zamanlanmış görevler yalnızca Coolify UI / API üzerinden yönetilir. Aynı sunucuda çalışan `AffeXAI Cortex` ve `Bimmetraj` projelerine ait konteynerlara kesinlikle müdahale edilmez.
+- **Proxy & SSL:** Coolify Traefik Reverse Proxy üzerinden Let's Encrypt sertifikaları otomatik yönetilmektedir.
