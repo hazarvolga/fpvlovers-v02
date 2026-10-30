@@ -8,6 +8,7 @@ import {
   resolveLocale,
   splitLocalePath,
 } from '../src/lib/i18n/locale';
+import { foldTurkish, normalizeSearchText } from '../src/lib/i18n/search-text';
 
 const checks: { name: string; run: () => void }[] = [];
 function check(name: string, run: () => void): void {
@@ -70,6 +71,26 @@ check('trailing slashes do not defeat the allowlist', () => {
   assert.equal(localizePath('/', 'tr'), '/tr');
   assert.equal(localizePath('/guides/?level=beginner', 'tr'), '/tr/guides?level=beginner');
   assert.equal(localizePath('/academy/', 'en'), '/academy/');
+});
+
+check('foldTurkish maps Turkish letters to ASCII', () => {
+  assert.equal(foldTurkish('uçuş ışığı'), 'ucus isigi');
+  assert.equal(foldTurkish('Şarj Ölçüm'), 'Sarj Olcum');
+});
+
+check('normalizeSearchText lowercases per locale', () => {
+  assert.equal(normalizeSearchText('PILOT', 'en'), 'pilot');
+  assert.equal(normalizeSearchText('PİLOT', 'tr'), 'pilot');
+});
+
+check('Turkish query and document fold to the same token', () => {
+  const documentText = normalizeSearchText('İlk uçuş için simülatör rehberi', 'tr');
+  const query = normalizeSearchText('UÇUŞ', 'tr');
+  assert.ok(documentText.includes(query), `${documentText} should contain ${query}`);
+});
+
+check('English text is not folded', () => {
+  assert.equal(normalizeSearchText('Uçuş', 'en'), 'uçuş');
 });
 
 let failed = 0;
