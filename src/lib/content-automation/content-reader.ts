@@ -8,6 +8,7 @@ import { buildContentMedia, buildCoverImageUrl } from './content-media';
 import { matchImagesToSections } from './crawl-image-match';
 import { safeReadJson } from '@/lib/utils/json';
 import { resolveDisplayCover, resolveFallbackCover } from './fallback-cover';
+import { DEFAULT_LOCALE, type Locale } from '@/lib/i18n/locale';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
@@ -31,8 +32,11 @@ const TURKISH_LANGUAGE_MARKERS = [
 ] as const;
 
 const TURKISH_SPECIFIC_CHARS = /[ğĞıİşŞüÜöÖçÇ]/g;
+const ENGLISH_MARKERS = /\b(the|and|with|your|how|before|after|from|this)\b/gi;
 
-function getArtifactLanguageText(article: PublishedArtifact): string {
+export type LanguageSample = Pick<PublishedArtifact, 'title' | 'excerpt' | 'bodySections'>;
+
+function getArtifactLanguageText(article: LanguageSample): string {
   return [
     article.title,
     article.excerpt,
@@ -40,7 +44,7 @@ function getArtifactLanguageText(article: PublishedArtifact): string {
   ].join('\n');
 }
 
-export function hasTurkishLanguageLeak(article: PublishedArtifact): boolean {
+export function hasTurkishLanguageLeak(article: LanguageSample): boolean {
   const text = getArtifactLanguageText(article);
   const lower = text.toLocaleLowerCase('tr-TR');
   const markerHits = TURKISH_LANGUAGE_MARKERS.filter((marker) => lower.includes(marker)).length;
@@ -49,14 +53,35 @@ export function hasTurkishLanguageLeak(article: PublishedArtifact): boolean {
   return markerHits >= 2 || specificCharHits >= 12;
 }
 
+function looksEnglish(article: LanguageSample): boolean {
+  const text = getArtifactLanguageText(article);
+  const englishHits = text.match(ENGLISH_MARKERS)?.length || 0;
+  const specificCharHits = text.match(TURKISH_SPECIFIC_CHARS)?.length || 0;
+
+  return englishHits >= 10 && specificCharHits < 3;
+}
+
+/**
+ * A guard, not a language detector: it only blocks text that is clearly the
+ * wrong language, so a short Turkish snippet with few diacritics is not
+ * rejected while an English body in the Turkish tree is.
+ */
+export function hasLanguageMismatch(article: LanguageSample, expectedLocale: Locale): boolean {
+  if (expectedLocale === 'en') return hasTurkishLanguageLeak(article);
+  return !hasTurkishLanguageLeak(article) && looksEnglish(article);
+}
+
 const RETIRED_ARTICLE_SLUGS = new Set(Object.keys(retiredArticles));
 
-function shouldExposePublishedArtifact(article: PublishedArtifact): boolean {
+export function shouldExposePublishedArtifact(
+  article: PublishedArtifact,
+  expectedLocale: Locale = DEFAULT_LOCALE,
+): boolean {
   // Retired duplicates stay hidden everywhere (lists, search, sitemap, slug
   // lookups); next.config.ts 301-redirects their URLs to the canonical article.
   if (RETIRED_ARTICLE_SLUGS.has(article.slug)) return false;
   if (process.env.ALLOW_NON_ENGLISH_PUBLISHED === 'true') return true;
-  return !hasTurkishLanguageLeak(article);
+  return !hasLanguageMismatch(article, expectedLocale);
 }
 
 import type { ContentMetadata } from '../content-metadata';
@@ -402,7 +427,7 @@ export function listPublishedContent(): PublishedArtifact[] {
         }
       })
       .filter((a): a is PublishedArtifact => a !== null && typeof a.slug === 'string')
-      .filter(shouldExposePublishedArtifact)
+      .filter((article) => shouldExposePublishedArtifact(article))
       .sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime());
   } catch {
     return [];

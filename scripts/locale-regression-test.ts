@@ -9,6 +9,11 @@ import {
   splitLocalePath,
 } from '../src/lib/i18n/locale';
 import { foldTurkish, normalizeSearchText } from '../src/lib/i18n/search-text';
+import {
+  hasLanguageMismatch,
+  hasTurkishLanguageLeak,
+  type PublishedArtifact,
+} from '../src/lib/content-automation/content-reader';
 
 const checks: { name: string; run: () => void }[] = [];
 function check(name: string, run: () => void): void {
@@ -91,6 +96,42 @@ check('Turkish query and document fold to the same token', () => {
 
 check('English text is not folded', () => {
   assert.equal(normalizeSearchText('Uçuş', 'en'), 'uçuş');
+});
+
+const turkishSample = {
+  title: 'FPV Simülatör Rehberi',
+  excerpt: 'Uçuş pratiği için en iyi simülatörler ve başlangıç tavsiyeleri.',
+  bodySections: [
+    { title: 'Başlangıç', content: 'Yeni başlayan pilotlar için uçuş pratiği: gözlüğünüzü takın ve kumandanızı ayarlayın. Türkiye’de uçuş kurallarını öğrenin.' },
+  ],
+} as unknown as Pick<PublishedArtifact, 'title' | 'excerpt' | 'bodySections'>;
+
+const englishSample = {
+  title: 'FPV Simulator Guide',
+  excerpt: 'The best simulators for stick practice and how to build a routine.',
+  bodySections: [
+    { title: 'Why practice', content: 'The easiest way to learn is to practise with the simulator and with your radio before you buy a drone and goggles.' },
+  ],
+} as unknown as Pick<PublishedArtifact, 'title' | 'excerpt' | 'bodySections'>;
+
+check('Turkish text is detected as Turkish', () => {
+  assert.equal(hasTurkishLanguageLeak(turkishSample), true);
+});
+
+check('Turkish artifact is hidden from the English tree', () => {
+  assert.equal(hasLanguageMismatch(turkishSample, 'en'), true);
+});
+
+check('Turkish artifact is exposed in the Turkish tree', () => {
+  assert.equal(hasLanguageMismatch(turkishSample, 'tr'), false);
+});
+
+check('English artifact is exposed in the English tree', () => {
+  assert.equal(hasLanguageMismatch(englishSample, 'en'), false);
+});
+
+check('English artifact is a mismatch in the Turkish tree', () => {
+  assert.equal(hasLanguageMismatch(englishSample, 'tr'), true);
 });
 
 let failed = 0;
