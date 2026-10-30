@@ -20,6 +20,11 @@ import {
 import { localizePath, type Locale } from '@/lib/i18n/locale';
 import { cn } from '@/lib/utils';
 
+type StatSource = 'published' | 'beginner' | 'topics';
+
+type HeroStatCopy = { label: string; source: StatSource } | { label: string; value: string };
+type HeroActionCopy = { label: string; target: { kind: 'beginner-guides' } | { kind: 'path'; href: string } };
+
 type GuidesCopy = {
   hero: {
     label: string;
@@ -27,8 +32,8 @@ type GuidesCopy = {
     accent: string;
     description: string;
     imageAlt: string;
-    stats: { label: string; value: string }[];
-    actions: { label: string; href: string }[];
+    stats: HeroStatCopy[];
+    actions: HeroActionCopy[];
   };
   filterLabel: string;
   levelLabel: string;
@@ -58,14 +63,14 @@ const COPY: Record<Locale, GuidesCopy> = {
         "Pick your level and a topic. Every guide is tagged Beginner, Intermediate, or Advanced so you know what you're getting into.",
       imageAlt: 'FPV drone guides library visual',
       stats: [
-        { label: 'Published guides', value: '' },
-        { label: 'Beginner guides', value: '' },
-        { label: 'Topics', value: '' },
+        { label: 'Published guides', source: 'published' },
+        { label: 'Beginner guides', source: 'beginner' },
+        { label: 'Topics', source: 'topics' },
         { label: 'New to FPV?', value: 'Start Here' },
       ],
       actions: [
-        { label: 'Beginner guides', href: '' },
-        { label: 'New to FPV? Start here', href: '/academy' },
+        { label: 'Beginner guides', target: { kind: 'beginner-guides' } },
+        { label: 'New to FPV? Start here', target: { kind: 'path', href: '/academy' } },
       ],
     },
     filterLabel: 'Filter guides',
@@ -93,14 +98,14 @@ const COPY: Record<Locale, GuidesCopy> = {
       description: 'Seviyene ve konuya göre filtrele: uçuş, toplama, ayar, sorun giderme, satın alma, kurallar ve yarış.',
       imageAlt: 'FPV drone rehber kütüphanesi görseli',
       stats: [
-        { label: 'Yayınlanan rehber', value: '' },
-        { label: 'Başlangıç rehberi', value: '' },
-        { label: 'Konu', value: '' },
+        { label: 'Yayınlanan rehber', source: 'published' },
+        { label: 'Başlangıç rehberi', source: 'beginner' },
+        { label: 'Konu', source: 'topics' },
         { label: "FPV'ye yeni misin?", value: 'Buradan Başla' },
       ],
       actions: [
-        { label: 'Başlangıç rehberleri', href: '' },
-        { label: "FPV'ye yeni misin? Buradan başla", href: '/academy' },
+        { label: 'Başlangıç rehberleri', target: { kind: 'beginner-guides' } },
+        { label: "FPV'ye yeni misin? Buradan başla", target: { kind: 'path', href: '/academy' } },
       ],
     },
     filterLabel: 'Rehberleri filtrele',
@@ -206,15 +211,17 @@ export async function GuidesHub({ locale, level, topic }: { locale: Locale; leve
 
   const beginnerCount = content.filter((article) => toReaderLevel(article.metadata?.difficulty) === 'beginner').length;
   const resultsTitle = resultsTitleFor(selectedLevel, selectedTopic, locale, copy);
-  const heroStats = copy.hero.stats.map((stat, index) => {
-    if (index === 0) return { ...stat, value: String(content.length) };
-    if (index === 1) return { ...stat, value: String(beginnerCount) };
-    if (index === 2) return { ...stat, value: String(GUIDE_GROUPS.length) };
-    return stat;
-  });
-  const heroActions = copy.hero.actions.map((action, index) => ({
-    ...action,
-    href: index === 0 ? buildHref('beginner', selectedTopic?.id, locale) : localizePath(action.href, locale),
+  const statCounts = { published: content.length, beginner: beginnerCount, topics: GUIDE_GROUPS.length };
+  const heroStats = copy.hero.stats.map((stat) => ({
+    label: stat.label,
+    value: 'source' in stat ? String(statCounts[stat.source]) : stat.value,
+  }));
+  const heroActions = copy.hero.actions.map((action) => ({
+    label: action.label,
+    href:
+      action.target.kind === 'beginner-guides'
+        ? buildHref('beginner', selectedTopic?.id, locale)
+        : localizePath(action.target.href, locale),
   }));
 
   return (

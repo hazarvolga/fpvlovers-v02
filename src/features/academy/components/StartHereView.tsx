@@ -110,7 +110,7 @@ const COPY: Record<Locale, AcademyCopy> = {
       ],
       actions: [
         { label: '1. adıma git', href: '#step-1' },
-        { label: 'Başlangıç rehberleri', href: '/tr/guides?level=beginner' },
+        { label: 'Başlangıç rehberleri', href: '/guides?level=beginner' },
       ],
     },
     sectionLabel: 'Sıfırdan ilk uçuşa',
@@ -123,7 +123,7 @@ const COPY: Record<Locale, AcademyCopy> = {
       {
         title: 'Başlangıç rehberleri',
         description: 'Kurulum, pratik alıştırmalar ve ilk aylarda karşılaşılan sorunlar.',
-        href: '/tr/guides?level=beginner',
+        href: '/guides?level=beginner',
         icon: BookOpen,
         meta: 'Sıradaki okuma',
         accent: 'green',
@@ -147,6 +147,11 @@ const COPY: Record<Locale, AcademyCopy> = {
     ],
   },
 };
+
+/** Localizes absolute paths; in-page anchors such as `#step-1` pass through. */
+function toHref(href: string, locale: Locale): string {
+  return href.startsWith('/') ? localizePath(href, locale) : href;
+}
 
 function resolveArticles(step: StartStep, bySlug: Map<string, PublishedArtifact>): PublishedArtifact[] {
   const seenTitles = new Set<string>();
@@ -177,7 +182,7 @@ export async function StartHereView({ locale }: { locale: Locale }) {
         image={HUB_COVER_IMAGES.academy}
         imageAlt={copy.hero.imageAlt}
         stats={copy.hero.stats}
-        actions={copy.hero.actions}
+        actions={copy.hero.actions.map((action) => ({ ...action, href: toHref(action.href, locale) }))}
       />
 
       <section className="mt-12">
@@ -251,7 +256,7 @@ export async function StartHereView({ locale }: { locale: Locale }) {
               key={card.title}
               title={card.title}
               description={card.description}
-              href={card.href}
+              href={toHref(card.href, locale)}
               icon={card.icon}
               meta={card.meta}
               accent={card.accent}

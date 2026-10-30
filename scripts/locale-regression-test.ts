@@ -265,14 +265,14 @@ check('start steps exist for both locales', () => {
 
 check('Turkish start steps ship as a shell without English article slugs', () => {
   assert.ok(START_STEPS.tr.every((step) => step.articleSlugs.length === 0));
-  assert.equal(START_STEPS.en[0].articleSlugs.length > 0, true);
+  assert.ok(START_STEPS.en[0].articleSlugs.length > 0);
 });
 
 check('guide taxonomy labels are translated for every group and level', () => {
   for (const group of GUIDE_GROUPS) {
     assert.equal(getGuideGroupLabel(group, 'en'), group.label);
     assert.notEqual(getGuideGroupLabel(group, 'tr'), group.label, `missing tr label for ${group.id}`);
-    assert.ok(getGuideGroupDescription(group, 'tr'), `missing tr description for ${group.id}`);
+    assert.notEqual(getGuideGroupDescription(group, 'tr'), group.description, `missing tr description for ${group.id}`);
   }
   for (const level of READER_LEVELS) {
     assert.equal(getReaderLevelLabel(level.id, 'en'), level.label);
