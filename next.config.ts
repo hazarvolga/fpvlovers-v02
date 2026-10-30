@@ -3,6 +3,11 @@ import retiredArticles from './src/lib/content-automation/retired-articles.json'
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  experimental: {
+    // Render unmatched URLs through src/app/global-not-found.tsx so the site
+    // chrome and <html lang> survive the route-group split.
+    globalNotFound: true,
+  },
   eslint: {
     ignoreDuringBuilds: true,
   },
