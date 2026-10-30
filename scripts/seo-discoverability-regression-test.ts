@@ -32,7 +32,7 @@ assert.equal(articleSchema.publisher.logo.url, 'https://fpvlovers.com.tr/logo-ty
 const read = (relative: string) => fs.readFileSync(path.join(process.cwd(), relative), 'utf8');
 const robots = read('src/app/robots.ts');
 const sitemap = read('src/app/sitemap.xml/route.ts');
-const articlePage = read('src/app/article/[slug]/page.tsx');
+const articlePage = read('src/app/(en)/article/[slug]/page.tsx');
 
 assert.match(robots, /disallow: \['\/admin', '\/admin\/', '\/api\/'\]/);
 for (const hub of ['/buyers-guides', '/reviews', '/comparisons', '/disclosure', '/editorial-policy', '/advertise']) {

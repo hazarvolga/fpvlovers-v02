@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, Rocket, ShoppingBag, Cpu, Search } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import type { Locale } from '@/lib/i18n/locale';
 
-export function MobileUtilityBar() {
+export function MobileUtilityBar({ locale = 'en' }: { locale?: Locale }) {
   const pathname = usePathname();
 
   // Mirrors the primary navigation journey: Start Here -> Gear -> Tools.

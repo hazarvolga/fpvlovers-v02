@@ -162,7 +162,7 @@ PASS('Drift check bypassed — app/ successfully decommissioned, single-tree mig
 // ── 9. Engineering page Dify jargon check ──
 phase('9. Engineering page Dify jargon check');
 
-const engPath = path.join(process.cwd(), 'src/app/engineering/hardware/page.tsx');
+const engPath = path.join(process.cwd(), 'src/app/(en)/engineering/hardware/page.tsx');
 try {
   const engContent = fs.readFileSync(engPath, 'utf-8');
   const jargon = ['DIFY SOURCE', 'SYS.DIFY', 'NEURAL FEED', 'RAG_SYNC', 'DATACOM'];

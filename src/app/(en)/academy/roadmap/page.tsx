@@ -13,7 +13,7 @@ import { AISummaryBox } from "@/components/ui/AISummaryBox";
 import { Flag, CheckSquare, Shield, Award, Play, Lock, BookOpen } from "lucide-react";
 import { loadDossierFromBrowser, saveDossierToBrowser } from "@/lib/state/dossier-serializer";
 import { PilotDossier, PilotClass } from "@/types/pilot-dossier";
-import localRoadmap from "../../../../data/roadmap.json";
+import localRoadmap from "../../../../../data/roadmap.json";
 import { useSession, signOut } from "next-auth/react";
 import { SubpageHero, SubpageShell } from "@/components/subpage/SubpageChrome";
 import { HUB_COVER_IMAGES } from "@/lib/content-automation/hub-media";

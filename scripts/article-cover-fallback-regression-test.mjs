@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const pagePath = 'src/app/article/[slug]/page.tsx';
+const pagePath = 'src/app/(en)/article/[slug]/page.tsx';
 const componentPath = 'src/features/content/components/ResilientArticleCover.tsx';
 const sharedComponentPath = 'src/components/ResilientCoverImage.tsx';
 const violations = [];

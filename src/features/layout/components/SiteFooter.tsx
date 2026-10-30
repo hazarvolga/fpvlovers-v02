@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Battery, Mail, Radio, ShieldCheck, Zap, ArrowUpRight } from 'lucide-react';
 import { navigationData } from '@/lib/navigationData';
 import { BackToTop } from './BackToTop';
+import type { Locale } from '@/lib/i18n/locale';
 
 // GAP #3: Filter out nav groups with no items — empty groups created visual holes.
 const footerGroups = navigationData
@@ -50,7 +51,7 @@ const legalGroups = [
   },
 ];
 
-export function SiteFooter() {
+export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
   const year = new Date().getFullYear();
 
   return (

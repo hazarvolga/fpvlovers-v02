@@ -6,13 +6,13 @@ function read(relativePath: string): string {
   return fs.readFileSync(path.join(process.cwd(), relativePath), 'utf8');
 }
 
-const homepage = read('src/app/page.tsx');
+const homepage = read('src/app/(en)/page.tsx');
 const publishRoute = read('src/app/api/admin/content/publish/route.ts');
 const searchSection = read('src/features/layout/components/SearchSection.tsx');
 const globals = read('src/app/globals.css');
-const buyersHub = read('src/app/buyers-guides/BuyersGuidesHubClient.tsx');
-const comparisonsHub = read('src/app/comparisons/ComparisonsHubClient.tsx');
-const reviewsHub = read('src/app/reviews/ReviewsHubClient.tsx');
+const buyersHub = read('src/app/(en)/buyers-guides/BuyersGuidesHubClient.tsx');
+const comparisonsHub = read('src/app/(en)/comparisons/ComparisonsHubClient.tsx');
+const reviewsHub = read('src/app/(en)/reviews/ReviewsHubClient.tsx');
 
 assert.match(homepage, /export const revalidate\s*=\s*300/);
 assert.match(homepage, /data-testid="latest-content-card"/);

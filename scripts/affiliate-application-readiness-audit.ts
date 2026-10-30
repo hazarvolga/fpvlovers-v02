@@ -17,13 +17,13 @@ const MIN_COMMERCIAL_WORDS = 600;
 const MIN_INTERNAL_LINKS = 2;
 
 const requiredTrustRoutes = [
-  { route: '/about', file: 'src/app/about/page.tsx' },
-  { route: '/contact', file: 'src/app/contact/page.tsx' },
-  { route: '/privacy', file: 'src/app/privacy/page.tsx' },
-  { route: '/terms', file: 'src/app/terms/page.tsx' },
-  { route: '/disclosure', file: 'src/app/disclosure/page.tsx' },
-  { route: '/editorial-policy', file: 'src/app/editorial-policy/page.tsx' },
-  { route: '/advertise', file: 'src/app/advertise/page.tsx' },
+  { route: '/about', file: 'src/app/(en)/about/page.tsx' },
+  { route: '/contact', file: 'src/app/(en)/contact/page.tsx' },
+  { route: '/privacy', file: 'src/app/(en)/privacy/page.tsx' },
+  { route: '/terms', file: 'src/app/(en)/terms/page.tsx' },
+  { route: '/disclosure', file: 'src/app/(en)/disclosure/page.tsx' },
+  { route: '/editorial-policy', file: 'src/app/(en)/editorial-policy/page.tsx' },
+  { route: '/advertise', file: 'src/app/(en)/advertise/page.tsx' },
   { route: '/sitemap.xml', file: 'src/app/sitemap.xml/route.ts' },
   { route: '/robots.txt', file: 'src/app/robots.ts' },
 ] as const;
@@ -200,7 +200,7 @@ assertGate(publicClaimMatches.length === 0, `unsupported public commercial/testi
 const difyFallbackText = readIfExists('src/lib/dify.ts');
 assertGate(!/affiliateLink:\s*['"]https?:\/\//i.test(difyFallbackText), 'legacy Dify fallback must not hard-code affiliate links', failures);
 
-const articlePageText = readIfExists('src/app/article/[slug]/page.tsx');
+const articlePageText = readIfExists('src/app/(en)/article/[slug]/page.tsx');
 assertGate(articlePageText.includes('commerceVerified === true'), 'article fallback CTA must be gated by commerceVerified === true', failures);
 assertGate(articlePageText.includes('Commercial CTA Locked'), 'article fallback must render a locked commercial CTA state when unverified', failures);
 

@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 import { useSession, signOut } from 'next-auth/react';
 import { loadDossierFromBrowser } from '@/lib/state/dossier-serializer';
 import { PilotDossier } from '@/types/pilot-dossier';
+import type { Locale } from '@/lib/i18n/locale';
 
 const navLinks = navigationData.map((item) => ({
   title: item.title,
@@ -20,7 +21,7 @@ const navLinks = navigationData.map((item) => ({
   items: item.items,
 }));
 
-export function Navbar() {
+export function Navbar({ locale = 'en' }: { locale?: Locale }) {
   const { data: session, status } = useSession();
   const [localDossier, setLocalDossier] = useState<PilotDossier | null>(null);
   const [scrolled, setScrolled] = useState(false);

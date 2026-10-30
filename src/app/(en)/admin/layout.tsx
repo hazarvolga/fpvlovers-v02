@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import '../globals.css';
+import '../../globals.css';
 import Link from 'next/link';
 import { Command, Shield, Zap } from 'lucide-react';
 
