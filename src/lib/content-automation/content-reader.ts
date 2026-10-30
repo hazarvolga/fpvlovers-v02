@@ -95,6 +95,7 @@ export type PublishedArtifact = GeneratedContent & {
   publishedAt: string;
   promptVersion: string;
   jobStatus: string;
+  locale?: Locale;
   media?: ContentMedia;
   coverImage?: string;
   metadata?: ContentMetadata;
