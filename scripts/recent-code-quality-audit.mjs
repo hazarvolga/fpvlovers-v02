@@ -1,13 +1,16 @@
 import { spawnSync } from 'node:child_process';
 
-const baseRef = process.env.QUALITY_BASE_REF || '06e2c58';
+const requestedBaseRef = process.env.QUALITY_BASE_REF?.trim();
+// Zero SHA arrives on force-push/first-push events; fall back to the previous commit.
+const baseRef = requestedBaseRef && !/^0+$/.test(requestedBaseRef) ? requestedBaseRef : 'HEAD~1';
 const semanticAny = /(?:\:\s*any\b|\bas\s+any\b|<any>|\bany\[\]|Record<[^>]*any)/;
 const violations = [];
+const MAX_DIFF_BUFFER = 64 * 1024 * 1024;
 
 const diffResult = spawnSync(
   'git',
   ['diff', '--unified=0', baseRef, '--', '*.ts', '*.tsx'],
-  { encoding: 'utf8' },
+  { encoding: 'utf8', maxBuffer: MAX_DIFF_BUFFER },
 );
 
 if (diffResult.status !== 0) {
@@ -42,7 +45,7 @@ for (const line of diffResult.stdout.split(/\r?\n/)) {
 const whitespaceResult = spawnSync(
   'git',
   ['diff', '--check', baseRef, '--'],
-  { encoding: 'utf8' },
+  { encoding: 'utf8', maxBuffer: MAX_DIFF_BUFFER },
 );
 
 if (whitespaceResult.status !== 0) {

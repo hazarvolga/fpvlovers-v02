@@ -98,6 +98,19 @@ const WORKFLOW_CONTENT_TYPES: Record<ContentGenerationTemplate, string> = {
   'community-roundup': 'news',
 };
 
+const MAX_WORKFLOW_ATTEMPTS = 3;
+const RETRYABLE_WORKFLOW_ERROR = /\b(429|500|502|503|504)\b|UNAVAILABLE|high demand|timed? ?out|ECONNRESET|ETIMEDOUT/i;
+
+function delay(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms));
+}
+
+function isRetryableWorkflowFailure(workflow: { success: boolean; status: string; error?: string }): boolean {
+  if (workflow.success) return false;
+  if (workflow.status === 'throttled' || workflow.status === 'budget_exceeded' || workflow.status === 'dry_run') return false;
+  return RETRYABLE_WORKFLOW_ERROR.test(workflow.error || '');
+}
+
 export function normalizeContentGenerationTemplate(template: string): ContentGenerationTemplate {
   if (template === 'product-review') return 'product-review';
   if (template === 'build-guide') return 'build-guide';
@@ -168,17 +181,17 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
   const workflowKeyword = `${baseKeyword} | CRITICAL: The entire article MUST be written in strictly English. DO NOT USE TURKISH.`;
 
   const appKey = getRequiredEnv('DIFY_APP_KEY');
-  const workflow = await runDifyWorkflow(
-    'content-orchestrator',
-    {
-      keyword: workflowKeyword,
-      content_type: contentType,
-      word_count: wordCount,
-    },
-    appKey,
-    'content_gen',
-    180000,
-  );
+  const workflowInputs = {
+    keyword: workflowKeyword,
+    content_type: contentType,
+    word_count: wordCount,
+  };
+
+  let workflow = await runDifyWorkflow('content-orchestrator', workflowInputs, appKey, 'content_gen', 180000);
+  for (let attempt = 1; attempt < MAX_WORKFLOW_ATTEMPTS && isRetryableWorkflowFailure(workflow); attempt += 1) {
+    await delay(attempt * 5000);
+    workflow = await runDifyWorkflow('content-orchestrator', workflowInputs, appKey, 'content_gen', 180000);
+  }
 
   if (!workflow.success) {
     throw new Error(`DIFY_WORKFLOW_${workflow.status}: ${workflow.error || 'Workflow did not succeed'}`);

@@ -154,11 +154,13 @@ export async function GET(req: Request) {
 
         const latestJob = latestJobs[index];
         if (!result.content) {
+          const reason = result.error?.trim() || 'Workflow returned no publishable content.';
           latestJob.status = 'failed';
-          latestJob.feedback = 'Workflow returned no publishable content.';
+          latestJob.feedback = reason;
+          latestJob.error_message = reason;
           latestJob.updatedAt = new Date().toISOString();
           await saveContentJobsNew(latestJobs);
-          results.push({ job: { id: latestJob.id, title: latestJob.title }, action: 'failed' });
+          results.push({ job: { id: latestJob.id, title: latestJob.title }, action: 'failed', error: reason });
           continue;
         }
 

@@ -257,10 +257,13 @@ function normalizeWorkflowResponse(response: DifyClientResponse): DifyWorkflowRe
   const usage = asRecord(metadata?.usage);
 
   const outputs = normalizeWorkflowOutputs(nestedData?.outputs ?? data?.outputs);
+  const workflowStatus = asString(nestedData?.status);
+  const workflowError = asString(nestedData?.error) ?? asString(data?.error);
+  const succeeded = response.ok && (workflowStatus ? workflowStatus === 'succeeded' : true);
 
   return {
-    success: response.ok,
-    status: response.status,
+    success: succeeded,
+    status: succeeded ? response.status : 'error',
     workflowRunId: asString(data?.workflow_run_id)
       ?? asString(data?.workflowRunId)
       ?? asString(nestedData?.workflow_run_id)
@@ -271,7 +274,9 @@ function normalizeWorkflowResponse(response: DifyClientResponse): DifyWorkflowRe
     elapsedTime: asNumber(nestedData?.elapsed_time)
       ?? asNumber(data?.elapsed_time),
     outputs,
-    error: response.error,
+    error: succeeded
+      ? response.error
+      : workflowError ?? response.error ?? `Dify workflow finished with status "${workflowStatus}"`,
     dryRun: response.dryRun,
     budgetRemaining: response.budgetRemaining,
   };
@@ -375,7 +380,10 @@ export async function difyRequest(
       saveBudget(budget);
 
       // ─── CACHE WRITE ───
-      if (cacheEligible && taskType) {
+      // Failed workflow runs return HTTP 200 with an empty payload; caching them replays the failure until TTL.
+      const workflowStatus = asString(asRecord(data?.data)?.status);
+      const workflowSucceeded = !workflowStatus || workflowStatus === 'succeeded';
+      if (cacheEligible && taskType && workflowSucceeded) {
         setCached(cacheHash, data, modelName, taskType).catch(() => {});
       }
 

@@ -19,6 +19,7 @@ jobs:
       CRAWL_DRY_RUN: 'true'
       DIFY_API_KEY: build-placeholder-not-a-real-secret
       DIFY_BASE_URL: https://dify.invalid/v1
+      QUALITY_BASE_REF: ${{ github.event.pull_request.base.sha || github.event.before }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,6 +43,7 @@ jobs:
           npm run editorial:governance-test
           npm run social:contracts-test
           npm run crawl:worker-test
+          npm run dify:client-test
 
       - name: Verify repository
         run: |
