@@ -12,6 +12,10 @@ import { DEFAULT_LOCALE, type Locale } from '@/lib/i18n/locale';
 
 const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 
+export function publishedDirFor(locale: Locale): string {
+  return locale === DEFAULT_LOCALE ? PUBLISHED_DIR : path.join(PUBLISHED_DIR, locale);
+}
+
 const TURKISH_LANGUAGE_MARKERS = [
   'başlangıç',
   'öğren',
@@ -414,13 +418,14 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
   };
 }
 
-export function listPublishedContent(): PublishedArtifact[] {
+export function listPublishedContent(locale: Locale = DEFAULT_LOCALE): PublishedArtifact[] {
   try {
-    const files = fs.readdirSync(PUBLISHED_DIR).filter((f) => f.endsWith('.json'));
+    const directory = publishedDirFor(locale);
+    const files = fs.readdirSync(directory).filter((f) => f.endsWith('.json'));
     return files
       .map((file) => {
         try {
-          const raw = fs.readFileSync(path.join(PUBLISHED_DIR, file), 'utf-8');
+          const raw = fs.readFileSync(path.join(directory, file), 'utf-8');
           const parsed = JSON.parse(raw);
           return ensureMediaArtifact(parsed);
         } catch {
@@ -428,28 +433,31 @@ export function listPublishedContent(): PublishedArtifact[] {
         }
       })
       .filter((a): a is PublishedArtifact => a !== null && typeof a.slug === 'string')
-      .filter((article) => shouldExposePublishedArtifact(article))
+      .filter((artifact) => shouldExposePublishedArtifact(artifact, locale))
       .sort((a, b) => new Date(b.publishedAt || 0).getTime() - new Date(a.publishedAt || 0).getTime());
   } catch {
     return [];
   }
 }
 
-export function getPublishedContentBySlug(slug: string): PublishedArtifact | null {
-  const filePath = path.join(PUBLISHED_DIR, `${slug}.json`);
+export function getPublishedContentBySlug(
+  slug: string,
+  locale: Locale = DEFAULT_LOCALE,
+): PublishedArtifact | null {
+  const filePath = path.join(publishedDirFor(locale), `${slug}.json`);
   try {
     const raw = fs.readFileSync(filePath, 'utf-8');
     const parsed = JSON.parse(raw);
     const artifact = ensureMediaArtifact(parsed);
-    if (artifact && shouldExposePublishedArtifact(artifact)) return artifact;
+    if (artifact && shouldExposePublishedArtifact(artifact, locale)) return artifact;
     return null;
   } catch {
     return null;
   }
 }
 
-export function getPublishedSlugs(): string[] {
-  return listPublishedContent().map((a) => a.slug);
+export function getPublishedSlugs(locale: Locale = DEFAULT_LOCALE): string[] {
+  return listPublishedContent(locale).map((a) => a.slug);
 }
 
 // Wrapped with React's cache() below: a single page render (e.g. an article
@@ -458,18 +466,18 @@ export function getPublishedSlugs(): string[] {
 // deduplicates repeated calls with the same arguments within one render
 // pass — it does not persist across requests, so content freshness is
 // unaffected, it just stops redoing the same work multiple times per view.
-async function listPublishedContentAsyncUncached(): Promise<PublishedArtifact[]> {
-  const files = listPublishedContent();
+async function listPublishedContentAsyncUncached(locale: Locale): Promise<PublishedArtifact[]> {
+  const files = listPublishedContent(locale);
 
   try {
     const { loadPublishedArtifacts } = await import('@/lib/server/published-content-store');
-    const database = await loadPublishedArtifacts();
+    const database = await loadPublishedArtifacts(locale);
     const merged = new Map<string, PublishedArtifact>();
 
     for (const artifact of [...files, ...database]) {
       const normalized = ensureMediaArtifact(artifact);
       if (!normalized) continue;
-      if (!shouldExposePublishedArtifact(normalized)) continue;
+      if (!shouldExposePublishedArtifact(normalized, locale)) continue;
       const existing = merged.get(normalized.slug);
       const existingTime = new Date(existing?.publishedAt || 0).getTime();
       const candidateTime = new Date(normalized.publishedAt || 0).getTime();
@@ -486,28 +494,47 @@ async function listPublishedContentAsyncUncached(): Promise<PublishedArtifact[]>
     return files;
   }
 }
-export const listPublishedContentAsync = cache(listPublishedContentAsyncUncached);
+// cache() cannot carry a default parameter, so the exported helpers stay
+// single-argument-compatible for the 40+ existing English call sites.
+const cachedListPublishedContent = cache(listPublishedContentAsyncUncached);
 
-async function getPublishedContentBySlugAsyncUncached(slug: string): Promise<PublishedArtifact | null> {
+export function listPublishedContentAsync(
+  locale: Locale = DEFAULT_LOCALE,
+): Promise<PublishedArtifact[]> {
+  return cachedListPublishedContent(locale);
+}
+
+async function getPublishedContentBySlugAsyncUncached(
+  slug: string,
+  locale: Locale,
+): Promise<PublishedArtifact | null> {
   try {
     const { getPublishedArtifact } = await import('@/lib/server/published-content-store');
-    const database = await getPublishedArtifact(slug);
+    const database = await getPublishedArtifact(slug, locale);
     const normalized = database ? ensureMediaArtifact(database) : null;
-    if (normalized && shouldExposePublishedArtifact(normalized)) return normalized;
+    if (normalized && shouldExposePublishedArtifact(normalized, locale)) return normalized;
   } catch (error) {
     console.warn(`[Published Content] Database lookup failed for ${slug}, using committed file:`, error);
   }
 
-  return getPublishedContentBySlug(slug);
-}
-export const getPublishedContentBySlugAsync = cache(getPublishedContentBySlugAsyncUncached);
-
-export async function getPublishedSlugsAsync(): Promise<string[]> {
-  return (await listPublishedContentAsync()).map((artifact) => artifact.slug);
+  return getPublishedContentBySlug(slug, locale);
 }
 
-export async function getPublishedJobIdsAsync(): Promise<string[]> {
-  return (await listPublishedContentAsync())
+const cachedGetPublishedContentBySlug = cache(getPublishedContentBySlugAsyncUncached);
+
+export function getPublishedContentBySlugAsync(
+  slug: string,
+  locale: Locale = DEFAULT_LOCALE,
+): Promise<PublishedArtifact | null> {
+  return cachedGetPublishedContentBySlug(slug, locale);
+}
+
+export async function getPublishedSlugsAsync(locale: Locale = DEFAULT_LOCALE): Promise<string[]> {
+  return (await listPublishedContentAsync(locale)).map((artifact) => artifact.slug);
+}
+
+export async function getPublishedJobIdsAsync(locale: Locale = DEFAULT_LOCALE): Promise<string[]> {
+  return (await listPublishedContentAsync(locale))
     .map((artifact) => artifact.jobId)
     .filter((jobId): jobId is string => typeof jobId === 'string' && jobId.trim().length > 0);
 }

@@ -10,8 +10,10 @@ import {
 } from '../src/lib/i18n/locale';
 import { foldTurkish, normalizeSearchText } from '../src/lib/i18n/search-text';
 import {
+  getPublishedContentBySlug,
   hasLanguageMismatch,
   hasTurkishLanguageLeak,
+  listPublishedContent,
   type PublishedArtifact,
 } from '../src/lib/content-automation/content-reader';
 
@@ -132,6 +134,21 @@ check('English artifact is exposed in the English tree', () => {
 
 check('English artifact is a mismatch in the Turkish tree', () => {
   assert.equal(hasLanguageMismatch(englishSample, 'tr'), true);
+});
+
+check('English listing keeps its artifacts and default locale', () => {
+  const english = listPublishedContent('en');
+  assert.ok(english.length > 100, `expected >100 English artifacts, got ${english.length}`);
+  assert.equal(english.length, listPublishedContent().length);
+});
+
+check('Turkish listing is empty until the tr content directory exists', () => {
+  assert.deepEqual(listPublishedContent('tr'), []);
+});
+
+check('Slug lookup respects the locale', () => {
+  assert.ok(getPublishedContentBySlug('fpv-beginner-setup-guide-the-easiest-way-to-get-flying', 'en'));
+  assert.equal(getPublishedContentBySlug('fpv-beginner-setup-guide-the-easiest-way-to-get-flying', 'tr'), null);
 });
 
 let failed = 0;
