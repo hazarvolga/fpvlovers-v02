@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import {
   DEFAULT_LOCALE,
   TRANSLATED_PATHS,
@@ -224,6 +225,12 @@ check('footer copy covers the Turkish legal links', () => {
 check('footer copy falls back to English for untranslated hrefs', () => {
   assert.equal(getFooterCopy('en')['/privacy'], undefined);
   assert.equal(getFooterCopy('tr')['/unknown-page'], undefined);
+});
+
+check('navbar localizes the home and search destinations', () => {
+  const source = readFileSync('src/features/layout/components/Navbar.tsx', 'utf8');
+  assert.match(source, /localizePath\(\s*'\/'\s*,\s*locale\s*\)/, 'navbar logo must localize "/"');
+  assert.match(source, /localizePath\(\s*'\/search'\s*,\s*locale\s*\)/, 'navbar search must localize "/search"');
 });
 
 let failed = 0;

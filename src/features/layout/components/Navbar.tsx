@@ -71,7 +71,7 @@ export function Navbar({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3 group" aria-label={copy.home} onClick={closeNavigation}>
+        <Link href={localizePath('/', locale)} className="flex items-center gap-3 group" aria-label={copy.home} onClick={closeNavigation}>
           <div className="relative h-[72px] w-[180px] -ml-2 overflow-hidden sm:w-[300px]">
             <Image
               src="/logo-type.png"
@@ -167,7 +167,7 @@ export function Navbar({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
 
         <div className="hidden items-center gap-3 lg:flex">
           <Link
-            href="/search"
+            href={localizePath('/search', locale)}
             className="fpv-focus-ring flex h-9 w-9 items-center justify-center rounded-sm border border-white/10 bg-white/[0.03] text-zinc-300 transition-colors hover:border-[#ff3131]/40 hover:text-white"
             aria-label={copy.search}
           >
