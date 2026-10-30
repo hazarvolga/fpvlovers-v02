@@ -44,6 +44,7 @@ jobs:
           npm run social:contracts-test
           npm run crawl:worker-test
           npm run dify:client-test
+          npm run locale:test
 
       - name: Verify repository
         run: |
