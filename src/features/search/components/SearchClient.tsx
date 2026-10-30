@@ -31,6 +31,16 @@ type SearchCopy = {
   unclassified: string;
 };
 
+const TYPE_LABELS_TR: Record<string, string> = {
+  'buyer-guide': 'Satın Alma Rehberi',
+  review: 'İnceleme',
+  comparison: 'Karşılaştırma',
+  tutorial: 'Eğitim',
+  'product-roundup': 'Ürün Derlemesi',
+  news: 'Haber',
+  guide: 'Rehber',
+};
+
 const COPY: Record<Locale, SearchCopy> = {
   en: {
     placeholder: 'Search title, topic, body...',
@@ -72,10 +82,10 @@ const COPY: Record<Locale, SearchCopy> = {
     placeholder: 'Başlık, konu veya metin ara...',
     ariaLabel: 'Başlık, konu veya metin ara...',
     quickTypes: [
-      { value: 'buyer-guide', label: 'Satın Alma Rehberi' },
-      { value: 'review', label: 'İnceleme' },
-      { value: 'comparison', label: 'Karşılaştırma' },
-      { value: 'tutorial', label: 'Eğitim' },
+      { value: 'buyer-guide', label: TYPE_LABELS_TR['buyer-guide'] },
+      { value: 'review', label: TYPE_LABELS_TR.review },
+      { value: 'comparison', label: TYPE_LABELS_TR.comparison },
+      { value: 'tutorial', label: TYPE_LABELS_TR.tutorial },
     ],
     selectLabels: {
       topic: 'Konu',
@@ -112,11 +122,17 @@ function formatLabel(value: string | undefined, locale: Locale): string {
   return (value || COPY[locale].unclassified).replace(/-/g, ' ');
 }
 
-/** Difficulty options read as reader levels when they map to one, otherwise as raw metadata. */
-function difficultyLabel(value: string, locale: Locale): string {
-  if (value === 'beginner' || value === 'intermediate' || value === 'advanced') {
-    return getReaderLevelLabel(value, locale);
+/** Difficulty reads as a reader level in Turkish only, so English output keeps its raw metadata labels. */
+function difficultyLabel(value: string | undefined, locale: Locale): string {
+  if (locale === 'tr' && (value === 'beginner' || value === 'intermediate' || value === 'advanced')) {
+    return getReaderLevelLabel(value, 'tr');
   }
+  return formatLabel(value, locale);
+}
+
+/** Content types are an enumerated vocabulary (Turkish labels), unknown free-form values fall back to formatLabel. */
+function contentTypeLabel(value: string | undefined, locale: Locale): string {
+  if (locale === 'tr' && value) return TYPE_LABELS_TR[value] ?? formatLabel(value, locale);
   return formatLabel(value, locale);
 }
 
@@ -332,7 +348,7 @@ export function SearchClient({ initialContent, initialQuery, locale = DEFAULT_LO
           <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">{copy.selectLabels.contentType}</label>
           <select value={contentTypeFilter} onChange={e => setContentTypeFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
             <option value="">{copy.allOptions.contentType}</option>
-            {options.contentTypes.map(o => <option key={o} value={o}>{formatLabel(o, locale)}</option>)}
+            {options.contentTypes.map(o => <option key={o} value={o}>{contentTypeLabel(o, locale)}</option>)}
           </select>
         </div>
 
@@ -387,7 +403,7 @@ export function SearchClient({ initialContent, initialQuery, locale = DEFAULT_LO
                 className="fpv-public-card fpv-public-card-hover group relative block rounded-lg p-6 transition-all"
               >
                 <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase text-[#ff9b71]">
-                  <span>{formatLabel(a.metadata?.difficulty, locale)} &bull; {formatLabel(a.metadata?.contentType, locale)}</span>
+                  <span>{difficultyLabel(a.metadata?.difficulty, locale)} &bull; {contentTypeLabel(a.metadata?.contentType, locale)}</span>
                   {commercial ? (
                     <span className="bg-[#FFB800]/10 px-2 py-0.5 rounded text-[#FFB800]">{copy.disclosure}</span>
                   ) : a.metadata?.topics?.[0] ? (
