@@ -233,6 +233,15 @@ check('navbar localizes the home and search destinations', () => {
   assert.match(source, /localizePath\(\s*'\/search'\s*,\s*locale\s*\)/, 'navbar search must localize "/search"');
 });
 
+check('footer tiles resolve Turkish titles from the navigation catalog', () => {
+  const tr = getFooterCopy('tr');
+  assert.equal(tr['/tools/calculator'], 'Yapım Hesaplayıcısı');
+  assert.equal(tr['/tools/part-matcher'], 'Parça Eşleştirici');
+  assert.equal(tr['/racing/news'], 'Yarış Haberleri');
+  assert.equal(tr['/regulations/battery'], 'Batarya Güvenliği');
+  assert.equal(tr['/privacy'], 'Gizlilik Politikası');
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {

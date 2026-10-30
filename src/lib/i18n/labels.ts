@@ -150,11 +150,25 @@ export const FOOTER_COPY_TR: Record<string, string> = {
   '/disclosure': 'Ortaklık Açıklaması',
   '/editorial-policy': 'Yayın İlkeleri',
   '/regulations': 'Kurallar',
+  '/regulations/battery': 'Batarya Güvenliği',
   '/academy/glossary': 'Sözlük',
   '/advertise': 'Reklam',
   '/contact': 'İletişim',
   '/sitemap.xml': 'Site Haritası',
 };
+
+/**
+ * Footer-only view of the navigation catalog: the footer also renders links
+ * that are not present in the navigation tree (featured tiles, legal links).
+ * Deriving titles from `NAV_COPY_TR.items` keeps one source of truth; the
+ * explicit `FOOTER_COPY_TR` entries deliberately win for shared hrefs so the
+ * footer can use its shorter labels (e.g. `/academy/glossary` → 'Sözlük').
+ */
+const ITEM_TITLES_TR: Record<string, string> = Object.fromEntries(
+  Object.entries(NAV_COPY_TR.items)
+    .filter(([, copy]) => Boolean(copy.title))
+    .map(([key, copy]) => [key.slice(key.indexOf('|') + 1), copy.title as string]),
+);
 
 export function getNavigation(locale: Locale = DEFAULT_LOCALE): typeof navigationData {
   if (locale === DEFAULT_LOCALE) return navigationData;
@@ -182,5 +196,5 @@ export function getChromeCopy(locale: Locale): ChromeCopy {
 }
 
 export function getFooterCopy(locale: Locale): Record<string, string> {
-  return locale === 'tr' ? FOOTER_COPY_TR : {};
+  return locale === 'tr' ? { ...ITEM_TITLES_TR, ...FOOTER_COPY_TR } : {};
 }
