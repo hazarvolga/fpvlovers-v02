@@ -280,6 +280,17 @@ check('guide taxonomy labels are translated for every group and level', () => {
   }
 });
 
+check('search client folds both document and query text', () => {
+  const source = readFileSync('src/features/search/components/SearchClient.tsx', 'utf8');
+  assert.match(source, /normalizeSearchText/, 'SearchClient must use the shared folding helper');
+  assert.doesNotMatch(source, /query\.trim\(\)\.toLowerCase\(\)/, 'raw toLowerCase on the query bypasses folding');
+});
+
+check('search client localizes article links', () => {
+  const source = readFileSync('src/features/search/components/SearchClient.tsx', 'utf8');
+  assert.match(source, /localizePath/, 'article links must be localized for the Turkish tree');
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {

@@ -1,44 +1,22 @@
 import React from 'react';
 import { listPublishedContentAsync } from '@/lib/content-automation/content-reader';
-import type { PublishedArtifact } from '@/lib/content-automation/content-reader';
 import { SubpageHero, SubpageShell } from '@/components/subpage/SubpageChrome';
-import { SearchClient, type SearchDocument } from './SearchClient';
+import { SearchClient } from '@/features/search/components/SearchClient';
+import { buildSearchDocument } from '@/lib/search/search-document';
 import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 
 export const metadata = {
   title: 'Search Hub | FPVLovers',
   description: 'Search FPV guides, news, tutorials, and reviews.',
+  alternates: {
+    canonical: '/search',
+    languages: { en: '/search', tr: '/tr/search', 'x-default': '/search' },
+  },
 };
 
-function buildSearchDocument(article: PublishedArtifact): SearchDocument {
-  const searchText = [
-    article.title,
-    article.excerpt,
-    article.slug,
-    article.category,
-    article.metadata?.contentType,
-    article.metadata?.difficulty,
-    ...(article.metadata?.topics || []),
-    ...(article.metadata?.discipline || []),
-    ...(article.metadata?.audience || []),
-    ...(article.metadata?.components || []),
-    ...(article.bodySections || []).map((section) => `${section.title} ${section.content}`),
-  ].filter(Boolean).join(' ').toLowerCase();
-
-  return {
-    slug: article.slug,
-    title: article.title,
-    excerpt: article.excerpt,
-    category: article.category,
-    publishedAt: article.publishedAt,
-    metadata: article.metadata,
-    searchText,
-  };
-}
-
 export default async function SearchPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
-  const allContent = await listPublishedContentAsync();
-  const searchIndex = allContent.map(buildSearchDocument);
+  const allContent = await listPublishedContentAsync('en');
+  const searchIndex = allContent.map((article) => buildSearchDocument(article, 'en'));
   const resolvedParams = await searchParams;
   const initialQuery = Array.isArray(resolvedParams.q) ? resolvedParams.q[0] : resolvedParams.q || '';
   const commercialCount = searchIndex.filter((article) => (
@@ -63,7 +41,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
       />
 
       <div className="mt-12">
-          <SearchClient initialContent={searchIndex} initialQuery={initialQuery} />
+          <SearchClient locale="en" initialContent={searchIndex} initialQuery={initialQuery} />
       </div>
     </SubpageShell>
   );

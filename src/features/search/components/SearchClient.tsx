@@ -1,29 +1,123 @@
 "use client";
 
 import React, { useState, useMemo } from 'react';
-import type { ContentMetadata } from '@/lib/content-metadata';
 import { RotateCcw, Search, ShieldCheck } from 'lucide-react';
 import { DiscoveryLink } from '@/components/DiscoveryLink';
+import { getReaderLevelLabel } from '@/lib/content-taxonomy';
+import { DEFAULT_LOCALE, localizePath, type Locale } from '@/lib/i18n/locale';
+import { normalizeSearchText } from '@/lib/i18n/search-text';
+import type { SearchDocument } from '@/lib/search/search-document';
 
 interface SearchClientProps {
   initialContent: SearchDocument[];
   initialQuery: string;
+  locale?: Locale;
 }
 
-export type SearchDocument = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  category: string;
-  publishedAt: string;
-  metadata?: ContentMetadata;
-  searchText: string;
+type SearchCopy = {
+  placeholder: string;
+  ariaLabel: string;
+  quickTypes: { value: string; label: string }[];
+  selectLabels: { topic: string; discipline: string; difficulty: string; audience: string; contentType: string };
+  allOptions: { topic: string; discipline: string; difficulty: string; audience: string; contentType: string };
+  reset: string;
+  counter: (shown: number, filtered: number, total: number) => string;
+  scanNote: string;
+  commercial: (count: number) => string;
+  emptyTitle: string;
+  emptyHint: string;
+  disclosure: string;
+  fallbackExcerpt: string;
+  unclassified: string;
+};
+
+const COPY: Record<Locale, SearchCopy> = {
+  en: {
+    placeholder: 'Search title, topic, body...',
+    ariaLabel: 'Search title, topic, body',
+    quickTypes: [
+      { value: 'buyer-guide', label: 'buyer guide' },
+      { value: 'review', label: 'review' },
+      { value: 'comparison', label: 'comparison' },
+      { value: 'tutorial', label: 'tutorial' },
+    ],
+    selectLabels: {
+      topic: 'Topic',
+      discipline: 'Discipline',
+      difficulty: 'Difficulty',
+      audience: 'Audience',
+      contentType: 'Content Type',
+    },
+    allOptions: {
+      topic: 'All Topics',
+      discipline: 'All Disciplines',
+      difficulty: 'All Difficulties',
+      audience: 'All Audiences',
+      contentType: 'All Types',
+    },
+    reset: 'Reset filters',
+    counter: (shown, filtered, total) =>
+      shown < filtered
+        ? `Showing top ${shown} of ${filtered} results / ${total} indexed`
+        : `${filtered} results / ${total} indexed`,
+    scanNote: 'Full-text scan covers titles, excerpts, metadata, topics, components, and article body sections.',
+    commercial: (count) => `${count} disclosure-aware`,
+    emptyTitle: 'No results found.',
+    emptyHint: 'Try clearing one filter or searching by component names like ELRS, O3, goggles, LiPo, PID, or racing.',
+    disclosure: 'Disclosure',
+    fallbackExcerpt: 'FPVLovers editorial artifact with structured metadata and article sections.',
+    unclassified: 'unclassified',
+  },
+  tr: {
+    placeholder: 'Başlık, konu veya metin ara...',
+    ariaLabel: 'Başlık, konu veya metin ara...',
+    quickTypes: [
+      { value: 'buyer-guide', label: 'Satın Alma Rehberi' },
+      { value: 'review', label: 'İnceleme' },
+      { value: 'comparison', label: 'Karşılaştırma' },
+      { value: 'tutorial', label: 'Eğitim' },
+    ],
+    selectLabels: {
+      topic: 'Konu',
+      discipline: 'Disiplin',
+      difficulty: 'Zorluk',
+      audience: 'Hedef Kitle',
+      contentType: 'İçerik Türü',
+    },
+    allOptions: {
+      topic: 'Tüm Konular',
+      discipline: 'Tüm Disiplinler',
+      difficulty: 'Tüm Zorluklar',
+      audience: 'Tüm Hedef Kitleler',
+      contentType: 'Tüm Türler',
+    },
+    reset: 'Filtreleri sıfırla',
+    counter: (shown, filtered, total) =>
+      shown < filtered
+        ? `İlk ${shown} / ${filtered} sonuç gösteriliyor / ${total} dizinde`
+        : `${filtered} sonuç / ${total} dizinde`,
+    scanNote: 'Tam metin araması başlıkları, özetleri, metadataları, konuları, bileşenleri ve makale gövdesini kapsar.',
+    commercial: (count) => `${count} açıklamalı içerik`,
+    emptyTitle: 'Sonuç bulunamadı.',
+    emptyHint: 'Bir filtreyi temizlemeyi veya ELRS, O3, gözlük, LiPo, PID ya da yarış gibi bileşen adlarıyla aramayı dene.',
+    disclosure: 'Açıklama',
+    fallbackExcerpt: 'Yapılandırılmış metadatası ve makale bölümleri olan FPVLovers editoryal içeriği.',
+    unclassified: 'sınıflandırılmamış',
+  },
 };
 
 const COMMERCIAL_TYPES = new Set(['review', 'comparison', 'buyer-guide', 'product-roundup']);
 
-function formatLabel(value: string | undefined): string {
-  return (value || 'unclassified').replace(/-/g, ' ');
+function formatLabel(value: string | undefined, locale: Locale): string {
+  return (value || COPY[locale].unclassified).replace(/-/g, ' ');
+}
+
+/** Difficulty options read as reader levels when they map to one, otherwise as raw metadata. */
+function difficultyLabel(value: string, locale: Locale): string {
+  if (value === 'beginner' || value === 'intermediate' || value === 'advanced') {
+    return getReaderLevelLabel(value, locale);
+  }
+  return formatLabel(value, locale);
 }
 
 function isCommercialArticle(article: SearchDocument): boolean {
@@ -35,24 +129,28 @@ const MAX_TEXT_RESULTS = 30;
 // Split into words instead of matching the query as one exact phrase — "beginner drone"
 // would otherwise miss a title like "FPV Drones for Beginners" (different word order,
 // pluralized). Every token must appear somewhere in the article for it to match at all.
-function tokenize(query: string): string[] {
-  return query.toLowerCase().split(/\s+/).map((t) => t.trim()).filter((t) => t.length > 1);
+// Folding happens before splitting so "Uçuş" and "ucus" yield the same token.
+function tokenize(query: string, locale: Locale): string[] {
+  return normalizeSearchText(query, locale).split(/\s+/).map((t) => t.trim()).filter((t) => t.length > 1);
 }
 
 function matchesAllTokens(article: SearchDocument, tokens: string[]): boolean {
   return tokens.every((token) => article.searchText.includes(token));
 }
 
-function metadataText(article: SearchDocument): string {
-  return [
-    article.category,
-    article.metadata?.contentType,
-    article.metadata?.difficulty,
-    ...(article.metadata?.topics || []),
-    ...(article.metadata?.discipline || []),
-    ...(article.metadata?.audience || []),
-    ...(article.metadata?.components || []),
-  ].filter(Boolean).join(' ').toLowerCase();
+function metadataText(article: SearchDocument, locale: Locale): string {
+  return normalizeSearchText(
+    [
+      article.category,
+      article.metadata?.contentType,
+      article.metadata?.difficulty,
+      ...(article.metadata?.topics || []),
+      ...(article.metadata?.discipline || []),
+      ...(article.metadata?.audience || []),
+      ...(article.metadata?.components || []),
+    ].filter(Boolean).join(' '),
+    locale,
+  );
 }
 
 // searchText blends title, excerpt, metadata, and full article body into one blob so
@@ -60,11 +158,11 @@ function metadataText(article: SearchDocument): string {
 // body counts the same as a title match. Score by where each token appears (title beats
 // excerpt beats metadata beats body-only) plus a bonus for the exact phrase in the title,
 // so genuinely on-topic articles outrank a coincidental body-text mention.
-function relevanceScore(article: SearchDocument, tokens: string[], phrase: string): number {
+function relevanceScore(article: SearchDocument, tokens: string[], phrase: string, locale: Locale): number {
   if (!tokens.length) return 0;
-  const title = article.title.toLowerCase();
-  const excerpt = (article.excerpt || '').toLowerCase();
-  const metaText = metadataText(article);
+  const title = normalizeSearchText(article.title, locale);
+  const excerpt = normalizeSearchText(article.excerpt || '', locale);
+  const metaText = metadataText(article, locale);
   let score = 0;
   for (const token of tokens) {
     if (title.includes(token)) score += 20;
@@ -76,7 +174,8 @@ function relevanceScore(article: SearchDocument, tokens: string[], phrase: strin
   return score;
 }
 
-export function SearchClient({ initialContent, initialQuery }: SearchClientProps) {
+export function SearchClient({ initialContent, initialQuery, locale = DEFAULT_LOCALE }: SearchClientProps) {
+  const copy = COPY[locale];
   const [query, setQuery] = useState(initialQuery);
   const [topicFilter, setTopicFilter] = useState('');
   const [disciplineFilter, setDisciplineFilter] = useState('');
@@ -110,8 +209,8 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
   }, [initialContent]);
 
   const filteredContent = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const tokens = tokenize(q);
+    const q = normalizeSearchText(query.trim(), locale);
+    const tokens = tokenize(q, locale);
     const matched = initialContent.filter(a => {
       // Text search — every query word must appear somewhere in the article
       if (tokens.length && !matchesAllTokens(a, tokens)) return false;
@@ -130,8 +229,8 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
 
     // Rank by relevance so title/excerpt/metadata matches surface above a coincidental
     // body-text mention; Array.sort is stable, so equal scores keep their original order.
-    return [...matched].sort((a, b) => relevanceScore(b, tokens, q) - relevanceScore(a, tokens, q));
-  }, [initialContent, query, topicFilter, disciplineFilter, difficultyFilter, audienceFilter, contentTypeFilter]);
+    return [...matched].sort((a, b) => relevanceScore(b, tokens, q, locale) - relevanceScore(a, tokens, q, locale));
+  }, [initialContent, query, topicFilter, disciplineFilter, difficultyFilter, audienceFilter, contentTypeFilter, locale]);
   const activeFilterCount = [topicFilter, disciplineFilter, difficultyFilter, audienceFilter, contentTypeFilter]
     .filter(Boolean).length + (query.trim() ? 1 : 0);
   const commercialResultCount = filteredContent.filter(isCommercialArticle).length;
@@ -174,66 +273,66 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
             type="text"
             value={query}
             onChange={e => setQuery(e.target.value)}
-            placeholder="Search title, topic, body..."
-            aria-label="Search title, topic, body"
+            placeholder={copy.placeholder}
+            aria-label={copy.ariaLabel}
             className="w-full rounded border border-white/10 bg-black/60 py-3 pl-9 pr-3 font-mono text-base sm:text-xs uppercase text-white placeholder:text-white/25 focus:border-[#FF5C00] focus:outline-none"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-2">
-          {['buyer-guide', 'review', 'comparison', 'tutorial'].map((type) => (
+          {copy.quickTypes.map((type) => (
             <button
-              key={type}
+              key={type.value}
               type="button"
-              onClick={() => setContentTypeFilter(type)}
+              onClick={() => setContentTypeFilter(type.value)}
               className={`rounded border px-2 py-2 text-[9px] font-black uppercase tracking-widest transition-colors ${
-                contentTypeFilter === type
+                contentTypeFilter === type.value
                   ? 'border-[#FF5C00] bg-[#FF5C00]/15 text-[#FF5C00]'
                   : 'border-white/10 bg-black/30 text-white/55 hover:border-[#FF5C00]/40 hover:text-white'
               }`}
             >
-              {formatLabel(type)}
+              {type.label}
             </button>
           ))}
         </div>
 
         <div>
-          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Topic</label>
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">{copy.selectLabels.topic}</label>
           <select value={topicFilter} onChange={e => setTopicFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
-            <option value="">All Topics</option>
-            {options.topics.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
+            <option value="">{copy.allOptions.topic}</option>
+            {options.topics.map(o => <option key={o} value={o}>{formatLabel(o, locale)}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Discipline</label>
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">{copy.selectLabels.discipline}</label>
           <select value={disciplineFilter} onChange={e => setDisciplineFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
-            <option value="">All Disciplines</option>
-            {options.disciplines.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
+            <option value="">{copy.allOptions.discipline}</option>
+            {options.disciplines.map(o => <option key={o} value={o}>{formatLabel(o, locale)}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Difficulty</label>
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">{copy.selectLabels.difficulty}</label>
           <select value={difficultyFilter} onChange={e => setDifficultyFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
-            <option value="">All Difficulties</option>
-            {options.difficulties.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
+            <option value="">{copy.allOptions.difficulty}</option>
+            {options.difficulties.map(o => <option key={o} value={o}>{difficultyLabel(o, locale)}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Audience</label>
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">{copy.selectLabels.audience}</label>
           <select value={audienceFilter} onChange={e => setAudienceFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
-            <option value="">All Audiences</option>
-            {options.audiences.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
+            <option value="">{copy.allOptions.audience}</option>
+            {options.audiences.map(o => <option key={o} value={o}>{formatLabel(o, locale)}</option>)}
           </select>
         </div>
 
         <div>
-          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">Content Type</label>
+          <label className="mb-2 block text-[10px] font-black uppercase tracking-widest text-[#ff9b71]">{copy.selectLabels.contentType}</label>
           <select value={contentTypeFilter} onChange={e => setContentTypeFilter(e.target.value)} className="w-full rounded border border-white/10 bg-black/60 p-2 font-mono text-xs uppercase text-white focus:border-[#FF5C00] focus:outline-none">
-            <option value="">All Types</option>
-            {options.contentTypes.map(o => <option key={o} value={o}>{formatLabel(o)}</option>)}
+            <option value="">{copy.allOptions.contentType}</option>
+            {options.contentTypes.map(o => <option key={o} value={o}>{formatLabel(o, locale)}</option>)}
           </select>
         </div>
 
@@ -243,7 +342,7 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
             onClick={resetFilters}
             className="flex items-center justify-center gap-2 rounded border border-white/10 bg-black/40 px-4 py-3 text-[10px] font-black uppercase tracking-widest text-white/70 transition-colors hover:border-[#FF5C00]/60 hover:text-[#FF5C00]"
           >
-            <RotateCcw className="h-3.5 w-3.5" /> Reset filters
+            <RotateCcw className="h-3.5 w-3.5" /> {copy.reset}
           </button>
         )}
       </aside>
@@ -254,18 +353,16 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-[10px] font-black uppercase tracking-widest text-[#FF5C00]">
-                {displayedContent.length < filteredContent.length
-                  ? `Showing top ${displayedContent.length} of ${filteredContent.length} results / ${initialContent.length} indexed`
-                  : `${filteredContent.length} results / ${initialContent.length} indexed`}
+                {copy.counter(displayedContent.length, filteredContent.length, initialContent.length)}
               </p>
               <p className="mt-1 text-sm text-[#A0A0A0]">
-                Full-text scan covers titles, excerpts, metadata, topics, components, and article body sections.
+                {copy.scanNote}
               </p>
             </div>
             {commercialResultCount > 0 && (
               <div className="flex items-center gap-2 rounded border border-[#FFB800]/25 bg-[#FFB800]/10 px-3 py-2 text-[10px] font-black uppercase tracking-widest text-[#FFB800]">
                 <ShieldCheck className="h-3.5 w-3.5" />
-                {commercialResultCount} disclosure-aware
+                {copy.commercial(commercialResultCount)}
               </div>
             )}
           </div>
@@ -274,8 +371,8 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         {displayedContent.length === 0 ? (
           <div className="col-span-full p-12 text-center text-[#A0A0A0] border border-dashed border-white/10 rounded">
-            <p className="text-lg font-bold text-white">No results found.</p>
-            <p className="mt-2 text-sm">Try clearing one filter or searching by component names like ELRS, O3, goggles, LiPo, PID, or racing.</p>
+            <p className="text-lg font-bold text-white">{copy.emptyTitle}</p>
+            <p className="mt-2 text-sm">{copy.emptyHint}</p>
           </div>
         ) : (
           displayedContent.map(a => {
@@ -283,26 +380,26 @@ export function SearchClient({ initialContent, initialQuery }: SearchClientProps
             return (
               <DiscoveryLink
                 key={a.slug}
-                href={`/article/${a.slug}`}
+                href={localizePath(`/article/${a.slug}`, locale)}
                 targetSlug={a.slug}
                 linkType="search_result"
                 searchQuery={query}
                 className="fpv-public-card fpv-public-card-hover group relative block rounded-lg p-6 transition-all"
               >
                 <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase text-[#ff9b71]">
-                  <span>{formatLabel(a.metadata?.difficulty)} &bull; {formatLabel(a.metadata?.contentType)}</span>
+                  <span>{formatLabel(a.metadata?.difficulty, locale)} &bull; {formatLabel(a.metadata?.contentType, locale)}</span>
                   {commercial ? (
-                    <span className="bg-[#FFB800]/10 px-2 py-0.5 rounded text-[#FFB800]">Disclosure</span>
+                    <span className="bg-[#FFB800]/10 px-2 py-0.5 rounded text-[#FFB800]">{copy.disclosure}</span>
                   ) : a.metadata?.topics?.[0] ? (
-                    <span className="bg-white/10 px-2 py-0.5 rounded">{formatLabel(a.metadata.topics[0])}</span>
+                    <span className="bg-white/10 px-2 py-0.5 rounded">{formatLabel(a.metadata.topics[0], locale)}</span>
                   ) : null}
                 </div>
                 <h3 className="mb-2 line-clamp-2 text-lg font-bold text-white transition-colors group-hover:text-[#FF5C00]">{a.title}</h3>
-                <p className="text-sm text-[#A0A0A0] line-clamp-3">{a.excerpt || 'FPVLovers editorial artifact with structured metadata and article sections.'}</p>
+                <p className="text-sm text-[#A0A0A0] line-clamp-3">{a.excerpt || copy.fallbackExcerpt}</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {(a.metadata?.topics || []).slice(0, 3).map((topic) => (
                     <span key={topic} className="rounded border border-white/10 bg-black/40 px-2 py-1 text-[9px] font-bold uppercase tracking-widest text-white/45">
-                      {formatLabel(topic)}
+                      {formatLabel(topic, locale)}
                     </span>
                   ))}
                 </div>
