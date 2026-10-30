@@ -24,9 +24,9 @@ import type { Metadata } from 'next';
 export const revalidate = 300;
 
 // layout.tsx sets the site-wide default title/description/OG that this page
-// inherits — this only adds the canonical tag, which layout.tsx can't set
-// globally (a single fixed canonical there would incorrectly apply to every
-// page that doesn't override it).
+// inherits — this only adds the canonical tag and its language alternates,
+// which layout.tsx can't set globally (a single fixed canonical there would
+// incorrectly apply to every page that doesn't override it).
 export const metadata: Metadata = {
   alternates: {
     canonical: '/',
