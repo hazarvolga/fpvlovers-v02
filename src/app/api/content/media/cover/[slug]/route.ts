@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import sharp from 'sharp';
 import { getPublishedContentBySlugAsync } from '@/lib/content-automation/content-reader';
 import { buildCoverImageSvg } from '@/lib/content-automation/content-media';
+import { resolveLocale } from '@/lib/i18n/locale';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 
 const registryBySlug = new Map<string, (typeof firstWaveContentPlan)[number]>(
@@ -19,11 +20,12 @@ function humanizeSlug(slug: string): string {
 }
 
 export async function GET(
-  _req: Request,
+  request: Request,
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const published = await getPublishedContentBySlugAsync(slug);
+  const locale = resolveLocale(new URL(request.url).searchParams.get('locale'));
+  const published = await getPublishedContentBySlugAsync(slug, locale);
   const registry = registryBySlug.get(slug);
 
   const title = published?.title || registry?.title || humanizeSlug(slug);

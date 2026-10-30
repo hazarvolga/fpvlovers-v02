@@ -1,3 +1,5 @@
+import { DEFAULT_LOCALE, type Locale } from '@/lib/i18n/locale';
+
 export type ContentMediaAsset = {
   src: string;
   alt: string;
@@ -214,8 +216,14 @@ ${input.artworkOnly ? '' : `  <g opacity="0.96">
 </svg>`.trim();
 }
 
-export function buildCoverImageUrl(slug: string): string {
-  return `/api/content/media/cover/${encodeURIComponent(slug)}`;
+/**
+ * Turkish and English share slugs, so the locale must be part of the URL —
+ * a header or cookie would be invisible to the route cache and the Next image
+ * optimizer, and the two covers would collide.
+ */
+export function buildCoverImageUrl(slug: string, locale: Locale = DEFAULT_LOCALE): string {
+  const base = `/api/content/media/cover/${encodeURIComponent(slug)}`;
+  return locale === DEFAULT_LOCALE ? base : `${base}?locale=${locale}`;
 }
 
 export function buildContentMedia(input: {

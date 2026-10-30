@@ -16,6 +16,7 @@ import {
   listPublishedContent,
   type PublishedArtifact,
 } from '../src/lib/content-automation/content-reader';
+import { buildCoverImageUrl } from '../src/lib/content-automation/content-media';
 
 const checks: { name: string; run: () => void }[] = [];
 function check(name: string, run: () => void): void {
@@ -149,6 +150,18 @@ check('Turkish listing is empty until the tr content directory exists', () => {
 check('Slug lookup respects the locale', () => {
   assert.ok(getPublishedContentBySlug('fpv-beginner-setup-guide-the-easiest-way-to-get-flying', 'en'));
   assert.equal(getPublishedContentBySlug('fpv-beginner-setup-guide-the-easiest-way-to-get-flying', 'tr'), null);
+});
+
+check('English cover URLs are unchanged', () => {
+  assert.equal(buildCoverImageUrl('fpv-simulator'), '/api/content/media/cover/fpv-simulator');
+  assert.equal(buildCoverImageUrl('fpv-simulator', 'en'), '/api/content/media/cover/fpv-simulator');
+});
+
+check('Turkish cover URLs get a distinct cache key', () => {
+  assert.equal(
+    buildCoverImageUrl('fpv-simulator', 'tr'),
+    '/api/content/media/cover/fpv-simulator?locale=tr',
+  );
 });
 
 let failed = 0;
