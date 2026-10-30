@@ -10,6 +10,14 @@ import {
   splitLocalePath,
 } from '../src/lib/i18n/locale';
 import { foldTurkish, normalizeSearchText } from '../src/lib/i18n/search-text';
+import { START_STEPS } from '../src/lib/i18n/start-steps';
+import {
+  GUIDE_GROUPS,
+  READER_LEVELS,
+  getGuideGroupDescription,
+  getGuideGroupLabel,
+  getReaderLevelLabel,
+} from '../src/lib/content-taxonomy';
 import {
   getPublishedContentBySlug,
   hasLanguageMismatch,
@@ -242,6 +250,34 @@ check('footer tiles resolve Turkish titles from the navigation catalog', () => {
   assert.equal(tr['/privacy'], 'Gizlilik Politikası');
   assert.equal(tr['/regulations'], 'Kurallar');
   assert.equal(tr['/academy/glossary'], 'Sözlük');
+});
+
+check('start steps exist for both locales', () => {
+  for (const locale of ['en', 'tr'] as const) {
+    assert.equal(START_STEPS[locale].length, 6, `${locale} must have six steps`);
+    for (const step of START_STEPS[locale]) {
+      assert.ok(step.title, `${locale} step is missing a title`);
+      assert.ok(step.why, `${locale} step is missing a rationale`);
+      assert.ok(step.todo.length > 0, `${locale} step ${step.title} has no actions`);
+    }
+  }
+});
+
+check('Turkish start steps ship as a shell without English article slugs', () => {
+  assert.ok(START_STEPS.tr.every((step) => step.articleSlugs.length === 0));
+  assert.equal(START_STEPS.en[0].articleSlugs.length > 0, true);
+});
+
+check('guide taxonomy labels are translated for every group and level', () => {
+  for (const group of GUIDE_GROUPS) {
+    assert.equal(getGuideGroupLabel(group, 'en'), group.label);
+    assert.notEqual(getGuideGroupLabel(group, 'tr'), group.label, `missing tr label for ${group.id}`);
+    assert.ok(getGuideGroupDescription(group, 'tr'), `missing tr description for ${group.id}`);
+  }
+  for (const level of READER_LEVELS) {
+    assert.equal(getReaderLevelLabel(level.id, 'en'), level.label);
+    assert.notEqual(getReaderLevelLabel(level.id, 'tr'), level.label, `missing tr label for ${level.id}`);
+  }
 });
 
 let failed = 0;

@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { getReaderLevelLabel, toReaderLevel } from '@/lib/content-taxonomy';
+import type { Locale } from '@/lib/i18n/locale';
 
 const levelStyles = {
   beginner: 'border-emerald-500/30 bg-emerald-500/10 text-emerald-300',
@@ -8,7 +9,15 @@ const levelStyles = {
 } as const;
 
 /** Skill-level pill derived from an article's `metadata.difficulty`. Renders nothing when unknown. */
-export function LevelBadge({ difficulty, className }: { difficulty?: string; className?: string }) {
+export function LevelBadge({
+  difficulty,
+  className,
+  locale = 'en',
+}: {
+  difficulty?: string;
+  className?: string;
+  locale?: Locale;
+}) {
   const level = toReaderLevel(difficulty);
   if (!level) return null;
 
@@ -20,7 +29,7 @@ export function LevelBadge({ difficulty, className }: { difficulty?: string; cla
         className,
       )}
     >
-      {getReaderLevelLabel(level)}
+      {getReaderLevelLabel(level, locale)}
     </span>
   );
 }

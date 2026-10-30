@@ -1,4 +1,5 @@
 import type { Difficulty } from '@/lib/content-metadata';
+import { DEFAULT_LOCALE, type Locale } from '@/lib/i18n/locale';
 
 /**
  * Reader-facing content taxonomy.
@@ -99,6 +100,30 @@ export function toReaderLevel(difficulty: Difficulty | string | undefined): Read
   return undefined;
 }
 
-export function getReaderLevelLabel(level: ReaderLevel): string {
-  return READER_LEVELS.find((item) => item.id === level)?.label ?? level;
+const GROUP_LABELS_TR: Record<GuideGroupId, { label: string; description: string }> = {
+  flying: { label: 'Uçuş Teknikleri', description: 'Kurulum, pratik planı ve uçuş tekniği.' },
+  building: { label: 'Toplama ve Parçalar', description: 'Bileşenler, yapımlar, güç, radyo linki ve gövdeler.' },
+  tuning: { label: 'Ayar ve Betaflight', description: 'PID ayarı, filtreler ve uçuş kontrolcüsü kurulumu.' },
+  troubleshooting: { label: 'Sorun Giderme', description: 'Görüntü yok, arm olmuyor, failsafe ve diğer yaygın sorunlar.' },
+  buying: { label: 'Satın Alma', description: 'Satın alma rehberleri, incelemeler ve karşılaştırmalar.' },
+  'rules-safety': { label: 'Kurallar ve Güvenlik', description: 'Mevzuat, hava sahası ve güvenli uçuş.' },
+  racing: { label: 'Yarış', description: 'Yarış formatları, etkinlikler ve müsabaka.' },
+};
+
+const LEVEL_LABELS_TR: Record<ReaderLevel, string> = {
+  beginner: 'Başlangıç',
+  intermediate: 'Orta',
+  advanced: 'İleri',
+};
+
+export function getGuideGroupLabel(group: GuideGroup, locale: Locale = DEFAULT_LOCALE): string {
+  return locale === 'tr' ? GROUP_LABELS_TR[group.id].label : group.label;
+}
+
+export function getGuideGroupDescription(group: GuideGroup, locale: Locale = DEFAULT_LOCALE): string {
+  return locale === 'tr' ? GROUP_LABELS_TR[group.id].description : group.description;
+}
+
+export function getReaderLevelLabel(level: ReaderLevel, locale: Locale = DEFAULT_LOCALE): string {
+  return locale === 'tr' ? LEVEL_LABELS_TR[level] : (READER_LEVELS.find((item) => item.id === level)?.label ?? level);
 }
