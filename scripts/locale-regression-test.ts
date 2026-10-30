@@ -17,6 +17,15 @@ import {
   type PublishedArtifact,
 } from '../src/lib/content-automation/content-reader';
 import { buildCoverImageUrl } from '../src/lib/content-automation/content-media';
+import { navigationData } from '../src/lib/navigationData';
+import {
+  CHROME_COPY,
+  FOOTER_COPY_TR,
+  NAV_COPY_TR,
+  getChromeCopy,
+  getFooterCopy,
+  getNavigation,
+} from '../src/lib/i18n/labels';
 
 const checks: { name: string; run: () => void }[] = [];
 function check(name: string, run: () => void): void {
@@ -162,6 +171,59 @@ check('Turkish cover URLs get a distinct cache key', () => {
     buildCoverImageUrl('fpv-simulator', 'tr'),
     '/api/content/media/cover/fpv-simulator?locale=tr',
   );
+});
+
+check('every navigation group has Turkish copy', () => {
+  for (const group of navigationData) {
+    const copy = NAV_COPY_TR.groups[group.href];
+    assert.ok(copy?.title, `missing tr title for group ${group.href}`);
+    assert.ok(copy?.label, `missing tr label for group ${group.href}`);
+    assert.ok(group.items.length > 0);
+  }
+});
+
+check('every navigation item has Turkish copy', () => {
+  for (const group of navigationData) {
+    for (const item of group.items) {
+      const copy = NAV_COPY_TR.items[`${group.href}|${item.href}`];
+      assert.ok(copy?.title, `missing tr title for item ${group.href} -> ${item.href}`);
+      assert.ok(copy?.description, `missing tr description for item ${group.href} -> ${item.href}`);
+    }
+  }
+});
+
+check('Turkish navigation keeps English structure and hrefs', () => {
+  const tr = getNavigation('tr');
+  assert.equal(tr.length, navigationData.length);
+  tr.forEach((group, index) => {
+    assert.deepEqual(group.items.map((item) => item.href), navigationData[index].items.map((item) => item.href));
+  });
+  assert.equal(getNavigation('en'), navigationData);
+});
+
+check('Turkish navigation is actually Turkish', () => {
+  const tr = getNavigation('tr');
+  const titles = tr.map((group) => group.title).join(' ');
+  assert.notEqual(titles, getNavigation('en').map((group) => group.title).join(' '));
+  assert.equal(tr[0].title, 'Buradan Başla');
+});
+
+check('chrome copy exists for both locales', () => {
+  assert.equal(getChromeCopy('en').search, 'Search FPVLovers');
+  assert.equal(getChromeCopy('tr').search, 'FPVLovers içinde ara');
+  assert.ok(CHROME_COPY.tr.openMenu);
+});
+
+check('footer copy covers the Turkish legal links', () => {
+  const tr = getFooterCopy('tr');
+  assert.equal(tr['/privacy'], 'Gizlilik Politikası');
+  assert.equal(tr['/terms'], 'Kullanım Koşulları');
+  assert.ok(Object.keys(FOOTER_COPY_TR).length >= 8);
+});
+
+check('footer copy falls back to English for untranslated hrefs', () => {
+  assert.equal(getFooterCopy('en')['/privacy'], undefined);
+  assert.equal(getFooterCopy('tr')['/unknown-page'], undefined);
 });
 
 let failed = 0;

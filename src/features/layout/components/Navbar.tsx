@@ -6,22 +6,23 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronRight, Menu, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { navigationData } from '@/lib/navigationData';
+import { getChromeCopy, getNavigation } from '@/lib/i18n/labels';
+import { DEFAULT_LOCALE, localizePath, type Locale } from '@/lib/i18n/locale';
 import { cn } from '@/lib/utils';
 import { useSession, signOut } from 'next-auth/react';
 import { loadDossierFromBrowser } from '@/lib/state/dossier-serializer';
 import { PilotDossier } from '@/types/pilot-dossier';
-import type { Locale } from '@/lib/i18n/locale';
+import { LanguageSwitch } from './LanguageSwitch';
 
-const navLinks = navigationData.map((item) => ({
-  title: item.title,
-  href: item.href,
-  icon: item.icon,
-  label: item.label,
-  items: item.items,
-}));
-
-export function Navbar({ locale = 'en' }: { locale?: Locale }) {
+export function Navbar({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
+  const copy = getChromeCopy(locale);
+  const navLinks = getNavigation(locale).map((item) => ({
+    title: item.title,
+    label: item.label,
+    href: localizePath(item.href, locale),
+    items: item.items.map((sub) => ({ ...sub, href: localizePath(sub.href, locale) })),
+    icon: item.icon,
+  }));
   const { data: session, status } = useSession();
   const [localDossier, setLocalDossier] = useState<PilotDossier | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -70,7 +71,7 @@ export function Navbar({ locale = 'en' }: { locale?: Locale }) {
       )}
     >
       <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3 group" aria-label="FPVLovers home" onClick={closeNavigation}>
+        <Link href="/" className="flex items-center gap-3 group" aria-label={copy.home} onClick={closeNavigation}>
           <div className="relative h-[72px] w-[180px] -ml-2 overflow-hidden sm:w-[300px]">
             <Image
               src="/logo-type.png"
@@ -168,10 +169,12 @@ export function Navbar({ locale = 'en' }: { locale?: Locale }) {
           <Link
             href="/search"
             className="fpv-focus-ring flex h-9 w-9 items-center justify-center rounded-sm border border-white/10 bg-white/[0.03] text-zinc-300 transition-colors hover:border-[#ff3131]/40 hover:text-white"
-            aria-label="Search FPVLovers"
+            aria-label={copy.search}
           >
             <Search className="h-4 w-4" strokeWidth={1.6} />
           </Link>
+
+          <LanguageSwitch locale={locale} />
 
           {/* Dynamic Authentication Button */}
           {status === 'authenticated' ? (
@@ -276,7 +279,7 @@ export function Navbar({ locale = 'en' }: { locale?: Locale }) {
           size="icon"
           className="h-11 w-11 lg:hidden"
           onClick={() => setMobileMenuOpen((open) => !open)}
-          aria-label={mobileMenuOpen ? 'Close navigation' : 'Open navigation'}
+          aria-label={mobileMenuOpen ? copy.closeMenu : copy.openMenu}
         >
           {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>

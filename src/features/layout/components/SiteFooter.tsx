@@ -1,20 +1,8 @@
 import Link from 'next/link';
 import { Battery, Mail, Radio, ShieldCheck, Zap, ArrowUpRight } from 'lucide-react';
-import { navigationData } from '@/lib/navigationData';
+import { getChromeCopy, getFooterCopy, getNavigation } from '@/lib/i18n/labels';
+import { DEFAULT_LOCALE, localizePath, type Locale } from '@/lib/i18n/locale';
 import { BackToTop } from './BackToTop';
-import type { Locale } from '@/lib/i18n/locale';
-
-// GAP #3: Filter out nav groups with no items — empty groups created visual holes.
-const footerGroups = navigationData
-  .filter((group) => group.items.length > 0)
-  .map((group) => ({
-    title: group.title,
-    href: group.href,
-    items: group.items.slice(0, 4).map((item) => ({
-      title: item.title,
-      href: item.href,
-    })),
-  }));
 
 const featuredLinks = [
   { title: 'Build Calculator', href: '/tools/calculator', icon: Zap },
@@ -51,8 +39,22 @@ const legalGroups = [
   },
 ];
 
-export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
+export function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
   const year = new Date().getFullYear();
+  const footerCopy = getFooterCopy(locale);
+  const chromeCopy = getChromeCopy(locale);
+
+  // GAP #3: Filter out nav groups with no items — empty groups created visual holes.
+  const footerGroups = getNavigation(locale)
+    .filter((group) => group.items.length > 0)
+    .map((group) => ({
+      title: group.title,
+      href: localizePath(group.href, locale),
+      items: group.items.slice(0, 4).map((item) => ({
+        title: footerCopy[item.href] ?? item.title,
+        href: localizePath(item.href, locale),
+      })),
+    }));
 
   return (
     <>
@@ -69,7 +71,7 @@ export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
 
             {/* Left: brand + featured quick-access links */}
             <div className="space-y-7">
-              <Link href="/" className="inline-flex items-center gap-3 group" aria-label="FPVLovers home">
+              <Link href={localizePath('/', locale)} className="inline-flex items-center gap-3 group" aria-label={chromeCopy.home}>
                 <div className="flex h-10 w-10 items-center justify-center rounded-sm border border-[#ff3131]/30 bg-[#ff3131]/10 text-[#ff3131] transition-colors group-hover:border-[#ff3131]">
                   <span className="text-xs font-mono font-bold tracking-widest">FPV</span>
                 </div>
@@ -88,11 +90,11 @@ export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
                 {featuredLinks.map((item) => (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={localizePath(item.href, locale)}
                     className="group flex min-h-[44px] items-center gap-2 rounded-sm border border-white/10 bg-[#111419]/60 px-3 py-3 text-[11px] font-mono font-bold uppercase tracking-wider text-zinc-400 transition-colors hover:border-[#ff3131]/40 hover:bg-[#ff3131]/10 hover:text-zinc-100"
                   >
                     <item.icon className="h-3.5 w-3.5 shrink-0 text-[#ff3131] transition-colors group-hover:text-white" />
-                    <span className="line-clamp-1">{item.title}</span>
+                    <span className="line-clamp-1">{footerCopy[item.href] ?? item.title}</span>
                   </Link>
                 ))}
               </div>
@@ -163,10 +165,10 @@ export function SiteFooter({ locale = 'en' }: { locale?: Locale }) {
                   {group.links.map((link) => (
                     <Link
                       key={link.href}
-                      href={link.href}
+                      href={localizePath(link.href, locale)}
                       className="py-1 font-mono text-[10px] uppercase tracking-widest text-zinc-400 transition-colors hover:text-zinc-200"
                     >
-                      {link.title}
+                      {footerCopy[link.href] ?? link.title}
                     </Link>
                   ))}
                   <span className="hidden text-zinc-700 last:hidden sm:inline" aria-hidden>·</span>
