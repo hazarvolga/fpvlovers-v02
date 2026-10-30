@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { DEFAULT_LOCALE, isTranslatedPath, localizePath, type Locale } from '@/lib/i18n/locale';
 
 const BASE = process.env.APP_URL || 'https://fpvlovers.com.tr';
 const DEFAULT_OG_IMAGE = `${BASE}/api/content/media/cover/site-default`;
@@ -10,6 +11,7 @@ export function generateSeoMetadata({
   ogImage,
   type = 'article',
   publishedAt,
+  locale = DEFAULT_LOCALE,
 }: {
   title: string;
   description: string;
@@ -17,13 +19,22 @@ export function generateSeoMetadata({
   ogImage?: string;
 	  type?: 'article' | 'website' | 'product';
   publishedAt?: string;
+  locale?: Locale;
 }): Metadata {
-  const url = `${BASE}${path}`;
+  const canonicalPath = localizePath(path, locale);
+  const url = `${BASE}${canonicalPath}`;
+  const languages = isTranslatedPath(path)
+    ? {
+        en: `${BASE}${path}`,
+        tr: `${BASE}${localizePath(path, 'tr')}`,
+        'x-default': `${BASE}${path}`,
+      }
+    : undefined;
 
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: languages ? { canonical: url, languages } : { canonical: url },
     openGraph: {
       title,
       description,
@@ -32,7 +43,7 @@ export function generateSeoMetadata({
       images: [{ url: ogImage || DEFAULT_OG_IMAGE, width: 1200, height: 630 }],
       ...(publishedAt && { publishedTime: publishedAt }),
       siteName: 'FPV Lovers',
-      locale: 'en_US',
+      locale: locale === 'tr' ? 'tr_TR' : 'en_US',
     },
     twitter: {
       card: 'summary_large_image',
