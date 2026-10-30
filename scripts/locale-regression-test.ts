@@ -60,6 +60,18 @@ check('translated paths are listed explicitly', () => {
   assert.ok(TRANSLATED_PATHS.includes('/'));
 });
 
+check('translated path allowlist is explicit', () => {
+  assert.deepEqual([...TRANSLATED_PATHS], ['/', '/academy', '/guides', '/search']);
+});
+
+check('trailing slashes do not defeat the allowlist', () => {
+  assert.equal(isTranslatedPath('/academy/'), true);
+  assert.equal(localizePath('/academy/', 'tr'), '/tr/academy');
+  assert.equal(localizePath('/', 'tr'), '/tr');
+  assert.equal(localizePath('/guides/?level=beginner', 'tr'), '/tr/guides?level=beginner');
+  assert.equal(localizePath('/academy/', 'en'), '/academy/');
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {

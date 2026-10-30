@@ -20,18 +20,25 @@ export function resolveLocale(value: unknown): Locale {
   return isLocale(value) ? value : DEFAULT_LOCALE;
 }
 
+/** Drops trailing slashes so `/academy/` compares as `/academy`; root stays `/`. */
+function trimTrailingSlashes(path: string): string {
+  const trimmed = path.replace(/\/+$/, '');
+  return trimmed === '' ? '/' : trimmed;
+}
+
 export function isTranslatedPath(path: string): boolean {
   const pathOnly = path.split('?')[0].split('#')[0];
   const normalized = pathOnly.startsWith('/') ? pathOnly : `/${pathOnly}`;
-  return TRANSLATED_PATHS.includes(normalized) || TRANSLATED_PATHS.includes(`${normalized}/`);
+  return TRANSLATED_PATHS.includes(trimTrailingSlashes(normalized));
 }
 
 export function localizePath(path: string, locale: Locale): string {
   const normalized = path.startsWith('/') ? path : `/${path}`;
   if (locale === DEFAULT_LOCALE || !isTranslatedPath(normalized)) return normalized;
   const [, pathname, suffix = ''] = normalized.match(/^([^?#]*)(.*)$/) ?? [normalized, normalized, ''];
-  if (pathname === '/' || pathname === '') return `${TR_PREFIX}${suffix}`;
-  return `${TR_PREFIX}${pathname}${suffix}`;
+  const trimmed = trimTrailingSlashes(pathname);
+  if (trimmed === '/') return `${TR_PREFIX}${suffix}`;
+  return `${TR_PREFIX}${trimmed}${suffix}`;
 }
 
 export function splitLocalePath(input: string): { locale: Locale; path: string } {
