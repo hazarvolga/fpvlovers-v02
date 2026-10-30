@@ -28,7 +28,14 @@ export const revalidate = 300;
 // globally (a single fixed canonical there would incorrectly apply to every
 // page that doesn't override it).
 export const metadata: Metadata = {
-  alternates: { canonical: '/' },
+  alternates: {
+    canonical: '/',
+    languages: {
+      en: '/',
+      tr: '/tr',
+      'x-default': '/',
+    },
+  },
 };
 
 type IconComponent = ComponentType<{ className?: string; strokeWidth?: number }>;

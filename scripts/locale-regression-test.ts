@@ -240,6 +240,8 @@ check('footer tiles resolve Turkish titles from the navigation catalog', () => {
   assert.equal(tr['/racing/news'], 'Yarış Haberleri');
   assert.equal(tr['/regulations/battery'], 'Batarya Güvenliği');
   assert.equal(tr['/privacy'], 'Gizlilik Politikası');
+  assert.equal(tr['/regulations'], 'Kurallar');
+  assert.equal(tr['/academy/glossary'], 'Sözlük');
 });
 
 let failed = 0;

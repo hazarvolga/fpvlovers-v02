@@ -4,7 +4,7 @@ import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 import { generateSeoMetadata } from '@/lib/seo/metadata';
 
 export const metadata = generateSeoMetadata({
-  title: 'FPV\'ye Yeni Misin? Altı Adımda Başla | FPVLovers',
+  title: 'FPV\'ye yeni misin? Altı adımda başla. | FPVLovers',
   description: 'FPV\'yi sıfırdan öğren: simülatör, kumanda seçimi, ilk drone, kurallar ve ilk uçuş. Hesap gerekmez.',
   path: '/',
   locale: 'tr',
