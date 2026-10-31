@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-10-31T18:32:24.039Z",
+  "generatedAt": "2026-10-31T18:33:03.716Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "live-verified-owner-actions-pending",
   "branch": "main",
-  "head": "07e1c2b956f0",
+  "head": "5368c1a92cdc",
   "behind": 0,
-  "ahead": 0,
+  "ahead": 2,
   "currentBlockers": [
     "**2026-10-31 BLOCKER (owner): publish the `fpvlovers.com.tr` mail DNS records** — MX `10 mail.affexai.tr`, `v=spf1 mx -all`, DKIM `v1-ed25519-20261031` + `v1-rsa-20261031`, `_dmarc` (start `p=quarantine`, then tighten to reject). Without MX the domain falls back to implicit MX and DMARC reports never arrive. Values: `docs/handoff/2026-10-31-kvkk-gdpr-compliance-release-handoff.md`.",
     "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",

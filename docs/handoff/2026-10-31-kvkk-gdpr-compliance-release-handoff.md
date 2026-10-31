@@ -2,7 +2,7 @@
 
 ## Status
 
-- **Released and verified in production.** `main` HEAD = `07e1c2b`, pushed to `origin/main` (`hazarvolga/fpvlovers-v02`).
+- **Released and verified in production.** Deployed revision `07e1c2b`, pushed to `origin/main` (`hazarvolga/fpvlovers-v02`). The docs-only commits that record this handoff come after it and are local.
 - Live container image tag: `07e1c2b956f0b337729b0eb120472557c2420c95` (Coolify app `jnlhgqmjnqwpdgefsoskew5n`, `https://fpvlovers.com.tr`), `/api/ready` → `status: "ready"`.
 - Migration `0011_privacy_compliance_foundation.sql` applied to `gkmzgwnnirofcgpw2yh0bnlh` (`fpvlovers` DB).
 - **Two items remain, both outside engineering's reach:** Cloudflare DNS for mail authentication (user action) and lawyer review of the legal texts (user action).
