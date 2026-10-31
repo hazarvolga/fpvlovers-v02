@@ -6,7 +6,8 @@
 - Live container image tag: `07e1c2b956f0b337729b0eb120472557c2420c95` (Coolify app `jnlhgqmjnqwpdgefsoskew5n`, `https://fpvlovers.com.tr`), `/api/ready` → `status: "ready"`.
 - Migration `0011_privacy_compliance_foundation.sql` applied to `gkmzgwnnirofcgpw2yh0bnlh` (`fpvlovers` DB); recorded in `schema_migrations` on 2026-10-31 together with the previously unapplied `0010` (see below).
 - `fpvlovers_app.published_articles_shadow` repaired on 2026-10-31: 153 rows backfilled, DB reads no longer fall back to files.
-- **Two items remain, both outside engineering's reach:** Cloudflare DNS for mail authentication (user action) and lawyer review of the legal texts (user action).
+- **Mail authentication DNS published 2026-10-31** (browser session on the Cloudflare dashboard): apex MX `10 mail.affexai.tr`, apex SPF `v=spf1 mx -all`, DKIM `v1-ed25519-20261031` + `v1-rsa-20261031`, and `_dmarc p=quarantine` all resolve from `dante.ns.cloudflare.com` and 8.8.8.8.
+- **One item remains, outside engineering's reach:** lawyer review of the legal texts (user action).
 
 ## Why this exists
 
@@ -76,21 +77,23 @@ Still zero in production after the Contabo consolidation: `users`, `accounts`, `
 
 ## Open items
 
-### 1. Cloudflare DNS (user action; no API token on the host, Cloudflare MCP is broken)
+### 1. Cloudflare DNS — DONE (2026-10-31)
 
-Authoritative zone for `fpvlovers.com.tr` currently has no MX/SPF/DKIM/DMARC. Stalwart's generated zone file is on the host at `/root/fpvlovers-dns-zone.txt`. Minimum required set:
+Published through the Cloudflare dashboard in the owner's browser session (no API token on the host, Cloudflare MCP is docs-only). The zone now has 13 records; the five added are:
 
 ```text
 fpvlovers.com.tr.                        MX    10 mail.affexai.tr.
 fpvlovers.com.tr.                        TXT   "v=spf1 mx -all"
 v1-ed25519-20261031._domainkey           TXT   "v=DKIM1; k=ed25519; h=sha256; p=PGbBVrxbH7dP+W2tUikQLGT5u3kusbBQ5cvB/8QwYq0="
-v1-rsa-20261031._domainkey               TXT   "v=DKIM1; k=rsa; h=sha256; p=<RSA value from /root/fpvlovers-dns-zone.txt>"
+v1-rsa-20261031._domainkey               TXT   "v=DKIM1; k=rsa; h=sha256; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0qfxi+xqbmmV1OJLHmRDYOm7c1OQcICQ5+Gb+x8TnW4/UsRhs4AigahCTDz75EXawJLdVC/Fm9vvEebTZQqJqI/dt44cZn+ofl/UacBhv/D/oFT8DHLAsEfz11UJrEf3izEkv6jhGz0/qDrl6Pj9+AoiblWwuAaomBUFrMRA6gfJQ9e3V9YXJYc7BPgs5IftgI4o2ytX07eiXid+B09cozLp/YGiLdhvZ+4ZK9L+vd7IKCEaaWGHPyD47+MS5Y7snJFwgOF9ARVcQHWZhyGcUfXAFIhyh4eL7jw0yr1KCrqeDaOIUoJa39L5DTAdJwzhzZ1kMQlZVuka7b4oJppMaQIDAQAB"
 _dmarc                                   TXT   "v=DMARC1; p=quarantine; rua=mailto:postmaster@fpvlovers.com.tr; adkim=r; aspf=r; pct=100"
 ```
 
-Recommendation: start DMARC at `p=quarantine` (the generated record says `p=reject`) because the domain has no sending history; tighten to reject once aggregate reports are clean. Optional SRV / MTA-STS / autoconfig records are in the same zone file.
+Cloudflare split the 2048-bit RSA value into two 255-byte strings automatically, which is correct. Verified with `dig` against `dante.ns.cloudflare.com` and `8.8.8.8`; pre-existing records (`send.` subdomain for Amazon SES/Resend, `resend._domainkey`, Google site verification, four proxied-less A records) were left untouched.
 
-Until MX exists, external inbound mail depends on the implicit-MX fallback (A record), which many receivers ignore; DMARC reports cannot arrive at all.
+DMARC starts at `p=quarantine` (the generated zone file says `p=reject`); tighten to reject once aggregate reports from the first days are clean. Remaining mail check: one real external round-trip (Gmail → `hello@`) to confirm `spf=pass dkim=pass dmarc=pass` in the received headers.
+
+Historical note: before this, the zone had no apex MX/SPF/DKIM/DMARC, so external inbound depended on the implicit-MX fallback and DMARC reports could not arrive.
 
 ### 2. Lawyer review (user action)
 
@@ -106,9 +109,8 @@ The texts are written to match actual code behaviour (rights requests route to `
 
 ## Exact resume point
 
-1. If DNS is still missing: publish the five records above, then verify with `dig MX fpvlovers.com.tr`, `dig TXT fpvlovers.com.tr`, `dig TXT v1-rsa-20261031._domainkey.fpvlovers.com.tr`, `dig TXT _dmarc.fpvlovers.com.tr`.
-2. Send a real external test mail (Gmail → `hello@`) and confirm DKIM/SPF/DMARC pass in the received headers; after a few days, switch DMARC to `p=reject`.
-3. Hand the legal texts to the lawyer; apply any wording changes as a new commit and redeploy.
-4. Then pick up the Turkish article pipeline plan at `docs/superpowers/plans/2026-10-31-turkish-articles-c2.md` (committed in `5368c1a`; not implemented). The DB mirror it depends on is now repaired.
-5. Admin access is still unprovisioned (`users` = 0): decide whether to create the owner account with `scripts/create-super-admin.ts` before the deferred admin-panel review.
-6. Detailed session ledger (git-ignored): `.superpowers/sdd/2026-10-31-kvkk-gdpr-compliance-p0/progress.md`.
+1. DNS is published (see Open item 1). Send one real external test mail (Gmail → `hello@`) and confirm `spf=pass dkim=pass dmarc=pass` in the received headers; after a few days of clean aggregate reports, switch DMARC to `p=reject`.
+2. Hand the legal texts to the lawyer; apply any wording changes as a new commit and redeploy.
+3. Then pick up the Turkish article pipeline plan at `docs/superpowers/plans/2026-10-31-turkish-articles-c2.md` (committed in `5368c1a`; not implemented). The DB mirror it depends on is now repaired.
+4. Admin access is still unprovisioned (`users` = 0): decide whether to create the owner account with `scripts/create-super-admin.ts` before the deferred admin-panel review.
+5. Detailed session ledger (git-ignored): `.superpowers/sdd/2026-10-31-kvkk-gdpr-compliance-p0/progress.md`.
