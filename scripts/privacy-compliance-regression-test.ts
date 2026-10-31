@@ -251,7 +251,7 @@ check('retention cleanup targets only expired rows', async () => {
 
   assert.match(calls[2].sql, /newsletter_subscribers/);
   assert.match(calls[2].sql, /status = 'unsubscribed'/);
-  assert.match(calls[2].sql, /unsubscribed_at < \$1/);
+  assert.match(calls[2].sql, /COALESCE\(unsubscribed_at, subscribed_at\) < \$1/);
   assert.equal((calls[2].params?.[0] as Date).toISOString(), '2024-10-31T00:00:00.000Z');
 
   assert.match(calls[3].sql, /DELETE FROM fpvlovers_app\.consent_records/);

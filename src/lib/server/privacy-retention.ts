@@ -2,6 +2,7 @@
 //   - analytics events: at most 180 days
 //   - unconfirmed newsletter subscriptions: 30 days
 //   - unsubscribed newsletter consent (proof of unsubscribe): at most 2 years
+//     (measured from unsubscribed_at, or from subscribed_at when unsubscribed_at is missing)
 //   - consent records: at most 5 years (proof of consent)
 // The module stays pure: it receives a query function so it can be exercised
 // without a live database.
@@ -61,7 +62,7 @@ export async function purgeExpiredPrivacyData(
   const unsubscribeCutoff = new Date(now);
   unsubscribeCutoff.setUTCFullYear(unsubscribeCutoff.getUTCFullYear() - unsubscribeProofYears);
   const unsubscribed = await runQuery(
-    "DELETE FROM fpvlovers_app.newsletter_subscribers WHERE status = 'unsubscribed' AND unsubscribed_at < $1",
+    "DELETE FROM fpvlovers_app.newsletter_subscribers WHERE status = 'unsubscribed' AND COALESCE(unsubscribed_at, subscribed_at) < $1",
     [unsubscribeCutoff],
   );
   const consentCutoff = new Date(now);
