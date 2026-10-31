@@ -62,7 +62,7 @@ export async function purgeExpiredPrivacyData(
   const unsubscribeCutoff = new Date(now);
   unsubscribeCutoff.setUTCFullYear(unsubscribeCutoff.getUTCFullYear() - unsubscribeProofYears);
   const unsubscribed = await runQuery(
-    "DELETE FROM fpvlovers_app.newsletter_subscribers WHERE status = 'unsubscribed' AND COALESCE(unsubscribed_at, subscribed_at) < $1",
+    "DELETE FROM fpvlovers_app.newsletter_subscribers WHERE status = 'unsubscribed' AND (subscribed_at IS NULL OR COALESCE(unsubscribed_at, subscribed_at) < $1)",
     [unsubscribeCutoff],
   );
   const consentCutoff = new Date(now);
