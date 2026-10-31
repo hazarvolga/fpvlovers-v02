@@ -2,7 +2,9 @@ import Link from 'next/link';
 import { Battery, Mail, Radio, ShieldCheck, Zap, ArrowUpRight } from 'lucide-react';
 import { getChromeCopy, getFooterCopy, getNavigation } from '@/lib/i18n/labels';
 import { DEFAULT_LOCALE, localizePath, type Locale } from '@/lib/i18n/locale';
+import { legalPath } from '@/lib/legal/paths';
 import { BackToTop } from './BackToTop';
+import { CookiePreferencesLink } from './CookiePreferencesLink';
 
 const featuredLinks = [
   { title: 'Build Calculator', href: '/tools/calculator', icon: Zap },
@@ -11,38 +13,41 @@ const featuredLinks = [
   { title: 'Racing News', href: '/racing/news', icon: ArrowUpRight },
 ];
 
-// GAP #2: Semantic grouping for legal / platform / connect links.
-const legalGroups = [
-  {
-    label: 'Legal',
-    links: [
-      { title: 'Privacy Policy', href: '/privacy' },
-      { title: 'Terms of Service', href: '/terms' },
-      { title: 'Affiliate Disclosure', href: '/disclosure' },
-    ],
-  },
-  {
-    label: 'Platform',
-    links: [
-      { title: 'Editorial Policy', href: '/editorial-policy' },
-      { title: 'Regulations', href: '/regulations' },
-      { title: 'Glossary', href: '/academy/glossary' },
-    ],
-  },
-  {
-    label: 'Connect',
-    links: [
-      { title: 'Advertise', href: '/advertise' },
-      { title: 'Contact', href: '/contact' },
-      { title: 'Sitemap', href: '/sitemap.xml' },
-    ],
-  },
-];
-
 export function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
   const year = new Date().getFullYear();
   const footerCopy = getFooterCopy(locale);
   const chromeCopy = getChromeCopy(locale);
+  const isTr = locale === 'tr';
+
+  // GAP #2: Semantic grouping for legal / platform / connect links.
+  const legalGroups = [
+    {
+      label: isTr ? 'Yasal' : 'Legal',
+      links: [
+        ...(isTr ? [{ title: 'KVKK Aydınlatma', href: legalPath('kvkk', locale) }] : []),
+        { title: isTr ? 'Gizlilik Politikası' : 'Privacy Policy', href: legalPath('privacy', locale) },
+        { title: isTr ? 'Çerez Politikası' : 'Cookie Policy', href: legalPath('cookies', locale) },
+        { title: isTr ? 'Kullanım Koşulları' : 'Terms of Service', href: legalPath('terms', locale) },
+      ],
+    },
+    {
+      label: 'Platform',
+      links: [
+        { title: isTr ? 'Yayın İlkeleri' : 'Editorial Policy', href: '/editorial-policy' },
+        { title: isTr ? 'Kurallar' : 'Regulations', href: '/regulations' },
+        { title: isTr ? 'Sözlük' : 'Glossary', href: '/academy/glossary' },
+      ],
+    },
+    {
+      label: isTr ? 'Bağlantı' : 'Connect',
+      links: [
+        { title: isTr ? 'Reklam' : 'Advertise', href: '/advertise' },
+        { title: isTr ? 'İletişim' : 'Contact', href: '/contact' },
+        { title: isTr ? 'Ortaklık Açıklaması' : 'Affiliate Disclosure', href: '/disclosure' },
+        { title: isTr ? 'Site Haritası' : 'Sitemap', href: '/sitemap.xml' },
+      ],
+    },
+  ];
 
   // GAP #3: Filter out nav groups with no items — empty groups created visual holes.
   const footerGroups = getNavigation(locale)
@@ -165,12 +170,13 @@ export function SiteFooter({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
                   {group.links.map((link) => (
                     <Link
                       key={link.href}
-                      href={localizePath(link.href, locale)}
+                      href={link.href}
                       className="py-1 font-mono text-[10px] uppercase tracking-widest text-zinc-400 transition-colors hover:text-zinc-200"
                     >
-                      {footerCopy[link.href] ?? link.title}
+                      {link.title}
                     </Link>
                   ))}
+                  {group.label === (isTr ? 'Yasal' : 'Legal') && <CookiePreferencesLink locale={locale} />}
                   <span className="hidden text-zinc-700 last:hidden sm:inline" aria-hidden>·</span>
                 </div>
               ))}

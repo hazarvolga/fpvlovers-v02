@@ -20,6 +20,10 @@ import {
   parseConsentCookie,
   serializeConsentCookie,
 } from '../src/lib/consent/consent';
+import { LEGAL_DOCUMENT_VERSION } from '../src/lib/legal/version';
+import { isLegalControllerConfigured, type LegalController } from '../src/lib/legal/controller';
+import { LEGAL_PAGE_PAIRS, legalPath } from '../src/lib/legal/paths';
+import { buildLegalDocuments } from '../src/lib/legal/documents';
 
 const checks: { name: string; run: () => void }[] = [];
 function check(name: string, run: () => void): void {
@@ -137,6 +141,60 @@ check('first-party analytics is consent-gated', () => {
   const route = readFileSync('src/app/api/analytics/event/route.ts', 'utf8');
   assert.match(route, /CONSENT_COOKIE/);
   assert.match(route, /parseConsentCookie/);
+});
+
+check('legal paths map Turkish and English documents', () => {
+  assert.equal(legalPath('privacy', 'tr'), '/tr/gizlilik-politikasi');
+  assert.equal(legalPath('cookies', 'tr'), '/tr/cerez-politikasi');
+  assert.equal(legalPath('terms', 'tr'), '/tr/kullanim-kosullari');
+  assert.equal(legalPath('kvkk', 'tr'), '/tr/kvkk-aydinlatma');
+  assert.equal(legalPath('privacy', 'en'), '/privacy');
+  assert.ok(LEGAL_PAGE_PAIRS.length >= 3);
+});
+
+check('controller completeness is explicit', () => {
+  const complete: LegalController = { name: 'FPVLovers', address: 'Ankara, Türkiye', email: 'hello@fpvlovers.com.tr' };
+  assert.equal(isLegalControllerConfigured(complete), true);
+  assert.equal(isLegalControllerConfigured({ ...complete, address: '' }), false);
+});
+
+check('Turkish KVKK notice contains mandatory sections and controller details', () => {
+  const controller: LegalController = { name: 'Örnek Veri Sorumlusu', address: 'Örnek Adres', email: 'kvkk@example.com', kep: 'kep@example.com' };
+  const docs = buildLegalDocuments(controller);
+  const kvkk = docs.tr.kvkk;
+  const text = kvkk.sections.map((section) => `${section.heading}\n${section.paragraphs.join('\n')}\n${(section.bullets ?? []).join('\n')}`).join('\n');
+  for (const heading of ['Veri Sorumlusu', 'Hukuki Sebepler', 'Yurt Dışına Aktarım', 'Saklama', 'Haklarınız', 'Başvuru']) {
+    assert.match(text, new RegExp(heading));
+  }
+  assert.match(text, /Örnek Veri Sorumlusu/);
+  assert.match(text, /kvkk@example\.com/);
+  assert.match(docs.tr.cookies.sections.map((section) => section.heading).join(' '), /Çerez/);
+  assert.match(text, /KVKK/);
+});
+
+check('English documents cover GDPR and no-sale statement', () => {
+  const docs = buildLegalDocuments({ name: 'FPVLovers', address: 'Türkiye', email: 'hello@fpvlovers.com.tr' });
+  const text = docs.en.privacy.sections.map((section) => `${section.heading}\n${section.paragraphs.join('\n')}`).join('\n');
+  assert.match(text, /GDPR/);
+  assert.match(text, /we do not sell/i);
+  assert.equal(LEGAL_DOCUMENT_VERSION, '2026-10-31');
+});
+
+check('legal pages and footer wiring exist', () => {
+  for (const file of [
+    'src/app/tr/kvkk-aydinlatma/page.tsx',
+    'src/app/tr/gizlilik-politikasi/page.tsx',
+    'src/app/tr/cerez-politikasi/page.tsx',
+    'src/app/tr/kullanim-kosullari/page.tsx',
+    'src/app/(en)/cookie-policy/page.tsx',
+  ]) {
+    assert.ok(readFileSync(file, 'utf8').length > 0, `${file} must exist`);
+  }
+  const footer = readFileSync('src/features/layout/components/SiteFooter.tsx', 'utf8');
+  assert.match(footer, /legalPath/);
+  assert.match(footer, /CookiePreferencesLink/);
+  const sitemap = readFileSync('src/app/sitemap.xml/route.ts', 'utf8');
+  assert.match(sitemap, /LEGAL_PAGE_PAIRS/);
 });
 
 let failed = 0;

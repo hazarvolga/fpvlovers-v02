@@ -3,6 +3,7 @@ import {
   listPublishedContentAsync,
 } from '@/lib/content-automation/content-reader';
 import { isTranslatedPath, localizePath } from '@/lib/i18n/locale';
+import { LEGAL_PAGE_PAIRS, LEGAL_PATHS } from '@/lib/legal/paths';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 300;
@@ -52,8 +53,6 @@ const STATIC_PAGES = [
   { url: '/disclosure', priority: '0.6', changefreq: 'monthly' },
   { url: '/editorial-policy', priority: '0.6', changefreq: 'monthly' },
   { url: '/advertise', priority: '0.6', changefreq: 'monthly' },
-  { url: '/privacy', priority: '0.4', changefreq: 'yearly' },
-  { url: '/terms', priority: '0.4', changefreq: 'yearly' },
 ];
 
 const BASE_URL = process.env.APP_URL || 'https://fpvlovers.com.tr';
@@ -90,6 +89,23 @@ function articleAlternates(slug: string, hasCounterpart: boolean): string {
     `      <xhtml:link rel="alternate" hreflang="en" href="${BASE_URL}/article/${slug}" />`,
     `      <xhtml:link rel="alternate" hreflang="tr" href="${BASE_URL}${turkishArticlePath(slug)}" />`,
   ].map((link) => `\n${link}`).join('');
+}
+
+function legalAlternates(en: string, tr: string): string {
+  return [
+    `      <xhtml:link rel="alternate" hreflang="en" href="${BASE_URL}${en}" />`,
+    `      <xhtml:link rel="alternate" hreflang="tr" href="${BASE_URL}${tr}" />`,
+    `      <xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}${en}" />`,
+  ].map((link) => `\n${link}`).join('');
+}
+
+function legalUrl(path: string, alternates = ''): string {
+  return `
+    <url>
+      <loc>${BASE_URL}${path}</loc>
+      <priority>0.4</priority>
+      <changefreq>yearly</changefreq>${alternates}
+    </url>`;
 }
 
 export async function GET() {
@@ -145,7 +161,13 @@ export async function GET() {
       <changefreq>weekly</changefreq>${articleAlternates(slug, articlesBySlug.has(slug))}
     </url>`);
 
-  const urls = [...staticUrls, ...dynamicUrls, ...turkishStaticUrls, ...turkishArticleUrls].join('\n');
+  const legalUrls = LEGAL_PAGE_PAIRS.flatMap(({ en, tr }) => [
+    legalUrl(en, legalAlternates(en, tr)),
+    legalUrl(tr, legalAlternates(en, tr)),
+  ]);
+  const turkishOnlyLegalUrls = [legalUrl(LEGAL_PATHS.tr.kvkk)];
+
+  const urls = [...staticUrls, ...dynamicUrls, ...turkishStaticUrls, ...turkishArticleUrls, ...legalUrls, ...turkishOnlyLegalUrls].join('\n');
 
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}\n</urlset>`,
