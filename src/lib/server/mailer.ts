@@ -20,11 +20,13 @@ export async function sendEmail({
   subject,
   html,
   text,
+  headers,
 }: {
   to: string | string[];
   subject: string;
   html: string;
   text?: string;
+  headers?: Record<string, string>;
 }) {
   try {
     const info = await transporter.sendMail({
@@ -33,6 +35,7 @@ export async function sendEmail({
       subject,
       html,
       text,
+      headers,
     });
     console.log(`[Mailer] Message sent: ${info.messageId}`);
     return { success: true, messageId: info.messageId };
