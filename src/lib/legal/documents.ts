@@ -220,14 +220,15 @@ export function buildLegalDocuments(controller: LegalController): { tr: LocaleLe
           {
             heading: '1. Çerez Nedir?',
             paragraphs: [
-              'Çerezler, tarayıcınıza kaydedilen küçük metin dosyalarıdır. Oturumun sürdürülmesi, güvenlik ve tercihlerin hatırlanması için kullanılır. Zorunlu olmayan çerezler yalnızca açık rızanızla yüklenir.',
+              'Çerezler, tarayıcınıza kaydedilen küçük metin dosyalarıdır. Oturumun sürdürülmesi, güvenlik ve tercihlerin hatırlanması için kullanılır. Zorunlu ve işlevsel çerezler dışındaki çerezler yalnızca açık rızanızla yüklenir.',
             ],
           },
           {
             heading: '2. Kategoriler',
-            paragraphs: ['Çerezleri üç kategoride değerlendiririz:'],
+            paragraphs: ['Çerezleri dört kategoride değerlendiririz:'],
             bullets: [
               'Zorunlu: oturum açma, CSRF koruması ve çerez tercihinin hatırlanması.',
+              'İşlevsel: sizin başlattığınız araçların tercihlerini hatırlar (ör. Pilot Dossier); ePrivacy yönergesinin talebiniz üzerine sunulan hizmet istisnası kapsamında değerlendirilir.',
               'Analitik: sayfa görüntüleme ve arama metrikleri; yalnızca rıza ile.',
               'Pazarlama: reklam veya affiliate izleme pikseli; şu an kullanılmıyor, eklenirse yalnızca rıza ile.',
             ],
@@ -239,7 +240,7 @@ export function buildLegalDocuments(controller: LegalController): { tr: LocaleLe
               'authjs.session-token (üretimde __Secure-authjs.session-token) — zorunlu — oturum — oturum süresi.',
               'authjs.csrf-token (üretimde __Secure-authjs.csrf-token) — zorunlu — CSRF koruması — oturum süresi.',
               'fpv_consent — zorunlu — çerez tercihi — 1 yıl.',
-              'fpv_dossier_v1 — işlevsel — Pilot Dossier tercihlerinizi hatırlar — 1 yıl, yalnızca aracı kullandığınızda.',
+              'fpv_dossier_v1 — işlevsel — Pilot Dossier tercihlerinizi hatırlar — 1 yıl, Akademi/Dossier özelliklerini kullandığınızda.',
               '_ga, _ga_* — analitik — Google Analytics — yalnızca rıza ile, en fazla 2 yıl.',
               'Satıcı çerezleri — pazarlama — affiliate satıcısının alan adında, tıklama sonrası — satıcının politikası.',
             ],
@@ -406,14 +407,15 @@ export function buildLegalDocuments(controller: LegalController): { tr: LocaleLe
           {
             heading: '1. What Are Cookies?',
             paragraphs: [
-              'Cookies are small text files stored by your browser. We use them for sessions, security and remembering your choices. Non-essential cookies load only with your consent.',
+              'Cookies are small text files stored by your browser. We use them for sessions, security and remembering your choices. Cookies outside the necessary and functional categories load only if you consent.',
             ],
           },
           {
             heading: '2. Categories',
-            paragraphs: ['We group cookies into three categories:'],
+            paragraphs: ['We group cookies into four categories:'],
             bullets: [
               'Necessary: sign-in, CSRF protection and remembering your cookie choice.',
+              'Functional: remembers choices for tools you explicitly start (e.g. Pilot Dossier); treated as falling within the ePrivacy exemption for a service you requested.',
               'Analytics: page and search metrics, only with consent.',
               'Marketing: advertising or affiliate tracking pixels. Currently unused; if added, only with consent.',
             ],
@@ -425,7 +427,7 @@ export function buildLegalDocuments(controller: LegalController): { tr: LocaleLe
               'authjs.session-token (production: __Secure-authjs.session-token) — necessary — session — session lifetime.',
               'authjs.csrf-token (production: __Secure-authjs.csrf-token) — necessary — CSRF protection — session lifetime.',
               'fpv_consent — necessary — cookie choice — 1 year.',
-              'fpv_dossier_v1 — functional — remembers your Pilot Dossier choices — 1 year, only when you use the tool.',
+              'fpv_dossier_v1 — functional — remembers your Pilot Dossier choices — 1 year, when you use Academy/Dossier features.',
               '_ga, _ga_* — analytics — Google Analytics — only with consent, up to 2 years.',
               'Retailer cookies — marketing — set by the affiliate retailer after you click — retailer policy.',
             ],

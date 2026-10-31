@@ -199,8 +199,7 @@ check('legal pages and footer wiring exist', () => {
 
 check('sitemap does not duplicate legal pages in the static list', () => {
   const sitemap = readFileSync('src/app/sitemap.xml/route.ts', 'utf8');
-  assert.doesNotMatch(sitemap, /url:\s*'\/privacy'/, 'legal pages must come from LEGAL_PAGE_PAIRS only');
-  assert.doesNotMatch(sitemap, /url:\s*'\/terms'/, 'legal pages must come from LEGAL_PAGE_PAIRS only');
+  assert.doesNotMatch(sitemap, /url:\s*['"`]\/(privacy|terms)['"`]/, 'legal pages must come from LEGAL_PAGE_PAIRS only');
   assert.match(sitemap, /LEGAL_PAGE_PAIRS/);
 });
 
