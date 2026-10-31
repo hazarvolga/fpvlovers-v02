@@ -292,6 +292,13 @@ check('search client localizes article links', () => {
   assert.match(source, /localizePath/, 'article links must be localized for the Turkish tree');
 });
 
+check('sitemap advertises Turkish alternates for translated pages', () => {
+  const source = readFileSync('src/app/sitemap.xml/route.ts', 'utf8');
+  assert.match(source, /xmlns:xhtml=/, 'sitemap must declare the xhtml namespace');
+  assert.match(source, /isTranslatedPath/, 'only translated paths may advertise a Turkish alternate');
+  assert.match(source, /localizePath\(/, 'Turkish URLs must go through localizePath');
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {
