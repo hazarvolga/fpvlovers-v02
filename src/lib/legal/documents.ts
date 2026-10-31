@@ -166,7 +166,7 @@ export function buildLegalDocuments(controller: LegalController): { tr: LocaleLe
           {
             heading: '3. Kullanım Amaçları',
             paragraphs: [
-              'Verileri bülteni göndermek, talepleri yanıtlamak, hesabı ve ilerlemeyi yönetmek, site güvenliğini sağlamak, toplu analitikle içeriği iyileştirmek ve hukuki yükümlülükleri yerine getirmek için kullanırız. Verilerinizi satmayız.',
+              'Verileri bülteni göndermek, talepleri yanıtlamak, hesabı ve ilerlemeyi yönetmek, site güvenliğini sağlamak, analitikle (yalnızca açık rızanızla) içeriği iyileştirmek ve hukuki yükümlülükleri yerine getirmek için kullanırız. Verilerinizi satmayız.',
             ],
           },
           {
@@ -236,9 +236,10 @@ export function buildLegalDocuments(controller: LegalController): { tr: LocaleLe
             heading: '3. Çerez Tablosu',
             paragraphs: ['Başlıca çerezler:'],
             bullets: [
-              'authjs.session-token — zorunlu — oturum — oturum süresi.',
-              'authjs.csrf-token — zorunlu — CSRF koruması — oturum süresi.',
+              'authjs.session-token (üretimde __Secure-authjs.session-token) — zorunlu — oturum — oturum süresi.',
+              'authjs.csrf-token (üretimde __Secure-authjs.csrf-token) — zorunlu — CSRF koruması — oturum süresi.',
               'fpv_consent — zorunlu — çerez tercihi — 1 yıl.',
+              'fpv_dossier_v1 — işlevsel — Pilot Dossier tercihlerinizi hatırlar — 1 yıl, yalnızca aracı kullandığınızda.',
               '_ga, _ga_* — analitik — Google Analytics — yalnızca rıza ile, en fazla 2 yıl.',
               'Satıcı çerezleri — pazarlama — affiliate satıcısının alan adında, tıklama sonrası — satıcının politikası.',
             ],
@@ -351,7 +352,7 @@ export function buildLegalDocuments(controller: LegalController): { tr: LocaleLe
           {
             heading: '3. How We Use Data',
             paragraphs: [
-              'We use data to send the newsletter, answer inquiries, operate accounts and progress, secure the site, improve content through aggregated analytics, and meet legal obligations. We do not sell personal information.',
+              'We use data to send the newsletter, answer inquiries, operate accounts and progress, secure the site, improve content through analytics (only with your consent), and meet legal obligations. We do not sell personal information.',
             ],
           },
           {
@@ -421,9 +422,10 @@ export function buildLegalDocuments(controller: LegalController): { tr: LocaleLe
             heading: '3. Cookie Table',
             paragraphs: ['Primary cookies:'],
             bullets: [
-              'authjs.session-token — necessary — session — session lifetime.',
-              'authjs.csrf-token — necessary — CSRF protection — session lifetime.',
+              'authjs.session-token (production: __Secure-authjs.session-token) — necessary — session — session lifetime.',
+              'authjs.csrf-token (production: __Secure-authjs.csrf-token) — necessary — CSRF protection — session lifetime.',
               'fpv_consent — necessary — cookie choice — 1 year.',
+              'fpv_dossier_v1 — functional — remembers your Pilot Dossier choices — 1 year, only when you use the tool.',
               '_ga, _ga_* — analytics — Google Analytics — only with consent, up to 2 years.',
               'Retailer cookies — marketing — set by the affiliate retailer after you click — retailer policy.',
             ],

@@ -3,6 +3,7 @@ import {
   listPublishedContentAsync,
 } from '@/lib/content-automation/content-reader';
 import { isTranslatedPath, localizePath } from '@/lib/i18n/locale';
+import { getLegalController, isLegalControllerConfigured } from '@/lib/legal/controller';
 import { LEGAL_PAGE_PAIRS, LEGAL_PATHS } from '@/lib/legal/paths';
 
 export const dynamic = 'force-dynamic';
@@ -166,8 +167,16 @@ export async function GET() {
     legalUrl(tr, legalAlternates(en, tr)),
   ]);
   const turkishOnlyLegalUrls = [legalUrl(LEGAL_PATHS.tr.kvkk)];
+  const legalReady = isLegalControllerConfigured(getLegalController());
 
-  const urls = [...staticUrls, ...dynamicUrls, ...turkishStaticUrls, ...turkishArticleUrls, ...legalUrls, ...turkishOnlyLegalUrls].join('\n');
+  const urls = [
+    ...staticUrls,
+    ...dynamicUrls,
+    ...turkishStaticUrls,
+    ...turkishArticleUrls,
+    ...(legalReady ? legalUrls : []),
+    ...(legalReady ? turkishOnlyLegalUrls : []),
+  ].join('\n');
 
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${urls}\n</urlset>`,

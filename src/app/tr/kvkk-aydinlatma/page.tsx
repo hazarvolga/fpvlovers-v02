@@ -15,7 +15,7 @@ export const metadata = legalMetadata({
   title: `${document.title} | FPVLovers`,
   description: document.description,
   canonicalPath: legalPath('kvkk', 'tr'),
-  languages: { en: '/privacy', tr: legalPath('kvkk', 'tr'), 'x-default': '/privacy' },
+  languages: { tr: legalPath('kvkk', 'tr') },
 });
 
 export default function Page() {

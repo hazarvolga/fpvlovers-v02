@@ -197,6 +197,40 @@ check('legal pages and footer wiring exist', () => {
   assert.match(sitemap, /LEGAL_PAGE_PAIRS/);
 });
 
+check('sitemap does not duplicate legal pages in the static list', () => {
+  const sitemap = readFileSync('src/app/sitemap.xml/route.ts', 'utf8');
+  assert.doesNotMatch(sitemap, /url:\s*'\/privacy'/, 'legal pages must come from LEGAL_PAGE_PAIRS only');
+  assert.doesNotMatch(sitemap, /url:\s*'\/terms'/, 'legal pages must come from LEGAL_PAGE_PAIRS only');
+  assert.match(sitemap, /LEGAL_PAGE_PAIRS/);
+});
+
+check('all legal pages force dynamic rendering', () => {
+  for (const file of [
+    'src/app/tr/kvkk-aydinlatma/page.tsx',
+    'src/app/tr/gizlilik-politikasi/page.tsx',
+    'src/app/tr/cerez-politikasi/page.tsx',
+    'src/app/tr/kullanim-kosullari/page.tsx',
+    'src/app/(en)/privacy/page.tsx',
+    'src/app/(en)/terms/page.tsx',
+    'src/app/(en)/cookie-policy/page.tsx',
+  ]) {
+    assert.match(readFileSync(file, 'utf8'), /export const dynamic = 'force-dynamic';/, `${file} must be force-dynamic`);
+  }
+});
+
+check('KVKK notice declares Turkish-only alternates', () => {
+  const page = readFileSync('src/app/tr/kvkk-aydinlatma/page.tsx', 'utf8');
+  assert.match(page, /languages:\s*\{\s*tr:/);
+  assert.doesNotMatch(page, /\ben:\s*legalPath\('kvkk'/);
+});
+
+check('legal documents avoid self-service rights wording', () => {
+  const documents = readFileSync('src/lib/legal/documents.ts', 'utf8');
+  assert.doesNotMatch(documents, /account menu|Hesap menüsünden/);
+  assert.match(documents, /respond within 30 days/);
+  assert.match(documents, /en geç 30 gün/);
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {

@@ -39,10 +39,10 @@ export function LegalDocumentPage({
           <section key={section.heading} className="rounded-xl border border-white/5 bg-zinc-900/40 p-6 md:p-8">
             <h2 className="border-b border-white/5 pb-4 text-lg font-bold uppercase tracking-wider text-zinc-100">{section.heading}</h2>
             <div className="mt-4 space-y-3 text-sm leading-relaxed text-zinc-400">
-              {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+              {section.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
               {section.bullets && (
                 <ul className="list-disc space-y-2 pl-5">
-                  {section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
+                  {section.bullets.map((bullet, index) => <li key={index}>{bullet}</li>)}
                 </ul>
               )}
             </div>
@@ -57,7 +57,10 @@ export function LegalDocumentPage({
         <p>{controller.email}{controller.kep ? ` · KEP: ${controller.kep}` : ''}{controller.taxId ? ` · ${isTr ? 'Vergi No' : 'Tax ID'}: ${controller.taxId}` : ''}</p>
       </div>
 
-      <nav className="mt-8 flex flex-wrap gap-4 font-mono text-[10px] uppercase tracking-widest text-zinc-400">
+      <nav
+        aria-label={isTr ? 'Hukuki belgeler' : 'Legal documents'}
+        className="mt-8 flex flex-wrap gap-4 font-mono text-[10px] uppercase tracking-widest text-zinc-400"
+      >
         <Link href={legalPath('privacy', locale)} className="hover:text-zinc-100">{isTr ? 'Gizlilik Politikası' : 'Privacy Policy'}</Link>
         <Link href={legalPath('cookies', locale)} className="hover:text-zinc-100">{isTr ? 'Çerez Politikası' : 'Cookie Policy'}</Link>
         <Link href={legalPath('terms', locale)} className="hover:text-zinc-100">{isTr ? 'Kullanım Koşulları' : 'Terms of Service'}</Link>

@@ -26,7 +26,7 @@ export function legalMetadata({
       title,
       description,
       url: `${BASE}${canonicalPath}`,
-      siteName: 'FPV Lovers',
+      siteName: 'FPVLovers',
       type: 'website',
     },
     robots: { index: true, follow: true },
