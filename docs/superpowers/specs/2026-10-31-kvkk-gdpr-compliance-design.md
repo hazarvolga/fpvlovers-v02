@@ -2,7 +2,7 @@
 
 **Tarih:** 2026-10-31  
 **Durum:** P0 planı main'de UYGULANDI (Task 1, 2, 3, 4, 4b, 5, 5b, 6, 7); kalan iş hukukçu incelemesi ile production yapılandırması ve deploy'dur.  
-**İlgili plan:** `docs/superpowers/plans/2026-10-31-turkish-articles-c2.md` (C2'den bağımsız, paralel yürüyebilir)  
+**İlgili plan:** `docs/superpowers/plans/2026-10-31-kvkk-gdpr-compliance-p0.md` (C2 planı `2026-10-31-turkish-articles-c2.md` bundan bağımsızdır, paralel yürüyebilir)  
 **Kapsam:** Türkiye'deki kullanıcılar (6698 KVKK), AB/AEA'daki kullanıcılar (GDPR + ePrivacy) ve ABD'deki kullanıcılar (CCPA/CPRA) için kişisel veri toplama, çerezler, aydınlatma, ticari elektronik ileti, yurt dışına aktarım, veri sahibi hakları ve saklama.
 
 > Bu doküman mühendislik uyum tasarımıdır; nihai hukuki metinler Türkiye'de bir KVKK avukatı, AB için bir GDPR danışmanı tarafından onaylanmalıdır. Aşağıdaki "Kritik" bulgular hukuki metin onayından bağımsız olarak derhal düzeltilmelidir.
@@ -148,6 +148,8 @@ Kullanıcı aramaları Dify/Gemini'ye gidiyorsa, arama metni kişisel veri içer
 
 ### 5.4 Hesap, DSAR ve silme
 
+> Bu bölümdeki export/delete/DSAR maddeleri P1 kapsamındadır (§7, madde 10). P0'da yalnızca kayıt formundaki zorunlu onay ve `users` sütunları uygulandı; gizlilik metni self-servis silme vaadi içermeyecek şekilde yazıldı.
+
 - Kayıt formunda zorunlu onay: "Kullanım Koşulları ve Gizlilik Politikası'nı okudum." (checkbox, varsayılan işaretsiz) + bağlantılar. Kayıt zamanı/versiyonu `users` tablosuna yazılır.
 - `GET /api/pilot/account/export` — oturum sahibi için JSON (profil + ilerleme); KVKK m.11 / GDPR m.15.
 - `DELETE /api/pilot/account` — oturum + parola doğrulaması; `users` silinir, `accounts`/`sessions`/`pilot_progress` CASCADE ile gider; e-posta bülten aboneliği ayrıca `unsubscribed` yapılır.
@@ -197,10 +199,10 @@ ALTER TABLE fpvlovers_app.newsletter_subscribers
   ADD COLUMN confirmed_at TIMESTAMPTZ,
   ADD COLUMN consent_at TIMESTAMPTZ,
   ADD COLUMN consent_version TEXT,
-  ADD COLUMN consent_source TEXT,
-  ADD COLUMN iys_status TEXT DEFAULT 'not_synced',
-  ADD COLUMN iys_synced_at TIMESTAMPTZ;
--- mevcut kayıtlar 'active' kalır; geriye dönük rıza kaydı yoksa yeniden onay kampanyası gerekir
+  ADD COLUMN consent_source TEXT;
+-- backfill: is_active = true -> 'active', is_active = false -> 'unsubscribed'
+-- CHECK (status IN ('pending','active','unsubscribed')) — constraint adı: newsletter_subscribers_status_check
+-- mevcut kayıtlar 'active' kalır ama consent_at NULL kalır; geriye dönük rıza kaydı yoksa yeniden onay kampanyası gerekir
 
 -- users
 ALTER TABLE fpvlovers_app.users
@@ -217,8 +219,12 @@ CREATE TABLE fpvlovers_app.consent_records (
   source TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
+```
 
--- privacy requests
+P1'e bırakılan taslak (migration 0011'de **yoktur**, uygulanmadı): `newsletter_subscribers.iys_status` / `iys_synced_at` sütunları ve aşağıdaki `privacy_requests` tablosu; DSAR formu ve hesap ihracı/silme uçlarıyla birlikte gelecektir.
+
+```sql
+-- privacy requests (P1 taslağı — 0011'de oluşturulmaz)
 CREATE TABLE fpvlovers_app.privacy_requests (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   request_type TEXT NOT NULL,          -- access | delete | correct | object
