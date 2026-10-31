@@ -31,12 +31,13 @@ export async function POST(request: NextRequest) {
     }
 
     const { email, source, locale } = parsed.data;
-    const existing = await query<{ id: string; status: string }>(
-      'SELECT id, status FROM fpvlovers_app.newsletter_subscribers WHERE email = $1',
+    const existing = await query<{ id: string; status: string; consent_at: Date | null }>(
+      'SELECT id, status, consent_at FROM fpvlovers_app.newsletter_subscribers WHERE lower(email) = $1 ORDER BY subscribed_at ASC LIMIT 1',
       [email],
     );
 
-    if (existing.rows[0]?.status === 'active') {
+    // Legacy rows are status='active' with consent_at NULL; they must be able to re-consent.
+    if (existing.rows[0]?.status === 'active' && existing.rows[0]?.consent_at) {
       return NextResponse.json({ message: GENERIC_MESSAGE, status: 'pending' }, { status: 202 });
     }
 
@@ -52,10 +53,10 @@ export async function POST(request: NextRequest) {
     } else {
       await query(
         `UPDATE fpvlovers_app.newsletter_subscribers
-         SET status = 'pending', is_active = false, unsubscribed_at = NULL,
-             consent_version = $2, consent_source = $3
+         SET email = $2, status = 'pending', is_active = false, unsubscribed_at = NULL,
+             consent_version = $3, consent_source = $4
          WHERE id = $1`,
-        [subscriberId, NEWSLETTER_CONSENT_VERSION, source],
+        [subscriberId, email, NEWSLETTER_CONSENT_VERSION, source],
       );
     }
 

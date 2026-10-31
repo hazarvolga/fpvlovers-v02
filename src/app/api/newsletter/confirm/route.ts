@@ -21,13 +21,13 @@ export async function GET(request: NextRequest) {
   const result = await query(
     `UPDATE fpvlovers_app.newsletter_subscribers
      SET status = 'active', is_active = true, confirmed_at = NOW(), consent_at = NOW(), unsubscribed_at = NULL
-     WHERE id = $1
+     WHERE id = $1 AND status = 'pending'
      RETURNING id`,
     [id],
   );
 
   if (result.rowCount === 0) {
-    return page(404, lang === 'en' ? 'Subscription not found' : 'Abonelik bulunamadı', lang === 'en' ? 'This subscription no longer exists.' : 'Bu abonelik artık mevcut değil.');
+    return page(400, lang === 'en' ? 'Link no longer valid' : 'Bağlantı artık geçerli değil', lang === 'en' ? 'This confirmation link was already used or is no longer valid.' : 'Bu onay bağlantısı daha önce kullanılmış veya artık geçerli değil.');
   }
 
   return page(200, lang === 'en' ? 'Subscription confirmed' : 'Abonelik onaylandı', lang === 'en' ? 'You will receive the FPVLovers newsletter. You can unsubscribe from any email.' : 'FPVLovers bültenini alacaksınız. Her e-postadan abonelikten çıkabilirsiniz.');
