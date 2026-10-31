@@ -91,7 +91,7 @@ _dmarc                                   TXT   "v=DMARC1; p=quarantine; rua=mail
 
 Cloudflare split the 2048-bit RSA value into two 255-byte strings automatically, which is correct. Verified with `dig` against `dante.ns.cloudflare.com` and `8.8.8.8`; pre-existing records (`send.` subdomain for Amazon SES/Resend, `resend._domainkey`, Google site verification, four proxied-less A records) were left untouched.
 
-DMARC starts at `p=quarantine` (the generated zone file says `p=reject`); tighten to reject once aggregate reports from the first days are clean. Remaining mail check: one real external round-trip (Gmail → `hello@`) to confirm `spf=pass dkim=pass dmarc=pass` in the received headers.
+DMARC starts at `p=quarantine` (the generated zone file says `p=reject`); tighten to reject once aggregate reports from the first days are clean. Inbound proven on 2026-10-31 22:26 (Gmail → `hello@`): Stalwart recorded `Authentication-Results … spf=pass (209.85.210.44) dkim=pass header.d=gmail.com dmarc=pass` and `Received-SPF: pass`. The remaining check is the outbound direction: one message delivered to a Gmail inbox and inspected with "Show original" to confirm `spf=pass dkim=pass dmarc=pass` for `d=fpvlovers.com.tr`.
 
 Historical note: before this, the zone had no apex MX/SPF/DKIM/DMARC, so external inbound depended on the implicit-MX fallback and DMARC reports could not arrive.
 
@@ -109,7 +109,7 @@ The texts are written to match actual code behaviour (rights requests route to `
 
 ## Exact resume point
 
-1. DNS is published (see Open item 1). Send one real external test mail (Gmail → `hello@`) and confirm `spf=pass dkim=pass dmarc=pass` in the received headers; after a few days of clean aggregate reports, switch DMARC to `p=reject`.
+1. Mail DNS is published and inbound authentication is proven (see Open item 1). What is left is the outbound direction: send one message from `hello@fpvlovers.com.tr` (webmail https://webmail.affexai.tr) to a Gmail inbox and read "Show original" for `spf=pass dkim=pass dmarc=pass` with `d=fpvlovers.com.tr`; after a few days of clean aggregate reports, switch DMARC to `p=reject` in Cloudflare.
 2. Hand the legal texts to the lawyer; apply any wording changes as a new commit and redeploy.
 3. Then pick up the Turkish article pipeline plan at `docs/superpowers/plans/2026-10-31-turkish-articles-c2.md` (committed in `5368c1a`; not implemented). The DB mirror it depends on is now repaired.
 4. Admin access is still unprovisioned (`users` = 0): decide whether to create the owner account with `scripts/create-super-admin.ts` before the deferred admin-panel review.
