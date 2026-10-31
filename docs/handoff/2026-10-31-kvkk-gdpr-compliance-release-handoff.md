@@ -4,7 +4,8 @@
 
 - **Released and verified in production.** Deployed revision `07e1c2b`, pushed to `origin/main` (`hazarvolga/fpvlovers-v02`). The docs-only commits that record this handoff come after it and are local.
 - Live container image tag: `07e1c2b956f0b337729b0eb120472557c2420c95` (Coolify app `jnlhgqmjnqwpdgefsoskew5n`, `https://fpvlovers.com.tr`), `/api/ready` → `status: "ready"`.
-- Migration `0011_privacy_compliance_foundation.sql` applied to `gkmzgwnnirofcgpw2yh0bnlh` (`fpvlovers` DB).
+- Migration `0011_privacy_compliance_foundation.sql` applied to `gkmzgwnnirofcgpw2yh0bnlh` (`fpvlovers` DB); recorded in `schema_migrations` on 2026-10-31 together with the previously unapplied `0010` (see below).
+- `fpvlovers_app.published_articles_shadow` repaired on 2026-10-31: 153 rows backfilled, DB reads no longer fall back to files.
 - **Two items remain, both outside engineering's reach:** Cloudflare DNS for mail authentication (user action) and lawyer review of the legal texts (user action).
 
 ## Why this exists
@@ -38,6 +39,21 @@ Commits `3663f5c..07e1c2b` (privacy series), deployed together with the earlier 
 - **No admin credentials exist.** Management requires `STALWART_RECOVERY_ADMIN` on a throwaway container with the live store mounted (RocksDB LOCK forbids a second process). The live server is stopped for ~5 s per change; the helper script's `finally` block always restarts it. Rehearse payload shape before mutating: `x:Account/set` `aliases` is a Set keyed by **integer strings** (`"0"`, `"1"`), not `#name` keys.
 - Outbound DKIM verified from delivered message headers: `ed25519-sha256` selector `v1-ed25519-20261031` and `rsa-sha256` selector `v1-rsa-20261031`.
 - `mail.affexai.tr` → `169.58.96.15` (the sending IP), rDNS = `mail.affexai.tr`, no AAAA, so `v=spf1 mx -all` will pass once DNS exists.
+
+## Production database repair (post-release, 2026-10-31)
+
+Drift found while preparing the Turkish (C2) lane: the deployed code reads published content from `fpvlovers_app.published_articles_shadow` with `WHERE locale = $1`, but migration `0010` had never been applied and the table was empty. Every DB read threw `column "locale" does not exist` and the app silently fell back to the committed JSON files (`[Published Content] Database read failed…`, 48 hits in 72 h). Public pages looked fine because the merge in `listPublishedContentAsync` prefers the file copy on equal timestamps, but the DB mirror, admin views and the Turkish lane were broken.
+
+Applied in this order:
+
+1. `0010_published_content_locale.sql` via `psql --single-transaction` (table was empty, so the PK swap was free): `locale TEXT NOT NULL DEFAULT 'en'`, unique `(slug, locale)`, index `(locale, published_at DESC)`.
+2. Backfilled **153/153** rows (`locale='en'`) from `/app/content/published/*.json` inside the web container, replicating `upsertPublishedArtifact` (`tags = seo.keywords`, `json_path`/`markdown_path`, `json_hash = sha256(JSON.stringify(artifact))`, `markdown_hash` NULL, `metadata` = artifact, `ON CONFLICT (slug, locale)`). The 10 retired duplicates are already deleted from the volume, so nothing needed filtering. The runtime image ships no `scripts/` or `tsx`, so the backfill ran as a throwaway script piped into the container and removed afterwards.
+3. Recorded `0010` (`published_content_locale`, checksum `0c1a016f…b342a`) and `0011` (`privacy_compliance_foundation`, checksum `4ffffcf8…cf1b`) in `schema_migrations`. `0011`'s DDL had been applied manually at release time but never recorded, so the runner would have re-executed it.
+4. Verified: 153 rows / 153 distinct slugs / all `en`, zero nulls, `metadata->>'slug' = slug` everywhere; `/api/ready` still `ready` (`storageMode: dual`); `/guides`, `/search?q=lipo`, `/academy`, `/article/<slug>` and `/tr` 200; retired slug 308 → canonical; sitemap 204 URLs; zero `Database read failed` / `Database lookup failed` lines in the container log after the repair.
+
+Known deviation: `json_hash` is the hash of the on-disk artifact (what the row mirrors), whereas a live publish stores the `ensureMediaArtifact`-normalised object. Nothing reads `json_hash` today and DB reads normalise on the way out (`content-reader.ts`), so behaviour matches the file path.
+
+Still zero in production after the Contabo consolidation: `users`, `accounts`, `newsletter_subscribers`, `consent_records`. The empty `users` table means nobody can sign in to `/admin` (it answers 401); the bootstrap path is `scripts/create-super-admin.ts` run against the prod DB.
 
 ## Coolify scheduled tasks (all on application 3 / `fpvlovers-web`)
 
@@ -93,5 +109,6 @@ The texts are written to match actual code behaviour (rights requests route to `
 1. If DNS is still missing: publish the five records above, then verify with `dig MX fpvlovers.com.tr`, `dig TXT fpvlovers.com.tr`, `dig TXT v1-rsa-20261031._domainkey.fpvlovers.com.tr`, `dig TXT _dmarc.fpvlovers.com.tr`.
 2. Send a real external test mail (Gmail → `hello@`) and confirm DKIM/SPF/DMARC pass in the received headers; after a few days, switch DMARC to `p=reject`.
 3. Hand the legal texts to the lawyer; apply any wording changes as a new commit and redeploy.
-4. Then pick up the approved but unimplemented Turkish article pipeline plan at `docs/superpowers/plans/2026-10-31-turkish-articles-c2.md` (untracked at the time of this handoff).
-5. Detailed session ledger (git-ignored): `.superpowers/sdd/2026-10-31-kvkk-gdpr-compliance-p0/progress.md`.
+4. Then pick up the Turkish article pipeline plan at `docs/superpowers/plans/2026-10-31-turkish-articles-c2.md` (committed in `5368c1a`; not implemented). The DB mirror it depends on is now repaired.
+5. Admin access is still unprovisioned (`users` = 0): decide whether to create the owner account with `scripts/create-super-admin.ts` before the deferred admin-panel review.
+6. Detailed session ledger (git-ignored): `.superpowers/sdd/2026-10-31-kvkk-gdpr-compliance-p0/progress.md`.
