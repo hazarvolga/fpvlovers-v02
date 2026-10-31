@@ -124,7 +124,7 @@ check('consent cookie round-trips and rejects stale versions', () => {
   assert.equal(parseConsentCookie('{"version":"old","categories":{"analytics":true}}'), null);
 });
 
-check('analytics is gated in the shell and banner', () => {
+check('analytics is gated by a server-acknowledged consent record', () => {
   const shell = readFileSync('src/features/layout/components/RootShell.tsx', 'utf8');
   assert.doesNotMatch(shell, /<GoogleAnalytics/, 'unconditional GA render is forbidden');
   assert.match(shell, /ConsentGatedAnalytics/);
@@ -133,6 +133,18 @@ check('analytics is gated in the shell and banner', () => {
   const banner = readFileSync('src/features/layout/components/CookieBanner.tsx', 'utf8');
   assert.match(banner, /analytics: false/);
   assert.match(banner, /marketing: false/);
+  assert.match(banner, /saveError/);
+  // The cookie is the only thing that enables analytics, so it must never be
+  // written before the audit record is acknowledged (503/500 must leave it absent).
+  const provider = readFileSync('src/features/layout/components/ConsentProvider.tsx', 'utf8');
+  const postIndex = provider.indexOf("await fetch('/api/consent'");
+  assert.ok(postIndex >= 0, 'consent must be posted before it is persisted');
+  assert.match(provider, /if \(!response\.ok\)/);
+  assert.ok(
+    provider.indexOf('document.cookie =', postIndex) > postIndex,
+    'cookie write must follow the acknowledged POST',
+  );
+  assert.doesNotMatch(provider, /keepalive: true/, 'the POST must finish before the choice is persisted');
 });
 
 check('first-party analytics is consent-gated', () => {
@@ -330,12 +342,6 @@ check('write endpoints fail closed without a configured controller', () => {
     assert.match(source, /isLegalControllerConfigured\(getLegalController\(\)\)/, file);
     assert.match(source, /status: 503/, file);
   }
-
-  const shell = readFileSync('src/features/layout/components/RootShell.tsx', 'utf8');
-  assert.match(shell, /consentSurfacesEnabled/, 'shell must hide banner and analytics without a controller');
-  assert.match(shell, /isLegalControllerConfigured\(getLegalController\(\)\)/);
-  assert.match(shell, /\{consentSurfacesEnabled && <CookieBanner/);
-  assert.match(shell, /\{consentSurfacesEnabled && \(/);
 });
 
 // The harness is transpiled to CommonJS, so the async runner cannot use top-level await.

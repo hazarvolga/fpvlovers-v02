@@ -8,14 +8,9 @@ import { MobileUtilityBar } from './MobileUtilityBar';
 import { CookieBanner } from './CookieBanner';
 import { ConsentProvider } from './ConsentProvider';
 import { ConsentGatedAnalytics } from './ConsentGatedAnalytics';
-import { getLegalController, isLegalControllerConfigured } from '@/lib/legal/controller';
 
 export function RootShell({ lang, children }: { lang: Locale; children: ReactNode }) {
   const enableVercelAnalytics = process.env.VERCEL === '1' || process.env.NEXT_PUBLIC_ENABLE_VERCEL_ANALYTICS === 'true';
-  // Without a configured controller the legal pages 404, so production must not
-  // ask for consent or load analytics either.
-  const consentSurfacesEnabled =
-    process.env.NODE_ENV !== 'production' || isLegalControllerConfigured(getLegalController());
 
   return (
     <html lang={lang} className="dark">
@@ -32,11 +27,9 @@ export function RootShell({ lang, children }: { lang: Locale; children: ReactNod
             <Navbar locale={lang} />
             <main className="relative z-10 pb-16 lg:pb-0">{children}</main>
             <MobileUtilityBar locale={lang} />
-            {consentSurfacesEnabled && <CookieBanner locale={lang} />}
+            <CookieBanner locale={lang} />
             <SiteFooter locale={lang} />
-            {consentSurfacesEnabled && (
-              <ConsentGatedAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} vercelEnabled={enableVercelAnalytics} />
-            )}
+            <ConsentGatedAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} vercelEnabled={enableVercelAnalytics} />
           </ConsentProvider>
         </SessionProvider>
       </body>

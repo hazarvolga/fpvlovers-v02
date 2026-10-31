@@ -23,6 +23,7 @@ const COPY = {
     marketing: 'Marketing',
     marketingDesc: 'Used only if we add advertising or affiliate tracking pixels. Currently off.',
     cookies: 'Cookie Policy',
+    saveError: 'We could not save your choice, so analytics stays off. Please try again.',
   },
   tr: {
     title: 'Çerez tercihleri',
@@ -38,6 +39,7 @@ const COPY = {
     marketing: 'Pazarlama',
     marketingDesc: 'Yalnızca reklam veya affiliate izleme pikseli eklenirse kullanılır. Şu an kapalı.',
     cookies: 'Çerez Politikası',
+    saveError: 'Tercihiniz kaydedilemedi, analitik kapalı kalıyor. Lütfen tekrar deneyin.',
   },
 } as const;
 
@@ -51,12 +53,14 @@ function PreferencesPanel({
   copy,
   consent,
   locale,
+  saving,
   onSave,
   onClose,
 }: {
   copy: CookieCopy;
   consent: ConsentState | null;
   locale: Locale;
+  saving: boolean;
   onSave: (categories: { analytics: boolean; marketing: boolean }) => void;
   onClose: () => void;
 }) {
@@ -78,7 +82,7 @@ function PreferencesPanel({
         <span><strong className="text-zinc-100">{copy.marketing}</strong> — {copy.marketingDesc}</span>
       </label>
       <div className="flex items-center gap-2 pt-1">
-        <Button variant="amber" size="sm" onClick={() => onSave({ analytics, marketing })} className="min-h-9 px-4 font-mono text-[10px] font-black uppercase">
+        <Button variant="amber" size="sm" disabled={saving} onClick={() => onSave({ analytics, marketing })} className="min-h-9 px-4 font-mono text-[10px] font-black uppercase">
           {copy.save}
         </Button>
         <button type="button" onClick={onClose} className="min-h-9 rounded border border-white/10 px-3 text-[10px] font-mono uppercase tracking-wider text-zinc-400">
@@ -90,7 +94,7 @@ function PreferencesPanel({
 }
 
 export function CookieBanner({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
-  const { consent, ready, preferencesOpen, save, openPreferences, closePreferences } = useConsent();
+  const { consent, ready, saving, saveError, preferencesOpen, save, openPreferences, closePreferences } = useConsent();
   const copy = COPY[locale];
 
   if (!ready) return null;
@@ -111,10 +115,10 @@ export function CookieBanner({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
             </p>
           </div>
           <div className="flex shrink-0 flex-wrap items-center gap-2">
-            <button type="button" onClick={() => save({ analytics: false, marketing: false })} className="min-h-9 rounded border border-white/10 px-3 text-[10px] font-mono uppercase tracking-wider text-zinc-400 transition-colors hover:border-white/20 hover:text-white">
+            <button type="button" disabled={saving} onClick={() => save({ analytics: false, marketing: false })} className="min-h-9 rounded border border-white/10 px-3 text-[10px] font-mono uppercase tracking-wider text-zinc-400 transition-colors hover:border-white/20 hover:text-white disabled:opacity-50">
               {copy.reject}
             </button>
-            <Button variant="amber" size="sm" onClick={() => save({ analytics: true, marketing: true })} className="min-h-9 px-4 font-mono text-[10px] font-black uppercase">
+            <Button variant="amber" size="sm" disabled={saving} onClick={() => save({ analytics: true, marketing: true })} className="min-h-9 px-4 font-mono text-[10px] font-black uppercase">
               {copy.accept}
             </Button>
             <button type="button" onClick={openPreferences} className="min-h-9 rounded border border-white/10 px-3 text-[10px] font-mono uppercase tracking-wider text-zinc-400 transition-colors hover:border-white/20 hover:text-white">
@@ -123,11 +127,16 @@ export function CookieBanner({ locale = DEFAULT_LOCALE }: { locale?: Locale }) {
           </div>
         </div>
 
+        {saveError && (
+          <p role="alert" className="mt-2 text-[11px] text-[#ff8a8d]">{copy.saveError}</p>
+        )}
+
         {preferencesOpen && (
           <PreferencesPanel
             copy={copy}
             consent={consent}
             locale={locale}
+            saving={saving}
             onSave={save}
             onClose={closePreferences}
           />

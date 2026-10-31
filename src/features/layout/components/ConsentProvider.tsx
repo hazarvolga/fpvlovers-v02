@@ -14,6 +14,8 @@ import {
 type ConsentContextValue = {
   consent: ConsentState | null;
   ready: boolean;
+  saving: boolean;
+  saveError: boolean;
   preferencesOpen: boolean;
   save: (categories: { analytics: boolean; marketing: boolean }) => void;
   openPreferences: () => void;
@@ -66,47 +68,68 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   const rawCookie = useSyncExternalStore(subscribeToConsentCookie, readConsentCookie, () => null);
   const stored = useMemo(() => parseConsentCookie(rawCookie), [rawCookie]);
   const [saved, setSaved] = useState<ConsentState | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState(false);
   const [preferencesOpen, setPreferencesOpen] = useState(false);
 
   // A decision taken in this session wins over the cookie snapshot it just wrote.
   const consent = saved ?? stored;
 
-  const save = useCallback((categories: { analytics: boolean; marketing: boolean }) => {
+  const save = useCallback(async (categories: { analytics: boolean; marketing: boolean }) => {
+    if (saving) return;
+    setSaving(true);
+    setSaveError(false);
+
+    const state = createConsentState(categories);
+    try {
+      const response = await fetch('/api/consent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          consentId: state.id,
+          policyVersion: CONSENT_VERSION,
+          source: 'banner',
+          categories: state.categories,
+        }),
+      });
+      // The cookie is what enables analytics, so it must never outrun the audit
+      // record: an unreachable or refusing API leaves the visitor unanswered
+      // instead of granting analytics without proof of consent.
+      if (!response.ok) throw new Error(`Consent API responded ${response.status}`);
+    } catch {
+      setSaveError(true);
+      setSaving(false);
+      return;
+    }
+
     // Withdrawal (true -> false) is the only case that needs more than a cookie
     // write: gtag.js keeps beaconing until the page is torn down.
     const withdrawingAnalytics = consent?.categories.analytics === true && categories.analytics !== true;
     if (withdrawingAnalytics) expireAnalyticsCookies();
 
-    const state = createConsentState(categories);
     document.cookie = `${CONSENT_COOKIE}=${encodeURIComponent(serializeConsentCookie(state))}; Path=/; Max-Age=31536000; SameSite=Lax`;
     setSaved(state);
     setPreferencesOpen(false);
-    fetch('/api/consent', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        consentId: state.id,
-        policyVersion: CONSENT_VERSION,
-        source: 'banner',
-        categories: state.categories,
-      }),
-      // The audit record must survive the reload below.
-      keepalive: true,
-    }).catch(() => undefined);
+    setSaving(false);
 
     // Reloading re-runs the shell without consent, so gtag.js is never booted
     // again and no further beacons are sent. Grants and first choices never reload.
     if (withdrawingAnalytics) window.location.reload();
-  }, [consent]);
+  }, [consent, saving]);
 
   const value = useMemo<ConsentContextValue>(() => ({
     consent,
     ready,
+    saving,
+    saveError,
     preferencesOpen,
     save,
-    openPreferences: () => setPreferencesOpen(true),
+    openPreferences: () => {
+      setSaveError(false);
+      setPreferencesOpen(true);
+    },
     closePreferences: () => setPreferencesOpen(false),
-  }), [consent, ready, preferencesOpen, save]);
+  }), [consent, ready, saving, saveError, preferencesOpen, save]);
 
   return <ConsentContext.Provider value={value}>{children}</ConsentContext.Provider>;
 }
