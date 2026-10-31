@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
   if (process.env.NODE_ENV === 'production' && !isLegalControllerConfigured(getLegalController())) {
     return NextResponse.json({ success: false, errors: ['Service temporarily unavailable.'] }, { status: 503 });
   }
+  const fallbackEmail = getLegalController().email || 'hello@fpvlovers.com.tr';
 
   try {
     const body = await request.json();
@@ -102,14 +103,14 @@ export async function POST(request: NextRequest) {
       } catch (mailErr: unknown) {
         console.error('[ContactFormSubmit] Failed to send email via SMTP:', mailErr instanceof Error ? mailErr.message : String(mailErr));
         return NextResponse.json(
-          { success: false, errors: ['We could not deliver your message. Please email hello@fpvlovers.com.tr directly.'] },
+          { success: false, errors: [`We could not deliver your message. Please email ${fallbackEmail} directly.`] },
           { status: 502 },
         );
       }
     } else {
       console.error('[ContactFormSubmit] SMTP parameters missing, inquiry not delivered.');
       return NextResponse.json(
-        { success: false, errors: ['We could not deliver your message. Please email hello@fpvlovers.com.tr directly.'] },
+        { success: false, errors: [`We could not deliver your message. Please email ${fallbackEmail} directly.`] },
         { status: 502 },
       );
     }

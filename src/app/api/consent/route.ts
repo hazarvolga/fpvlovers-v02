@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { query } from '@/lib/server/db';
 import { rateLimit } from '@/lib/server/rate-limit';
 import { CONSENT_VERSION } from '@/lib/consent/consent';
+import { getLegalController, isLegalControllerConfigured } from '@/lib/legal/controller';
 
 const schema = z.object({
   consentId: z.string().min(8).max(100),
@@ -20,6 +21,12 @@ export async function POST(request: NextRequest) {
   const limitRes = rateLimit(request, 30, 60 * 1000, 'consent');
   if (!limitRes.success) {
     return NextResponse.json({ error: 'Too many requests. Please try again in a minute.' }, { status: 429 });
+  }
+
+  // Consent must not be recorded while the notice it refers to is unreachable
+  // (production legal pages 404 without a configured controller).
+  if (process.env.NODE_ENV === 'production' && !isLegalControllerConfigured(getLegalController())) {
+    return NextResponse.json({ error: 'Service temporarily unavailable.' }, { status: 503 });
   }
 
   let body: unknown;

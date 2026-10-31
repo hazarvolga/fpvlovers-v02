@@ -324,11 +324,18 @@ check('write endpoints fail closed without a configured controller', () => {
     'src/app/api/newsletter/subscribe/route.ts',
     'src/app/api/contact/route.ts',
     'src/app/api/pilot/register/route.ts',
+    'src/app/api/consent/route.ts',
   ]) {
     const source = readFileSync(file, 'utf8');
     assert.match(source, /isLegalControllerConfigured\(getLegalController\(\)\)/, file);
     assert.match(source, /status: 503/, file);
   }
+
+  const shell = readFileSync('src/features/layout/components/RootShell.tsx', 'utf8');
+  assert.match(shell, /consentSurfacesEnabled/, 'shell must hide banner and analytics without a controller');
+  assert.match(shell, /isLegalControllerConfigured\(getLegalController\(\)\)/);
+  assert.match(shell, /\{consentSurfacesEnabled && <CookieBanner/);
+  assert.match(shell, /\{consentSurfacesEnabled && \(/);
 });
 
 // The harness is transpiled to CommonJS, so the async runner cannot use top-level await.

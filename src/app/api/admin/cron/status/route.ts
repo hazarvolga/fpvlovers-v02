@@ -50,6 +50,11 @@ export async function GET(req: Request) {
         schedule: 'Recommended: every 4 hours via external cron',
         source: latestDbGenerate ? 'database' : 'file',
       },
+      privacyRetention: {
+        endpoint: '/api/admin/cron/privacy-retention',
+        schedule: 'Recommended: daily via Coolify scheduled task',
+        note: 'Enforces the retention windows published in the privacy policy.',
+      },
     },
     howToSetup: 'Call these endpoints via an external cron service (cron-job.org, Coolify scheduled tasks, Vercel Cron Jobs) at the recommended intervals.',
   });
