@@ -89,6 +89,11 @@ export interface NewsletterSubscriberRow {
   subscribed_at: Date;
   unsubscribed_at: Date | null;
   source: string;
+  status: 'pending' | 'active' | 'unsubscribed';
+  confirmed_at: Date | null;
+  consent_at: Date | null;
+  consent_version: string | null;
+  consent_source: string | null;
 }
 
 export interface NewsletterCampaignRow {
