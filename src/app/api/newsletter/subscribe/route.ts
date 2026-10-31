@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
       await query(
         `UPDATE fpvlovers_app.newsletter_subscribers
          SET email = $2, status = 'pending', is_active = false, unsubscribed_at = NULL,
-             consent_version = $3, consent_source = $4
+             subscribed_at = NOW(), consent_version = $3, consent_source = $4
          WHERE id = $1`,
         [subscriberId, email, NEWSLETTER_CONSENT_VERSION, source],
       );

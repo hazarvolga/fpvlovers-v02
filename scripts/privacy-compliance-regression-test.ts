@@ -239,20 +239,38 @@ check('retention cleanup targets only expired rows', async () => {
     return { rowCount: calls.length };
   }, { now });
 
-  assert.equal(calls.length, 3);
+  assert.equal(calls.length, 4);
   assert.match(calls[0].sql, /DELETE FROM fpvlovers_analytics\.events/);
   assert.equal((calls[0].params?.[0] as Date).toISOString(), '2026-05-04T00:00:00.000Z');
+
   assert.match(calls[1].sql, /newsletter_subscribers/);
   assert.match(calls[1].sql, /status = 'pending'/);
+  assert.match(calls[1].sql, /AND \(subscribed_at IS NULL OR subscribed_at < \$1\)/);
+  assert.doesNotMatch(calls[1].sql, /'active'|'unsubscribed'/, 'pending delete must not touch other statuses');
   assert.equal((calls[1].params?.[0] as Date).toISOString(), '2026-10-01T00:00:00.000Z');
-  assert.match(calls[2].sql, /DELETE FROM fpvlovers_app\.consent_records/);
-  assert.equal((calls[2].params?.[0] as Date).toISOString(), '2021-10-31T00:00:00.000Z');
-  assert.deepEqual(result, { analyticsEvents: 1, pendingSubscribers: 2, consentRecords: 3 });
+
+  assert.match(calls[2].sql, /newsletter_subscribers/);
+  assert.match(calls[2].sql, /status = 'unsubscribed'/);
+  assert.match(calls[2].sql, /unsubscribed_at < \$1/);
+  assert.equal((calls[2].params?.[0] as Date).toISOString(), '2024-10-31T00:00:00.000Z');
+
+  assert.match(calls[3].sql, /DELETE FROM fpvlovers_app\.consent_records/);
+  assert.equal((calls[3].params?.[0] as Date).toISOString(), '2021-10-31T00:00:00.000Z');
+  assert.deepEqual(result, {
+    analyticsEvents: 1,
+    pendingSubscribers: 2,
+    unsubscribedSubscribers: 3,
+    consentRecords: 4,
+  });
 });
 
 check('retention cleanup rejects non-positive windows', async () => {
   await assert.rejects(
     () => purgeExpiredPrivacyData(async () => ({ rowCount: 0 }), { analyticsDays: 0 }),
+    /Retention windows must be positive/,
+  );
+  await assert.rejects(
+    () => purgeExpiredPrivacyData(async () => ({ rowCount: 0 }), { unsubscribeProofYears: 0 }),
     /Retention windows must be positive/,
   );
 });
