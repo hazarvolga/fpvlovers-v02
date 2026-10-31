@@ -11,7 +11,7 @@ if (markdown.includes('retrieval_mode needs to be resaved')) {
 if (markdown.includes('ready-for-task-2')) {
   violations.push('latest.md contains obsolete Task 2 state');
 }
-if (status.state !== 'release-verification-pending') {
+if (status.state !== 'live-verified-owner-actions-pending') {
   violations.push(`latest.json has stale state: ${status.state}`);
 }
 if (typeof status.head !== 'string' || !/^[0-9a-f]{7,40}$/.test(status.head)) {

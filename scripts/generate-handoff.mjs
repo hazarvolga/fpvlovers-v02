@@ -138,7 +138,7 @@ Start with the recorded Next Move. Inspect current Git state before acting, keep
 const status = {
   generatedAt,
   project: 'fpvlovers-frontend-websitesi',
-  state: 'release-verification-pending',
+  state: 'live-verified-owner-actions-pending',
   branch,
   head,
   behind,

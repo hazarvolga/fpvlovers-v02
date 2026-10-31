@@ -1,6 +1,14 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-10-25
+Last updated: 2026-10-31
+
+## PAUSED HERE (2026-10-31) - KVKK/GDPR P0 Release, Resume Order
+
+Read `docs/handoff/2026-10-31-kvkk-gdpr-compliance-release-handoff.md` first. Code is deployed and verified on `07e1c2b` (pushed to `origin/main`); nothing is in progress. The ledger is git-ignored at `.superpowers/sdd/2026-10-31-kvkk-gdpr-compliance-p0/progress.md`.
+
+1. **OWNER (blocking mail auth) - Cloudflare DNS for `fpvlovers.com.tr`:** add MX `10 mail.affexai.tr`, TXT `v=spf1 mx -all`, the two DKIM TXT records (`v1-ed25519-20261031`, `v1-rsa-20261031`), and `_dmarc` (start `p=quarantine; rua=mailto:postmaster@fpvlovers.com.tr`). Full values: handoff doc + `/root/fpvlovers-dns-zone.txt` on the host. Then verify DKIM/SPF/DMARC on a real Gmail → `hello@` delivery and tighten DMARC to `p=reject` once reports are clean.
+2. **OWNER - lawyer review** of the TR/EN legal texts; apply wording changes as a code commit and redeploy. Add `LEGAL_CONTROLLER_KEP` / `LEGAL_CONTROLLER_TAX_ID` in Coolify only if the lawyer asks for them.
+3. **Optional engineering follow-up:** the Turkish article pipeline plan at `docs/superpowers/plans/2026-10-31-turkish-articles-c2.md` is approved but unimplemented.
 
 ## PAUSED HERE (2026-10-25) - Resume Order (Phase C)
 
@@ -194,12 +202,14 @@ Canonical documents:
 
 ## Immediate Security Actions
 
+- **2026-10-31 BLOCKER (owner): publish the `fpvlovers.com.tr` mail DNS records** — MX `10 mail.affexai.tr`, `v=spf1 mx -all`, DKIM `v1-ed25519-20261031` + `v1-rsa-20261031`, `_dmarc` (start `p=quarantine`, then tighten to reject). Without MX the domain falls back to implicit MX and DMARC reports never arrive. Values: `docs/handoff/2026-10-31-kvkk-gdpr-compliance-release-handoff.md`.
 1. ✅ Rotated `CRON_SECRET`, the Dify dataset token, and seven unique active Dify app/workflow token groups; verified replacements and revoked old tokens.
 2. Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
 3. Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.
 
 ## Deployment Tasks
 
+- **2026-10-31 (owner): lawyer review of the KVKK/GDPR legal texts** in `src/lib/legal/documents.ts`; any wording change needs a commit + Coolify redeploy. Add `LEGAL_CONTROLLER_KEP` / `LEGAL_CONTROLLER_TAX_ID` only if requested.
 0. ✅ Coolify persistent volume for `/app/public/images/source-cache` is live, host-directory ownership matches the app's uid 1001, and Backfill Images was re-run and verified end-to-end on 2026-08-02 (87/87 files present on the persistent host path, live `curl` returned `image/png`). See the 2026-08-02 priority section above for full evidence.
 0. **HISTORICAL PAUSE (2026-08-02, superseded by the 2026-08-14 pause above):** Wire `src/app/admin/page.tsx`'s "Pilot Registry" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`). This remains an open lower-priority task; it is not the current resume point.
 1. ✅ Production read-only verification completed on 2026-06-19: the healthy Coolify container and `origin/main` both run `061f0f705a415046b7ba5e07df77ece3f41c56e8`.
