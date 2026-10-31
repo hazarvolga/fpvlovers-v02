@@ -134,8 +134,10 @@ check('analytics is gated by a server-acknowledged consent record', () => {
   assert.match(banner, /analytics: false/);
   assert.match(banner, /marketing: false/);
   assert.match(banner, /saveError/);
-  // The cookie is the only thing that enables analytics, so it must never be
+  // The cookie is the only thing that enables analytics, so a grant must never be
   // written before the audit record is acknowledged (503/500 must leave it absent).
+  // A withdrawal is the exception: it only tightens the stored decision and must
+  // take effect even when the API is down.
   const provider = readFileSync('src/features/layout/components/ConsentProvider.tsx', 'utf8');
   const postIndex = provider.indexOf("await fetch('/api/consent'");
   assert.ok(postIndex >= 0, 'consent must be posted before it is persisted');
@@ -144,6 +146,8 @@ check('analytics is gated by a server-acknowledged consent record', () => {
     provider.indexOf('document.cookie =', postIndex) > postIndex,
     'cookie write must follow the acknowledged POST',
   );
+  assert.match(provider, /if \(!withdrawingAnalytics\) \{/, 'grants must fail closed without an audit record');
+  assert.match(provider, /withdrawingAnalytics\) expireAnalyticsCookies\(\)/);
   assert.doesNotMatch(provider, /keepalive: true/, 'the POST must finish before the choice is persisted');
 });
 

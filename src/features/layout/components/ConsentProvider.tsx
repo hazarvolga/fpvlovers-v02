@@ -81,6 +81,9 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
     setSaveError(false);
 
     const state = createConsentState(categories);
+    // Withdrawal (true -> false) is the only case that needs more than a cookie
+    // write: gtag.js keeps beaconing until the page is torn down.
+    const withdrawingAnalytics = consent?.categories.analytics === true && categories.analytics !== true;
     try {
       const response = await fetch('/api/consent', {
         method: 'POST',
@@ -91,20 +94,23 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
           source: 'banner',
           categories: state.categories,
         }),
+        signal: AbortSignal.timeout(10_000),
       });
       // The cookie is what enables analytics, so it must never outrun the audit
       // record: an unreachable or refusing API leaves the visitor unanswered
       // instead of granting analytics without proof of consent.
       if (!response.ok) throw new Error(`Consent API responded ${response.status}`);
     } catch {
-      setSaveError(true);
-      setSaving(false);
-      return;
+      // A withdrawal has to take effect even when the API is down: it can only
+      // tighten the stored decision, so it is applied locally and the page is
+      // reloaded to tear down gtag.js. Grants fail closed and stay unpersisted.
+      if (!withdrawingAnalytics) {
+        setSaveError(true);
+        setSaving(false);
+        return;
+      }
     }
 
-    // Withdrawal (true -> false) is the only case that needs more than a cookie
-    // write: gtag.js keeps beaconing until the page is torn down.
-    const withdrawingAnalytics = consent?.categories.analytics === true && categories.analytics !== true;
     if (withdrawingAnalytics) expireAnalyticsCookies();
 
     document.cookie = `${CONSENT_COOKIE}=${encodeURIComponent(serializeConsentCookie(state))}; Path=/; Max-Age=31536000; SameSite=Lax`;
