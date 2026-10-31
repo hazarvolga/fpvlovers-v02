@@ -130,6 +130,15 @@ check('analytics is gated in the shell and banner', () => {
   assert.match(banner, /marketing: false/);
 });
 
+check('first-party analytics is consent-gated', () => {
+  const client = readFileSync('src/lib/analytics.ts', 'utf8');
+  assert.match(client, /parseConsentCookie/);
+  assert.match(client, /hasAnalyticsConsent/);
+  const route = readFileSync('src/app/api/analytics/event/route.ts', 'utf8');
+  assert.match(route, /CONSENT_COOKIE/);
+  assert.match(route, /parseConsentCookie/);
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {

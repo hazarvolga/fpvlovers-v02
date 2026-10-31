@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { logAnalyticsEvent } from '@/lib/server/analytics-store';
 import { rateLimit } from '@/lib/server/rate-limit';
+import { CONSENT_COOKIE, hasAnalyticsConsent, parseConsentCookie } from '@/lib/consent/consent';
 
 export async function POST(request: NextRequest) {
   // Higher ceiling than the form endpoints: this fires on normal page/widget
@@ -18,6 +19,14 @@ export async function POST(request: NextRequest) {
         },
       }
     );
+  }
+
+  // Defense in depth for the client-side gate: a request that arrives without a
+  // recorded analytics opt-in is silently dropped and nothing is persisted.
+  // Missing or malformed cookies count as no consent.
+  const consentCookie = request.cookies.get(CONSENT_COOKIE)?.value;
+  if (!hasAnalyticsConsent(parseConsentCookie(consentCookie))) {
+    return new NextResponse(null, { status: 204 });
   }
 
   try {
