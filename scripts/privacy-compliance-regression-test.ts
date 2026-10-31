@@ -24,9 +24,10 @@ import { LEGAL_DOCUMENT_VERSION } from '../src/lib/legal/version';
 import { isLegalControllerConfigured, type LegalController } from '../src/lib/legal/controller';
 import { LEGAL_PAGE_PAIRS, legalPath } from '../src/lib/legal/paths';
 import { buildLegalDocuments } from '../src/lib/legal/documents';
+import { purgeExpiredPrivacyData } from '../src/lib/server/privacy-retention';
 
-const checks: { name: string; run: () => void }[] = [];
-function check(name: string, run: () => void): void {
+const checks: { name: string; run: () => void | Promise<void> }[] = [];
+function check(name: string, run: () => void | Promise<void>): void {
   checks.push({ name, run });
 }
 
@@ -230,18 +231,49 @@ check('legal documents avoid self-service rights wording', () => {
   assert.match(documents, /en geç 30 gün/);
 });
 
-let failed = 0;
-for (const { name, run } of checks) {
-  try {
-    run();
-    console.log(`✓ ${name}`);
-  } catch (error) {
-    failed += 1;
-    console.error(`✗ ${name}: ${(error as Error).message}`);
+check('retention cleanup targets only expired rows', async () => {
+  const calls: { sql: string; params?: unknown[] }[] = [];
+  const now = new Date('2026-10-31T00:00:00.000Z');
+  const result = await purgeExpiredPrivacyData(async (sql, params) => {
+    calls.push({ sql, params });
+    return { rowCount: calls.length };
+  }, { now });
+
+  assert.equal(calls.length, 3);
+  assert.match(calls[0].sql, /DELETE FROM fpvlovers_analytics\.events/);
+  assert.equal((calls[0].params?.[0] as Date).toISOString(), '2026-05-04T00:00:00.000Z');
+  assert.match(calls[1].sql, /newsletter_subscribers/);
+  assert.match(calls[1].sql, /status = 'pending'/);
+  assert.equal((calls[1].params?.[0] as Date).toISOString(), '2026-10-01T00:00:00.000Z');
+  assert.match(calls[2].sql, /DELETE FROM fpvlovers_app\.consent_records/);
+  assert.equal((calls[2].params?.[0] as Date).toISOString(), '2021-10-31T00:00:00.000Z');
+  assert.deepEqual(result, { analyticsEvents: 1, pendingSubscribers: 2, consentRecords: 3 });
+});
+
+check('retention cleanup rejects non-positive windows', async () => {
+  await assert.rejects(
+    () => purgeExpiredPrivacyData(async () => ({ rowCount: 0 }), { analyticsDays: 0 }),
+    /Retention windows must be positive/,
+  );
+});
+
+// The harness is transpiled to CommonJS, so the async runner cannot use top-level await.
+async function main(): Promise<void> {
+  let failed = 0;
+  for (const { name, run } of checks) {
+    try {
+      await run();
+      console.log(`✓ ${name}`);
+    } catch (error) {
+      failed += 1;
+      console.error(`✗ ${name}: ${(error as Error).message}`);
+    }
   }
+  if (failed > 0) {
+    console.error(`privacy compliance test failed (${failed}/${checks.length})`);
+    process.exit(1);
+  }
+  console.log(`privacy compliance test passed (${checks.length} checks)`);
 }
-if (failed > 0) {
-  console.error(`privacy compliance test failed (${failed}/${checks.length})`);
-  process.exit(1);
-}
-console.log(`privacy compliance test passed (${checks.length} checks)`);
+
+void main();

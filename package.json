@@ -84,7 +84,8 @@
     "racing:workflow:smoke": "node --import tsx scripts/racing-workflow-smoke.ts",
     "content:job-selection-test": "node --import tsx scripts/content-job-selection-regression-test.ts",
     "dify:client-test": "node --import tsx scripts/dify-client-workflow-contract-test.ts",
-    "locale:test": "node --import tsx scripts/locale-regression-test.ts"
+    "locale:test": "node --import tsx scripts/locale-regression-test.ts",
+    "privacy:retention": "node --import tsx scripts/privacy-retention.ts"
   },
   "dependencies": {
     "@auth/pg-adapter": "^1.11.2",
