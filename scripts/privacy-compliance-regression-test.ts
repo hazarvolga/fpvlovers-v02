@@ -13,6 +13,11 @@ check('privacy migration adds newsletter consent columns', () => {
   }
   assert.match(sql, /consent_records/);
   assert.match(sql, /terms_accepted_at/);
+  assert.doesNotMatch(
+    sql,
+    /SET[^;]*consent_at/i,
+    'consent_at must not be backfilled; legacy subscribers stay out of dispatch until re-consent',
+  );
 });
 
 check('newsletter subscriber type carries consent state', () => {

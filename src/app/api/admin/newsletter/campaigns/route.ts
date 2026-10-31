@@ -13,7 +13,8 @@ export async function GET() {
         `SELECT * FROM fpvlovers_app.newsletter_campaigns ORDER BY created_at DESC LIMIT 50`
       ),
       query<NewsletterSubscriberRow>(
-        `SELECT id, email, is_active, subscribed_at, unsubscribed_at, source
+        `SELECT id, email, is_active, subscribed_at, unsubscribed_at, source,
+                status, confirmed_at, consent_at, consent_version, consent_source
          FROM fpvlovers_app.newsletter_subscribers
          ORDER BY subscribed_at DESC NULLS LAST
          LIMIT 200`
