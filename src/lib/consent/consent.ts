@@ -36,10 +36,14 @@ export function parseConsentCookie(raw: string | null | undefined): ConsentState
   try {
     const parsed = JSON.parse(decodeURIComponent(raw)) as Partial<ConsentState>;
     if (parsed.version !== CONSENT_VERSION || !parsed.categories) return null;
+    // A structurally incomplete cookie is untrusted: never fabricate an id or a
+    // decision time, because the audit record would then be unattributable.
+    if (typeof parsed.id !== 'string' || parsed.id.length === 0) return null;
+    if (typeof parsed.decidedAt !== 'string' || Number.isNaN(Date.parse(parsed.decidedAt))) return null;
     return {
       version: CONSENT_VERSION,
-      id: typeof parsed.id === 'string' && parsed.id ? parsed.id : 'unknown',
-      decidedAt: typeof parsed.decidedAt === 'string' ? parsed.decidedAt : new Date().toISOString(),
+      id: parsed.id,
+      decidedAt: parsed.decidedAt,
       categories: {
         necessary: true,
         analytics: parsed.categories.analytics === true,

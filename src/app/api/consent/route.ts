@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { query } from '@/lib/server/db';
+import { rateLimit } from '@/lib/server/rate-limit';
 import { CONSENT_VERSION } from '@/lib/consent/consent';
 
 const schema = z.object({
@@ -15,12 +16,26 @@ const schema = z.object({
 });
 
 export async function POST(request: NextRequest) {
-  try {
-    const parsed = schema.safeParse(await request.json());
-    if (!parsed.success) {
-      return NextResponse.json({ error: 'Invalid consent payload.' }, { status: 400 });
-    }
+  // Unauthenticated write endpoint: cap it per IP so the audit table cannot be flooded.
+  const limitRes = rateLimit(request, 30, 60 * 1000, 'consent');
+  if (!limitRes.success) {
+    return NextResponse.json({ error: 'Too many requests. Please try again in a minute.' }, { status: 429 });
+  }
 
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    // Malformed JSON is a client error, not a server fault.
+    return NextResponse.json({ error: 'Invalid consent payload.' }, { status: 400 });
+  }
+
+  const parsed = schema.safeParse(body);
+  if (!parsed.success) {
+    return NextResponse.json({ error: 'Invalid consent payload.' }, { status: 400 });
+  }
+
+  try {
     const { consentId, policyVersion, source, categories } = parsed.data;
     await query(
       `INSERT INTO fpvlovers_app.consent_records (consent_id, categories, policy_version, source)

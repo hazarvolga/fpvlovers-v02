@@ -28,6 +28,25 @@ function readConsentCookie(): string | null {
   return row ? row.slice(prefix.length) : null;
 }
 
+const ANALYTICS_COOKIE_PREFIXES = ['_ga', '_gid', '_gat'];
+
+/**
+ * Unmounting `<GoogleAnalytics>` stops new tags but not the gtag.js instance
+ * that already booted, and it never removes the `_ga*` cookies. Expire every
+ * analytics cookie JS can see, for the host-only, host and parent-domain scopes
+ * gtag.js may have written them to.
+ */
+function expireAnalyticsCookies(): void {
+  const domains = ['', location.hostname, `.${location.hostname}`];
+  for (const row of document.cookie.split('; ')) {
+    const name = row.split('=')[0];
+    if (!name || !ANALYTICS_COOKIE_PREFIXES.some((prefix) => name.startsWith(prefix))) continue;
+    for (const domain of domains) {
+      document.cookie = `${name}=; Path=/; Max-Age=0${domain ? `; Domain=${domain}` : ''}`;
+    }
+  }
+}
+
 // Cookies emit no change event. The banner is the only writer in this tab and
 // calls `save` explicitly, so the store is read on every render instead of subscribed.
 function subscribeToConsentCookie(): () => void {
@@ -53,6 +72,11 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
   const consent = saved ?? stored;
 
   const save = useCallback((categories: { analytics: boolean; marketing: boolean }) => {
+    // Withdrawal (true -> false) is the only case that needs more than a cookie
+    // write: gtag.js keeps beaconing until the page is torn down.
+    const withdrawingAnalytics = consent?.categories.analytics === true && categories.analytics !== true;
+    if (withdrawingAnalytics) expireAnalyticsCookies();
+
     const state = createConsentState(categories);
     document.cookie = `${CONSENT_COOKIE}=${encodeURIComponent(serializeConsentCookie(state))}; Path=/; Max-Age=31536000; SameSite=Lax`;
     setSaved(state);
@@ -66,8 +90,14 @@ export function ConsentProvider({ children }: { children: ReactNode }) {
         source: 'banner',
         categories: state.categories,
       }),
+      // The audit record must survive the reload below.
+      keepalive: true,
     }).catch(() => undefined);
-  }, []);
+
+    // Reloading re-runs the shell without consent, so gtag.js is never booted
+    // again and no further beacons are sent. Grants and first choices never reload.
+    if (withdrawingAnalytics) window.location.reload();
+  }, [consent]);
 
   const value = useMemo<ConsentContextValue>(() => ({
     consent,
