@@ -1,7 +1,8 @@
 import { query } from './db';
 import { runWorkflow } from '../dify-client';
 import { sendEmail } from './mailer';
-import type { NewsletterSubscriberRow, NewsletterCampaignRow } from './db-types';
+import { appendUnsubscribeFooter, buildListUnsubscribeHeaders, buildUnsubscribeUrl } from '../newsletter/messages';
+import type { NewsletterCampaignRow } from './db-types';
 
 export class NewsletterOrchestrator {
   /**
@@ -72,41 +73,48 @@ export class NewsletterOrchestrator {
         throw new Error(`Campaign ${campaignId} is already sent.`);
       }
 
-      // 2. Fetch Active Subscribers
-      const subRes = await query<NewsletterSubscriberRow>(
-        `SELECT email FROM fpvlovers_app.newsletter_subscribers WHERE is_active = true`
+      const subRes = await query<{ id: string; email: string }>(
+        `SELECT id, email FROM fpvlovers_app.newsletter_subscribers
+         WHERE is_active = true AND status = 'active' AND consent_at IS NOT NULL`
       );
-      
-      const emails = subRes.rows.map((r: { email: string }) => r.email);
 
-      if (emails.length === 0) {
-        console.log('[NewsletterOrchestrator] No active subscribers found. Skipping dispatch.');
+      if (subRes.rows.length === 0) {
+        console.log('[NewsletterOrchestrator] No consenting active subscribers found. Skipping dispatch.');
         return { success: true, sentCount: 0 };
       }
 
-      console.log(`[NewsletterOrchestrator] Dispatching campaign "${campaign.subject}" to ${emails.length} subscribers...`);
+      console.log(`[NewsletterOrchestrator] Dispatching campaign "${campaign.subject}" to ${subRes.rows.length} subscribers...`);
 
-      // 3. Send Email (using BCC or individual calls depending on scale, currently bulk BCC for simplicity)
-      const emailResult = await sendEmail({
-        to: emails, // Note: In production with thousands of users, chunking & using BCC is better.
-        subject: campaign.subject,
-        html: campaign.content_html,
-        text: campaign.content_md || undefined
-      });
+      const baseUrl = process.env.APP_URL || 'https://fpvlovers.com.tr';
+      let sentCount = 0;
+      let failureCount = 0;
 
-      if (!emailResult.success) {
+      for (const subscriber of subRes.rows) {
+        const unsubscribeUrl = buildUnsubscribeUrl(baseUrl, subscriber.id);
+        const emailResult = await sendEmail({
+          to: subscriber.email,
+          subject: campaign.subject,
+          html: appendUnsubscribeFooter(campaign.content_html, unsubscribeUrl, 'tr'),
+          text: campaign.content_md || undefined,
+          headers: buildListUnsubscribeHeaders(unsubscribeUrl),
+        });
+        if (emailResult.success) sentCount += 1;
+        else failureCount += 1;
+      }
+
+      if (sentCount === 0) {
         throw new Error('Mailer failed to send campaign emails.');
       }
 
-      // 4. Update Campaign Status
       await query(
-        `UPDATE fpvlovers_app.newsletter_campaigns 
-         SET status = 'sent', sent_at = CURRENT_TIMESTAMP, recipient_count = $1 
+        `UPDATE fpvlovers_app.newsletter_campaigns
+         SET status = 'sent', sent_at = CURRENT_TIMESTAMP, recipient_count = $1
          WHERE id = $2`,
-        [emails.length, campaignId]
+        [sentCount, campaignId]
       );
 
-      return { success: true, sentCount: emails.length };
+      console.log(`[NewsletterOrchestrator] Campaign sent to ${sentCount} subscribers (${failureCount} failures).`);
+      return { success: true, sentCount };
 
     } catch (error) {
       console.error('[NewsletterOrchestrator] Error dispatching campaign:', error);

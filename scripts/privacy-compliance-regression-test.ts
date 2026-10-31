@@ -78,6 +78,23 @@ check('unsubscribe footer and headers are present', () => {
   assert.match(html, new RegExp(url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
 });
 
+check('subscribe requires explicit consent and creates pending rows', () => {
+  const source = readFileSync('src/app/api/newsletter/subscribe/route.ts', 'utf8');
+  assert.match(source, /consent: z\.literal\(true\)/);
+  assert.match(source, /'pending'/);
+  assert.match(source, /buildConfirmationEmail/);
+  assert.doesNotMatch(source, /status: 'created'/, 'enumeration-friendly response must be removed');
+});
+
+check('dispatch sends one recipient per call with unsubscribe headers', () => {
+  const source = readFileSync('src/lib/server/newsletter-orchestrator.ts', 'utf8');
+  assert.match(source, /to: subscriber\.email/, 'each recipient must be sent separately');
+  assert.doesNotMatch(source, /to: emails/, 'comma-joined recipient list is forbidden');
+  assert.match(source, /buildUnsubscribeUrl/);
+  assert.match(source, /buildListUnsubscribeHeaders/);
+  assert.match(source, /consent_at IS NOT NULL/);
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {
