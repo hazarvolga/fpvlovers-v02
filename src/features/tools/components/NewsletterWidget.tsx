@@ -5,14 +5,17 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Mail, Send, CheckCircle2, AlertCircle, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { legalPath } from '@/lib/legal/paths';
+import type { Locale } from '@/lib/i18n/locale';
 
-export function NewsletterWidget({ className }: { className?: string }) {
+export function NewsletterWidget({ className, locale = 'en' }: { className?: string; locale?: Locale }) {
   const [email, setEmail] = useState('');
+  const [consent, setConsent] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
   const subscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || !consent) return;
 
     setStatus('loading');
 
@@ -22,7 +25,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, source: 'tools_hub_widget' }),
+        body: JSON.stringify({ email, source: 'tools_hub_widget', consent: true, locale }),
       });
 
       if (res.ok) {
@@ -77,6 +80,7 @@ export function NewsletterWidget({ className }: { className?: string }) {
                   <Button
                     type="submit"
                     variant="cyber"
+                    disabled={!consent}
                     className="absolute right-1 top-1 bottom-1 h-auto text-[10px] px-4"
                   >
                      Subscribe <Send className="w-3 h-3 ml-2" />
@@ -101,10 +105,46 @@ export function NewsletterWidget({ className }: { className?: string }) {
                   className="flex flex-col items-center justify-center p-4 bg-green-500/10 border border-green-500/30 rounded-lg"
                 >
                    <CheckCircle2 className="w-6 h-6 text-green-400 mb-2" />
-                   <span className="font-mono text-xs text-green-400 font-bold uppercase tracking-widest">Subscription confirmed</span>
+                   <span className="font-mono text-xs text-green-400 font-bold uppercase tracking-widest">
+                     {locale === 'tr' ? 'Onay e-postanızı kontrol edin' : 'Check your inbox to confirm'}
+                   </span>
                 </motion.div>
               )}
             </AnimatePresence>
+
+            {(status === 'idle' || status === 'error') && (
+              <label className="mt-3 flex items-start gap-2 text-left text-[10px] leading-relaxed text-white/50">
+                <input
+                  type="checkbox"
+                  checked={consent}
+                  onChange={(event) => setConsent(event.target.checked)}
+                  className="mt-0.5"
+                />
+                <span>
+                  {locale === 'tr' ? (
+                    <>
+                      Bülten ve ticari elektronik ileti almak istiyorum.{' '}
+                      <a className="text-[#00F5FF] underline" href={legalPath('kvkk', locale)}>
+                        KVKK Aydınlatma Metni
+                      </a>{' '}
+                      ve{' '}
+                      <a className="text-[#00F5FF] underline" href={legalPath('cookies', locale)}>
+                        Çerez Politikası
+                      </a>
+                      ’nı okudum.
+                    </>
+                  ) : (
+                    <>
+                      I want to receive the newsletter. I have read the{' '}
+                      <a className="text-[#00F5FF] underline" href={legalPath('privacy', locale)}>
+                        Privacy Policy
+                      </a>
+                      .
+                    </>
+                  )}
+                </span>
+              </label>
+            )}
 
             <AnimatePresence>
               {status === 'error' && (

@@ -3,11 +3,14 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { rateLimit } from "@/lib/server/rate-limit";
+import { LEGAL_DOCUMENT_VERSION } from "@/lib/legal/version";
 
 const registerSchema = z.object({
   email: z.string().trim().toLowerCase().email("Please provide a valid email address."),
   password: z.string().min(8, "Password must be at least 8 characters long.").max(128, "Password is too long."),
   name: z.string().trim().min(2, "Name must be at least 2 characters long.").max(120, "Name is too long."),
+  acceptedTerms: z.literal(true, { message: "You must accept the terms and privacy notice." }),
+  ageAttested: z.literal(true, { message: "You must confirm you are at least 16 or have guardian consent." }),
 });
 
 export async function POST(req: NextRequest) {
@@ -56,10 +59,11 @@ export async function POST(req: NextRequest) {
 
     // Insert user into fpvlovers_app.users
     const result = await query(
-      `INSERT INTO fpvlovers_app.users (name, email, password_hash, role)
-       VALUES ($1, $2, $3, $4)
+      `INSERT INTO fpvlovers_app.users
+         (name, email, password_hash, role, terms_accepted_at, terms_version, age_attested_at)
+       VALUES ($1, $2, $3, $4, NOW(), $5, NOW())
        RETURNING id, name, email, role`,
-      [name, trimmedEmail, passwordHash, "pilot"]
+      [name, trimmedEmail, passwordHash, "pilot", LEGAL_DOCUMENT_VERSION]
     );
 
     // Populate empty pilot progress profile atomically

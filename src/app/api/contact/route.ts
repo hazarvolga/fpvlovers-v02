@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { name, email, inquiryType, message } = body;
+    const { name, email, inquiryType, message, privacyAcknowledged } = body;
 
     const errors: string[] = [];
 
@@ -43,6 +43,10 @@ export async function POST(request: NextRequest) {
 
     if (!message || typeof message !== 'string' || message.trim().length < 10 || message.trim().length > 2000) {
       errors.push('Message must be between 10 and 2000 characters long.');
+    }
+
+    if (privacyAcknowledged !== true) {
+      errors.push('Please acknowledge the privacy notice.');
     }
 
     if (errors.length > 0) {

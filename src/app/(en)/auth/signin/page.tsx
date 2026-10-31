@@ -4,12 +4,15 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { legalPath } from "@/lib/legal/paths";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  const [ageAttested, setAgeAttested] = useState(false);
   
   // HUD Telemetry loading screen states
   const [loading, setLoading] = useState(false);
@@ -21,6 +24,14 @@ export default function SignInPage() {
   const handleCredentialsSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
+
+    // Consent is a precondition of registration; fail fast without entering the
+    // telemetry overlay so the unchecked boxes stay visible.
+    if (isSignUp && (!acceptedTerms || !ageAttested)) {
+      setErrorMsg("Kayıt için kullanım koşullarını ve KVKK aydınlatma metnini kabul etmeniz, ayrıca 16 yaşından büyük olduğunuzu (veya yasal temsilcinizin onay verdiğini) onaylamanız gerekir.");
+      return;
+    }
+
     setLoading(true);
     setLoadingMessage("Sinyal doğrulanıyor... Pilot oturumu açılıyor.");
 
@@ -30,7 +41,7 @@ export default function SignInPage() {
         const res = await fetch("/api/pilot/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password, name }),
+          body: JSON.stringify({ email, password, name, acceptedTerms, ageAttested }),
         });
 
         const data = await res.json();
@@ -63,6 +74,15 @@ export default function SignInPage() {
 
   const handleOAuthLogin = (provider: "google" | "discord" | "github") => {
     setErrorMsg("");
+
+    // OAuth sign-up has no server-side consent payload yet, so require the
+    // checkboxes here before leaving the page. Persisting OAuth acceptance is
+    // tracked as a P1 follow-up.
+    if (isSignUp && (!acceptedTerms || !ageAttested)) {
+      setErrorMsg("Sosyal hesapla kayıt için önce kullanım koşullarını ve yaş onayını işaretlemeniz gerekir.");
+      return;
+    }
+
     setLoading(true);
     const providerNames = {
       google: "Google Uydusu",
@@ -142,6 +162,32 @@ export default function SignInPage() {
               className="w-full bg-[#050810] border border-white/5 focus:border-[#00F2FF]/40 rounded-lg py-2.5 px-4 text-sm font-semibold outline-none transition-colors placeholder:text-gray-700"
             />
           </div>
+
+          {isSignUp && (
+            <div className="space-y-2 border-t border-white/5 pt-4">
+              <label className="flex items-start gap-2 text-[10px] leading-relaxed text-gray-400">
+                <input
+                  type="checkbox"
+                  checked={acceptedTerms}
+                  onChange={(event) => setAcceptedTerms(event.target.checked)}
+                  className="mt-0.5"
+                />
+                <span>
+                  <a className="text-[#00F2FF] underline" href={legalPath("terms", "tr")}>Kullanım Koşulları</a> ve{" "}
+                  <a className="text-[#00F2FF] underline" href={legalPath("kvkk", "tr")}>KVKK Aydınlatma Metni</a>’ni okudum, kabul ediyorum.
+                </span>
+              </label>
+              <label className="flex items-start gap-2 text-[10px] leading-relaxed text-gray-400">
+                <input
+                  type="checkbox"
+                  checked={ageAttested}
+                  onChange={(event) => setAgeAttested(event.target.checked)}
+                  className="mt-0.5"
+                />
+                <span>16 yaşından büyüğüm veya yasal temsilcim/velim onay verdi.</span>
+              </label>
+            </div>
+          )}
 
           <button
             type="submit"

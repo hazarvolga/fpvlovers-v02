@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Send, CheckCircle2, AlertTriangle, RefreshCw } from 'lucide-react';
+import { legalPath } from '@/lib/legal/paths';
 
 export function ContactForm() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export function ContactForm() {
     message: '',
   });
 
+  const [privacyAcknowledged, setPrivacyAcknowledged] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
@@ -42,6 +44,9 @@ export function ContactForm() {
     if (formData.message.trim().length < 10) {
       clientErrors.push('Message must be at least 10 characters.');
     }
+    if (!privacyAcknowledged) {
+      clientErrors.push('Please acknowledge the privacy notice.');
+    }
 
     if (clientErrors.length > 0) {
       setErrors(clientErrors);
@@ -55,7 +60,7 @@ export function ContactForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, privacyAcknowledged }),
       });
 
       const result = await response.json();
@@ -80,6 +85,7 @@ export function ContactForm() {
       message: '',
     });
     setSuccess(false);
+    setPrivacyAcknowledged(false);
     setErrors([]);
   };
 
@@ -197,6 +203,24 @@ export function ContactForm() {
           className="w-full px-3 py-2 bg-black/60 border border-white/10 hover:border-white/20 focus:border-[#FF5C00] rounded text-white font-mono text-xs focus:outline-none transition-colors resize-y min-h-[120px]"
         />
       </div>
+
+      {/* Privacy acknowledgement */}
+      <label className="flex items-start gap-2 text-[11px] leading-relaxed text-zinc-400">
+        <input
+          type="checkbox"
+          checked={privacyAcknowledged}
+          onChange={(event) => setPrivacyAcknowledged(event.target.checked)}
+          disabled={loading}
+          className="mt-0.5"
+        />
+        <span>
+          I have read the{' '}
+          <a className="text-[#FF5C00] underline" href={legalPath('privacy', 'en')}>
+            Privacy Policy
+          </a>{' '}
+          and understand how my message is processed.
+        </span>
+      </label>
 
       {/* Submit */}
       <Button

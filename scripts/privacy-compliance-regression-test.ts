@@ -275,6 +275,30 @@ check('retention cleanup rejects non-positive windows', async () => {
   );
 });
 
+check('newsletter widget requires a consent checkbox', () => {
+  const source = readFileSync('src/features/tools/components/NewsletterWidget.tsx', 'utf8');
+  assert.match(source, /consent:/);
+  assert.match(source, /type="checkbox"/);
+  assert.match(source, /legalPath\('kvkk', locale\)/);
+});
+
+check('contact form and API require a privacy acknowledgement', () => {
+  const form = readFileSync('src/app/(en)/contact/ContactForm.tsx', 'utf8');
+  assert.match(form, /privacyAcknowledged/);
+  assert.match(form, /legalPath\('privacy', 'en'\)/);
+  const route = readFileSync('src/app/api/contact/route.ts', 'utf8');
+  assert.match(route, /privacyAcknowledged !== true/);
+});
+
+check('registration records terms and age attestation', () => {
+  const page = readFileSync('src/app/(en)/auth/signin/page.tsx', 'utf8');
+  assert.match(page, /acceptedTerms/);
+  assert.match(page, /ageAttested/);
+  const route = readFileSync('src/app/api/pilot/register/route.ts', 'utf8');
+  assert.match(route, /terms_accepted_at/);
+  assert.match(route, /age_attested_at/);
+});
+
 // The harness is transpiled to CommonJS, so the async runner cannot use top-level await.
 async function main(): Promise<void> {
   let failed = 0;
