@@ -241,7 +241,9 @@ Notlar:
 - Saklanan bir token hash sütunu yoktur: unsubscribe ve confirm token'ları sunucu tarafında HMAC-SHA256 ile deterministik olarak türetilir (`NEWSLETTER_TOKEN_SECRET`, tanımlı değilse `AUTH_SECRET`), `unsubscribe:`/`confirm:` alan ayırıcılarıyla domain-separated üretilir ve `timingSafeEqual` ile doğrulanır. DB'de yalnızca abone satırı tutulur; ham token hiçbir yerde saklanmaz.
 - `consent_records` IP/user-agent saklamaz; ispat için zaman + politika versiyonu + kaynak yeterli kabul edilir.
 - `privacy_requests.details` serbest metin olduğundan 30 gün sonra silinebilir; yalnızca durum kaydı tutulur.
-- Saklama süreleri `scripts/privacy-retention.ts` (`pnpm privacy:retention`) ile zorlanır: analitik olayları 180 gün, `pending` aboneler 30 gün, `unsubscribed` kayıtları 2 yıl, `consent_records` 5 yıl. Bu görev Coolify'da zamanlanmış görev olarak kurulmalıdır; aksi halde saklama taahhüdü fiilen uygulanmaz.
+- Saklama süreleri `src/lib/server/privacy-retention.ts` ile zorlanır ve production'da `GET /api/admin/cron/privacy-retention` (`CRON_SECRET` korumalı) üzerinden çalıştırılır: analitik olayları 180 gün, `pending` aboneler 30 gün, `consent_at` kaydı olmayan eski `active` aboneler 30 gün, `unsubscribed` kayıtları 2 yıl, `consent_records` 5 yıl. Bu endpoint Coolify'da zamanlanmış görev olarak kurulmalıdır; aksi halde saklama taahhüdü fiilen uygulanmaz. Runtime imajı `scripts/` ve `tsx` içermediği için `pnpm privacy:retention` yalnızca yerel/manuel kullanım içindir.
+- Eski tek onaylı aboneler (`status='active'`, `consent_at IS NULL`) hiçbir zaman gönderim almaz; 30 günlük pencere dolduğunda silinir. Zamanlanmış görevi açmadan önce yeniden onay kampanyası kararlaştırılmalıdır, aksi halde ilk çalıştırma bu kayıtları siler.
+- Oturum açma/iletişim/bülten yazma uç noktaları, production'da controller yapılandırılmamışsa `503` döner; hukuki metinler yayınlanmadan veri toplanmaz.
 
 ---
 

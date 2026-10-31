@@ -399,7 +399,8 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
 
-  // Log non-blocking page view if database is active and we are not in build phase
+  // Anonymous render count: no anonymous_id, session_id or IP is stored, so it is
+  // outside the consent gate. Identifiable analytics lives in src/lib/analytics.ts.
   if (process.env.NEXT_PHASE !== 'phase-production-build') {
     import('@/lib/server/analytics-store')
       .then(({ logAnalyticsEvent }) => {

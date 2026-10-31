@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { rateLimit } from '@/lib/server/rate-limit';
 import { sendEmail } from '@/lib/server/mailer';
 import { buildConfirmationEmail, NEWSLETTER_CONSENT_VERSION } from '@/lib/newsletter/messages';
+import { getLegalController, isLegalControllerConfigured } from '@/lib/legal/controller';
 
 const subscribeSchema = z.object({
   email: z.string().trim().toLowerCase().email('Please provide a valid email address.'),
@@ -22,6 +23,12 @@ export async function POST(request: NextRequest) {
       { error: 'Too many requests. Please try again in a minute.' },
       { status: 429, headers: { 'X-RateLimit-Limit': String(limitRes.limit), 'X-RateLimit-Remaining': String(limitRes.remaining), 'X-RateLimit-Reset': String(limitRes.reset) } },
     );
+  }
+
+  // In production the legal pages 404 without a configured controller, so
+  // subscriptions must fail closed rather than collect data behind a dead notice.
+  if (process.env.NODE_ENV === 'production' && !isLegalControllerConfigured(getLegalController())) {
+    return NextResponse.json({ error: 'Service temporarily unavailable.' }, { status: 503 });
   }
 
   try {

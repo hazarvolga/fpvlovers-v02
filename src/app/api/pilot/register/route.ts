@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { rateLimit } from "@/lib/server/rate-limit";
 import { LEGAL_DOCUMENT_VERSION } from "@/lib/legal/version";
+import { getLegalController, isLegalControllerConfigured } from "@/lib/legal/controller";
 
 const registerSchema = z.object({
   email: z.string().trim().toLowerCase().email("Please provide a valid email address."),
@@ -29,6 +30,12 @@ export async function POST(req: NextRequest) {
         },
       }
     );
+  }
+
+  // In production the legal pages 404 without a configured controller, so
+  // registration must fail closed rather than collect data behind a dead notice.
+  if (process.env.NODE_ENV === 'production' && !isLegalControllerConfigured(getLegalController())) {
+    return NextResponse.json({ error: 'Service temporarily unavailable.' }, { status: 503 });
   }
 
   try {

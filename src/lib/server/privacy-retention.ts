@@ -20,6 +20,7 @@ export interface RetentionOptions {
 export interface RetentionResult {
   analyticsEvents: number;
   pendingSubscribers: number;
+  legacyUnconfirmedSubscribers: number;
   unsubscribedSubscribers: number;
   consentRecords: number;
 }
@@ -58,6 +59,12 @@ export async function purgeExpiredPrivacyData(
     "DELETE FROM fpvlovers_app.newsletter_subscribers WHERE status = 'pending' AND (subscribed_at IS NULL OR subscribed_at < $1)",
     [cutoff(now, pendingSubscriberDays * DAY_MS)],
   );
+  // Rows carried over from the single opt-in era are 'active' without a consent
+  // record and are never mailed, so they are unconfirmed by the current definition.
+  const legacyUnconfirmed = await runQuery(
+    "DELETE FROM fpvlovers_app.newsletter_subscribers WHERE status = 'active' AND consent_at IS NULL AND (subscribed_at IS NULL OR subscribed_at < $1)",
+    [cutoff(now, pendingSubscriberDays * DAY_MS)],
+  );
   // Unsubscribed rows are kept only as unsubscribe proof for the published 2-year window.
   const unsubscribeCutoff = new Date(now);
   unsubscribeCutoff.setUTCFullYear(unsubscribeCutoff.getUTCFullYear() - unsubscribeProofYears);
@@ -75,6 +82,7 @@ export async function purgeExpiredPrivacyData(
   return {
     analyticsEvents: analytics.rowCount ?? 0,
     pendingSubscribers: pending.rowCount ?? 0,
+    legacyUnconfirmedSubscribers: legacyUnconfirmed.rowCount ?? 0,
     unsubscribedSubscribers: unsubscribed.rowCount ?? 0,
     consentRecords: consent.rowCount ?? 0,
   };

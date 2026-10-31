@@ -239,7 +239,7 @@ check('retention cleanup targets only expired rows', async () => {
     return { rowCount: calls.length };
   }, { now });
 
-  assert.equal(calls.length, 4);
+  assert.equal(calls.length, 5);
   assert.match(calls[0].sql, /DELETE FROM fpvlovers_analytics\.events/);
   assert.equal((calls[0].params?.[0] as Date).toISOString(), '2026-05-04T00:00:00.000Z');
 
@@ -249,18 +249,25 @@ check('retention cleanup targets only expired rows', async () => {
   assert.doesNotMatch(calls[1].sql, /'active'|'unsubscribed'/, 'pending delete must not touch other statuses');
   assert.equal((calls[1].params?.[0] as Date).toISOString(), '2026-10-01T00:00:00.000Z');
 
-  assert.match(calls[2].sql, /newsletter_subscribers/);
-  assert.match(calls[2].sql, /status = 'unsubscribed'/);
-  assert.match(calls[2].sql, /subscribed_at IS NULL OR COALESCE\(unsubscribed_at, subscribed_at\) < \$1/);
-  assert.equal((calls[2].params?.[0] as Date).toISOString(), '2024-10-31T00:00:00.000Z');
+  // Legacy single-opt-in rows are never mailed, so they must not live forever.
+  assert.match(calls[2].sql, /status = 'active'/);
+  assert.match(calls[2].sql, /consent_at IS NULL/);
+  assert.match(calls[2].sql, /AND \(subscribed_at IS NULL OR subscribed_at < \$1\)/);
+  assert.equal((calls[2].params?.[0] as Date).toISOString(), '2026-10-01T00:00:00.000Z');
 
-  assert.match(calls[3].sql, /DELETE FROM fpvlovers_app\.consent_records/);
-  assert.equal((calls[3].params?.[0] as Date).toISOString(), '2021-10-31T00:00:00.000Z');
+  assert.match(calls[3].sql, /newsletter_subscribers/);
+  assert.match(calls[3].sql, /status = 'unsubscribed'/);
+  assert.match(calls[3].sql, /subscribed_at IS NULL OR COALESCE\(unsubscribed_at, subscribed_at\) < \$1/);
+  assert.equal((calls[3].params?.[0] as Date).toISOString(), '2024-10-31T00:00:00.000Z');
+
+  assert.match(calls[4].sql, /DELETE FROM fpvlovers_app\.consent_records/);
+  assert.equal((calls[4].params?.[0] as Date).toISOString(), '2021-10-31T00:00:00.000Z');
   assert.deepEqual(result, {
     analyticsEvents: 1,
     pendingSubscribers: 2,
-    unsubscribedSubscribers: 3,
-    consentRecords: 4,
+    legacyUnconfirmedSubscribers: 3,
+    unsubscribedSubscribers: 4,
+    consentRecords: 5,
   });
 });
 
@@ -297,6 +304,31 @@ check('registration records terms and age attestation', () => {
   const route = readFileSync('src/app/api/pilot/register/route.ts', 'utf8');
   assert.match(route, /terms_accepted_at/);
   assert.match(route, /age_attested_at/);
+});
+
+check('retention runs from an in-container cron route', () => {
+  const route = readFileSync('src/app/api/admin/cron/privacy-retention/route.ts', 'utf8');
+  assert.match(route, /authorizeCronRequest/);
+  assert.match(route, /purgeExpiredPrivacyData\(query\)/);
+});
+
+check('CSP allows the consent-gated GA script origin', () => {
+  const config = readFileSync('next.config.ts', 'utf8');
+  const scriptSrc = config.match(/"script-src[^"]*"/)?.[0] ?? '';
+  assert.match(scriptSrc, /https:\/\/www\.googletagmanager\.com/);
+  assert.doesNotMatch(scriptSrc, /https:\/\/\*|\s\*/, 'script-src must stay an explicit allowlist');
+});
+
+check('write endpoints fail closed without a configured controller', () => {
+  for (const file of [
+    'src/app/api/newsletter/subscribe/route.ts',
+    'src/app/api/contact/route.ts',
+    'src/app/api/pilot/register/route.ts',
+  ]) {
+    const source = readFileSync(file, 'utf8');
+    assert.match(source, /isLegalControllerConfigured\(getLegalController\(\)\)/, file);
+    assert.match(source, /status: 503/, file);
+  }
 });
 
 // The harness is transpiled to CommonJS, so the async runner cannot use top-level await.

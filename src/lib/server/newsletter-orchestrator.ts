@@ -95,7 +95,7 @@ export class NewsletterOrchestrator {
           to: subscriber.email,
           subject: campaign.subject,
           html: appendUnsubscribeFooter(campaign.content_html, unsubscribeUrl, 'tr'),
-          text: campaign.content_md || undefined,
+          text: `${campaign.content_md ? `${campaign.content_md}\n\n---\n` : ''}Bülten aboneliğinden çıkmak için: ${unsubscribeUrl}`,
           headers: buildListUnsubscribeHeaders(unsubscribeUrl),
         });
         if (emailResult.success) sentCount += 1;
