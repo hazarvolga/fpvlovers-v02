@@ -12,6 +12,14 @@ import {
   buildListUnsubscribeHeaders,
   buildUnsubscribeUrl,
 } from '../src/lib/newsletter/messages';
+import {
+  CONSENT_COOKIE,
+  CONSENT_VERSION,
+  createConsentState,
+  hasAnalyticsConsent,
+  parseConsentCookie,
+  serializeConsentCookie,
+} from '../src/lib/consent/consent';
 
 const checks: { name: string; run: () => void }[] = [];
 function check(name: string, run: () => void): void {
@@ -93,6 +101,33 @@ check('dispatch sends one recipient per call with unsubscribe headers', () => {
   assert.match(source, /buildUnsubscribeUrl/);
   assert.match(source, /buildListUnsubscribeHeaders/);
   assert.match(source, /consent_at IS NOT NULL/);
+});
+
+check('consent defaults to no analytics and no marketing', () => {
+  const state = createConsentState({ analytics: false, marketing: false }, 'c-1', new Date('2026-10-31T00:00:00Z'));
+  assert.equal(state.categories.necessary, true);
+  assert.equal(hasAnalyticsConsent(state), false);
+  assert.equal(CONSENT_COOKIE, 'fpv_consent');
+  assert.equal(CONSENT_VERSION, '2026-10-31');
+});
+
+check('consent cookie round-trips and rejects stale versions', () => {
+  const state = createConsentState({ analytics: true, marketing: false }, 'c-2', new Date('2026-10-31T00:00:00Z'));
+  const parsed = parseConsentCookie(serializeConsentCookie(state));
+  assert.equal(parsed?.categories.analytics, true);
+  assert.equal(hasAnalyticsConsent(parsed), true);
+  assert.equal(parseConsentCookie('{"version":"old","categories":{"analytics":true}}'), null);
+});
+
+check('analytics is gated in the shell and banner', () => {
+  const shell = readFileSync('src/features/layout/components/RootShell.tsx', 'utf8');
+  assert.doesNotMatch(shell, /<GoogleAnalytics/, 'unconditional GA render is forbidden');
+  assert.match(shell, /ConsentGatedAnalytics/);
+  const gate = readFileSync('src/features/layout/components/ConsentGatedAnalytics.tsx', 'utf8');
+  assert.match(gate, /categories\.analytics/);
+  const banner = readFileSync('src/features/layout/components/CookieBanner.tsx', 'utf8');
+  assert.match(banner, /analytics: false/);
+  assert.match(banner, /marketing: false/);
 });
 
 let failed = 0;
