@@ -59,6 +59,14 @@ const STATIC_PAGES = [
 const BASE_URL = process.env.APP_URL || 'https://fpvlovers.com.tr';
 
 /**
+ * `/article/...` is not in TRANSLATED_PATHS, so localizePath() deliberately
+ * leaves it on the English URL; the Turkish article tree carries its own prefix.
+ */
+function turkishArticlePath(slug: string): string {
+  return `/tr/article/${slug}`;
+}
+
+/**
  * Every URL in an hreflang cluster must carry the full alternate set, so the
  * English and Turkish entries of a translated page emit identical links.
  * Untranslated paths have no Turkish counterpart and advertise nothing.
@@ -69,6 +77,18 @@ function alternateLinks(path: string): string {
     `      <xhtml:link rel="alternate" hreflang="en" href="${BASE_URL}${path}" />`,
     `      <xhtml:link rel="alternate" hreflang="tr" href="${BASE_URL}${localizePath(path, 'tr')}" />`,
     `      <xhtml:link rel="alternate" hreflang="x-default" href="${BASE_URL}${path}" />`,
+  ].map((link) => `\n${link}`).join('');
+}
+
+/**
+ * A translated article pair carries both language alternates on both sides;
+ * an article with no counterpart advertises nothing.
+ */
+function articleAlternates(slug: string, hasCounterpart: boolean): string {
+  if (!hasCounterpart) return '';
+  return [
+    `      <xhtml:link rel="alternate" hreflang="en" href="${BASE_URL}/article/${slug}" />`,
+    `      <xhtml:link rel="alternate" hreflang="tr" href="${BASE_URL}${turkishArticlePath(slug)}" />`,
   ].map((link) => `\n${link}`).join('');
 }
 
@@ -84,6 +104,15 @@ export async function GET() {
     console.error('[Sitemap] Failed to load published content from files:', err);
   }
 
+  // listPublishedContentAsync('tr') already falls back to an empty list when the
+  // Turkish content directory is missing or the database read fails.
+  const turkishArticlesBySlug = new Map<string, string>();
+  for (const article of await listPublishedContentAsync('tr')) {
+    if (article.slug && isIndexablePublishedArtifact(article)) {
+      turkishArticlesBySlug.set(article.slug, article.publishedAt);
+    }
+  }
+
   const staticUrls = STATIC_PAGES.map(page => `
     <url>
       <loc>${BASE_URL}${page.url}</loc>
@@ -96,7 +125,7 @@ export async function GET() {
       <loc>${BASE_URL}/article/${slug}</loc>
       ${publishedAt ? `<lastmod>${new Date(publishedAt).toISOString()}</lastmod>` : ''}
       <priority>0.8</priority>
-      <changefreq>weekly</changefreq>
+      <changefreq>weekly</changefreq>${articleAlternates(slug, turkishArticlesBySlug.has(slug))}
     </url>`);
 
   const turkishStaticUrls = STATIC_PAGES
@@ -108,28 +137,13 @@ export async function GET() {
       <changefreq>${page.changefreq}</changefreq>${alternateLinks(page.url)}
     </url>`);
 
-  // listPublishedContentAsync('tr') already falls back to an empty list when the
-  // Turkish content directory is missing or the database read fails.
-  const turkishArticlesBySlug = new Map<string, string>();
-  for (const article of await listPublishedContentAsync('tr')) {
-    if (article.slug && isIndexablePublishedArtifact(article)) {
-      turkishArticlesBySlug.set(article.slug, article.publishedAt);
-    }
-  }
-
-  const turkishArticleUrls = Array.from(turkishArticlesBySlug.entries()).map(([slug, publishedAt]) => {
-    const alternates = articlesBySlug.has(slug)
-      ? `\n      <xhtml:link rel="alternate" hreflang="en" href="${BASE_URL}/article/${slug}" />` +
-        `\n      <xhtml:link rel="alternate" hreflang="tr" href="${BASE_URL}/tr/article/${slug}" />`
-      : '';
-    return `
+  const turkishArticleUrls = Array.from(turkishArticlesBySlug.entries()).map(([slug, publishedAt]) => `
     <url>
-      <loc>${BASE_URL}/tr/article/${slug}</loc>
+      <loc>${BASE_URL}${turkishArticlePath(slug)}</loc>
       ${publishedAt ? `<lastmod>${new Date(publishedAt).toISOString()}</lastmod>` : ''}
       <priority>0.8</priority>
-      <changefreq>weekly</changefreq>${alternates}
-    </url>`;
-  });
+      <changefreq>weekly</changefreq>${articleAlternates(slug, articlesBySlug.has(slug))}
+    </url>`);
 
   const urls = [...staticUrls, ...dynamicUrls, ...turkishStaticUrls, ...turkishArticleUrls].join('\n');
 

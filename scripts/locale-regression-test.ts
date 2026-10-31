@@ -295,8 +295,9 @@ check('search client localizes article links', () => {
 check('sitemap advertises Turkish alternates for translated pages', () => {
   const source = readFileSync('src/app/sitemap.xml/route.ts', 'utf8');
   assert.match(source, /xmlns:xhtml=/, 'sitemap must declare the xhtml namespace');
-  assert.match(source, /isTranslatedPath/, 'only translated paths may advertise a Turkish alternate');
-  assert.match(source, /localizePath\(/, 'Turkish URLs must go through localizePath');
+  assert.match(source, /if \(!isTranslatedPath\(path\)\) return ''/, 'untranslated paths must not advertise an alternate');
+  assert.match(source, /\.filter\(page => isTranslatedPath\(page\.url\)\)/, 'Turkish static URLs must be gated on translated paths');
+  assert.match(source, /localizePath\(page\.url, 'tr'\)/, 'Turkish static URLs must go through localizePath');
 });
 
 let failed = 0;
