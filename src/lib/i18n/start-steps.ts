@@ -82,7 +82,7 @@ export const START_STEPS: Record<Locale, StartStep[]> = {
       title: 'FPV nedir, anla',
       why: 'FPV (birinci şahıs görüntü), drone kamerasından gelen canlı görüntüyü gözlükle görerek uçmak demektir. FPV uçuşunun büyük kısmı tamamen manueldir; bu yüzden satın almadan önce pratik gelir.',
       todo: ['Bir genel bakış rehberini baştan sona oku', 'Bilmediğin terimler için sözlüğü işaretle'],
-      articleSlugs: [],
+      articleSlugs: ['fpv-beginner-setup-guide-the-easiest-way-to-get-flying'],
       page: { label: 'FPV sözlüğü', href: '/academy/glossary' },
     },
     {

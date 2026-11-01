@@ -86,6 +86,7 @@
     "dify:client-test": "node --import tsx scripts/dify-client-workflow-contract-test.ts",
     "locale:test": "node --import tsx scripts/locale-regression-test.ts",
     "locale:localizer-test": "node --import tsx scripts/localized-rewrite-regression-test.ts",
+    "content:translate": "node --import tsx scripts/translate-article.ts",
     "privacy:retention": "node --import tsx scripts/privacy-retention.ts",
     "privacy:test": "node --import tsx scripts/privacy-compliance-regression-test.ts"
   },

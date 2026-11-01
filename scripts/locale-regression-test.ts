@@ -166,13 +166,20 @@ check('English listing keeps its artifacts and default locale', () => {
   assert.equal(english.length, listPublishedContent().length);
 });
 
-check('Turkish listing is empty until the tr content directory exists', () => {
-  assert.deepEqual(listPublishedContent('tr'), []);
+check('Turkish listing contains only Turkish artifacts', () => {
+  const turkish = listPublishedContent('tr');
+  for (const artifact of turkish) {
+    assert.equal(artifact.locale, 'tr', `artifact ${artifact.slug} is in the tr tree without locale "tr"`);
+    assert.ok(artifact.translationOf, `artifact ${artifact.slug} has no translationOf pairing`);
+    assert.ok(getPublishedContentBySlug(artifact.translationOf as string, 'en'), `${artifact.slug} pairs with a missing English source`);
+  }
 });
 
 check('Slug lookup respects the locale', () => {
-  assert.ok(getPublishedContentBySlug('fpv-beginner-setup-guide-the-easiest-way-to-get-flying', 'en'));
-  assert.equal(getPublishedContentBySlug('fpv-beginner-setup-guide-the-easiest-way-to-get-flying', 'tr'), null);
+  const slug = 'fpv-beginner-setup-guide-the-easiest-way-to-get-flying';
+  assert.ok(getPublishedContentBySlug(slug, 'en'));
+  assert.equal(getPublishedContentBySlug(slug, 'tr')?.translationOf, slug);
+  assert.equal(getPublishedContentBySlug('acro-mode-mental-model-for-fpv-beginners', 'tr'), null);
 });
 
 check('English cover URLs are unchanged', () => {
@@ -268,9 +275,13 @@ check('start steps exist for both locales', () => {
   }
 });
 
-check('Turkish start steps ship as a shell without English article slugs', () => {
-  assert.ok(START_STEPS.tr.every((step) => step.articleSlugs.length === 0));
-  assert.ok(START_STEPS.en[0].articleSlugs.length > 0);
+check('Turkish start steps reference only published Turkish artifacts', () => {
+  const trSlugs = new Set(listPublishedContent('tr').map((artifact) => artifact.slug));
+  const referenced = START_STEPS.tr.flatMap((step) => step.articleSlugs);
+  assert.ok(referenced.length > 0, 'the first Turkish article must be linked from the start steps');
+  for (const slug of referenced) {
+    assert.ok(trSlugs.has(slug), `missing Turkish artifact: ${slug}`);
+  }
 });
 
 check('guide taxonomy labels are translated for every group and level', () => {
