@@ -1443,7 +1443,768 @@ Expected: clean working tree (everything already committed per task). If a fix w
 
 ---
 
-### Task 13: Deploy and verify production (requires explicit approval)
+### Task 13: Inline body images for the seven Turkish articles
+
+**Files:**
+- Create: `src/lib/content-automation/tr-section-media.ts`
+- Modify: `src/lib/content-automation/publish-artifact.ts` (Turkish publish hook + exported markdown builder)
+- Create: `scripts/backfill-tr-section-images.ts`
+- Modify: `package.json` (one script entry)
+- Modify: `scripts/locale-regression-test.ts` (append six checks)
+- Rewrite: `content/published/tr/*.json` and `content/published/tr/*.md` (via the backfill script)
+
+**Interfaces:**
+- Consumes: `ContentMediaAsset` from `content-media.ts`, `normalizeSearchText` from `@/lib/i18n/search-text`, and the 17 local WebP files already committed under `public/images/fallbacks/`
+- Produces: `TR_SECTION_IMAGE_LIBRARY`, `resolveTurkishSectionFamily(slug, title)`, `selectTurkishSectionImages({ slug, title, bodySections, maxImages?, minImages? })`, `attachTurkishSectionImages({ slug, title, bodySections, gallery, imageSources?, attribution? })`, and `buildArtifactMarkdown({ title, excerpt, bodySections, publishNotes? })`
+
+**Scope note.** This task illustrates the article body only. The `/tr/academy` cards, the generated SVG covers, and the English tree are unchanged. Images come from the repo's own 17-image editorial library (AI-generated brand artwork), never from hotlinked third-party photos, and alt text describes what is visible in the picture — it never claims the photo shows the reader's own hardware.
+
+**Why the library and not the crawl.** Task 4 measured the crawl pool: it holds league/team imagery only, and `content/published/tr` has no `sourceHints` at all (translations inherit none; the original SHGM article has none). The existing pipeline already treats these WebPs as the copyright-safe fallback layer (`fallback-cover.ts`), so reusing them for body figures is consistent with the site's media policy rather than inventing a new one.
+
+- [ ] **Step 1: Add the failing checks**
+
+In `scripts/locale-regression-test.ts`, change the `node:fs` import to include `existsSync`:
+
+```ts
+import { existsSync, readFileSync } from 'node:fs';
+```
+
+Add this import next to the other content-automation imports:
+
+```ts
+import {
+  TR_SECTION_IMAGE_LIBRARY,
+  selectTurkishSectionImages,
+} from '../src/lib/content-automation/tr-section-media';
+```
+
+Insert these six checks immediately before `let failed = 0;`:
+
+```ts
+check('Turkish inline image library is local, unique and descriptive', () => {
+  const seen = new Set<string>();
+  for (const asset of TR_SECTION_IMAGE_LIBRARY) {
+    assert.match(asset.src, /^\/images\/fallbacks\/[a-z0-9-]+\.webp$/, `unexpected src ${asset.src}`);
+    assert.ok(
+      existsSync(path.join(process.cwd(), 'public', asset.src.replace(/^\//, ''))),
+      `missing file ${asset.src}`,
+    );
+    assert.ok(asset.alt.length >= 20, `alt too short for ${asset.src}`);
+    assert.ok(asset.topics.length >= 3, `too few topics for ${asset.src}`);
+    assert.equal(seen.has(asset.src), false, `duplicate library entry ${asset.src}`);
+    seen.add(asset.src);
+  }
+});
+
+check('every Turkish article carries at least two inline figures', () => {
+  const articles = listPublishedContent('tr');
+  assert.ok(articles.length >= 7, 'expected the seven Turkish academy articles');
+  for (const article of articles) {
+    const figures = article.bodySections.filter((section) => Boolean(section.imageMatch?.src));
+    assert.ok(figures.length >= 2, `${article.slug} has ${figures.length} inline figures`);
+  }
+});
+
+check('Turkish inline figures never repeat inside one article and stay attributable', () => {
+  for (const article of listPublishedContent('tr')) {
+    const sources = article.bodySections
+      .map((section) => section.imageMatch?.src)
+      .filter((src): src is string => Boolean(src));
+    assert.equal(new Set(sources).size, sources.length, `${article.slug} repeats a figure`);
+    for (const section of article.bodySections) {
+      const image = section.imageMatch;
+      if (!image) continue;
+      assert.ok((image.alt || '').trim().length >= 10, `${article.slug}/${section.id} has no alt text`);
+      assert.ok((image.credit || '').trim().length > 0, `${article.slug}/${section.id} has no credit`);
+      assert.match(image.src, /^(\/images\/|https:\/\/)/, `${article.slug}/${section.id} uses ${image.src}`);
+    }
+  }
+});
+
+check('Turkish figure selection never illustrates a reference section', () => {
+  const picks = selectTurkishSectionImages({
+    slug: 'shy-iha-drone-rules-for-beginners-in-turkey',
+    title: 'Türkiye’de Yeni Başlayanlar İçin Drone Kuralları',
+    bodySections: [
+      {
+        id: 'sss',
+        title: 'Sık Sorulan Sorular',
+        content: 'drone kuralları mevzuat izin kayıt güvenlik shgm iha sorumluluk',
+      },
+      {
+        id: 'guvenlik',
+        title: 'Güvenlik ve Sorumluluk',
+        content: 'uçuş güvenliği ve sorumluluk kuralları',
+      },
+    ],
+    minImages: 1,
+  });
+  assert.deepEqual(picks.map((pick) => pick.sectionId), ['guvenlik']);
+});
+
+check('every Turkish editorial figure is indexed in the media gallery', () => {
+  let editorialFigures = 0;
+  for (const article of listPublishedContent('tr')) {
+    const gallery = new Set((article.media?.gallery || []).map((asset) => asset.src));
+    for (const section of article.bodySections) {
+      const src = section.imageMatch?.src;
+      if (!src || !src.startsWith('/images/fallbacks/')) continue;
+      editorialFigures += 1;
+      assert.ok(gallery.has(src), `${article.slug} figure missing from gallery: ${src}`);
+    }
+  }
+  assert.ok(editorialFigures >= 14, `only ${editorialFigures} editorial figures across the Turkish tree`);
+});
+
+check('Turkish figure selection is deterministic', () => {
+  const [article] = listPublishedContent('tr');
+  const input = {
+    slug: article.slug,
+    title: article.title,
+    bodySections: article.bodySections.map(({ id, title, content }) => ({ id, title, content })),
+  };
+  assert.deepEqual(selectTurkishSectionImages(input), selectTurkishSectionImages(input));
+});
+```
+
+- [ ] **Step 2: Run the suite and confirm it fails**
+
+```bash
+pnpm locale:test
+```
+
+Expected: the script cannot load — `Cannot find module '../src/lib/content-automation/tr-section-media'`. That is the red state for all six checks.
+
+- [ ] **Step 3: Create the selector module**
+
+Create `src/lib/content-automation/tr-section-media.ts`:
+
+```ts
+import type { ContentMediaAsset } from './content-media';
+import { normalizeSearchText } from '@/lib/i18n/search-text';
+
+export type TurkishSectionImageFamily =
+  | 'academy'
+  | 'power'
+  | 'radio'
+  | 'regulation'
+  | 'starter'
+  | 'build'
+  | 'video'
+  | 'generic';
+
+export type TurkishSectionImageAsset = ContentMediaAsset & {
+  src: string;
+  alt: string;
+  caption: string;
+  credit: string;
+  license: string;
+  kind: 'generated-artwork';
+  source: string;
+  topics: readonly string[];
+  family: TurkishSectionImageFamily;
+};
+
+export type TurkishSectionInput = {
+  id: string;
+  title: string;
+  content: string;
+  imageMatch?: ContentMediaAsset;
+};
+
+export type TurkishSectionImagePick = {
+  sectionId: string;
+  asset: TurkishSectionImageAsset;
+  score: number;
+};
+
+const fallbackSrc = (name: string) => `/images/fallbacks/fpv-${name}.webp`;
+
+function editorialAsset(
+  name: string,
+  alt: string,
+  family: TurkishSectionImageFamily,
+  topics: readonly string[],
+): TurkishSectionImageAsset {
+  return {
+    src: fallbackSrc(name),
+    alt,
+    caption: alt,
+    credit: 'FPVLovers editoryal görseli',
+    license: 'FPVLovers generated artwork',
+    kind: 'generated-artwork',
+    source: 'FPVLovers editorial media library',
+    topics,
+    family,
+  };
+}
+
+/**
+ * Alt text is written against the actual artwork in public/images/fallbacks/
+ * (labelled contact sheet reviewed 2026-11-01), not against the filename.
+ * Topics are already folded to ASCII: tokenization runs normalizeSearchText.
+ */
+export const TR_SECTION_IMAGE_LIBRARY: readonly TurkishSectionImageAsset[] = [
+  editorialAsset('academy-beginner', 'Masa üzerinde FPV kumanda, drone, gözlük ve batarya', 'academy', [
+    'kumanda', 'gozluk', 'batarya', 'ekipman', 'masa',
+  ]),
+  editorialAsset('academy-simulator', 'FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar', 'academy', [
+    'simulator', 'simulatoru', 'simulatorde', 'simulasyon', 'simulasyonda',
+    'bilgisayar', 'sanal', 'pratik', 'oturum', 'gaz', 'stick',
+  ]),
+  editorialAsset('academy-stick-control', 'FPV kumandasının stickleri ve arka planda tiny whoop', 'academy', [
+    'stick', 'gaz', 'yaw', 'pitch', 'roll', 'kontrol', 'acro', 'whoop',
+    'tinywhoop', 'kumanda', 'hover',
+  ]),
+  editorialAsset('build-soldering', 'Lehim istasyonu, FPV drone gövdesi ve el aletleri', 'build', [
+    'lehim', 'havya', 'lehimleme', 'govde', 'alet', 'atolye', 'montaj',
+  ]),
+  editorialAsset('build-workshop', 'FPV drone parçaları, tornavida ve lehim ekipmanı', 'build', [
+    'parca', 'parcalar', 'parcalari', 'tamir', 'bakim', 'atolye', 'montaj', 'vida', 'alet',
+  ]),
+  editorialAsset('commercial-starter-kit', 'Koruyucu çanta içinde drone, batarya ve kumanda seti', 'starter', [
+    'set', 'seti', 'setler', 'setleri', 'rtf', 'bnf', 'paket', 'cantasi', 'hazir', 'kit', 'kiti',
+  ]),
+  editorialAsset('generic', 'Tezgâh üzerinde FPV drone ve uçuş ekipmanı', 'generic', [
+    'genel', 'tezgah', 'ekipman',
+  ]),
+  editorialAsset('motors-prop-selection', 'FPV motorları ve pervane setleri düzenli biçimde sergileniyor', 'build', [
+    'motor', 'motorlar', 'pervane', 'pervaneler', 'kv', 'stator',
+  ]),
+  editorialAsset('motors-propulsion', 'Motor üzerine monte edilmiş FPV pervanesi', 'build', [
+    'itki', 'pervane', 'motor', 'guc',
+  ]),
+  editorialAsset('power-battery-esc', 'LiPo batarya, ESC kartı ve XT60 konnektör', 'power', [
+    'batarya', 'bataryalar', 'bataryasi', 'lipo', 'esc', 'konnektor', 'xt60', 'guc', 'voltaj',
+  ]),
+  editorialAsset('power-charging', 'LiPo şarj cihazı ve şarj edilen bataryalar', 'power', [
+    'sarj', 'sarjda', 'sarjli', 'sarjdan', 'charger', 'yangin',
+  ]),
+  editorialAsset('power-lipo-selection', 'Farklı kapasitelerde LiPo batarya paketleri', 'power', [
+    'lipo', 'batarya', 'bataryalar', 'hucre', 'mah', 'voltaj', 'kapasite',
+  ]),
+  editorialAsset('radio-elrs-gps', 'FPV kumandası yakın çekim', 'radio', [
+    'kumanda', 'kumandaniz', 'kumandanin', 'radyo', 'elrs', 'verici',
+    'vericiler', 'stick', 'mod', 'baglanti',
+  ]),
+  editorialAsset('radio-elrs-gps-alt', 'FPV kumandası, drone ve ELRS alıcısı', 'radio', [
+    'kumanda', 'elrs', 'alici', 'alicii', 'radyo', 'baglanti', 'menzil',
+  ]),
+  editorialAsset('safety-regulations', 'Tezgâhta FPV drone ve ekipman çantası', 'regulation', [
+    'guvenlik', 'kural', 'kurallari', 'mevzuat', 'izin', 'kayit',
+    'sinir', 'shgm', 'iha', 'sorumluluk',
+  ]),
+  editorialAsset('video-goggles-camera', 'FPV gözlüğü ve kamera modülü', 'video', [
+    'gozluk', 'gozlugu', 'kamera', 'goruntu', 'video',
+  ]),
+  editorialAsset('video-goggles-vtx', 'FPV gözlüğü, antenler ve kumanda', 'video', [
+    'gozluk', 'vtx', 'anten', 'verici', 'goruntu', 'kanal',
+  ]),
+];
+
+const LIBRARY_BY_SRC = new Map(TR_SECTION_IMAGE_LIBRARY.map((asset) => [asset.src, asset]));
+
+const FAMILY_DEFAULTS: Record<TurkishSectionImageFamily, readonly string[]> = {
+  academy: [fallbackSrc('academy-stick-control'), fallbackSrc('academy-simulator'), fallbackSrc('academy-beginner')],
+  power: [fallbackSrc('power-charging'), fallbackSrc('power-lipo-selection'), fallbackSrc('power-battery-esc')],
+  radio: [fallbackSrc('radio-elrs-gps'), fallbackSrc('radio-elrs-gps-alt'), fallbackSrc('academy-stick-control')],
+  regulation: [fallbackSrc('safety-regulations'), fallbackSrc('generic')],
+  starter: [fallbackSrc('commercial-starter-kit'), fallbackSrc('academy-beginner'), fallbackSrc('radio-elrs-gps')],
+  build: [fallbackSrc('build-workshop'), fallbackSrc('build-soldering')],
+  video: [fallbackSrc('video-goggles-camera'), fallbackSrc('video-goggles-vtx')],
+  generic: [fallbackSrc('generic'), fallbackSrc('academy-beginner')],
+};
+
+const FAMILY_RULES: ReadonlyArray<readonly [TurkishSectionImageFamily, RegExp]> = [
+  ['regulation', /kural|mevzuat|shgm|\biha\b|izin|kayit/],
+  ['radio', /kumanda|radyo|elrs|verici|transmitter/],
+  ['power', /lipo|batarya|sarj|yangin/],
+  ['starter', /starter|rtf|bnf|set(ler|i|leri)?\b/],
+  ['video', /gozluk|vtx|kamera/],
+  ['build', /tamir|lehim|atolye|montaj/],
+  ['academy', /hover|stick|kontrol|simulat|baslangic|baslayan|kurulum/],
+];
+
+const REFERENCE_SECTION = /(sık sorulan|sik sorulan|sıkça sorulan|sikca sorulan|kaynakça|kaynakca|resmî kaynaklar|resmi kaynaklar|\bsss\b|\bfaq\b)/i;
+
+const STOPWORDS = new Set([
+  'bir', 'ile', 'icin', 'daha', 'veya', 'ama', 'gibi', 'olan', 'olarak', 'bu',
+  'da', 'de', 'en', 'her', 'cok', 'sonra', 'once', 'kadar', 'uzerinde', 'uzerine',
+  'sekilde', 'buyuk', 'kucuk',
+]);
+
+const TITLE_WEIGHT = 4;
+const BODY_CAP = 8;
+const FAMILY_BONUS = 3;
+const MATCH_THRESHOLD = 4;
+const MAX_IMAGES = 3;
+const MIN_IMAGES = 2;
+
+const EDITORIAL_SOURCE_NOTE = 'Local editorial WebP assets from public/images/fallbacks';
+const EDITORIAL_ATTRIBUTION_NOTE = 'Body illustrations by FPVLovers';
+
+function tokenize(value: string): string[] {
+  return normalizeSearchText(value, 'tr')
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter((token) => token.length >= 3 && !STOPWORDS.has(token));
+}
+
+/**
+ * The family decides two things: a tie-breaking bonus for images that match the
+ * article's own subject, and the ordered pool used to reach the two-figure
+ * floor when keyword matching alone is too sparse (regulation articles).
+ */
+export function resolveTurkishSectionFamily(
+  slug: string,
+  title: string,
+): TurkishSectionImageFamily {
+  const signal = normalizeSearchText(`${slug} ${title}`, 'tr');
+  for (const [family, rule] of FAMILY_RULES) {
+    if (rule.test(signal)) return family;
+  }
+  return 'generic';
+}
+
+/**
+ * Deterministic section→image assignment. FAQ/appendix sections never receive
+ * a figure and an image is used at most once per article. Sections backed by
+ * crawled source photos keep their image and consume the figure budget;
+ * sections this library already illustrated stay eligible so a repeat pass
+ * selects the same assets and changes nothing.
+ */
+export function selectTurkishSectionImages(input: {
+  slug: string;
+  title: string;
+  bodySections: ReadonlyArray<TurkishSectionInput>;
+  maxImages?: number;
+  minImages?: number;
+}): TurkishSectionImagePick[] {
+  const maxImages = input.maxImages ?? MAX_IMAGES;
+  const minImages = Math.min(input.minImages ?? MIN_IMAGES, maxImages);
+  const family = resolveTurkishSectionFamily(input.slug, input.title);
+
+  const sourceFigures = input.bodySections.filter(
+    (section) => Boolean(section.imageMatch?.src) && !LIBRARY_BY_SRC.has(section.imageMatch!.src),
+  ).length;
+  const budget = Math.max(0, maxImages - sourceFigures);
+  if (budget === 0) return [];
+
+  const sectionIndex = new Map(input.bodySections.map((section, index) => [section.id, index]));
+  const eligible = input.bodySections.filter((section) => {
+    if (REFERENCE_SECTION.test(section.title)) return false;
+    const src = section.imageMatch?.src;
+    return !src || LIBRARY_BY_SRC.has(src);
+  });
+
+  const titleTokens = new Map<string, Set<string>>();
+  const bodyTokens = new Map<string, Set<string>>();
+  for (const section of eligible) {
+    titleTokens.set(section.id, new Set(tokenize(section.title)));
+    // The first 1200 characters carry the section's topic; the rest is detail
+    // that would drown the signal in repeated vocabulary.
+    bodyTokens.set(section.id, new Set(tokenize(section.content.slice(0, 1200))));
+  }
+
+  const candidates: Array<{
+    sectionId: string;
+    asset: TurkishSectionImageAsset;
+    score: number;
+    assetIndex: number;
+  }> = [];
+
+  TR_SECTION_IMAGE_LIBRARY.forEach((asset, assetIndex) => {
+    const topics = new Set(asset.topics);
+    for (const section of eligible) {
+      const titleHits = [...titleTokens.get(section.id)!].filter((token) => topics.has(token)).length;
+      const bodyHits = [...bodyTokens.get(section.id)!].filter((token) => topics.has(token)).length;
+      const score = titleHits * TITLE_WEIGHT
+        + Math.min(bodyHits, BODY_CAP)
+        + (asset.family === family ? FAMILY_BONUS : 0);
+      if (score >= MATCH_THRESHOLD) {
+        candidates.push({ sectionId: section.id, asset, score, assetIndex });
+      }
+    }
+  });
+
+  candidates.sort((a, b) =>
+    b.score - a.score
+    || (sectionIndex.get(a.sectionId) ?? 0) - (sectionIndex.get(b.sectionId) ?? 0)
+    || a.assetIndex - b.assetIndex,
+  );
+
+  const usedSections = new Set<string>();
+  const usedAssets = new Set<string>();
+  const picks: TurkishSectionImagePick[] = [];
+
+  for (const candidate of candidates) {
+    if (picks.length >= budget) break;
+    if (usedSections.has(candidate.sectionId) || usedAssets.has(candidate.asset.src)) continue;
+    usedSections.add(candidate.sectionId);
+    usedAssets.add(candidate.asset.src);
+    picks.push({ sectionId: candidate.sectionId, asset: candidate.asset, score: candidate.score });
+  }
+
+  const minimum = Math.min(minImages, budget, eligible.length);
+  while (picks.length < minimum) {
+    const section = eligible.find((entry) => !usedSections.has(entry.id));
+    const asset = FAMILY_DEFAULTS[family]
+      .map((src) => LIBRARY_BY_SRC.get(src))
+      .find((entry): entry is TurkishSectionImageAsset => entry !== undefined && !usedAssets.has(entry.src));
+    if (!section || !asset) break;
+    usedSections.add(section.id);
+    usedAssets.add(asset.src);
+    picks.push({ sectionId: section.id, asset, score: 0 });
+  }
+
+  return picks.sort(
+    (a, b) => (sectionIndex.get(a.sectionId) ?? 0) - (sectionIndex.get(b.sectionId) ?? 0),
+  );
+}
+
+/**
+ * Applies the selection to an artifact and keeps the media block consistent:
+ * every figure is present in the gallery, and the editorial source notes are
+ * added once when this layer contributed at least one image.
+ */
+export function attachTurkishSectionImages(input: {
+  slug: string;
+  title: string;
+  bodySections: ReadonlyArray<TurkishSectionInput>;
+  gallery: ReadonlyArray<ContentMediaAsset>;
+  imageSources?: ReadonlyArray<string>;
+  attribution?: ReadonlyArray<string>;
+}): {
+  bodySections: TurkishSectionInput[];
+  gallery: ContentMediaAsset[];
+  imageSources: string[];
+  attribution: string[];
+} {
+  const picks = selectTurkishSectionImages(input);
+  const bySection = new Map(picks.map((pick) => [pick.sectionId, pick.asset]));
+
+  let figures = input.bodySections.filter((section) => Boolean(section.imageMatch?.src)).length;
+  let added = 0;
+  const bodySections = input.bodySections.map((section) => {
+    const asset = bySection.get(section.id);
+    if (!asset || section.imageMatch?.src || figures >= MAX_IMAGES) return { ...section };
+    figures += 1;
+    added += 1;
+    return { ...section, imageMatch: asset };
+  });
+
+  const gallery = [...input.gallery];
+  for (const section of bodySections) {
+    const image = section.imageMatch;
+    if (image?.src && !gallery.some((entry) => entry.src === image.src)) {
+      gallery.push(image);
+    }
+  }
+
+  const imageSources = [...(input.imageSources ?? [])];
+  const attribution = [...(input.attribution ?? [])];
+  if (added > 0) {
+    if (!imageSources.includes(EDITORIAL_SOURCE_NOTE)) imageSources.push(EDITORIAL_SOURCE_NOTE);
+    if (!attribution.includes(EDITORIAL_ATTRIBUTION_NOTE)) attribution.push(EDITORIAL_ATTRIBUTION_NOTE);
+  }
+
+  return { bodySections, gallery, imageSources, attribution };
+}
+```
+
+- [ ] **Step 4: Run the suite and confirm only the article checks still fail**
+
+```bash
+pnpm locale:test
+```
+
+Expected: the two structural checks pass (library and reference-section rule), while `every Turkish article carries at least two inline figures` fails on the first artifact that still has fewer than two (the slug depends on `publishedAt` order). The editorial-figures count also fails. That is the correct red state for the backfill.
+
+- [ ] **Step 5: Add the Turkish publish hook and the shared markdown builder**
+
+In `src/lib/content-automation/publish-artifact.ts`, add the import:
+
+```ts
+import { attachTurkishSectionImages } from './tr-section-media';
+```
+
+Add this exported builder above `publishGeneratedContentArtifact` (after `assertPublishableLocale`):
+
+```ts
+export function buildArtifactMarkdown(input: {
+  title: string;
+  excerpt: string;
+  bodySections: GeneratedContent['bodySections'];
+  publishNotes?: string[];
+}): string {
+  const sections = input.bodySections.map((section) => {
+    const imageMarkdown = section.imageMatch
+      ? `\n\n![${section.imageMatch.alt}](${section.imageMatch.src})\n_${section.imageMatch.caption || section.imageMatch.alt}_`
+      : '';
+    return `## ${section.title}\n\n${section.content}${imageMarkdown}\n`;
+  });
+
+  const notes = input.publishNotes ?? [];
+
+  return [
+    `# ${input.title}`,
+    '',
+    `> ${input.excerpt}`,
+    '',
+    ...sections,
+    ...(notes.length > 0 ? ['', '---', '', ...notes.map((note) => `_${note}_`)] : []),
+  ].join('\n') + '\n';
+}
+```
+
+Replace the existing markdown-building block (from `// Convert to beautiful standard markdown representation including inline images` through `fs.writeFileSync(mdPath, markdown + '\n', 'utf-8');`) with:
+
+```ts
+  const markdown = buildArtifactMarkdown({
+    title: content.title,
+    excerpt: content.excerpt,
+    bodySections: content.bodySections,
+    publishNotes: filteredNotes,
+  });
+
+  fs.writeFileSync(mdPath, markdown, 'utf-8');
+```
+
+Insert the Turkish hook directly after the gallery-matching block (the `if (media && media.gallery && ...)` block that sets `content.bodySections = content.bodySections.map(...)`), before `const filteredNotes = ...`:
+
+```ts
+  // Turkish articles ship without crawled galleries, so their body figures come
+  // from the local editorial library. English artifacts keep the crawl-only path.
+  if (locale === 'tr') {
+    const illustrated = attachTurkishSectionImages({
+      slug,
+      title: content.title,
+      bodySections: content.bodySections,
+      gallery: media.gallery,
+      imageSources: media.imageSources,
+      attribution: media.attribution,
+    });
+    content.bodySections = illustrated.bodySections;
+    media.gallery = illustrated.gallery;
+    media.imageSources = illustrated.imageSources;
+    media.attribution = illustrated.attribution;
+  }
+```
+
+- [ ] **Step 6: Create the backfill script and wire the package script**
+
+Create `scripts/backfill-tr-section-images.ts`:
+
+```ts
+import fs from 'node:fs';
+import path from 'node:path';
+import { attachTurkishSectionImages } from '../src/lib/content-automation/tr-section-media';
+import { buildArtifactMarkdown } from '../src/lib/content-automation/publish-artifact';
+import type { PublishedArtifact } from '../src/lib/content-automation/content-reader';
+
+const DIR = path.join(process.cwd(), 'content', 'published', 'tr');
+
+function arg(name: string): string | undefined {
+  const index = process.argv.indexOf(`--${name}`);
+  return index >= 0 ? process.argv[index + 1] : undefined;
+}
+
+const dryRun = process.argv.includes('--dry-run');
+const onlySlug = arg('slug');
+
+function relative(file: string): string {
+  return path.relative(process.cwd(), file).split(path.sep).join('/');
+}
+
+function main(): void {
+  const files = fs.readdirSync(DIR).filter((file) => file.endsWith('.json')).sort();
+  let inspected = 0;
+  let updated = 0;
+
+  for (const file of files) {
+    const filePath = path.join(DIR, file);
+    const artifact = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as PublishedArtifact;
+    if (onlySlug && artifact.slug !== onlySlug) continue;
+    if (!artifact.media) throw new Error(`${artifact.slug} has no media block`);
+    inspected += 1;
+
+    const illustration = attachTurkishSectionImages({
+      slug: artifact.slug,
+      title: artifact.title,
+      bodySections: artifact.bodySections,
+      gallery: artifact.media.gallery,
+      imageSources: artifact.media.imageSources,
+      attribution: artifact.media.attribution,
+    });
+
+    const figures = illustration.bodySections.filter((section) => Boolean(section.imageMatch?.src)).length;
+    const added = illustration.bodySections.filter(
+      (section, index) => !artifact.bodySections[index]?.imageMatch?.src && section.imageMatch?.src,
+    ).length;
+
+    if (added === 0) {
+      console.log(`= ${artifact.slug}: unchanged (${figures} figures)`);
+      continue;
+    }
+
+    if (dryRun) {
+      console.log(`+ ${artifact.slug}: would add ${added} figures (total ${figures})`);
+      continue;
+    }
+
+    const next: PublishedArtifact = {
+      ...artifact,
+      bodySections: illustration.bodySections,
+      media: {
+        ...artifact.media,
+        gallery: illustration.gallery,
+        imageSources: illustration.imageSources,
+        attribution: illustration.attribution,
+      },
+    };
+
+    fs.writeFileSync(filePath, `${JSON.stringify(next, null, 2)}\n`, 'utf-8');
+    fs.writeFileSync(
+      filePath.replace(/\.json$/, '.md'),
+      buildArtifactMarkdown({
+        title: next.title,
+        excerpt: next.excerpt,
+        bodySections: next.bodySections,
+        publishNotes: next.publishNotes,
+      }),
+      'utf-8',
+    );
+
+    console.log(`✓ ${relative(filePath)}: +${added} figures (total ${figures})`);
+    updated += 1;
+  }
+
+  console.log(
+    dryRun
+      ? `Dry run: ${inspected} artifact(s) inspected.`
+      : `Backfill complete: ${updated} artifact(s) updated.`,
+  );
+}
+
+try {
+  main();
+} catch (error) {
+  console.error(`✗ ${error instanceof Error ? error.message : String(error)}`);
+  process.exit(1);
+}
+```
+
+Add this line to `package.json` scripts (next to `content:publish-original`):
+
+```json
+"content:tr-media": "node --import tsx scripts/backfill-tr-section-images.ts",
+```
+
+- [ ] **Step 7: Dry-run the backfill**
+
+```bash
+pnpm content:tr-media --dry-run
+```
+
+Expected exactly (order is filename order):
+
+```
+= best-fpv-starter-kits-2026-rtf-bundles-for-beginners: unchanged (3 figures)
++ first-hover-training: would add 3 figures (total 3)
++ fpv-beginner-setup-guide-the-easiest-way-to-get-flying: would add 3 figures (total 3)
++ fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer: would add 2 figures (total 3)
++ fpv-simulator-practice-plan-first-30-days: would add 2 figures (total 2)
++ how-to-choose-your-first-fpv-radio-without-buying-twice: would add 2 figures (total 3)
++ shy-iha-drone-rules-for-beginners-in-turkey: would add 2 figures (total 2)
+Dry run: 7 artifact(s) inspected.
+```
+
+14 new figures. If a different number appears, stop and compare the selection with Step 3 — do not adjust the library just to hit the number.
+
+- [ ] **Step 8: Apply and measure**
+
+```bash
+pnpm content:tr-media
+git status --short content/published/tr
+node -e "const fs=require('fs'),p=require('path');const d='content/published/tr';for(const f of fs.readdirSync(d).filter(f=>f.endsWith('.json')).sort()){const a=JSON.parse(fs.readFileSync(p.join(d,f),'utf8'));const figs=a.bodySections.filter(s=>s.imageMatch&&s.imageMatch.src);console.log(a.slug, figs.length, figs.map(s=>s.id+':'+p.basename(s.imageMatch.src)).join(' '));}"
+```
+
+Expected: `Backfill complete: 6 artifact(s) updated.`; `git status` lists 12 files (6 JSON + 6 MD); the node output is:
+
+```
+best-fpv-starter-kits-2026-rtf-bundles-for-beginners 3 article-sub-1:best-...-section-1-5f0f8381.jpg article-sub-6:best-...-gallery-1-5f0f8381.jpg article-sub-7:best-...-gallery-2-64dde62b.webp
+first-hover-training 3 article-sub-2:fpv-academy-stick-control.webp article-sub-3:fpv-academy-simulator.webp article-sub-7:fpv-academy-beginner.webp
+fpv-beginner-setup-guide-the-easiest-way-to-get-flying 3 article-sub-3:fpv-build-workshop.webp article-sub-4:fpv-commercial-starter-kit.webp article-sub-5:fpv-academy-simulator.webp
+fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer 3 article-sub-1:fpv-lipo-...-section-1-3eb582f8.jpg article-sub-3:fpv-power-battery-esc.webp article-sub-8:fpv-power-lipo-selection.webp
+fpv-simulator-practice-plan-first-30-days 2 article-sub-4:fpv-academy-simulator.webp article-sub-6:fpv-academy-stick-control.webp
+how-to-choose-your-first-fpv-radio-without-buying-twice 3 article-sub-1:how-to-...-section-1-8bfe0258.webp article-sub-2:fpv-radio-elrs-gps.webp article-sub-4:fpv-academy-stick-control.webp
+shy-iha-drone-rules-for-beginners-in-turkey 2 kapsam:fpv-generic.webp guvenlik:fpv-safety-regulations.webp
+```
+
+Rerun `pnpm content:tr-media --dry-run` once: every line must read `= …: unchanged`, proving the script is idempotent.
+
+- [ ] **Step 9: Run the suites, typecheck and lint**
+
+```bash
+pnpm locale:test
+pnpm content:language-audit
+pnpm media:audit
+./node_modules/.bin/tsc --noEmit
+pnpm lint
+```
+
+Expected: `locale regression test passed (62 checks)`; the language audit still reports 160 artifacts with no failures; `media:audit` passes (it scans `content/published/*.json`, not the `tr/` subdirectory); no type errors; no new lint warnings.
+
+- [ ] **Step 10: Confirm the rendered pages carry the figures**
+
+```bash
+pkill -f "next dev" || true
+pnpm build
+./node_modules/.bin/next start -p 3012 &
+until curl -sf -o /dev/null http://localhost:3012/tr/academy; do sleep 1; done
+for slug in best-fpv-starter-kits-2026-rtf-bundles-for-beginners first-hover-training fpv-beginner-setup-guide-the-easiest-way-to-get-flying fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer fpv-simulator-practice-plan-first-30-days how-to-choose-your-first-fpv-radio-without-buying-twice shy-iha-drone-rules-for-beginners-in-turkey; do
+  printf '%s ' "$slug"
+  curl -s "http://localhost:3012/tr/article/$slug" | grep -o '<figure' | wc -l | tr -d ' '
+done
+curl -s "http://localhost:3012/tr/article/first-hover-training" | grep -o 'alt="FPV kumandasının stickleri[^"]*"' | head -1
+```
+
+Expected: `3 3 3 3 2 3 2` in that order, and the Turkish alt text is present:
+
+```
+alt="FPV kumandasının stickleri ve arka planda tiny whoop"
+```
+
+Every `/images/fallbacks/…` URL in the HTML must answer `200`:
+
+```bash
+curl -s -o /dev/null -w '%{http_code}\n' http://localhost:3012/images/fallbacks/fpv-academy-stick-control.webp
+```
+
+- [ ] **Step 11: Stop the server and confirm the English tree is untouched**
+
+```bash
+kill %1 2>/dev/null || pkill -f "next start -p 3012"
+git diff --name-only | grep -v '^content/published/tr/' | grep -v '^docs/' || true
+```
+
+Expected: no output apart from the source files created/modified by this task (which are listed in Step 12's commit). No `content/published/*.json` and no `content/published/*.md` outside `tr/`.
+
+- [ ] **Step 12: Commit**
+
+```bash
+git add src/lib/content-automation/tr-section-media.ts \
+  src/lib/content-automation/publish-artifact.ts \
+  scripts/backfill-tr-section-images.ts \
+  scripts/locale-regression-test.ts \
+  package.json \
+  content/published/tr
+git commit -m "feat(content): illustrate Turkish academy articles with editorial figures" -m "Adds 14 inline body figures across six Turkish articles (2-3 per article) from the local editorial WebP library, with Turkish alt text, credits and gallery registration. best-fpv-starter-kits keeps its three source-backed figures. English artifacts are untouched."
+```
+
+---
+
+### Task 14: Deploy and verify production (requires explicit approval)
 
 **Files:**
 - No source changes.
@@ -1489,7 +2250,26 @@ curl -s https://fpvlovers.com.tr/sitemap.xml | grep -c '<loc>'
 
 Expected: `/tr/academy` returns `200` and links 7 unique Turkish articles; the five translations return `200` with 6 `hreflang` attributes each; the original returns `200` with `0`; the sitemap contains 6 more `<loc>` entries than before this work.
 
-- [ ] **Step 5: Confirm the English tree is unchanged**
+- [ ] **Step 5: Verify the inline body figures are live**
+
+```bash
+for slug in best-fpv-starter-kits-2026-rtf-bundles-for-beginners first-hover-training fpv-beginner-setup-guide-the-easiest-way-to-get-flying fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer fpv-simulator-practice-plan-first-30-days how-to-choose-your-first-fpv-radio-without-buying-twice shy-iha-drone-rules-for-beginners-in-turkey; do
+  printf '%s ' "$slug"
+  curl -s "https://fpvlovers.com.tr/tr/article/$slug" | grep -o '<figure' | wc -l | tr -d ' '
+done
+curl -s -o /dev/null -w '%{http_code}\n' https://fpvlovers.com.tr/images/fallbacks/fpv-academy-stick-control.webp
+curl -s https://fpvlovers.com.tr/tr/article/first-hover-training | grep -o 'alt="FPV kumandasının stickleri[^"]*"' | head -1
+```
+
+Expected: `3 3 3 3 2 3 2` in that order, `200` for the WebP asset, and the Turkish alt text:
+
+```
+alt="FPV kumandasının stickleri ve arka planda tiny whoop"
+```
+
+No shadow row is involved: Task 13 writes committed files only, so production still resolves the Turkish tree from `content/published/tr/` (Global Constraint 2).
+
+- [ ] **Step 6: Confirm the English tree is unchanged**
 
 ```bash
 for url in /article/fpv-simulator-practice-plan-first-30-days /article/first-hover-training /academy /guides; do
@@ -1520,9 +2300,10 @@ Expected: `200` for each. English titles and URLs are untouched; only additive J
 | Step 5 original (SHGM / SHY-İHA) | 10 |
 | Step wiring: drop `page`, add slugs | 11 |
 | Verification suite and per-article checks | 12 |
-| Deploy and live verification | 13 |
+| Inline body figures for the seven Turkish articles | 13 |
+| Deploy and live verification | 14 |
 
-**Placeholder scan:** the regulation article's prose and meta description are authored in Task 10 Step 2 under explicit sourcing rules; the plan cannot pre-write official claims without the verified URLs that Step 1 collects, and Step 2 names every value that must be replaced before the gate runs. All code steps contain complete code, and every command has an expected output.
+**Placeholder scan:** the regulation article's prose and meta description are authored in Task 10 Step 2 under explicit sourcing rules; the plan cannot pre-write official claims without the verified URLs that Step 1 collects, and Step 2 names every value that must be replaced before the gate runs. All code steps contain complete code, and every command has an expected output. Task 13's per-article figure counts (3/3/3/3/2/3/2) were measured by running the selector and `ensureMediaArtifact` against the seven committed artifacts before the task was written; they are regression targets, not guesses.
 
 **Gate arithmetic:** the Task 3 fixture was measured against the real `computeSeoScore` (1818 body words, 1.97% density, 141-char meta, one internal link, keyword in title) → 90 with only the media reason, and 55 once `keywords` is emptied. The same 90 ceiling applies to every article in Tasks 5–10 because `computeSeoScore` runs before media is attached.
 
