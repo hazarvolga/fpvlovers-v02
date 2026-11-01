@@ -12,6 +12,9 @@ Drone kuralları içinde en pratik tanım **Basit İHA** kavramıdır. Madde 8'd
 
 Bunun dışında kalan araçlar kalkış kütlesine göre dört sınıfa ayrılıyor (Kaynak: SHT-İHA, Madde 8/1): M0 sınıfı 500 gram (dâhil) ile 4 kilogram arası, M1 sınıfı 4 kilogram (dâhil) ile 25 kilogram arası, M2 sınıfı 25 kilogram (dâhil) ile 150 kilogram arası ve M3 sınıfı 150 kilogram (dâhil) ve üzeri. Talimat ayrıca azami kalkış kütlesi 500 gramın altında olup Basit İHA tanımını karşılamayan araçların da M0 sınıfı hükümlerine tabi olduğunu belirtiyor (Kaynak: SHT-İHA, Madde 8/3). Kısacası "hafif" olmak tek başına muafiyet anlamına gelmiyor; drone kuralları açısından belirleyici olan, aracın uçuş zarfı ve sınıfıdır.
 
+![Tezgâh üzerinde FPV drone ve uçuş ekipmanı](/images/fallbacks/fpv-generic.webp)
+_Tezgâh üzerinde FPV drone ve uçuş ekipmanı_
+
 ## Kayıt ve Yeterlilik
 
 Türkiye'de drone kuralları pratikte iki aşamalı bir kayıtla başlıyor. SHGM'nin İHA Kayıt Sistemi sayfası, ağırlığı 500 gram ve üstü İHA satanların, alanların, üretenlerin, ithal edenlerin ve uçuranların bu sistemde kayıt işlemi yapmalarının zorunlu olduğunu belirtiyor. Aynı sayfa, Türkiye hava sahasında 500 gram ve üzeri İHA uçurmak isteyen pilotların sisteme kayıt olmaları ve SHGM'den onay almaları gerektiğini de açıkça yazıyor (Kaynak: iha.shgm.gov.tr — İHA Kayıt Sistemi). Yeni başlayanların drone kuralları konusunda en sık atladığı adım genellikle budur: uçuştan önce kayıt ve onay.
@@ -47,6 +50,9 @@ Bağlantı kaybı, drone kurallarının ayrı bir maddeyle ele aldığı riskler
 Drone kuralları açısından sigorta tarafı iki farklı resmî kaynakta netleşiyor. SHGM'nin İHA kayıt sisteminin sık sorulan sorular bölümü, 25 kilogram üstü İHA ile ağırlığına bakılmaksızın ticari faaliyet gerçekleştiren İHA için üçüncü şahıs mali mesuliyet sigortası yaptırılması gerektiğini ve sigortasız uçuş yapılmadığını belirtiyor (Kaynak: iha.shgm.gov.tr — Sık Sorulan Sorular). Yani hobi amaçlı hafif uçuşlar ile ticari operasyonlar sigorta yükümlülüğü bakımından aynı kategoride değil; drone kuralları öğrenilirken bu ayrımı bilmek gereksiz masraftan da eksik sigortadan da korur.
 
 Drone kuralları teknik tarafta iki yükümlülük daha getiriyor. Basit İHA hariç, kayıt yükümlülüğüne tabi araçların uzaktan tanımlama sistemine sahip olması zorunlu (Kaynak: SHT-İHA, Madde 23/7). Ayrıca Basit İHA hariç tüm araçların uçuş kontrol yazılımları ve kontrol istasyonu yazılımları dâhil Genel Müdürlükçe düzenlenen yazılım sertifikasyonuna sahip olması isteniyor; sertifikasyona sahip olmayan araçların Türk hava sahasında işletilemeyeceği belirtiliyor (Kaynak: SHT-İHA, Madde 23/4). Yeni başlayanların drone kuralları listesine eklemesi gereken son madde de bu: yurt dışından getirilen araçların da bu şartları sağlaması gerekiyor, aksi hâlde kayıt işlemine konu edilemiyorlar (Kaynak: SHT-İHA, Madde 24/4).
+
+![Tezgâhta FPV drone ve ekipman çantası](/images/fallbacks/fpv-safety-regulations.webp)
+_Tezgâhta FPV drone ve ekipman çantası_
 
 ## Yeni Başlayanların Sık Yaptığı Hatalar
 

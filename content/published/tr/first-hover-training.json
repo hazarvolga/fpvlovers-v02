@@ -39,12 +39,58 @@
     {
       "id": "article-sub-2",
       "title": "Temel: Hover İçin FPV Kontrollerini Parçalara Ayırmak",
-      "content": "Herhangi bir pervane dönmeden önce, girdilerinizin drone hareketine nasıl dönüştüğünü kristal netliğinde anlamanız gerekir. Bu temel bilgi, etkili bir FPV yeni başlayan uçuşunun temelidir.\n\n### Sticklerinizi Anlamak: Pitch, Roll, Yaw ve Gaz\n\nMode 2 kullanan çoğu FPV pilotu için kumandanızın stickleri dört temel kontrol eksenini yönetir:\n\n*   **Sol Stick (Dikey Eksen): Gaz.** Bu sizin güç kontrolünüzdür; motorlarınızın ne kadar itki üreteceğini belirler. Yukarı itmek itkiyi artırır, aşağı çekmek azaltır. Doğrudan drone'unuzun irtifasını kontrol eder.\n*   **Sol Stick (Yatay Eksen): Yaw.** Drone'un dikey ekseni etrafında dönmesini kontrol eder. Sola itmek burnu sola, sağa itmek sağa döndürür. Bunu yatay düzlemde direksiyon olarak düşünün.\n*   **Sağ Stick (Dikey Eksen): Pitch.** Drone'un ileri ve geri eğilmesini kontrol eder. Yukarı itmek burnu aşağı eğer (ileri hareket); aşağı çekmek burnu yukarı eğer (geri hareket).\n*   **Sağ Stick (Yatay Eksen): Roll.** Drone'un sola ve sağa yatmasını kontrol eder. Sola itmek drone'u sola, sağa itmek sağa yatırır ve yana doğru yer değiştirmeyi sağlar.\n\nHer girdinin drone'unuzun duruşu ve konumu üzerinde doğrudan ve orantılı bir etkisi vardır. Bu girdilerin çoğu zaman aynı anda gerçekleşen ince etkileşimine hâkim olmak, FPV temel kontrollerinin özüdür.\n\n### Uçuş Modları: Acro ve Stabilleştirilmiş Modlar Açıklandı\n\nPek çok hazır drone ve bazı FPV uçmaya hazır setler, stabilleştirilmiş modlar (çoğu zaman Angle ya da Horizon modu olarak adlandırılır) sunar. Bu modlarda drone'un uçuş kontrolcüsü, siz stickleri bıraktığınızda kendini düz tutmaya çalışır. Bu daha yumuşak bir giriş sunsa da gerçek FPV uçuşu ve etkili hover yapmanın hedefi **Acro modunda** gerçekleşir.\n\nAcro modunda (Rate modu olarak da bilinir), drone'unuz yeni bir girdi vermediğiniz sürece son komut verilen duruşunu korur. Kendiliğinden düzeltme yoktur. Onu 30 derece ileri yatırıp sticki bırakırsanız, o 30 derecelik açıyla ileri uçmaya devam eder. Bu size tam ve filtresiz bir kontrol verir; ileri manevralar ve hassas stick disiplini için bu şarttır. Gelecekteki tüm uçuşlar için gerekli kas belleğini oluşturduğu için eğitimi Acro üzerine kuruyoruz.\n\n### Gaz: Dikey Can Simidiniz ve Yerçekiminin Karşıtı\n\nGaz yönetimi, kararlı hover için tartışmasız en kritik beceridir. Bu yalnızca bir açma/kapama anahtarı değil, yerçekimiyle yapılan hassas bir danstır. Gaz çok azsa drone alçalır, çok fazlaysa gökyüzüne fırlar. Amaç *hover gazını* bulmaktır: drone'unuzun ne yükseldiği ne de alçaldığı hassas stick konumu.\n\nBu tatlı nokta dinamiktir. Şunlara göre değişir:\n*   **Batarya voltajı:** Tam dolu batarya daha fazla güç verir, bu yüzden daha az gaz gerekir. Voltaj düştükçe irtifayı korumak için daha fazla gaz vermeniz gerekir.\n*   **Drone ağırlığı:** Daha ağır drone'lar daha fazla gaz gerektirir.\n*   **Çevresel faktörler:** Rüzgâr, aktif gaz ayarlamaları yapmayı zorunlu kılar.\n\nGazı minik ve sürekli ayarlamalarla nazikçe kullanmayı öğrenmek çok önemlidir. Aynı drone'da bile hover gazı uçuşun ilk dakikalarında değişir; tam şarjlı bir bataryayla kalkış yaptığınızda gereken gaz, inişe yakın düşük voltajdaki değerden belirgin biçimde düşüktür. Bu yüzden hover gazını sabit bir yüzde olarak ezberlemek yerine, her batarya ve her rüzgâr koşulunda yeniden aramayı alışkanlık hâline getirin."
+      "content": "Herhangi bir pervane dönmeden önce, girdilerinizin drone hareketine nasıl dönüştüğünü kristal netliğinde anlamanız gerekir. Bu temel bilgi, etkili bir FPV yeni başlayan uçuşunun temelidir.\n\n### Sticklerinizi Anlamak: Pitch, Roll, Yaw ve Gaz\n\nMode 2 kullanan çoğu FPV pilotu için kumandanızın stickleri dört temel kontrol eksenini yönetir:\n\n*   **Sol Stick (Dikey Eksen): Gaz.** Bu sizin güç kontrolünüzdür; motorlarınızın ne kadar itki üreteceğini belirler. Yukarı itmek itkiyi artırır, aşağı çekmek azaltır. Doğrudan drone'unuzun irtifasını kontrol eder.\n*   **Sol Stick (Yatay Eksen): Yaw.** Drone'un dikey ekseni etrafında dönmesini kontrol eder. Sola itmek burnu sola, sağa itmek sağa döndürür. Bunu yatay düzlemde direksiyon olarak düşünün.\n*   **Sağ Stick (Dikey Eksen): Pitch.** Drone'un ileri ve geri eğilmesini kontrol eder. Yukarı itmek burnu aşağı eğer (ileri hareket); aşağı çekmek burnu yukarı eğer (geri hareket).\n*   **Sağ Stick (Yatay Eksen): Roll.** Drone'un sola ve sağa yatmasını kontrol eder. Sola itmek drone'u sola, sağa itmek sağa yatırır ve yana doğru yer değiştirmeyi sağlar.\n\nHer girdinin drone'unuzun duruşu ve konumu üzerinde doğrudan ve orantılı bir etkisi vardır. Bu girdilerin çoğu zaman aynı anda gerçekleşen ince etkileşimine hâkim olmak, FPV temel kontrollerinin özüdür.\n\n### Uçuş Modları: Acro ve Stabilleştirilmiş Modlar Açıklandı\n\nPek çok hazır drone ve bazı FPV uçmaya hazır setler, stabilleştirilmiş modlar (çoğu zaman Angle ya da Horizon modu olarak adlandırılır) sunar. Bu modlarda drone'un uçuş kontrolcüsü, siz stickleri bıraktığınızda kendini düz tutmaya çalışır. Bu daha yumuşak bir giriş sunsa da gerçek FPV uçuşu ve etkili hover yapmanın hedefi **Acro modunda** gerçekleşir.\n\nAcro modunda (Rate modu olarak da bilinir), drone'unuz yeni bir girdi vermediğiniz sürece son komut verilen duruşunu korur. Kendiliğinden düzeltme yoktur. Onu 30 derece ileri yatırıp sticki bırakırsanız, o 30 derecelik açıyla ileri uçmaya devam eder. Bu size tam ve filtresiz bir kontrol verir; ileri manevralar ve hassas stick disiplini için bu şarttır. Gelecekteki tüm uçuşlar için gerekli kas belleğini oluşturduğu için eğitimi Acro üzerine kuruyoruz.\n\n### Gaz: Dikey Can Simidiniz ve Yerçekiminin Karşıtı\n\nGaz yönetimi, kararlı hover için tartışmasız en kritik beceridir. Bu yalnızca bir açma/kapama anahtarı değil, yerçekimiyle yapılan hassas bir danstır. Gaz çok azsa drone alçalır, çok fazlaysa gökyüzüne fırlar. Amaç *hover gazını* bulmaktır: drone'unuzun ne yükseldiği ne de alçaldığı hassas stick konumu.\n\nBu tatlı nokta dinamiktir. Şunlara göre değişir:\n*   **Batarya voltajı:** Tam dolu batarya daha fazla güç verir, bu yüzden daha az gaz gerekir. Voltaj düştükçe irtifayı korumak için daha fazla gaz vermeniz gerekir.\n*   **Drone ağırlığı:** Daha ağır drone'lar daha fazla gaz gerektirir.\n*   **Çevresel faktörler:** Rüzgâr, aktif gaz ayarlamaları yapmayı zorunlu kılar.\n\nGazı minik ve sürekli ayarlamalarla nazikçe kullanmayı öğrenmek çok önemlidir. Aynı drone'da bile hover gazı uçuşun ilk dakikalarında değişir; tam şarjlı bir bataryayla kalkış yaptığınızda gereken gaz, inişe yakın düşük voltajdaki değerden belirgin biçimde düşüktür. Bu yüzden hover gazını sabit bir yüzde olarak ezberlemek yerine, her batarya ve her rüzgâr koşulunda yeniden aramayı alışkanlık hâline getirin.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-academy-stick-control.webp",
+        "alt": "FPV kumandasının stickleri ve arka planda tiny whoop",
+        "caption": "FPV kumandasının stickleri ve arka planda tiny whoop",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "stick",
+          "gaz",
+          "yaw",
+          "pitch",
+          "roll",
+          "kontrol",
+          "acro",
+          "whoop",
+          "tinywhoop",
+          "kumanda",
+          "hover"
+        ],
+        "family": "academy"
+      }
     },
     {
       "id": "article-sub-3",
       "title": "Sürünme: Simülatörde Kas Belleğine Hâkim Olmak",
-      "content": "Simülatör pratiği gerçekten şart mı? Kesinlikle. FPV uçuş simülatörü, kırılan pervane ve gövde masraflarından sizi kurtaran riskiz kum havuzunuzdur.\n\n### Simülatörler Neden İsteğe Bağlı Değil, Zorunludur\n\nİyi bir FPV uçuş simülatörü şunları yapmanızı sağlar:\n*   Sonuçsuz risk olmadan stick girdileri için kas belleği geliştirmek.\n*   Uçuş fiziğini ve girdilerinizin drone'u nasıl etkilediğini anlamak.\n*   Sayısız hata yapıp anında sıfırlamak ve öğrenmenizi hızlandırmak.\n\nFPV drone'un nasıl hover yapılacağını, gerçek donanımın baskısı ve maliyetli bir kırım korkusu olmadan anlamaya burada başlarsınız. FPV yeni başlayan uçuş becerilerinizi geliştirmenin en verimli yolu budur.\n\n### Sanal Kurulumunuzu Kalibre Etmek: Kumanda Ayarı ve Hassasiyet\n\nFPV kumandanızı bilgisayarınıza bağlayın ve seçtiğiniz simülatörde (ör. *Velocidrone*, *LiftOff*, *DRL Simulator*) doğru kalibre edildiğinden emin olun. Stick *rate* ve *expo* ayarlarına özellikle dikkat edin.\n\n*   **Rate:** Drone'unuzun stick girdisine tepki olarak ne kadar hızlı döndüğünü belirler. İlk hover eğitimi için biraz daha düşük rate değerleri (ör. pitch ve roll için saniyede 500-600 derece) girdileri daha az titrek yapar ve daha ince kontrol sağlar.\n*   **Expo (Üstel):** Merkez çevresindeki stick tepkisini yumuşatır ve küçük düzeltmeleri daha az agresif hâle getirir. Yaygın bir başlangıç noktası pitch, roll ve yaw için 0,20-0,30 expo değeridir.\n\nDoğal ve tepkisel hissettiren, sonunda fiziksel drone'unuzda kullanacağınız ayarları yansıtan bir kurulum bulmak için denemeler yapın. Rate ve expo değerlerini not alın; fiziksel drone'unuzdaki Betaflight ayarlarını da aynı değerlere yakın tutarsanız simülatörde öğrendiğiniz el alışkanlığı doğrudan gerçek uçuşa aktarılır.\n\n### Günler Süren Alıştırmalar: Temel Hover ve Yer Değiştirme Pratiği\n\nBasit ve sabit hover alıştırmalarıyla başlayın. Sanal drone'unuzu artan süreler boyunca sabit bir konumda tutmayı hedefleyin. Mükemmellik kaygısına kapılmayın; küçük ve sürekli düzeltmeler yapmaya odaklanın.\n\nKararlı bir hover tutabildiğinizde yer değiştirme hareketleri ekleyin:\n1.  **İleri/Geri:** Kısa bir mesafe yavaşça ilerleyin, sonra nazikçe kararlı hovera dönün. Geri yönde tekrarlayın.\n2.  **Sağ/Sol:** Yavaşça sola kayın, sonra hovera dönün. Sağda tekrarlayın.\n3.  **Yaw Dönüşleri:** İrtifayı koruyarak nazik yaw dönüşleri yapın (ör. 90 derece sol, sonra 90 derece sağ) ve her zaman kararlı, ileri bakan bir hovera dönün.\n\nBu tekrarlı alıştırmalar, FPV yeni başlayan uçuşu için sezgisel hissi oluşturmak ve birden fazla stick girdisini birleştirmek için kritik önemdedir."
+      "content": "Simülatör pratiği gerçekten şart mı? Kesinlikle. FPV uçuş simülatörü, kırılan pervane ve gövde masraflarından sizi kurtaran riskiz kum havuzunuzdur.\n\n### Simülatörler Neden İsteğe Bağlı Değil, Zorunludur\n\nİyi bir FPV uçuş simülatörü şunları yapmanızı sağlar:\n*   Sonuçsuz risk olmadan stick girdileri için kas belleği geliştirmek.\n*   Uçuş fiziğini ve girdilerinizin drone'u nasıl etkilediğini anlamak.\n*   Sayısız hata yapıp anında sıfırlamak ve öğrenmenizi hızlandırmak.\n\nFPV drone'un nasıl hover yapılacağını, gerçek donanımın baskısı ve maliyetli bir kırım korkusu olmadan anlamaya burada başlarsınız. FPV yeni başlayan uçuş becerilerinizi geliştirmenin en verimli yolu budur.\n\n### Sanal Kurulumunuzu Kalibre Etmek: Kumanda Ayarı ve Hassasiyet\n\nFPV kumandanızı bilgisayarınıza bağlayın ve seçtiğiniz simülatörde (ör. *Velocidrone*, *LiftOff*, *DRL Simulator*) doğru kalibre edildiğinden emin olun. Stick *rate* ve *expo* ayarlarına özellikle dikkat edin.\n\n*   **Rate:** Drone'unuzun stick girdisine tepki olarak ne kadar hızlı döndüğünü belirler. İlk hover eğitimi için biraz daha düşük rate değerleri (ör. pitch ve roll için saniyede 500-600 derece) girdileri daha az titrek yapar ve daha ince kontrol sağlar.\n*   **Expo (Üstel):** Merkez çevresindeki stick tepkisini yumuşatır ve küçük düzeltmeleri daha az agresif hâle getirir. Yaygın bir başlangıç noktası pitch, roll ve yaw için 0,20-0,30 expo değeridir.\n\nDoğal ve tepkisel hissettiren, sonunda fiziksel drone'unuzda kullanacağınız ayarları yansıtan bir kurulum bulmak için denemeler yapın. Rate ve expo değerlerini not alın; fiziksel drone'unuzdaki Betaflight ayarlarını da aynı değerlere yakın tutarsanız simülatörde öğrendiğiniz el alışkanlığı doğrudan gerçek uçuşa aktarılır.\n\n### Günler Süren Alıştırmalar: Temel Hover ve Yer Değiştirme Pratiği\n\nBasit ve sabit hover alıştırmalarıyla başlayın. Sanal drone'unuzu artan süreler boyunca sabit bir konumda tutmayı hedefleyin. Mükemmellik kaygısına kapılmayın; küçük ve sürekli düzeltmeler yapmaya odaklanın.\n\nKararlı bir hover tutabildiğinizde yer değiştirme hareketleri ekleyin:\n1.  **İleri/Geri:** Kısa bir mesafe yavaşça ilerleyin, sonra nazikçe kararlı hovera dönün. Geri yönde tekrarlayın.\n2.  **Sağ/Sol:** Yavaşça sola kayın, sonra hovera dönün. Sağda tekrarlayın.\n3.  **Yaw Dönüşleri:** İrtifayı koruyarak nazik yaw dönüşleri yapın (ör. 90 derece sol, sonra 90 derece sağ) ve her zaman kararlı, ileri bakan bir hovera dönün.\n\nBu tekrarlı alıştırmalar, FPV yeni başlayan uçuşu için sezgisel hissi oluşturmak ve birden fazla stick girdisini birleştirmek için kritik önemdedir.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-academy-simulator.webp",
+        "alt": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "caption": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "simulator",
+          "simulatoru",
+          "simulatorde",
+          "simulasyon",
+          "simulasyonda",
+          "bilgisayar",
+          "sanal",
+          "pratik",
+          "oturum",
+          "gaz",
+          "stick"
+        ],
+        "family": "academy"
+      }
     },
     {
       "id": "article-sub-4",
@@ -64,7 +110,24 @@
     {
       "id": "article-sub-7",
       "title": "Hover Yolculuğunuz İçin Temel Ekipman",
-      "content": "Doğru araçlara sahip olmak öğrenme eğrinizi belirgin biçimde yumuşatabilir.\n\n### Bütçenize ve Kurulumunuza Uygun Simülatör\n\nEtkili bir FPV uçuş simülatörünü öğrenmek için kaliteli bir simülatöre yatırım yapın. Popüler seçenekler şunlardır:\n*   ***Velocidrone:*** Gerçekçi fiziği ve mükemmel yarış pistleriyle bilinir.\n*   ***LiftOff:*** Harika grafikler ve çok çeşitli drone ile ortam sunar.\n*   ***DRL Simulator:*** Resmî DRL pistlerini ve rekabetçi unsurları içerir.\n\nFPV kumandanızla uyumlu olan ve FPV drone'un nasıl hover yapılacağı konusunda gerçekçi fizik geri bildirimi veren birini seçin. Çoğu, satın almadan önce denemeniz için demo sürümü sunar.\n\n### İlk Hover'lar İçin Yeni Başlayan Dostu Drone Seçenekleri\n\nHerhangi bir FPV drone ile öğrenebilseniz de Tinywhoop gibi daha küçük ve daha dayanıklı bir seçenek, ilk iç mekân ya da sakin dış mekân hover'ları için mükemmeldir.\n*   **Tinywhoop'lar (ör. Mobula7, Meteor75, Eachine Trashcan):** Bu mikro drone'lar (65 mm-75 mm) hafiftir, çoğu zaman güvenlik için kanallı pervanelere sahiptir ve kırımlara inanılmaz dayanıklıdır. Daha küçük ve daha güvenli ortamlarda temel FPV kontrollerini pratik etmek için mükemmeldirler.\n*   **Cinewhoop'lar (ör. CineLog25, Protek25):** Daha fazla denge sunan ve GoPro taşıyabilen biraz daha büyük kanallı drone'lar; yine de ilk dış mekân hover'ları için görece güvenlidir.\n*   **5 inç Freestyle/Yarış Drone'ları:** Dış mekân pratiği için dayanıklı bileşenlere sahip kararlı bir 5 inç kurulum (ör. sağlam karbon fiber gövde, T-Motor F40 Pro IV ya da BrotherHobby Returner R5 gibi sağlam motorlar) iyi bir seçimdir, ama her zaman güvenliği ve açık alanları önceliklendirin.\n\n### Kumanda Seçimi: Gamepad mi, Özel FPV Kumanda mı?\n\nBazı simülatörler gamepad desteklese de özel bir FPV kumanda kesinlikle önerilir. Gerçek uçuşta kullanacağınız otantik hissi ve stick hareket açıklığını sunar; böylece simülatörden gerçek drone'a geçiş sorunsuz olur.\n*   **Giriş Seviyesi Kumandalar (ör. Radiomaster Zorro, Jumper T-Pro):** Mükemmel fiyat/performans, tam boy gimbal ve OpenTX/EdgeTX uyumluluğu.\n*   **Orta Segment Kumandalar (ör. Radiomaster TX16S MkII, FrSky Taranis X9D Plus SE):** Daha fazla özellik, daha büyük ekranlar ve çoğu zaman premium gimbal.\n\nBu tutarlılık, doğru FPV temel kontrolleri ve kas belleği geliştirmek için hayati önemdedir."
+      "content": "Doğru araçlara sahip olmak öğrenme eğrinizi belirgin biçimde yumuşatabilir.\n\n### Bütçenize ve Kurulumunuza Uygun Simülatör\n\nEtkili bir FPV uçuş simülatörünü öğrenmek için kaliteli bir simülatöre yatırım yapın. Popüler seçenekler şunlardır:\n*   ***Velocidrone:*** Gerçekçi fiziği ve mükemmel yarış pistleriyle bilinir.\n*   ***LiftOff:*** Harika grafikler ve çok çeşitli drone ile ortam sunar.\n*   ***DRL Simulator:*** Resmî DRL pistlerini ve rekabetçi unsurları içerir.\n\nFPV kumandanızla uyumlu olan ve FPV drone'un nasıl hover yapılacağı konusunda gerçekçi fizik geri bildirimi veren birini seçin. Çoğu, satın almadan önce denemeniz için demo sürümü sunar.\n\n### İlk Hover'lar İçin Yeni Başlayan Dostu Drone Seçenekleri\n\nHerhangi bir FPV drone ile öğrenebilseniz de Tinywhoop gibi daha küçük ve daha dayanıklı bir seçenek, ilk iç mekân ya da sakin dış mekân hover'ları için mükemmeldir.\n*   **Tinywhoop'lar (ör. Mobula7, Meteor75, Eachine Trashcan):** Bu mikro drone'lar (65 mm-75 mm) hafiftir, çoğu zaman güvenlik için kanallı pervanelere sahiptir ve kırımlara inanılmaz dayanıklıdır. Daha küçük ve daha güvenli ortamlarda temel FPV kontrollerini pratik etmek için mükemmeldirler.\n*   **Cinewhoop'lar (ör. CineLog25, Protek25):** Daha fazla denge sunan ve GoPro taşıyabilen biraz daha büyük kanallı drone'lar; yine de ilk dış mekân hover'ları için görece güvenlidir.\n*   **5 inç Freestyle/Yarış Drone'ları:** Dış mekân pratiği için dayanıklı bileşenlere sahip kararlı bir 5 inç kurulum (ör. sağlam karbon fiber gövde, T-Motor F40 Pro IV ya da BrotherHobby Returner R5 gibi sağlam motorlar) iyi bir seçimdir, ama her zaman güvenliği ve açık alanları önceliklendirin.\n\n### Kumanda Seçimi: Gamepad mi, Özel FPV Kumanda mı?\n\nBazı simülatörler gamepad desteklese de özel bir FPV kumanda kesinlikle önerilir. Gerçek uçuşta kullanacağınız otantik hissi ve stick hareket açıklığını sunar; böylece simülatörden gerçek drone'a geçiş sorunsuz olur.\n*   **Giriş Seviyesi Kumandalar (ör. Radiomaster Zorro, Jumper T-Pro):** Mükemmel fiyat/performans, tam boy gimbal ve OpenTX/EdgeTX uyumluluğu.\n*   **Orta Segment Kumandalar (ör. Radiomaster TX16S MkII, FrSky Taranis X9D Plus SE):** Daha fazla özellik, daha büyük ekranlar ve çoğu zaman premium gimbal.\n\nBu tutarlılık, doğru FPV temel kontrolleri ve kas belleği geliştirmek için hayati önemdedir.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-academy-beginner.webp",
+        "alt": "Masa üzerinde FPV kumanda, drone, gözlük ve batarya",
+        "caption": "Masa üzerinde FPV kumanda, drone, gözlük ve batarya",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "kumanda",
+          "gozluk",
+          "batarya",
+          "ekipman",
+          "masa"
+        ],
+        "family": "academy"
+      }
     },
     {
       "id": "article-sub-8",
@@ -87,13 +150,79 @@
       "credit": "FPVLovers generated artwork",
       "kind": "generated-artwork"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "/images/fallbacks/fpv-academy-stick-control.webp",
+        "alt": "FPV kumandasının stickleri ve arka planda tiny whoop",
+        "caption": "FPV kumandasının stickleri ve arka planda tiny whoop",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "stick",
+          "gaz",
+          "yaw",
+          "pitch",
+          "roll",
+          "kontrol",
+          "acro",
+          "whoop",
+          "tinywhoop",
+          "kumanda",
+          "hover"
+        ],
+        "family": "academy"
+      },
+      {
+        "src": "/images/fallbacks/fpv-academy-simulator.webp",
+        "alt": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "caption": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "simulator",
+          "simulatoru",
+          "simulatorde",
+          "simulasyon",
+          "simulasyonda",
+          "bilgisayar",
+          "sanal",
+          "pratik",
+          "oturum",
+          "gaz",
+          "stick"
+        ],
+        "family": "academy"
+      },
+      {
+        "src": "/images/fallbacks/fpv-academy-beginner.webp",
+        "alt": "Masa üzerinde FPV kumanda, drone, gözlük ve batarya",
+        "caption": "Masa üzerinde FPV kumanda, drone, gözlük ve batarya",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "kumanda",
+          "gozluk",
+          "batarya",
+          "ekipman",
+          "masa"
+        ],
+        "family": "academy"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
-      "Local SVG illustration generated from published content metadata"
+      "Local SVG illustration generated from published content metadata",
+      "Local editorial WebP assets from public/images/fallbacks"
     ],
     "attribution": [
-      "Copyright-safe media generated locally by FPVLovers"
+      "Copyright-safe media generated locally by FPVLovers",
+      "Body illustrations by FPVLovers"
     ]
   },
   "jobStatus": "published",

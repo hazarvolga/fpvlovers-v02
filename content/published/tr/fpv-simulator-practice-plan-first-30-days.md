@@ -150,6 +150,9 @@ Birincil hedefiniz freestyle olsa bile, FPV simülatör eğitim programınıza y
 
 Pratik sürenizin 15-20 dakikasını haftada birkaç kez yarış pistlerine ayırın. Bu kısa blok, freestyle akıcılığınızı bozmadan hız ve hat disiplinini besler.
 
+![FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar](/images/fallbacks/fpv-academy-simulator.webp)
+_FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar_
+
 ## Hızlı Gelişim İçin Pratik Oturumlarını Optimize Etmek
 
 Sadece antrenmanları yapmak yetmez; nasıl pratik yaptığınız ilerlemenizi önemli ölçüde etkiler. FPV simülatör pratiğinin verimini belirleyen şey süresi değil, kalitesidir.
@@ -214,6 +217,9 @@ FPV'de güvenlik her şeyden önce gelir. Titiz bir uçuş öncesi kontrol liste
 *   **Failsafe:** Failsafe'in Betaflight/ArduPilot içinde doğru yapılandırıldığını ve yerde test edildiğini doğrulayın. Bu, sinyal kaybında drone'un güvenle inmesini sağlar.
 *   **Arm Anahtarı:** Uçmaya hazır olana ve pervanelerden uzaklaşana kadar arm anahtarınızın kesinlikle disarm konumunda olduğundan emin olun.
 *   **Gözcü (İsteğe Bağlı ama Önerilir):** Özellikle ilk uçuşlarınızda bir arkadaşınızın gözcülük yapması, gözden kaçırabileceğiniz kişileri ya da tehlikeleri izleyerek ek bir güvenlik katmanı sağlar.
+
+![FPV kumandasının stickleri ve arka planda tiny whoop](/images/fallbacks/fpv-academy-stick-control.webp)
+_FPV kumandasının stickleri ve arka planda tiny whoop_
 
 ## FPV Simülatör Seçimi: İşe Uygun Aracı Bulmak
 

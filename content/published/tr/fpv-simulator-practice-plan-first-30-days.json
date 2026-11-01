@@ -51,7 +51,30 @@
     {
       "id": "article-sub-4",
       "title": "Aşamalı FPV Simülatör Pratik Planı: Sıfırdan Ustalığa",
-      "content": "Bu katmanlı yaklaşım, daha karmaşık manevralara geçmeden önce sağlam bir temel kurmanızı sağlar. Günde ne kadar FPV simülatör pratiği yapmalıyım diye merak ediyorsanız, aşağıdaki gibi tutarlı ve odaklı oturumları hedefleyin.\n\n### 1. Aşama: Temel Kontrolü İnşa Etmek (Başlangıç Antrenmanları)\n\nBu aşama, önce **angle modunda** temel kumanda girdilerinde ustalaşmaya, ardından bu temel hareketler için **acro moduna** geçmeye odaklanır. Hedef hassasiyet ve akıcılıktır. Bu dört antrenman, sonraki aşamaların tamamının üzerine kurulduğu temeldir; acele etmeyin ve her hareketi istediğiniz yönde temiz yapana kadar tekrarlayın. Yeni başlayanlar için en iyi FPV simülatör antrenmanları hangileridir? İşte ilk sıradakiler:\n\n1.  **Dengeli Hover:**\n    *   **Amaç:** Sabit bir konumu ve irtifayı korumak.\n    *   **Antrenman:** Kalkış yapın, 30 saniye yerinde hover'da kalın. Throttle, pitch, roll ve yaw ile küçük düzeltmeler yapın. Bunu farklı yönlere bakarak tekrarlayın.\n    *   **İpucu:** İrtifayı ölçmek için drone'un gölgesine bakın.\n2.  **Kontrollü Yana Kayış (Strafe):**\n    *   **Amaç:** Drone'u ana yönlerde akıcı biçimde hareket ettirmek.\n    *   **Antrenman:** Hover'da kalın, sonra yavaşça ileri, geri, sola ve sağa giderek başlangıç noktasına dönün. Düz çizgilere odaklanın.\n    *   **İpucu:** Minimum kumanda girdisi kullanın. Aşırı düzeltme çok yaygındır.\n3.  **Yumuşak Dönüşler (Yaw ve Roll):**\n    *   **Amaç:** İrtifayı koruyarak akıcı dönüşler yapmak.\n    *   **Antrenman:** Yön belirlemek için ağırlıklı olarak yaw kullanarak büyük bir daire ya da sekiz çizin, ardından yatışlı dönüşler için yumuşak roll ekleyin.\n    *   **İpucu:** İrtifa kaybetmemek veya kazanmamak için throttle'ı dönüşlerle koordine edin.\n4.  **Basit Kapılardan Geçmek:**\n    *   **Amaç:** Geniş ve açık bir kapı dizisinden geçmek.\n    *   **Antrenman:** Bir sıra ya da basit bir kare içinde 3-5 kapı kurun. Her kapıdan akıcı biçimde geçin.\n    *   **İpucu:** Hızdan çok doğruluğa odaklanın. Kapıya değil, kapının *içinden* bakın.\n\n### 2. Aşama: Acro Modunun Temellerini Açmak (Orta Seviye Antrenmanlar)\n\nTemel hareketlerde rahatladıktan sonra acro modunu tamamen benimseme zamanı gelir. Gerçek eğlence burada başlar ve FPV simülatör becerilerinin gerçek uçuşa en iyi aktarıldığı yer burasıdır. Bu aşamada hız değil kontrol önemlidir; her yeni manevrayı önce yavaş ve geniş, sonra dar ve hızlı çalışmak kalıcı beceri üretir. Ölçütünüz kırım sayısı değil, manevranın tekrar edilebilirliği olsun.\n\n1.  **Kontrollü İleri Uçuş ve Pitch/Roll Koordinasyonu:**\n    *   **Amaç:** Hızla düz ve dengeli uçmak, küçük düzeltmeler yapmak.\n    *   **Antrenman:** Sabit irtifa ve pitch açısını koruyarak uzun ve düz bir çizgide uçun. Roll ile yumuşak S kıvrımları çalışın.\n    *   **İpucu:** Sürekli düzeltme yapma isteğine direnin. Drone'un uçmasına izin verin.\n2.  **Kontrollü Dalışlar ve Tırmanışlar:**\n    *   **Amaç:** Dikey hızı ve toparlanmayı yönetmek.\n    *   **Antrenman:** Yükselerek tırmanın, sonra bir hedefe (örneğin belirli bir kapıya) dalış yapın ve çarpmadan önce yumuşakça yukarı çekin. Dalış açılarını değiştirerek tekrarlayın.\n    *   **İpucu:** Throttle yönetimi burada kilit önemdedir. Hızlı dalışlar için gazı kesin, toparlanma için güç verin.\n3.  **Power Loop:**\n    *   **Amaç:** Bir engelin üzerinden akıcı ve kontrollü bir döngü yapmak.\n    *   **Antrenman:** Yüksek bir nesneye (bina, ağaç gibi) doğru uçun, yukarı pitch yapın, tepede roll ile ters dönün ve döngüyü tamamlayın.\n    *   **İpucu:** Küçük ve yavaş döngülerle başlayın. Ters kısmı doğal hissettirene kadar çalışın.\n4.  **Split-S Manevrası:**\n    *   **Amaç:** Yönü ve irtifayı hızla değiştirmek.\n    *   **Antrenman:** İleri uçarken 180 derece roll yapın (ters dönün), ardından yarım döngüyü tamamlamak için geriye pitch yapın ve ters yönde uçmaya devam edin.\n    *   **İpucu:** Akıcı bir iniş ve çıkış için throttle kontrolü kritiktir.\n5.  **Karmaşık Kapı Dizileri:**\n    *   **Amaç:** Hassasiyeti ve hat yönetimini geliştirmek.\n    *   **Antrenman:** Daha dar ve girift kapı düzenlerine sahip haritalar bulun. En verimli hatta odaklanarak bu düzenleri tekrar tekrar uçun.\n\n### 3. Aşama: Freestyle Akıcılığı ve Hassasiyet Geliştirmek (İleri Seviye Antrenmanlar)\n\nBu aşama, öğrenilen manevraları akıcı dizilere birleştirmek ve yaratıcı hatları keşfetmekle ilgilidir.\n\n1.  **Ters Uçuş ve Matty Flip:**\n    *   **Amaç:** Baş aşağıyken uçmak ve manevra yapmak.\n    *   **Antrenman:** Sürdürülebilir ters uçuş çalışın, ardından Matty flip (ters bir power loop) için bir roll ile birleştirin.\n    *   **İpucu:** Ters uçuşta throttle pitch kontrolünüz olur; pitch ise throttle'ınız olur.\n2.  **Roll, Flip ve Yaw Dönüşleri:**\n    *   **Amaç:** Kontrollü hava akrobasisi yapmak.\n    *   **Antrenman:** Tekli roll ve flip çalışın, sonra bunları birleştirin. Hızlı yaw dönüşleri ekleyin.\n    *   **İpucu:** İrtifa kaybetmemek için roll ve flip boyunca ileri momentumu koruyun.\n3.  **Yaratıcı Hatlar Keşfetmek:**\n    *   **Amaç:** İlginç uçuş yolları ve engeller için bir göz geliştirmek.\n    *   **Antrenman:** Bir freestyle haritasında bir öğe seçin (bina, köprü, boşluk gibi) ve olabildiğince çok yaratıcı biçimde etrafından, içinden ya da üzerinden uçmayı deneyin.\n    *   **İpucu:** Denemekten çekinmeyin. İlham için profesyonel pilotların videolarını izleyin.\n4.  **Hileleri Akıcı Diziler İçin Birleştirmek:**\n    *   **Amaç:** Birden fazla manevrayı kusursuzca birbirine bağlamak.\n    *   **Antrenman:** Basit kombinasyonlarla başlayın (power loop ardından split-S gibi). Kademeli olarak daha uzun ve karmaşık dizilere geçin (dalış, Matty flip, roll ve bir dalış daha gibi).\n    *   **İpucu:** Hileler arasındaki akıcı geçişlere odaklanın.\n\n### Yarış Pisti Antrenmanını Programa Eklemek\n\nBirincil hedefiniz freestyle olsa bile, FPV simülatör eğitim programınıza yarış pisti pratiği eklemek son derece faydalıdır.\n\n*   **Hız ve Verimlilik Kazanmak:** Yarış, kapılardan en hızlı ve en verimli hatları bulmaya zorlar.\n*   **Viraj ve Kapı Hassasiyeti:** Pistlerde sürekli pratik, kapıları hassas biçimde vurma ve virajlarda hızı koruma yeteneğinizi keskinleştirir.\n*   **Throttle Yönetimi:** Yarış, hızlanma, frenleme ve momentumu koruma için incelikli throttle kontrolü öğretir.\n*   **Mekan Algısı:** Karmaşık 3 boyutlu pistlerde ilerlemek mekan algınızı ve drone hareketini öngörme yeteneğinizi geliştirir.\n\nPratik sürenizin 15-20 dakikasını haftada birkaç kez yarış pistlerine ayırın. Bu kısa blok, freestyle akıcılığınızı bozmadan hız ve hat disiplinini besler."
+      "content": "Bu katmanlı yaklaşım, daha karmaşık manevralara geçmeden önce sağlam bir temel kurmanızı sağlar. Günde ne kadar FPV simülatör pratiği yapmalıyım diye merak ediyorsanız, aşağıdaki gibi tutarlı ve odaklı oturumları hedefleyin.\n\n### 1. Aşama: Temel Kontrolü İnşa Etmek (Başlangıç Antrenmanları)\n\nBu aşama, önce **angle modunda** temel kumanda girdilerinde ustalaşmaya, ardından bu temel hareketler için **acro moduna** geçmeye odaklanır. Hedef hassasiyet ve akıcılıktır. Bu dört antrenman, sonraki aşamaların tamamının üzerine kurulduğu temeldir; acele etmeyin ve her hareketi istediğiniz yönde temiz yapana kadar tekrarlayın. Yeni başlayanlar için en iyi FPV simülatör antrenmanları hangileridir? İşte ilk sıradakiler:\n\n1.  **Dengeli Hover:**\n    *   **Amaç:** Sabit bir konumu ve irtifayı korumak.\n    *   **Antrenman:** Kalkış yapın, 30 saniye yerinde hover'da kalın. Throttle, pitch, roll ve yaw ile küçük düzeltmeler yapın. Bunu farklı yönlere bakarak tekrarlayın.\n    *   **İpucu:** İrtifayı ölçmek için drone'un gölgesine bakın.\n2.  **Kontrollü Yana Kayış (Strafe):**\n    *   **Amaç:** Drone'u ana yönlerde akıcı biçimde hareket ettirmek.\n    *   **Antrenman:** Hover'da kalın, sonra yavaşça ileri, geri, sola ve sağa giderek başlangıç noktasına dönün. Düz çizgilere odaklanın.\n    *   **İpucu:** Minimum kumanda girdisi kullanın. Aşırı düzeltme çok yaygındır.\n3.  **Yumuşak Dönüşler (Yaw ve Roll):**\n    *   **Amaç:** İrtifayı koruyarak akıcı dönüşler yapmak.\n    *   **Antrenman:** Yön belirlemek için ağırlıklı olarak yaw kullanarak büyük bir daire ya da sekiz çizin, ardından yatışlı dönüşler için yumuşak roll ekleyin.\n    *   **İpucu:** İrtifa kaybetmemek veya kazanmamak için throttle'ı dönüşlerle koordine edin.\n4.  **Basit Kapılardan Geçmek:**\n    *   **Amaç:** Geniş ve açık bir kapı dizisinden geçmek.\n    *   **Antrenman:** Bir sıra ya da basit bir kare içinde 3-5 kapı kurun. Her kapıdan akıcı biçimde geçin.\n    *   **İpucu:** Hızdan çok doğruluğa odaklanın. Kapıya değil, kapının *içinden* bakın.\n\n### 2. Aşama: Acro Modunun Temellerini Açmak (Orta Seviye Antrenmanlar)\n\nTemel hareketlerde rahatladıktan sonra acro modunu tamamen benimseme zamanı gelir. Gerçek eğlence burada başlar ve FPV simülatör becerilerinin gerçek uçuşa en iyi aktarıldığı yer burasıdır. Bu aşamada hız değil kontrol önemlidir; her yeni manevrayı önce yavaş ve geniş, sonra dar ve hızlı çalışmak kalıcı beceri üretir. Ölçütünüz kırım sayısı değil, manevranın tekrar edilebilirliği olsun.\n\n1.  **Kontrollü İleri Uçuş ve Pitch/Roll Koordinasyonu:**\n    *   **Amaç:** Hızla düz ve dengeli uçmak, küçük düzeltmeler yapmak.\n    *   **Antrenman:** Sabit irtifa ve pitch açısını koruyarak uzun ve düz bir çizgide uçun. Roll ile yumuşak S kıvrımları çalışın.\n    *   **İpucu:** Sürekli düzeltme yapma isteğine direnin. Drone'un uçmasına izin verin.\n2.  **Kontrollü Dalışlar ve Tırmanışlar:**\n    *   **Amaç:** Dikey hızı ve toparlanmayı yönetmek.\n    *   **Antrenman:** Yükselerek tırmanın, sonra bir hedefe (örneğin belirli bir kapıya) dalış yapın ve çarpmadan önce yumuşakça yukarı çekin. Dalış açılarını değiştirerek tekrarlayın.\n    *   **İpucu:** Throttle yönetimi burada kilit önemdedir. Hızlı dalışlar için gazı kesin, toparlanma için güç verin.\n3.  **Power Loop:**\n    *   **Amaç:** Bir engelin üzerinden akıcı ve kontrollü bir döngü yapmak.\n    *   **Antrenman:** Yüksek bir nesneye (bina, ağaç gibi) doğru uçun, yukarı pitch yapın, tepede roll ile ters dönün ve döngüyü tamamlayın.\n    *   **İpucu:** Küçük ve yavaş döngülerle başlayın. Ters kısmı doğal hissettirene kadar çalışın.\n4.  **Split-S Manevrası:**\n    *   **Amaç:** Yönü ve irtifayı hızla değiştirmek.\n    *   **Antrenman:** İleri uçarken 180 derece roll yapın (ters dönün), ardından yarım döngüyü tamamlamak için geriye pitch yapın ve ters yönde uçmaya devam edin.\n    *   **İpucu:** Akıcı bir iniş ve çıkış için throttle kontrolü kritiktir.\n5.  **Karmaşık Kapı Dizileri:**\n    *   **Amaç:** Hassasiyeti ve hat yönetimini geliştirmek.\n    *   **Antrenman:** Daha dar ve girift kapı düzenlerine sahip haritalar bulun. En verimli hatta odaklanarak bu düzenleri tekrar tekrar uçun.\n\n### 3. Aşama: Freestyle Akıcılığı ve Hassasiyet Geliştirmek (İleri Seviye Antrenmanlar)\n\nBu aşama, öğrenilen manevraları akıcı dizilere birleştirmek ve yaratıcı hatları keşfetmekle ilgilidir.\n\n1.  **Ters Uçuş ve Matty Flip:**\n    *   **Amaç:** Baş aşağıyken uçmak ve manevra yapmak.\n    *   **Antrenman:** Sürdürülebilir ters uçuş çalışın, ardından Matty flip (ters bir power loop) için bir roll ile birleştirin.\n    *   **İpucu:** Ters uçuşta throttle pitch kontrolünüz olur; pitch ise throttle'ınız olur.\n2.  **Roll, Flip ve Yaw Dönüşleri:**\n    *   **Amaç:** Kontrollü hava akrobasisi yapmak.\n    *   **Antrenman:** Tekli roll ve flip çalışın, sonra bunları birleştirin. Hızlı yaw dönüşleri ekleyin.\n    *   **İpucu:** İrtifa kaybetmemek için roll ve flip boyunca ileri momentumu koruyun.\n3.  **Yaratıcı Hatlar Keşfetmek:**\n    *   **Amaç:** İlginç uçuş yolları ve engeller için bir göz geliştirmek.\n    *   **Antrenman:** Bir freestyle haritasında bir öğe seçin (bina, köprü, boşluk gibi) ve olabildiğince çok yaratıcı biçimde etrafından, içinden ya da üzerinden uçmayı deneyin.\n    *   **İpucu:** Denemekten çekinmeyin. İlham için profesyonel pilotların videolarını izleyin.\n4.  **Hileleri Akıcı Diziler İçin Birleştirmek:**\n    *   **Amaç:** Birden fazla manevrayı kusursuzca birbirine bağlamak.\n    *   **Antrenman:** Basit kombinasyonlarla başlayın (power loop ardından split-S gibi). Kademeli olarak daha uzun ve karmaşık dizilere geçin (dalış, Matty flip, roll ve bir dalış daha gibi).\n    *   **İpucu:** Hileler arasındaki akıcı geçişlere odaklanın.\n\n### Yarış Pisti Antrenmanını Programa Eklemek\n\nBirincil hedefiniz freestyle olsa bile, FPV simülatör eğitim programınıza yarış pisti pratiği eklemek son derece faydalıdır.\n\n*   **Hız ve Verimlilik Kazanmak:** Yarış, kapılardan en hızlı ve en verimli hatları bulmaya zorlar.\n*   **Viraj ve Kapı Hassasiyeti:** Pistlerde sürekli pratik, kapıları hassas biçimde vurma ve virajlarda hızı koruma yeteneğinizi keskinleştirir.\n*   **Throttle Yönetimi:** Yarış, hızlanma, frenleme ve momentumu koruma için incelikli throttle kontrolü öğretir.\n*   **Mekan Algısı:** Karmaşık 3 boyutlu pistlerde ilerlemek mekan algınızı ve drone hareketini öngörme yeteneğinizi geliştirir.\n\nPratik sürenizin 15-20 dakikasını haftada birkaç kez yarış pistlerine ayırın. Bu kısa blok, freestyle akıcılığınızı bozmadan hız ve hat disiplinini besler.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-academy-simulator.webp",
+        "alt": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "caption": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "simulator",
+          "simulatoru",
+          "simulatorde",
+          "simulasyon",
+          "simulasyonda",
+          "bilgisayar",
+          "sanal",
+          "pratik",
+          "oturum",
+          "gaz",
+          "stick"
+        ],
+        "family": "academy"
+      }
     },
     {
       "id": "article-sub-5",
@@ -61,7 +84,30 @@
     {
       "id": "article-sub-6",
       "title": "Köprü Kurmak: FPV Simülatörden Gerçek Uçuşa",
-      "content": "FPV simülatörde sayısız saat geçirdikten sonra bile gerçek uçuşa geçiş biraz tedirginlik yaratabilir. İşte bu geçişi olabildiğince yumuşatmanın yolu.\n\n### Kademeli Geçiş: Önce Görüş Hattı\n\nKapsamlı FPV simülatör antrenmanlarına ve acro modunda ustalığa rağmen, gerçek uçuşlarınıza küçük ve dayanıklı bir drone ile (Tiny Whoop ya da 3 inç quad gibi) görüş hattı (LOS) modunda başlamanız şiddetle önerilir. Bu, drone'u gözlükten değil doğrudan bakarak uçurmak anlamına gelir. Böylece mekan algısı gelişir, drone'un rüzgara ve gerçek dünya koşullarına nasıl tepki verdiğini anlarsınız ve FPV gözlüğünün ek karmaşıklığı olmadan kumandanızın fiziksel hissine alışırsınız. FPV gözlüğünüzü ilk kez takmadan önce bu adım kritik önemdedir. Gözlüğü taktığınızda görüş alanınız aniden daralır; bu yüzden LOS aşamasında kumanda hareketlerinin drone üzerindeki etkisini ezberlemek, gözlükle ilk uçuşta panik yaşama olasılığını belirgin şekilde düşürür. İlk uçuşta yükseklik ve mesafeyi düşük tutmak hem drone'u hem de çevreyi korur.\n\n### İlk Gerçek Uçuş Noktanızı Seçmek\n\nİlk gerçek FPV uçuşlarınızın yeri güvenlik ve başarı için belirleyicidir.\n\n*   **Açık ve Engelsiz:** Geniş, açık bir alan, park ya da belirlenmiş bir uçuş sahası seçin. Ağaç, elektrik hattı, bina ya da çarpabileceğiniz herhangi bir şeyin bulunduğu alanlardan kaçının.\n*   **İnsanlardan ve Mülkten Uzak:** Yaralanma veya hasarı önlemek için çevredeki kişilerden, hayvanlardan ve özel mülkten uzak olduğunuzdan emin olun.\n*   **Yasal Koşullar:** Drone uçuşuna ilişkin yerel mevzuatı her zaman kontrol edin. Bazı bölgelerde uçuşa yasak alanlar vardır ya da izin gerekir.\n*   **Hava Durumu:** Rüzgarın en az olduğu sakin bir günde uçun. Rüzgar, özellikle yeni başlayanlar için drone hakimiyetini belirgin şekilde etkiler.\n\n### Güvenlik Protokolleri ve Uçuş Öncesi Kontroller\n\nFPV'de güvenlik her şeyden önce gelir. Titiz bir uçuş öncesi kontrol listesi geliştirin:\n\n*   **Batarya Kontrolü:** Hem drone bataryanızın hem de kumanda bataryanızın tam dolu olduğundan emin olun.\n*   **Pervane Kontrolü:** Tüm pervanelerin doğru takıldığından (doğru yönde döndüğünden) ve hasarsız olduğundan emin olun.\n*   **Failsafe:** Failsafe'in Betaflight/ArduPilot içinde doğru yapılandırıldığını ve yerde test edildiğini doğrulayın. Bu, sinyal kaybında drone'un güvenle inmesini sağlar.\n*   **Arm Anahtarı:** Uçmaya hazır olana ve pervanelerden uzaklaşana kadar arm anahtarınızın kesinlikle disarm konumunda olduğundan emin olun.\n*   **Gözcü (İsteğe Bağlı ama Önerilir):** Özellikle ilk uçuşlarınızda bir arkadaşınızın gözcülük yapması, gözden kaçırabileceğiniz kişileri ya da tehlikeleri izleyerek ek bir güvenlik katmanı sağlar."
+      "content": "FPV simülatörde sayısız saat geçirdikten sonra bile gerçek uçuşa geçiş biraz tedirginlik yaratabilir. İşte bu geçişi olabildiğince yumuşatmanın yolu.\n\n### Kademeli Geçiş: Önce Görüş Hattı\n\nKapsamlı FPV simülatör antrenmanlarına ve acro modunda ustalığa rağmen, gerçek uçuşlarınıza küçük ve dayanıklı bir drone ile (Tiny Whoop ya da 3 inç quad gibi) görüş hattı (LOS) modunda başlamanız şiddetle önerilir. Bu, drone'u gözlükten değil doğrudan bakarak uçurmak anlamına gelir. Böylece mekan algısı gelişir, drone'un rüzgara ve gerçek dünya koşullarına nasıl tepki verdiğini anlarsınız ve FPV gözlüğünün ek karmaşıklığı olmadan kumandanızın fiziksel hissine alışırsınız. FPV gözlüğünüzü ilk kez takmadan önce bu adım kritik önemdedir. Gözlüğü taktığınızda görüş alanınız aniden daralır; bu yüzden LOS aşamasında kumanda hareketlerinin drone üzerindeki etkisini ezberlemek, gözlükle ilk uçuşta panik yaşama olasılığını belirgin şekilde düşürür. İlk uçuşta yükseklik ve mesafeyi düşük tutmak hem drone'u hem de çevreyi korur.\n\n### İlk Gerçek Uçuş Noktanızı Seçmek\n\nİlk gerçek FPV uçuşlarınızın yeri güvenlik ve başarı için belirleyicidir.\n\n*   **Açık ve Engelsiz:** Geniş, açık bir alan, park ya da belirlenmiş bir uçuş sahası seçin. Ağaç, elektrik hattı, bina ya da çarpabileceğiniz herhangi bir şeyin bulunduğu alanlardan kaçının.\n*   **İnsanlardan ve Mülkten Uzak:** Yaralanma veya hasarı önlemek için çevredeki kişilerden, hayvanlardan ve özel mülkten uzak olduğunuzdan emin olun.\n*   **Yasal Koşullar:** Drone uçuşuna ilişkin yerel mevzuatı her zaman kontrol edin. Bazı bölgelerde uçuşa yasak alanlar vardır ya da izin gerekir.\n*   **Hava Durumu:** Rüzgarın en az olduğu sakin bir günde uçun. Rüzgar, özellikle yeni başlayanlar için drone hakimiyetini belirgin şekilde etkiler.\n\n### Güvenlik Protokolleri ve Uçuş Öncesi Kontroller\n\nFPV'de güvenlik her şeyden önce gelir. Titiz bir uçuş öncesi kontrol listesi geliştirin:\n\n*   **Batarya Kontrolü:** Hem drone bataryanızın hem de kumanda bataryanızın tam dolu olduğundan emin olun.\n*   **Pervane Kontrolü:** Tüm pervanelerin doğru takıldığından (doğru yönde döndüğünden) ve hasarsız olduğundan emin olun.\n*   **Failsafe:** Failsafe'in Betaflight/ArduPilot içinde doğru yapılandırıldığını ve yerde test edildiğini doğrulayın. Bu, sinyal kaybında drone'un güvenle inmesini sağlar.\n*   **Arm Anahtarı:** Uçmaya hazır olana ve pervanelerden uzaklaşana kadar arm anahtarınızın kesinlikle disarm konumunda olduğundan emin olun.\n*   **Gözcü (İsteğe Bağlı ama Önerilir):** Özellikle ilk uçuşlarınızda bir arkadaşınızın gözcülük yapması, gözden kaçırabileceğiniz kişileri ya da tehlikeleri izleyerek ek bir güvenlik katmanı sağlar.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-academy-stick-control.webp",
+        "alt": "FPV kumandasının stickleri ve arka planda tiny whoop",
+        "caption": "FPV kumandasının stickleri ve arka planda tiny whoop",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "stick",
+          "gaz",
+          "yaw",
+          "pitch",
+          "roll",
+          "kontrol",
+          "acro",
+          "whoop",
+          "tinywhoop",
+          "kumanda",
+          "hover"
+        ],
+        "family": "academy"
+      }
     },
     {
       "id": "article-sub-7",
@@ -94,13 +140,62 @@
       "credit": "FPVLovers generated artwork",
       "kind": "generated-artwork"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "/images/fallbacks/fpv-academy-simulator.webp",
+        "alt": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "caption": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "simulator",
+          "simulatoru",
+          "simulatorde",
+          "simulasyon",
+          "simulasyonda",
+          "bilgisayar",
+          "sanal",
+          "pratik",
+          "oturum",
+          "gaz",
+          "stick"
+        ],
+        "family": "academy"
+      },
+      {
+        "src": "/images/fallbacks/fpv-academy-stick-control.webp",
+        "alt": "FPV kumandasının stickleri ve arka planda tiny whoop",
+        "caption": "FPV kumandasının stickleri ve arka planda tiny whoop",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "stick",
+          "gaz",
+          "yaw",
+          "pitch",
+          "roll",
+          "kontrol",
+          "acro",
+          "whoop",
+          "tinywhoop",
+          "kumanda",
+          "hover"
+        ],
+        "family": "academy"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
-      "Local SVG illustration generated from published content metadata"
+      "Local SVG illustration generated from published content metadata",
+      "Local editorial WebP assets from public/images/fallbacks"
     ],
     "attribution": [
-      "Copyright-safe media generated locally by FPVLovers"
+      "Copyright-safe media generated locally by FPVLovers",
+      "Body illustrations by FPVLovers"
     ]
   },
   "jobStatus": "published",

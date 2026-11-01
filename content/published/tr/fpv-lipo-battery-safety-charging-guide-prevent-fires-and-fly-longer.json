@@ -57,7 +57,28 @@
     {
       "id": "article-sub-3",
       "title": "Güç Merkezini Çözmek: Bir FPV LiPo'yu Çalıştıran Nedir?",
-      "content": "Seçim ve bakım konularına dalmadan önce bir FPV LiPo bataryanın temel özelliklerini parçalara ayıralım. Bu terimleri anlamak, bilinçli kararlar vermek için hayati önemdedir.\n\n### LiPo Hücresinin Anatomisi: Voltaj ve Seri (S) Değeri\n\nÖzünde bir LiPo batarya, tek tek hücrelerden oluşur. Her LiPo hücresinin nominal voltajı **3,7 Volt (V)** değerindedir. Tam şarjlıyken tek bir hücre **4,2V** değerine ulaşır ve asla **3,2V** altına düşürülmemelidir (uzun ömür için ideal olan 3,5V değeridir).\n\nBataryanızdaki S değeri, bu hücrelerden kaç tanesinin seri bağlı olduğunu gösterir.\n*   **1S:** Tek hücre, nominal 3,7V (tam şarjlı 4,2V). Mobula6 gibi tiny whoop'lar için yaygındır.\n*   **2S:** Seri bağlı iki hücre, nominal 7,4V (tam şarjlı 8,4V). Çoğu zaman daha küçük mikro drone'larda kullanılır.\n*   **4S:** Seri bağlı dört hücre, nominal 14,8V (tam şarjlı 16,8V). 5 inç freestyle drone'lar için en yaygın seçimdir; güç ile verimlilik arasında mükemmel bir denge sunar. Bunun en iyi örneklerinden biri, çevik uçuş için 4S gücüyle en iyi performansı veren Holybro Kopis2 HDV'dir.\n*   **6S:** Seri bağlı altı hücre, nominal 22,2V (tam şarjlı 25,2V). Agresif freestyle, yarış ya da daha uzun menzilli uçuşlar için maksimum güç arayan pilotların tercihidir; daha yüksek voltaj aynı güç için daha az akım çekmek anlamına geldiği için ESC'ler ve motorlar daha serin kalır.\n\nDaha yüksek bir S değeri, daha yüksek voltaj demektir; bu da motorlarınızın bu voltaj için uygun olduğu varsayımıyla daha yüksek motor devrine ve daha fazla toplam güce dönüşür. S değeri arttıkça paket ağırlaşır ve daha yüksek akım kapasitesi gerektirir; bu yüzden drone'unuzun motor ve ESC kombinasyonunun bu voltajı desteklediğini doğrulamadan daha yüksek bir S değerine geçmeyin. 4S ile 6S arasındaki seçim, çoğu zaman güç ile uçuş ağırlığı arasındaki tercihinizdir.\n\n### Kapasite (mAh): Uçuş Süresini ve Ağırlığı Anlamak\n\n**Miliamper-saat (mAh)** ile ölçülen kapasite, bataryanın ne kadar enerji depolayabileceğini söyler. Basitçe ifade etmek gerekirse, daha yüksek bir mAh değeri genellikle daha uzun uçuş süresi demektir. Örneğin 1500mAh bir batarya teoride bir saat boyunca 1500mA (1,5A) ya da 30 dakika boyunca 3000mA (3A) akım verebilir.\n\nAncak burada bir denge vardır: daha fazla kapasite, daha fazla hücre ya da daha büyük hücreler anlamına gelir; bu da bataryanın fiziksel boyutunu ve ağırlığını artırır. Daha büyük bir batarya uçuş süresini uzatsa da drone'unuza eylemsizlik ekler ve çevikliği, tepkiselliği azaltabilir. 5 inç freestyle bir drone için 1300mAh 4S batarya agresif uçuşta iyi bir denge sunabilirken, 1800mAh 4S bir paket daha uzun seyir sağlar ama drone'u daha ağır hissettirir. Pilotlar, istedikleri uçuş süresi ile uçuş tarzlarının gerektirdiği çeviklik arasındaki tatlı noktayı bulmalıdır.\n\n### Deşarj Oranı (C Değeri): Motorlarınızın İhtiyaç Duyduğu Gücü Teslim Etmek\n\nC değeri, belki de en çok yanlış anlaşılan özelliktir; buna rağmen performans için kritik önemdedir. Bataryanın motorlarınıza aşırı ısınmadan ya da aşırı voltaj çökmesi yaşamadan güvenle akım (amper) verebilme yeteneğini gösterir.\n\n*   **Sürekli C değeri:** Bataryanın sürekli olarak güvenle verebileceği maksimum akım.\n*   **Anlık C değeri:** Kısa patlamalar için (genellikle birkaç saniye) verebileceği maksimum akım.\n\nMaksimum sürekli deşarj akımını Amper (A) cinsinden hesaplamak için şu formülü kullanın:\n`Maksimum Sürekli Akım (A) = C değeri * Kapasite (mAh) / 1000`\n\nÖrneğin 4S 1300mAh 75C bir batarya sürekli olarak `75 * 1300 / 1000 = 97,5 Amper` verebilir. Drone'unuzun motorları ve ESC'leri tam gazda toplam 120A çekiyorsa, 75C 1300mAh bir batarya zorlanabilir; bu da belirgin voltaj çökmesine (yük altında voltaj düşüşü), azalan güce ve aşırı ısınmaya bağlı erken batarya yıpranmasına yol açar.\n\nKurulumunuz için fazla düşük bir C değeri seçmek, hantal performans, bataryada aşırı ısı oluşumu ve kısalmış ömür anlamına gelir. Daha yüksek bir C değeri motorlarınızın çekebileceğinden daha fazla güç vermez; ama bataryanın zorlanmadığından emin olur, böylece yük altında voltajı korumasını ve daha uzun dayanmasını sağlar."
+      "content": "Seçim ve bakım konularına dalmadan önce bir FPV LiPo bataryanın temel özelliklerini parçalara ayıralım. Bu terimleri anlamak, bilinçli kararlar vermek için hayati önemdedir.\n\n### LiPo Hücresinin Anatomisi: Voltaj ve Seri (S) Değeri\n\nÖzünde bir LiPo batarya, tek tek hücrelerden oluşur. Her LiPo hücresinin nominal voltajı **3,7 Volt (V)** değerindedir. Tam şarjlıyken tek bir hücre **4,2V** değerine ulaşır ve asla **3,2V** altına düşürülmemelidir (uzun ömür için ideal olan 3,5V değeridir).\n\nBataryanızdaki S değeri, bu hücrelerden kaç tanesinin seri bağlı olduğunu gösterir.\n*   **1S:** Tek hücre, nominal 3,7V (tam şarjlı 4,2V). Mobula6 gibi tiny whoop'lar için yaygındır.\n*   **2S:** Seri bağlı iki hücre, nominal 7,4V (tam şarjlı 8,4V). Çoğu zaman daha küçük mikro drone'larda kullanılır.\n*   **4S:** Seri bağlı dört hücre, nominal 14,8V (tam şarjlı 16,8V). 5 inç freestyle drone'lar için en yaygın seçimdir; güç ile verimlilik arasında mükemmel bir denge sunar. Bunun en iyi örneklerinden biri, çevik uçuş için 4S gücüyle en iyi performansı veren Holybro Kopis2 HDV'dir.\n*   **6S:** Seri bağlı altı hücre, nominal 22,2V (tam şarjlı 25,2V). Agresif freestyle, yarış ya da daha uzun menzilli uçuşlar için maksimum güç arayan pilotların tercihidir; daha yüksek voltaj aynı güç için daha az akım çekmek anlamına geldiği için ESC'ler ve motorlar daha serin kalır.\n\nDaha yüksek bir S değeri, daha yüksek voltaj demektir; bu da motorlarınızın bu voltaj için uygun olduğu varsayımıyla daha yüksek motor devrine ve daha fazla toplam güce dönüşür. S değeri arttıkça paket ağırlaşır ve daha yüksek akım kapasitesi gerektirir; bu yüzden drone'unuzun motor ve ESC kombinasyonunun bu voltajı desteklediğini doğrulamadan daha yüksek bir S değerine geçmeyin. 4S ile 6S arasındaki seçim, çoğu zaman güç ile uçuş ağırlığı arasındaki tercihinizdir.\n\n### Kapasite (mAh): Uçuş Süresini ve Ağırlığı Anlamak\n\n**Miliamper-saat (mAh)** ile ölçülen kapasite, bataryanın ne kadar enerji depolayabileceğini söyler. Basitçe ifade etmek gerekirse, daha yüksek bir mAh değeri genellikle daha uzun uçuş süresi demektir. Örneğin 1500mAh bir batarya teoride bir saat boyunca 1500mA (1,5A) ya da 30 dakika boyunca 3000mA (3A) akım verebilir.\n\nAncak burada bir denge vardır: daha fazla kapasite, daha fazla hücre ya da daha büyük hücreler anlamına gelir; bu da bataryanın fiziksel boyutunu ve ağırlığını artırır. Daha büyük bir batarya uçuş süresini uzatsa da drone'unuza eylemsizlik ekler ve çevikliği, tepkiselliği azaltabilir. 5 inç freestyle bir drone için 1300mAh 4S batarya agresif uçuşta iyi bir denge sunabilirken, 1800mAh 4S bir paket daha uzun seyir sağlar ama drone'u daha ağır hissettirir. Pilotlar, istedikleri uçuş süresi ile uçuş tarzlarının gerektirdiği çeviklik arasındaki tatlı noktayı bulmalıdır.\n\n### Deşarj Oranı (C Değeri): Motorlarınızın İhtiyaç Duyduğu Gücü Teslim Etmek\n\nC değeri, belki de en çok yanlış anlaşılan özelliktir; buna rağmen performans için kritik önemdedir. Bataryanın motorlarınıza aşırı ısınmadan ya da aşırı voltaj çökmesi yaşamadan güvenle akım (amper) verebilme yeteneğini gösterir.\n\n*   **Sürekli C değeri:** Bataryanın sürekli olarak güvenle verebileceği maksimum akım.\n*   **Anlık C değeri:** Kısa patlamalar için (genellikle birkaç saniye) verebileceği maksimum akım.\n\nMaksimum sürekli deşarj akımını Amper (A) cinsinden hesaplamak için şu formülü kullanın:\n`Maksimum Sürekli Akım (A) = C değeri * Kapasite (mAh) / 1000`\n\nÖrneğin 4S 1300mAh 75C bir batarya sürekli olarak `75 * 1300 / 1000 = 97,5 Amper` verebilir. Drone'unuzun motorları ve ESC'leri tam gazda toplam 120A çekiyorsa, 75C 1300mAh bir batarya zorlanabilir; bu da belirgin voltaj çökmesine (yük altında voltaj düşüşü), azalan güce ve aşırı ısınmaya bağlı erken batarya yıpranmasına yol açar.\n\nKurulumunuz için fazla düşük bir C değeri seçmek, hantal performans, bataryada aşırı ısı oluşumu ve kısalmış ömür anlamına gelir. Daha yüksek bir C değeri motorlarınızın çekebileceğinden daha fazla güç vermez; ama bataryanın zorlanmadığından emin olur, böylece yük altında voltajı korumasını ve daha uzun dayanmasını sağlar.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-power-battery-esc.webp",
+        "alt": "LiPo batarya, ESC kartı ve XT60 konnektör",
+        "caption": "LiPo batarya, ESC kartı ve XT60 konnektör",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "batarya",
+          "bataryalar",
+          "bataryasi",
+          "lipo",
+          "esc",
+          "konnektor",
+          "xt60",
+          "guc",
+          "voltaj"
+        ],
+        "family": "power"
+      }
     },
     {
       "id": "article-sub-4",
@@ -82,7 +103,26 @@
     {
       "id": "article-sub-8",
       "title": "FPV Pilotunun Cephaneliği: LiPo Batarya ve Aksesuarları İçin Alım Rehberi",
-      "content": "Kendinizi kaliteli ekipmanla donatmak, güvenli ve keyifli bir FPV yolculuğu için şarttır.\n\n### Önde Gelen FPV LiPo Batarya Markaları ve Önerileri\n\nSaygın markalara yatırım yapmak daha iyi kalite, tutarlılık ve uzun ömür sağlar.\n*   **Tattu R-Line:** Yaygın olarak premium bir tercih kabul edilir; yarış ve freestyle için yüksek C değerleri ve mükemmel performans sunar.\n*   **GNB (Gaoneng Battery):** Mikro drone'lar ve tiny whoop'lar için popülerdir; iyi performans ve fiyat dengesiyle bilinir.\n*   **CNHL (China Hobby Line):** Tüm drone boyutlarına uygun çeşitli seçeneklerle performans ile fiyat arasında mükemmel bir denge sunar.\n*   **Lumenier:** Tutarlı güç arayan freestyle pilotlarının sık tercih ettiği bir diğer güçlü seçenektir.\n*   **Acehe, SMC, Thunder Power:** Değerlendirmeye değer diğer güvenilir markalar.\n\n**Öneriler:**\n*   **Tiny Whoop'lar İçin (1S):** GNB 300-450mAh 1S.\n*   **5 inç Freestyle İçin (4S):** CNHL Black Series 1300-1500mAh 100C ya da Tattu R-Line 1300-1500mAh 120C.\n*   **5 inç Freestyle/Uzun Menzil İçin (6S):** CNHL Black Series 1100-1300mAh 100C ya da Tattu R-Line 1100-1300mAh 120C.\n\n### Her Bütçeye Uygun Temel LiPo Şarj Cihazları\n\nİyi bir şarj cihazı, batarya ömrü ve güvenlik açısından kendini amorti eden bir yatırımdır.\n*   **Bütçe Dostu (Tek Port):** **ISDT Q6 Nano** ya da **ToolkitRC M4Q**. Kompakt, yetenekli ve yeni başlayanlar için mükemmel.\n*   **Orta Segment (Çok Portlu/Yüksek Watt):** **SkyRC Q200** (belirtildiği gibi, birden fazla bataryayı aynı anda şarj etmek için harika bir seçim), **ToolkitRC M6D** (çift portlu, güçlü ve kompakt).\n*   **Üst Segment (Profesyonel):** Revolectrix ya da Junsi gibi markaların şarj cihazları; ciddi pilotlar için aşırı hassasiyet ve güç sunar.\n\nŞu özelliklere bakın: çok portlu şarj, yüksek watt (ör. 200W ve üzeri), depolama modu, deşarj işlevi ve iç direnç ölçümü.\n\n### Olmazsa Olmaz LiPo Aksesuarları: Güvenlik Çantaları, Voltaj Ölçerler ve Paralel Kartlar\n\n*   **LiPo Güvenlik Çantası/Kutusu:** Şarj ve depolama güvenliği için kesinlikle gereklidir.\n*   **LiPo Voltaj Ölçer/Alarm:** Denge kablosuna takılan, tek tek hücre voltajlarını ve toplam voltajı gösteren küçük, ucuz cihazlar. Çoğunda uçuş sırasında voltaj çok düştüğünde bipleyen alarmlar vardır.\n*   **Paralel Şarj Kartı:** Aynı S değerine sahip birden fazla batarya için şarjı hızlandırır. Her zaman dikkatle ve konuyu anlayarak kullanın.\n*   **Batarya Kayışları:** LiPo'nuzu drone gövdesine güvenle sabitler. Silikon kaplı kayışlar üstün tutuş sağlar.\n*   **Yangın Söndürücü:** Küçük bir CO2 ya da kuru kimyevi söndürücü, özellikle şarj ya da uçuş sırasında FPV kitinizin bir parçası olmalıdır."
+      "content": "Kendinizi kaliteli ekipmanla donatmak, güvenli ve keyifli bir FPV yolculuğu için şarttır.\n\n### Önde Gelen FPV LiPo Batarya Markaları ve Önerileri\n\nSaygın markalara yatırım yapmak daha iyi kalite, tutarlılık ve uzun ömür sağlar.\n*   **Tattu R-Line:** Yaygın olarak premium bir tercih kabul edilir; yarış ve freestyle için yüksek C değerleri ve mükemmel performans sunar.\n*   **GNB (Gaoneng Battery):** Mikro drone'lar ve tiny whoop'lar için popülerdir; iyi performans ve fiyat dengesiyle bilinir.\n*   **CNHL (China Hobby Line):** Tüm drone boyutlarına uygun çeşitli seçeneklerle performans ile fiyat arasında mükemmel bir denge sunar.\n*   **Lumenier:** Tutarlı güç arayan freestyle pilotlarının sık tercih ettiği bir diğer güçlü seçenektir.\n*   **Acehe, SMC, Thunder Power:** Değerlendirmeye değer diğer güvenilir markalar.\n\n**Öneriler:**\n*   **Tiny Whoop'lar İçin (1S):** GNB 300-450mAh 1S.\n*   **5 inç Freestyle İçin (4S):** CNHL Black Series 1300-1500mAh 100C ya da Tattu R-Line 1300-1500mAh 120C.\n*   **5 inç Freestyle/Uzun Menzil İçin (6S):** CNHL Black Series 1100-1300mAh 100C ya da Tattu R-Line 1100-1300mAh 120C.\n\n### Her Bütçeye Uygun Temel LiPo Şarj Cihazları\n\nİyi bir şarj cihazı, batarya ömrü ve güvenlik açısından kendini amorti eden bir yatırımdır.\n*   **Bütçe Dostu (Tek Port):** **ISDT Q6 Nano** ya da **ToolkitRC M4Q**. Kompakt, yetenekli ve yeni başlayanlar için mükemmel.\n*   **Orta Segment (Çok Portlu/Yüksek Watt):** **SkyRC Q200** (belirtildiği gibi, birden fazla bataryayı aynı anda şarj etmek için harika bir seçim), **ToolkitRC M6D** (çift portlu, güçlü ve kompakt).\n*   **Üst Segment (Profesyonel):** Revolectrix ya da Junsi gibi markaların şarj cihazları; ciddi pilotlar için aşırı hassasiyet ve güç sunar.\n\nŞu özelliklere bakın: çok portlu şarj, yüksek watt (ör. 200W ve üzeri), depolama modu, deşarj işlevi ve iç direnç ölçümü.\n\n### Olmazsa Olmaz LiPo Aksesuarları: Güvenlik Çantaları, Voltaj Ölçerler ve Paralel Kartlar\n\n*   **LiPo Güvenlik Çantası/Kutusu:** Şarj ve depolama güvenliği için kesinlikle gereklidir.\n*   **LiPo Voltaj Ölçer/Alarm:** Denge kablosuna takılan, tek tek hücre voltajlarını ve toplam voltajı gösteren küçük, ucuz cihazlar. Çoğunda uçuş sırasında voltaj çok düştüğünde bipleyen alarmlar vardır.\n*   **Paralel Şarj Kartı:** Aynı S değerine sahip birden fazla batarya için şarjı hızlandırır. Her zaman dikkatle ve konuyu anlayarak kullanın.\n*   **Batarya Kayışları:** LiPo'nuzu drone gövdesine güvenle sabitler. Silikon kaplı kayışlar üstün tutuş sağlar.\n*   **Yangın Söndürücü:** Küçük bir CO2 ya da kuru kimyevi söndürücü, özellikle şarj ya da uçuş sırasında FPV kitinizin bir parçası olmalıdır.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-power-lipo-selection.webp",
+        "alt": "Farklı kapasitelerde LiPo batarya paketleri",
+        "caption": "Farklı kapasitelerde LiPo batarya paketleri",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "lipo",
+          "batarya",
+          "bataryalar",
+          "hucre",
+          "mah",
+          "voltaj",
+          "kapasite"
+        ],
+        "family": "power"
+      }
     },
     {
       "id": "article-sub-9",
@@ -110,13 +150,69 @@
       "credit": "FPVLovers generated artwork",
       "kind": "generated-artwork"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "/images/source-cache/fpv-lipo-battery-safety-charging-guide-prevent-fires-and-fly-longer-section-1-3eb582f8.jpg",
+        "alt": "FPV image from oscarliang.com",
+        "caption": "Source: oscarliang.com",
+        "source": "oscarliang.com",
+        "sourceUrl": "https://oscarliang.com/pid/",
+        "credit": "Source: oscarliang.com",
+        "license": "attribution",
+        "originalSrc": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
+        "cachedFrom": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
+        "sourceImageUrl": "https://oscarliang.com/wp-content/uploads/2013/10/PID-three-algorithms.jpg",
+        "kind": "source-backed-cache"
+      },
+      {
+        "src": "/images/fallbacks/fpv-power-battery-esc.webp",
+        "alt": "LiPo batarya, ESC kartı ve XT60 konnektör",
+        "caption": "LiPo batarya, ESC kartı ve XT60 konnektör",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "batarya",
+          "bataryalar",
+          "bataryasi",
+          "lipo",
+          "esc",
+          "konnektor",
+          "xt60",
+          "guc",
+          "voltaj"
+        ],
+        "family": "power"
+      },
+      {
+        "src": "/images/fallbacks/fpv-power-lipo-selection.webp",
+        "alt": "Farklı kapasitelerde LiPo batarya paketleri",
+        "caption": "Farklı kapasitelerde LiPo batarya paketleri",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "lipo",
+          "batarya",
+          "bataryalar",
+          "hucre",
+          "mah",
+          "voltaj",
+          "kapasite"
+        ],
+        "family": "power"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
-      "Local SVG illustration generated from published content metadata"
+      "Local SVG illustration generated from published content metadata",
+      "Local editorial WebP assets from public/images/fallbacks"
     ],
     "attribution": [
-      "Copyright-safe media generated locally by FPVLovers"
+      "Copyright-safe media generated locally by FPVLovers",
+      "Body illustrations by FPVLovers"
     ]
   },
   "jobStatus": "published",

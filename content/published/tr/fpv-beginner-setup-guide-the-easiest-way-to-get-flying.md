@@ -75,6 +75,9 @@ FPV drone'lar **LiPo (Lityum Polimer) piller** ile çalışır; bir FPV drone'un
 
 FPV drone pilleri için **doğru bir LiPo şarj cihazı** kesinlikle şart. Bunlar telefon şarj aleti değildir; her hücrenin gerilimini dengeler, böylece güvenlik sağlanır ve pil ömrü uzar. ISDT Q6 Nano ve ToolkitRC M6D örnek verilebilir. Her zaman yangına dayanıklı bir alanda şarj edin ve şarjdaki pilleri asla başıboş bırakmayın.
 
+![FPV drone parçaları, tornavida ve lehim ekipmanı](/images/fallbacks/fpv-build-workshop.webp)
+_FPV drone parçaları, tornavida ve lehim ekipmanı_
+
 ## Giriş Noktanızı Seçmek: RTF, BNF mi DIY mi?
 
 İlk FPV drone setinizi nasıl alacağınız, FPV drone yolculuğundaki kritik kararlardan biri. Her seçenek farklı bir ihtiyaca ve seviyeye hitap ediyor.
@@ -127,6 +130,9 @@ FPV drone pilleri için **doğru bir LiPo şarj cihazı** kesinlikle şart. Bunl
 
 **Yeni başlayan için tavsiye:** Bir FPV drone kurmak oldukça tatmin edici olsa da DIY yolu genelde RTF veya BNF ile biraz deneyim kazanmış ve teknik tarafın derinlerine inmek isteyenlere önerilir. Tamamen yeni başlayan için bu, hobide genelde daha ileri bir aşama.
 
+![Koruyucu çanta içinde drone, batarya ve kumanda seti](/images/fallbacks/fpv-commercial-starter-kit.webp)
+_Koruyucu çanta içinde drone, batarya ve kumanda seti_
+
 ## Donanımın Ötesi: Kalkıştan Önceki Kritik Adımlar
 
 Ekipmanı almak sadece ilk adım. İlk FPV uçuşunuzu düşünmeden önce kazanmanız gereken alışkanlıklar var.
@@ -157,6 +163,9 @@ Drone dünyası regüle edilmiştir, FPV de istisna değil. Yerel kuralları anl
 *   **VLOS (Görüş hattı):** Birçok düzenleme, FPV uçuşunda bile drone'u görüş hattında tutmanızı ister. Bu çoğu zaman, drone'u görebilecek ve tehlikelere karşı sizi uyarabilecek bir gözlemci (spotter) anlamına gelir.
 *   **Gizliliğe saygı:** Nerede uçtuğunuza dikkat edin, insanların gizliliğine girmeyin.
 *   **Önce güvenlik:** Uçuş öncesi FPV drone'unuzu kontrol edin, pervanelerin temiz olduğundan emin olun ve insanlardan, hayvanlardan, mülkten güvenli mesafeyi koruyun.
+
+![FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar](/images/fallbacks/fpv-academy-simulator.webp)
+_FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar_
 
 ## Alım Rehberi: İlk FPV Kurulumunuz İçin Öneriler
 

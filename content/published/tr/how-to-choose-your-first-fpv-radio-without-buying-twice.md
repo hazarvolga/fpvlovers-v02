@@ -27,6 +27,9 @@ Sık sık kırılan, yükseltilen ya da değiştirilen drone'ların aksine kalit
 
 Gerçek bir drone uçurmayı düşünmeden önce FPV simülatörde sayısız saat geçireceksiniz. Bu sanal ortamlarda etkili pratik yapmanın tek yolu kumandanızdır. İyi gimballere (kontrol ettiğiniz stickler) sahip konforlu ve tepkisel bir FPV kumanda, simülatör deneyiminizi çok daha gerçekçi ve verimli kılar; gerçek kırım riski ve maliyeti olmadan kas belleği oluşturur ve becerilerinizi geliştirir. Yolculuğunuz gerçekten burada başlar. Bu yüzden FPV kumanda seçimini yalnızca bugünkü drone'unuza göre değil, iki yıl sonra hangi drone'u uçuracağınıza göre de düşünmek gerekir. Aynı kumandayla hem simülatörde hem gerçek uçuşta saat biriktirdiğinizde, edindiğiniz kas belleği doğrudan yeni donanıma taşınır ve her yeni drone'da sıfırdan başlamazsınız.
 
+![FPV kumandası yakın çekim](/images/fallbacks/fpv-radio-elrs-gps.webp)
+_FPV kumandası yakın çekim_
+
 ## Yeni Başlayan Bir FPV Kumanda İçin Temel Özellikler
 
 FPV kumanda özellikleri dünyasında gezinmek göz korkutucu olabilir. Yeni başlayan biri için gerçekten neyin önemli olduğunu adım adım açalım.
@@ -125,6 +128,9 @@ Kumandanızın yazılımını (EdgeTX) düzenli güncellemek hata düzeltmeleri,
 3.  **Talimatları İzleyin:** EdgeTX'in mükemmel dokümantasyonu vardır. Genellikle kumandanızı Bootloader modunda bağlar (çoğu zaman açılışta belirli düğmeleri basılı tutarak), ardından EdgeTX Companion ile yeni yazılımı yazıp SD kart içeriğini güncellersiniz.
 
 **Pilot İpucu:** Uçuş seansından hemen önce güncelleme yapmayın. Bir sorun çıkarsa çözecek zamanınız olduğunda yapın. Simülatörde eksenlerin ters geldiğini fark ederseniz panik yapmayın; bu genellikle kanal eşlemesinin ters çevrilmesinden kaynaklanır ve kumanda ayarlarından birkaç dakikada düzeltilir. Güncelleme sonrası yaptığınız ilk şey de modellerinizi ve anahtar atamalarınızı yeniden kontrol etmek olsun.
+
+![FPV kumandasının stickleri ve arka planda tiny whoop](/images/fallbacks/fpv-academy-stick-control.webp)
+_FPV kumandasının stickleri ve arka planda tiny whoop_
 
 ## Alım Rehberi: 2024'te Yeni Başlayanlar İçin En İyi FPV Kumandalar
 

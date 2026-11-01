@@ -38,6 +38,9 @@ Bu tatlı nokta dinamiktir. Şunlara göre değişir:
 
 Gazı minik ve sürekli ayarlamalarla nazikçe kullanmayı öğrenmek çok önemlidir. Aynı drone'da bile hover gazı uçuşun ilk dakikalarında değişir; tam şarjlı bir bataryayla kalkış yaptığınızda gereken gaz, inişe yakın düşük voltajdaki değerden belirgin biçimde düşüktür. Bu yüzden hover gazını sabit bir yüzde olarak ezberlemek yerine, her batarya ve her rüzgâr koşulunda yeniden aramayı alışkanlık hâline getirin.
 
+![FPV kumandasının stickleri ve arka planda tiny whoop](/images/fallbacks/fpv-academy-stick-control.webp)
+_FPV kumandasının stickleri ve arka planda tiny whoop_
+
 ## Sürünme: Simülatörde Kas Belleğine Hâkim Olmak
 
 Simülatör pratiği gerçekten şart mı? Kesinlikle. FPV uçuş simülatörü, kırılan pervane ve gövde masraflarından sizi kurtaran riskiz kum havuzunuzdur.
@@ -70,6 +73,9 @@ Kararlı bir hover tutabildiğinizde yer değiştirme hareketleri ekleyin:
 3.  **Yaw Dönüşleri:** İrtifayı koruyarak nazik yaw dönüşleri yapın (ör. 90 derece sol, sonra 90 derece sağ) ve her zaman kararlı, ileri bakan bir hovera dönün.
 
 Bu tekrarlı alıştırmalar, FPV yeni başlayan uçuşu için sezgisel hissi oluşturmak ve birden fazla stick girdisini birleştirmek için kritik önemdedir.
+
+![FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar](/images/fallbacks/fpv-academy-simulator.webp)
+_FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar_
 
 ## Uçuş Öncesi Protokoller: Gerçek Dünyadaki Başarı İçin Sahneyi Kurmak
 
@@ -184,6 +190,9 @@ Bazı simülatörler gamepad desteklese de özel bir FPV kumanda kesinlikle öne
 *   **Orta Segment Kumandalar (ör. Radiomaster TX16S MkII, FrSky Taranis X9D Plus SE):** Daha fazla özellik, daha büyük ekranlar ve çoğu zaman premium gimbal.
 
 Bu tutarlılık, doğru FPV temel kontrolleri ve kas belleği geliştirmek için hayati önemdedir.
+
+![Masa üzerinde FPV kumanda, drone, gözlük ve batarya](/images/fallbacks/fpv-academy-beginner.webp)
+_Masa üzerinde FPV kumanda, drone, gözlük ve batarya_
 
 ## İlk Hover Eğitimi Hakkında Sık Sorulan Sorular
 

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import path from 'node:path';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import {
   DEFAULT_LOCALE,
   TRANSLATED_PATHS,
@@ -32,6 +32,10 @@ import {
 } from '../src/lib/content-automation/content-reader';
 import { buildContentMedia, buildCoverImageUrl } from '../src/lib/content-automation/content-media';
 import { assertPublishableLocale } from '../src/lib/content-automation/publish-artifact';
+import {
+  TR_SECTION_IMAGE_LIBRARY,
+  selectTurkishSectionImages,
+} from '../src/lib/content-automation/tr-section-media';
 import { indexTranslationsBySource } from '../src/lib/content-automation/translation-index';
 import { navigationData } from '../src/lib/navigationData';
 import {
@@ -473,6 +477,91 @@ check('every Turkish start step has a published Turkish article', () => {
       assert.ok(trSlugs.has(slug), `missing Turkish artifact: ${slug}`);
     }
   }
+});
+
+check('Turkish inline image library is local, unique and descriptive', () => {
+  const seen = new Set<string>();
+  for (const asset of TR_SECTION_IMAGE_LIBRARY) {
+    assert.match(asset.src, /^\/images\/fallbacks\/[a-z0-9-]+\.webp$/, `unexpected src ${asset.src}`);
+    assert.ok(
+      existsSync(path.join(process.cwd(), 'public', asset.src.replace(/^\//, ''))),
+      `missing file ${asset.src}`,
+    );
+    assert.ok(asset.alt.length >= 20, `alt too short for ${asset.src}`);
+    assert.ok(asset.topics.length >= 3, `too few topics for ${asset.src}`);
+    assert.equal(seen.has(asset.src), false, `duplicate library entry ${asset.src}`);
+    seen.add(asset.src);
+  }
+});
+
+check('every Turkish article carries at least two inline figures', () => {
+  const articles = listPublishedContent('tr');
+  assert.ok(articles.length >= 7, 'expected the seven Turkish academy articles');
+  for (const article of articles) {
+    const figures = article.bodySections.filter((section) => Boolean(section.imageMatch?.src));
+    assert.ok(figures.length >= 2, `${article.slug} has ${figures.length} inline figures`);
+  }
+});
+
+check('Turkish inline figures never repeat inside one article and stay attributable', () => {
+  for (const article of listPublishedContent('tr')) {
+    const sources = article.bodySections
+      .map((section) => section.imageMatch?.src)
+      .filter((src): src is string => Boolean(src));
+    assert.equal(new Set(sources).size, sources.length, `${article.slug} repeats a figure`);
+    for (const section of article.bodySections) {
+      const image = section.imageMatch;
+      if (!image) continue;
+      assert.ok((image.alt || '').trim().length >= 10, `${article.slug}/${section.id} has no alt text`);
+      assert.ok((image.credit || '').trim().length > 0, `${article.slug}/${section.id} has no credit`);
+      assert.match(image.src, /^(\/images\/|https:\/\/)/, `${article.slug}/${section.id} uses ${image.src}`);
+    }
+  }
+});
+
+check('Turkish figure selection never illustrates a reference section', () => {
+  const picks = selectTurkishSectionImages({
+    slug: 'shy-iha-drone-rules-for-beginners-in-turkey',
+    title: 'Türkiye’de Yeni Başlayanlar İçin Drone Kuralları',
+    bodySections: [
+      {
+        id: 'sss',
+        title: 'Sık Sorulan Sorular',
+        content: 'drone kuralları mevzuat izin kayıt güvenlik shgm iha sorumluluk',
+      },
+      {
+        id: 'guvenlik',
+        title: 'Güvenlik ve Sorumluluk',
+        content: 'uçuş güvenliği ve sorumluluk kuralları',
+      },
+    ],
+    minImages: 1,
+  });
+  assert.deepEqual(picks.map((pick) => pick.sectionId), ['guvenlik']);
+});
+
+check('every Turkish editorial figure is indexed in the media gallery', () => {
+  let editorialFigures = 0;
+  for (const article of listPublishedContent('tr')) {
+    const gallery = new Set((article.media?.gallery || []).map((asset) => asset.src));
+    for (const section of article.bodySections) {
+      const src = section.imageMatch?.src;
+      if (!src || !src.startsWith('/images/fallbacks/')) continue;
+      editorialFigures += 1;
+      assert.ok(gallery.has(src), `${article.slug} figure missing from gallery: ${src}`);
+    }
+  }
+  assert.ok(editorialFigures >= 14, `only ${editorialFigures} editorial figures across the Turkish tree`);
+});
+
+check('Turkish figure selection is deterministic', () => {
+  const [article] = listPublishedContent('tr');
+  const input = {
+    slug: article.slug,
+    title: article.title,
+    bodySections: article.bodySections.map(({ id, title, content }) => ({ id, title, content })),
+  };
+  assert.deepEqual(selectTurkishSectionImages(input), selectTurkishSectionImages(input));
 });
 
 let failed = 0;

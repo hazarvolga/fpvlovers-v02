@@ -23,6 +23,7 @@ import { isPublicHttpUrl } from '@/lib/server/url-safety';
 import { DEFAULT_LOCALE, type Locale } from '@/lib/i18n/locale';
 import type { ContentMetadata } from '@/lib/content-metadata';
 import { publishedDirFor } from './content-reader';
+import { attachTurkishSectionImages } from './tr-section-media';
 
 const SOURCE_CACHE_DIR = path.join(process.cwd(), 'public', 'images', 'source-cache');
 
@@ -132,6 +133,31 @@ export function assertPublishableLocale(
       'Turkish artifacts require translationOf or origin "tr": one of them names where the content came from.',
     );
   }
+}
+
+export function buildArtifactMarkdown(input: {
+  title: string;
+  excerpt: string;
+  bodySections: GeneratedContent['bodySections'];
+  publishNotes?: string[];
+}): string {
+  const sections = input.bodySections.map((section) => {
+    const imageMarkdown = section.imageMatch
+      ? `\n\n![${section.imageMatch.alt}](${section.imageMatch.src})\n_${section.imageMatch.caption || section.imageMatch.alt}_`
+      : '';
+    return `## ${section.title}\n\n${section.content}${imageMarkdown}\n`;
+  });
+
+  const notes = input.publishNotes ?? [];
+
+  return [
+    `# ${input.title}`,
+    '',
+    `> ${input.excerpt}`,
+    '',
+    ...sections,
+    ...(notes.length > 0 ? ['', '---', '', ...notes.map((note) => `_${note}_`)] : []),
+  ].join('\n') + '\n';
 }
 
 export async function publishGeneratedContentArtifact(
@@ -280,6 +306,23 @@ export async function publishGeneratedContentArtifact(
     });
   }
 
+  // Turkish articles ship without crawled galleries, so their body figures come
+  // from the local editorial library. English artifacts keep the crawl-only path.
+  if (locale === 'tr') {
+    const illustrated = attachTurkishSectionImages({
+      slug,
+      title: content.title,
+      bodySections: content.bodySections,
+      gallery: media.gallery,
+      imageSources: media.imageSources,
+      attribution: media.attribution,
+    });
+    content.bodySections = illustrated.bodySections;
+    media.gallery = illustrated.gallery;
+    media.imageSources = illustrated.imageSources;
+    media.attribution = illustrated.attribution;
+  }
+
   const filteredNotes = (content.publishNotes || []).filter(
     (note) =>
       note !== 'Schema generated' &&
@@ -320,26 +363,14 @@ export async function publishGeneratedContentArtifact(
 
   fs.writeFileSync(jsonPath, JSON.stringify(artifact, null, 2) + '\n', 'utf-8');
 
-  // Convert to beautiful standard markdown representation including inline images
-  const mdSections = content.bodySections.map((section) => {
-    const imgMd = section.imageMatch
-      ? `\n\n![${section.imageMatch.alt}](${section.imageMatch.src})\n_${section.imageMatch.caption || section.imageMatch.alt}_`
-      : '';
-    return `## ${section.title}\n\n${section.content}${imgMd}\n`;
+  const markdown = buildArtifactMarkdown({
+    title: content.title,
+    excerpt: content.excerpt,
+    bodySections: content.bodySections,
+    publishNotes: filteredNotes,
   });
 
-  const markdown = [
-    `# ${content.title}`,
-    '',
-    `> ${content.excerpt}`,
-    '',
-    ...mdSections,
-    ...(filteredNotes.length > 0
-      ? ['', '---', '', ...filteredNotes.map((note) => `_${note}_`)]
-      : []),
-  ].join('\n');
-
-  fs.writeFileSync(mdPath, markdown + '\n', 'utf-8');
+  fs.writeFileSync(mdPath, markdown, 'utf-8');
 
   const { upsertPublishedArtifact } = await import('@/lib/server/published-content-store');
   await upsertPublishedArtifact(artifact);

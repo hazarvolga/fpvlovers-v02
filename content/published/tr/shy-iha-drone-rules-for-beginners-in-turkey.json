@@ -33,7 +33,22 @@
     {
       "id": "kapsam",
       "title": "Kapsam ve Tanımlar",
-      "content": "Türkiye'de drone kuralları denince akla ilk gelen metin, Sivil Havacılık Genel Müdürlüğü'nün (SHGM) yayımladığı İnsansız Hava Aracı Sistemleri Talimatı'dır. Kısaltma olarak SHY-İHA adı da kullanılagelir; ancak bu rehberde esas alınan resmî belgenin başlığı SHT-İHA'dır (Kaynak: mevzuat.shgm.gov.tr — Talimatlar listesi). Talimatın 2026 sürümü, Türk hava sahasında sivil amaçla işletilecek veya kullanılacak insansız hava aracı sistemlerini, bu sistemlerin bileşenlerini ve uzaktan tanımlama eklentilerini kapsıyor (Kaynak: SHT-İHA, Madde 2).\n\nDrone kuralları açısından aynı madde, kapsam dışında kalan üç durumu da açıkça sayıyor: devlet insansız hava araçları, münhasıran kapalı alanlarda gerçekleştirilen operasyonlar ve yere ya da bir platforma bağlı insansız balon ve benzeri sistemler. Yani kapalı bir salonda uçurduğunuz küçük bir drone ile açık havada uçurduğunuz aynı drone, mevzuat açısından aynı kapsamda değerlendirilmiyor. Yeni başlayanların drone kuralları konusunda ilk öğrenmesi gereken ayrım budur.\n\nDrone kuralları içinde en pratik tanım **Basit İHA** kavramıdır. Madde 8'de Basit İHA, tasarımı gereği yatayda 10 metre yarı çaplı ve dikeyde 20 metre (60 ft) yükseklikteki silindirik uçuş zarfının dışına çıkamayan ve M0 sınıfı için öngörülen özellikleri aşmayan araç olarak tanımlanıyor. Bu araçlar sınıflandırma dışında tutuluyor ve Talimattaki pilot lisansı, kayıt, tescil ve ithal uygunluk yükümlülüklerinden muaf sayılıyor (Kaynak: SHT-İHA, Madde 8/2).\n\nBunun dışında kalan araçlar kalkış kütlesine göre dört sınıfa ayrılıyor (Kaynak: SHT-İHA, Madde 8/1): M0 sınıfı 500 gram (dâhil) ile 4 kilogram arası, M1 sınıfı 4 kilogram (dâhil) ile 25 kilogram arası, M2 sınıfı 25 kilogram (dâhil) ile 150 kilogram arası ve M3 sınıfı 150 kilogram (dâhil) ve üzeri. Talimat ayrıca azami kalkış kütlesi 500 gramın altında olup Basit İHA tanımını karşılamayan araçların da M0 sınıfı hükümlerine tabi olduğunu belirtiyor (Kaynak: SHT-İHA, Madde 8/3). Kısacası \"hafif\" olmak tek başına muafiyet anlamına gelmiyor; drone kuralları açısından belirleyici olan, aracın uçuş zarfı ve sınıfıdır."
+      "content": "Türkiye'de drone kuralları denince akla ilk gelen metin, Sivil Havacılık Genel Müdürlüğü'nün (SHGM) yayımladığı İnsansız Hava Aracı Sistemleri Talimatı'dır. Kısaltma olarak SHY-İHA adı da kullanılagelir; ancak bu rehberde esas alınan resmî belgenin başlığı SHT-İHA'dır (Kaynak: mevzuat.shgm.gov.tr — Talimatlar listesi). Talimatın 2026 sürümü, Türk hava sahasında sivil amaçla işletilecek veya kullanılacak insansız hava aracı sistemlerini, bu sistemlerin bileşenlerini ve uzaktan tanımlama eklentilerini kapsıyor (Kaynak: SHT-İHA, Madde 2).\n\nDrone kuralları açısından aynı madde, kapsam dışında kalan üç durumu da açıkça sayıyor: devlet insansız hava araçları, münhasıran kapalı alanlarda gerçekleştirilen operasyonlar ve yere ya da bir platforma bağlı insansız balon ve benzeri sistemler. Yani kapalı bir salonda uçurduğunuz küçük bir drone ile açık havada uçurduğunuz aynı drone, mevzuat açısından aynı kapsamda değerlendirilmiyor. Yeni başlayanların drone kuralları konusunda ilk öğrenmesi gereken ayrım budur.\n\nDrone kuralları içinde en pratik tanım **Basit İHA** kavramıdır. Madde 8'de Basit İHA, tasarımı gereği yatayda 10 metre yarı çaplı ve dikeyde 20 metre (60 ft) yükseklikteki silindirik uçuş zarfının dışına çıkamayan ve M0 sınıfı için öngörülen özellikleri aşmayan araç olarak tanımlanıyor. Bu araçlar sınıflandırma dışında tutuluyor ve Talimattaki pilot lisansı, kayıt, tescil ve ithal uygunluk yükümlülüklerinden muaf sayılıyor (Kaynak: SHT-İHA, Madde 8/2).\n\nBunun dışında kalan araçlar kalkış kütlesine göre dört sınıfa ayrılıyor (Kaynak: SHT-İHA, Madde 8/1): M0 sınıfı 500 gram (dâhil) ile 4 kilogram arası, M1 sınıfı 4 kilogram (dâhil) ile 25 kilogram arası, M2 sınıfı 25 kilogram (dâhil) ile 150 kilogram arası ve M3 sınıfı 150 kilogram (dâhil) ve üzeri. Talimat ayrıca azami kalkış kütlesi 500 gramın altında olup Basit İHA tanımını karşılamayan araçların da M0 sınıfı hükümlerine tabi olduğunu belirtiyor (Kaynak: SHT-İHA, Madde 8/3). Kısacası \"hafif\" olmak tek başına muafiyet anlamına gelmiyor; drone kuralları açısından belirleyici olan, aracın uçuş zarfı ve sınıfıdır.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-generic.webp",
+        "alt": "Tezgâh üzerinde FPV drone ve uçuş ekipmanı",
+        "caption": "Tezgâh üzerinde FPV drone ve uçuş ekipmanı",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "genel",
+          "tezgah",
+          "ekipman"
+        ],
+        "family": "generic"
+      }
     },
     {
       "id": "kayit",
@@ -48,7 +63,29 @@
     {
       "id": "guvenlik",
       "title": "Güvenlik ve Sorumluluk",
-      "content": "Drone kuralları yalnızca izinlerden ibaret değil; Talimat, operasyonun her aşamasında güvenlikten kimin sorumlu olduğunu da tanımlıyor. Kullanıcı ve İHA pilotu, operasyonun her aşamasında çevredeki diğer hava araçları ve canlılar için emniyetli bir ortam sağlamaktan sorumlu tutuluyor (Kaynak: SHT-İHA, Madde 7/2). Pilot ayrıca uçuş sırasında aracın emniyetli idaresinden, diğer hava araçlarının ve yerdeki üçüncü şahısların güvenliğinden sorumlu (Kaynak: SHT-İHA, Madde 15/3).\n\nDrone kuralları içinde görsel görüş hattı, yani VLOS, yeni başlayanlar için en pratik güvenlik sınırı. Talimat VLOS'u, optik veya elektronik yardımcıların desteği olmaksızın pilotun hava aracıyla doğrudan görsel temasta kalarak operasyonu yürüttüğü uçuş olarak tanımlıyor (Kaynak: SHT-İHA, Madde 4). P0 ve P1 zarfının VLOS ile sınırlandırılması da bu tanıma dayanıyor. Gözlükle uçan bir FPV pilotu için bunun anlamı şu: görüş hattı dışına çıkan bir operasyon, lisans seviyesi ne olursa olsun drone kuralları bakımından farklı bir rejime geçer.\n\nBağlantı kaybı, drone kurallarının ayrı bir maddeyle ele aldığı risklerden. İnsansız hava aracı sistemlerinin, kontrol bağlantısı koptuğunda meskûn mahaller üzerinden geçmeyecek şekilde önceden belirlenmiş bir kurtarma alanına otomatik gidiş veya uçuş sonlandırma kabiliyetine sahip olması gerekiyor (Kaynak: SHT-İHA, Madde 18/1). Pilot da bağlantı kaybı veya acil durumda ilgili mercilere durumu derhâl bildirmekle yükümlü (Kaynak: SHT-İHA, Madde 18/2). Bu, drone kuralları açısından \"failsafe\" ayarını estetik bir tercih olmaktan çıkarıp operasyonel bir gereklilik hâline getiriyor.\n\nDrone kuralları açısından sigorta tarafı iki farklı resmî kaynakta netleşiyor. SHGM'nin İHA kayıt sisteminin sık sorulan sorular bölümü, 25 kilogram üstü İHA ile ağırlığına bakılmaksızın ticari faaliyet gerçekleştiren İHA için üçüncü şahıs mali mesuliyet sigortası yaptırılması gerektiğini ve sigortasız uçuş yapılmadığını belirtiyor (Kaynak: iha.shgm.gov.tr — Sık Sorulan Sorular). Yani hobi amaçlı hafif uçuşlar ile ticari operasyonlar sigorta yükümlülüğü bakımından aynı kategoride değil; drone kuralları öğrenilirken bu ayrımı bilmek gereksiz masraftan da eksik sigortadan da korur.\n\nDrone kuralları teknik tarafta iki yükümlülük daha getiriyor. Basit İHA hariç, kayıt yükümlülüğüne tabi araçların uzaktan tanımlama sistemine sahip olması zorunlu (Kaynak: SHT-İHA, Madde 23/7). Ayrıca Basit İHA hariç tüm araçların uçuş kontrol yazılımları ve kontrol istasyonu yazılımları dâhil Genel Müdürlükçe düzenlenen yazılım sertifikasyonuna sahip olması isteniyor; sertifikasyona sahip olmayan araçların Türk hava sahasında işletilemeyeceği belirtiliyor (Kaynak: SHT-İHA, Madde 23/4). Yeni başlayanların drone kuralları listesine eklemesi gereken son madde de bu: yurt dışından getirilen araçların da bu şartları sağlaması gerekiyor, aksi hâlde kayıt işlemine konu edilemiyorlar (Kaynak: SHT-İHA, Madde 24/4)."
+      "content": "Drone kuralları yalnızca izinlerden ibaret değil; Talimat, operasyonun her aşamasında güvenlikten kimin sorumlu olduğunu da tanımlıyor. Kullanıcı ve İHA pilotu, operasyonun her aşamasında çevredeki diğer hava araçları ve canlılar için emniyetli bir ortam sağlamaktan sorumlu tutuluyor (Kaynak: SHT-İHA, Madde 7/2). Pilot ayrıca uçuş sırasında aracın emniyetli idaresinden, diğer hava araçlarının ve yerdeki üçüncü şahısların güvenliğinden sorumlu (Kaynak: SHT-İHA, Madde 15/3).\n\nDrone kuralları içinde görsel görüş hattı, yani VLOS, yeni başlayanlar için en pratik güvenlik sınırı. Talimat VLOS'u, optik veya elektronik yardımcıların desteği olmaksızın pilotun hava aracıyla doğrudan görsel temasta kalarak operasyonu yürüttüğü uçuş olarak tanımlıyor (Kaynak: SHT-İHA, Madde 4). P0 ve P1 zarfının VLOS ile sınırlandırılması da bu tanıma dayanıyor. Gözlükle uçan bir FPV pilotu için bunun anlamı şu: görüş hattı dışına çıkan bir operasyon, lisans seviyesi ne olursa olsun drone kuralları bakımından farklı bir rejime geçer.\n\nBağlantı kaybı, drone kurallarının ayrı bir maddeyle ele aldığı risklerden. İnsansız hava aracı sistemlerinin, kontrol bağlantısı koptuğunda meskûn mahaller üzerinden geçmeyecek şekilde önceden belirlenmiş bir kurtarma alanına otomatik gidiş veya uçuş sonlandırma kabiliyetine sahip olması gerekiyor (Kaynak: SHT-İHA, Madde 18/1). Pilot da bağlantı kaybı veya acil durumda ilgili mercilere durumu derhâl bildirmekle yükümlü (Kaynak: SHT-İHA, Madde 18/2). Bu, drone kuralları açısından \"failsafe\" ayarını estetik bir tercih olmaktan çıkarıp operasyonel bir gereklilik hâline getiriyor.\n\nDrone kuralları açısından sigorta tarafı iki farklı resmî kaynakta netleşiyor. SHGM'nin İHA kayıt sisteminin sık sorulan sorular bölümü, 25 kilogram üstü İHA ile ağırlığına bakılmaksızın ticari faaliyet gerçekleştiren İHA için üçüncü şahıs mali mesuliyet sigortası yaptırılması gerektiğini ve sigortasız uçuş yapılmadığını belirtiyor (Kaynak: iha.shgm.gov.tr — Sık Sorulan Sorular). Yani hobi amaçlı hafif uçuşlar ile ticari operasyonlar sigorta yükümlülüğü bakımından aynı kategoride değil; drone kuralları öğrenilirken bu ayrımı bilmek gereksiz masraftan da eksik sigortadan da korur.\n\nDrone kuralları teknik tarafta iki yükümlülük daha getiriyor. Basit İHA hariç, kayıt yükümlülüğüne tabi araçların uzaktan tanımlama sistemine sahip olması zorunlu (Kaynak: SHT-İHA, Madde 23/7). Ayrıca Basit İHA hariç tüm araçların uçuş kontrol yazılımları ve kontrol istasyonu yazılımları dâhil Genel Müdürlükçe düzenlenen yazılım sertifikasyonuna sahip olması isteniyor; sertifikasyona sahip olmayan araçların Türk hava sahasında işletilemeyeceği belirtiliyor (Kaynak: SHT-İHA, Madde 23/4). Yeni başlayanların drone kuralları listesine eklemesi gereken son madde de bu: yurt dışından getirilen araçların da bu şartları sağlaması gerekiyor, aksi hâlde kayıt işlemine konu edilemiyorlar (Kaynak: SHT-İHA, Madde 24/4).",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-safety-regulations.webp",
+        "alt": "Tezgâhta FPV drone ve ekipman çantası",
+        "caption": "Tezgâhta FPV drone ve ekipman çantası",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "guvenlik",
+          "kural",
+          "kurallari",
+          "mevzuat",
+          "izin",
+          "kayit",
+          "sinir",
+          "shgm",
+          "iha",
+          "sorumluluk"
+        ],
+        "family": "regulation"
+      }
     },
     {
       "id": "hatalar",
@@ -76,13 +113,53 @@
       "credit": "FPVLovers generated artwork",
       "kind": "generated-artwork"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "/images/fallbacks/fpv-generic.webp",
+        "alt": "Tezgâh üzerinde FPV drone ve uçuş ekipmanı",
+        "caption": "Tezgâh üzerinde FPV drone ve uçuş ekipmanı",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "genel",
+          "tezgah",
+          "ekipman"
+        ],
+        "family": "generic"
+      },
+      {
+        "src": "/images/fallbacks/fpv-safety-regulations.webp",
+        "alt": "Tezgâhta FPV drone ve ekipman çantası",
+        "caption": "Tezgâhta FPV drone ve ekipman çantası",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "guvenlik",
+          "kural",
+          "kurallari",
+          "mevzuat",
+          "izin",
+          "kayit",
+          "sinir",
+          "shgm",
+          "iha",
+          "sorumluluk"
+        ],
+        "family": "regulation"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
-      "Local SVG illustration generated from published content metadata"
+      "Local SVG illustration generated from published content metadata",
+      "Local editorial WebP assets from public/images/fallbacks"
     ],
     "attribution": [
-      "Copyright-safe media generated locally by FPVLovers"
+      "Copyright-safe media generated locally by FPVLovers",
+      "Body illustrations by FPVLovers"
     ]
   },
   "jobStatus": "published",

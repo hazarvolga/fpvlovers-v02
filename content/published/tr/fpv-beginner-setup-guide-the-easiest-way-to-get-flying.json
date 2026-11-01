@@ -45,17 +45,84 @@
     {
       "id": "article-sub-3",
       "title": "FPV Ekosistemini Çözmek: Temel Parçalar",
-      "content": "İster bir RTF set ile hazır FPV drone uçurun, ister kendi FPV drone'unuzu kurun: sistemi oluşturan çekirdek parçaları anlamak önemli. Aşağıdakiler \"FPV için ne lazım\" sorusunun cevabı.\n\n### FPV Drone: Havadaki Gözünüz\n\nBir FPV drone, çeviklik ve hız için tasarlanmış bir mühendislik ürünüdür. FPV drone'u oluşturan ana parçalar:\n\n*   **Gövde (Frame):** FPV drone'un iskeleti, her şeyi bir arada tutar. Farklı boyut ve malzemelerde gelir; dayanıklılık için genelde karbon fiber kullanılır. FPV drone kurulumuna yeni başlayanlar için daha küçük ve dayanıklı gövdeler genellikle önerilir.\n*   **Motorlar:** Pervaneleri döndüren, çoğunlukla brushless olan elektrik motorları. Boyut ve KV (kilovolt) değeri hız ile gücü belirler.\n*   **ESC (Electronic Speed Controller):** Motorların beyni; uçuş kontrolcüsünden gelen sinyali motor hızına çevirir. Modern drone'larda birden çok ESC tek bir 4-in-1 kart üzerinde toplanır.\n*   **Uçuş Kontrolcüsü (FC):** FPV drone'un beyni; Betaflight, Emuflight veya ArduPilot gibi firmware çalıştıran merkezi işlem birimi. Kumandadan, giroskoptan ve ivmeölçerden gelen verileri alarak FPV drone'u dengeler ve yönlendirir.\n*   **FPV Kamerası:** FPV drone'un önünden anlık görüntüyü yakalayan küçük ve hafif kamera.\n*   **VTX (Video Transmitter):** FPV drone kamerasının görüntüsünü kablosuz olarak FPV gözlüğünüze iletir.\n*   **Alıcı (RX):** Kumandanızla konuşur, sizin girdilerinizi FPV drone'a taşır.\n\nFPV drone'lar pek çok boyutta üretilir ve her FPV drone farklı bir uçuş karakteri sunar. Yeni başlayanlar için **Tiny Whoop** modeller (65mm-75mm; Mobula6, Eachine E016F gibi) kapalı pervane yapısı ve düşük ağırlıkları sayesinde kapalı alanda uçmak için çok uygun. **Toothpick drone'lar** (yaklaşık 85mm-120mm; GEPRC Skip3 HD, Emax Tinyhawk Freestyle gibi) hâlâ küçük ve dayanıklı kalırken dış mekânda daha yetenekli. Daha büyük **5-inch drone'lar** (Emax Hawk 5 gibi) yarış ve freestyle için standarttır ama güçleri ve hızları nedeniyle tamamen yeni başlayanlara genelde önerilmez.\n\n### FPV Gözlük: Dünyaya Açılan Pencereniz\n\nFPV deneyimini en çok tanımlayan ekipman FPV gözlükdür. FPV gözlük, FPV drone'dan gelen canlı görüntüyü gözünüze taşır ve birinci şahıs bakış açısını kurar.\n\n*   **Box gözlükler:** Daha büyük, çoğu zaman daha ucuz ve geniş görüş açılı. Eachine EV800D örnek verilebilir. Fiyatına göre iyi görüntü verdikleri için \"ucuz FPV kurulumu\" girişinde iyi bir başlangıç.\n*   **Kompakt gözlükler (FatShark tarzı veya modern dijital sistemler):** Daha küçük, taşınabilir, genelde daha yüksek çözünürlüklü ve ek özellikli. Bunlar tipik olarak daha pahalı.\n\nFPV drone alırken yolunuz **analog ile dijital FPV sistemleri** ayrımıyla da kesişecek. Analog, geleneksel ve daha uygun fiyatlı seçenek; düşük gecikme sunuyor ama görüntü kumlu ve parazitli olabiliyor. **DJI dijital FPV sistemi** veya HDZero / Walksnail Avatar gibi dijital sistemler ise son derece düşük gecikmeyle berrak, yüksek çözünürlüklü görüntü veriyor; maliyetleri belirgin şekilde daha yüksek. FPV başlangıç aşamasında analog, maliyet etkinliği ve yaygın uyumluluğu sayesinde çoğu zaman en erişilebilir giriş noktası.\n\n### Kumanda: Komuta Merkeziniz\n\nRadyo vericiniz (kumanda) FPV drone ile iletişim kurduğunuz araç; gaz, ileri-geri, yuvarlama ve sapma komutlarını siz gönderirsiniz.\n\n*   **Modlar:** Pilotların çoğu **Mode 2** (sol kol gaz ve sapma, sağ kol ileri-geri ve yuvarlama) ya da **Mode 1** (sol kol gaz ve ileri-geri, sağ kol yuvarlama ve sapma) ile uçar. Mode 2, Kuzey Amerika ve Avrupa dahil birçok bölgede baskın.\n*   **Gimbal:** Kumandadaki kollardır; hall effect gimballar hassasiyet ve dayanıklılık için tercih edilir.\n*   **Protokoller:** Kumandanızın FPV alıcısıyla konuşma dili. FPV tarafında popüler protokoller **ExpressLRS (ELRS)**, FrSky (ACCST, ACCESS), Crossfire (TBS) ve Ghost (ImmortalRC). ExpressLRS; menzili, düşük gecikmesi ve açık kaynak yapısı sayesinde hızla standart haline geliyor, bu da onu yeni başlayanlar için güçlü bir tercih kılıyor.\n\nFPV drone için Radiomaster Zorro ve Jumper T-Pro gibi giriş seviyesi kumandalar çok protokollü destek ve ergonomik tasarım sunuyor.\n\n### Pil ve Şarj Cihazı: Uçuşun Can Damarı\n\nFPV drone'lar **LiPo (Lityum Polimer) piller** ile çalışır; bir FPV drone'un bütün gücünü bu piller verir, bu yüzden dikkatli muamele isterler.\n\n*   **'S' (Seri):** Seri bağlı hücre sayısı. 1S pilde bir hücre, 4S pilde dört hücre vardır (nominal genellikle 14.8V). 'S' değeri arttıkça gerilim ve güç artar. Yeni başlayanlar Tiny Whoop için genelde 1S veya 2S ile başlar, daha büyük drone'larda 3S veya 4S'e geçer.\n*   **mAh (miliamper-saat):** Pil kapasitesi. mAh artınca uçuş süresi uzar ama ağırlık da artar.\n*   **'C' (Deşarj oranı):** Pilin güvenli şekilde ne kadar hızlı enerji verebildiği. Güç tüketen FPV drone'lar daha yüksek 'C' değeri ister.\n\nFPV drone pilleri için **doğru bir LiPo şarj cihazı** kesinlikle şart. Bunlar telefon şarj aleti değildir; her hücrenin gerilimini dengeler, böylece güvenlik sağlanır ve pil ömrü uzar. ISDT Q6 Nano ve ToolkitRC M6D örnek verilebilir. Her zaman yangına dayanıklı bir alanda şarj edin ve şarjdaki pilleri asla başıboş bırakmayın."
+      "content": "İster bir RTF set ile hazır FPV drone uçurun, ister kendi FPV drone'unuzu kurun: sistemi oluşturan çekirdek parçaları anlamak önemli. Aşağıdakiler \"FPV için ne lazım\" sorusunun cevabı.\n\n### FPV Drone: Havadaki Gözünüz\n\nBir FPV drone, çeviklik ve hız için tasarlanmış bir mühendislik ürünüdür. FPV drone'u oluşturan ana parçalar:\n\n*   **Gövde (Frame):** FPV drone'un iskeleti, her şeyi bir arada tutar. Farklı boyut ve malzemelerde gelir; dayanıklılık için genelde karbon fiber kullanılır. FPV drone kurulumuna yeni başlayanlar için daha küçük ve dayanıklı gövdeler genellikle önerilir.\n*   **Motorlar:** Pervaneleri döndüren, çoğunlukla brushless olan elektrik motorları. Boyut ve KV (kilovolt) değeri hız ile gücü belirler.\n*   **ESC (Electronic Speed Controller):** Motorların beyni; uçuş kontrolcüsünden gelen sinyali motor hızına çevirir. Modern drone'larda birden çok ESC tek bir 4-in-1 kart üzerinde toplanır.\n*   **Uçuş Kontrolcüsü (FC):** FPV drone'un beyni; Betaflight, Emuflight veya ArduPilot gibi firmware çalıştıran merkezi işlem birimi. Kumandadan, giroskoptan ve ivmeölçerden gelen verileri alarak FPV drone'u dengeler ve yönlendirir.\n*   **FPV Kamerası:** FPV drone'un önünden anlık görüntüyü yakalayan küçük ve hafif kamera.\n*   **VTX (Video Transmitter):** FPV drone kamerasının görüntüsünü kablosuz olarak FPV gözlüğünüze iletir.\n*   **Alıcı (RX):** Kumandanızla konuşur, sizin girdilerinizi FPV drone'a taşır.\n\nFPV drone'lar pek çok boyutta üretilir ve her FPV drone farklı bir uçuş karakteri sunar. Yeni başlayanlar için **Tiny Whoop** modeller (65mm-75mm; Mobula6, Eachine E016F gibi) kapalı pervane yapısı ve düşük ağırlıkları sayesinde kapalı alanda uçmak için çok uygun. **Toothpick drone'lar** (yaklaşık 85mm-120mm; GEPRC Skip3 HD, Emax Tinyhawk Freestyle gibi) hâlâ küçük ve dayanıklı kalırken dış mekânda daha yetenekli. Daha büyük **5-inch drone'lar** (Emax Hawk 5 gibi) yarış ve freestyle için standarttır ama güçleri ve hızları nedeniyle tamamen yeni başlayanlara genelde önerilmez.\n\n### FPV Gözlük: Dünyaya Açılan Pencereniz\n\nFPV deneyimini en çok tanımlayan ekipman FPV gözlükdür. FPV gözlük, FPV drone'dan gelen canlı görüntüyü gözünüze taşır ve birinci şahıs bakış açısını kurar.\n\n*   **Box gözlükler:** Daha büyük, çoğu zaman daha ucuz ve geniş görüş açılı. Eachine EV800D örnek verilebilir. Fiyatına göre iyi görüntü verdikleri için \"ucuz FPV kurulumu\" girişinde iyi bir başlangıç.\n*   **Kompakt gözlükler (FatShark tarzı veya modern dijital sistemler):** Daha küçük, taşınabilir, genelde daha yüksek çözünürlüklü ve ek özellikli. Bunlar tipik olarak daha pahalı.\n\nFPV drone alırken yolunuz **analog ile dijital FPV sistemleri** ayrımıyla da kesişecek. Analog, geleneksel ve daha uygun fiyatlı seçenek; düşük gecikme sunuyor ama görüntü kumlu ve parazitli olabiliyor. **DJI dijital FPV sistemi** veya HDZero / Walksnail Avatar gibi dijital sistemler ise son derece düşük gecikmeyle berrak, yüksek çözünürlüklü görüntü veriyor; maliyetleri belirgin şekilde daha yüksek. FPV başlangıç aşamasında analog, maliyet etkinliği ve yaygın uyumluluğu sayesinde çoğu zaman en erişilebilir giriş noktası.\n\n### Kumanda: Komuta Merkeziniz\n\nRadyo vericiniz (kumanda) FPV drone ile iletişim kurduğunuz araç; gaz, ileri-geri, yuvarlama ve sapma komutlarını siz gönderirsiniz.\n\n*   **Modlar:** Pilotların çoğu **Mode 2** (sol kol gaz ve sapma, sağ kol ileri-geri ve yuvarlama) ya da **Mode 1** (sol kol gaz ve ileri-geri, sağ kol yuvarlama ve sapma) ile uçar. Mode 2, Kuzey Amerika ve Avrupa dahil birçok bölgede baskın.\n*   **Gimbal:** Kumandadaki kollardır; hall effect gimballar hassasiyet ve dayanıklılık için tercih edilir.\n*   **Protokoller:** Kumandanızın FPV alıcısıyla konuşma dili. FPV tarafında popüler protokoller **ExpressLRS (ELRS)**, FrSky (ACCST, ACCESS), Crossfire (TBS) ve Ghost (ImmortalRC). ExpressLRS; menzili, düşük gecikmesi ve açık kaynak yapısı sayesinde hızla standart haline geliyor, bu da onu yeni başlayanlar için güçlü bir tercih kılıyor.\n\nFPV drone için Radiomaster Zorro ve Jumper T-Pro gibi giriş seviyesi kumandalar çok protokollü destek ve ergonomik tasarım sunuyor.\n\n### Pil ve Şarj Cihazı: Uçuşun Can Damarı\n\nFPV drone'lar **LiPo (Lityum Polimer) piller** ile çalışır; bir FPV drone'un bütün gücünü bu piller verir, bu yüzden dikkatli muamele isterler.\n\n*   **'S' (Seri):** Seri bağlı hücre sayısı. 1S pilde bir hücre, 4S pilde dört hücre vardır (nominal genellikle 14.8V). 'S' değeri arttıkça gerilim ve güç artar. Yeni başlayanlar Tiny Whoop için genelde 1S veya 2S ile başlar, daha büyük drone'larda 3S veya 4S'e geçer.\n*   **mAh (miliamper-saat):** Pil kapasitesi. mAh artınca uçuş süresi uzar ama ağırlık da artar.\n*   **'C' (Deşarj oranı):** Pilin güvenli şekilde ne kadar hızlı enerji verebildiği. Güç tüketen FPV drone'lar daha yüksek 'C' değeri ister.\n\nFPV drone pilleri için **doğru bir LiPo şarj cihazı** kesinlikle şart. Bunlar telefon şarj aleti değildir; her hücrenin gerilimini dengeler, böylece güvenlik sağlanır ve pil ömrü uzar. ISDT Q6 Nano ve ToolkitRC M6D örnek verilebilir. Her zaman yangına dayanıklı bir alanda şarj edin ve şarjdaki pilleri asla başıboş bırakmayın.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-build-workshop.webp",
+        "alt": "FPV drone parçaları, tornavida ve lehim ekipmanı",
+        "caption": "FPV drone parçaları, tornavida ve lehim ekipmanı",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "parca",
+          "parcalar",
+          "parcalari",
+          "tamir",
+          "bakim",
+          "atolye",
+          "montaj",
+          "vida",
+          "alet"
+        ],
+        "family": "build"
+      }
     },
     {
       "id": "article-sub-4",
       "title": "Giriş Noktanızı Seçmek: RTF, BNF mi DIY mi?",
-      "content": "İlk FPV drone setinizi nasıl alacağınız, FPV drone yolculuğundaki kritik kararlardan biri. Her seçenek farklı bir ihtiyaca ve seviyeye hitap ediyor.\n\n### Ready-To-Fly (RTF) Setleri: Anında Uçuş\n\n**Neler var:** RTF set, \"yeni başlayan FPV drone seti\" sorusunun en pratik cevabı. Genelde montajı yapılmış bir FPV drone, FPV gözlük, kumanda, piller ve basit bir şarj cihazı kutudan çıkar. Her şey önceden eşleştirilip ayarlandığı için pilleri şarj edip neredeyse hemen uçmaya başlayabilirsiniz.\n\n**Artıları:**\n*   **En kolay başlangıç:** Minimum kurulum, tamamen yeni başlayanlar için ideal.\n*   **Her şey dahil:** Parçaları ve uyumluluğu ayrı ayrı araştırmanıza gerek kalmaz.\n*   **Genelde daha düşük ilk maliyet:** Uzun vadede her zaman en ucuz olmasa da eksiksiz bir paket için peşin ödeme cazip olabilir.\n\n**Eksileri:**\n*   **Daha az özelleştirme:** Kutuda gelen parçalarla sınırlısınız.\n*   **Daha düşük kaliteli parçalar riski:** Maliyeti düşürmek için bazı RTF setlerde daha az dayanıklı veya daha düşük performanslı parçalar bulunabilir.\n*   **Sınırlı yükseltme yolu:** Kumanda veya gözlük, ilerideki daha gelişmiş FPV drone'lar için uygun olmayabilir.\n\n**Kime uygun:** En az teknik uğraşla FPV deneyimi yaşamak isteyen tamamen yeni başlayanlar. **Eachine Novice-III** serisi ve **BetaFPV Cetus X** seti gibi örnekler, öğrenmeye uygun dayanıklı drone'lar sunuyor.\n\n### Bind-N-Fly (BNF) Drone'lar: Bir Sonraki Adım\n\n**Ne demek:** BNF FPV drone montajlı gelir ama kumanda ve FPV gözlük içermez. Siz mevcut, uyumlu kumandanıza \"bind\" edersiniz. Bu seçenek, ayrı bir kumanda ve gözlüğe zaten sahip olduğunuzu ya da olmayı kabul ettiğinizi varsayar.\n\n**Artıları:**\n*   **Çevre birimlerinde daha çok seçim:** Daha kaliteli bir kumanda ve FPV gözlük alırsınız; ilerideki FPV drone'larda da işinize yarar.\n*   **Genelde daha iyi drone:** BNF modeller, giriş seviyesi RTF setlerdakine kıyasla çoğu zaman daha iyi performans ve dayanıklılık sunar.\n*   **Elinizde ekipman varsa ekonomik:** Bir arkadaşınız FPV uçuyorsa ve kumandasını ödünç alabiliyorsanız ya da baştan iyi bir kumanda almaya kararlıysanız BNF para tasarrufu sağlar.\n\n**Eksileri:**\n*   **Ayrı alımlar gerekir:** Uyumlu kumanda ve FPV gözlüğü araştırıp siz almalısınız.\n*   **Uyumluluğu doğrulamak:** Kumandanızın protokolü (örneğin ExpressLRS) ile BNF drone'daki alıcı eşleşmeli.\n*   **Biraz daha fazla kurulum:** Bind işlemi ve olası temel Betaflight ayarları sizi bekler.\n\n**Kime uygun:** FPV başlangıç aşamasında çekirdek ekipmana (kumanda, FPV gözlük) baştan yatırım yapmaya hazır olanlar, ya da RTF setlerdekinin üstünde bir kalite arayanlar. **Mobula6**, **Emax Tinyhawk Freestyle** ve çeşitli küçük toothpick modelleri popüler BNF seçenekleri.\n\n### DIY Yolu: Kendi Makinenizi Kurmak (ve Ne Zaman Düşünmeli)\n\n**Ne içerir:** DIY yaklaşımı, tüm parçaları (gövde, motor, ESC, uçuş kontrolcüsü, FPV kamerası, VTX, alıcı vb.) ayrı ayrı alıp kendinizin monte etmesi demek. Bu yol genelde lehimleme, kablolama ve Betaflight gibi yazılımlarda ayrıntılı yapılandırma gerektirir. Parça listesi ve kurulum ilhamı için **rotorbuilds.com** gibi kaynaklar yardımcı olabilir.\n\n**Artıları:**\n*   **Tam özelleştirme:** Her parçayı siz seçersiniz, FPV drone tam isteğinize göre şekillenir.\n*   **Derinlemesine bilgi:** Kurulum, her parçanın nasıl çalıştığını öğretir; arıza bulma ve onarımda bu bilgi paha biçilmez.\n*   **Onarılabilirlik:** Nasıl bir araya geldiğini bildiğiniz için tamirler genelde daha kolay ve ucuz.\n\n**Eksileri:**\n*   **En karmaşık yol:** Lehim becerisi, teknik bilgi ve ciddi zaman yatırımı ister.\n*   **Arıza çözme deneyimi gerekir:** Sorunlarla karşılaşmayı ve nasıl düzelteceğinizi öğrenmeyi göze almalısınız.\n*   **Daha dik öğrenme eğrisi:** Çoğu kişi için \"ezici olmayan\" bir başlangıç kesinlikle değil.\n\n**Yeni başlayan için tavsiye:** Bir FPV drone kurmak oldukça tatmin edici olsa da DIY yolu genelde RTF veya BNF ile biraz deneyim kazanmış ve teknik tarafın derinlerine inmek isteyenlere önerilir. Tamamen yeni başlayan için bu, hobide genelde daha ileri bir aşama."
+      "content": "İlk FPV drone setinizi nasıl alacağınız, FPV drone yolculuğundaki kritik kararlardan biri. Her seçenek farklı bir ihtiyaca ve seviyeye hitap ediyor.\n\n### Ready-To-Fly (RTF) Setleri: Anında Uçuş\n\n**Neler var:** RTF set, \"yeni başlayan FPV drone seti\" sorusunun en pratik cevabı. Genelde montajı yapılmış bir FPV drone, FPV gözlük, kumanda, piller ve basit bir şarj cihazı kutudan çıkar. Her şey önceden eşleştirilip ayarlandığı için pilleri şarj edip neredeyse hemen uçmaya başlayabilirsiniz.\n\n**Artıları:**\n*   **En kolay başlangıç:** Minimum kurulum, tamamen yeni başlayanlar için ideal.\n*   **Her şey dahil:** Parçaları ve uyumluluğu ayrı ayrı araştırmanıza gerek kalmaz.\n*   **Genelde daha düşük ilk maliyet:** Uzun vadede her zaman en ucuz olmasa da eksiksiz bir paket için peşin ödeme cazip olabilir.\n\n**Eksileri:**\n*   **Daha az özelleştirme:** Kutuda gelen parçalarla sınırlısınız.\n*   **Daha düşük kaliteli parçalar riski:** Maliyeti düşürmek için bazı RTF setlerde daha az dayanıklı veya daha düşük performanslı parçalar bulunabilir.\n*   **Sınırlı yükseltme yolu:** Kumanda veya gözlük, ilerideki daha gelişmiş FPV drone'lar için uygun olmayabilir.\n\n**Kime uygun:** En az teknik uğraşla FPV deneyimi yaşamak isteyen tamamen yeni başlayanlar. **Eachine Novice-III** serisi ve **BetaFPV Cetus X** seti gibi örnekler, öğrenmeye uygun dayanıklı drone'lar sunuyor.\n\n### Bind-N-Fly (BNF) Drone'lar: Bir Sonraki Adım\n\n**Ne demek:** BNF FPV drone montajlı gelir ama kumanda ve FPV gözlük içermez. Siz mevcut, uyumlu kumandanıza \"bind\" edersiniz. Bu seçenek, ayrı bir kumanda ve gözlüğe zaten sahip olduğunuzu ya da olmayı kabul ettiğinizi varsayar.\n\n**Artıları:**\n*   **Çevre birimlerinde daha çok seçim:** Daha kaliteli bir kumanda ve FPV gözlük alırsınız; ilerideki FPV drone'larda da işinize yarar.\n*   **Genelde daha iyi drone:** BNF modeller, giriş seviyesi RTF setlerdakine kıyasla çoğu zaman daha iyi performans ve dayanıklılık sunar.\n*   **Elinizde ekipman varsa ekonomik:** Bir arkadaşınız FPV uçuyorsa ve kumandasını ödünç alabiliyorsanız ya da baştan iyi bir kumanda almaya kararlıysanız BNF para tasarrufu sağlar.\n\n**Eksileri:**\n*   **Ayrı alımlar gerekir:** Uyumlu kumanda ve FPV gözlüğü araştırıp siz almalısınız.\n*   **Uyumluluğu doğrulamak:** Kumandanızın protokolü (örneğin ExpressLRS) ile BNF drone'daki alıcı eşleşmeli.\n*   **Biraz daha fazla kurulum:** Bind işlemi ve olası temel Betaflight ayarları sizi bekler.\n\n**Kime uygun:** FPV başlangıç aşamasında çekirdek ekipmana (kumanda, FPV gözlük) baştan yatırım yapmaya hazır olanlar, ya da RTF setlerdekinin üstünde bir kalite arayanlar. **Mobula6**, **Emax Tinyhawk Freestyle** ve çeşitli küçük toothpick modelleri popüler BNF seçenekleri.\n\n### DIY Yolu: Kendi Makinenizi Kurmak (ve Ne Zaman Düşünmeli)\n\n**Ne içerir:** DIY yaklaşımı, tüm parçaları (gövde, motor, ESC, uçuş kontrolcüsü, FPV kamerası, VTX, alıcı vb.) ayrı ayrı alıp kendinizin monte etmesi demek. Bu yol genelde lehimleme, kablolama ve Betaflight gibi yazılımlarda ayrıntılı yapılandırma gerektirir. Parça listesi ve kurulum ilhamı için **rotorbuilds.com** gibi kaynaklar yardımcı olabilir.\n\n**Artıları:**\n*   **Tam özelleştirme:** Her parçayı siz seçersiniz, FPV drone tam isteğinize göre şekillenir.\n*   **Derinlemesine bilgi:** Kurulum, her parçanın nasıl çalıştığını öğretir; arıza bulma ve onarımda bu bilgi paha biçilmez.\n*   **Onarılabilirlik:** Nasıl bir araya geldiğini bildiğiniz için tamirler genelde daha kolay ve ucuz.\n\n**Eksileri:**\n*   **En karmaşık yol:** Lehim becerisi, teknik bilgi ve ciddi zaman yatırımı ister.\n*   **Arıza çözme deneyimi gerekir:** Sorunlarla karşılaşmayı ve nasıl düzelteceğinizi öğrenmeyi göze almalısınız.\n*   **Daha dik öğrenme eğrisi:** Çoğu kişi için \"ezici olmayan\" bir başlangıç kesinlikle değil.\n\n**Yeni başlayan için tavsiye:** Bir FPV drone kurmak oldukça tatmin edici olsa da DIY yolu genelde RTF veya BNF ile biraz deneyim kazanmış ve teknik tarafın derinlerine inmek isteyenlere önerilir. Tamamen yeni başlayan için bu, hobide genelde daha ileri bir aşama.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-commercial-starter-kit.webp",
+        "alt": "Koruyucu çanta içinde drone, batarya ve kumanda seti",
+        "caption": "Koruyucu çanta içinde drone, batarya ve kumanda seti",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "set",
+          "seti",
+          "setler",
+          "setleri",
+          "rtf",
+          "bnf",
+          "paket",
+          "cantasi",
+          "hazir",
+          "kit",
+          "kiti"
+        ],
+        "family": "starter"
+      }
     },
     {
       "id": "article-sub-5",
       "title": "Donanımın Ötesi: Kalkıştan Önceki Kritik Adımlar",
-      "content": "Ekipmanı almak sadece ilk adım. İlk FPV uçuşunuzu düşünmeden önce kazanmanız gereken alışkanlıklar var.\n\n### FPV Simülatörü ile Kumandaya Hakim Olmak\n\nBu, FPV drone pilotu olmak isteyen herkes için tereddütsüz en kritik tavsiye. **FPV simülatörleri**, FPV drone'unuza zarar riski olmadan uçma pratiği yapmanızı sağlayan sanal ortamlar. FPV uçuşunu öğrenmenin en güvenli ve en ekonomik yolu bu.\n\n*   **Neden kritik:** FPV drone kazası kaçınılmaz bir parça, ama simülatörle tek bir pervane kırmadan yüzlerce saat pratik yapabilirsiniz.\n*   **Öneriler:** DRL Simulator, Velocidrone, Liftoff ve Uncrashed popüler FPV simülatörleri.\n*   **Nasıl kullanılır:** Gerçek FPV kumandanızı USB ile bilgisayarınıza bağlayın. Böylece gerçek hayatta kullanacağınız aynı kontrollerle kas hafızası inşa edersiniz. Temel manevralar doğal hissedilene kadar düzenli pratik yapın.\n\n### LiPo Pil Güvenliği ve Şarj\n\nLiPo piller güçlü ve hafiftir, aynı zamanda hassastır. Yanlış muamele yangına yol açabilir.\n\n*   **Şarj:** FPV drone pilleri için her zaman dengeleme (balance) fonksiyonlu harici bir LiPo şarj cihazı kullanın. Yangına dayanıklı bir alanda (beton üzerinde, LiPo güvenlik çantasında veya mühimmat kutusunda) şarj edin ve pilleri şarjda asla başıboş bırakmayın.\n*   **Saklama:** LiPo pilleri \"depolama geriliminde\" (hücre başına yaklaşık 3.8V-3.85V) serin, kuru ve yangına dayanıklı bir yerde saklayın.\n*   **Muamele:** LiPo pili asla delmeyin, ezmeyin ve deşarj sınırının altına indirmeyin. Şişmiş veya hasarlı bir pil gördüğünüzde güvenli şekilde imha edin.\n*   **İmha:** LiPo pilleri çöpe atmayın. Tamamen deşarj edin (örneğin tuzlu su banyosu) ve atık/akü toplama merkezine götürün.\n\n### FPV Mevzuatı ve İyi Uygulamalar\n\nDrone dünyası regüle edilmiştir, FPV de istisna değil. Yerel kuralları anlamak ve uymak, güvenli ve sorumlu uçmanın şartı.\n\n*   **Yerel düzenlemeler:** Ülkenizdeki FPV drone mevzuatını araştırın (örneğin ABD'de FAA, Avrupa'da EASA, Hindistan'da DGCA). Bu; FPV drone kaydı, pilot sertifikasyonu ve nerede, nasıl uçabileceğinize dair özel kuralları içerebilir.\n*   **Uçuş bölgeleri:** Havalimanları, askeri üsler ve kritik altyapı çevresindeki uçuş yasak bölgeleri (NFZ) her zaman kontrol edin. B4UFLY (ABD) gibi uygulamalar veya yerel sivil havacılık otoritelerinin siteleri yardımcı olur.\n*   **VLOS (Görüş hattı):** Birçok düzenleme, FPV uçuşunda bile drone'u görüş hattında tutmanızı ister. Bu çoğu zaman, drone'u görebilecek ve tehlikelere karşı sizi uyarabilecek bir gözlemci (spotter) anlamına gelir.\n*   **Gizliliğe saygı:** Nerede uçtuğunuza dikkat edin, insanların gizliliğine girmeyin.\n*   **Önce güvenlik:** Uçuş öncesi FPV drone'unuzu kontrol edin, pervanelerin temiz olduğundan emin olun ve insanlardan, hayvanlardan, mülkten güvenli mesafeyi koruyun."
+      "content": "Ekipmanı almak sadece ilk adım. İlk FPV uçuşunuzu düşünmeden önce kazanmanız gereken alışkanlıklar var.\n\n### FPV Simülatörü ile Kumandaya Hakim Olmak\n\nBu, FPV drone pilotu olmak isteyen herkes için tereddütsüz en kritik tavsiye. **FPV simülatörleri**, FPV drone'unuza zarar riski olmadan uçma pratiği yapmanızı sağlayan sanal ortamlar. FPV uçuşunu öğrenmenin en güvenli ve en ekonomik yolu bu.\n\n*   **Neden kritik:** FPV drone kazası kaçınılmaz bir parça, ama simülatörle tek bir pervane kırmadan yüzlerce saat pratik yapabilirsiniz.\n*   **Öneriler:** DRL Simulator, Velocidrone, Liftoff ve Uncrashed popüler FPV simülatörleri.\n*   **Nasıl kullanılır:** Gerçek FPV kumandanızı USB ile bilgisayarınıza bağlayın. Böylece gerçek hayatta kullanacağınız aynı kontrollerle kas hafızası inşa edersiniz. Temel manevralar doğal hissedilene kadar düzenli pratik yapın.\n\n### LiPo Pil Güvenliği ve Şarj\n\nLiPo piller güçlü ve hafiftir, aynı zamanda hassastır. Yanlış muamele yangına yol açabilir.\n\n*   **Şarj:** FPV drone pilleri için her zaman dengeleme (balance) fonksiyonlu harici bir LiPo şarj cihazı kullanın. Yangına dayanıklı bir alanda (beton üzerinde, LiPo güvenlik çantasında veya mühimmat kutusunda) şarj edin ve pilleri şarjda asla başıboş bırakmayın.\n*   **Saklama:** LiPo pilleri \"depolama geriliminde\" (hücre başına yaklaşık 3.8V-3.85V) serin, kuru ve yangına dayanıklı bir yerde saklayın.\n*   **Muamele:** LiPo pili asla delmeyin, ezmeyin ve deşarj sınırının altına indirmeyin. Şişmiş veya hasarlı bir pil gördüğünüzde güvenli şekilde imha edin.\n*   **İmha:** LiPo pilleri çöpe atmayın. Tamamen deşarj edin (örneğin tuzlu su banyosu) ve atık/akü toplama merkezine götürün.\n\n### FPV Mevzuatı ve İyi Uygulamalar\n\nDrone dünyası regüle edilmiştir, FPV de istisna değil. Yerel kuralları anlamak ve uymak, güvenli ve sorumlu uçmanın şartı.\n\n*   **Yerel düzenlemeler:** Ülkenizdeki FPV drone mevzuatını araştırın (örneğin ABD'de FAA, Avrupa'da EASA, Hindistan'da DGCA). Bu; FPV drone kaydı, pilot sertifikasyonu ve nerede, nasıl uçabileceğinize dair özel kuralları içerebilir.\n*   **Uçuş bölgeleri:** Havalimanları, askeri üsler ve kritik altyapı çevresindeki uçuş yasak bölgeleri (NFZ) her zaman kontrol edin. B4UFLY (ABD) gibi uygulamalar veya yerel sivil havacılık otoritelerinin siteleri yardımcı olur.\n*   **VLOS (Görüş hattı):** Birçok düzenleme, FPV uçuşunda bile drone'u görüş hattında tutmanızı ister. Bu çoğu zaman, drone'u görebilecek ve tehlikelere karşı sizi uyarabilecek bir gözlemci (spotter) anlamına gelir.\n*   **Gizliliğe saygı:** Nerede uçtuğunuza dikkat edin, insanların gizliliğine girmeyin.\n*   **Önce güvenlik:** Uçuş öncesi FPV drone'unuzu kontrol edin, pervanelerin temiz olduğundan emin olun ve insanlardan, hayvanlardan, mülkten güvenli mesafeyi koruyun.",
+      "imageMatch": {
+        "src": "/images/fallbacks/fpv-academy-simulator.webp",
+        "alt": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "caption": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "simulator",
+          "simulatoru",
+          "simulatorde",
+          "simulasyon",
+          "simulasyonda",
+          "bilgisayar",
+          "sanal",
+          "pratik",
+          "oturum",
+          "gaz",
+          "stick"
+        ],
+        "family": "academy"
+      }
     },
     {
       "id": "article-sub-6",
@@ -86,13 +153,83 @@
       "credit": "FPVLovers generated artwork",
       "kind": "generated-artwork"
     },
-    "gallery": [],
+    "gallery": [
+      {
+        "src": "/images/fallbacks/fpv-build-workshop.webp",
+        "alt": "FPV drone parçaları, tornavida ve lehim ekipmanı",
+        "caption": "FPV drone parçaları, tornavida ve lehim ekipmanı",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "parca",
+          "parcalar",
+          "parcalari",
+          "tamir",
+          "bakim",
+          "atolye",
+          "montaj",
+          "vida",
+          "alet"
+        ],
+        "family": "build"
+      },
+      {
+        "src": "/images/fallbacks/fpv-commercial-starter-kit.webp",
+        "alt": "Koruyucu çanta içinde drone, batarya ve kumanda seti",
+        "caption": "Koruyucu çanta içinde drone, batarya ve kumanda seti",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "set",
+          "seti",
+          "setler",
+          "setleri",
+          "rtf",
+          "bnf",
+          "paket",
+          "cantasi",
+          "hazir",
+          "kit",
+          "kiti"
+        ],
+        "family": "starter"
+      },
+      {
+        "src": "/images/fallbacks/fpv-academy-simulator.webp",
+        "alt": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "caption": "FPV kumandası ve simülatör çalıştıran dizüstü bilgisayar",
+        "credit": "FPVLovers editoryal görseli",
+        "license": "FPVLovers generated artwork",
+        "kind": "generated-artwork",
+        "source": "FPVLovers editorial media library",
+        "topics": [
+          "simulator",
+          "simulatoru",
+          "simulatorde",
+          "simulasyon",
+          "simulasyonda",
+          "bilgisayar",
+          "sanal",
+          "pratik",
+          "oturum",
+          "gaz",
+          "stick"
+        ],
+        "family": "academy"
+      }
+    ],
     "figureCaptions": [],
     "imageSources": [
-      "Local SVG illustration generated from published content metadata"
+      "Local SVG illustration generated from published content metadata",
+      "Local editorial WebP assets from public/images/fallbacks"
     ],
     "attribution": [
-      "Copyright-safe media generated locally by FPVLovers"
+      "Copyright-safe media generated locally by FPVLovers",
+      "Body illustrations by FPVLovers"
     ]
   },
   "jobStatus": "published",

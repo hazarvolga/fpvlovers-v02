@@ -51,6 +51,9 @@ Maksimum sürekli deşarj akımını Amper (A) cinsinden hesaplamak için şu fo
 
 Kurulumunuz için fazla düşük bir C değeri seçmek, hantal performans, bataryada aşırı ısı oluşumu ve kısalmış ömür anlamına gelir. Daha yüksek bir C değeri motorlarınızın çekebileceğinden daha fazla güç vermez; ama bataryanın zorlanmadığından emin olur, böylece yük altında voltajı korumasını ve daha uzun dayanmasını sağlar.
 
+![LiPo batarya, ESC kartı ve XT60 konnektör](/images/fallbacks/fpv-power-battery-esc.webp)
+_LiPo batarya, ESC kartı ve XT60 konnektör_
+
 ## Drone'unuzun Can Damarını Seçmek: Size Uygun FPV LiPo'yu Bulmak
 
 Doğru LiPo bataryayı seçmek, performans, güvenlik ve genel olarak FPV deneyiminizin keyfi için çok önemlidir. Bilinçli bir seçim yapmanın yolları aşağıda.
@@ -228,6 +231,9 @@ Saygın markalara yatırım yapmak daha iyi kalite, tutarlılık ve uzun ömür 
 *   **Paralel Şarj Kartı:** Aynı S değerine sahip birden fazla batarya için şarjı hızlandırır. Her zaman dikkatle ve konuyu anlayarak kullanın.
 *   **Batarya Kayışları:** LiPo'nuzu drone gövdesine güvenle sabitler. Silikon kaplı kayışlar üstün tutuş sağlar.
 *   **Yangın Söndürücü:** Küçük bir CO2 ya da kuru kimyevi söndürücü, özellikle şarj ya da uçuş sırasında FPV kitinizin bir parçası olmalıdır.
+
+![Farklı kapasitelerde LiPo batarya paketleri](/images/fallbacks/fpv-power-lipo-selection.webp)
+_Farklı kapasitelerde LiPo batarya paketleri_
 
 ## FPV LiPo SSS: Yanıtlanan Kritik Sorularınız
 
