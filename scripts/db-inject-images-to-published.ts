@@ -68,6 +68,8 @@ type PublishedArtifact = {
   slug: string;
   title: string;
   bodySections: BodySection[];
+  sourceReferences?: string[];
+  sourceHints?: string[];
   media: {
     coverImage: MediaAsset;
     gallery: MediaAsset[];
@@ -77,6 +79,23 @@ type PublishedArtifact = {
   };
   [key: string]: unknown;
 };
+
+/**
+ * Only images harvested from the article's own declared sources may illustrate
+ * it. A shared word like "drone" is not evidence that a photo belongs to this
+ * article, and a foreign photo with a plausible caption is worse than none.
+ */
+function sourceDomainsFor(artifact: PublishedArtifact): Set<string> {
+  const domains = new Set<string>();
+  for (const hint of [...(artifact.sourceReferences || []), ...(artifact.sourceHints || [])]) {
+    try {
+      domains.add(new URL(hint).hostname.replace(/^www\./, ''));
+    } catch {
+      // sourceHints also carries free-text keywords, not just URLs.
+    }
+  }
+  return domains;
+}
 
 // ─── IMAGE HELPERS ─────────────────────────────────────────────────────────
 const HOST_DENYLIST = [
@@ -228,8 +247,8 @@ async function main() {
   });
 
   // Load ALL crawled content from DB
-  const dbResult = await pool.query<{ url: string; raw_markdown: string; domain: string }>(
-    `SELECT url, raw_markdown, domain FROM content_engine.raw_content WHERE is_active = true`,
+  const dbResult = await pool.query<{ url: string; raw_markdown: string }>(
+    `SELECT url, raw_markdown FROM content_engine.raw_content WHERE is_active = true`,
   );
   await pool.end();
 
@@ -240,7 +259,8 @@ async function main() {
   for (const row of dbResult.rows) {
     const images = extractImagesFromMarkdown(row.url, row.raw_markdown);
     if (images.length === 0) continue;
-    const domain = row.domain || new URL(row.url).hostname.replace(/^www\./, '');
+    let domain = '';
+    try { domain = new URL(row.url).hostname.replace(/^www\./, ''); } catch {}
     const existing = imagesByDomain.get(domain) || [];
     imagesByDomain.set(domain, [...existing, ...images]);
   }
@@ -293,18 +313,26 @@ async function main() {
     }
 
     // Get sourceHints from content-jobs if available, else use domain from cover image
-    let relevantImages = allImages;
-
-    // Try to narrow by domain from existing cover image source
-    const coverSource = artifact.media?.coverImage?.source;
-    if (coverSource) {
-      const domainImages = imagesByDomain.get(coverSource) || [];
-      if (domainImages.length > 0) relevantImages = domainImages;
+    const sourceDomains = sourceDomainsFor(artifact);
+    if (sourceDomains.size === 0) {
+      console.log(`  Skip ${slug}: no source domains declared`);
+      skipped++;
+      continue;
     }
 
-    // Use full pool if we have few images
-    if (relevantImages.length < 3) relevantImages = allImages;
-
+    const relevantImages = allImages.filter((img) => {
+      if (sourceDomains.has(img.hostname)) return true;
+      try {
+        return sourceDomains.has(new URL(img.sourceUrl).hostname.replace(/^www\./, ''));
+      } catch {
+        return false;
+      }
+    });
+    if (relevantImages.length === 0) {
+      console.log(`  Skip ${slug}: no images harvested from its own sources`);
+      skipped++;
+      continue;
+    }
     // Jaccard match with global usage tracking
     const matchMap = matchImagesToSections(relevantImages, sections, globalUsageCount);
 
@@ -319,7 +347,7 @@ async function main() {
     // Update bodySections with imageMatch
     artifact.bodySections = sections.map((section) => {
       const matched = matchMap.get(section.id);
-      if (!matched) return section;
+      if (!matched || section.imageMatch) return section;
       return {
         ...section,
         imageMatch: {
