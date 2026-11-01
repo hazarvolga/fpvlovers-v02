@@ -290,9 +290,16 @@ check('search client folds both document and query text', () => {
   assert.doesNotMatch(source, /query\.trim\(\)\.toLowerCase\(\)/, 'raw toLowerCase on the query bypasses folding');
 });
 
-check('search client localizes article links', () => {
-  const source = readFileSync('src/features/search/components/SearchClient.tsx', 'utf8');
-  assert.match(source, /localizePath/, 'article links must be localized for the Turkish tree');
+check('article links use the article path helper in every locale-aware list', () => {
+  for (const file of [
+    'src/features/guides/components/GuidesHub.tsx',
+    'src/features/search/components/SearchClient.tsx',
+    'src/features/academy/components/StartHereView.tsx',
+  ]) {
+    const source = readFileSync(file, 'utf8');
+    assert.match(source, /localizeArticlePath\(/, `${file} must use localizeArticlePath`);
+    assert.doesNotMatch(source, /localizePath\(`\/article\//, `${file} must not route article links through localizePath`);
+  }
 });
 
 check('sitemap advertises Turkish alternates for translated pages', () => {

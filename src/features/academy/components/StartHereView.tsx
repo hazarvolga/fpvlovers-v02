@@ -10,7 +10,7 @@ import {
 import { LevelBadge } from '@/components/ui/level-badge';
 import { HUB_COVER_IMAGES } from '@/lib/content-automation/hub-media';
 import { listPublishedContentAsync, type PublishedArtifact } from '@/lib/content-automation/content-reader';
-import { localizePath, type Locale } from '@/lib/i18n/locale';
+import { localizeArticlePath, localizePath, type Locale } from '@/lib/i18n/locale';
 import { START_STEPS, type StartStep } from '@/lib/i18n/start-steps';
 
 type AcademyAfterCard = {
@@ -217,7 +217,7 @@ export async function StartHereView({ locale }: { locale: Locale }) {
                     {articles.map((article) => (
                       <Link
                         key={article.slug}
-                        href={localizePath(`/article/${article.slug}`, locale)}
+                        href={localizeArticlePath(article.slug, locale)}
                         className="group flex items-start justify-between gap-3 rounded-lg border border-white/10 bg-white/[0.02] px-4 py-3 transition-colors hover:border-[#ff3131]/40"
                       >
                         <span>

@@ -17,7 +17,7 @@ import {
   type GuideGroup,
   type ReaderLevel,
 } from '@/lib/content-taxonomy';
-import { localizePath, type Locale } from '@/lib/i18n/locale';
+import { localizeArticlePath, localizePath, type Locale } from '@/lib/i18n/locale';
 import { cn } from '@/lib/utils';
 
 type StatSource = 'published' | 'beginner' | 'topics';
@@ -161,7 +161,7 @@ function GuideCard({ article, locale }: { article: PublishedArtifact; locale: Lo
   const group = getGuideGroup(article.category);
   return (
     <Link
-      href={localizePath(`/article/${article.slug}`, locale)}
+      href={localizeArticlePath(article.slug, locale)}
       className="fpv-public-card fpv-public-card-hover group flex h-full flex-col rounded-lg p-5 transition-all"
     >
       <div className="flex flex-wrap items-center gap-2">

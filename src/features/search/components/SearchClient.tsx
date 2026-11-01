@@ -4,7 +4,7 @@ import React, { useState, useMemo } from 'react';
 import { RotateCcw, Search, ShieldCheck } from 'lucide-react';
 import { DiscoveryLink } from '@/components/DiscoveryLink';
 import { getReaderLevelLabel } from '@/lib/content-taxonomy';
-import { DEFAULT_LOCALE, localizePath, type Locale } from '@/lib/i18n/locale';
+import { DEFAULT_LOCALE, localizeArticlePath, type Locale } from '@/lib/i18n/locale';
 import { normalizeSearchText } from '@/lib/i18n/search-text';
 import type { SearchDocument } from '@/lib/search/search-document';
 
@@ -396,7 +396,7 @@ export function SearchClient({ initialContent, initialQuery, locale = DEFAULT_LO
             return (
               <DiscoveryLink
                 key={a.slug}
-                href={localizePath(`/article/${a.slug}`, locale)}
+                href={localizeArticlePath(a.slug, locale)}
                 targetSlug={a.slug}
                 linkType="search_result"
                 searchQuery={query}
