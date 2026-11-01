@@ -100,6 +100,8 @@ export type PublishedArtifact = GeneratedContent & {
   promptVersion: string;
   jobStatus: string;
   locale?: Locale;
+  /** English slug this artifact translates; the only honest pairing source. */
+  translationOf?: string;
   media?: ContentMedia;
   coverImage?: string;
   metadata?: ContentMetadata;
@@ -107,6 +109,13 @@ export type PublishedArtifact = GeneratedContent & {
   sourceHints?: string[];
   sourceReferences?: string[];
 };
+
+export function isTranslationPair(
+  sourceSlug: string,
+  candidate: PublishedArtifact | null | undefined,
+): boolean {
+  return candidate?.translationOf === sourceSlug;
+}
 
 export function getArtifactWordCount(article: PublishedArtifact): number {
   return (article.bodySections || [])

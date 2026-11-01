@@ -41,6 +41,33 @@ export function localizePath(path: string, locale: Locale): string {
   return `${TR_PREFIX}${trimmed}${suffix}`;
 }
 
+/** Article URLs are not in TRANSLATED_PATHS; the Turkish tree carries its own prefix. */
+export function localizeArticlePath(slug: string, locale: Locale): string {
+  const encoded = encodeURIComponent(slug);
+  return locale === DEFAULT_LOCALE ? `/article/${encoded}` : `${TR_PREFIX}/article/${encoded}`;
+}
+
+/**
+ * Rewrites an `/article/<slug>` link for the Turkish tree only when a Turkish
+ * artifact exists for that slug. Untranslated targets stay on the English URL
+ * so navigation never points at a 404.
+ */
+export function localizeArticleLink(
+  link: string,
+  locale: Locale,
+  translatedSlugs: ReadonlySet<string>,
+): string {
+  const normalized = link.startsWith('/') ? link : `/${link}`;
+  const match = normalized.match(/^\/article\/([^/?#]+)(.*)$/);
+  if (!match) return normalized;
+  const slug = decodeURIComponent(match[1]);
+  const suffix = match[2];
+  if (locale === 'tr' && translatedSlugs.has(slug)) {
+    return `${localizeArticlePath(slug, 'tr')}${suffix}`;
+  }
+  return `/article/${encodeURIComponent(slug)}${suffix}`;
+}
+
 export function splitLocalePath(input: string): { locale: Locale; path: string } {
   const normalized = input.startsWith('/') ? input : `/${input}`;
   if (normalized === TR_PREFIX) return { locale: 'tr', path: '/' };

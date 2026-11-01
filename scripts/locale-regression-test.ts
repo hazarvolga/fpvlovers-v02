@@ -5,6 +5,8 @@ import {
   TRANSLATED_PATHS,
   isLocale,
   isTranslatedPath,
+  localizeArticleLink,
+  localizeArticlePath,
   localizePath,
   resolveLocale,
   splitLocalePath,
@@ -22,6 +24,7 @@ import {
   getPublishedContentBySlug,
   hasLanguageMismatch,
   hasTurkishLanguageLeak,
+  isTranslationPair,
   listPublishedContent,
   type PublishedArtifact,
 } from '../src/lib/content-automation/content-reader';
@@ -298,6 +301,29 @@ check('sitemap advertises Turkish alternates for translated pages', () => {
   assert.match(source, /if \(!isTranslatedPath\(path\)\) return ''/, 'untranslated paths must not advertise an alternate');
   assert.match(source, /\.filter\(page => isTranslatedPath\(page\.url\)\)/, 'Turkish static URLs must be gated on translated paths');
   assert.match(source, /localizePath\(page\.url, 'tr'\)/, 'Turkish static URLs must go through localizePath');
+});
+
+check('article paths localize without changing the slug', () => {
+  assert.equal(localizeArticlePath('fpv-kit', 'en'), '/article/fpv-kit');
+  assert.equal(localizeArticlePath('fpv-kit', 'tr'), '/tr/article/fpv-kit');
+  assert.equal(localizeArticlePath('a b/c', 'tr'), '/tr/article/a%20b%2Fc');
+});
+
+check('article links switch to the Turkish tree only for published translations', () => {
+  const translated = new Set(['fpv-kit']);
+  assert.equal(localizeArticleLink('/article/fpv-kit', 'tr', translated), '/tr/article/fpv-kit');
+  assert.equal(localizeArticleLink('/article/fpv-kit', 'en', translated), '/article/fpv-kit');
+  assert.equal(localizeArticleLink('/article/other', 'tr', translated), '/article/other');
+  assert.equal(localizeArticleLink('/guides', 'tr', translated), '/guides');
+  assert.equal(localizeArticleLink('/article/fpv-kit?ref=x', 'tr', translated), '/tr/article/fpv-kit?ref=x');
+});
+
+check('translation pairing requires an explicit translationOf', () => {
+  const translated = { translationOf: 'fpv-kit', slug: 'fpv-kit' } as PublishedArtifact;
+  const sameSlugOnly = { slug: 'fpv-kit' } as PublishedArtifact;
+  assert.equal(isTranslationPair('fpv-kit', translated), true);
+  assert.equal(isTranslationPair('fpv-kit', sameSlugOnly), false);
+  assert.equal(isTranslationPair('fpv-kit', null), false);
 });
 
 let failed = 0;
