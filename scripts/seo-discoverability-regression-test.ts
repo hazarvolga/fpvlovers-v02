@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { generateArticleSchema, generateSeoMetadata } from '../src/lib/seo/metadata';
+import { buildArticleAlternates } from '../src/lib/seo/article-alternates';
 
 const metadata = generateSeoMetadata({
   title: 'Test guide',
@@ -44,5 +45,21 @@ assert.match(articlePage, /robots: \{ index: false, follow: true \}/);
 assert.match(articlePage, /BreadcrumbList/);
 assert.match(articlePage, /isApprovedHandsOnReview/);
 assert.ok(fs.existsSync(path.join(process.cwd(), 'src/app/llms.txt/route.ts')));
+
+const paired = buildArticleAlternates('test-guide', true, true);
+assert.equal(paired.en, 'https://fpvlovers.com.tr/article/test-guide');
+assert.equal(paired.tr, 'https://fpvlovers.com.tr/tr/article/test-guide');
+assert.equal(paired['x-default'], paired.en);
+assert.deepEqual(buildArticleAlternates('test-guide', true, false), {});
+assert.deepEqual(buildArticleAlternates('test-guide', false, true), {});
+
+const localizedSchema = generateArticleSchema({
+  title: 'Test guide',
+  description: 'Test description',
+  url: 'https://fpvlovers.com.tr/tr/article/test-guide',
+  inLanguage: 'tr',
+});
+assert.equal((localizedSchema as { inLanguage?: string }).inLanguage, 'tr');
+assert.equal('inLanguage' in articleSchema, false);
 
 console.log('SEO discoverability regression checks passed');

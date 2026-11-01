@@ -66,6 +66,7 @@ export function generateArticleSchema({
   section,
   wordCount,
   citations = [],
+  inLanguage,
 }: {
   title: string;
   description: string;
@@ -77,6 +78,7 @@ export function generateArticleSchema({
   section?: string;
   wordCount?: number;
   citations?: string[];
+  inLanguage?: string;
 }) {
   return {
     '@context': 'https://schema.org',
@@ -84,6 +86,7 @@ export function generateArticleSchema({
     headline: title,
     description,
     url,
+    ...(inLanguage && { inLanguage }),
     ...(datePublished && { datePublished }),
     ...(dateModified && { dateModified }),
     ...(image && { image: [image] }),

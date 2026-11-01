@@ -318,6 +318,24 @@ check('article links switch to the Turkish tree only for published translations'
   assert.equal(localizeArticleLink('/article/fpv-kit?ref=x', 'tr', translated), '/tr/article/fpv-kit?ref=x');
 });
 
+check('Turkish article route reads only Turkish artifacts', () => {
+  const source = readFileSync('src/app/tr/article/[slug]/page.tsx', 'utf8');
+  assert.match(source, /getPublishedContentBySlugAsync\(slug, 'tr'\)/);
+  assert.match(source, /if \(!article\) notFound\(\)/, 'missing Turkish artifacts must 404');
+  assert.doesNotMatch(source, /firstWaveContentPlan/, 'no English editorial-plan shells in the Turkish tree');
+  assert.doesNotMatch(source, /fetchEditorialInsights/, 'no legacy English insights in the Turkish tree');
+  assert.match(source, /inLanguage: 'tr'/);
+  assert.match(source, /locale="tr"/);
+  assert.match(source, /locale: 'tr_TR'/);
+});
+
+check('English article metadata advertises published Turkish translations', () => {
+  const source = readFileSync('src/app/(en)/article/[slug]/page.tsx', 'utf8');
+  assert.match(source, /isTranslationPair\(published\.slug, turkish\)/);
+  assert.match(source, /buildArticleAlternates/);
+  assert.match(source, /inLanguage: 'en'/);
+});
+
 check('translation pairing requires an explicit translationOf', () => {
   const translated = { translationOf: 'fpv-kit', slug: 'fpv-kit' } as PublishedArtifact;
   const sameSlugOnly = { slug: 'fpv-kit' } as PublishedArtifact;

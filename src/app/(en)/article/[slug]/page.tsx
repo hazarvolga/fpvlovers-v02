@@ -9,8 +9,10 @@ import {
   getPublishedContentBySlugAsync,
   getArtifactWordCount,
   isIndexablePublishedArtifact,
+  isTranslationPair,
   type PublishedArtifact,
 } from '@/lib/content-automation/content-reader';
+import { buildArticleAlternates } from '@/lib/seo/article-alternates';
 import { getRelatedContent } from '@/lib/content-discovery/related-engine';
 import { getRecommendedNextSteps } from '@/lib/content-discovery/progression-engine';
 import { firstWaveContentPlan } from '@/lib/content-plan';
@@ -57,12 +59,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const published = await getPublishedContentBySlugAsync(resolvedParams.slug);
   if (published) {
     const canonical = `/article/${published.slug}`;
+    const turkish = await getPublishedContentBySlugAsync(published.slug, 'tr');
+    const languages = buildArticleAlternates(
+      published.slug,
+      true,
+      isTranslationPair(published.slug, turkish),
+    );
     const image = published.media?.coverImage?.src;
     return {
       title: `${published.title} | FPVLovers`,
       description: published.excerpt || published.seo.metaDescription,
       keywords: published.seo.keywords,
-      alternates: { canonical },
+      alternates: Object.keys(languages).length > 0 ? { canonical, languages } : { canonical },
       robots: isIndexablePublishedArtifact(published)
         ? { index: true, follow: true }
         : { index: false, follow: true },
@@ -142,6 +150,7 @@ function PublishedArticle({ article, relatedContent = [], nextSteps = [] }: { ar
       section: a.category,
       wordCount: getArtifactWordCount(a),
       citations: sourceReferences,
+      inLanguage: 'en',
     }),
     mainEntityOfPage: { '@type': 'WebPage', '@id': articleUrl },
   };
