@@ -459,6 +459,22 @@ check('sitemap lists original Turkish articles without alternates', () => {
   assert.match(source, /\.\.\.turkishOriginalUrls/, 'original URLs must be emitted');
 });
 
+check('Turkish start steps never fall back to an English page', () => {
+  for (const step of START_STEPS.tr) {
+    assert.equal(step.page, undefined, `${step.title} still links an untranslated page`);
+  }
+});
+
+check('every Turkish start step has a published Turkish article', () => {
+  const trSlugs = new Set(listPublishedContent('tr').map((artifact) => artifact.slug));
+  for (const step of START_STEPS.tr) {
+    assert.ok(step.articleSlugs.length > 0, `${step.title} has no Turkish article`);
+    for (const slug of step.articleSlugs) {
+      assert.ok(trSlugs.has(slug), `missing Turkish artifact: ${slug}`);
+    }
+  }
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {
