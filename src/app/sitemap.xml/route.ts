@@ -122,12 +122,14 @@ export async function GET() {
     console.error('[Sitemap] Failed to load published content from files:', err);
   }
 
-  // Pairs only through translationOf; listPublishedContentAsync('tr') falls back
-  // to an empty list when the Turkish directory or database is unavailable.
-  const turkishIndex = indexTranslationsBySource(
-    await listPublishedContentAsync('tr'),
-    isIndexablePublishedArtifact,
-  );
+  // Pairs only through translationOf; originals are emitted on their own below.
+  // listPublishedContentAsync('tr') falls back to an empty list when the
+  // Turkish directory or database is unavailable.
+  const turkishArticles = await listPublishedContentAsync('tr');
+  const turkishIndex = indexTranslationsBySource(turkishArticles, isIndexablePublishedArtifact);
+  const turkishOriginals = turkishArticles
+    .filter(isIndexablePublishedArtifact)
+    .filter((article) => !article.translationOf);
 
   const staticUrls = STATIC_PAGES.map(page => `
     <url>
@@ -163,6 +165,14 @@ export async function GET() {
       <changefreq>weekly</changefreq>${articleAlternates(sourceSlug, article.slug)}
     </url>`);
 
+  const turkishOriginalUrls = turkishOriginals.map((article) => `
+    <url>
+      <loc>${BASE_URL}${turkishArticlePath(article.slug)}</loc>
+      ${article.publishedAt ? `<lastmod>${new Date(article.publishedAt).toISOString()}</lastmod>` : ''}
+      <priority>0.8</priority>
+      <changefreq>weekly</changefreq>
+    </url>`);
+
   const legalUrls = LEGAL_PAGE_PAIRS.flatMap(({ en, tr }) => [
     legalUrl(en, legalAlternates(en, tr)),
     legalUrl(tr, legalAlternates(en, tr)),
@@ -175,6 +185,7 @@ export async function GET() {
     ...dynamicUrls,
     ...turkishStaticUrls,
     ...turkishArticleUrls,
+    ...turkishOriginalUrls,
     ...(legalReady ? legalUrls : []),
     ...(legalReady ? turkishOnlyLegalUrls : []),
   ].join('\n');

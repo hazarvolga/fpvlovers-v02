@@ -452,6 +452,13 @@ check('publish artifact records the origin marker when given one', () => {
   assert.match(source, /export type PublishOrigin = 'tr'/);
 });
 
+check('sitemap lists original Turkish articles without alternates', () => {
+  const source = readFileSync('src/app/sitemap.xml/route.ts', 'utf8');
+  assert.match(source, /const turkishArticles = await listPublishedContentAsync\('tr'\)/, 'the Turkish tree must be loaded once');
+  assert.match(source, /const turkishOriginals = turkishArticles[\s\S]{0,120}\.filter\(\(article\) => !article\.translationOf\)/, 'originals need their own URL list');
+  assert.match(source, /\.\.\.turkishOriginalUrls/, 'original URLs must be emitted');
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {
