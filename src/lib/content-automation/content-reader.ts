@@ -117,7 +117,7 @@ export function isTranslationPair(
   return candidate?.translationOf === sourceSlug;
 }
 
-export function getArtifactWordCount(article: PublishedArtifact): number {
+export function getArtifactWordCount(article: Pick<PublishedArtifact, 'bodySections'>): number {
   return (article.bodySections || [])
     .flatMap((section) => section.content.split(/\s+/))
     .filter(Boolean)

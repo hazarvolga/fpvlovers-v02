@@ -19,7 +19,7 @@ export type GeneratedContent = {
   media?: ContentMedia;
 };
 
-const extractJsonBlock = (answer: string): string | null => {
+export const extractJsonBlock = (answer: string): string | null => {
   const trimmed = answer.trim();
   if (!trimmed) return null;
 

@@ -105,7 +105,7 @@ function delay(ms: number) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms));
 }
 
-function isRetryableWorkflowFailure(workflow: { success: boolean; status: string; error?: string }): boolean {
+export function isRetryableWorkflowFailure(workflow: { success: boolean; status: string; error?: string }): boolean {
   if (workflow.success) return false;
   if (workflow.status === 'throttled' || workflow.status === 'budget_exceeded' || workflow.status === 'dry_run') return false;
   return RETRYABLE_WORKFLOW_ERROR.test(workflow.error || '');
