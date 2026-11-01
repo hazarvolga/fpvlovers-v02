@@ -746,6 +746,29 @@ git commit -m "chore(content): repair inline article imagery from raw crawl data
 
 Fill the angle-bracket values with the numbers from Steps 1 and 4 before committing.
 
+**Result (2026-11-01) — the plan's assumption did not survive contact with the data.**
+
+Baseline measured: `{"files":153,"filled":95,"empty":58,"figs":110,"cover":153}` (the plan's guess was 94/59).
+
+The injector as written could not run: `content_engine.raw_content` has no `domain` column
+(`url, raw_markdown, source, content_hash, metadata, crawled_at, updated_at, is_active`).
+After aligning the query, the first full run produced **60 articles "matched"**, and sampling
+the output showed why that number was meaningless: "Who This Is For" was illustrated with
+`Pilotos del SDT`, goggle evaluation criteria with a Drone Champions League photo. The pool
+holds only league/team imagery (dronechampionsleague.com, multigp.com, f9u.it,
+spaindroneteam.com, streetleague.io, droneracing.fai.org) while the empty articles are
+tutorials sourced from betaflight.com and expresslrs.org.
+
+That run was reverted. The injector now only uses images harvested from an article's own
+declared sources and never replaces an existing figure (`f592e18`). Re-measured with the
+scoped injector: 31 crawled pages, 51 editorial images, **2 source-bound matches, 0 new
+figures** — and those two already carried the same figure. Coverage is therefore unchanged:
+`{"files":153,"filled":95,"empty":58,"figs":110}`.
+
+No shadow re-sync was needed because no artifact changed. Closing the remaining 58 needs the
+articles' own source pages crawled (betaflight.com/docs/wiki, expresslrs.org, ...), which is a
+crawl-pipeline job, not a media-repair one; until then those articles stay cover-only.
+
 ---
 
 ### Task 5: Translate the simulator practice plan (step 2)
