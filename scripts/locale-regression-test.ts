@@ -31,6 +31,7 @@ import {
   type PublishedArtifact,
 } from '../src/lib/content-automation/content-reader';
 import { buildContentMedia, buildCoverImageUrl } from '../src/lib/content-automation/content-media';
+import { indexTranslationsBySource } from '../src/lib/content-automation/translation-index';
 import { navigationData } from '../src/lib/navigationData';
 import {
   CHROME_COPY,
@@ -386,6 +387,36 @@ check('translation pairing requires an explicit translationOf', () => {
   assert.equal(isTranslationPair('fpv-kit', translated), true);
   assert.equal(isTranslationPair('fpv-kit', sameSlugOnly), false);
   assert.equal(isTranslationPair('fpv-kit', null), false);
+});
+
+check('translation index ignores same-slug artifacts without translationOf', () => {
+  const translated = { slug: 'k', translationOf: 'k' } as PublishedArtifact;
+  const sameSlugOnly = { slug: 'other' } as PublishedArtifact;
+  const index = indexTranslationsBySource([translated, sameSlugOnly]);
+  assert.equal(index.get('k'), translated);
+  assert.equal(index.size, 1);
+  assert.equal(indexTranslationsBySource([translated], () => false).size, 0);
+});
+
+check('sitemap pairs Turkish articles through translationOf', () => {
+  const source = readFileSync('src/app/sitemap.xml/route.ts', 'utf8');
+  assert.match(source, /indexTranslationsBySource/);
+  assert.doesNotMatch(source, /turkishArticlesBySlug\.has\(slug\)/, 'same-slug coincidence must not create an hreflang cluster');
+});
+
+check('shadow-table analytics queries stay on the English tree', () => {
+  const status = readFileSync('src/lib/automation/automation-status.ts', 'utf8');
+  assert.match(status, /FROM fpvlovers_app\.published_articles_shadow\s+WHERE locale = 'en'/);
+  const newsletter = readFileSync('src/lib/server/newsletter-orchestrator.ts', 'utf8');
+  assert.match(newsletter, /FROM fpvlovers_app\.published_articles_shadow\s+WHERE locale = 'en'/);
+});
+
+check('content language audit covers both trees and the translation pairing', () => {
+  const source = readFileSync('scripts/content-language-audit.ts', 'utf8');
+  assert.match(source, /path\.join\(PUBLISHED_DIR, 'tr'\)/);
+  assert.match(source, /hasLanguageMismatch\(artifact, 'tr'\)/);
+  assert.match(source, /Missing translationOf/);
+  assert.match(source, /Missing locale:"tr" marker/);
 });
 
 let failed = 0;

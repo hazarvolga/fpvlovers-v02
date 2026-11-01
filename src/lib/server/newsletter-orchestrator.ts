@@ -16,7 +16,8 @@ export class NewsletterOrchestrator {
       // For now, we fetch the latest 3 published articles as a placeholder for "top content".
       
       const recentArticles = await query<{ title: string; excerpt: string; slug: string }>(
-        `SELECT title, excerpt, slug FROM fpvlovers_app.published_articles_shadow 
+        `SELECT title, excerpt, slug FROM fpvlovers_app.published_articles_shadow
+         WHERE locale = 'en'
          ORDER BY published_at DESC NULLS LAST LIMIT 3`
       );
 

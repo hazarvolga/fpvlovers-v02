@@ -220,10 +220,12 @@ export async function getAutomationStatusReport(
         COUNT(*) FILTER (WHERE published_at >= NOW() - INTERVAL '14 days') AS published_last_14d,
         COUNT(DISTINCT published_at::date) FILTER (WHERE published_at >= NOW() - INTERVAL '14 days') AS observed_days_14d
       FROM fpvlovers_app.published_articles_shadow
+      WHERE locale = 'en'
     `),
     query<RecentPublishedRow>(`
       SELECT slug, title, published_at, updated_at
       FROM fpvlovers_app.published_articles_shadow
+      WHERE locale = 'en'
       ORDER BY GREATEST(COALESCE(updated_at, 'epoch'), COALESCE(published_at, 'epoch')) DESC
       LIMIT 10
     `),

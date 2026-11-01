@@ -2,6 +2,7 @@ import {
   isIndexablePublishedArtifact,
   listPublishedContentAsync,
 } from '@/lib/content-automation/content-reader';
+import { indexTranslationsBySource } from '@/lib/content-automation/translation-index';
 import { isTranslatedPath, localizePath } from '@/lib/i18n/locale';
 import { getLegalController, isLegalControllerConfigured } from '@/lib/legal/controller';
 import { LEGAL_PAGE_PAIRS, LEGAL_PATHS } from '@/lib/legal/paths';
@@ -84,11 +85,11 @@ function alternateLinks(path: string): string {
  * A translated article pair carries both language alternates on both sides;
  * an article with no counterpart advertises nothing.
  */
-function articleAlternates(slug: string, hasCounterpart: boolean): string {
-  if (!hasCounterpart) return '';
+function articleAlternates(slug: string, turkishSlug: string | undefined): string {
+  if (!turkishSlug) return '';
   return [
     `      <xhtml:link rel="alternate" hreflang="en" href="${BASE_URL}/article/${slug}" />`,
-    `      <xhtml:link rel="alternate" hreflang="tr" href="${BASE_URL}${turkishArticlePath(slug)}" />`,
+    `      <xhtml:link rel="alternate" hreflang="tr" href="${BASE_URL}${turkishArticlePath(turkishSlug)}" />`,
   ].map((link) => `\n${link}`).join('');
 }
 
@@ -121,14 +122,12 @@ export async function GET() {
     console.error('[Sitemap] Failed to load published content from files:', err);
   }
 
-  // listPublishedContentAsync('tr') already falls back to an empty list when the
-  // Turkish content directory is missing or the database read fails.
-  const turkishArticlesBySlug = new Map<string, string>();
-  for (const article of await listPublishedContentAsync('tr')) {
-    if (article.slug && isIndexablePublishedArtifact(article)) {
-      turkishArticlesBySlug.set(article.slug, article.publishedAt);
-    }
-  }
+  // Pairs only through translationOf; listPublishedContentAsync('tr') falls back
+  // to an empty list when the Turkish directory or database is unavailable.
+  const turkishIndex = indexTranslationsBySource(
+    await listPublishedContentAsync('tr'),
+    isIndexablePublishedArtifact,
+  );
 
   const staticUrls = STATIC_PAGES.map(page => `
     <url>
@@ -142,7 +141,7 @@ export async function GET() {
       <loc>${BASE_URL}/article/${slug}</loc>
       ${publishedAt ? `<lastmod>${new Date(publishedAt).toISOString()}</lastmod>` : ''}
       <priority>0.8</priority>
-      <changefreq>weekly</changefreq>${articleAlternates(slug, turkishArticlesBySlug.has(slug))}
+      <changefreq>weekly</changefreq>${articleAlternates(slug, turkishIndex.get(slug)?.slug)}
     </url>`);
 
   const turkishStaticUrls = STATIC_PAGES
@@ -154,12 +153,14 @@ export async function GET() {
       <changefreq>${page.changefreq}</changefreq>${alternateLinks(page.url)}
     </url>`);
 
-  const turkishArticleUrls = Array.from(turkishArticlesBySlug.entries()).map(([slug, publishedAt]) => `
+  const turkishArticleUrls = Array.from(turkishIndex.entries())
+    .filter(([sourceSlug]) => articlesBySlug.has(sourceSlug))
+    .map(([sourceSlug, article]) => `
     <url>
-      <loc>${BASE_URL}${turkishArticlePath(slug)}</loc>
-      ${publishedAt ? `<lastmod>${new Date(publishedAt).toISOString()}</lastmod>` : ''}
+      <loc>${BASE_URL}${turkishArticlePath(article.slug)}</loc>
+      ${article.publishedAt ? `<lastmod>${new Date(article.publishedAt).toISOString()}</lastmod>` : ''}
       <priority>0.8</priority>
-      <changefreq>weekly</changefreq>${articleAlternates(slug, articlesBySlug.has(slug))}
+      <changefreq>weekly</changefreq>${articleAlternates(sourceSlug, article.slug)}
     </url>`);
 
   const legalUrls = LEGAL_PAGE_PAIRS.flatMap(({ en, tr }) => [
