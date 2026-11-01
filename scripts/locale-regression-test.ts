@@ -31,6 +31,7 @@ import {
   type PublishedArtifact,
 } from '../src/lib/content-automation/content-reader';
 import { buildContentMedia, buildCoverImageUrl } from '../src/lib/content-automation/content-media';
+import { assertPublishableLocale } from '../src/lib/content-automation/publish-artifact';
 import { indexTranslationsBySource } from '../src/lib/content-automation/translation-index';
 import { navigationData } from '../src/lib/navigationData';
 import {
@@ -171,8 +172,16 @@ check('Turkish listing contains only Turkish artifacts', () => {
   const turkish = listPublishedContent('tr');
   for (const artifact of turkish) {
     assert.equal(artifact.locale, 'tr', `artifact ${artifact.slug} is in the tr tree without locale "tr"`);
-    assert.ok(artifact.translationOf, `artifact ${artifact.slug} has no translationOf pairing`);
-    assert.ok(getPublishedContentBySlug(artifact.translationOf as string, 'en'), `${artifact.slug} pairs with a missing English source`);
+    assert.ok(
+      artifact.translationOf || artifact.origin === 'tr',
+      `artifact ${artifact.slug} has neither translationOf nor origin "tr"`,
+    );
+    if (artifact.translationOf) {
+      assert.ok(
+        getPublishedContentBySlug(artifact.translationOf, 'en'),
+        `${artifact.slug} pairs with a missing English source`,
+      );
+    }
   }
 });
 
@@ -373,7 +382,7 @@ check('publishers write Turkish artifacts into content/published/tr', () => {
   assert.ok(publishedDirFor('en').endsWith(path.join('content', 'published')));
   assert.ok(!publishedDirFor('en').endsWith(path.join('published', 'en')));
   const source = readFileSync('src/lib/content-automation/publish-artifact.ts', 'utf8');
-  assert.match(source, /assertPublishableLocale\(locale, options\.translationOf\)/);
+  assert.match(source, /assertPublishableLocale\(locale, options\.translationOf, options\.origin\)/);
   assert.match(source, /Turkish artifacts require translationOf/);
   assert.match(source, /publishedDirFor\(locale\)/);
   assert.match(source, /\.\.\.\(locale !== DEFAULT_LOCALE \? \{ locale \} : \{\}\)/);
@@ -425,6 +434,22 @@ check('breadcrumb home crumb follows the locale', () => {
   assert.match(source, /getChromeCopy\(locale\)/, 'screen-reader labels follow the locale');
   const trArticle = readFileSync('src/app/tr/article/[slug]/page.tsx', 'utf8');
   assert.match(trArticle, /CyberBreadcrumb[\s\S]{0,200}locale="tr"/);
+});
+
+check('Turkish artifacts accept either a translation pairing or an original origin', () => {
+  assert.doesNotThrow(() => assertPublishableLocale('tr', 'english-slug'));
+  assert.doesNotThrow(() => assertPublishableLocale('tr', undefined, 'tr'));
+  assert.throws(
+    () => assertPublishableLocale('tr', undefined),
+    /Turkish artifacts require translationOf/,
+  );
+  assert.doesNotThrow(() => assertPublishableLocale('en', undefined));
+});
+
+check('publish artifact records the origin marker when given one', () => {
+  const source = readFileSync('src/lib/content-automation/publish-artifact.ts', 'utf8');
+  assert.match(source, /\.\.\.\(options\.origin \? \{ origin: options\.origin \} : \{\}\)/);
+  assert.match(source, /export type PublishOrigin = 'tr'/);
 });
 
 let failed = 0;

@@ -102,6 +102,8 @@ export type PublishedArtifact = GeneratedContent & {
   locale?: Locale;
   /** English slug this artifact translates; the only honest pairing source. */
   translationOf?: string;
+  /** Marks content written originally in Turkish, with no English counterpart. */
+  origin?: 'tr';
   media?: ContentMedia;
   coverImage?: string;
   metadata?: ContentMetadata;

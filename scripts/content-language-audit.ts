@@ -47,8 +47,8 @@ for (const tree of TREES) {
       if (hasLanguageMismatch(artifact, 'tr')) {
         failures.push({ file, slug: artifact.slug, reason: 'English text in the Turkish tree' });
       }
-      if (!artifact.translationOf) {
-        failures.push({ file, slug: artifact.slug, reason: 'Missing translationOf' });
+      if (!artifact.translationOf && artifact.origin !== 'tr') {
+        failures.push({ file, slug: artifact.slug, reason: 'Missing translationOf or origin:"tr"' });
       }
       if (artifact.locale !== 'tr') {
         failures.push({ file, slug: artifact.slug, reason: `Missing locale:"tr" marker (found ${artifact.locale || 'none'})` });

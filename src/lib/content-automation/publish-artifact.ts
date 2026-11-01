@@ -112,16 +112,25 @@ async function downloadToSourceCache(
   }
 }
 
+export type PublishOrigin = 'tr';
+
 export type PublishArtifactOptions = {
   locale?: Locale;
   translationOf?: string;
+  origin?: PublishOrigin;
   metadata?: ContentMetadata;
   sourceReferences?: string[];
 };
 
-export function assertPublishableLocale(locale: Locale, translationOf: string | undefined): void {
-  if (locale === 'tr' && !translationOf) {
-    throw new Error('Turkish artifacts require translationOf: the English slug is the only pairing signal.');
+export function assertPublishableLocale(
+  locale: Locale,
+  translationOf: string | undefined,
+  origin?: PublishOrigin,
+): void {
+  if (locale === 'tr' && !translationOf && origin !== 'tr') {
+    throw new Error(
+      'Turkish artifacts require translationOf or origin "tr": one of them names where the content came from.',
+    );
   }
 }
 
@@ -132,7 +141,7 @@ export async function publishGeneratedContentArtifact(
   options: PublishArtifactOptions = {},
 ): Promise<string> {
   const locale = options.locale ?? DEFAULT_LOCALE;
-  assertPublishableLocale(locale, options.translationOf);
+  assertPublishableLocale(locale, options.translationOf, options.origin);
 
   const classification = classifyEditorialContent({
     category: job.category,
@@ -289,6 +298,7 @@ export async function publishGeneratedContentArtifact(
     slug,
     ...(locale !== DEFAULT_LOCALE ? { locale } : {}),
     ...(options.translationOf ? { translationOf: options.translationOf } : {}),
+    ...(options.origin ? { origin: options.origin } : {}),
     ...(options.metadata ? { metadata: options.metadata } : {}),
     title: content.title,
     jobId: job.id,
