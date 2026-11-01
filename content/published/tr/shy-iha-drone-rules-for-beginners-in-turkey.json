@@ -1,0 +1,98 @@
+{
+  "slug": "shy-iha-drone-rules-for-beginners-in-turkey",
+  "locale": "tr",
+  "origin": "tr",
+  "metadata": {
+    "difficulty": "beginner",
+    "contentType": "reference",
+    "topics": [
+      "regulations"
+    ],
+    "audience": [
+      "new-pilot"
+    ],
+    "discipline": [
+      "general"
+    ]
+  },
+  "title": "SHY-İHA: Yeni Başlayanlar İçin Türkiye'de Drone Kuralları",
+  "jobId": "original-tr-shy-iha-drone-rules-for-beginners-in-turkey-mvxf0jqd",
+  "category": "Regulations",
+  "template": "regulation-guide",
+  "seo": {
+    "slug": "shy-iha-drone-rules-for-beginners-in-turkey",
+    "metaDescription": "Türkiye'de drone kuralları: SHT-İHA kapsamında kayıt, pilot lisans seviyeleri, yeşil bölge, uçuş izni ve sigorta yükümlülüklerinin resmî kaynaklı özeti.",
+    "keywords": [
+      "drone kuralları",
+      "shy iha",
+      "iha mevzuatı"
+    ]
+  },
+  "excerpt": "Türkiye'de İHA uçuşlarına başlamadan önce bilinmesi gereken resmî çerçevenin, her iddiası kaynağına bağlı bir özeti.",
+  "bodySections": [
+    {
+      "id": "kapsam",
+      "title": "Kapsam ve Tanımlar",
+      "content": "Türkiye'de drone kuralları denince akla ilk gelen metin, Sivil Havacılık Genel Müdürlüğü'nün (SHGM) yayımladığı İnsansız Hava Aracı Sistemleri Talimatı'dır. Kısaltma olarak SHY-İHA adı da kullanılagelir; ancak bu rehberde esas alınan resmî belgenin başlığı SHT-İHA'dır (Kaynak: mevzuat.shgm.gov.tr — Talimatlar listesi). Talimatın 2026 sürümü, Türk hava sahasında sivil amaçla işletilecek veya kullanılacak insansız hava aracı sistemlerini, bu sistemlerin bileşenlerini ve uzaktan tanımlama eklentilerini kapsıyor (Kaynak: SHT-İHA, Madde 2).\n\nDrone kuralları açısından aynı madde, kapsam dışında kalan üç durumu da açıkça sayıyor: devlet insansız hava araçları, münhasıran kapalı alanlarda gerçekleştirilen operasyonlar ve yere ya da bir platforma bağlı insansız balon ve benzeri sistemler. Yani kapalı bir salonda uçurduğunuz küçük bir drone ile açık havada uçurduğunuz aynı drone, mevzuat açısından aynı kapsamda değerlendirilmiyor. Yeni başlayanların drone kuralları konusunda ilk öğrenmesi gereken ayrım budur.\n\nDrone kuralları içinde en pratik tanım **Basit İHA** kavramıdır. Madde 8'de Basit İHA, tasarımı gereği yatayda 10 metre yarı çaplı ve dikeyde 20 metre (60 ft) yükseklikteki silindirik uçuş zarfının dışına çıkamayan ve M0 sınıfı için öngörülen özellikleri aşmayan araç olarak tanımlanıyor. Bu araçlar sınıflandırma dışında tutuluyor ve Talimattaki pilot lisansı, kayıt, tescil ve ithal uygunluk yükümlülüklerinden muaf sayılıyor (Kaynak: SHT-İHA, Madde 8/2).\n\nBunun dışında kalan araçlar kalkış kütlesine göre dört sınıfa ayrılıyor (Kaynak: SHT-İHA, Madde 8/1): M0 sınıfı 500 gram (dâhil) ile 4 kilogram arası, M1 sınıfı 4 kilogram (dâhil) ile 25 kilogram arası, M2 sınıfı 25 kilogram (dâhil) ile 150 kilogram arası ve M3 sınıfı 150 kilogram (dâhil) ve üzeri. Talimat ayrıca azami kalkış kütlesi 500 gramın altında olup Basit İHA tanımını karşılamayan araçların da M0 sınıfı hükümlerine tabi olduğunu belirtiyor (Kaynak: SHT-İHA, Madde 8/3). Kısacası \"hafif\" olmak tek başına muafiyet anlamına gelmiyor; drone kuralları açısından belirleyici olan, aracın uçuş zarfı ve sınıfıdır."
+    },
+    {
+      "id": "kayit",
+      "title": "Kayıt ve Yeterlilik",
+      "content": "Türkiye'de drone kuralları pratikte iki aşamalı bir kayıtla başlıyor. SHGM'nin İHA Kayıt Sistemi sayfası, ağırlığı 500 gram ve üstü İHA satanların, alanların, üretenlerin, ithal edenlerin ve uçuranların bu sistemde kayıt işlemi yapmalarının zorunlu olduğunu belirtiyor. Aynı sayfa, Türkiye hava sahasında 500 gram ve üzeri İHA uçurmak isteyen pilotların sisteme kayıt olmaları ve SHGM'den onay almaları gerektiğini de açıkça yazıyor (Kaynak: iha.shgm.gov.tr — İHA Kayıt Sistemi). Yeni başlayanların drone kuralları konusunda en sık atladığı adım genellikle budur: uçuştan önce kayıt ve onay.\n\nTalimatın kendi metni, drone kuralları açısından kayıt yükümlülüğünü iki katmanda düzenliyor. Birinci katman **kullanıcı kaydı**: Basit İHA hariç olmak üzere, insansız hava aracı ile operasyon yapan tüm kullanıcıların Genel Müdürlük kayıt sistemine İHATTYS (İnsansız Hava Aracı Takip ve Trafik Yönetim Sistemi) üzerinden doğrudan kaydı zorunlu (Kaynak: SHT-İHA, Madde 11/1). İkinci katman **tescil**: 120 metre yüksekliğin ve/veya 3.000 metre yatay uzaklığın ötesinde P2 lisansı ile görerek veya görüş hattı dışı uçuş yapılacak araçlar için tescil şartı aranıyor; bu araçların hava trafik hizmeti alabilmesi için tescil numarasına sahip olması ve pilotun P2 lisansını taşıması gerekiyor (Kaynak: SHT-İHA, Madde 11/2).\n\nKayıt, tek başına uçuş yetkisi vermiyor. Drone kuralları, İHA pilot lisanslarını üç düzeyde düzenliyor (Kaynak: SHT-İHA, Madde 15/2). **P0** lisansı ticari amaç taşımayan operasyonlar için veriliyor ve görsel görüş hattında (VLOS), gündüz, azami 120 metre yükseklik ile 3.000 metre görüş mesafesi veya yatay uzaklık sınırları içinde uçuşa izin veriyor. **P1** lisansı ticari operasyonlar için düzenleniyor; o da VLOS, 120 metre ve 3.000 metre zarfında geçerli, ancak uygun donanımla gece operasyonuna da imkân tanıyor. **P2** ise en kapsamlı seviye: P0 ve P1 kapsamındaki tüm operasyonlara ek olarak görüş hattı dışı (BVLOS), otonom, kargo ve insan üstü uçuş gibi yüksek riskli operasyonları kapsıyor ve 120 metrenin üzerindeki uçuşlar yalnızca ilgili kurum ve kuruluşlarla koordinasyonla yürütülüyor (Kaynak: SHT-İHA, Madde 15/2/c).\n\nYaş sınırları da lisansa bağlı: P0 için asgari on yaş, P1 ve P2 için asgari on sekiz yaş aranıyor (Kaynak: SHT-İHA, Madde 17). Sağlık tarafında ise P2 için en az üçüncü sınıf sağlık sertifikası zorunlu; P0 ve P1 için sağlık raporu istenmiyor, bunun yerine göreve elverişlilik öz-beyanı alınıyor (Kaynak: SHT-İHA, Madde 15/6).\n\nYeni başlayanların en çok karıştırdığı nokta **diploma lisansı ile operasyonel lisans** ayrımı. Talimat, eğitim ve sınavı başarıyla tamamlayan adaylar adına ilgili seviyeye ait diploma lisansının KDM-ORG üzerinden düzenlendiğini, uçuş icrasına yetki veren operasyonel lisansın ise ayrıca KDM-ERP üzerinden başvuruyla alındığını belirtiyor. Metin, operasyonel lisans alınmasının uçuş için zorunlu olduğunu ve yalnızca diploma lisansının uçuş icrası yetkisi vermediğini özellikle vurguluyor (Kaynak: SHT-İHA, Madde 15/4). Türkiye'de drone kuralları üzerine yapılan en yaygın hata, eğitimi bitirip operasyonel lisans başvurusunu atlamaktır."
+    },
+    {
+      "id": "izin",
+      "title": "Uçuş Öncesi İzin ve Alan Kontrolü",
+      "content": "Drone kuralları denince birçok yeni başlayanın aklına tek bir izin geliyor; oysa Talimat, kararı bölge durumuna bağlıyor. Türk hava sahası, insansız hava aracı operasyonları bakımından İHATTYS haritasında yayımlanan yeşil, kırmızı ve turuncu bölgeler ile bunların dışında kalan sahalardan oluşuyor (Kaynak: SHT-İHA, Madde 12/1). Haritadaki renk, izin gerekip gerekmediğini belirleyen asıl bilgidir.\n\nDrone kuralları açısından yeşil bölge, belirlenen irtifa ve şartlar altında operasyonel izne gerek duyulmayan sahalar olarak tanımlanıyor (Kaynak: SHT-İHA, Madde 12/2/a). Kırmızı bölge, ilgili yetkili kurum ve kuruluşlarca operasyonlara kapatılan ve uçuşun izne tabi olduğu sahaları ifade ediyor; bu bölgelerde izin, sahayı kapatan kurumun ve gerekli hâllerde Cumhurbaşkanlığının uygunluğuyla veriliyor (Kaynak: SHT-İHA, Madde 12/2/b). Turuncu bölge ise hakkında üçüncü bir kişi lehine uçuş izni veya hava sahası hacmi tahsisi bulunan sahalar için kullanılıyor (Kaynak: SHT-İHA, Madde 12/2/c).\n\nDrone kuralları açısından en kritik cümle üçüncü fıkrada: yeşil, kırmızı ve turuncu bölgeler dışında kalan sahalarda insansız hava aracı uçuşu izne tabi (Kaynak: SHT-İHA, Madde 12/3). SHGM'nin kayıt sistemi sayfası da aynı mantığı sade bir dille tekrarlıyor: serbest bölge (yeşil) dışında kalan tüm bölgelerde İHA uçurmak için uçuş izni alınması zorunlu (Kaynak: iha.shgm.gov.tr — İHA Kayıt Sistemi). Bu nedenle drone kuralları açısından ilk alışkanlık, uçuş planladığınız noktayı İHATTYS haritasında kontrol etmek olmalı; hafızadan \"burası müsait\" demek güvenilir bir yöntem değil.\n\nDrone kuralları, izin rejimini lisans seviyesine göre de farklılaştırıyor. Talimat, P0 ve P1 için yeşil bölgede sistem üzerinden operasyonel izin aranmadığını, yeşil, kırmızı ve turuncu bölgeler dışında kalan sahalarda ise Genel Müdürlük izni gerektiğini belirtiyor (Kaynak: SHT-İHA, Madde 12/7/b). Kırmızı bölgede ise ek olarak NOTAM aranıyor. P2 için de benzer bir tablo geçerli; ancak talep edilen uçuş zarfının yüksekliği veya operasyonun uzun mesafeli niteliği gerektirdiğinde ilgili kurumlarla koordinasyon, Genel Müdürlük izni ve NOTAM şartı devreye giriyor (Kaynak: SHT-İHA, Madde 12/7/c).\n\nİzin kadar önemli bir başka konu, aracın coğrafi sınırlama davranışı. Talimat, kullanıcı kaydı İHATTYS üzerinden doğrulanmadıkça aracın yatayda 10 metre yarı çaplı ve dikeyde 20 metre yükseklikteki varsayılan silindirik uçuş zarfının dışına çıkamayacak biçimde tasarlanmasını şart koşuyor; kayıt doğrulandığında izin verilen zarf, pilot lisansı seviyesi ve İHATTYS verileri çerçevesinde genişliyor (Kaynak: SHT-İHA, Madde 23/2). Yani yeni bir drone'u ilk açtığınızda gördüğünüz kısıtlı hareket alanı bir arıza değil, kayıt tamamlanana kadar geçerli olan tasarım gereği. Türkiye'de drone kuralları öğrenilirken bu davranışın nedenini bilmek, cihazı kurcalamak yerine kaydı tamamlamayı doğru refleks hâline getiriyor."
+    },
+    {
+      "id": "guvenlik",
+      "title": "Güvenlik ve Sorumluluk",
+      "content": "Drone kuralları yalnızca izinlerden ibaret değil; Talimat, operasyonun her aşamasında güvenlikten kimin sorumlu olduğunu da tanımlıyor. Kullanıcı ve İHA pilotu, operasyonun her aşamasında çevredeki diğer hava araçları ve canlılar için emniyetli bir ortam sağlamaktan sorumlu tutuluyor (Kaynak: SHT-İHA, Madde 7/2). Pilot ayrıca uçuş sırasında aracın emniyetli idaresinden, diğer hava araçlarının ve yerdeki üçüncü şahısların güvenliğinden sorumlu (Kaynak: SHT-İHA, Madde 15/3).\n\nDrone kuralları içinde görsel görüş hattı, yani VLOS, yeni başlayanlar için en pratik güvenlik sınırı. Talimat VLOS'u, optik veya elektronik yardımcıların desteği olmaksızın pilotun hava aracıyla doğrudan görsel temasta kalarak operasyonu yürüttüğü uçuş olarak tanımlıyor (Kaynak: SHT-İHA, Madde 4). P0 ve P1 zarfının VLOS ile sınırlandırılması da bu tanıma dayanıyor. Gözlükle uçan bir FPV pilotu için bunun anlamı şu: görüş hattı dışına çıkan bir operasyon, lisans seviyesi ne olursa olsun drone kuralları bakımından farklı bir rejime geçer.\n\nBağlantı kaybı, drone kurallarının ayrı bir maddeyle ele aldığı risklerden. İnsansız hava aracı sistemlerinin, kontrol bağlantısı koptuğunda meskûn mahaller üzerinden geçmeyecek şekilde önceden belirlenmiş bir kurtarma alanına otomatik gidiş veya uçuş sonlandırma kabiliyetine sahip olması gerekiyor (Kaynak: SHT-İHA, Madde 18/1). Pilot da bağlantı kaybı veya acil durumda ilgili mercilere durumu derhâl bildirmekle yükümlü (Kaynak: SHT-İHA, Madde 18/2). Bu, drone kuralları açısından \"failsafe\" ayarını estetik bir tercih olmaktan çıkarıp operasyonel bir gereklilik hâline getiriyor.\n\nDrone kuralları açısından sigorta tarafı iki farklı resmî kaynakta netleşiyor. SHGM'nin İHA kayıt sisteminin sık sorulan sorular bölümü, 25 kilogram üstü İHA ile ağırlığına bakılmaksızın ticari faaliyet gerçekleştiren İHA için üçüncü şahıs mali mesuliyet sigortası yaptırılması gerektiğini ve sigortasız uçuş yapılmadığını belirtiyor (Kaynak: iha.shgm.gov.tr — Sık Sorulan Sorular). Yani hobi amaçlı hafif uçuşlar ile ticari operasyonlar sigorta yükümlülüğü bakımından aynı kategoride değil; drone kuralları öğrenilirken bu ayrımı bilmek gereksiz masraftan da eksik sigortadan da korur.\n\nDrone kuralları teknik tarafta iki yükümlülük daha getiriyor. Basit İHA hariç, kayıt yükümlülüğüne tabi araçların uzaktan tanımlama sistemine sahip olması zorunlu (Kaynak: SHT-İHA, Madde 23/7). Ayrıca Basit İHA hariç tüm araçların uçuş kontrol yazılımları ve kontrol istasyonu yazılımları dâhil Genel Müdürlükçe düzenlenen yazılım sertifikasyonuna sahip olması isteniyor; sertifikasyona sahip olmayan araçların Türk hava sahasında işletilemeyeceği belirtiliyor (Kaynak: SHT-İHA, Madde 23/4). Yeni başlayanların drone kuralları listesine eklemesi gereken son madde de bu: yurt dışından getirilen araçların da bu şartları sağlaması gerekiyor, aksi hâlde kayıt işlemine konu edilemiyorlar (Kaynak: SHT-İHA, Madde 24/4)."
+    },
+    {
+      "id": "hatalar",
+      "title": "Yeni Başlayanların Sık Yaptığı Hatalar",
+      "content": "Türkiye'de drone kuralları konusunda yeni başlayanların hataları genellikle bilgi eksikliğinden değil, yanlış varsayımdan kaynaklanıyor. Aşağıdaki altı başlık, resmî metinlerle karşılaştırıldığında en sık karşılaşılan yanlışları özetliyor.\n\n**Birincisi, \"küçük drone'a kural işlemez\" varsayımı.** Muafiyet ağırlığa değil, Basit İHA tanımına bağlı. Yatayda 10 metre yarı çaplı ve dikeyde 20 metrelik silindirik zarfı aşabilen ya da M0 sınıfı özellikleri aşan bir araç bu tanımın dışında kalıyor; 500 gramın altında olup Basit İHA tanımını karşılamayan araçlar da M0 hükümlerine tabi (Kaynak: SHT-İHA, Madde 8/2 ve 8/3). Drone kuralları açısından doğru soru \"kaç gram?\" değil, \"hangi zarfta uçuyor?\" olmalı.\n\n**İkincisi, kayıt ile uçuş iznini aynı şey sanmak.** SHGM kayıt sistemi, 500 gram ve üzeri İHA uçurmak isteyenlerin önce sisteme kayıt olması ve onay alması gerektiğini belirtiyor (Kaynak: iha.shgm.gov.tr — İHA Kayıt Sistemi). Ancak kayıt, bölge koşullarını ortadan kaldırmıyor; yeşil bölge dışındaki sahalarda uçuş izni ayrıca gerekiyor (Kaynak: SHT-İHA, Madde 12/3). Kayıt tamamlandı diye her yerde uçulabileceğini düşünmek, yeni başlayanların drone kuralları listesindeki en pahalı hatası.\n\n**Üçüncüsü, haritaya bakmadan uçuş planlamak.** Bölge durumu İHATTYS haritasında yayımlanıyor ve izin verilen saha, izin süresince turuncu bölge olarak işaretleniyor (Kaynak: SHT-İHA, Madde 12 ve 21/3). Kullanıcıların, kısıtlanmış bölge bilgilerini içeren güncel verilerin aracın coğrafi farkındalık fonksiyonuna yüklenmesinden sorumlu olduğu da ayrıca belirtiliyor (Kaynak: SHT-İHA, Madde 12/5). Drone kuralları bakımından bu, uçuş öncesi rutinin ilk adımının harita kontrolü olması gerektiği anlamına geliyor.\n\n**Dördüncüsü, diploma lisansını yeterli görmek.** Talimat, operasyonel lisans alınmadan uçuş yapılamayacağını ve yalnızca diploma lisansının uçuş icrası yetkisi vermediğini açıkça yazıyor (Kaynak: SHT-İHA, Madde 15/4). Drone kuralları üzerine eğitim alan birinin ilk işi, iki lisansın da elinde olup olmadığını kontrol etmek olmalı.\n\n**Beşincisi, 120 metre sınırını lisans seviyesinden bağımsız sanmak.** P0 ve P1 zarfı 120 metre yükseklik ve 3.000 metre mesafeyle tanımlanıyor; 120 metrenin üzerindeki operasyonlar P2 kapsamında ve yalnızca ilgili kurumlarla koordinasyonla yürütülüyor (Kaynak: SHT-İHA, Madde 15/2). Ayrıca her pilot lisansı seviyesinin azami uçuş zarfının, ilgili bölge için öngörülen tavan irtifayı aşamayacağı belirtiliyor (Kaynak: SHT-İHA, Madde 12/6). Yani drone kuralları, iki sınırın küçük olanını esas alıyor.\n\n**Altıncısı, sigortayı ve teknik şartları sonraya bırakmak.** 25 kilogram üstü araçlarla veya ticari faaliyetle uçulacaksa üçüncü şahıs mali mesuliyet sigortası gerekiyor (Kaynak: iha.shgm.gov.tr — Sık Sorulan Sorular); kayıt yükümlülüğüne tabi araçlarda uzaktan tanımlama ve yazılım sertifikasyonu şartı aranıyor (Kaynak: SHT-İHA, Madde 23/4 ve 23/7). Bu şartlar sağlanmadan yapılan uçuşlarda Talimat, 2920 sayılı Kanunun ilgili ceza hükümleri ile SHY-İPC kapsamındaki idari para cezalarına atıf yapıyor (Kaynak: SHT-İHA, Madde 25). Tutar veya oran paylaşmak bu rehberin kapsamı dışında; güncel yaptırım için resmî metne bakılmalı. Kısacası drone kuralları, uçuştan önce tamamlanması gereken bir kontrol listesi gibi okunmalı."
+    },
+    {
+      "id": "kaynakca",
+      "title": "Resmî Kaynaklar",
+      "content": "Bu rehberdeki tüm drone kuralları özeti, aşağıdaki resmî sayfalara dayanır. Uçuş öncesinde metinlerin güncel sürümünü kontrol etmek kullanıcının sorumluluğundadır; özellikle bölge durumu ve izin süreçleri İHATTYS üzerinden değişebilir.\n\n- https://web.shgm.gov.tr/documents/sivilhavacilik/files/SHT-IHA2026.pdf — İnsansız Hava Aracı Sistemleri Talimatı (SHT-İHA), 2026 sürümü; kapsam, sınıflandırma, lisans seviyeleri, bölgeler, teknik gereklilikler ve yaptırımlar.\n- https://mevzuat.shgm.gov.tr/index.php/talimat/ — SHGM Talimatlar listesi; SHT-İHA'nın resmî yayımlandığı dizin.\n- https://iha.shgm.gov.tr/ — SHGM İHA Kayıt Sistemi; 500 gram ve üzeri araçlar için kayıt, onay ve uçuş izni başlangıç noktası.\n- https://iha.shgm.gov.tr/public/sss.aspx — SHGM İHA Sık Sorulan Sorular; sigorta yükümlülüğü ve kayıt süreçlerine ilişkin resmî açıklamalar.\n\nBu dört sayfa, Türkiye'de drone kuralları konusunda birincil kaynak olarak kullanılmalıdır. Üçüncü taraf özetler, forum paylaşımları veya eski tarihli blog yazıları bu rehberde kaynak olarak kullanılmamıştır; drone kuralları hızla güncellendiği için karar verirken her zaman yukarıdaki resmî bağlantılar esas alınmalıdır."
+    }
+  ],
+  "internalLinks": [
+    "/regulations"
+  ],
+  "publishNotes": [
+    "Türkçe özgün içerik; her iddia Resmî Kaynaklar bölümündeki resmî sayfalara dayanır."
+  ],
+  "media": {
+    "coverImage": {
+      "src": "/api/content/media/cover/shy-iha-drone-rules-for-beginners-in-turkey?locale=tr",
+      "alt": "SHY-İHA: Yeni Başlayanlar İçin Türkiye'de Drone Kuralları cover illustration",
+      "caption": "Türkiye'de İHA uçuşlarına başlamadan önce bilinmesi gereken resmî çerçevenin, her iddiası kaynağına bağlı bir özeti.",
+      "source": "FPVLovers local media layer",
+      "credit": "FPVLovers generated artwork",
+      "kind": "generated-artwork"
+    },
+    "gallery": [],
+    "figureCaptions": [],
+    "imageSources": [
+      "Local SVG illustration generated from published content metadata"
+    ],
+    "attribution": [
+      "Copyright-safe media generated locally by FPVLovers"
+    ]
+  },
+  "jobStatus": "published",
+  "publishedAt": "2026-11-01T05:54:26.149Z",
+  "promptVersion": "editorial-original-v1",
+  "sourceHints": [],
+  "sourceReferences": [
+    "https://web.shgm.gov.tr/documents/sivilhavacilik/files/SHT-IHA2026.pdf",
+    "https://mevzuat.shgm.gov.tr/index.php/talimat/",
+    "https://iha.shgm.gov.tr/",
+    "https://iha.shgm.gov.tr/public/sss.aspx"
+  ]
+}
