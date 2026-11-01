@@ -419,6 +419,14 @@ check('content language audit covers both trees and the translation pairing', ()
   assert.match(source, /Missing locale:"tr" marker/);
 });
 
+check('breadcrumb home crumb follows the locale', () => {
+  const source = readFileSync('src/features/navigation/components/Breadcrumb.tsx', 'utf8');
+  assert.match(source, /localizePath\('\/', locale\)/, 'home crumb must not leave Turkish pages on the English tree');
+  assert.match(source, /getChromeCopy\(locale\)/, 'screen-reader labels follow the locale');
+  const trArticle = readFileSync('src/app/tr/article/[slug]/page.tsx', 'utf8');
+  assert.match(trArticle, /CyberBreadcrumb[\s\S]{0,200}locale="tr"/);
+});
+
 let failed = 0;
 for (const { name, run } of checks) {
   try {

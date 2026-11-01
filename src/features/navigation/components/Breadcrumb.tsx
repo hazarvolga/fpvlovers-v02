@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { DEFAULT_LOCALE, localizePath, type Locale } from '@/lib/i18n/locale';
+import { getChromeCopy } from '@/lib/i18n/labels';
 
 export interface BreadcrumbItem {
   label: string;
@@ -33,14 +35,17 @@ export function CyberBreadcrumb({
   items,
   className,
   includeSchema = true,
+  locale = DEFAULT_LOCALE,
 }: {
   items: BreadcrumbItem[];
   className?: string;
   /** Set false on pages that already emit their own combined @graph JSON-LD (e.g. articles). */
   includeSchema?: boolean;
+  locale?: Locale;
 }) {
+  const chrome = getChromeCopy(locale);
   return (
-    <nav aria-label="Breadcrumb" className={cn("flex items-center space-x-2", className)}>
+    <nav aria-label={chrome.breadcrumb} className={cn("flex items-center space-x-2", className)}>
       {includeSchema && (
         <script
           type="application/ld+json"
@@ -50,9 +55,9 @@ export function CyberBreadcrumb({
       <ol className="flex items-center space-x-2 font-mono text-[10px] uppercase tracking-widest text-white/60">
         <li>
           <div className="flex items-center">
-            <Link href="/" className="hover:text-[#00F5FF] transition-colors flex items-center gap-1 group">
+            <Link href={localizePath('/', locale)} className="hover:text-[#00F5FF] transition-colors flex items-center gap-1 group">
               <Home className="w-3 h-3 group-hover:text-[#00F5FF] transition-colors" />
-              <span className="sr-only">Home</span>
+              <span className="sr-only">{chrome.home}</span>
             </Link>
           </div>
         </li>

@@ -138,7 +138,7 @@ function TurkishArticle({
   return (
     <div className="fpv-public-shell mx-auto max-w-7xl px-4 py-12 pt-28 sm:px-6 lg:px-8">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd }} />
-      <CyberBreadcrumb items={breadcrumbs} className="mb-8" includeSchema={false} />
+      <CyberBreadcrumb items={breadcrumbs} className="mb-8" includeSchema={false} locale="tr" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <div className="lg:col-span-8 col-span-1 flex flex-col gap-8 min-w-0">

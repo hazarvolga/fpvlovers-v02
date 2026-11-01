@@ -123,6 +123,7 @@ export type ChromeCopy = {
   closeMenu: string;
   account: string;
   language: string;
+  breadcrumb: string;
 };
 
 export const CHROME_COPY: Record<Locale, ChromeCopy> = {
@@ -133,6 +134,7 @@ export const CHROME_COPY: Record<Locale, ChromeCopy> = {
     closeMenu: 'Close navigation',
     account: 'Account',
     language: 'Language',
+    breadcrumb: 'Breadcrumb',
   },
   tr: {
     home: 'FPVLovers ana sayfa',
@@ -141,6 +143,7 @@ export const CHROME_COPY: Record<Locale, ChromeCopy> = {
     closeMenu: 'Menüyü kapat',
     account: 'Hesap',
     language: 'Dil',
+    breadcrumb: 'Menü yolu',
   },
 };
 
