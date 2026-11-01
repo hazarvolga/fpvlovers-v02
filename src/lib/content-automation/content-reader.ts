@@ -139,12 +139,15 @@ export function isIndexablePublishedArtifact(article: PublishedArtifact): boolea
   return getArtifactWordCount(article) >= 600;
 }
 
-export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): PublishedArtifact | null {
+export function ensureMediaArtifact(
+  parsed: Partial<PublishedArtifact>,
+  locale: Locale = DEFAULT_LOCALE,
+): PublishedArtifact | null {
   if (!parsed || typeof parsed.slug !== 'string') return null;
   const title = typeof parsed.title === 'string' && parsed.title ? parsed.title : parsed.slug;
   const category = typeof parsed.category === 'string' && parsed.category ? parsed.category : 'FPV Reference';
   const excerpt = typeof parsed.excerpt === 'string' ? parsed.excerpt : '';
-  const resolvedMedia = buildContentMedia({ slug: parsed.slug, title, category, excerpt });
+  const resolvedMedia = buildContentMedia({ slug: parsed.slug, title, category, excerpt, locale });
   
   // Eğer JSON dosyasındaki galeri boş ise, dinamik olarak en güncel lisanslı galeriyi enjekte et
   const media = {
@@ -167,7 +170,7 @@ export function ensureMediaArtifact(parsed: Partial<PublishedArtifact>): Publish
     caption: parsed.excerpt || 'FPVLovers editorial content',
     credit: 'FPVLovers generated artwork',
   } : null) || resolvedMedia.coverImage || {
-    src: buildCoverImageUrl(parsed.slug),
+    src: buildCoverImageUrl(parsed.slug, locale),
     alt: parsed.title || parsed.slug,
     caption: parsed.excerpt || 'FPVLovers editorial content',
     credit: 'FPVLovers generated artwork',
@@ -436,7 +439,7 @@ export function listPublishedContent(locale: Locale = DEFAULT_LOCALE): Published
         try {
           const raw = fs.readFileSync(path.join(directory, file), 'utf-8');
           const parsed = JSON.parse(raw);
-          return ensureMediaArtifact(parsed);
+          return ensureMediaArtifact(parsed, locale);
         } catch {
           return null;
         }
@@ -457,7 +460,7 @@ export function getPublishedContentBySlug(
   try {
     const raw = fs.readFileSync(filePath, 'utf-8');
     const parsed = JSON.parse(raw);
-    const artifact = ensureMediaArtifact(parsed);
+    const artifact = ensureMediaArtifact(parsed, locale);
     if (artifact && shouldExposePublishedArtifact(artifact, locale)) return artifact;
     return null;
   } catch {
@@ -484,7 +487,7 @@ async function listPublishedContentAsyncUncached(locale: Locale): Promise<Publis
     const merged = new Map<string, PublishedArtifact>();
 
     for (const artifact of [...files, ...database]) {
-      const normalized = ensureMediaArtifact(artifact);
+      const normalized = ensureMediaArtifact(artifact, locale);
       if (!normalized) continue;
       if (!shouldExposePublishedArtifact(normalized, locale)) continue;
       const existing = merged.get(normalized.slug);
@@ -520,7 +523,7 @@ async function getPublishedContentBySlugAsyncUncached(
   try {
     const { getPublishedArtifact } = await import('@/lib/server/published-content-store');
     const database = await getPublishedArtifact(slug, locale);
-    const normalized = database ? ensureMediaArtifact(database) : null;
+    const normalized = database ? ensureMediaArtifact(database, locale) : null;
     if (normalized && shouldExposePublishedArtifact(normalized, locale)) return normalized;
   } catch (error) {
     console.warn(`[Published Content] Database lookup failed for ${slug}, using committed file:`, error);

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import path from 'node:path';
 import { readFileSync } from 'node:fs';
 import {
   DEFAULT_LOCALE,
@@ -26,9 +27,10 @@ import {
   hasTurkishLanguageLeak,
   isTranslationPair,
   listPublishedContent,
+  publishedDirFor,
   type PublishedArtifact,
 } from '../src/lib/content-automation/content-reader';
-import { buildCoverImageUrl } from '../src/lib/content-automation/content-media';
+import { buildContentMedia, buildCoverImageUrl } from '../src/lib/content-automation/content-media';
 import { navigationData } from '../src/lib/navigationData';
 import {
   CHROME_COPY,
@@ -341,6 +343,30 @@ check('English article metadata advertises published Turkish translations', () =
   assert.match(source, /isTranslationPair\(published\.slug, turkish\)/);
   assert.match(source, /buildArticleAlternates/);
   assert.match(source, /inLanguage: 'en'/);
+});
+
+check('Turkish covers are built with the locale qualifier', () => {
+  assert.equal(
+    buildContentMedia({ slug: 'fpv-kit', title: 'T', category: 'C', locale: 'tr' }).coverImage.src,
+    '/api/content/media/cover/fpv-kit?locale=tr',
+  );
+  assert.equal(
+    buildContentMedia({ slug: 'fpv-kit', title: 'T', category: 'C' }).coverImage.src,
+    '/api/content/media/cover/fpv-kit',
+  );
+});
+
+check('publishers write Turkish artifacts into content/published/tr', () => {
+  assert.ok(publishedDirFor('tr').endsWith(path.join('content', 'published', 'tr')));
+  assert.ok(publishedDirFor('en').endsWith(path.join('content', 'published')));
+  assert.ok(!publishedDirFor('en').endsWith(path.join('published', 'en')));
+  const source = readFileSync('src/lib/content-automation/publish-artifact.ts', 'utf8');
+  assert.match(source, /assertPublishableLocale\(locale, options\.translationOf\)/);
+  assert.match(source, /Turkish artifacts require translationOf/);
+  assert.match(source, /publishedDirFor\(locale\)/);
+  assert.match(source, /\.\.\.\(locale !== DEFAULT_LOCALE \? \{ locale \} : \{\}\)/);
+  assert.match(source, /\.\.\.\(options\.translationOf \? \{ translationOf: options\.translationOf \} : \{\}\)/);
+  assert.match(source, /\.\.\.\(options\.metadata \? \{ metadata: options\.metadata \} : \{\}\)/);
 });
 
 check('translation pairing requires an explicit translationOf', () => {

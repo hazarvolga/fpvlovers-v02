@@ -20,8 +20,10 @@ import {
   evaluatePublicationReadiness,
 } from './editorial-governance';
 import { isPublicHttpUrl } from '@/lib/server/url-safety';
+import { DEFAULT_LOCALE, type Locale } from '@/lib/i18n/locale';
+import type { ContentMetadata } from '@/lib/content-metadata';
+import { publishedDirFor } from './content-reader';
 
-const PUBLISHED_DIR = path.join(process.cwd(), 'content', 'published');
 const SOURCE_CACHE_DIR = path.join(process.cwd(), 'public', 'images', 'source-cache');
 
 function validHttpSources(values: readonly string[]): string[] {
@@ -110,11 +112,28 @@ async function downloadToSourceCache(
   }
 }
 
+export type PublishArtifactOptions = {
+  locale?: Locale;
+  translationOf?: string;
+  metadata?: ContentMetadata;
+  sourceReferences?: string[];
+};
+
+export function assertPublishableLocale(locale: Locale, translationOf: string | undefined): void {
+  if (locale === 'tr' && !translationOf) {
+    throw new Error('Turkish artifacts require translationOf: the English slug is the only pairing signal.');
+  }
+}
+
 export async function publishGeneratedContentArtifact(
   slug: string,
   job: ContentJob,
   content: GeneratedContent,
+  options: PublishArtifactOptions = {},
 ): Promise<string> {
+  const locale = options.locale ?? DEFAULT_LOCALE;
+  assertPublishableLocale(locale, options.translationOf);
+
   const classification = classifyEditorialContent({
     category: job.category,
     template: job.template,
@@ -131,9 +150,10 @@ export async function publishGeneratedContentArtifact(
     }
   }
 
-  ensureDir(PUBLISHED_DIR);
-  const jsonPath = path.join(PUBLISHED_DIR, `${slug}.json`);
-  const mdPath = path.join(PUBLISHED_DIR, `${slug}.md`);
+  const publishedDir = publishedDirFor(locale);
+  ensureDir(publishedDir);
+  const jsonPath = path.join(publishedDir, `${slug}.json`);
+  const mdPath = path.join(publishedDir, `${slug}.md`);
 
   // 1. Asynchronously harvest crawled images from the database using sourceHints
   let crawledLicensed: LicensedImage[] = [];
@@ -151,6 +171,7 @@ export async function publishGeneratedContentArtifact(
     title: content.title,
     category: job.category,
     excerpt: content.excerpt,
+    locale,
   });
 
   // 3. Prioritize relevant crawled FPV source images over the local fallback.
@@ -258,6 +279,7 @@ export async function publishGeneratedContentArtifact(
   );
 
   const sourceReferences = validHttpSources([
+    ...(options.sourceReferences || []),
     ...job.sourceHints,
     ...(job.editorial?.contentClass === 'product-review' ? job.editorial.evidenceSources : []),
     ...media.gallery.map((asset) => asset.sourceUrl || ''),
@@ -265,6 +287,9 @@ export async function publishGeneratedContentArtifact(
 
   const artifact = {
     slug,
+    ...(locale !== DEFAULT_LOCALE ? { locale } : {}),
+    ...(options.translationOf ? { translationOf: options.translationOf } : {}),
+    ...(options.metadata ? { metadata: options.metadata } : {}),
     title: content.title,
     jobId: job.id,
     category: job.category,
@@ -309,5 +334,5 @@ export async function publishGeneratedContentArtifact(
   const { upsertPublishedArtifact } = await import('@/lib/server/published-content-store');
   await upsertPublishedArtifact(artifact);
 
-  return `content/published/${slug}.json`;
+  return path.relative(process.cwd(), jsonPath).split(path.sep).join('/');
 }

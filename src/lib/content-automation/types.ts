@@ -88,7 +88,7 @@ export type ContentJob = {
   category: string;
   status: ContentJobStatus;
   topic: string;
-  language: 'en';
+  language: 'en' | 'tr';
   template: ContentTemplate;
   promptVersion: string;
   sourceHints: string[];

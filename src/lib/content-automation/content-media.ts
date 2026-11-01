@@ -231,6 +231,7 @@ export function buildContentMedia(input: {
   title: string;
   category: string;
   excerpt?: string;
+  locale?: Locale;
 }): ContentMedia {
   const caption = truncate(
     input.excerpt || `${input.title} cover art for the ${input.category} reference track`,
@@ -239,7 +240,7 @@ export function buildContentMedia(input: {
 
   return {
     coverImage: {
-      src: buildCoverImageUrl(input.slug),
+      src: buildCoverImageUrl(input.slug, input.locale),
       alt: `${input.title} cover illustration`,
       caption,
       source: 'FPVLovers local media layer',
