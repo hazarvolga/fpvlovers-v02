@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {
   completeGeneratedContent,
+  selectPrimaryKeyword,
   normalizeMetaDescription,
   pickRelatedArticles,
 } from '../src/lib/content-automation/complete-generated-content';
@@ -63,6 +64,25 @@ assert.ok(computeSeoScore(done).score >= 80, `score ${computeSeoScore(done).scor
 assert.equal(raw.internalLinks.length, 0, 'input is not mutated');
 
 const kept = completeGeneratedContent({ ...raw, seo: { ...raw.seo, keywords: ['own keyword'] } }, { category: 'x', keywords: ['other'], relatedArticles: [] });
-assert.deepEqual(kept.seo.keywords, ['own keyword'], 'model keywords win when present');
+assert.ok(kept.seo.keywords.includes('own keyword'), 'model keywords are kept when present');
+assert.ok(!kept.seo.keywords.includes('other'), 'brief keywords are only a fallback when the model returned none');
+
+// --- primary keyword selection ---
+const body = 'Set up practice gates at home. '.repeat(10) + 'Fly around the practice gates slowly. '.repeat(8) + 'filler '.repeat(400);
+const title = 'FPV Practice Gates at Home: A Beginner Training Setup';
+const picked = selectPrimaryKeyword(title, body, ['FPV practice gates home', 'drone racing gates']);
+assert.ok(title.toLowerCase().includes(picked.toLowerCase()), 'the primary keyword appears in the title');
+assert.ok(body.toLowerCase().includes(picked.toLowerCase()), 'and in the body');
+assert.notEqual(picked, 'FPV practice gates home', 'a phrase the article never uses is not chosen');
+
+const modelFirst = selectPrimaryKeyword('Practice Gates', 'practice gates '.repeat(30) + 'filler '.repeat(1000), ['practice gates']);
+assert.equal(modelFirst, 'practice gates', 'a good model keyword is kept');
+
+const reordered = completeGeneratedContent(
+  { ...raw, title, bodySections: [{ id: 'a', title, content: body }], seo: { ...raw.seo, keywords: ['FPV practice gates home', 'drone racing gates'] } },
+  { category: 'x', keywords: [], relatedArticles: [] },
+);
+assert.equal(reordered.seo.keywords[0].toLowerCase(), picked.toLowerCase(), 'selected keyword leads the list');
+assert.ok(reordered.seo.keywords.includes('drone racing gates'), 'model keywords are retained');
 
 console.log('Generated content completion regression test passed.');

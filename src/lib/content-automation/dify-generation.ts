@@ -108,8 +108,8 @@ function delay(ms: number) {
 
 // Flash-Lite writes about two thirds of the requested length; ask for more so
 // the article clears the 1,200 word publish minimum.
-const WORD_COUNT_OVERSHOOT = 1.5;
-const MAX_REQUESTED_WORDS = 3000;
+const WORD_COUNT_OVERSHOOT = 2;
+const MAX_REQUESTED_WORDS = 3500;
 
 export function isRetryableWorkflowFailure(workflow: { success: boolean; status: string; error?: string }): boolean {
   if (workflow.success) return false;
