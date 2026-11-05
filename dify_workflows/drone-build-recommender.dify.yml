@@ -117,7 +117,7 @@ workflow:
         desc: Extract build requirements from user message
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.2
@@ -201,7 +201,7 @@ workflow:
         desc: Generate complete build recommendation
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.6

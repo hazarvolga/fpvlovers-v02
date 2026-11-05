@@ -46,7 +46,14 @@ let minuteStart = Date.now();
 let groqCallCountToday = 0;
 const MIN_INTERVAL_MS = 1500;
 const MAX_CALLS_PER_MINUTE = 15;
-const DAILY_LIMIT = 500;
+// Estimated embedding tokens per day. Google's free tier allows 1,000 embedding
+// requests/day and 30K tokens/minute; 150K estimated tokens is roughly 300
+// chunked requests, leaving room for retrieval queries. Override with
+// FPV_EMBEDDING_DAILY_BUDGET.
+const DEFAULT_DAILY_LIMIT = 150_000;
+const DAILY_LIMIT = Number.parseInt(process.env.FPV_EMBEDDING_DAILY_BUDGET ?? '', 10) > 0
+  ? Number.parseInt(process.env.FPV_EMBEDDING_DAILY_BUDGET as string, 10)
+  : DEFAULT_DAILY_LIMIT;
 const DRY_RUN = process.env.CRAWL_DRY_RUN === 'true' || (process.env.NODE_ENV === 'development' && process.env.FORCE_REAL_LLM !== 'true');
 
 // ─── HELPERS ───
@@ -67,7 +74,7 @@ function loadBudget(): EmbeddingBudget {
     if (fs.existsSync(USAGE_FILE)) {
       const stored = JSON.parse(fs.readFileSync(USAGE_FILE, 'utf-8')) as EmbeddingBudget;
       const resetAt = Date.parse(stored.reset_at);
-      if (Number.isFinite(resetAt) && resetAt > Date.now()) return stored;
+      if (Number.isFinite(resetAt) && resetAt > Date.now()) return { ...stored, daily_limit: DAILY_LIMIT };
     }
   } catch (err: unknown) {
     console.error('[DifyClient] Unexpected error:', err instanceof Error ? err.message : String(err));

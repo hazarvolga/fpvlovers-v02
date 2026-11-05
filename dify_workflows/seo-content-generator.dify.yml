@@ -80,7 +80,7 @@ workflow:
         desc: Analyze keyword intent and find related terms
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.4
@@ -175,7 +175,7 @@ workflow:
         desc: Generate SEO title, meta description, and tags
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.3
@@ -229,7 +229,7 @@ workflow:
         desc: Generate H2/H3 article structure
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.5
@@ -289,7 +289,7 @@ workflow:
         desc: Write full article content
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.8-flash
           mode: chat
           completion_params:
             temperature: 0.7
@@ -405,7 +405,7 @@ workflow:
         desc: Generate Article and FAQ schema.org markup
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.2

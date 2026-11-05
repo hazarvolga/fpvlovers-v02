@@ -11,7 +11,12 @@ import { firstWaveContentPlan } from '@/lib/content-plan';
 import { authorizeCronRequest } from '@/lib/cron-auth';
 import { getPublishedJobIdsAsync, getPublishedSlugsAsync } from '@/lib/content-automation/content-reader';
 import type { ContentJob } from '@/lib/content-automation/types';
-import { logAutomationRun } from '@/lib/server/automation-runs-store';
+import { getRecentAutomationRuns, logAutomationRun } from '@/lib/server/automation-runs-store';
+import {
+  PUBLISH_COOLDOWN_HOURS,
+  hasPublishedWithin,
+  planTransientRetry,
+} from '@/lib/content-automation/generation-retry';
 import { readRacingIntelligenceStore } from '@/lib/racing-intelligence-store';
 import { prepareGeneratedPublication } from '@/lib/content-automation/generated-publication';
 import {
@@ -48,7 +53,7 @@ type GenerationBatchResult = {
     title: string;
     publishedPath?: string;
   };
-    action: 'would_generate' | 'failed' | 'published' | 'await_product_editor' | 'held_for_quality' | 'deferred_budget';
+    action: 'would_generate' | 'failed' | 'published' | 'await_product_editor' | 'held_for_quality' | 'deferred_budget' | 'retry_scheduled';
   workflowRunId?: string | null;
   totalTokens?: number | null;
   blockers?: string[];
@@ -79,6 +84,10 @@ function writeLastRun(payload: Omit<LastRunPayload, 'generated_at'>): void {
   );
 }
 
+function isChained(req: Request): boolean {
+  return new URL(req.url).searchParams.get('chained') === '1';
+}
+
 function isDryRun(req: Request): boolean {
   const url = new URL(req.url);
   return url.searchParams.get('dry_run') === 'true' || url.searchParams.get('dryRun') === 'true';
@@ -105,6 +114,18 @@ export async function GET(req: Request) {
   try {
     const dryRun = isDryRun(req);
     const batchCount = getBatchCount(req);
+    const force = new URL(req.url).searchParams.get('force') === 'true';
+
+    if (!dryRun && !force) {
+      const recentRuns = await getRecentAutomationRuns('generate', 20);
+      if (hasPublishedWithin(recentRuns, PUBLISH_COOLDOWN_HOURS)) {
+        return NextResponse.json({
+          success: true,
+          action: 'already_published',
+          message: `An article was already published in the last ${PUBLISH_COOLDOWN_HOURS} hours.`,
+        });
+      }
+    }
     const jobs = await loadContentJobsNew();
     const existingSlugs = await buildExistingSlugSet(jobs);
 
@@ -212,12 +233,22 @@ export async function GET(req: Request) {
         });
       } catch (error: unknown) {
         const message = error instanceof Error ? error.message : 'Unknown generation error';
+        const retry = planTransientRetry(message, job.attempt_count || 0);
+        let action: GenerationBatchResult['action'] = 'failed';
         if (isBudgetError(error)) {
           job.status = 'queued';
           job.scheduled_for = nextUtcBudgetReset();
           job.feedback = `Deferred until the next UTC budget reset (${job.scheduled_for}). ${message}`;
           job.error_message = message;
           job.attempt_count = (job.attempt_count || 0) + 1;
+          action = 'deferred_budget';
+        } else if (retry.requeue) {
+          job.status = 'queued';
+          job.scheduled_for = retry.scheduledFor;
+          job.feedback = `Transient provider error, retry scheduled for ${retry.scheduledFor}. ${message}`;
+          job.error_message = message;
+          job.attempt_count = retry.attemptCount;
+          action = 'retry_scheduled';
         } else {
           job.status = 'failed';
           job.feedback = message;
@@ -227,13 +258,20 @@ export async function GET(req: Request) {
         await saveContentJobsNew(jobs);
         results.push({
           job: { id: job.id, title: job.title },
-          action: isBudgetError(error) ? 'deferred_budget' : 'failed',
+          action,
           error: message,
         });
       }
     }
 
     if (batch.length > 0) {
+      const published = results.some((r) => r.action === 'published');
+      await logAutomationRun({
+        kind: 'generate',
+        status: published ? 'published' : (results[0]?.action ?? 'failed'),
+        summary: { results },
+        errorMessage: published ? undefined : results.find((r) => r.error)?.error,
+      });
       writeLastRun({
         action: batch.length === 1 ? results[0]?.action : 'batch',
         count: results.filter((r) => r.action === 'published').length,
@@ -386,6 +424,13 @@ export async function GET(req: Request) {
         console.warn('[DB Status Log] Failed to log generate enqueued run:', dbErr);
       }
     });
+
+    // Generate in the same run instead of waiting a day for the next cron slot.
+    if (!isChained(req)) {
+      const chainedUrl = new URL(req.url);
+      chainedUrl.searchParams.set('chained', '1');
+      return GET(new Request(chainedUrl, { headers: req.headers }));
+    }
 
     return NextResponse.json({
       success: true,

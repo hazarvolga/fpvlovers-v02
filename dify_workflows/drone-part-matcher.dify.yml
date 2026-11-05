@@ -132,7 +132,7 @@ workflow:
         desc: Extract FPV parts from user query
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.2
@@ -226,7 +226,7 @@ workflow:
         desc: Analyze part compatibility and generate recommendations
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.4

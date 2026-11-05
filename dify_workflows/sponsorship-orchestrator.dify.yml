@@ -91,7 +91,7 @@ workflow:
           desc: "Analyze sponsor fit for FPV ecosystem"
           model:
             provider: "langgenius/gemini/google"
-            name: "gemini-flash-latest"
+            name: "gemini-3.1-flash-lite"
             mode: chat
             completion_params:
               temperature: 0.4
@@ -210,7 +210,7 @@ workflow:
             - sponsor_category
           model:
             provider: "langgenius/gemini/google"
-            name: "gemini-flash-latest"
+            name: "gemini-3.1-flash-lite"
             mode: chat
             completion_params:
               temperature: 0.3
@@ -244,7 +244,7 @@ workflow:
           desc: "Generate sponsor visibility strategy"
           model:
             provider: "langgenius/gemini/google"
-            name: "gemini-flash-latest"
+            name: "gemini-3.1-flash-lite"
             mode: chat
             completion_params:
               temperature: 0.5
@@ -281,7 +281,7 @@ workflow:
           desc: ""
           model:
             provider: "langgenius/gemini/google"
-            name: "gemini-flash-latest"
+            name: "gemini-3.1-flash-lite"
             mode: chat
             completion_params:
               temperature: 0.5
@@ -310,7 +310,7 @@ workflow:
           desc: ""
           model:
             provider: "langgenius/gemini/google"
-            name: "gemini-flash-latest"
+            name: "gemini-3.1-flash-lite"
             mode: chat
             completion_params:
               temperature: 0.5
@@ -339,7 +339,7 @@ workflow:
           desc: ""
           model:
             provider: "langgenius/gemini/google"
-            name: "gemini-flash-latest"
+            name: "gemini-3.1-flash-lite"
             mode: chat
             completion_params:
               temperature: 0.5

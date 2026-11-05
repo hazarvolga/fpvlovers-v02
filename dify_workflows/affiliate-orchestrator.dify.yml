@@ -223,7 +223,7 @@ workflow:
         desc: Generate contextual affiliate CTAs
         model:
           provider: langgenius/gemini/google
-          name: gemini-flash-latest
+          name: gemini-3.1-flash-lite
           mode: chat
           completion_params:
             temperature: 0.5
