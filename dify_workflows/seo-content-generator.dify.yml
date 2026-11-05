@@ -311,7 +311,13 @@ workflow:
 
             - Use markdown formatting (H2 ##, H3 ###, bold, lists)
 
-            - Target word count as specified
+            - The article MUST reach at least the requested Word Count; never stop
+            early, never summarize
+
+            - Give every outline heading its own H2 section of 250-350 words with
+            concrete steps, examples and common mistakes
+
+            - End with a short FAQ of 3 questions
 
             Output the full article as markdown text.
 
