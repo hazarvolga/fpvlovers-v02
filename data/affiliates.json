@@ -23,7 +23,7 @@
       "dji-o3-air-unit",
       "dji-rc-2"
     ],
-    "active": true,
+    "active": false,
     "featured": true,
     "createdAt": "2026-05-01T00:00:00.000Z",
     "updatedAt": "2026-05-08T00:00:00.000Z",
@@ -60,7 +60,7 @@
       "30x30-esc",
       "analog-vtx"
     ],
-    "active": true,
+    "active": false,
     "featured": true,
     "createdAt": "2026-05-01T00:00:00.000Z",
     "updatedAt": "2026-05-08T00:00:00.000Z",
@@ -97,7 +97,7 @@
       "5-inch-frames",
       "6s-batteries"
     ],
-    "active": true,
+    "active": false,
     "featured": true,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -135,7 +135,7 @@
       "6s-batteries",
       "5-inch-motors"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -172,7 +172,7 @@
       "micro-camera-mounts",
       "analog-vtx"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -207,7 +207,7 @@
     "compatibleWith": [
       "analog-goggles"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -244,7 +244,7 @@
       "dji-goggles-2",
       "dji-goggles-3"
     ],
-    "active": true,
+    "active": false,
     "featured": true,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -281,7 +281,7 @@
       "analog-goggles",
       "simulator"
     ],
-    "active": true,
+    "active": false,
     "featured": true,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -318,7 +318,7 @@
       "5-inch-motors",
       "digital-vtx"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -353,7 +353,7 @@
       "elrs-radio",
       "any-uart-fc"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -390,7 +390,7 @@
       "5-inch-frames",
       "6s-batteries"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -426,7 +426,7 @@
       "5-inch-motors",
       "freestyle-frames"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -463,7 +463,7 @@
       "any-uart-fc",
       "long-range-builds"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -499,7 +499,7 @@
       "5-inch-frames",
       "6s-motors"
     ],
-    "active": true,
+    "active": false,
     "featured": false,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
@@ -535,7 +535,7 @@
       "dji-o4",
       "dji-goggles-2"
     ],
-    "active": true,
+    "active": false,
     "featured": true,
     "createdAt": "2026-05-21T00:00:00.000Z",
     "updatedAt": "2026-05-21T00:00:00.000Z",
