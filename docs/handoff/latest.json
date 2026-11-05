@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-10-31T19:29:16.556Z",
+  "generatedAt": "2026-11-05T14:39:07.104Z",
   "project": "fpvlovers-frontend-websitesi",
   "state": "live-verified-owner-actions-pending",
   "branch": "main",
-  "head": "3843039c33ee",
+  "head": "df7f6faebcd1",
   "behind": 0,
-  "ahead": 5,
+  "ahead": 0,
   "currentBlockers": [
-    "**2026-10-31 BLOCKER (owner): publish the `fpvlovers.com.tr` mail DNS records** — MX `10 mail.affexai.tr`, `v=spf1 mx -all`, DKIM `v1-ed25519-20261031` + `v1-rsa-20261031`, `_dmarc` (start `p=quarantine`, then tighten to reject). Without MX the domain falls back to implicit MX and DMARC reports never arrive. Values: `docs/handoff/2026-10-31-kvkk-gdpr-compliance-release-handoff.md`.",
+    "**NEXT (2026-11-05): verify the 2026-11-06 nightly pipeline run** (Coolify task 4 at 05:30/06:30/07:30 Istanbul; `automation_runs`, `content_jobs`; one-time report task `fpv-nightly-pipeline-check` at 08:00). Then follow the 2026-11-05 resume order above.",
     "Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.",
     "Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.",
     "**2026-10-31 (owner): lawyer review of the KVKK/GDPR legal texts** in `src/lib/legal/documents.ts`; any wording change needs a commit + Coolify redeploy. Add `LEGAL_CONTROLLER_KEP` / `LEGAL_CONTROLLER_TAX_ID` only if requested.",
     "**HISTORICAL PAUSE (2026-08-02, superseded by the 2026-08-14 pause above):** Wire `src/app/admin/page.tsx`'s \"Pilot Registry\" table and usage chart to real `newsletter_subscribers`/`published_articles_shadow` data instead of the current hardcoded demo arrays (`subscribersData`, `usageVsGrowthData`). This remains an open lower-priority task; it is not the current resume point.",
     "Browser-verify article trust panels and the iFlight cover fallback; public health, legal/trust routes, and commercial hubs already returned HTTP `200` after deploy."
   ],
-  "nextTask": "**2026-10-31 BLOCKER (owner): publish the `fpvlovers.com.tr` mail DNS records** — MX `10 mail.affexai.tr`, `v=spf1 mx -all`, DKIM `v1-ed25519-20261031` + `v1-rsa-20261031`, `_dmarc` (start `p=quarantine`, then tighten to reject). Without MX the domain falls back to implicit MX and DMARC reports never arrive. Values: `docs/handoff/2026-10-31-kvkk-gdpr-compliance-release-handoff.md`.",
+  "nextTask": "**NEXT (2026-11-05): verify the 2026-11-06 nightly pipeline run** (Coolify task 4 at 05:30/06:30/07:30 Istanbul; `automation_runs`, `content_jobs`; one-time report task `fpv-nightly-pipeline-check` at 08:00). Then follow the 2026-11-05 resume order above.",
   "filesOfTruth": [
     "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/PROJECT_MEMORY.md",
     "/Users/hazarvolgaekiz/dev/products/fpvlovers.com.tr/NEXT_ACTIONS.md",

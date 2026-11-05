@@ -64,6 +64,7 @@
     "crawl:quality-test": "node --import tsx scripts/crawl-content-quality-regression-test.ts",
     "generation-retry:test": "node --import tsx scripts/generation-retry-regression-test.ts",
     "admin-documents:test": "node --import tsx scripts/admin-documents-regression-test.ts",
+    "startup-migrations:test": "node --import tsx scripts/startup-migrations-regression-test.ts",
     "migration-runner:test": "node --import tsx scripts/migration-runner-regression-test.ts",
     "catalog:sources": "node --import tsx scripts/product-catalog-source-pack.ts",
     "catalog:affiliate-audit": "node --import tsx scripts/affiliate-catalog-audit.ts",

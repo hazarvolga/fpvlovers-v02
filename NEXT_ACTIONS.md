@@ -1,6 +1,18 @@
 # FPVLovers Next Actions
 
-Last updated: 2026-10-31
+Last updated: 2026-11-05
+
+## PAUSED HERE (2026-11-05) - Autonomous Pipeline Live, Resume Order
+
+Read `PROJECT_MEMORY.md` (top "Current Known State" bullet) first. Production runs `dc9996a`-era code; nothing is half-applied.
+
+1. **VERIFY (first thing):** check the 2026-11-06 05:30/06:30/07:30 Istanbul runs of Coolify task 4 (`FPVLovers Early Morning Content Gen`). The one-time task `fpv-nightly-pipeline-check` reports at 08:00. The first slot may answer `already_published` (18h cooldown after the 2026-11-05 publish); a `failed` result or repeated `held_for_quality` is the signal to investigate. Evidence queries: `scheduled_task_executions` in `coolify-db`, `fpvlovers_app.automation_runs`, `content_jobs`.
+2. **ENGINEERING - production migrations are manual:** the web container starts with `node server.js`, so new `db/migrations/*.sql` are not applied on deploy (0010 and 0012 both needed hand application). Add a safe automatic step, or keep following memory `reference-prod-migrations-manual`.
+3. **ENGINEERING - crawl throughput:** 96 pending crawl jobs, 1 job per run x 6 runs/night (about 16 nights). Raising it needs a Crawl4AI memory decision (container limit 2.5 GB, about 2.06 GB used).
+4. **ENGINEERING - finish the admin scan:** `analytics`, `catalog`, `orchestrator`, `seo`, `social`, `youtube` tabs were not reviewed (probing the admin API from inside the container trips the 20-requests/15-minutes Basic Auth limiter).
+5. **CLEANUP:** two held drafts (`generated`) from the 2026-11-05 test runs sit in `content_jobs`; `public:editorial-test` fails on a missing `SearchSection.tsx` (pre-existing); real affiliate applications are still needed before any seed affiliate is re-activated.
+6. **LATER:** social automation for Instagram, Facebook and YouTube only (X excluded, paid API), in-app TypeScript per `docs/superpowers/plans/2026-06-19-social-video-automation.md`, after the pipeline has proven stable.
+7. **OWNER:** outbound mail authentication check from `hello@fpvlovers.com.tr`, lawyer review of the KVKK/GDPR texts, the warning triangle on the Coolify server card, reconfiguring `affex` (AffeXAI Cortex) without the disconnected billing account. Never link billing to the FPV AI Studio project.
 
 ## PAUSED HERE (2026-10-31) - KVKK/GDPR P0 Release, Resume Order
 
@@ -204,7 +216,8 @@ Canonical documents:
 
 ## Immediate Security Actions
 
-- **2026-10-31 BLOCKER (owner): publish the `fpvlovers.com.tr` mail DNS records** — MX `10 mail.affexai.tr`, `v=spf1 mx -all`, DKIM `v1-ed25519-20261031` + `v1-rsa-20261031`, `_dmarc` (start `p=quarantine`, then tighten to reject). Without MX the domain falls back to implicit MX and DMARC reports never arrive. Values: `docs/handoff/2026-10-31-kvkk-gdpr-compliance-release-handoff.md`.
+- **NEXT (2026-11-05): verify the 2026-11-06 nightly pipeline run** (Coolify task 4 at 05:30/06:30/07:30 Istanbul; `automation_runs`, `content_jobs`; one-time report task `fpv-nightly-pipeline-check` at 08:00). Then follow the 2026-11-05 resume order above.
+- ✅ DONE 2026-10-31 (owner): publish the `fpvlovers.com.tr` mail DNS records — MX `10 mail.affexai.tr`, `v=spf1 mx -all`, DKIM `v1-ed25519-20261031` + `v1-rsa-20261031`, `_dmarc` (start `p=quarantine`, then tighten to reject). Without MX the domain falls back to implicit MX and DMARC reports never arrive. Values: `docs/handoff/2026-10-31-kvkk-gdpr-compliance-release-handoff.md`.
 1. ✅ Rotated `CRON_SECRET`, the Dify dataset token, and seven unique active Dify app/workflow token groups; verified replacements and revoked old tokens.
 2. Plan a coordinated Git-history rewrite and force-push window so all collaborators can re-clone safely.
 3. Keep `pnpm security:audit` in the local release gate to prevent tracked credential values, hardcoded Dify tokens, and developer-specific audit paths from returning.
