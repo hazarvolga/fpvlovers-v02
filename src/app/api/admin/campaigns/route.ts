@@ -1,13 +1,9 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-import { safeReadJson } from '@/lib/utils/json';
+import { readAdminDocument, writeAdminDocument } from '@/lib/server/admin-documents';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
 
-const CAMPAIGNS_FILE = path.join(process.cwd(), 'data', 'campaigns.json');
-
-function loadCampaigns() {
-  return safeReadJson<any[]>(CAMPAIGNS_FILE, []);
+function loadCampaigns(): Promise<any[]> {
+  return readAdminDocument<any[]>('campaigns', []);
 }
 
 export async function GET() {
@@ -15,7 +11,7 @@ export async function GET() {
   if (denied) return denied;
 
   try {
-    const campaigns = loadCampaigns();
+    const campaigns = await loadCampaigns();
     return NextResponse.json({ success: true, campaigns });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });
@@ -28,7 +24,7 @@ export async function POST(req: Request) {
 
   try {
     const body = await req.json();
-    const campaigns = loadCampaigns();
+    const campaigns = await loadCampaigns();
     const { name, type, variants, startDate, endDate } = body;
 
     const campaign = {
@@ -47,7 +43,7 @@ export async function POST(req: Request) {
     };
 
     campaigns.push(campaign);
-    fs.writeFileSync(CAMPAIGNS_FILE, JSON.stringify(campaigns, null, 2));
+    await writeAdminDocument('campaigns', campaigns);
     return NextResponse.json({ success: true, campaign }, { status: 201 });
   } catch (err: any) {
     return NextResponse.json({ success: false, error: err.message }, { status: 500 });

@@ -60,6 +60,7 @@
     "tools:part-matcher:test": "node --import tsx scripts/part-matcher-regression-test.ts",
     "tools:calculator:test": "node --import tsx scripts/build-calculator-regression-test.ts",
     "spec-trust:test": "node --import tsx scripts/spec-trust-regression-test.ts",
+    "admin-documents:test": "node --import tsx scripts/admin-documents-regression-test.ts",
     "migration-runner:test": "node --import tsx scripts/migration-runner-regression-test.ts",
     "catalog:sources": "node --import tsx scripts/product-catalog-source-pack.ts",
     "catalog:affiliate-audit": "node --import tsx scripts/affiliate-catalog-audit.ts",

@@ -1,12 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import { safeReadJson } from '@/lib/utils/json';
-import path from 'path';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
+import { readAdminDocument, writeAdminDocument, type AdminDocumentName } from '@/lib/server/admin-documents';
 
-const SPONSORS_FILE = path.join(process.cwd(), 'data', 'sponsors.json');
-const METRICS_FILE = path.join(process.cwd(), 'data', 'campaignMetrics.json');
-const TRUST_FILE = path.join(process.cwd(), 'data', 'trustScores.json');
+const METRICS_FILE: AdminDocumentName = 'campaignMetrics';
+const TRUST_FILE: AdminDocumentName = 'trustScores';
 
 type SponsorProduct = { name: string; url: string; compatibleWith?: string[] };
 type CampaignHistoryEntry = {
@@ -34,15 +31,19 @@ type TrustStore = {
   globalConfig: Record<string, any>;
 };
 
-function read<T>(file: string, fallback: T): T {
-  return safeReadJson<T>(file, fallback);
+function read<T>(name: AdminDocumentName, fallback: T): Promise<T> {
+  return readAdminDocument<T>(name, fallback);
 }
-function write(file: string, data: any) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
+function write(name: AdminDocumentName, data: unknown): Promise<void> {
+  return writeAdminDocument(name, data);
+}
 
-function readSponsors(): Sponsor[] {
-  return safeReadJson<Sponsor[]>(SPONSORS_FILE, []);
+function readSponsors(): Promise<Sponsor[]> {
+  return readAdminDocument<Sponsor[]>('sponsors', []);
 }
-function writeSponsors(data: Sponsor[]) { fs.writeFileSync(SPONSORS_FILE, JSON.stringify(data, null, 2)); }
+function writeSponsors(data: Sponsor[]): Promise<void> {
+  return writeAdminDocument('sponsors', data);
+}
 
 export async function GET(req: NextRequest) {
   const denied = await requireAdmin();
@@ -51,8 +52,8 @@ export async function GET(req: NextRequest) {
   const type = req.nextUrl.searchParams.get('type') || 'all';
   const data: any = {};
 
-  if (type === 'all' || type === 'sponsors') data.sponsors = readSponsors();
-  if (type === 'all' || type === 'metrics') data.metrics = read(METRICS_FILE, { sponsor: {} });
+  if (type === 'all' || type === 'sponsors') data.sponsors = await readSponsors();
+  if (type === 'all' || type === 'metrics') data.metrics = await read(METRICS_FILE, { sponsor: {} });
 
   return NextResponse.json(data);
 }
@@ -63,14 +64,14 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
   const { action } = body;
-  const sponsors = readSponsors();
+  const sponsors = await readSponsors();
 
   if (action === 'add-product') {
     const sponsor = sponsors.find(s => s.id === body.sponsorId);
     if (sponsor) {
       sponsor.products.push({ name: body.productName, url: body.productUrl, compatibleWith: body.compatibleWith || [] });
       sponsor.updatedAt = new Date().toISOString();
-      writeSponsors(sponsors);
+      await writeSponsors(sponsors);
       return NextResponse.json({ sponsor });
     }
     return NextResponse.json({ error: 'Sponsor not found' }, { status: 404 });
@@ -81,14 +82,14 @@ export async function POST(req: NextRequest) {
     if (sponsor) {
       sponsor.products = sponsor.products.filter((_, i) => i !== body.productIndex);
       sponsor.updatedAt = new Date().toISOString();
-      writeSponsors(sponsors);
+      await writeSponsors(sponsors);
       return NextResponse.json({ sponsor });
     }
   }
 
   if (action === 'toggle') {
     const sponsor = sponsors.find(s => s.id === body.id);
-    if (sponsor) { sponsor.active = !sponsor.active; sponsor.updatedAt = new Date().toISOString(); writeSponsors(sponsors); }
+    if (sponsor) { sponsor.active = !sponsor.active; sponsor.updatedAt = new Date().toISOString(); await writeSponsors(sponsors); }
     return NextResponse.json({ sponsors });
   }
 
@@ -99,12 +100,12 @@ export async function POST(req: NextRequest) {
       sponsor.campaignMetrics.impressions += 1;
       sponsor.recommendationExposure += 1;
       sponsor.updatedAt = new Date().toISOString();
-      writeSponsors(sponsors);
+      await writeSponsors(sponsors);
 
-      const metrics = read<MetricsStore>(METRICS_FILE, { sponsor: {} });
+      const metrics = await read<MetricsStore>(METRICS_FILE, { sponsor: {} });
       metrics.sponsor.totalImpressions = (metrics.sponsor.totalImpressions || 0) + 1;
       metrics.sponsor.updatedAt = new Date().toISOString();
-      write(METRICS_FILE, metrics);
+      await write(METRICS_FILE, metrics);
     }
     return NextResponse.json({ sponsors });
   }
@@ -117,7 +118,7 @@ export async function POST(req: NextRequest) {
         ? sponsor.campaignMetrics.clicks / sponsor.campaignMetrics.impressions
         : 0;
       sponsor.updatedAt = new Date().toISOString();
-      writeSponsors(sponsors);
+      await writeSponsors(sponsors);
     }
     return NextResponse.json({ sponsors });
   }
@@ -131,7 +132,7 @@ export async function POST(req: NextRequest) {
       if (body.semanticRelevance !== undefined) sponsor.semanticRelevance = body.semanticRelevance;
       sponsor.campaignMetrics.retrievalAppearances = (sponsor.campaignMetrics.retrievalAppearances || 0) + 1;
       sponsor.updatedAt = new Date().toISOString();
-      writeSponsors(sponsors);
+      await writeSponsors(sponsors);
     }
     return NextResponse.json({ sponsors });
   }
@@ -143,7 +144,7 @@ export async function POST(req: NextRequest) {
       if (body.semanticMatchQuality !== undefined) sponsor.campaignMetrics.semanticMatchQuality = body.semanticMatchQuality;
       if (body.contextualEngagement !== undefined) sponsor.campaignMetrics.contextualEngagement = body.contextualEngagement;
       sponsor.updatedAt = new Date().toISOString();
-      writeSponsors(sponsors);
+      await writeSponsors(sponsors);
     }
     return NextResponse.json({ sponsors });
   }
@@ -163,7 +164,7 @@ export async function POST(req: NextRequest) {
         status: 'active',
       });
       sponsor.updatedAt = new Date().toISOString();
-      writeSponsors(sponsors);
+      await writeSponsors(sponsors);
     }
     return NextResponse.json({ sponsors });
   }
@@ -174,13 +175,13 @@ export async function POST(req: NextRequest) {
     if (sponsor) {
       sponsor.trustScore = body.trustScore;
       sponsor.updatedAt = new Date().toISOString();
-      writeSponsors(sponsors);
+      await writeSponsors(sponsors);
 
-      const trust = read<TrustStore>(TRUST_FILE, { affiliates: {}, sponsors: {}, globalConfig: {} });
+      const trust = await read<TrustStore>(TRUST_FILE, { affiliates: {}, sponsors: {}, globalConfig: {} });
       if (!trust.sponsors[body.sponsorId]) trust.sponsors[body.sponsorId] = {};
       trust.sponsors[body.sponsorId].trustScore = body.trustScore;
       trust.sponsors[body.sponsorId].updatedAt = new Date().toISOString();
-      write(TRUST_FILE, trust);
+      await write(TRUST_FILE, trust);
     }
     return NextResponse.json({ sponsors });
   }
@@ -216,7 +217,7 @@ export async function POST(req: NextRequest) {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   });
-  writeSponsors(sponsors);
+  await writeSponsors(sponsors);
   return NextResponse.json({ sponsors });
 }
 
@@ -225,7 +226,7 @@ export async function DELETE(req: NextRequest) {
   if (denied) return denied;
 
   const { id } = await req.json();
-  const sponsors = readSponsors().filter(s => s.id !== id);
-  writeSponsors(sponsors);
+  const sponsors = (await readSponsors()).filter(s => s.id !== id);
+  await writeSponsors(sponsors);
   return NextResponse.json({ remaining: sponsors.length });
 }

@@ -1,23 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
-import { safeReadJson } from '@/lib/utils/json';
 import { requireAdmin } from '@/lib/server/admin-auth-guard';
+import { readAdminDocument, writeAdminDocument, type AdminDocumentName } from '@/lib/server/admin-documents';
 
 export const dynamic = 'force-dynamic';
 
+const AFFILIATES: AdminDocumentName = 'affiliates';
+const CAMPAIGNS: AdminDocumentName = 'campaigns';
+const CTAS: AdminDocumentName = 'ctas';
+const METRICS: AdminDocumentName = 'campaignMetrics';
+const INTENT: AdminDocumentName = 'intentProfiles';
+const TRUST: AdminDocumentName = 'trustScores';
 
-const AFFILIATES = path.join(process.cwd(), 'data', 'affiliates.json');
-const CAMPAIGNS = path.join(process.cwd(), 'data', 'campaigns.json');
-const CTAS = path.join(process.cwd(), 'data', 'ctas.json');
-const METRICS = path.join(process.cwd(), 'data', 'campaignMetrics.json');
-const INTENT = path.join(process.cwd(), 'data', 'intentProfiles.json');
-const TRUST = path.join(process.cwd(), 'data', 'trustScores.json');
-
-function read<T>(file: string, fallback: T): T {
-  return safeReadJson<T>(file, fallback);
+function read<T>(name: AdminDocumentName, fallback: T): Promise<T> {
+  return readAdminDocument<T>(name, fallback);
 }
-function write(file: string, data: any) { fs.writeFileSync(file, JSON.stringify(data, null, 2)); }
+function write(name: AdminDocumentName, data: unknown): Promise<void> {
+  return writeAdminDocument(name, data);
+}
 
 type Placement = 'top-right' | 'bottom-right' | 'inline' | 'sticky';
 type Network = 'amazon' | 'banggood' | 'getfpv' | 'custom';
@@ -67,9 +66,9 @@ export async function GET(req: NextRequest) {
   const type = req.nextUrl.searchParams.get('type') || 'all';
   const data: any = {};
 
-  if (type === 'all' || type === 'affiliates') data.affiliates = read<AffiliateProduct[]>(AFFILIATES, []);
-  if (type === 'all' || type === 'campaigns') data.campaigns = read<Campaign[]>(CAMPAIGNS, []);
-  if (type === 'all' || type === 'ctas') data.ctas = read<CTA[]>(CTAS, [
+  if (type === 'all' || type === 'affiliates') data.affiliates = await read<AffiliateProduct[]>(AFFILIATES, []);
+  if (type === 'all' || type === 'campaigns') data.campaigns = await read<Campaign[]>(CAMPAIGNS, []);
+  if (type === 'all' || type === 'ctas') data.ctas = await read<CTA[]>(CTAS, [
     {
       id: '1', text: 'Recommended Setup', placement: 'top-right', color: '#FF5C00', active: true,
       variant: 'A', abTest: { enabled: false, variantB: '', variantBColor: '', winner: null },
@@ -92,9 +91,9 @@ export async function GET(req: NextRequest) {
       createdAt: new Date().toISOString(),
     },
   ]);
-  if (type === 'all' || type === 'metrics') data.metrics = read(METRICS, { affiliate: {}, sponsor: {} });
-  if (type === 'all' || type === 'intent') data.intentProfiles = read<IntentProfile[]>(INTENT, []);
-  if (type === 'all' || type === 'trust') data.trustScores = read(TRUST, { affiliates: {}, sponsors: {}, globalConfig: {} });
+  if (type === 'all' || type === 'metrics') data.metrics = await read(METRICS, { affiliate: {}, sponsor: {} });
+  if (type === 'all' || type === 'intent') data.intentProfiles = await read<IntentProfile[]>(INTENT, []);
+  if (type === 'all' || type === 'trust') data.trustScores = await read(TRUST, { affiliates: {}, sponsors: {}, globalConfig: {} });
 
   return NextResponse.json(data);
 }
@@ -109,7 +108,7 @@ export async function POST(req: NextRequest) {
 
   // --- CAMPAIGN ACTIONS ---
   if (action === 'add-campaign') {
-    const campaigns = read<Campaign[]>(CAMPAIGNS, []);
+    const campaigns = await read<Campaign[]>(CAMPAIGNS, []);
     campaigns.unshift({
       id: rest.id || Date.now().toString(36),
       name: rest.name,
@@ -128,12 +127,12 @@ export async function POST(req: NextRequest) {
       createdAt: new Date().toISOString(),
       stats: { impressions: 0, clicks: 0, conversions: 0, revenue: 0 },
     } as Campaign);
-    write(CAMPAIGNS, campaigns);
+    await write(CAMPAIGNS, campaigns);
     return NextResponse.json({ campaigns });
   }
 
   if (action === 'add-product-bundle') {
-    const campaigns = read<Campaign[]>(CAMPAIGNS, []);
+    const campaigns = await read<Campaign[]>(CAMPAIGNS, []);
     const campaign = campaigns.find(c => c.id === rest.campaignId);
     if (campaign) {
       campaign.productBundles.push({
@@ -143,13 +142,13 @@ export async function POST(req: NextRequest) {
         discount: rest.discount || 0,
         description: rest.description || '',
       });
-      write(CAMPAIGNS, campaigns);
+      await write(CAMPAIGNS, campaigns);
     }
     return NextResponse.json({ campaigns });
   }
 
   if (action === 'add-cross-sell-rule') {
-    const campaigns = read<Campaign[]>(CAMPAIGNS, []);
+    const campaigns = await read<Campaign[]>(CAMPAIGNS, []);
     const campaign = campaigns.find(c => c.id === rest.campaignId);
     if (campaign) {
       campaign.crossSellRules.push({
@@ -157,14 +156,14 @@ export async function POST(req: NextRequest) {
         targetProducts: rest.targetProducts || [],
         strategy: rest.strategy || 'complementary',
       });
-      write(CAMPAIGNS, campaigns);
+      await write(CAMPAIGNS, campaigns);
     }
     return NextResponse.json({ campaigns });
   }
 
   // --- CTA ACTIONS ---
   if (action === 'add-cta') {
-    const ctas = read<CTA[]>(CTAS, []);
+    const ctas = await read<CTA[]>(CTAS, []);
     ctas.push({
       id: rest.id || Date.now().toString(36),
       text: rest.text,
@@ -180,27 +179,27 @@ export async function POST(req: NextRequest) {
       autoInject: rest.autoInject || { enabled: true, minIntentScore: 0.6, contentTypes: ['buying-guide', 'comparison', 'recommendation'] },
       createdAt: new Date().toISOString(),
     });
-    write(CTAS, ctas);
+    await write(CTAS, ctas);
     return NextResponse.json({ ctas });
   }
 
   if (action === 'toggle-cta') {
-    const ctas = read<CTA[]>(CTAS, []);
+    const ctas = await read<CTA[]>(CTAS, []);
     const cta = ctas.find(c => c.id === rest.id);
-    if (cta) { cta.active = !cta.active; write(CTAS, ctas); }
+    if (cta) { cta.active = !cta.active; await write(CTAS, ctas); }
     return NextResponse.json({ ctas });
   }
 
   if (action === 'toggle-ab-test') {
-    const ctas = read<CTA[]>(CTAS, []);
+    const ctas = await read<CTA[]>(CTAS, []);
     const cta = ctas.find(c => c.id === rest.id);
-    if (cta) { cta.abTest.enabled = !cta.abTest.enabled; write(CTAS, ctas); }
+    if (cta) { cta.abTest.enabled = !cta.abTest.enabled; await write(CTAS, ctas); }
     return NextResponse.json({ ctas });
   }
 
   // --- METRICS ACTIONS ---
   if (action === 'track-click') {
-    const metrics: any = read(METRICS, { affiliate: {}, sponsor: {} });
+    const metrics: any = await read(METRICS, { affiliate: {}, sponsor: {} });
     const { type: mType, productId, network } = rest;
 
     if (mType === 'affiliate') {
@@ -246,12 +245,12 @@ export async function POST(req: NextRequest) {
       });
     }
     metrics.updatedAt = new Date().toISOString();
-    write(METRICS, metrics);
+    await write(METRICS, metrics);
     return NextResponse.json({ metrics });
   }
 
   if (action === 'track-conversion') {
-    const metrics: any = read(METRICS, { affiliate: {}, sponsor: {} });
+    const metrics: any = await read(METRICS, { affiliate: {}, sponsor: {} });
     const { type: mType, productId, network, revenue: convRevenue } = rest;
 
     if (mType === 'affiliate') {
@@ -281,34 +280,34 @@ export async function POST(req: NextRequest) {
       });
     }
     metrics.updatedAt = new Date().toISOString();
-    write(METRICS, metrics);
+    await write(METRICS, metrics);
     return NextResponse.json({ metrics });
   }
 
   // --- INTENT PROFILE ACTIONS ---
   if (action === 'update-intent-profile') {
-    const profiles = read<IntentProfile[]>(INTENT, []);
+    const profiles = await read<IntentProfile[]>(INTENT, []);
     const idx = profiles.findIndex(p => p.intent === rest.intent);
     if (idx >= 0) {
       profiles[idx] = { ...profiles[idx], ...rest };
     } else {
       profiles.push(rest);
     }
-    write(INTENT, profiles);
+    await write(INTENT, profiles);
     return NextResponse.json({ intentProfiles: profiles });
   }
 
   // --- TRUST ACTIONS ---
   if (action === 'update-trust-config') {
-    const trust: any = read(TRUST, { affiliates: {}, sponsors: {}, globalConfig: {} });
+    const trust: any = await read(TRUST, { affiliates: {}, sponsors: {}, globalConfig: {} });
     trust.globalConfig = { ...trust.globalConfig, ...rest.config };
     trust.updatedAt = new Date().toISOString();
-    write(TRUST, trust);
+    await write(TRUST, trust);
     return NextResponse.json({ trustScores: trust });
   }
 
   // --- DEFAULT: add affiliate product ---
-  const affiliates = read<AffiliateProduct[]>(AFFILIATES, []);
+  const affiliates = await read<AffiliateProduct[]>(AFFILIATES, []);
   affiliates.unshift({
     id: rest.id || Date.now().toString(36),
     name: rest.name,
@@ -330,7 +329,7 @@ export async function POST(req: NextRequest) {
     updatedAt: new Date().toISOString(),
     stats: { clicks: 0, conversions: 0, revenue: 0, ctr: 0, conversionRate: 0 },
   } as AffiliateProduct);
-  write(AFFILIATES, affiliates);
+  await write(AFFILIATES, affiliates);
   return NextResponse.json({ affiliates });
 }
 
@@ -341,35 +340,35 @@ export async function DELETE(req: NextRequest) {
   const { id, type, campaignId } = await req.json();
 
   if (type === 'campaign') {
-    const campaigns = read<Campaign[]>(CAMPAIGNS, []).filter(c => c.id !== id);
-    write(CAMPAIGNS, campaigns);
+    const campaigns = (await read<Campaign[]>(CAMPAIGNS, [])).filter(c => c.id !== id);
+    await write(CAMPAIGNS, campaigns);
     return NextResponse.json({ campaigns });
   }
   if (type === 'cta') {
-    const ctas = read<CTA[]>(CTAS, []).filter(c => c.id !== id);
-    write(CTAS, ctas);
+    const ctas = (await read<CTA[]>(CTAS, [])).filter(c => c.id !== id);
+    await write(CTAS, ctas);
     return NextResponse.json({ ctas });
   }
   if (type === 'product-bundle') {
-    const campaigns = read<Campaign[]>(CAMPAIGNS, []);
+    const campaigns = await read<Campaign[]>(CAMPAIGNS, []);
     const campaign = campaigns.find(c => c.id === campaignId);
     if (campaign) {
       campaign.productBundles = campaign.productBundles.filter(b => b.id !== id);
-      write(CAMPAIGNS, campaigns);
+      await write(CAMPAIGNS, campaigns);
     }
     return NextResponse.json({ campaigns });
   }
   if (type === 'cross-sell-rule') {
-    const campaigns = read<Campaign[]>(CAMPAIGNS, []);
+    const campaigns = await read<Campaign[]>(CAMPAIGNS, []);
     const campaign = campaigns.find(c => c.id === campaignId);
     if (campaign) {
       campaign.crossSellRules = campaign.crossSellRules.filter((_, i) => i.toString() !== id);
-      write(CAMPAIGNS, campaigns);
+      await write(CAMPAIGNS, campaigns);
     }
     return NextResponse.json({ campaigns });
   }
 
-  const affiliates = read<AffiliateProduct[]>(AFFILIATES, []).filter(a => a.id !== id);
-  write(AFFILIATES, affiliates);
+  const affiliates = (await read<AffiliateProduct[]>(AFFILIATES, [])).filter(a => a.id !== id);
+  await write(AFFILIATES, affiliates);
   return NextResponse.json({ affiliates });
 }
