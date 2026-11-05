@@ -477,6 +477,10 @@ workflow:
           value_selector:
           - '1746700001001'
           - text
+        - variable: sources
+          value_selector:
+          - '1746700002001'
+          - result
         selected: false
       positionAbsolute:
         x: 2480

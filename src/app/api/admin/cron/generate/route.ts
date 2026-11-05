@@ -9,7 +9,8 @@ import { generateContentViaDify } from '@/lib/content-automation/dify-generation
 import { publishGeneratedContentArtifact } from '@/lib/content-automation/publish-artifact';
 import { firstWaveContentPlan } from '@/lib/content-plan';
 import { authorizeCronRequest } from '@/lib/cron-auth';
-import { getPublishedJobIdsAsync, getPublishedSlugsAsync } from '@/lib/content-automation/content-reader';
+import { getPublishedJobIdsAsync, getPublishedSlugsAsync, listPublishedContentAsync } from '@/lib/content-automation/content-reader';
+import { completeGeneratedContent } from '@/lib/content-automation/complete-generated-content';
 import type { ContentJob } from '@/lib/content-automation/types';
 import { getRecentAutomationRuns, logAutomationRun } from '@/lib/server/automation-runs-store';
 import {
@@ -186,9 +187,15 @@ export async function GET(req: Request) {
         }
 
         const now = new Date().toISOString();
+        const published = await listPublishedContentAsync();
+        const completed = completeGeneratedContent(result.content, {
+          category: latestJob.category,
+          keywords: latestJob.seo.keywords,
+          relatedArticles: published.map((article) => ({ slug: article.slug, title: article.title })),
+        });
         const prepared = prepareGeneratedPublication(
           latestJob,
-          result.content,
+          completed,
           now,
           result.sources,
         );

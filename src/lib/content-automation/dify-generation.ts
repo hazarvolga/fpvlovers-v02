@@ -1,6 +1,7 @@
 import { getRequiredEnv } from '@/lib/env';
 import { runWorkflow as runDifyWorkflow } from '@/lib/dify-client';
 import { parseGeneratedContent, type GeneratedContent } from './parse-generated-content';
+import { extractRetrievalSources } from './retrieval-sources';
 
 export type ContentGenerationTemplate =
   | 'tech-article'
@@ -105,6 +106,11 @@ function delay(ms: number) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms));
 }
 
+// Flash-Lite writes about two thirds of the requested length; ask for more so
+// the article clears the 1,200 word publish minimum.
+const WORD_COUNT_OVERSHOOT = 1.5;
+const MAX_REQUESTED_WORDS = 3000;
+
 export function isRetryableWorkflowFailure(workflow: { success: boolean; status: string; error?: string }): boolean {
   if (workflow.success) return false;
   if (workflow.status === 'throttled' || workflow.status === 'budget_exceeded' || workflow.status === 'dry_run') return false;
@@ -184,7 +190,7 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
   const workflowInputs = {
     keyword: workflowKeyword,
     content_type: contentType,
-    word_count: wordCount,
+    word_count: Math.min(Math.round(wordCount * WORD_COUNT_OVERSHOOT), MAX_REQUESTED_WORDS),
   };
 
   let workflow = await runDifyWorkflow('content-orchestrator', workflowInputs, appKey, 'content_gen', 180000);
@@ -252,7 +258,7 @@ export async function generateContentViaDify(input: ContentGenerationRequest): P
       }
     : null;
 
-  const resources: Array<{ dataset: string; source: string; score: number }> = [];
+  const resources = extractRetrievalSources(outputs.sources);
 
   return {
     success: Boolean(content || rawAnswer),
