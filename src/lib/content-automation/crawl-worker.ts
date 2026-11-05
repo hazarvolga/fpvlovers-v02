@@ -1,3 +1,4 @@
+import { assertUsableCrawlContent } from './crawl-content-quality';
 import { difyRequest } from '@/lib/dify-client';
 import { buildDifyDocumentProcessRule } from '@/lib/content-automation/dify-document-process';
 import { getNextBatchNew, updateJobNew, type CrawlJob } from '@/lib/crawl-queue';
@@ -111,6 +112,7 @@ async function crawlUrl(
   if (!outcome.ok) {
     throw new Error(`All crawler providers failed. ${outcome.errors.join('; ')}`);
   }
+  assertUsableCrawlContent(outcome.markdown);
   return { markdown: outcome.markdown, crawler: outcome.crawler };
 }
 
