@@ -36,21 +36,26 @@ export function healthUrlFromCrawlUrl(crawlUrl: string | undefined, fallback: st
   return fallback;
 }
 
-function getCrawlerConfigs(): CrawlerConfig[] {
-  return [
-    {
-      name: 'Crawl4AI Primary (B)',
-      role: 'primary',
-      healthUrl: process.env.CRAWL4AI_PRIMARY_HEALTH_URL
-        || healthUrlFromCrawlUrl(process.env.CRAWL4AI_PRIMARY_CRAWL_URL, PRIMARY_HEALTH_URL),
-    },
-    {
-      name: 'Crawl4AI Backup (C)',
-      role: 'backup',
-      healthUrl: process.env.CRAWL4AI_BACKUP_HEALTH_URL
-        || healthUrlFromCrawlUrl(process.env.CRAWL4AI_BACKUP_CRAWL_URL, BACKUP_HEALTH_URL),
-    },
-  ];
+export function getCrawlerConfigs(): CrawlerConfig[] {
+  const primary: CrawlerConfig = {
+    name: 'Crawl4AI Primary',
+    role: 'primary',
+    healthUrl: process.env.CRAWL4AI_PRIMARY_HEALTH_URL
+      || healthUrlFromCrawlUrl(process.env.CRAWL4AI_PRIMARY_CRAWL_URL, PRIMARY_HEALTH_URL),
+  };
+  const backup: CrawlerConfig = {
+    name: 'Crawl4AI Backup',
+    role: 'backup',
+    healthUrl: process.env.CRAWL4AI_BACKUP_HEALTH_URL
+      || healthUrlFromCrawlUrl(process.env.CRAWL4AI_BACKUP_CRAWL_URL, BACKUP_HEALTH_URL),
+  };
+
+  // Single-node deployments point both roles at one instance; reporting it
+  // twice would show a redundancy that does not exist.
+  if (primary.healthUrl === backup.healthUrl) {
+    return [{ ...primary, name: 'Crawl4AI (single node)' }];
+  }
+  return [primary, backup];
 }
 
 function readHealthPayload(data: unknown): { ok: boolean; version: string; detail?: string } {
